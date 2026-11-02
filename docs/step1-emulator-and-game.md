@@ -4,7 +4,7 @@ _2026-11-02. Living copy: https://claude.ai/artifact/9GFhA9oaZMDx4G57ypLgAD_
 
 ## TL;DR
 
-- **Heads up on the name:** the store link (`com.zjcs.android.us`) is **Sword x Staff** by BOLTRAY GAMES, not "Sword x Shield". Everything below is about Sword x Staff.
+- **Game:** **Sword x Staff** by BOLTRAY GAMES (`com.zjcs.android.us`), confirmed by mae.
 - **Emulator:** use **MuMu Player 12 on Windows**. It has the fastest screenshot path any bot framework supports (~10 ms via its IPC vs ~100 ms for plain `adb screencap`), a CLI for starting and stopping instances, and per-instance ADB ports. NetEase also publishes an official AI-agent control skill for it. BlueStacks 5 is the fallback.
 - **Toolkit:** build the "hands and eyes" layer on **MaaFramework** (open source, used by MAA and many other game bots): JSON pipelines for deterministic flows, Python for custom logic, built-in template matching and OCR. Its companion **MaaMCP** lets Claude drive the device and save what it did as a reusable pipeline, which is the "agent writes its own scripts" pattern.
 - **Good news for automation:** all combat in this game is auto-battle, PvE and PvP. The bot is a menu navigator and decision-maker, not a fighter.
@@ -80,10 +80,9 @@ Sources: community wiki and Prydwen guides (third party, not verified in-game). 
 
 ## 5. Open questions
 
-1. Confirm the game is Sword x Staff.
-2. Test account level and server (guilds unlock at 15, vendor at 18, Fantomons at 51).
-3. Daily reset time on the server.
-4. Is co-op content in iteration 1?
+1. Test account level and server (guilds unlock at 15, vendor at 18, Fantomons at 51).
+2. Daily reset time on the server.
+3. Is co-op content in iteration 1?
 
 ## 6. Getting maes2024 ready
 
