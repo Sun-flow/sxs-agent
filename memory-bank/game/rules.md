@@ -441,11 +441,12 @@ Entry format:
   - **light green under a shadow**: walkable terrain not yet explored;
   - **dark green**: walls (lighter when explored, darker when not);
   - **transparent cross-hatch with no colour beneath**: unspotted terrain, which turns into one of the known types once the player gets close.
+  - **gold buildings**: interactable structures. The biggest are dungeons, which become daily challenges once cleared naturally the first time (step 1 doc's daily dungeons); smaller ones are mini-dungeons such as mines (R-071). (mae, 2026-11-03.)
   Other types exist and aren't catalogued yet. Shadowed walkable areas that connect to explored ground are reachable targets for exploration (R-065). mae asked the builder for a minimap reader that classifies these tiles and marks POIs, to plan walks with the coordinates (R-004).
 - **Detail** (builder batch 10, `sxs/minimap.py` on the step 3 branch): about 8 px per tile; the player sits at the centre (0.856, 0.138), radius about 86 px. OpenCV HSV thresholds: walkable explored S<95, V>=115 (BGR about 103,144,128); walkable unexplored is the same colour shaded about 0.55x (BGR about 56,75,65); wall explored S>=95, V>=85 (BGR about 59,106,69); wall unexplored V<85 (BGR about 32,57,38); unspotted grey S<35, V about 35.
 - **Confidence**: told (legend), observed (thresholds). **Source**: mae, 2026-11-03, with a marked-up screenshot of Verdantglade II (173, 104), not committed because it shows other players' chat; builder batch 10.
 - **Images**: `docs/screens/minimap/minimap_verdantglade2.png` (raw), `docs/screens/minimap/minimap_classified.png`, tile crops `docs/screens/minimap/tile_walk_explored.png`, `docs/screens/minimap/tile_walk_unexplored.png`, `docs/screens/minimap/tile_wall_explored.png`, `docs/screens/minimap/tile_wall_unexplored.png`, `docs/screens/minimap/tile_unspotted.png`.
-- **Related**: R-002, R-004, R-025, R-065.
+- **Related**: R-002, R-004, R-015, R-025, R-065, R-071.
 
 ### R-067 · Areas connect by land bridges: path-find, don't walk straight
 - **Rule**: Areas join through land connections that can be far from the straight line to a target; for example, the way from Verdantglade II into Moonveil Woods is a land bridge at the bottom of the minimap. Straight-line walking will often hit walls or water, so the bot needs path-finding over the walkable tiles read from the minimap (R-066), heading for the connection first.
