@@ -24,6 +24,7 @@ from . import nav
 from .device import Device
 from .decide import Context, Decider
 from .state import StateDetector
+from .strengthen import Strengthener
 
 log = logging.getLogger("sxs.explore")
 
@@ -35,6 +36,7 @@ MARKER_TARGET_DYS = [100, 60, 140, 30]  # how far below the tracker ring its tar
 STALE_LIMIT = 4
 STALE_GIVE_UP = 16  # map visits with no progress before the run stops
 DECISION_OPTIONS = r"^(Ascend to|Change Class)"  # dialogue options a human decides
+RETRIES = 2  # retries of a lost fight before strengthening (mae, 2026-11-03)
 HEAL_BELOW = 80  # HP % under which the profile's Quick Heal (1 cooked dish) is used
 QUICK_HEAL = (510, 1064)
 REPEAT_LIMIT = 4  # same card title this many times in a row means the choice isn't working
@@ -249,11 +251,29 @@ def main() -> int:
     dev = Device()
     det = StateDetector(dev)
     deadline = time.monotonic() + args.minutes * 60
+    losses, strengthened = 0, False
     while True:
         # Quests chain: after claiming one the tracker shows the next, so keep going until something else stops us.
         left = (deadline - time.monotonic()) / 60
         result = follow_tracker(dev, det, left, choose=args.choose) if left > 0 else "timeout"
         print(result, flush=True)
+        if result == "complete":
+            losses, strengthened = 0, False
+        elif result == "defeated" and args.chain:
+            # mae's rule: heal and retry a lost fight up to 2 times; still losing means go home and get stronger,
+            # and if that doesn't do it either, stop and ask.
+            losses += 1
+            if losses <= RETRIES:
+                log.info("lost a fight; retry %d of %d after healing", losses, RETRIES)
+            elif not strengthened:
+                log.info("lost %d times in a row; getting stronger before one more try", losses)
+                Strengthener(dev, det).run()
+                strengthened = True
+            else:
+                print("needs_help: still losing after strengthening", flush=True)
+                return 1
+            time.sleep(3)
+            continue
         if result != "complete" or not args.chain:
             return 0 if result == "complete" else 1
         time.sleep(3)
