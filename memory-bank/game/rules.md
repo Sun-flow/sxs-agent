@@ -1,8 +1,8 @@
 # Game rules
 
 > **Last updated**: 2026-11-03
-> Screen captures named below are in `docs/screens/` (step 2, PR #5); captures from batches 4 to 8 (R-029 onward, plus `cart.png`) and the marker templates are on branch step3-explore until it merges.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-054).
+> Screen captures named below are in `docs/screens/` (step 2, PR #5); captures from batches 4 to 9 (R-029 onward, plus `cart.png`) and the marker templates are on branch step3-explore until it merges.
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-061).
 
 Entry format:
 
@@ -287,7 +287,7 @@ Entry format:
 - **Related**: R-018, R-043, `memory-bank/game/README.md` (the `when` field).
 
 ### R-043 · Never press spending buttons
-- **Rule**: The bot never presses Buy, Purchase, Refresh or Spend, or any button mentioning Dawnium, unless a later policy rule explicitly allows it.
+- **Rule**: The bot never presses Buy, Purchase, Refresh, Spend, Pray, Recharge or Top up, or any button mentioning Dawnium, unless a later policy rule explicitly allows it.
 - **Confidence**: told (policy). **Source**: builder batch 6, following mae's budget rules.
 - **Images**: none.
 - **Related**: R-018, R-042.
@@ -333,7 +333,7 @@ Entry format:
 ## Added from builder batch 8 (2026-11-03)
 
 ### R-050 · The class choice comes after the Guardian Colossi
-- **Rule**: After the boss, "Crossroads of Classes: Talk to the Mysterious Elder" leads to the Chief at the Originisle V pillar. Its dialogue offers "Ascend to Mage", "Change Class" or "Leave". This is a decision for mae, not the bot: the bot picks Leave and stops with `needs_decision`. Boss loot (chests, an orb, an ore pile) lies around the pillar.
+- **Rule**: After the boss, "Crossroads of Classes: Talk to the Mysterious Elder" leads to the Chief at the Originisle V pillar. Its dialogue offers "Ascend to Mage", "Change Class" or "Leave". This is a decision for mae, not the bot: the bot picks Leave and stops with `needs_decision`. mae chose **Mage** on 2026-11-03 (the class can be changed later; R-054). Boss loot (chests, an orb, an ore pile) lies around the pillar.
 - **Confidence**: observed. **Source**: builder batch 8.
 - **Images**: `docs/screens/class_choice.png`.
 - **Related**: R-041 (dialogue choices), R-042, node `class_choice`.
@@ -355,3 +355,47 @@ Entry format:
 - **Confidence**: observed. **Source**: builder batch 8.
 - **Images**: `docs/screens/main_menu_lv10.png`, `docs/screens/friends.png`.
 - **Related**: R-010, nodes `main_menu`, `friends`, `settings`.
+
+## Added from builder batch 9 (2026-11-03)
+
+### R-054 · Ascending to a class
+- **Rule**: Choosing "Ascend to Mage" at the Chief opens the class screen: Mage trait Base HP +5%, ATK +14%, DEF +5%, SPD +6%, a grid of class skills ("Prayer will feature the class skills") and Ascend at (0.5, 0.86). Power went from 5.24K to 5.73K. The next quest is Wild Isle Trek V (Explore Originisle V, already 50% after the boss). The bot never makes a class choice itself; `python -m sxs.explore --choose "<regex>"` applies a human's choice.
+- **Confidence**: observed. **Source**: builder batch 9; mae's choice.
+- **Images**: `docs/screens/class_choice.png`, `docs/screens/class_ascend.png`.
+- **Related**: R-050, node `class_ascend`.
+
+### R-055 · Prayer is the skill gacha; the bot never prays
+- **Rule**: The Statue furniture ("Pray to the goddess and embrace her divine power") on home, next to the "Class to Unlock" stone, opens Prayer: Pray x1 / Pray x10 cost blue prayer tickets (counter top right, with "+" to buy more), Prayers Today n/10000, "200 Prayers Bonus: a Legendary skill of your choice", a pity counter ("Prayer x70 away from a guaranteed Legendary skill"), a banner selector (Mage) and tabs Prayer / Exchange / Goals. The tutorial gives 10 free tickets; one x10 pull gave Cyclone (Epic wind: pick a grid within 6, knock up and pull), Flame Jet (Rare fire, 3 hits in a 1x3 area), Heart of Flame, Dew's Blessing and shards (Tough Soul, Flame Jet, Insight); power rose to 6.79K once equipped. **The bot never taps Pray or any spend-looking button (Pray, Buy, Purchase, Refresh, Spend, Dawnium, Recharge, Top up) on its own.**
+- **Confidence**: observed. **Source**: builder batch 9.
+- **Images**: `docs/screens/furniture_statue.png`, `docs/screens/prayer.png`, `docs/screens/prayer_result.png`.
+- **Related**: R-043 (now with Pray, Recharge and Top up added), nodes `prayer`, `prayer_result`.
+
+### R-056 · Equipping and levelling techniques
+- **Rule**: Each loadout has 4 technique slots on the left. Equip from the Technique tab: card, Equip, then tap an empty slot. New techniques start at Lv 1; levelling Cyclone from 1 to 10 cost about 490 Battle Essence.
+- **Confidence**: observed. **Source**: builder batch 9.
+- **Images**: `docs/screens/skill_loadout.png`.
+- **Related**: R-037, R-039.
+
+### R-057 · Social requests are left alone
+- **Rule**: A person icon with a badge on the map's left edge (0.06, 0.6) opens "Apply": tabs Friends / Team Up / Challenge / Room, incoming friend requests with x and check, Decline All and Agree All. The bot doesn't touch these; accepting or declining is mae's call.
+- **Confidence**: observed. **Source**: builder batch 9.
+- **Images**: `docs/screens/apply_requests.png`.
+- **Related**: R-053, node `apply_requests`.
+
+### R-058 · Some loot is out of reach (open)
+- **Rule**: After the boss, the loot row next to the Chief (ore pile, blue orb, chest, red chest) sits on a ledge. Tapping it only walks the player to the grass below, and the tracker keeps pointing there, so the explore loop can get stuck on it. How to reach it is unknown; mae has been asked ❓.
+- **Confidence**: observed (the problem); no solution yet. **Source**: builder batch 9.
+- **Images**: `docs/screens/world_map_loot_ledge.png`.
+- **Related**: R-022, R-025.
+
+### R-059 · Home scene labels can be misread as the tracker
+- **Rule**: On home, the scene's own labels (for example the stone's "Class to Unlock") overlap the quest tracker's region, so OCR of the tracker must filter them out.
+- **Confidence**: observed. **Source**: builder batch 9.
+- **Images**: none.
+- **Related**: R-044.
+
+### R-060 · Close popups by tapping above them
+- **Rule**: Popups close on a tap above them, at (0.5, 0.05), not below.
+- **Confidence**: observed. **Source**: builder batch 9. Earlier, (0.5, 0.95) closed the player profile, so either may work there.
+- **Images**: none.
+- **Related**: nodes `cart`, `player_profile`, `apply_requests`.

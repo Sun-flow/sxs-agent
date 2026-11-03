@@ -639,7 +639,56 @@
    "images": [
     "docs/screens/class_choice.png"
    ],
-   "notes": "Dialogue options Ascend to Mage / Change Class / Leave. Needs mae's decision (R-050)."
+   "notes": "Dialogue options Ascend to Mage / Change Class / Leave. The bot never chooses on its own (needs_decision); `python -m sxs.explore --choose \"<regex>\"` applies a human's choice (R-050, R-054)."
+  },
+  {
+   "id": "class_ascend",
+   "name": "Class ascend",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/class_ascend.png"
+   ],
+   "notes": "Class trait stats and class skill grid; Ascend button at (0.5, 0.86) (R-054)."
+  },
+  {
+   "id": "prayer",
+   "name": "Prayer (skill gacha)",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": "Statue furniture on home",
+   "detect": null,
+   "images": [
+    "docs/screens/furniture_statue.png",
+    "docs/screens/prayer.png"
+   ],
+   "notes": "Pray x1 / x10 with prayer tickets; tabs Prayer / Exchange / Goals. The bot never taps Pray (R-055)."
+  },
+  {
+   "id": "prayer_result",
+   "name": "Prayer result",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/prayer_result.png"
+   ],
+   "notes": "Skills and shards from a pull."
+  },
+  {
+   "id": "apply_requests",
+   "name": "Apply (social requests)",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/apply_requests.png"
+   ],
+   "notes": "Tabs Friends / Team Up / Challenge / Room; incoming requests with x / check, Decline All / Agree All. Leave untouched (R-057)."
   }
  ],
  "edges": [
@@ -979,7 +1028,7 @@
     ]
    },
    "confidence": "observed",
-   "notes": ""
+   "notes": "Batch 9 says popups close on a tap above them (0.5, 0.05); (0.5, 0.95) worked here earlier."
   },
   {
    "from": "world_map",
@@ -1222,15 +1271,15 @@
    "to": "home",
    "action": {
     "type": "tap",
-    "target": "Outside the panel",
+    "target": "Above the panel",
     "template": null,
     "pos": [
      0.5,
-     0.95
+     0.05
     ]
    },
    "confidence": "observed",
-   "notes": ""
+   "notes": "Popups close on a tap above them, not below (R-060)."
   },
   {
    "from": "home",
@@ -1528,6 +1577,90 @@
    },
    "confidence": "observed",
    "notes": "What the bot does until mae picks a class."
+  },
+  {
+   "from": "class_choice",
+   "to": "class_ascend",
+   "action": {
+    "type": "tap",
+    "target": "Ascend to Mage",
+    "template": null,
+    "pos": null
+   },
+   "when": "a human chose the class (--choose)",
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "class_ascend",
+   "to": "world_map",
+   "action": {
+    "type": "tap",
+    "target": "Ascend",
+    "template": null,
+    "pos": [
+     0.5,
+     0.86
+    ]
+   },
+   "when": "a human chose the class",
+   "confidence": "reported",
+   "notes": "Return screen not recorded."
+  },
+  {
+   "from": "home",
+   "to": "prayer",
+   "action": {
+    "type": "tap",
+    "target": "Statue furniture (next to the 'Class to Unlock' stone)",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "prayer",
+   "to": "prayer_result",
+   "action": {
+    "type": "tap",
+    "target": "Pray x10",
+    "template": null,
+    "pos": null
+   },
+   "when": "a human allowed it (never on the bot's own)",
+   "confidence": "observed",
+   "notes": "Spends prayer tickets (R-055)."
+  },
+  {
+   "from": "world_map",
+   "to": "apply_requests",
+   "action": {
+    "type": "tap",
+    "target": "Person icon with badge, left edge",
+    "template": null,
+    "pos": [
+     0.06,
+     0.6
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "apply_requests",
+   "to": "previous",
+   "action": {
+    "type": "tap",
+    "target": "Above the popup",
+    "template": null,
+    "pos": [
+     0.5,
+     0.05
+    ]
+   },
+   "confidence": "reported",
+   "notes": ""
   }
  ]
 }

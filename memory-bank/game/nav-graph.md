@@ -51,6 +51,10 @@ flowchart TD
     settings["Settings"]
     exploration_goals["Exploration Goals"]
     class_choice["Class choice dialogue"]
+    class_ascend["Class ascend"]
+    prayer["Prayer (skill gacha)"]
+    prayer_result["Prayer result"]
+    apply_requests["Apply (social requests)"]
     home -->|"tap: Bottom nav bar (y 0.97): Character"| character
     world_map -.->|"tap: Bottom nav bar (y 0.97): Character"| character
     home -->|"tap: Bottom nav bar (y 0.97): Travel Journal"| travel_journal
@@ -85,7 +89,7 @@ flowchart TD
     interact -->|"tap: Outside the card (dismiss) [no policy entry says press, or the button is unsafe]"| world_map
     home -->|"tap: The cart on the home scene (scroll left first)"| cart
     cart -->|"tap: Claim All"| reward_popup
-    cart -->|"tap: Outside the panel"| home
+    cart -->|"tap: Above the panel"| home
     home -->|"swipe: Scroll the home scene up"| home_house
     home_house -->|"tap: The bed"| bed
     character -->|"tap: Skill button"| skill_loadout
@@ -104,6 +108,11 @@ flowchart TD
     main_menu -->|"tap: Notice [account Lv 10 or more]"| notice
     main_menu -->|"tap: Settings [account Lv 10 or more]"| settings
     world_overview -->|"tap: Button, bottom left"| exploration_goals
+    class_choice -->|"tap: Ascend to Mage [a human chose the class (--choose)]"| class_ascend
+    class_ascend -.->|"tap: Ascend [a human chose the class]"| world_map
+    home -->|"tap: Statue furniture (next to the 'Class to Unlock' stone)"| prayer
+    prayer -->|"tap: Pray x10 [a human allowed it (never on the bot's own)]"| prayer_result
+    world_map -->|"tap: Person icon with badge, left edge"| apply_requests
 ```
 
 ## Screens
@@ -153,7 +162,11 @@ flowchart TD
 | `friends` | Friends | menu | observed | Lv 10 (button appears on the menu) | Friends 0/60; tabs Friends / Add Friends / Requests / Blocklist. |
 | `settings` | Settings | menu | observed |  | Tabs Game (language, chat channel visibility on home), Graphics (quality, frame rate 30/60, visible players, bloom), Sound, Alerts, Other (vibration, network boost, auto-download). Captures settings_*.png. |
 | `exploration_goals` | Exploration Goals | menu | observed |  | Progress tab (per-region exploration milestones with rewards) and Explore tab (Destiny Exploration Goals) (R-052). |
-| `class_choice` | Class choice dialogue | popup | observed |  | Dialogue options Ascend to Mage / Change Class / Leave. Needs mae's decision (R-050). |
+| `class_choice` | Class choice dialogue | popup | observed |  | Dialogue options Ascend to Mage / Change Class / Leave. The bot never chooses on its own (needs_decision); `python -m sxs.explore --choose "<regex>"` applies a human's choice (R-050, R-054). |
+| `class_ascend` | Class ascend | menu | observed |  | Class trait stats and class skill grid; Ascend button at (0.5, 0.86) (R-054). |
+| `prayer` | Prayer (skill gacha) | menu | observed | Statue furniture on home | Pray x1 / x10 with prayer tickets; tabs Prayer / Exchange / Goals. The bot never taps Pray (R-055). |
+| `prayer_result` | Prayer result | popup | observed |  | Skills and shards from a pull. |
+| `apply_requests` | Apply (social requests) | popup | observed |  | Tabs Friends / Team Up / Challenge / Room; incoming requests with x / check, Decline All / Agree All. Leave untouched (R-057). |
 
 ## Actions
 
@@ -181,7 +194,7 @@ flowchart TD
 | Confirm dialog | previous screen | tap Cancel at [0.32, 0.57] (when travel prompt and goal=home, or any unknown confirm) | observed |  |
 | World map (island) | Home | tap Back arrow, bottom left at [0.08, 0.95] | observed |  |
 | World map (island) | Player profile | tap Character portrait | observed |  |
-| Player profile | World map (island) | tap Outside the popup at [0.5, 0.95] | observed |  |
+| Player profile | World map (island) | tap Outside the popup at [0.5, 0.95] | observed | Batch 9 says popups close on a tap above them (0.5, 0.05); (0.5, 0.95) worked here earlier. |
 | World map (island) | Battle prep | tap A roaming monster | observed | Use the minimap or the tracking ring to find one (R-004, R-022). |
 | Battle prep | Battle | tap Start Battle at [0.5, 0.75] | observed |  |
 | Battle | World map (island) | auto Battle ends on its own | observed | A win returns to the map, sometimes via a reward_popup. |
@@ -199,7 +212,7 @@ flowchart TD
 | Exploration card | World map (island) | tap Outside the card (dismiss) at [0.5, 0.95] (when no policy entry says press, or the button is unsafe) | observed | Exact dismiss point not given; outside the card. |
 | Home | Cart | tap The cart on the home scene (scroll left first) | observed | Its coin bubble collects directly instead (R-020). |
 | Cart | Reward popup | tap Claim All at [0.5, 0.86] | observed |  |
-| Cart | Home | tap Outside the panel at [0.5, 0.95] | observed |  |
+| Cart | Home | tap Above the panel at [0.5, 0.05] | observed | Popups close on a tap above them, not below (R-060). |
 | Home | Home house | swipe Scroll the home scene up | observed |  |
 | Home house | Bed | tap The bed | observed |  |
 | Tap to Continue result | previous screen | tap Anywhere ('Tap to Continue') at [0.5, 0.95] | reported | Exact tap point not given; bottom of screen assumed. |
@@ -222,3 +235,9 @@ flowchart TD
 | Menu | Settings | tap Settings at [0.85, 0.85] (when account Lv 10 or more) | observed | Below Lv 10 Settings is at (0.64, 0.85). |
 | World (island picker) | Exploration Goals | tap Button, bottom left | observed |  |
 | Class choice dialogue | previous screen | tap Leave | observed | What the bot does until mae picks a class. |
+| Class choice dialogue | Class ascend | tap Ascend to Mage (when a human chose the class (--choose)) | observed |  |
+| Class ascend | World map (island) | tap Ascend at [0.5, 0.86] (when a human chose the class) | reported | Return screen not recorded. |
+| Home | Prayer (skill gacha) | tap Statue furniture (next to the 'Class to Unlock' stone) | observed |  |
+| Prayer (skill gacha) | Prayer result | tap Pray x10 (when a human allowed it (never on the bot's own)) | observed | Spends prayer tickets (R-055). |
+| World map (island) | Apply (social requests) | tap Person icon with badge, left edge at [0.06, 0.6] | observed |  |
+| Apply (social requests) | previous screen | tap Above the popup at [0.5, 0.05] | reported |  |
