@@ -37,8 +37,8 @@ Entry format:
 - **Related**: R-002, R-014.
 
 ### R-004 · Use the minimap for relative positions
-- **Rule**: The minimap shows where items, interactables and enemies are relative to the character. Use it to choose which way to move to reach the next item or enemy.
-- **Confidence**: told. **Source**: mae, 2026-11-03.
+- **Rule**: The minimap shows where items, interactables and enemies are relative to the character. Use it to choose which way to move to reach the next item or enemy. The island map also shows the player's tile coordinates as "(x, y)" under the minimap (for example "Originisle I (24,23)"), which the state detector reads by OCR; step 3 plans to combine minimap dots with these coordinates to plan walks.
+- **Confidence**: told (minimap use); observed (coordinates). **Source**: mae, 2026-11-03; builder batch 3.
 - **Images**: none yet (want: minimap crop with its icon types labelled).
 - **Related**: R-002, node `world_map`.
 
