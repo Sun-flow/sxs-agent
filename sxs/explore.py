@@ -145,8 +145,10 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
                 log.info("explore quest complete, reward claimed")
                 return "complete"
             # "Stale" is time since progress last changed (walking to a far target takes many marker taps).
-            if not prog or prog.text != last_progress_seen:
-                last_progress_seen, progress_at = (prog.text if prog else None), time.monotonic()
+            # Compare only the counter: OCR flips "II" and "ll" in the area name from frame to frame.
+            counter = re.search(r"\d+/\d+", prog.text).group(0) if prog and re.search(r"\d+/\d+", prog.text) else None
+            if counter != last_progress_seen:
+                last_progress_seen, progress_at = counter, time.monotonic()
                 tried_unstick = False
             stale_s = time.monotonic() - progress_at
             stale = int(stale_s // STALE_STEP_S)
