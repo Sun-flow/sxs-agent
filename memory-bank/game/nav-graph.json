@@ -166,7 +166,7 @@
    "images": [
     "docs/screens/battle.png"
    ],
-   "notes": "Plays itself (R-001); 15 rounds max."
+   "notes": "Plays itself (R-001); 15 rounds max. Loss leads to defeated."
   },
   {
    "id": "battle_result",
@@ -176,7 +176,44 @@
    "unlock": null,
    "detect": null,
    "images": [],
-   "notes": "Not seen: a won map battle went straight back to world_map within about 4 s. May exist for other modes."
+   "notes": "Not seen: wins return straight to world_map, sometimes with a reward_popup; losses show the defeated dialog."
+  },
+  {
+   "id": "defeated",
+   "name": "Defeated dialog",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "Your character is incapacitated",
+    "roi": null
+   },
+   "images": [
+    "docs/screens/defeated.png"
+   ],
+   "notes": "Confirm dialog 'Your character is incapacitated. Return to Home now?' after losing a map fight (R-031)."
+  },
+  {
+   "id": "interact",
+   "name": "Map object card",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "one safe verb button: Activate | Collect | Claim | Open | Interact | Bless | Pray | Gather | Harvest | Mine | Examine | Read",
+    "roi": [
+     0.5,
+     0.7,
+     null,
+     null
+    ]
+   },
+   "images": [
+    "docs/screens/interact_portal.png"
+   ],
+   "notes": "Card for a map object (e.g. Portal) with one action button (R-030)."
   },
   {
    "id": "reward_popup",
@@ -208,7 +245,7 @@
    "images": [
     "docs/screens/confirm_dialog.png"
    ],
-   "notes": "Cancel (0.32,0.57), OK (0.68,0.57). Returns to whatever the confirmed action leads to."
+   "notes": "Cancel (0.32,0.57), OK (0.68,0.57). Returns to whatever the confirmed action leads to. Height varies: the 'Confirm' title sits between y 0.26 and 0.35, so buttons move with it (OK at y 0.57 for travel, 0.65 for defeat)."
   },
   {
    "id": "dialogue",
@@ -760,7 +797,7 @@
     "pos": null
    },
    "confidence": "observed",
-   "notes": "Back on the map within about 4 s after a win. Loss path not seen yet."
+   "notes": "A win returns to the map, sometimes via a reward_popup."
   },
   {
    "from": "home",
@@ -845,6 +882,60 @@
    },
    "confidence": "observed",
    "notes": ""
+  },
+  {
+   "from": "battle",
+   "to": "defeated",
+   "action": {
+    "type": "auto",
+    "target": "Battle lost",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Seen at Lv 3 on Originisle III."
+  },
+  {
+   "from": "defeated",
+   "to": "home",
+   "action": {
+    "type": "tap",
+    "target": "OK",
+    "template": null,
+    "pos": [
+     0.68,
+     0.65
+    ]
+   },
+   "confidence": "observed",
+   "notes": "Cancel is at (0.32, 0.65)."
+  },
+  {
+   "from": "world_map",
+   "to": "interact",
+   "action": {
+    "type": "tap",
+    "target": "A map object (portal, chest...), or just below the quest ring",
+    "template": "resource/image/explore/marker.png",
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "The ring floats about 0.08 of the screen height above its target (R-022)."
+  },
+  {
+   "from": "interact",
+   "to": "world_map",
+   "action": {
+    "type": "tap",
+    "target": "Action button (Activate, Collect...)",
+    "template": null,
+    "pos": [
+     0.5,
+     0.7
+    ]
+   },
+   "confidence": "observed",
+   "notes": "Counts toward Explore progress."
   }
  ]
 }

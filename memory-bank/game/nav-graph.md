@@ -17,6 +17,8 @@ flowchart TD
     battle_prep["Battle prep"]
     battle["Battle"]
     battle_result["Battle result"]
+    defeated["Defeated dialog"]
+    interact["Map object card"]
     reward_popup["Reward popup"]
     confirm_dialog["Confirm dialog"]
     dialogue["Story dialogue"]
@@ -59,6 +61,10 @@ flowchart TD
     server_chat -->|"tap: Down arrow"| home
     title -->|"tap: Tap to Play"| loading
     character -->|"tap: Back arrow, bottom left"| home
+    battle -->|"auto: Battle lost"| defeated
+    defeated -->|"tap: OK"| home
+    world_map -->|"tap: A map object (portal, chest...), or just below the quest ring"| interact
+    interact -->|"tap: Action button (Activate, Collect...)"| world_map
 ```
 
 ## Screens
@@ -73,10 +79,12 @@ flowchart TD
 | `world_map` | World map (island) | world | observed |  | Walkable island map with minimap, fog and pickups (R-002, R-004, R-021, R-022). Shows a fruit counter instead of Rolla in the top bar. |
 | `player_profile` | Player profile | popup | observed |  | Gear, techniques, Dish, Quick Heal. Not detected yet. Android back does nothing here. |
 | `battle_prep` | Battle prep | menu | observed |  | Enemy line-up, 'Round 0/15'. |
-| `battle` | Battle | battle | observed |  | Plays itself (R-001); 15 rounds max. |
-| `battle_result` | Battle result | popup | reported |  | Not seen: a won map battle went straight back to world_map within about 4 s. May exist for other modes. |
+| `battle` | Battle | battle | observed |  | Plays itself (R-001); 15 rounds max. Loss leads to defeated. |
+| `battle_result` | Battle result | popup | reported |  | Not seen: wins return straight to world_map, sometimes with a reward_popup; losses show the defeated dialog. |
+| `defeated` | Defeated dialog | popup | observed |  | Confirm dialog 'Your character is incapacitated. Return to Home now?' after losing a map fight (R-031). |
+| `interact` | Map object card | popup | observed |  | Card for a map object (e.g. Portal) with one action button (R-030). |
 | `reward_popup` | Reward popup | popup | observed |  | Close by tapping anywhere. |
-| `confirm_dialog` | Confirm dialog | popup | observed |  | Cancel (0.32,0.57), OK (0.68,0.57). Returns to whatever the confirmed action leads to. |
+| `confirm_dialog` | Confirm dialog | popup | observed |  | Cancel (0.32,0.57), OK (0.68,0.57). Returns to whatever the confirmed action leads to. Height varies: the 'Confirm' title sits between y 0.26 and 0.35, so buttons move with it (OK at y 0.57 for travel, 0.65 for defeat). |
 | `dialogue` | Story dialogue | overlay | observed |  | Tutorial/story overlay (Akane). Tap (0.5,0.9) to advance; can sit on top of any screen. |
 | `title` | Title screen | hub | observed |  | Boot: Android splash, BOLTRAY logos (~10 s), title art with an 'Initializing' bar (~25 s), then 'Tap to Play' with side buttons (Servers, Settings, Notice, User Center, Repair Client...). Full boot sequence: docs/step2-hands-and-eyes.md, 'Interface catalogue'. |
 | `loading` | Loading | overlay | observed |  | Covers 'Loading...', 'Logging in...' and the title screen initialising. Wait it out. After login the game resumes on the last screen it was closed on (often world_map), not always home. |
@@ -121,10 +129,14 @@ flowchart TD
 | Player profile | World map (island) | tap Outside the popup at [0.5, 0.95] | observed |  |
 | World map (island) | Battle prep | tap A roaming monster | observed | Use the minimap or the tracking ring to find one (R-004, R-022). |
 | Battle prep | Battle | tap Start Battle at [0.5, 0.75] | observed |  |
-| Battle | World map (island) | auto Battle ends on its own | observed | Back on the map within about 4 s after a win. Loss path not seen yet. |
+| Battle | World map (island) | auto Battle ends on its own | observed | A win returns to the map, sometimes via a reward_popup. |
 | Home | Reward popup | tap Cart coin bubble (scroll the scene left first) | observed | Collects AFK income (R-020). |
 | Home | Server Chat | tap Chat strip (avoid) at [0.5, 0.86] | observed | Accidental; y 0.82-0.90. |
 | Server Chat | Home | tap Down arrow at [0.06, 0.96] | observed |  |
 | Title screen | Loading | tap Tap to Play at [0.5, 0.825] | observed | Once the title reached login without a tap; tapping anyway is safe. |
 | Loading | previous screen | wait Login finishes; the game resumes on the last screen | observed | Use the state detector to see where it landed, then route from there. |
 | Character | Home | tap Back arrow, bottom left at [0.11, 0.95] | observed |  |
+| Battle | Defeated dialog | auto Battle lost | observed | Seen at Lv 3 on Originisle III. |
+| Defeated dialog | Home | tap OK at [0.68, 0.65] | observed | Cancel is at (0.32, 0.65). |
+| World map (island) | Map object card | tap A map object (portal, chest...), or just below the quest ring [template resource/image/explore/marker.png] | observed | The ring floats about 0.08 of the screen height above its target (R-022). |
+| Map object card | World map (island) | tap Action button (Activate, Collect...) at [0.5, 0.7] | observed | Counts toward Explore progress. |

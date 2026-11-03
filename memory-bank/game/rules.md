@@ -1,8 +1,8 @@
 # Game rules
 
 > **Last updated**: 2026-11-03
-> Screen captures named below are in `docs/screens/` (step 2, PR #5).
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-029).
+> Screen captures named below are in `docs/screens/` (step 2, PR #5); `interact_portal.png`, `defeated.png` and the marker templates are on branch step3-explore until it merges.
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-035).
 
 Entry format:
 
@@ -154,8 +154,8 @@ Entry format:
 - **Related**: R-002, R-008, node `world_map`.
 
 ### R-022 · Quest tracking puts a gold ring on the next target
-- **Rule**: The target icon on the quest tracker panel (0.40, 0.79) toggles tracking. While on, a gold ring marks the next target; if the target is off screen the ring sits at the screen edge pointing to it. Tap the edge ring to pan the camera, then tap the item.
-- **Confidence**: observed. **Source**: builder batch 1.
+- **Rule**: The target icon on the quest tracker panel (0.40, 0.79) toggles tracking. While on, a gold ring marks the next target; if the target is off screen the ring sits at the screen edge pointing to it. Tap the edge ring to pan the camera, then tap the item. The ring floats about 100 px (0.08 of the screen height) above its target, so tap below it. It can hide under the top-left avatar and level badge; dragging the map brings it back. Templates: `resource/image/explore/marker.png` (lit) and `resource/image/explore/marker_dim.png` (shadowed).
+- **Confidence**: observed. **Source**: builder batches 1 and 4.
 - **Images**: none yet (want: tracking ring on screen and at the edge).
 - **Related**: R-009.
 
@@ -194,3 +194,41 @@ Entry format:
 - **Confidence**: observed. **Source**: builder batch 1.
 - **Images**: `docs/screens/dialogue.png`, `docs/screens/dialogue_loadout.png`.
 - **Related**: node `dialogue`.
+
+## Added from builder batch 4 (2026-11-03)
+
+### R-029 · The first quest chain is Wild Isle Trek I to III
+- **Rule**: Wild Isle Trek I (Originisle I), II (Originisle II) and III (Originisle III) follow each other. Reaching 100 on one moved the tracker to the next on its own (no claim screen was seen for Trek II). A story dialogue with Akane about a "Chaosborn" creature plays on Originisle II. The account reached Lv 3 after Originisle II.
+- **Confidence**: observed. **Source**: builder batch 4.
+- **Images**: none yet.
+- **Related**: R-021, R-028.
+
+### R-030 · Map objects open a card with one action
+- **Rule**: Tapping a map object (for example a Portal, "An ancient gateway that whisks you across space when activated") opens a card with one button at (0.5, 0.70), such as "Activate". Using it counts toward Explore progress. The bot only presses buttons with safe verbs: Activate, Collect, Claim, Open, Interact, Bless, Pray, Gather, Harvest, Mine, Examine, Read.
+- **Confidence**: observed. **Source**: builder batch 4.
+- **Images**: `docs/screens/interact_portal.png`.
+- **Related**: R-002, R-021, node `interact`.
+
+### R-031 · Losing a map fight sends you home
+- **Rule**: After a lost fight a dialog says "Your character is incapacitated. Return to Home now?" with Cancel (0.32, 0.65) and OK (0.68, 0.65); OK goes home. The explore loop stops there. Lost at Lv 3 on Originisle III, so later islands may need stronger gear or levels first ❓.
+- **Confidence**: observed. **Source**: builder batch 4.
+- **Images**: `docs/screens/defeated.png`.
+- **Related**: R-001, node `defeated`.
+
+### R-032 · The camera doesn't follow the player
+- **Rule**: After walking, the camera stays where it was, so the player and the target can drift to the screen edge. Re-centre by dragging the map or tapping the edge ring before the next tap.
+- **Confidence**: observed. **Source**: builder batch 4.
+- **Images**: none yet.
+- **Related**: R-022, R-025.
+
+### R-033 · Stamina regenerates slowly
+- **Rule**: Stamina went from 51 to 55 in about 40 minutes, roughly 1 every 10 minutes ❓ (one sample).
+- **Confidence**: observed once. **Source**: builder batch 4.
+- **Images**: none.
+- **Related**: R-017.
+
+### R-034 · Exploring pays Dawnium and Rolla
+- **Rule**: Exploring Originisle I to III raised Dawnium from 145 to 175 and Rolla to 3.76K, so exploration is a source of the premium currency.
+- **Confidence**: observed. **Source**: builder batch 4.
+- **Images**: none.
+- **Related**: R-018, R-019, R-021.

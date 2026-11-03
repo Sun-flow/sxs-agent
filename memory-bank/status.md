@@ -15,7 +15,7 @@
 
 Format: `- what — branch, PR, environment (started date)`. Remove the line when it merges or is dropped.
 
-- Game rules and menu navigation graph (`memory-bank/game/`), filled in as the step 2 work reports what it learns — branch `claude/project-thread-npg43i`, PR #3 merged, later batches in PR #4, cloud (2026-11-03).
+- Game rules and menu navigation graph (`memory-bank/game/`), filled in as the step 2 work reports what it learns — branch `claude/project-thread-npg43i`, PRs #3 and #4 merged, batch 4 in a new PR, cloud (2026-11-03).
 
 ## Next
 
