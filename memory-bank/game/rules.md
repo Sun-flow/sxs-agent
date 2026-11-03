@@ -1,8 +1,8 @@
 # Game rules
 
 > **Last updated**: 2026-11-03
-> Screen captures named below are in `docs/screens/` (step 2, PR #5); captures from batches 4 and 5 (R-029 onward, plus `cart.png`) and the marker templates are on branch step3-explore until it merges.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-040).
+> Screen captures named below are in `docs/screens/` (step 2, PR #5); captures from batches 4 to 6 (R-029 onward, plus `cart.png`) and the marker templates are on branch step3-explore until it merges.
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-044).
 
 Entry format:
 
@@ -208,7 +208,7 @@ Entry format:
 - **Rule**: Tapping a map object (for example a Portal, "An ancient gateway that whisks you across space when activated") opens a card with one button at (0.5, 0.70), such as "Activate". Using it counts toward Explore progress. The bot only presses buttons with safe verbs: Activate, Collect, Claim, Open, Interact, Bless, Pray, Gather, Harvest, Mine, Examine, Read.
 - **Confidence**: observed. **Source**: builder batch 4.
 - **Images**: `docs/screens/interact_portal.png`.
-- **Related**: R-002, R-021, node `interact`.
+- **Related**: R-002, R-021, node `interact`. See R-042 for which buttons the bot presses.
 
 ### R-031 · Losing a map fight sends you home
 - **Rule**: After a lost fight a dialog says "Your character is incapacitated. Return to Home now?" with Cancel (0.32, 0.65) and OK (0.68, 0.65); OK goes home. The explore loop stops there. Lost at Lv 3 on Originisle III, so later islands may need stronger gear or levels first ❓.
@@ -265,3 +265,29 @@ Entry format:
 - **Confidence**: observed. **Source**: builder batch 5.
 - **Images**: none yet (want: icon crop).
 - **Related**: R-020, R-037.
+
+## Added from builder batch 6 (2026-11-03)
+
+### R-040 · Temple Ruins is a multi-floor mini-dungeon
+- **Rule**: The "Temple Ruins" exploration card ("Crumbling sanctum of a forgotten temple. Time for some treasure hunts...") has an Explore button. Explore leads to a 6-enemy battle prep, an auto battle, then a floor card ("Temple Ruins: Floor 1 ... A faint echo of a legacy skill calls from its summit.") with Next Floor (0.5, 0.64) and a back arrow to leave. The number of floors is unknown; the summit seems to hold a "legacy skill" reward ❓. Found on Originisle III at 70% explored, account Lv 7, power 2.63K.
+- **Confidence**: observed. **Source**: builder batch 6.
+- **Images**: `docs/screens/interact_temple.png`, `docs/screens/dungeon_floor.png`.
+- **Related**: R-030, nodes `interact`, `dungeon_floor`.
+
+### R-041 · Guarded quest targets need their guards beaten first
+- **Rule**: Some quest targets (the Pink Bird on Originisle III) are ringed by monsters drawn with gold corner brackets. The target only repeats a line ("Chirp! Chirp!") until all bracketed monsters are beaten (6 Chaosborn, won at Lv 6). Dialogue can also offer reply options, drawn as a white pill with a black arrow.
+- **Confidence**: observed. **Source**: builder batch 6.
+- **Images**: `docs/screens/dialogue_choice.png`.
+- **Related**: R-022, R-028.
+
+### R-042 · Card policy: what the bot presses depends on its goal
+- **Rule**: Cards and dialogs are answered by a goal-dependent policy (`resource/policy/cards.json` and `sxs/decide.py` on the step 3 branch), not a fixed tap: defeated → OK (home); travel prompt → OK when exploring or doing dailies, Cancel when only going home; Portal → Activate; mini-dungeon card → Explore only when the goal is explore and HP is fine, else dismiss; dungeon floor → Next Floor when HP is fine, else the back arrow; unknown cards → dismiss and log. The nav graph's `when` field on edges records the same conditions.
+- **Confidence**: told (mae's design principle), implemented by the builder. **Source**: builder batch 6.
+- **Images**: none.
+- **Related**: R-018, R-043, `memory-bank/game/README.md` (the `when` field).
+
+### R-043 · Never press spending buttons
+- **Rule**: The bot never presses Buy, Purchase, Refresh or Spend, or any button mentioning Dawnium, unless a later policy rule explicitly allows it.
+- **Confidence**: told (policy). **Source**: builder batch 6, following mae's budget rules.
+- **Images**: none.
+- **Related**: R-018, R-042.

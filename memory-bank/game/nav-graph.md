@@ -18,7 +18,7 @@ flowchart TD
     battle["Battle"]
     battle_result["Battle result"]
     defeated["Defeated dialog"]
-    interact["Map object card"]
+    interact["Exploration card"]
     reward_popup["Reward popup"]
     confirm_dialog["Confirm dialog"]
     dialogue["Story dialogue"]
@@ -42,6 +42,7 @@ flowchart TD
     skill_loadout["Skill loadout"]
     technique_card["Technique card"]
     technique_upgrade["Technique upgrade"]
+    dungeon_floor["Mini-dungeon floor"]
     home -->|"tap: Bottom nav bar (y 0.97): Character"| character
     world_map -.->|"tap: Bottom nav bar (y 0.97): Character"| character
     home -->|"tap: Bottom nav bar (y 0.97): Travel Journal"| travel_journal
@@ -56,7 +57,7 @@ flowchart TD
     quests -->|"tap: Back arrow, bottom left"| main_menu
     quests -->|"tap: 'Go >>' on the Combat Veteran row"| loadout_edit
     home -->|"tap: Quest tracker panel"| confirm_dialog
-    confirm_dialog -->|"tap: OK"| world_map
+    confirm_dialog -->|"tap: OK [travel prompt and goal in (explore, dailies)]"| world_map
     world_map -->|"tap: Back arrow, bottom left"| home
     world_map -->|"tap: Character portrait"| player_profile
     player_profile -->|"tap: Outside the popup"| world_map
@@ -71,7 +72,9 @@ flowchart TD
     battle -->|"auto: Battle lost"| defeated
     defeated -->|"tap: OK"| home
     world_map -->|"tap: A map object (portal, chest...), or just below the quest ring"| interact
-    interact -->|"tap: Action button (Activate, Collect...)"| world_map
+    interact -->|"tap: Activate (Portal) or another safe verb"| world_map
+    interact -->|"tap: Explore (Temple Ruins mini-dungeon) [goal=explore and hp_ok]"| battle_prep
+    interact -->|"tap: Outside the card (dismiss) [no policy entry says press, or the button is unsafe]"| world_map
     home -->|"tap: The cart on the home scene (scroll left first)"| cart
     cart -->|"tap: Claim All"| reward_popup
     cart -->|"tap: Outside the panel"| home
@@ -80,6 +83,9 @@ flowchart TD
     character -->|"tap: Skill button"| skill_loadout
     skill_loadout -->|"tap: A technique slot (left side)"| technique_card
     technique_card -->|"tap: Enhance"| technique_upgrade
+    battle -->|"auto: Floor cleared"| dungeon_floor
+    dungeon_floor -->|"tap: Next Floor [hp_ok]"| battle_prep
+    dungeon_floor -.->|"tap: Back arrow, bottom left [not hp_ok]"| world_map
 ```
 
 ## Screens
@@ -97,10 +103,10 @@ flowchart TD
 | `battle` | Battle | battle | observed |  | Plays itself (R-001); 15 rounds max. Loss leads to defeated. |
 | `battle_result` | Battle result | popup | reported |  | Not seen: wins return straight to world_map, sometimes with a reward_popup; losses show the defeated dialog. |
 | `defeated` | Defeated dialog | popup | observed |  | Confirm dialog 'Your character is incapacitated. Return to Home now?' after losing a map fight (R-031). |
-| `interact` | Map object card | popup | observed |  | Card for a map object (e.g. Portal) with one action button (R-030). |
+| `interact` | Exploration card | popup | observed |  | Card for a map structure or object: picture, title, one-line description, one button at about (0.5, 0.70). Seen: Portal (Activate), Temple Ruins (Explore). Dismiss by tapping outside. What to press is decided by the card policy (R-042). |
 | `reward_popup` | Reward popup | popup | observed |  | Close by tapping anywhere. |
 | `confirm_dialog` | Confirm dialog | popup | observed |  | Cancel (0.32,0.57), OK (0.68,0.57). Returns to whatever the confirmed action leads to. Height varies: the 'Confirm' title sits between y 0.26 and 0.35, so buttons move with it (OK at y 0.57 for travel, 0.65 for defeat). |
-| `dialogue` | Story dialogue | overlay | observed |  | Tutorial/story overlay (Akane). Tap (0.5,0.9) to advance; can sit on top of any screen. |
+| `dialogue` | Story dialogue | overlay | observed |  | Tutorial/story overlay (Akane). Tap (0.5,0.9) to advance; can sit on top of any screen. Sometimes offers reply options (white pill with a black arrow). |
 | `title` | Title screen | hub | observed |  | Boot: Android splash, BOLTRAY logos (~10 s), title art with an 'Initializing' bar (~25 s), then 'Tap to Play' with side buttons (Servers, Settings, Notice, User Center, Repair Client...). Full boot sequence: docs/step2-hands-and-eyes.md, 'Interface catalogue'. |
 | `loading` | Loading | overlay | observed |  | Covers 'Loading...', 'Logging in...' and the title screen initialising. Wait it out. After login the game resumes on the last screen it was closed on (often world_map), not always home. |
 | `agreement` | User Agreement | popup | observed |  | First launch only. Needs a human; the bot must stop and ask. |
@@ -121,6 +127,7 @@ flowchart TD
 | `skill_loadout` | Skill loadout | menu | observed |  | 4 technique slots left, 4 charm slots right, Loadout 1 selector; tabs Technique / Charm / Shard; bottom tabs Skill / Goals (R-037, R-038). |
 | `technique_card` | Technique card | popup | observed |  | Technique details (e.g. Ice Spike) with Remove / Enhance. |
 | `technique_upgrade` | Technique upgrade | menu | observed |  | Tabs Upgrade / Ascend. Costs Battle Essence; level capped by character level (R-037). Upgrade button at (0.5, 0.85) stays on this screen. |
+| `dungeon_floor` | Mini-dungeon floor | popup | observed |  | Floor card e.g. 'Temple Ruins: Floor 1' with Next Floor at (0.5, 0.64) and a back arrow bottom left (R-040). |
 
 ## Actions
 
@@ -144,8 +151,8 @@ flowchart TD
 | Quests | Menu | tap Back arrow, bottom left at [0.08, 0.95] | observed | Closes quests; assumed to return to the menu. |
 | Quests | Loadout (Edit) | tap 'Go >>' on the Combat Veteran row at [0.83, None] | observed | y depends on the row; each row's Go button jumps to its own screen. |
 | Home | Confirm dialog | tap Quest tracker panel at [0.41, 0.78] | observed | Asks 'Travel to Originisle I now?'. |
-| Confirm dialog | World map (island) | tap OK at [0.68, 0.57] | observed | When the dialog was the travel prompt. |
-| Confirm dialog | previous screen | tap Cancel at [0.32, 0.57] | observed |  |
+| Confirm dialog | World map (island) | tap OK at [0.68, 0.57] (when travel prompt and goal in (explore, dailies)) | observed | When the dialog was the travel prompt. |
+| Confirm dialog | previous screen | tap Cancel at [0.32, 0.57] (when travel prompt and goal=home, or any unknown confirm) | observed |  |
 | World map (island) | Home | tap Back arrow, bottom left at [0.08, 0.95] | observed |  |
 | World map (island) | Player profile | tap Character portrait | observed |  |
 | Player profile | World map (island) | tap Outside the popup at [0.5, 0.95] | observed |  |
@@ -160,8 +167,10 @@ flowchart TD
 | Character | Home | tap Back arrow, bottom left at [0.11, 0.95] | observed |  |
 | Battle | Defeated dialog | auto Battle lost | observed | Seen at Lv 3 on Originisle III. |
 | Defeated dialog | Home | tap OK at [0.68, 0.65] | observed | Cancel is at (0.32, 0.65). |
-| World map (island) | Map object card | tap A map object (portal, chest...), or just below the quest ring [template resource/image/explore/marker.png] | observed | The ring floats about 0.08 of the screen height above its target (R-022). |
-| Map object card | World map (island) | tap Action button (Activate, Collect...) at [0.5, 0.7] | observed | Counts toward Explore progress. |
+| World map (island) | Exploration card | tap A map object (portal, chest...), or just below the quest ring [template resource/image/explore/marker.png] | observed | The ring floats about 0.08 of the screen height above its target (R-022). |
+| Exploration card | World map (island) | tap Activate (Portal) or another safe verb at [0.5, 0.7] | observed | Counts toward Explore progress. |
+| Exploration card | Battle prep | tap Explore (Temple Ruins mini-dungeon) at [0.5, 0.7] (when goal=explore and hp_ok) | observed | Battle prep shows 6 enemies. |
+| Exploration card | World map (island) | tap Outside the card (dismiss) at [0.5, 0.95] (when no policy entry says press, or the button is unsafe) | observed | Exact dismiss point not given; outside the card. |
 | Home | Cart | tap The cart on the home scene (scroll left first) | observed | Its coin bubble collects directly instead (R-020). |
 | Cart | Reward popup | tap Claim All at [0.5, 0.86] | observed |  |
 | Cart | Home | tap Outside the panel at [0.5, 0.95] | observed |  |
@@ -171,3 +180,6 @@ flowchart TD
 | Character | Skill loadout | tap Skill button at [0.41, 0.59] | observed |  |
 | Skill loadout | Technique card | tap A technique slot (left side) | observed |  |
 | Technique card | Technique upgrade | tap Enhance | observed |  |
+| Battle | Mini-dungeon floor | auto Floor cleared | observed | Inside a mini-dungeon. |
+| Mini-dungeon floor | Battle prep | tap Next Floor at [0.5, 0.64] (when hp_ok) | observed |  |
+| Mini-dungeon floor | World map (island) | tap Back arrow, bottom left at [0.08, 0.95] (when not hp_ok) | reported | Assumed to return to the island map. |

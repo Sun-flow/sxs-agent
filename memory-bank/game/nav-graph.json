@@ -196,7 +196,7 @@
   },
   {
    "id": "interact",
-   "name": "Map object card",
+   "name": "Exploration card",
    "kind": "popup",
    "confidence": "observed",
    "unlock": null,
@@ -211,9 +211,10 @@
     ]
    },
    "images": [
-    "docs/screens/interact_portal.png"
+    "docs/screens/interact_portal.png",
+    "docs/screens/interact_temple.png"
    ],
-   "notes": "Card for a map object (e.g. Portal) with one action button (R-030)."
+   "notes": "Card for a map structure or object: picture, title, one-line description, one button at about (0.5, 0.70). Seen: Portal (Activate), Temple Ruins (Explore). Dismiss by tapping outside. What to press is decided by the card policy (R-042)."
   },
   {
    "id": "reward_popup",
@@ -265,9 +266,10 @@
    },
    "images": [
     "docs/screens/dialogue.png",
-    "docs/screens/dialogue_loadout.png"
+    "docs/screens/dialogue_loadout.png",
+    "docs/screens/dialogue_choice.png"
    ],
-   "notes": "Tutorial/story overlay (Akane). Tap (0.5,0.9) to advance; can sit on top of any screen."
+   "notes": "Tutorial/story overlay (Akane). Tap (0.5,0.9) to advance; can sit on top of any screen. Sometimes offers reply options (white pill with a black arrow)."
   },
   {
    "id": "title",
@@ -519,6 +521,22 @@
     "docs/screens/technique_upgrade.png"
    ],
    "notes": "Tabs Upgrade / Ascend. Costs Battle Essence; level capped by character level (R-037). Upgrade button at (0.5, 0.85) stays on this screen."
+  },
+  {
+   "id": "dungeon_floor",
+   "name": "Mini-dungeon floor",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "Floor n",
+    "roi": null
+   },
+   "images": [
+    "docs/screens/dungeon_floor.png"
+   ],
+   "notes": "Floor card e.g. 'Temple Ruins: Floor 1' with Next Floor at (0.5, 0.64) and a back arrow bottom left (R-040)."
   }
  ],
  "edges": [
@@ -799,7 +817,8 @@
     ]
    },
    "confidence": "observed",
-   "notes": "When the dialog was the travel prompt."
+   "notes": "When the dialog was the travel prompt.",
+   "when": "travel prompt and goal in (explore, dailies)"
   },
   {
    "from": "confirm_dialog",
@@ -814,7 +833,8 @@
     ]
    },
    "confidence": "observed",
-   "notes": ""
+   "notes": "",
+   "when": "travel prompt and goal=home, or any unknown confirm"
   },
   {
    "from": "world_map",
@@ -1025,7 +1045,7 @@
    "to": "world_map",
    "action": {
     "type": "tap",
-    "target": "Action button (Activate, Collect...)",
+    "target": "Activate (Portal) or another safe verb",
     "template": null,
     "pos": [
      0.5,
@@ -1034,6 +1054,38 @@
    },
    "confidence": "observed",
    "notes": "Counts toward Explore progress."
+  },
+  {
+   "from": "interact",
+   "to": "battle_prep",
+   "action": {
+    "type": "tap",
+    "target": "Explore (Temple Ruins mini-dungeon)",
+    "template": null,
+    "pos": [
+     0.5,
+     0.7
+    ]
+   },
+   "when": "goal=explore and hp_ok",
+   "confidence": "observed",
+   "notes": "Battle prep shows 6 enemies."
+  },
+  {
+   "from": "interact",
+   "to": "world_map",
+   "action": {
+    "type": "tap",
+    "target": "Outside the card (dismiss)",
+    "template": null,
+    "pos": [
+     0.5,
+     0.95
+    ]
+   },
+   "when": "no policy entry says press, or the button is unsafe",
+   "confidence": "observed",
+   "notes": "Exact dismiss point not given; outside the card."
   },
   {
    "from": "home",
@@ -1154,6 +1206,50 @@
    },
    "confidence": "observed",
    "notes": ""
+  },
+  {
+   "from": "battle",
+   "to": "dungeon_floor",
+   "action": {
+    "type": "auto",
+    "target": "Floor cleared",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Inside a mini-dungeon."
+  },
+  {
+   "from": "dungeon_floor",
+   "to": "battle_prep",
+   "action": {
+    "type": "tap",
+    "target": "Next Floor",
+    "template": null,
+    "pos": [
+     0.5,
+     0.64
+    ]
+   },
+   "when": "hp_ok",
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "dungeon_floor",
+   "to": "world_map",
+   "action": {
+    "type": "tap",
+    "target": "Back arrow, bottom left",
+    "template": null,
+    "pos": [
+     0.08,
+     0.95
+    ]
+   },
+   "when": "not hp_ok",
+   "confidence": "reported",
+   "notes": "Assumed to return to the island map."
   }
  ]
 }
