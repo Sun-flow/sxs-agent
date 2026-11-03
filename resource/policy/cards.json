@@ -4,6 +4,12 @@
     "never": "^(Buy|Purchase|Refresh|Spend)$|Dawnium",
     "rules": [
         {
+            "kind": "social_requests",
+            "match": "^(Apply|Friends Team Up Challenge Room)",
+            "choose": "dismiss",
+            "why": "Friend, team-up and challenge requests from other players: social choices are mae's, so leave them untouched."
+        },
+        {
             "kind": "defeated",
             "match": "incapacitated",
             "choose": "^OK$",

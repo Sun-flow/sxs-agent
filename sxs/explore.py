@@ -31,8 +31,9 @@ TRACKING_TOGGLE = (290, 1012)
 TRACKER_ROI = [0, 860, 330, 180]  # quest tracker panel on home
 START_BATTLE = (360, 956)
 PAN_CENTER = (360, 560)  # where a hidden marker is dragged to
-MARKER_TARGET_DY = 100  # the target sits about this far below the centre of the tracker ring
+MARKER_TARGET_DYS = [100, 60, 140, 30]  # how far below the tracker ring its target usually sits, best guess first
 STALE_LIMIT = 4
+STALE_GIVE_UP = 16  # map visits with no progress before the run stops
 DECISION_OPTIONS = r"^(Ascend to|Change Class)"  # dialogue options a human decides
 HEAL_BELOW = 80  # HP % under which the profile's Quick Heal (1 cooked dish) is used
 QUICK_HEAL = (510, 1064)
@@ -76,7 +77,7 @@ def read_tracker(det: StateDetector) -> Optional[dict]:
 
 def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_misses: int = 6,
                    choose: Optional[str] = None) -> str:
-    """Returns "complete", "defeated", "no_marker", "no_tracker", "unknown_card", "repeating_card", "needs_decision", "stuck_home", "unknown_screen" or
+    """Returns "complete", "defeated", "no_marker", "no_tracker", "unknown_card", "repeating_card", "needs_decision", "stuck_home", "stuck_progress", "unknown_screen" or
     "timeout"."""
     decider, ctx = Decider(det), Context(goal="explore")
     deadline = time.monotonic() + minutes * 60
@@ -109,6 +110,8 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
                 stale += 1
             else:
                 stale, last_progress_seen = 0, prog.text if prog else None
+            if stale >= STALE_GIVE_UP:
+                return "stuck_progress"
             if stale >= STALE_LIMIT:
                 # Progress stuck while acting on the marker: the target may be guarded. Fight a bracketed monster.
                 guard = det.find("Explore.GuardBracket")
@@ -125,7 +128,9 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
                 cx, cy = x + w // 2, y + h // 2
                 at_edge = cx < 60 or cx > 660 or cy < 150 or cy > 900
                 # The ring floats above its target: tap the ring itself to pan, the spot under it to act.
-                dev.tap(cx, cy if at_edge else cy + MARKER_TARGET_DY)
+                # If progress hasn't moved, the target may sit nearer or farther below the ring: vary the offset.
+                dy = MARKER_TARGET_DYS[(stale // 2) % len(MARKER_TARGET_DYS)]
+                dev.tap(cx, cy if at_edge else cy + dy)
                 time.sleep(3)
                 continue
             hidden = det.find("Explore.MarkerAnywhere")
@@ -227,7 +232,9 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
             if unknowns >= 5 or unknown_total >= 20:  # the second catches unknown <-> map loops
                 return "unknown_screen"
             if unknowns >= 2:
-                dev.tap(360, 1220)  # close a popup by tapping outside it
+                # Maybe a popup the detector doesn't know: a rule may still cover it, otherwise it's dismissed.
+                card, choice = decider.decide(ctx)
+                dev.tap(*choice.point)
             time.sleep(1.5)
     return "timeout"
 
