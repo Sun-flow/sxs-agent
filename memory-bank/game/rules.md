@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/` (step 2, PR #5); captures from batches 4 to 9 (R-029 onward, plus `cart.png`) and the marker templates are on branch step3-explore until it merges.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-064).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-065).
 
 Entry format:
 
@@ -419,3 +419,9 @@ Entry format:
 - **Confidence**: told. **Source**: mae, 2026-11-03.
 - **Images**: none yet (want: a menu badge).
 - **Related**: R-062, R-044 (claiming quests).
+
+### R-064 · Some quests progress by NPC instructions, not the marker
+- **Rule**: Some quests aren't tracked well by their objective marker and rely on narrative instructions from NPC dialogue. When the tracker points somewhere unreachable or tapping does nothing (for example "Unlock Moonveil Woods" pointing into fog), open the full map by tapping the minimap and look for any "!" NPC to speak to; an NPC probably gave directions that were missed. So the bot should capture and log NPC dialogue text, so instructions aren't lost and a later step (or a model) can read them.
+- **Confidence**: told. **Source**: mae, 2026-11-03.
+- **Images**: none yet.
+- **Related**: R-028, R-058, R-062.
