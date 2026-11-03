@@ -5,7 +5,7 @@
   720,
   1280
  ],
- "notes": "Format and confidence levels: memory-bank/game/README.md. pos is [x, y] as fractions of the 720x1280 portrait frame; null means not located yet, and a null inside pos means that coordinate varies. Captures (docs/screens/) and pipeline files (resource/) come from the step 2 branch step2-hands-and-eyes.",
+ "notes": "Format and confidence levels: memory-bank/game/README.md. pos is [x, y] as fractions of the 720x1280 portrait frame; null means not located yet, and a null inside pos means that coordinate varies. Captures are in docs/screens/ and detection pipelines in resource/pipeline/state.json (step 2).",
  "nodes": [
   {
    "id": "home",
@@ -233,6 +233,19 @@
    "notes": "Tutorial/story overlay (Akane). Tap (0.5,0.9) to advance; can sit on top of any screen."
   },
   {
+   "id": "title",
+   "name": "Title screen",
+   "kind": "hub",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/title.png",
+    "docs/screens/splash.png"
+   ],
+   "notes": "Boot: Android splash, BOLTRAY logos (~10 s), title art with an 'Initializing' bar (~25 s), then 'Tap to Play' with side buttons (Servers, Settings, Notice, User Center, Repair Client...). Full boot sequence: docs/step2-hands-and-eyes.md, 'Interface catalogue'."
+  },
+  {
    "id": "loading",
    "name": "Loading",
    "kind": "overlay",
@@ -240,13 +253,15 @@
    "unlock": null,
    "detect": {
     "type": "ocr",
-    "text": "Loading",
+    "text": "Loading... | Logging in...",
     "roi": "bottom right, dark screen"
    },
    "images": [
-    "docs/screens/loading.png"
+    "docs/screens/loading.png",
+    "docs/screens/logging_in.png",
+    "docs/screens/title_loading.png"
    ],
-   "notes": "Wait it out."
+   "notes": "Covers 'Loading...', 'Logging in...' and the title screen initialising. Wait it out. After login the game resumes on the last screen it was closed on (often world_map), not always home."
   },
   {
    "id": "agreement",
@@ -273,8 +288,10 @@
     "text": "Character",
     "roi": "bottom-left nav label"
    },
-   "images": [],
-   "notes": "Gear slots; gear slot -> item card (Replace / Enhance) -> Enhance Gear (R-023). No capture yet."
+   "images": [
+    "docs/screens/character.png"
+   ],
+   "notes": "Gear slots; gear slot -> item card (Replace / Enhance) -> Enhance Gear (R-023)."
   },
   {
    "id": "loadout_edit",
@@ -511,7 +528,7 @@
      0.97
     ]
    },
-   "confidence": "reported",
+   "confidence": "observed",
    "notes": ""
   },
   {
@@ -782,6 +799,48 @@
     "pos": [
      0.06,
      0.96
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "title",
+   "to": "loading",
+   "action": {
+    "type": "tap",
+    "target": "Tap to Play",
+    "template": null,
+    "pos": [
+     0.5,
+     0.825
+    ]
+   },
+   "confidence": "observed",
+   "notes": "Once the title reached login without a tap; tapping anyway is safe."
+  },
+  {
+   "from": "loading",
+   "to": "previous",
+   "action": {
+    "type": "wait",
+    "target": "Login finishes; the game resumes on the last screen",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Use the state detector to see where it landed, then route from there."
+  },
+  {
+   "from": "character",
+   "to": "home",
+   "action": {
+    "type": "tap",
+    "target": "Back arrow, bottom left",
+    "template": null,
+    "pos": [
+     0.11,
+     0.95
     ]
    },
    "confidence": "observed",

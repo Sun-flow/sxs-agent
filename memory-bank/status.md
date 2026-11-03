@@ -15,7 +15,6 @@
 
 Format: `- what — branch, PR, environment (started date)`. Remove the line when it merges or is dropped.
 
-- Step 2 hands-and-eyes layer — branch `step2-hands-and-eyes`, PR #5, maes2024 via Remote Control (2026-11-03).
 - Game rules and menu navigation graph (`memory-bank/game/`), filled in as the step 2 work reports what it learns — branch `claude/project-thread-npg43i`, PR #3 merged, later batches in PR #4, cloud (2026-11-03).
 
 ## Next
