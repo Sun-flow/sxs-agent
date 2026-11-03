@@ -4,7 +4,7 @@
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
 
 ### 2026-11-03 · Game rules and menu graph started (Claude Code, cloud)
-- mae asked for documentation of the game's rules and a traversable map of menus, fed by the step 2 builder thread. Added `memory-bank/game/` (README, `memory-bank/game/rules.md` with R-001 to R-020 from mae and the step 1 doc, `memory-bank/game/nav-graph.json` with 15 screens) and `scripts/nav-graph.py` (check, render, shortest path). Branch `claude/project-thread-npg43i`.
+- mae asked for documentation of the game's rules and a traversable map of menus, fed by the step 2 builder thread. Added `memory-bank/game/` (README, `memory-bank/game/rules.md` with R-001 to R-020 from mae and the step 1 doc, `memory-bank/game/nav-graph.json` with 15 screens) and `scripts/nav-graph.py` (check, render, shortest path). Branch `claude/project-thread-npg43i`, PR #3.
 - Open: most edges lack tap positions and most screens lack detection hints and captures; the builder thread sends them as it plays.
 
 ### 2026-11-03 · Memory bank set up (Claude Code, cloud)
