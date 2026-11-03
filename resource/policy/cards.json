@@ -94,7 +94,7 @@
         },
         {
             "kind": "mini_dungeon",
-            "match": "^(Temple Ruins|.*Ruins|.*Cave|.*Tower|.*Dungeon)$",
+            "match": "(Ruins|Cave|Tower|Dungeon|Pit|Mine|Lair|Den|Fortress)$|First Clear Rewards",
             "choose": "^(Explore|Enter)$",
             "when": {
                 "goal": [
@@ -106,7 +106,7 @@
         },
         {
             "kind": "mini_dungeon",
-            "match": "^(Temple Ruins|.*Ruins|.*Cave|.*Tower|.*Dungeon)$",
+            "match": "(Ruins|Cave|Tower|Dungeon|Pit|Mine|Lair|Den|Fortress)$|First Clear Rewards",
             "choose": "dismiss",
             "why": "Skip mini-dungeons when not exploring or when HP is low."
         },

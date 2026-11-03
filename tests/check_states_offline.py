@@ -39,6 +39,7 @@ EXPECTED = {
     "home_cart": "home",
     "interact_portal": "interact",
     "interact_temple": "interact",
+    "interact_ironvein_pit": "interact",
     "interact_obelisk": "interact",
     "loading": "loading",
     "loadout_edit": "unknown",
