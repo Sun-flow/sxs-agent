@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/`; templates in `resource/image/`.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-078).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-079).
 
 Entry format:
 
@@ -406,7 +406,7 @@ Entry format:
 - **Rule**: Healing food (cooked from ingredients in the Alchemy Pot, or bought with Rolla) is cheap and fine to spend: eat it from the player portrait, then the button on the right ("Recover" or similar). While fights are being won, heal as freely as needed; Rolla is abundant early. **Dishes** are different: rarer items that give temporary stat boosts for a fight, so conserve them. If the same fight is lost twice in a row after healing, stop retrying: contact mae or go back to base to get stronger (gear, techniques, rank) first.
 - **Confidence**: told. **Source**: mae, 2026-11-03.
 - **Images**: none yet (want: the profile's Recover button).
-- **Related**: R-031, R-043, R-046, R-047, nodes `player_profile`, `wounded`, `alchemy_pot`.
+- **Related**: R-031, R-043, R-046, R-047, R-078, nodes `player_profile`, `wounded`, `alchemy_pot`.
 
 ### R-062 · NPCs with a red "!" gate progress
 - **Rule**: Quests can be locked behind NPC interactions. An NPC with a red exclamation mark above its head on the world map or overworld (Originisle, Verdantglade...) must be talked to first; it gives instructions on how to progress and then disappears, unlocking the objects around it (for example the Chief at the Originisle V pillar guards the boss loot row). When the tracker points at something that can't be reached, look for a red "!" NPC nearby and tap it first.
@@ -514,3 +514,9 @@ Entry format:
 - **Confidence**: observed. **Source**: builder batch 10.
 - **Images**: `docs/screens/team.png`.
 - **Related**: R-057, node `team`.
+
+### R-078 · Heal from the HUD portrait when the player's tile is crowded
+- **Rule**: If the player sprite has a red bubble and other interactables share its tile, tapping the player opens a pick-one menu on the right instead of the heal menu, and tapping again just loops. To heal, either pick the entry with the character's name in that menu, or tap the character portrait in the top-left HUD, which opens the healing menu directly. Prefer the HUD portrait: it always works.
+- **Confidence**: told. **Source**: mae, 2026-11-03.
+- **Images**: none yet (want: the pick-one menu).
+- **Related**: R-061, node `player_profile`.
