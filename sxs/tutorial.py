@@ -9,6 +9,7 @@ find_highlight() finds it by colour; no model calls. Stops when there is no dial
 from __future__ import annotations
 
 import argparse
+import re
 import logging
 import sys
 import time
@@ -27,6 +28,8 @@ log = logging.getLogger("sxs.tutorial")
 HIGHLIGHT_LO = np.array([25, 100, 170])
 HIGHLIGHT_HI = np.array([35, 255, 255])
 HINT_TO_BUTTON_DY = 100
+# Never tap a highlight whose text looks like spending: gacha pulls, shop buys, premium currency.
+NEVER_TAP = r"Pray|Buy|Purchase|Refresh|Spend|Dawnium|Recharge|Top ?up"
 
 
 def find_highlight(frame: np.ndarray) -> Optional[tuple[int, int, int, int]]:
@@ -60,8 +63,9 @@ def find_highlight(frame: np.ndarray) -> Optional[tuple[int, int, int, int]]:
 
 
 def follow(dev: Device, det: StateDetector, steps: int = 40) -> str:
-    """Returns "done" (nothing left to follow), "unknown_screen" or "steps"."""
-    idle = 0
+    """Returns "done" (nothing left to follow), "stuck", "spend_prompt" or "steps"."""
+    idle = same = 0
+    last_box = None
     for _ in range(steps):
         d = det.detect()
         if d.state == "dialogue_choice":
@@ -91,6 +95,15 @@ def follow(dev: Device, det: StateDetector, steps: int = 40) -> str:
                 time.sleep(1.5)
                 continue
             x, y, w, h = box
+            # Same box again and again means the screen isn't reacting (or it's not really a highlight).
+            same = same + 1 if last_box and all(abs(a - b) < 10 for a, b in zip(box, last_box)) else 0
+            last_box = box
+            if same >= 3:
+                return "stuck"
+            words = " ".join(t for t, _ in det.read_text([x, y, w, h], frame))
+            if re.search(NEVER_TAP, words):
+                log.warning("highlight on %r looks like a spend; not tapping", words)
+                return "spend_prompt"
             log.info("highlight at %s on %s", box, d.state)
             dev.tap(x + w // 2, y + h // 2)
         idle = 0
