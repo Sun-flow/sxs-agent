@@ -516,7 +516,7 @@ Entry format:
 - **Related**: R-057, node `team`.
 
 ### R-078 · Heal from the HUD portrait when the player's tile is crowded
-- **Rule**: If the player sprite has a red bubble and other interactables share its tile, tapping the player opens a pick-one menu on the right instead of the heal menu, and tapping again just loops. To heal, either pick the entry with the character's name in that menu, or tap the character portrait in the top-left HUD, which opens the healing menu directly. Prefer the HUD portrait: it always works.
+- **Rule**: If the player sprite has a red bubble and other interactables share its tile, tapping the player opens a pick-one menu on the right instead of the heal menu, and tapping again just loops. To heal, either pick the entry with the character's name in that menu, or tap the character portrait in the top-left HUD, which opens the healing menu directly. The HUD portrait avoids the menu entirely, so it is the simpler path for a script.
 - **Confidence**: told. **Source**: mae, 2026-11-03.
 - **Images**: none yet (want: the pick-one menu).
 - **Related**: R-061, node `player_profile`.
