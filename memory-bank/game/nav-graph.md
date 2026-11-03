@@ -43,6 +43,9 @@ flowchart TD
     technique_card["Technique card"]
     technique_upgrade["Technique upgrade"]
     dungeon_floor["Mini-dungeon floor"]
+    wounded["Badly wounded dialog"]
+    alchemy_pot["Alchemy Pot"]
+    rank_advancement["Rank Advancement"]
     home -->|"tap: Bottom nav bar (y 0.97): Character"| character
     world_map -.->|"tap: Bottom nav bar (y 0.97): Character"| character
     home -->|"tap: Bottom nav bar (y 0.97): Travel Journal"| travel_journal
@@ -56,7 +59,7 @@ flowchart TD
     main_menu -->|"tap: Back arrow, bottom left"| home
     quests -->|"tap: Back arrow, bottom left"| main_menu
     quests -->|"tap: 'Go >>' on the Combat Veteran row"| loadout_edit
-    home -->|"tap: Quest tracker panel"| confirm_dialog
+    home -->|"tap: '>' arrow on the quest tracker panel"| confirm_dialog
     confirm_dialog -->|"tap: OK [travel prompt and goal in (explore, dailies)]"| world_map
     world_map -->|"tap: Back arrow, bottom left"| home
     world_map -->|"tap: Character portrait"| player_profile
@@ -86,6 +89,12 @@ flowchart TD
     battle -->|"auto: Floor cleared"| dungeon_floor
     dungeon_floor -->|"tap: Next Floor [hp_ok]"| battle_prep
     dungeon_floor -.->|"tap: Back arrow, bottom left [not hp_ok]"| world_map
+    home -->|"tap: Quest tracker panel [tracked quest shows a/b with a = b]"| reward_popup
+    home -->|"tap: Quest title on the tracker panel [tracked quest not finished]"| quest_detail
+    world_map -->|"tap: A monster [HP low]"| wounded
+    wounded -->|"tap: Return to Home"| home
+    home_house -->|"tap: Alchemy Pot furniture"| alchemy_pot
+    character -->|"tap: Rank badge, bottom right"| rank_advancement
 ```
 
 ## Screens
@@ -95,7 +104,7 @@ flowchart TD
 | `home` | Home | hub | observed |  | Scene scrolls horizontally; the Cart (AFK income) and cherry tree are on the left (R-020). The chat strip at y 0.82-0.90 opens server_chat: avoid it. |
 | `main_menu` | Menu | menu | observed |  | Also has Photo (0.14,0.85), Notice (0.30,0.85), User Center (0.47,0.85), Settings (0.64,0.85), a 'Coming soon' card (0.72,0.75). Shows the server clock (R-024). |
 | `quests` | Quests | menu | observed |  | Tabs Quest (0.40,0.95) and Achievement (0.78,0.95). Each row has 'Go >>' at x 0.83 that jumps to the relevant screen (R-009). |
-| `quest_detail` | Quest detail | popup | observed |  | Not detected yet. |
+| `quest_detail` | Quest detail | popup | observed |  | Quest detail card: Details, Goal, Rewards and a Go or Track button (R-044). |
 | `world_overview` | World (island picker) | world | observed |  | Pick an island to walk on. |
 | `world_map` | World map (island) | world | observed |  | Walkable island map with minimap, fog and pickups (R-002, R-004, R-021, R-022). Shows a fruit counter instead of Rolla in the top bar. |
 | `player_profile` | Player profile | popup | observed |  | Gear, techniques, Dish, Quick Heal. Not detected yet. Android back does nothing here. |
@@ -128,6 +137,9 @@ flowchart TD
 | `technique_card` | Technique card | popup | observed |  | Technique details (e.g. Ice Spike) with Remove / Enhance. |
 | `technique_upgrade` | Technique upgrade | menu | observed |  | Tabs Upgrade / Ascend. Costs Battle Essence; level capped by character level (R-037). Upgrade button at (0.5, 0.85) stays on this screen. |
 | `dungeon_floor` | Mini-dungeon floor | popup | observed |  | Floor card e.g. 'Temple Ruins: Floor 1' with Next Floor at (0.5, 0.64) and a back arrow bottom left (R-040). |
+| `wounded` | Badly wounded dialog | popup | observed |  | Confirm 'The character is badly wounded. Use dishes to heal?' with Return to Home / Quick Heal (cost shown; dish count top right) (R-046). |
+| `alchemy_pot` | Alchemy Pot | menu | observed | Lv 7 | House furniture: melt down gear and cook dishes. Dish tab: recipes with ingredient costs at the top and a Cook button; shows a 'Cooked' banner (R-047). |
+| `rank_advancement` | Rank Advancement | menu | observed |  | Rank up for base stats; needs max level and materials (R-048). |
 
 ## Actions
 
@@ -150,7 +162,7 @@ flowchart TD
 | Menu | Home | tap Back arrow, bottom left at [0.08, 0.95] | observed |  |
 | Quests | Menu | tap Back arrow, bottom left at [0.08, 0.95] | observed | Closes quests; assumed to return to the menu. |
 | Quests | Loadout (Edit) | tap 'Go >>' on the Combat Veteran row at [0.83, None] | observed | y depends on the row; each row's Go button jumps to its own screen. |
-| Home | Confirm dialog | tap Quest tracker panel at [0.41, 0.78] | observed | Asks 'Travel to Originisle I now?'. |
+| Home | Confirm dialog | tap '>' arrow on the quest tracker panel at [0.41, 0.78] | observed | Offers travel to the quest's island ('Travel to ... now?'). |
 | Confirm dialog | World map (island) | tap OK at [0.68, 0.57] (when travel prompt and goal in (explore, dailies)) | observed | When the dialog was the travel prompt. |
 | Confirm dialog | previous screen | tap Cancel at [0.32, 0.57] (when travel prompt and goal=home, or any unknown confirm) | observed |  |
 | World map (island) | Home | tap Back arrow, bottom left at [0.08, 0.95] | observed |  |
@@ -183,3 +195,11 @@ flowchart TD
 | Battle | Mini-dungeon floor | auto Floor cleared | observed | Inside a mini-dungeon. |
 | Mini-dungeon floor | Battle prep | tap Next Floor at [0.5, 0.64] (when hp_ok) | observed |  |
 | Mini-dungeon floor | World map (island) | tap Back arrow, bottom left at [0.08, 0.95] (when not hp_ok) | reported | Assumed to return to the island map. |
+| Home | Reward popup | tap Quest tracker panel at [0.41, 0.78] (when tracked quest shows a/b with a = b) | observed | Claims the finished quest. |
+| Home | Quest detail | tap Quest title on the tracker panel (when tracked quest not finished) | observed |  |
+| Quest detail | previous screen | tap Go or Track | observed | Go jumps to the relevant screen; Track turns on the map marker. |
+| World map (island) | Badly wounded dialog | tap A monster (when HP low) | observed | Shown instead of battle_prep. |
+| Badly wounded dialog | Home | tap Return to Home | observed |  |
+| Badly wounded dialog | previous screen | tap Quick Heal (costs dishes) (when dishes left) | observed | Repeated taps did not always clear it; it may then offer only Return to Home (R-046). |
+| Home house | Alchemy Pot | tap Alchemy Pot furniture | observed |  |
+| Character | Rank Advancement | tap Rank badge, bottom right | observed |  |

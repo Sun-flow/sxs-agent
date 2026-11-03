@@ -1,8 +1,8 @@
 # Game rules
 
 > **Last updated**: 2026-11-03
-> Screen captures named below are in `docs/screens/` (step 2, PR #5); captures from batches 4 to 6 (R-029 onward, plus `cart.png`) and the marker templates are on branch step3-explore until it merges.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-044).
+> Screen captures named below are in `docs/screens/` (step 2, PR #5); captures from batches 4 to 7 (R-029 onward, plus `cart.png`) and the marker templates are on branch step3-explore until it merges.
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-050).
 
 Entry format:
 
@@ -202,7 +202,7 @@ Entry format:
 - **Rule**: Wild Isle Trek I (Originisle I), II (Originisle II) and III (Originisle III) follow each other. Reaching 100 on one moved the tracker to the next on its own (no claim screen was seen for Trek II). A story dialogue with Akane about a "Chaosborn" creature plays on Originisle II. The account reached Lv 3 after Originisle II.
 - **Confidence**: observed. **Source**: builder batch 4.
 - **Images**: none yet.
-- **Related**: R-021, R-028.
+- **Related**: R-021, R-028, R-044 (what follows Trek III).
 
 ### R-030 · Map objects open a card with one action
 - **Rule**: Tapping a map object (for example a Portal, "An ancient gateway that whisks you across space when activated") opens a card with one button at (0.5, 0.70), such as "Activate". Using it counts toward Explore progress. The bot only presses buttons with safe verbs: Activate, Collect, Claim, Open, Interact, Bless, Pray, Gather, Harvest, Mine, Examine, Read.
@@ -291,3 +291,41 @@ Entry format:
 - **Confidence**: told (policy). **Source**: builder batch 6, following mae's budget rules.
 - **Images**: none.
 - **Related**: R-018, R-042.
+
+## Added from builder batch 7 (2026-11-03)
+
+### R-044 · Quest chain, side quests and claiming from the tracker
+- **Rule**: After Trek III comes Wild Isle Trek IV (Originisle IV), then the boss quest "Fight the Guardian Colossi! Defeat Guardian Colossi 0/1". Side quests also show on the tracker ("Well Armed: Equip Gear x4", "Perfected Craft: Enhance Gear x1 to +10"). On Home, when the tracked quest shows a/b with a = b, tapping the tracker claims it; tapping an unfinished quest's title opens its detail card (Details, Goal, Rewards, and Go or Track); the ">" arrow on the tracker offers travel to its island.
+- **Confidence**: observed. **Source**: builder batch 7.
+- **Images**: `docs/screens/quest_detail_go.png`.
+- **Related**: R-009, R-022, R-029, node `quest_detail`.
+
+### R-045 · The tracker panel moves; bosses have their own pointer
+- **Rule**: On the map the tracker panel's height and its tracking icon's x position change with the quest title's length (icon at x ≈ 287 px for "Wild Isle Trek III", ≈ 352 px for "Fight the Guardian Colossi!"), so find the icon by template, not a fixed spot. A boss target's off-screen pointer is a white ring with the boss portrait and a speech-bubble tail (template `resource/image/explore/marker_boss.png`), not the gold ring.
+- **Confidence**: observed. **Source**: builder batch 7.
+- **Images**: none yet.
+- **Related**: R-022.
+
+### R-046 · Low HP blocks fights until you heal
+- **Rule**: Starting a fight while badly hurt shows "The character is badly wounded. Use dishes to heal?" with Return to Home and Quick Heal (costs dishes, e.g. 2; the dish count is top right). Repeated Quick Heal did not always clear it, and it eventually offered only Return to Home: perhaps the heal wasn't enough for the boss or dishes ran out ❓. Dishes come from the Alchemy Pot (R-047).
+- **Confidence**: observed; the cause of the stuck heal is unknown. **Source**: builder batch 7.
+- **Images**: `docs/screens/wounded.png`.
+- **Related**: R-031, R-047, node `wounded`.
+
+### R-047 · The Alchemy Pot cooks healing dishes
+- **Rule**: House furniture unlocked at Lv 7 that "melts down gear and even whips up tasty treats". On its Dish tab, Green Riceball restores 8% + 1000 HP and costs ingredients shown at the top (blue potion 10/2, green herb 5/4); Cook shows a "Cooked" banner. Jelly Bean Pals is a second recipe. Keeping dishes stocked keeps the explore loop going (R-046).
+- **Confidence**: observed. **Source**: builder batch 7.
+- **Images**: `docs/screens/furniture_alchemy_pot.png`, `docs/screens/alchemy_pot.png`, `docs/screens/cooked.png`.
+- **Related**: R-035, R-046, node `alchemy_pot`.
+
+### R-048 · Rank advancement raises base stats
+- **Rule**: Character, then the Rank badge (bottom right), opens Rank Advancement. Apprentice I to II needs max level (20) and materials: Stone 5, a blue flower item 20 and Rolla 5.5K. Ranking up raised power from 4.15K to 5.21K at Apprentice I.
+- **Confidence**: observed. **Source**: builder batch 7.
+- **Images**: `docs/screens/rank_advancement.png`.
+- **Related**: R-019, node `rank_advancement`.
+
+### R-049 · What limits growth
+- **Rule**: Technique level is capped at character level (R-037); gear enhancement is limited by Raw Ore, which the Cart makes at +100/h (R-020). The weapon reached +13. At this point the account was Lv 10, power about 5.3K, Rolla 9.7K and Dawnium 518, untouched per R-043.
+- **Confidence**: observed. **Source**: builder batch 7.
+- **Images**: none.
+- **Related**: R-020, R-023, R-037, R-043.

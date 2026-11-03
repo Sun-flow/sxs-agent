@@ -75,9 +75,10 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/quest_detail.png"
+    "docs/screens/quest_detail.png",
+    "docs/screens/quest_detail_go.png"
    ],
-   "notes": "Not detected yet."
+   "notes": "Quest detail card: Details, Goal, Rewards and a Go or Track button (R-044)."
   },
   {
    "id": "world_overview",
@@ -537,6 +538,48 @@
     "docs/screens/dungeon_floor.png"
    ],
    "notes": "Floor card e.g. 'Temple Ruins: Floor 1' with Next Floor at (0.5, 0.64) and a back arrow bottom left (R-040)."
+  },
+  {
+   "id": "wounded",
+   "name": "Badly wounded dialog",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "The character is badly wounded",
+    "roi": null
+   },
+   "images": [
+    "docs/screens/wounded.png"
+   ],
+   "notes": "Confirm 'The character is badly wounded. Use dishes to heal?' with Return to Home / Quick Heal (cost shown; dish count top right) (R-046)."
+  },
+  {
+   "id": "alchemy_pot",
+   "name": "Alchemy Pot",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": "Lv 7",
+   "detect": null,
+   "images": [
+    "docs/screens/furniture_alchemy_pot.png",
+    "docs/screens/alchemy_pot.png",
+    "docs/screens/cooked.png"
+   ],
+   "notes": "House furniture: melt down gear and cook dishes. Dish tab: recipes with ingredient costs at the top and a Cook button; shows a 'Cooked' banner (R-047)."
+  },
+  {
+   "id": "rank_advancement",
+   "name": "Rank Advancement",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/rank_advancement.png"
+   ],
+   "notes": "Rank up for base stats; needs max level and materials (R-048)."
   }
  ],
  "edges": [
@@ -794,7 +837,7 @@
    "to": "confirm_dialog",
    "action": {
     "type": "tap",
-    "target": "Quest tracker panel",
+    "target": "'>' arrow on the quest tracker panel",
     "template": null,
     "pos": [
      0.41,
@@ -802,7 +845,7 @@
     ]
    },
    "confidence": "observed",
-   "notes": "Asks 'Travel to Originisle I now?'."
+   "notes": "Offers travel to the quest's island ('Travel to ... now?')."
   },
   {
    "from": "confirm_dialog",
@@ -1250,6 +1293,109 @@
    "when": "not hp_ok",
    "confidence": "reported",
    "notes": "Assumed to return to the island map."
+  },
+  {
+   "from": "home",
+   "to": "reward_popup",
+   "action": {
+    "type": "tap",
+    "target": "Quest tracker panel",
+    "template": null,
+    "pos": [
+     0.41,
+     0.78
+    ]
+   },
+   "when": "tracked quest shows a/b with a = b",
+   "confidence": "observed",
+   "notes": "Claims the finished quest."
+  },
+  {
+   "from": "home",
+   "to": "quest_detail",
+   "action": {
+    "type": "tap",
+    "target": "Quest title on the tracker panel",
+    "template": null,
+    "pos": null
+   },
+   "when": "tracked quest not finished",
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "quest_detail",
+   "to": "previous",
+   "action": {
+    "type": "tap",
+    "target": "Go or Track",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Go jumps to the relevant screen; Track turns on the map marker."
+  },
+  {
+   "from": "world_map",
+   "to": "wounded",
+   "action": {
+    "type": "tap",
+    "target": "A monster",
+    "template": null,
+    "pos": null
+   },
+   "when": "HP low",
+   "confidence": "observed",
+   "notes": "Shown instead of battle_prep."
+  },
+  {
+   "from": "wounded",
+   "to": "home",
+   "action": {
+    "type": "tap",
+    "target": "Return to Home",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "wounded",
+   "to": "previous",
+   "action": {
+    "type": "tap",
+    "target": "Quick Heal (costs dishes)",
+    "template": null,
+    "pos": null
+   },
+   "when": "dishes left",
+   "confidence": "observed",
+   "notes": "Repeated taps did not always clear it; it may then offer only Return to Home (R-046)."
+  },
+  {
+   "from": "home_house",
+   "to": "alchemy_pot",
+   "action": {
+    "type": "tap",
+    "target": "Alchemy Pot furniture",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "character",
+   "to": "rank_advancement",
+   "action": {
+    "type": "tap",
+    "target": "Rank badge, bottom right",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
   }
  ]
 }

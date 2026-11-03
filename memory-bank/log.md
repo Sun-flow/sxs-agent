@@ -7,7 +7,8 @@
 - Builder batch 4 (step 3 explore loop): added `interact` and `defeated` screens and their taps to `memory-bank/game/nav-graph.json`; rules R-029 to R-034 (Trek quest chain, map object cards, defeat, camera, stamina regen, exploration rewards) and the quest-ring offset in R-022. Branch `claude/project-thread-npg43i` fast-forwarded to main after PR #4.
 - Batch 5 added to the same PR: cart, house, bed, unlock result and skill/technique screens; rules R-035 to R-039; Cart income in R-020.
 - Batch 6: exploration cards, Temple Ruins mini-dungeon (`dungeon_floor` screen), guarded targets, the goal-dependent card policy (R-040 to R-043). The graph format gained an optional `when` condition on edges; `scripts/nav-graph.py` shows it.
-- Open: captures for batches 4 to 6 live on branch step3-explore until it merges.
+- Batch 7: quest chain to the Guardian Colossi boss, claiming from the tracker, boss pointer, low-HP dialog, Alchemy Pot dishes, rank advancement (R-044 to R-049; screens `wounded`, `alchemy_pot`, `rank_advancement`).
+- Open: captures for batches 4 to 7 live on branch step3-explore until it merges; why Quick Heal sometimes doesn't clear the wounded dialog.
 
 ### 2026-11-03 · Game docs batch 2 (Claude Code, cloud)
 - Builder batch 2: added the `title` screen and login waits to `memory-bank/game/nav-graph.json`, confirmed Explore progress (R-002, R-021), noted the blessing statue is still unseen (R-003). Branch `claude/project-thread-npg43i` fast-forwarded to main after PR #3 merged.
