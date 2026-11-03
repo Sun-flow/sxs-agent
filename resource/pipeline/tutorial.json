@@ -1,0 +1,10 @@
+{
+    "Tutorial.Hint": {
+        "doc": "Akane's small hint bubble ('Tap to unlock', 'Tap to speed up') that sits just above the button the tutorial wants pressed, when that button is itself yellow and the highlight frame can't be told apart from it.",
+        "recognition": "OCR",
+        "expected": "^Tap to (?!Continue|Play)",
+        "roi": [100, 150, 520, 1000],
+        "pre_delay": 0,
+        "post_delay": 0
+    }
+}

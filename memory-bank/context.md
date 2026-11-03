@@ -41,6 +41,8 @@ Setup, CLI and how to add a screen: `docs/step2-hands-and-eyes.md`. Run from the
 .venv\Scripts\python -m sxs state               # where is the game right now (JSON)
 .venv\Scripts\python tests\check_states_offline.py   # detector vs docs/screens, no emulator
 .venv\Scripts\python tests\smoke_test.py           # live: cold start -> home -> menus -> home
+.venv\Scripts\python -m sxs.explore --chain        # play the quest line until something needs a human
+.venv\Scripts\python scripts\clean.py              # end of session: delete temp captures and logs
 ```
 
 ## Repo facts
@@ -54,6 +56,7 @@ Setup, CLI and how to add a screen: `docs/step2-hands-and-eyes.md`. Run from the
 |---|---|
 | Emulator comparison, architecture, game notes, daily-content catalogue, iteration 1 scope | `docs/step1-emulator-and-game.md` |
 | Device layer, state detector, screen catalogue with tap coordinates | `docs/step2-hands-and-eyes.md` |
+| Quest-following loop, tutorial follower, card decision rules | `docs/step3-explore.md`, `resource/policy/cards.json` |
 | Reference screenshots | `docs/screens/` |
 | Rules of the world (currencies, quests, exploration, unlocks) | `memory-bank/game/rules.md` |
 | How screens connect, and the taps between them | `memory-bank/game/nav-graph.json` (diagram in `memory-bank/game/nav-graph.md`) |

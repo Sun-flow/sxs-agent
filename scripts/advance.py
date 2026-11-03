@@ -15,7 +15,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from sxs.device import REPO_ROOT, Device  # noqa: E402
 from sxs.state import StateDetector  # noqa: E402
 
-TAP = {"dialogue": (360, 1150), "reward_popup": (360, 200)}
+TAP = {"dialogue": (360, 1150), "reward_popup": (360, 200), "tap_to_continue": (360, 200)}
 
 dev = Device()
 det = StateDetector(dev)

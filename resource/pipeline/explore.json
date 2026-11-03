@@ -1,0 +1,156 @@
+{
+    "Explore.Marker": {
+        "doc": "Gold quest-tracker ring on the island map (tracking must be on). At a screen edge it points to an off-screen target and tapping it pans the camera there; on the map, tapping it walks to the target. Excludes the top bar, minimap and the tracker/chat strip. Two templates: bright (on the lit map) and dim (in shadow or under the level badge).",
+        "recognition": "TemplateMatch",
+        "template": [
+            "explore/marker.png",
+            "explore/marker_dim.png"
+        ],
+        "roi": [
+            0,
+            60,
+            720,
+            900
+        ],
+        "threshold": 0.75,
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "Explore.Progress": {
+        "doc": "Progress line on the quest tracker panel, e.g. 'Explore Originisle II 37/100'. The panel grows upward when it shows rewards, so the region is tall.",
+        "recognition": "OCR",
+        "expected": "\\d+/\\d+",
+        "roi": [
+            0,
+            900,
+            340,
+            150
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "Explore.Complete": {
+        "doc": "Tracker panel showing a finished quest (n/n, e.g. 100/100 or 1/1; a gift icon appears); tap the panel to claim.",
+        "recognition": "OCR",
+        "expected": "(\\d+) ?/ ?\\1$",
+        "roi": [
+            0,
+            900,
+            340,
+            150
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "Explore.MarkerAnywhere": {
+        "doc": "Same ring anywhere on screen, including under the top bar or tracker panel; used to pan the camera when Explore.Marker can't see it.",
+        "recognition": "TemplateMatch",
+        "template": [
+            "explore/marker.png",
+            "explore/marker_dim.png"
+        ],
+        "roi": [
+            0,
+            0,
+            720,
+            1280
+        ],
+        "threshold": 0.65,
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "Explore.GuardBracket": {
+        "doc": "Top-right of the gold corner brackets drawn around monsters that guard a target (e.g. two Chaosborn guarding the Pink Bird on Originisle III). Talking to the target only repeats a line until the guards are beaten. The monster sits about (-35, +50) from this corner.",
+        "recognition": "TemplateMatch",
+        "template": "explore/guard_bracket.png",
+        "roi": [
+            0,
+            90,
+            720,
+            870
+        ],
+        "threshold": 0.8,
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "Explore.TrackingIcon": {
+        "doc": "Target icon on the map's quest tracker panel; tap to toggle Tracking On/Off. It moves sideways with the quest title's length. Yellow when on, grey when off.",
+        "recognition": "TemplateMatch",
+        "template": [
+            "explore/tracking_on.png",
+            "explore/tracking_off.png"
+        ],
+        "roi": [
+            0,
+            960,
+            420,
+            90
+        ],
+        "threshold": 0.75,
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "Explore.NpcAlert": {
+        "doc": "Red '!' bubble over an NPC with something to say. Quests can be gated behind talking to them (e.g. the Chief on Originisle V guards the loot row until spoken to). The player's own character also shows one; sxs/explore.py skips the one over the player's name.",
+        "recognition": "TemplateMatch",
+        "template": "explore/npc_alert.png",
+        "roi": [
+            0,
+            110,
+            720,
+            840
+        ],
+        "threshold": 0.8,
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "Explore.TrackerGift": {
+        "doc": "Gift icon at the right end of the quest tracker panel when a quest is finished; tapping it claims the reward (tapping the text does not always). Same on home and on the map.",
+        "recognition": "TemplateMatch",
+        "template": "explore/tracker_gift.png",
+        "roi": [
+            0,
+            860,
+            520,
+            200
+        ],
+        "threshold": 0.8,
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "Explore.Monster": {
+        "doc": "Roaming monsters on the island map (templates in image/monsters/, add one per new kind). Used when progress stalls: a monster near the target is usually blocking the only path to it.",
+        "recognition": "TemplateMatch",
+        "template": [
+            "monsters/wolf_spear.png",
+            "monsters/wolf_spear_2.png"
+        ],
+        "roi": [
+            0,
+            110,
+            720,
+            850
+        ],
+        "threshold": 0.7,
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "Explore.EdgePointer": {
+        "doc": "White ring with a portrait and a speech-bubble tail at the screen edge, pointing to an off-screen target: a boss (Guardian Colossi) or a Goddess Statue. Tapping it pans the camera to the target. Also the blue-orb pointer for 'Unlock <area>' quests.",
+        "recognition": "TemplateMatch",
+        "template": [
+            "explore/marker_boss.png",
+            "explore/pointer_statue.png",
+            "explore/pointer_unlock.png"
+        ],
+        "roi": [
+            0,
+            90,
+            720,
+            900
+        ],
+        "threshold": 0.75,
+        "pre_delay": 0,
+        "post_delay": 0
+    }
+}

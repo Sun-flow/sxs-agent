@@ -6,7 +6,20 @@
 ### 2026-11-03 (late) · Game docs after PR #6 (Claude Code, cloud)
 - PR #6 merged batches 4 to 9 and mae's rules up to R-067. Added R-068 (travel through the full area map) and the `area_map` screen; branch `claude/project-thread-npg43i` fast-forwarded to main.
 - Builder batch 10 (handoff): R-069 to R-077 (obelisk, Goddess Statue blessing, mines, puzzle, path blockers, edge pointers, home events, area map, team panel); minimap crops and HSV thresholds linked to R-066; `puzzle_energy_circuits`, `team` and `blessing_level` screens. Same PR #8.
-- Open: images from batches 4 to 10 live on step3-explore (#7) until it merges.
+- Merged main after PR #7, so the images from batches 4 to 10 now resolve on main.
+
+### 2026-11-03 (late) · Verdantglade I–II, minimap reader, handoff (Claude Code, maes2024 via Remote Control)
+- Talked to the Chief to open the Originisle V loot (NPC "!" gating), activated the Voyage Obelisk, then cleared and blessed Verdantglade I and II (Lv 12, 7.7K power). Added: talk to NPC "!" when stuck, fight path blockers (wolf templates), edge pointers (boss, statue, unlock), the tracker gift claim, rules for the obelisk, goddess statue and mines, mae's heal-and-retry rule, dialogue logging, `sxs/minimap.py` and `sxs/fogwalk.py`. Branch `step3-explore`, PR #7.
+- Open: Moonveil Woods route (blocker); handed off in `memory-bank/handoff.md` at mae's request.
+
+### 2026-11-03 (evening) · Mage, prayer, strengthen routine (Claude Code, maes2024 via Remote Control)
+- mae chose Mage, and the character ascended. The tutorial unlocked the Statue and Prayer (10 free tickets used), and Cyclone and Flame Jet are equipped. Added `--choose` to `sxs.explore`, stall guards (vary tap offset, give up), unknown screens through the decider, a spend guard in the tutorial follower, and `sxs/strengthen.py`. Rule batch 9 went to the docs thread. Branch `step3-explore`, PR #7.
+- Open: the unreachable loot on Originisle V blocks Wild Isle Trek V.
+
+### 2026-11-03 (night) · Step 3 start: quest following (Claude Code, maes2024 via Remote Control)
+- mae asked me to keep playing the tutorial overnight and map screens. Built `sxs/explore.py` (tracker-marker loop with chaining), `sxs/tutorial.py` (highlight and hint follower), `sxs/decide.py` with `resource/policy/cards.json` (goal-based card decisions, per mae's design note), `scripts/enhance_all.py` and `docs/step3-explore.md`. Branch `step3-explore`.
+- Account went from Lv 2 to Lv 10: Originisle I–V, Temple Ruins floor 1, the Guardian Colossi boss, rank Apprentice I. Rule batches 4–7 went to the docs thread through the coordinator.
+- Open: class choice (mae), automating strengthening, a PR for `step3-explore`.
 
 ### 2026-11-03 · Game docs batch 4 (Claude Code, cloud)
 - Builder batch 4 (step 3 explore loop): added `interact` and `defeated` screens and their taps to `memory-bank/game/nav-graph.json`; rules R-029 to R-034 (Trek quest chain, map object cards, defeat, camera, stamina regen, exploration rewards) and the quest-ring offset in R-022. Branch `claude/project-thread-npg43i` fast-forwarded to main after PR #4.
