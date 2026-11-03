@@ -1,7 +1,7 @@
 # Game rules
 
 > **Last updated**: 2026-11-03
-> Screen captures named below are in `docs/screens/` (step 2, PR #5); `interact_portal.png`, `defeated.png` and the marker templates are on branch step3-explore until it merges.
+> Screen captures named below are in `docs/screens/` (step 2, PR #5); captures from batches 4 and 5 (R-029 onward, plus `cart.png`) and the marker templates are on branch step3-explore until it merges.
 > One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-040).
 
 Entry format:

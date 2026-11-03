@@ -518,7 +518,7 @@
    "images": [
     "docs/screens/technique_upgrade.png"
    ],
-   "notes": "Tabs Upgrade / Ascend. Costs Battle Essence; level capped by character level (R-037)."
+   "notes": "Tabs Upgrade / Ascend. Costs Battle Essence; level capped by character level (R-037). Upgrade button at (0.5, 0.85) stays on this screen."
   }
  ],
  "edges": [
@@ -1154,21 +1154,6 @@
    },
    "confidence": "observed",
    "notes": ""
-  },
-  {
-   "from": "technique_upgrade",
-   "to": "previous",
-   "action": {
-    "type": "tap",
-    "target": "Upgrade button (repeat while affordable)",
-    "template": null,
-    "pos": [
-     0.5,
-     0.85
-    ]
-   },
-   "confidence": "observed",
-   "notes": "Not a navigation: stays on the screen. Listed so scripts find the button."
   }
  ]
 }

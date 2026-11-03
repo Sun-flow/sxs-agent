@@ -120,7 +120,7 @@ flowchart TD
 | `tap_to_continue` | Tap to Continue result | overlay | observed |  | Full-screen result such as 'UNLOCKED Bed, EXP/Hr 50'. |
 | `skill_loadout` | Skill loadout | menu | observed |  | 4 technique slots left, 4 charm slots right, Loadout 1 selector; tabs Technique / Charm / Shard; bottom tabs Skill / Goals (R-037, R-038). |
 | `technique_card` | Technique card | popup | observed |  | Technique details (e.g. Ice Spike) with Remove / Enhance. |
-| `technique_upgrade` | Technique upgrade | menu | observed |  | Tabs Upgrade / Ascend. Costs Battle Essence; level capped by character level (R-037). |
+| `technique_upgrade` | Technique upgrade | menu | observed |  | Tabs Upgrade / Ascend. Costs Battle Essence; level capped by character level (R-037). Upgrade button at (0.5, 0.85) stays on this screen. |
 
 ## Actions
 
@@ -171,4 +171,3 @@ flowchart TD
 | Character | Skill loadout | tap Skill button at [0.41, 0.59] | observed |  |
 | Skill loadout | Technique card | tap A technique slot (left side) | observed |  |
 | Technique card | Technique upgrade | tap Enhance | observed |  |
-| Technique upgrade | previous screen | tap Upgrade button (repeat while affordable) at [0.5, 0.85] | observed | Not a navigation: stays on the screen. Listed so scripts find the button. |
