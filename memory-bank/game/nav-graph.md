@@ -35,6 +35,13 @@ flowchart TD
     vendor["Vendor Booth"]
     mail["Mail"]
     arena["Arena"]
+    cart["Cart"]
+    home_house(["Home house"])
+    bed["Bed"]
+    tap_to_continue["Tap to Continue result"]
+    skill_loadout["Skill loadout"]
+    technique_card["Technique card"]
+    technique_upgrade["Technique upgrade"]
     home -->|"tap: Bottom nav bar (y 0.97): Character"| character
     world_map -.->|"tap: Bottom nav bar (y 0.97): Character"| character
     home -->|"tap: Bottom nav bar (y 0.97): Travel Journal"| travel_journal
@@ -65,6 +72,14 @@ flowchart TD
     defeated -->|"tap: OK"| home
     world_map -->|"tap: A map object (portal, chest...), or just below the quest ring"| interact
     interact -->|"tap: Action button (Activate, Collect...)"| world_map
+    home -->|"tap: The cart on the home scene (scroll left first)"| cart
+    cart -->|"tap: Claim All"| reward_popup
+    cart -->|"tap: Outside the panel"| home
+    home -->|"swipe: Scroll the home scene up"| home_house
+    home_house -->|"tap: The bed"| bed
+    character -->|"tap: Skill button"| skill_loadout
+    skill_loadout -->|"tap: A technique slot (left side)"| technique_card
+    technique_card -->|"tap: Enhance"| technique_upgrade
 ```
 
 ## Screens
@@ -99,6 +114,13 @@ flowchart TD
 | `vendor` | Vendor Booth | menu | reported | account level 18 (R-011) | Entry point unknown. |
 | `mail` | Mail | menu | reported |  | Entry point unknown. |
 | `arena` | Arena | menu | reported |  | Solo Arena and 3v3 Tournament (R-001). Entry point unknown. |
+| `cart` | Cart | popup | observed |  | Hourly income per resource, each with a level and an upgrade arrow (R-020). |
+| `home_house` | Home house | hub | observed |  | Two-storey house above the home scene (scroll the home scene up). Furniture slots, some locked by level (one 'Unlocks at Lv. 7'). |
+| `bed` | Bed | popup | observed |  | AFK EXP and production panel with 'Today's Free Speedup' (R-035). |
+| `tap_to_continue` | Tap to Continue result | overlay | observed |  | Full-screen result such as 'UNLOCKED Bed, EXP/Hr 50'. |
+| `skill_loadout` | Skill loadout | menu | observed |  | 4 technique slots left, 4 charm slots right, Loadout 1 selector; tabs Technique / Charm / Shard; bottom tabs Skill / Goals (R-037, R-038). |
+| `technique_card` | Technique card | popup | observed |  | Technique details (e.g. Ice Spike) with Remove / Enhance. |
+| `technique_upgrade` | Technique upgrade | menu | observed |  | Tabs Upgrade / Ascend. Costs Battle Essence; level capped by character level (R-037). |
 
 ## Actions
 
@@ -140,3 +162,13 @@ flowchart TD
 | Defeated dialog | Home | tap OK at [0.68, 0.65] | observed | Cancel is at (0.32, 0.65). |
 | World map (island) | Map object card | tap A map object (portal, chest...), or just below the quest ring [template resource/image/explore/marker.png] | observed | The ring floats about 0.08 of the screen height above its target (R-022). |
 | Map object card | World map (island) | tap Action button (Activate, Collect...) at [0.5, 0.7] | observed | Counts toward Explore progress. |
+| Home | Cart | tap The cart on the home scene (scroll left first) | observed | Its coin bubble collects directly instead (R-020). |
+| Cart | Reward popup | tap Claim All at [0.5, 0.86] | observed |  |
+| Cart | Home | tap Outside the panel at [0.5, 0.95] | observed |  |
+| Home | Home house | swipe Scroll the home scene up | observed |  |
+| Home house | Bed | tap The bed | observed |  |
+| Tap to Continue result | previous screen | tap Anywhere ('Tap to Continue') at [0.5, 0.95] | reported | Exact tap point not given; bottom of screen assumed. |
+| Character | Skill loadout | tap Skill button at [0.41, 0.59] | observed |  |
+| Skill loadout | Technique card | tap A technique slot (left side) | observed |  |
+| Technique card | Technique upgrade | tap Enhance | observed |  |
+| Technique upgrade | previous screen | tap Upgrade button (repeat while affordable) at [0.5, 0.85] | observed | Not a navigation: stays on the screen. Listed so scripts find the button. |

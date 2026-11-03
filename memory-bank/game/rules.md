@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/` (step 2, PR #5); `interact_portal.png`, `defeated.png` and the marker templates are on branch step3-explore until it merges.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-035).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-040).
 
 Entry format:
 
@@ -142,7 +142,8 @@ Entry format:
 ### R-020 · The Cart collects AFK rewards
 - **Rule**: The Cart accumulates rewards while offline, up to a cap; collect it at least once per cap period. It sits on the left of the Home scene (scroll the scene left); tap its coin bubble to collect, which opens a reward popup (Rolla, Stone, Wood).
 - **Confidence**: observed (collecting); the cap is reported. **Source**: builder batch 1; step 1 doc sections 3 and 4.
-- **Images**: `docs/screens/home_cart.png`, `docs/screens/reward_popup.png`.
+- **Detail**: Tapping the cart itself opens a panel of hourly income, each line with a level and an upgrade arrow: Rolla +1000/h, Wood +50/h, Stone +50/h, Raw Ore +100/h and Battle Essence +125/h (the last two unlocked free in the tutorial at Lv 3); Gear "Unlocks at Lv. 15". "Claim All" (0.5, 0.86) collects; tap outside (0.5, 0.95) to close. Observed, builder batch 5.
+- **Images**: `docs/screens/home_cart.png`, `docs/screens/cart.png`, `docs/screens/reward_popup.png`.
 - **Related**: node `home`.
 
 ## Added from builder batch 1 (2026-11-03)
@@ -232,3 +233,35 @@ Entry format:
 - **Confidence**: observed. **Source**: builder batch 4.
 - **Images**: none.
 - **Related**: R-018, R-019, R-021.
+
+## Added from builder batch 5 (2026-11-03)
+
+### R-035 · The house bed gives AFK EXP and a free daily speed-up
+- **Rule**: Scroll the home scene up to reach the house. Its bed ("Sleep to earn AFK EXP and speed up AFK resource collection", unlocked free) shows Blessing Level, Activated Lost Goddess Statues, Base EXP Yield, Production Bonus, EXP/Hr (50), EXP Reserve and Yield Progress. "Today's Free Speedup" is a **daily task**: one free speed-up per day. Using it took the account from Lv 3 to Lv 5. Other furniture slots unlock by level (one at Lv 7).
+- **Confidence**: observed. **Source**: builder batch 5.
+- **Images**: `docs/screens/home_house.png`, `docs/screens/bed.png`, `docs/screens/furniture_unlock.png`, `docs/screens/unlocked.png`.
+- **Related**: R-003 (blessed statues likely raise the bed's Blessing Level ❓), R-020, nodes `home_house`, `bed`.
+
+### R-036 · How the tutorial points at the next tap
+- **Rule**: The tutorial marks what to tap with (a) a bright yellow pulsing rounded frame around it, (b) a small Akane chibi bubble ("Tap to unlock", "Tap to speed up", "Upgrade skill to Lv. 5") about 0.08 of the screen height above the button, or sometimes (c) a white or pale frame instead of yellow. Step 3's tutorial follower handles (a) and (b). Unlock results show a full-screen "UNLOCKED ..." card; tap to continue.
+- **Confidence**: observed. **Source**: builder batch 5.
+- **Images**: `docs/screens/tutorial_highlight.png`, `docs/screens/tutorial_highlight_dim.png`, `docs/screens/unlocked.png`.
+- **Related**: R-007, R-028, node `tap_to_continue`.
+
+### R-037 · Techniques are upgraded with Battle Essence, capped by level
+- **Rule**: Character, then Skill (0.41, 0.59), opens the loadout (4 technique slots, 4 charm slots). Tap a technique, then Enhance, to reach the Upgrade screen; the upgrade button is at (0.5, 0.85) and costs Battle Essence. A technique's level can't exceed what the character level allows ("Unlocks at Character Lv. 6" at Lv 5). An Ascend tab exists but is unexplored.
+- **Confidence**: observed. **Source**: builder batch 5.
+- **Images**: `docs/screens/skill_loadout.png`, `docs/screens/technique_card.png`, `docs/screens/technique_upgrade.png`.
+- **Related**: R-039, nodes `skill_loadout`, `technique_upgrade`.
+
+### R-038 · Charms are equipped into one of four slots
+- **Rule**: On the Charm tab, open a charm card (e.g. "Unstable Aura", Rare: 25% chance on technique hit to deal extra Wind DMG and knock back 1 grid), tap Equip, then tap one of the four pulsing right-hand slots.
+- **Confidence**: observed. **Source**: builder batch 5.
+- **Images**: none yet.
+- **Related**: R-037.
+
+### R-039 · Battle Essence is the skill currency
+- **Rule**: Battle Essence (purple orb, shown top right on the upgrade screen) pays for technique upgrades; the Cart produces it at +125/h. So far it is the only soft currency the bot has spent (788 down to 448 for a few upgrades). Account at Lv 5, power 1.3K to 2.3K after these upgrades.
+- **Confidence**: observed. **Source**: builder batch 5.
+- **Images**: none yet (want: icon crop).
+- **Related**: R-020, R-037.

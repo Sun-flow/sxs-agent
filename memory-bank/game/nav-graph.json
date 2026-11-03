@@ -421,6 +421,104 @@
    "detect": null,
    "images": [],
    "notes": "Solo Arena and 3v3 Tournament (R-001). Entry point unknown."
+  },
+  {
+   "id": "cart",
+   "name": "Cart",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "Claim All",
+    "roi": [
+     0.5,
+     0.86,
+     null,
+     null
+    ]
+   },
+   "images": [
+    "docs/screens/cart.png"
+   ],
+   "notes": "Hourly income per resource, each with a level and an upgrade arrow (R-020)."
+  },
+  {
+   "id": "home_house",
+   "name": "Home house",
+   "kind": "hub",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/home_house.png"
+   ],
+   "notes": "Two-storey house above the home scene (scroll the home scene up). Furniture slots, some locked by level (one 'Unlocks at Lv. 7')."
+  },
+  {
+   "id": "bed",
+   "name": "Bed",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/bed.png",
+    "docs/screens/furniture_unlock.png"
+   ],
+   "notes": "AFK EXP and production panel with 'Today's Free Speedup' (R-035)."
+  },
+  {
+   "id": "tap_to_continue",
+   "name": "Tap to Continue result",
+   "kind": "overlay",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "Tap to Continue",
+    "roi": "bottom"
+   },
+   "images": [
+    "docs/screens/unlocked.png"
+   ],
+   "notes": "Full-screen result such as 'UNLOCKED Bed, EXP/Hr 50'."
+  },
+  {
+   "id": "skill_loadout",
+   "name": "Skill loadout",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/skill_loadout.png"
+   ],
+   "notes": "4 technique slots left, 4 charm slots right, Loadout 1 selector; tabs Technique / Charm / Shard; bottom tabs Skill / Goals (R-037, R-038)."
+  },
+  {
+   "id": "technique_card",
+   "name": "Technique card",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/technique_card.png"
+   ],
+   "notes": "Technique details (e.g. Ice Spike) with Remove / Enhance."
+  },
+  {
+   "id": "technique_upgrade",
+   "name": "Technique upgrade",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/technique_upgrade.png"
+   ],
+   "notes": "Tabs Upgrade / Ascend. Costs Battle Essence; level capped by character level (R-037)."
   }
  ],
  "edges": [
@@ -936,6 +1034,141 @@
    },
    "confidence": "observed",
    "notes": "Counts toward Explore progress."
+  },
+  {
+   "from": "home",
+   "to": "cart",
+   "action": {
+    "type": "tap",
+    "target": "The cart on the home scene (scroll left first)",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Its coin bubble collects directly instead (R-020)."
+  },
+  {
+   "from": "cart",
+   "to": "reward_popup",
+   "action": {
+    "type": "tap",
+    "target": "Claim All",
+    "template": null,
+    "pos": [
+     0.5,
+     0.86
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "cart",
+   "to": "home",
+   "action": {
+    "type": "tap",
+    "target": "Outside the panel",
+    "template": null,
+    "pos": [
+     0.5,
+     0.95
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "home",
+   "to": "home_house",
+   "action": {
+    "type": "swipe",
+    "target": "Scroll the home scene up",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "home_house",
+   "to": "bed",
+   "action": {
+    "type": "tap",
+    "target": "The bed",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "tap_to_continue",
+   "to": "previous",
+   "action": {
+    "type": "tap",
+    "target": "Anywhere ('Tap to Continue')",
+    "template": null,
+    "pos": [
+     0.5,
+     0.95
+    ]
+   },
+   "confidence": "reported",
+   "notes": "Exact tap point not given; bottom of screen assumed."
+  },
+  {
+   "from": "character",
+   "to": "skill_loadout",
+   "action": {
+    "type": "tap",
+    "target": "Skill button",
+    "template": null,
+    "pos": [
+     0.41,
+     0.59
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "skill_loadout",
+   "to": "technique_card",
+   "action": {
+    "type": "tap",
+    "target": "A technique slot (left side)",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "technique_card",
+   "to": "technique_upgrade",
+   "action": {
+    "type": "tap",
+    "target": "Enhance",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "technique_upgrade",
+   "to": "previous",
+   "action": {
+    "type": "tap",
+    "target": "Upgrade button (repeat while affordable)",
+    "template": null,
+    "pos": [
+     0.5,
+     0.85
+    ]
+   },
+   "confidence": "observed",
+   "notes": "Not a navigation: stays on the screen. Listed so scripts find the button."
   }
  ]
 }
