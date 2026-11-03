@@ -1,4 +1,5 @@
-"""Explore side areas that have no quest marker by walking along the fog edge. No model calls.
+"""Explore side areas that have no quest marker: walk to unexplored ground the minimap shows (falling back to the
+fog edge). No model calls.
 
     python -m sxs.fogwalk [--minutes 10]
 
@@ -19,9 +20,10 @@ from typing import Optional
 import cv2
 import numpy as np
 
-from . import nav
+from . import minimap, nav
 from .decide import Context, Decider
 from .device import Device
+from .explore import PLAYER_NAME
 from .state import StateDetector
 
 log = logging.getLogger("sxs.fogwalk")
@@ -53,6 +55,21 @@ def fog_edge_target(frame: np.ndarray) -> Optional[tuple[int, int]]:
     return int(xs[pick] + x0), int(ys[pick] + y0)
 
 
+def minimap_target(det: StateDetector, frame: np.ndarray, lookahead: int = 4) -> Optional[tuple[int, int]]:
+    """Plan on the minimap: shortest walkable path to the nearest pickup or unexplored walkable tile, then tap a
+    few tiles along it (relative to the player, found by its name label). None if nothing is reachable."""
+    mm = minimap.read(frame)
+    path = minimap.path_to_nearest(mm)
+    if len(path) < 2:
+        return None
+    me = [b for t, b in det.read_text([0, 130, 720, 840], frame) if PLAYER_NAME in t]
+    if not me:
+        return None
+    x, y, w, h = me[0]
+    player = (x + w // 2, y - 40)  # the label sits under the character's feet
+    return minimap.screen_point(player, mm, path[min(lookahead, len(path) - 1)])
+
+
 def walk(dev: Device, det: StateDetector, minutes: float = 10) -> str:
     decider, ctx = Decider(det), Context(goal="explore")
     deadline = time.monotonic() + minutes * 60
@@ -60,7 +77,14 @@ def walk(dev: Device, det: StateDetector, minutes: float = 10) -> str:
     while time.monotonic() < deadline:
         d = det.detect()
         if d.state == "world_map":
-            target = fog_edge_target(dev.screenshot())
+            frame = dev.screenshot()
+            target = minimap_target(det, frame)
+            if target:
+                log.info("walking toward unexplored ground at %s", target)
+                dev.tap(*target)
+                time.sleep(3)
+                continue
+            target = fog_edge_target(frame)
             if target is None:
                 no_fog += 1
                 if no_fog >= 4:
