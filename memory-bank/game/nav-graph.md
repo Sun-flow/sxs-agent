@@ -55,6 +55,7 @@ flowchart TD
     prayer["Prayer (skill gacha)"]
     prayer_result["Prayer result"]
     apply_requests["Apply (social requests)"]
+    area_map["Area map (full map)"]
     home -->|"tap: Bottom nav bar (y 0.97): Character"| character
     world_map -.->|"tap: Bottom nav bar (y 0.97): Character"| character
     home -->|"tap: Bottom nav bar (y 0.97): Travel Journal"| travel_journal
@@ -113,6 +114,9 @@ flowchart TD
     home -->|"tap: Statue furniture (next to the 'Class to Unlock' stone)"| prayer
     prayer -->|"tap: Pray x10 [a human allowed it (never on the bot's own)]"| prayer_result
     world_map -->|"tap: Person icon with badge, left edge"| apply_requests
+    world_map -.->|"tap: The minimap"| area_map
+    area_map -.->|"tap: The spot to move the camera over"| area_map
+    area_map -.->|"tap: Close the map"| world_map
 ```
 
 ## Screens
@@ -167,6 +171,7 @@ flowchart TD
 | `prayer` | Prayer (skill gacha) | menu | observed | Statue furniture on home | Pray x1 / x10 with prayer tickets; tabs Prayer / Exchange / Goals. The bot never taps Pray (R-055). |
 | `prayer_result` | Prayer result | popup | observed |  | Skills and shards from a pull. |
 | `apply_requests` | Apply (social requests) | popup | observed |  | Tabs Friends / Team Up / Challenge / Room; incoming requests with x / check, Decline All / Agree All. Leave untouched (R-057). |
+| `area_map` | Area map (full map) | overlay | told |  | Full map of the current area, opened by tapping the minimap. Tapping a spot centres the camera there (R-068). |
 
 ## Actions
 
@@ -241,3 +246,6 @@ flowchart TD
 | Prayer (skill gacha) | Prayer result | tap Pray x10 (when a human allowed it (never on the bot's own)) | observed | Spends prayer tickets (R-055). |
 | World map (island) | Apply (social requests) | tap Person icon with badge, left edge at [0.06, 0.6] | observed |  |
 | Apply (social requests) | previous screen | tap Above the popup at [0.5, 0.05] | reported |  |
+| World map (island) | Area map (full map) | tap The minimap at [0.86, 0.13] | told | Minimap circle top right. |
+| Area map (full map) | Area map (full map) | tap The spot to move the camera over | told | Centres the camera there; stays on the map. |
+| Area map (full map) | World map (island) | tap Close the map | told | Close control not recorded; the camera now shows the tapped spot. Then tap the ground there and the player auto-paths to it. |

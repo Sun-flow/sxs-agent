@@ -689,6 +689,18 @@
     "docs/screens/apply_requests.png"
    ],
    "notes": "Tabs Friends / Team Up / Challenge / Room; incoming requests with x / check, Decline All / Agree All. Leave untouched (R-057)."
+  },
+  {
+   "id": "area_map",
+   "name": "Area map (full map)",
+   "kind": "overlay",
+   "confidence": "told",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/world_area_map.png"
+   ],
+   "notes": "Full map of the current area, opened by tapping the minimap. Tapping a spot centres the camera there (R-068)."
   }
  ],
  "edges": [
@@ -1661,6 +1673,45 @@
    },
    "confidence": "reported",
    "notes": ""
+  },
+  {
+   "from": "world_map",
+   "to": "area_map",
+   "action": {
+    "type": "tap",
+    "target": "The minimap",
+    "template": null,
+    "pos": [
+     0.86,
+     0.13
+    ]
+   },
+   "confidence": "told",
+   "notes": "Minimap circle top right."
+  },
+  {
+   "from": "area_map",
+   "to": "area_map",
+   "action": {
+    "type": "tap",
+    "target": "The spot to move the camera over",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "told",
+   "notes": "Centres the camera there; stays on the map."
+  },
+  {
+   "from": "area_map",
+   "to": "world_map",
+   "action": {
+    "type": "tap",
+    "target": "Close the map",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "told",
+   "notes": "Close control not recorded; the camera now shows the tapped spot. Then tap the ground there and the player auto-paths to it."
   }
  ]
 }

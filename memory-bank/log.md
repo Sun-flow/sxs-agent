@@ -3,6 +3,10 @@
 > **Last updated**: 2026-11-03
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
 
+### 2026-11-03 (late) · Game docs after PR #6 (Claude Code, cloud)
+- PR #6 merged batches 4 to 9 and mae's rules up to R-067. Added R-068 (travel through the full area map) and the `area_map` screen; branch `claude/project-thread-npg43i` fast-forwarded to main.
+- Open: a clean minimap capture and tile crops for R-066 once the builder's minimap reader exists.
+
 ### 2026-11-03 · Game docs batch 4 (Claude Code, cloud)
 - Builder batch 4 (step 3 explore loop): added `interact` and `defeated` screens and their taps to `memory-bank/game/nav-graph.json`; rules R-029 to R-034 (Trek quest chain, map object cards, defeat, camera, stamina regen, exploration rewards) and the quest-ring offset in R-022. Branch `claude/project-thread-npg43i` fast-forwarded to main after PR #4.
 - Batch 5 added to the same PR: cart, house, bed, unlock result and skill/technique screens; rules R-035 to R-039; Cart income in R-020.
