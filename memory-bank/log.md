@@ -11,7 +11,7 @@
 - Batch 8: class choice, Notice board events, Exploration Goals, Lv 10 menu layout, Friends and Settings (R-050 to R-053); currency icon crops linked. Opened the step 3 PR (#7) for the builder and merged main into its branch.
 - Batch 9: mae chose Mage; class ascend, Prayer gacha (never pray), technique equipping, social requests left alone, unreachable ledge loot, popups close above (R-054 to R-060).
 - mae's heal-and-retry policy added as R-061 (healing food fine to spend, conserve stat-boost dishes, retry a lost fight at most twice).
-- Open: captures for batches 4 to 9 live on branch step3-explore (PR #7) until it merges; how to reach the ledge loot (R-058); why Quick Heal sometimes doesn't clear the wounded dialog.
+- Open: captures for batches 4 to 9 live on branch step3-explore (PR #7) until it merges; ledge loot resolved by mae (talk to red "!" NPCs first, R-062); why Quick Heal sometimes doesn't clear the wounded dialog.
 
 ### 2026-11-03 · Game docs batch 2 (Claude Code, cloud)
 - Builder batch 2: added the `title` screen and login waits to `memory-bank/game/nav-graph.json`, confirmed Explore progress (R-002, R-021), noted the blessing statue is still unseen (R-003). Branch `claude/project-thread-npg43i` fast-forwarded to main after PR #3 merged.

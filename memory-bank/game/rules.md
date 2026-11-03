@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/` (step 2, PR #5); captures from batches 4 to 9 (R-029 onward, plus `cart.png`) and the marker templates are on branch step3-explore until it merges.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-062).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-063).
 
 Entry format:
 
@@ -382,9 +382,9 @@ Entry format:
 - **Images**: `docs/screens/apply_requests.png`.
 - **Related**: R-053, node `apply_requests`.
 
-### R-058 · Some loot is out of reach (open)
-- **Rule**: After the boss, the loot row next to the Chief (ore pile, blue orb, chest, red chest) sits on a ledge. Tapping it only walks the player to the grass below, and the tracker keeps pointing there, so the explore loop can get stuck on it. How to reach it is unknown; mae has been asked ❓.
-- **Confidence**: observed (the problem); no solution yet. **Source**: builder batch 9.
+### R-058 · Loot behind the Chief is out of reach until you talk to him
+- **Rule**: After the boss, the loot row next to the Chief (ore pile, blue orb, chest, red chest) sits on a ledge. Tapping it only walks the player to the grass below, and the tracker keeps pointing there, so the explore loop can get stuck on it. Resolved by mae: talk to the Chief first; he gives instructions and disappears, which opens the ledge (R-062).
+- **Confidence**: observed (the problem); told (the fix). **Source**: builder batch 9.
 - **Images**: `docs/screens/world_map_loot_ledge.png`.
 - **Related**: R-022, R-025.
 
@@ -407,3 +407,9 @@ Entry format:
 - **Confidence**: told. **Source**: mae, 2026-11-03.
 - **Images**: none yet (want: the profile's Recover button).
 - **Related**: R-031, R-043, R-046, R-047, nodes `player_profile`, `wounded`, `alchemy_pot`.
+
+### R-062 · NPCs with a red "!" gate progress
+- **Rule**: Quests can be locked behind NPC interactions. An NPC with a red exclamation mark above its head on the world map must be talked to first; it gives instructions on how to progress and then disappears, unlocking the objects around it (for example the Chief at the Originisle V pillar guards the boss loot row). When the tracker points at something that can't be reached, look for a red "!" NPC nearby and tap it first.
+- **Confidence**: told. **Source**: mae, 2026-11-03.
+- **Images**: none yet (want: an NPC with the red "!").
+- **Related**: R-041, R-058.
