@@ -33,6 +33,7 @@ EXPECTED = {
     "splash": "unknown",
     "title": "title",
     "unlocked": "tap_to_continue",
+    "blessing_level": "tap_to_continue",
     "furniture_unlock": "unknown",
     "title_loading": "loading",
     "home_cart": "home",

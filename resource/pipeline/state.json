@@ -295,10 +295,10 @@
         "recognition": "OCR",
         "expected": "Tap to Continue",
         "roi": [
-            180,
-            1170,
-            360,
-            70
+            150,
+            900,
+            420,
+            380
         ],
         "pre_delay": 0,
         "post_delay": 0

@@ -87,6 +87,12 @@
             "why": "The Voyage Obelisk is the gate to the next kingdom (Originisle V \u2192 Verdantglade); the quest marker points at it, and activating it is free."
         },
         {
+            "kind": "goddess_statue",
+            "match": "^Goddess Statue$",
+            "choose": "^Unlock$",
+            "why": "Unlocking a Goddess Statue once the area is 100% explored blesses the land (+1 Blessing Level, which feeds the Bed's AFK EXP). Free; it's the follow-up quest 'The Goddess's Grace'."
+        },
+        {
             "kind": "mini_dungeon",
             "match": "^(Temple Ruins|.*Ruins|.*Cave|.*Tower|.*Dungeon)$",
             "choose": "^(Explore|Enter)$",
