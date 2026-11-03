@@ -76,6 +76,17 @@
             "why": "Activating a portal is free, counts toward exploration and unlocks fast travel."
         },
         {
+            "kind": "obelisk",
+            "match": "^Voyage Obelisk$",
+            "choose": "^Activate$",
+            "when": {
+                "goal": [
+                    "explore"
+                ]
+            },
+            "why": "The Voyage Obelisk is the gate to the next kingdom (Originisle V \u2192 Verdantglade); the quest marker points at it, and activating it is free."
+        },
+        {
             "kind": "mini_dungeon",
             "match": "^(Temple Ruins|.*Ruins|.*Cave|.*Tower|.*Dungeon)$",
             "choose": "^(Explore|Enter)$",

@@ -105,5 +105,19 @@
         "threshold": 0.8,
         "pre_delay": 0,
         "post_delay": 0
+    },
+    "Explore.TrackerGift": {
+        "doc": "Gift icon at the right end of the quest tracker panel when a quest is finished; tapping it claims the reward (tapping the text does not always). Same on home and on the map.",
+        "recognition": "TemplateMatch",
+        "template": "explore/tracker_gift.png",
+        "roi": [
+            0,
+            860,
+            520,
+            200
+        ],
+        "threshold": 0.8,
+        "pre_delay": 0,
+        "post_delay": 0
     }
 }

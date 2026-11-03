@@ -38,6 +38,7 @@ EXPECTED = {
     "home_cart": "home",
     "interact_portal": "interact",
     "interact_temple": "interact",
+    "interact_obelisk": "interact",
     "loading": "loading",
     "loadout_edit": "unknown",
     "main_menu": "main_menu",

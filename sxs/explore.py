@@ -116,7 +116,8 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
                 log.info("progress: %s", prog.text)
             done = det.find("Explore.Complete")
             if done:
-                x, y, w, h = done.box
+                gift = det.find("Explore.TrackerGift")
+                x, y, w, h = (gift or done).box
                 dev.tap(x + w // 2, y + h // 2)
                 time.sleep(2)
                 log.info("explore quest complete, reward claimed")
@@ -244,6 +245,10 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
             if tracked is None:
                 return "no_tracker"
             log.info("tracker: %s %s", tracked["title"], tracked["progress"])
+            gift = det.find("Explore.TrackerGift")
+            if gift:
+                x, y, w, h = gift.box
+                tracked["tap"] = (x + w // 2, y + h // 2)  # finished: the gift claims it
             home_taps += 1
             if home_taps > REPEAT_LIMIT * 2:
                 return "stuck_home"  # tapping the tracker keeps landing back on home
