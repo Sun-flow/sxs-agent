@@ -43,7 +43,7 @@ def check(graph):
             problems.append(f"node {nid}: confidence {node.get('confidence')!r} not in {sorted(CONFIDENCE)}")
         for img in node.get("images", []):
             if not img.startswith("http") and not (ROOT / img).exists():
-                problems.append(f"node {nid}: image {img} doesn't exist")
+                problems.append(f"node {nid}: image {img} isn't in this checkout (warning)")
     for i, edge in enumerate(graph.get("edges", [])):
         label = f"edge {i} ({edge.get('from')} -> {edge.get('to')})"
         if edge.get("from") not in seen | PSEUDO_FROM:
@@ -54,13 +54,14 @@ def check(graph):
         if action.get("type") not in ACTIONS:
             problems.append(f"{label}: action type {action.get('type')!r} not in {sorted(ACTIONS)}")
         pos = action.get("pos")
-        if pos is not None and not (len(pos) == 2 and all(0 <= v <= 1 for v in pos)):
-            problems.append(f"{label}: pos must be [x, y] fractions between 0 and 1, or null")
+        if pos is not None and not (len(pos) == 2 and all(v is None or 0 <= v <= 1 for v in pos)):
+            problems.append(f"{label}: pos must be [x, y] fractions between 0 and 1 (null for a coordinate that varies), or null")
         if edge.get("confidence") not in CONFIDENCE:
             problems.append(f"{label}: confidence {edge.get('confidence')!r} not in {sorted(CONFIDENCE)}")
     reachable = {e["to"] for e in graph.get("edges", [])} | {"home"}
+    self_appearing = {n["id"] for n in graph.get("nodes", []) if n.get("kind") in ("popup", "overlay")}
     for nid in ids:
-        if nid not in reachable:
+        if nid not in reachable and nid not in self_appearing:
             problems.append(f"node {nid}: no edge leads to it yet (warning)")
     return problems
 

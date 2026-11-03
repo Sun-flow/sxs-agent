@@ -33,6 +33,7 @@ python3 scripts/nav-graph.py path home shop  # shortest sequence of actions betw
 
 Format of `nav-graph.json`:
 
-- `nodes[]`: `id` (snake_case, matches the state detector's state name), `name` (as the game labels it), `kind` (`hub`, `menu`, `popup`, `battle`, `world`, `overlay`), `confidence`, `unlock` (what opens it, or null), `detect` (what tells you you're on it: text, template or region), `images`, `notes`.
-- `edges[]`: `from`, `to`, `action` (`type`: `tap`, `back`, `swipe`, `wait`, `auto`; `target`: what to tap, described in words; `template`: the matcher's template name if one exists; `pos`: `[x, y]` as fractions of the 720×1280 portrait screen, or null), `confidence`, `notes`.
+- `nodes[]`: `id` (snake_case, matches the state detector's state name), `name` (as the game labels it), `kind` (`hub`, `menu`, `popup`, `battle`, `world`, `overlay`), `confidence`, `unlock` (what opens it, or null), `detect` (what tells you you're on it: `{type: ocr|template, text or template, roi}`, matching the step 2 pipeline's `resource/pipeline/state.json`), `images`, `notes`.
+- `edges[]`: `from`, `to`, `action` (`type`: `tap`, `back`, `swipe`, `wait`, `auto`; `target`: what to tap, described in words; `template`: the matcher's template name if one exists; `pos`: `[x, y]` as fractions of the 720×1280 portrait screen, null if not located yet, with a null coordinate inside when it varies, such as a list row), `confidence`, `notes`.
+- Popups and overlays (`kind` popup or overlay) can appear on their own; `"to": "previous"` means the action returns to whatever was underneath.
 - `"from": "*"` means the edge works from any screen (for example the Android back key closing a popup).

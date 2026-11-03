@@ -25,7 +25,7 @@ Format: `- what — branch, PR, environment (started date)`. Remove the line whe
 ## Open questions
 
 - Test account level and server (guilds unlock at 15, vendor at 18).
-- Daily reset time on the server.
+- Daily reset time on the server. Server clock is UTC-5 (`memory-bank/game/rules.md`, R-024).
 - Is co-op content in iteration 1?
 
 ## Known problems
