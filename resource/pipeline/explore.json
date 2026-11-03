@@ -91,5 +91,19 @@
         "threshold": 0.75,
         "pre_delay": 0,
         "post_delay": 0
+    },
+    "Explore.NpcAlert": {
+        "doc": "Red '!' bubble over an NPC with something to say. Quests can be gated behind talking to them (e.g. the Chief on Originisle V guards the loot row until spoken to). The player's own character also shows one; sxs/explore.py skips the one over the player's name.",
+        "recognition": "TemplateMatch",
+        "template": "explore/npc_alert.png",
+        "roi": [
+            0,
+            110,
+            720,
+            840
+        ],
+        "threshold": 0.8,
+        "pre_delay": 0,
+        "post_delay": 0
     }
 }

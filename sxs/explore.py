@@ -36,6 +36,8 @@ MARKER_TARGET_DYS = [100, 60, 140, 30]  # how far below the tracker ring its tar
 STALE_LIMIT = 4
 STALE_GIVE_UP = 16  # map visits with no progress before the run stops
 DECISION_OPTIONS = r"^(Ascend to|Change Class)"  # dialogue options a human decides
+PLAYER_NAME = "gromb2"  # our character's name label, to tell our own "!" from an NPC's
+NPC_DX, NPC_DY = 30, 50  # from the "!" bubble to the NPC's body
 RETRIES = 2  # retries of a lost fight before strengthening (mae, 2026-11-03)
 HEAL_BELOW = 80  # HP % under which the profile's Quick Heal (1 cooked dish) is used
 QUICK_HEAL = (510, 1064)
@@ -77,6 +79,17 @@ def read_tracker(det: StateDetector) -> Optional[dict]:
     return {"title": title, "progress": f"{a}/{b}", "done": a >= b, "tap": (box[0] + box[2] // 2, box[1] + box[3] // 2)}
 
 
+def npc_to_talk_to(det: StateDetector) -> Optional[tuple[int, int]]:
+    """Tap point for an NPC showing a red "!" bubble, skipping the one over our own character (name label below)."""
+    frame = det.device.screenshot()
+    for x, y, w, h in det.find_all("Explore.NpcAlert", frame):
+        label = " ".join(t for t, _ in det.read_text([max(0, x - 80), y + 20, 180, 120], frame))
+        if PLAYER_NAME in label:
+            continue
+        return x + w // 2 - NPC_DX, y + h // 2 + NPC_DY
+    return None
+
+
 def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_misses: int = 6,
                    choose: Optional[str] = None) -> str:
     """Returns "complete", "defeated", "no_marker", "no_tracker", "unknown_card", "repeating_card", "needs_decision", "stuck_home", "stuck_progress", "unknown_screen" or
@@ -115,7 +128,15 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
             if stale >= STALE_GIVE_UP:
                 return "stuck_progress"
             if stale >= STALE_LIMIT:
-                # Progress stuck while acting on the marker: the target may be guarded. Fight a bracketed monster.
+                # Progress stuck: the target may be gated behind an NPC with a red "!" (talk to them first)...
+                npc = npc_to_talk_to(det)
+                if npc:
+                    log.info("progress stuck; talking to an NPC at %s", npc)
+                    dev.tap(*npc)
+                    stale = 0
+                    time.sleep(3)
+                    continue
+                # ...or guarded by monsters. Fight a bracketed one.
                 guard = det.find("Explore.GuardBracket")
                 if guard:
                     log.info("progress stuck; attacking a guard at %s", guard.box)

@@ -109,6 +109,14 @@ class StateDetector:
         return Detection(node, node, box=list(best.box) if best is not None else None,
                          text=getattr(best, "text", None), elapsed_ms=int((time.perf_counter() - start) * 1000))
 
+    def find_all(self, node: str, frame=None) -> list[list[int]]:
+        """Boxes of every match of a node's recognition (best first), e.g. several NPC alert bubbles."""
+        self._action.frame = self.device.screenshot() if frame is None else frame
+        self.tasker.post_task(ENTRY, {ENTRY: {"custom_action_param": {"order": [node]}}}).wait()
+        if self._action.hit is None:
+            return []
+        return [list(r.box) for r in self._action.hit[1].filtered_results]
+
     def read_text(self, roi: list[int], frame=None) -> list[tuple[str, list[int]]]:
         """Every OCR line inside roi as (text, box), top to bottom. For reading popups whose wording varies."""
         self._action.frame = self.device.screenshot() if frame is None else frame

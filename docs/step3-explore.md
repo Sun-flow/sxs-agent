@@ -15,7 +15,7 @@ One detection per step, then by state:
 
 | State | What it does |
 |---|---|
-| `world_map` | If the tracker shows n/n, tap it to claim. Else find the gold tracker ring (`Explore.Marker`: bright, dim and boss variants). At a screen edge, tap the ring to pan; otherwise tap ~100 px below it, where the target is. If the ring is under the HUD (`Explore.MarkerAnywhere`), drag the map. If progress hasn't moved for 4 map visits, attack a monster with gold guard brackets (`Explore.GuardBracket`). If there is no ring, make sure tracking is on (`Explore.TrackingIcon`, read by colour), then toggle it to re-centre. |
+| `world_map` | If the tracker shows n/n, tap it to claim. Else find the gold tracker ring (`Explore.Marker`: bright, dim and boss variants). At a screen edge, tap the ring to pan; otherwise tap ~100 px below it, where the target is. If the ring is under the HUD (`Explore.MarkerAnywhere`), drag the map. If progress hasn't moved for 4 map visits, first talk to an NPC with a red "!" (`Explore.NpcAlert`; quests can be gated behind them, as the Chief on Originisle V gated the loot row), skipping the "!" over our own name, then try attacking a monster with gold guard brackets (`Explore.GuardBracket`), then vary the tap offset under the ring. After 16 stalled visits, stop (`stuck_progress`). If there is no ring, make sure tracking is on (`Explore.TrackingIcon`, read by colour), then toggle it to re-centre. |
 | `battle_prep` | Start Battle. |
 | `battle`, `loading` | Wait. |
 | `interact`, `dungeon_floor`, `confirm_dialog`, `quest_detail`, `defeated` | Decision step (below). `defeated` ends the run so the character can be strengthened. |
