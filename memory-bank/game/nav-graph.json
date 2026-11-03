@@ -1,0 +1,791 @@
+{
+ "version": 1,
+ "updated": "2026-11-03",
+ "screen": [
+  720,
+  1280
+ ],
+ "notes": "Format and confidence levels: memory-bank/game/README.md. pos is [x, y] as fractions of the 720x1280 portrait frame; null means not located yet, and a null inside pos means that coordinate varies. Captures (docs/screens/) and pipeline files (resource/) come from the step 2 branch step2-hands-and-eyes.",
+ "nodes": [
+  {
+   "id": "home",
+   "name": "Home",
+   "kind": "hub",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "Home",
+    "roi": [
+     0.39,
+     0.965,
+     0.61,
+     1.0
+    ]
+   },
+   "images": [
+    "docs/screens/home.png",
+    "docs/screens/home_cart.png"
+   ],
+   "notes": "Scene scrolls horizontally; the Cart (AFK income) and cherry tree are on the left (R-020). The chat strip at y 0.82-0.90 opens server_chat: avoid it."
+  },
+  {
+   "id": "main_menu",
+   "name": "Menu",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "User Center",
+    "roi": [
+     0.4,
+     0.85,
+     null,
+     null
+    ]
+   },
+   "images": [
+    "docs/screens/main_menu.png"
+   ],
+   "notes": "Also has Photo (0.14,0.85), Notice (0.30,0.85), User Center (0.47,0.85), Settings (0.64,0.85), a 'Coming soon' card (0.72,0.75). Shows the server clock (R-024)."
+  },
+  {
+   "id": "quests",
+   "name": "Quests",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "Guidance Quest | Achievement Quest",
+    "roi": "title, top left"
+   },
+   "images": [
+    "docs/screens/quest_list.png",
+    "docs/screens/achievement_quest.png"
+   ],
+   "notes": "Tabs Quest (0.40,0.95) and Achievement (0.78,0.95). Each row has 'Go >>' at x 0.83 that jumps to the relevant screen (R-009)."
+  },
+  {
+   "id": "quest_detail",
+   "name": "Quest detail",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/quest_detail.png"
+   ],
+   "notes": "Not detected yet."
+  },
+  {
+   "id": "world_overview",
+   "name": "World (island picker)",
+   "kind": "world",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "World",
+    "roi": "bottom-right nav label"
+   },
+   "images": [
+    "docs/screens/world_overview.png"
+   ],
+   "notes": "Pick an island to walk on."
+  },
+  {
+   "id": "world_map",
+   "name": "World map (island)",
+   "kind": "world",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "x, y coordinates under the minimap",
+    "roi": [
+     0.72,
+     0.2,
+     1.0,
+     0.25
+    ]
+   },
+   "images": [
+    "docs/screens/world_map.png",
+    "docs/screens/world_map_explore.png",
+    "docs/screens/world_map_monsters.png",
+    "docs/screens/world_map_quest_complete.png"
+   ],
+   "notes": "Walkable island map with minimap, fog and pickups (R-002, R-004, R-021, R-022). Shows a fruit counter instead of Rolla in the top bar."
+  },
+  {
+   "id": "player_profile",
+   "name": "Player profile",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/player_profile.png"
+   ],
+   "notes": "Gear, techniques, Dish, Quick Heal. Not detected yet. Android back does nothing here."
+  },
+  {
+   "id": "battle_prep",
+   "name": "Battle prep",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "Start Battle",
+    "roi": [
+     0.5,
+     0.75,
+     null,
+     null
+    ]
+   },
+   "images": [
+    "docs/screens/battle_prep.png"
+   ],
+   "notes": "Enemy line-up, 'Round 0/15'."
+  },
+  {
+   "id": "battle",
+   "name": "Battle",
+   "kind": "battle",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "Round n/15",
+    "roi": "top centre"
+   },
+   "images": [
+    "docs/screens/battle.png"
+   ],
+   "notes": "Plays itself (R-001); 15 rounds max."
+  },
+  {
+   "id": "battle_result",
+   "name": "Battle result",
+   "kind": "popup",
+   "confidence": "reported",
+   "unlock": null,
+   "detect": null,
+   "images": [],
+   "notes": "Not seen: a won map battle went straight back to world_map within about 4 s. May exist for other modes."
+  },
+  {
+   "id": "reward_popup",
+   "name": "Reward popup",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "YOU RECEIVED",
+    "roi": "banner at y 0.29"
+   },
+   "images": [
+    "docs/screens/reward_popup.png"
+   ],
+   "notes": "Close by tapping anywhere."
+  },
+  {
+   "id": "confirm_dialog",
+   "name": "Confirm dialog",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "Confirm",
+    "roi": "title"
+   },
+   "images": [
+    "docs/screens/confirm_dialog.png"
+   ],
+   "notes": "Cancel (0.32,0.57), OK (0.68,0.57). Returns to whatever the confirmed action leads to."
+  },
+  {
+   "id": "dialogue",
+   "name": "Story dialogue",
+   "kind": "overlay",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "template",
+    "template": "resource/image/state/dialogue_arrow.png",
+    "roi": [
+     0.5,
+     0.98,
+     null,
+     null
+    ]
+   },
+   "images": [
+    "docs/screens/dialogue.png",
+    "docs/screens/dialogue_loadout.png"
+   ],
+   "notes": "Tutorial/story overlay (Akane). Tap (0.5,0.9) to advance; can sit on top of any screen."
+  },
+  {
+   "id": "loading",
+   "name": "Loading",
+   "kind": "overlay",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "Loading",
+    "roi": "bottom right, dark screen"
+   },
+   "images": [
+    "docs/screens/loading.png"
+   ],
+   "notes": "Wait it out."
+  },
+  {
+   "id": "agreement",
+   "name": "User Agreement",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "User Agreement",
+    "roi": null
+   },
+   "images": [],
+   "notes": "First launch only. Needs a human; the bot must stop and ask."
+  },
+  {
+   "id": "character",
+   "name": "Character",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "Character",
+    "roi": "bottom-left nav label"
+   },
+   "images": [],
+   "notes": "Gear slots; gear slot -> item card (Replace / Enhance) -> Enhance Gear (R-023). No capture yet."
+  },
+  {
+   "id": "loadout_edit",
+   "name": "Loadout (Edit)",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/loadout_edit.png"
+   ],
+   "notes": "Not detected yet. Reached from the Combat Veteran quest's Go button."
+  },
+  {
+   "id": "server_chat",
+   "name": "Server Chat",
+   "kind": "overlay",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [],
+   "notes": "Close with the down arrow (0.06,0.96). Never type here."
+  },
+  {
+   "id": "travel_journal",
+   "name": "Travel Journal",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": "any mode unlocked (toast 'Unlock any mode to unlock Travel Journal')",
+   "detect": null,
+   "images": [],
+   "notes": "Locked on our account."
+  },
+  {
+   "id": "guild",
+   "name": "Guild",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": "Character Lv. 15 (toast on the locked tab)",
+   "detect": null,
+   "images": [],
+   "notes": "Donations, Farm, Boss, floating-island AFK farm (R-016, reported)."
+  },
+  {
+   "id": "shop",
+   "name": "Shop",
+   "kind": "menu",
+   "confidence": "reported",
+   "unlock": null,
+   "detect": null,
+   "images": [],
+   "notes": "Free daily stamina, Daily Shop, Vault (Dawnium) (R-017, R-018). Entry point unknown."
+  },
+  {
+   "id": "dungeons",
+   "name": "Dungeons",
+   "kind": "menu",
+   "confidence": "reported",
+   "unlock": null,
+   "detect": null,
+   "images": [],
+   "notes": "Material, Daily and Co-op dungeons (R-015). Entry point unknown."
+  },
+  {
+   "id": "vendor",
+   "name": "Vendor Booth",
+   "kind": "menu",
+   "confidence": "reported",
+   "unlock": "account level 18 (R-011)",
+   "detect": null,
+   "images": [],
+   "notes": "Entry point unknown."
+  },
+  {
+   "id": "mail",
+   "name": "Mail",
+   "kind": "menu",
+   "confidence": "reported",
+   "unlock": null,
+   "detect": null,
+   "images": [],
+   "notes": "Entry point unknown."
+  },
+  {
+   "id": "arena",
+   "name": "Arena",
+   "kind": "menu",
+   "confidence": "reported",
+   "unlock": null,
+   "detect": null,
+   "images": [],
+   "notes": "Solo Arena and 3v3 Tournament (R-001). Entry point unknown."
+  }
+ ],
+ "edges": [
+  {
+   "from": "*",
+   "to": "previous",
+   "action": {
+    "type": "back",
+    "target": "Android back key",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Unreliable: does nothing on player_profile. Prefer on-screen back arrows."
+  },
+  {
+   "from": "dialogue",
+   "to": "previous",
+   "action": {
+    "type": "tap",
+    "target": "Anywhere low on screen to advance",
+    "template": null,
+    "pos": [
+     0.5,
+     0.9
+    ]
+   },
+   "confidence": "observed",
+   "notes": "Repeat until the ▼ arrow is gone."
+  },
+  {
+   "from": "reward_popup",
+   "to": "previous",
+   "action": {
+    "type": "tap",
+    "target": "Anywhere",
+    "template": null,
+    "pos": [
+     0.5,
+     0.16
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "loading",
+   "to": "previous",
+   "action": {
+    "type": "wait",
+    "target": "Until the loading screen ends",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "home",
+   "to": "character",
+   "action": {
+    "type": "tap",
+    "target": "Bottom nav bar (y 0.97): Character",
+    "template": null,
+    "pos": [
+     0.11,
+     0.97
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "world_map",
+   "to": "character",
+   "action": {
+    "type": "tap",
+    "target": "Bottom nav bar (y 0.97): Character",
+    "template": null,
+    "pos": [
+     0.11,
+     0.97
+    ]
+   },
+   "confidence": "reported",
+   "notes": "Assumes the nav bar is visible on the map too."
+  },
+  {
+   "from": "home",
+   "to": "travel_journal",
+   "action": {
+    "type": "tap",
+    "target": "Bottom nav bar (y 0.97): Travel Journal",
+    "template": null,
+    "pos": [
+     0.29,
+     0.97
+    ]
+   },
+   "confidence": "observed",
+   "notes": "Locked: shows a toast and stays on home."
+  },
+  {
+   "from": "home",
+   "to": "guild",
+   "action": {
+    "type": "tap",
+    "target": "Bottom nav bar (y 0.97): Guild",
+    "template": null,
+    "pos": [
+     0.69,
+     0.97
+    ]
+   },
+   "confidence": "observed",
+   "notes": "Locked below Character Lv. 15: shows a toast and stays on home."
+  },
+  {
+   "from": "home",
+   "to": "world_overview",
+   "action": {
+    "type": "tap",
+    "target": "Bottom nav bar (y 0.97): World",
+    "template": null,
+    "pos": [
+     0.89,
+     0.97
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "character",
+   "to": "home",
+   "action": {
+    "type": "tap",
+    "target": "Bottom nav bar (y 0.97): Home",
+    "template": null,
+    "pos": [
+     0.5,
+     0.97
+    ]
+   },
+   "confidence": "reported",
+   "notes": ""
+  },
+  {
+   "from": "world_overview",
+   "to": "home",
+   "action": {
+    "type": "tap",
+    "target": "Bottom nav bar (y 0.97): Home",
+    "template": null,
+    "pos": [
+     0.5,
+     0.97
+    ]
+   },
+   "confidence": "reported",
+   "notes": ""
+  },
+  {
+   "from": "world_overview",
+   "to": "world_map",
+   "action": {
+    "type": "tap",
+    "target": "Island (Originisle)",
+    "template": null,
+    "pos": [
+     0.5,
+     0.42
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "home",
+   "to": "main_menu",
+   "action": {
+    "type": "tap",
+    "target": "Box/package button",
+    "template": null,
+    "pos": [
+     0.92,
+     0.79
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "main_menu",
+   "to": "quests",
+   "action": {
+    "type": "tap",
+    "target": "Quest card",
+    "template": null,
+    "pos": [
+     0.28,
+     0.75
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "main_menu",
+   "to": "home",
+   "action": {
+    "type": "tap",
+    "target": "Back arrow, bottom left",
+    "template": null,
+    "pos": [
+     0.08,
+     0.95
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "quests",
+   "to": "main_menu",
+   "action": {
+    "type": "tap",
+    "target": "Back arrow, bottom left",
+    "template": null,
+    "pos": [
+     0.08,
+     0.95
+    ]
+   },
+   "confidence": "observed",
+   "notes": "Closes quests; assumed to return to the menu."
+  },
+  {
+   "from": "quests",
+   "to": "loadout_edit",
+   "action": {
+    "type": "tap",
+    "target": "'Go >>' on the Combat Veteran row",
+    "template": null,
+    "pos": [
+     0.83,
+     null
+    ]
+   },
+   "confidence": "observed",
+   "notes": "y depends on the row; each row's Go button jumps to its own screen."
+  },
+  {
+   "from": "home",
+   "to": "confirm_dialog",
+   "action": {
+    "type": "tap",
+    "target": "Quest tracker panel",
+    "template": null,
+    "pos": [
+     0.41,
+     0.78
+    ]
+   },
+   "confidence": "observed",
+   "notes": "Asks 'Travel to Originisle I now?'."
+  },
+  {
+   "from": "confirm_dialog",
+   "to": "world_map",
+   "action": {
+    "type": "tap",
+    "target": "OK",
+    "template": null,
+    "pos": [
+     0.68,
+     0.57
+    ]
+   },
+   "confidence": "observed",
+   "notes": "When the dialog was the travel prompt."
+  },
+  {
+   "from": "confirm_dialog",
+   "to": "previous",
+   "action": {
+    "type": "tap",
+    "target": "Cancel",
+    "template": null,
+    "pos": [
+     0.32,
+     0.57
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "world_map",
+   "to": "home",
+   "action": {
+    "type": "tap",
+    "target": "Back arrow, bottom left",
+    "template": null,
+    "pos": [
+     0.08,
+     0.95
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "world_map",
+   "to": "player_profile",
+   "action": {
+    "type": "tap",
+    "target": "Character portrait",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "player_profile",
+   "to": "world_map",
+   "action": {
+    "type": "tap",
+    "target": "Outside the popup",
+    "template": null,
+    "pos": [
+     0.5,
+     0.95
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "world_map",
+   "to": "battle_prep",
+   "action": {
+    "type": "tap",
+    "target": "A roaming monster",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Use the minimap or the tracking ring to find one (R-004, R-022)."
+  },
+  {
+   "from": "battle_prep",
+   "to": "battle",
+   "action": {
+    "type": "tap",
+    "target": "Start Battle",
+    "template": null,
+    "pos": [
+     0.5,
+     0.75
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "battle",
+   "to": "world_map",
+   "action": {
+    "type": "auto",
+    "target": "Battle ends on its own",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Back on the map within about 4 s after a win. Loss path not seen yet."
+  },
+  {
+   "from": "home",
+   "to": "reward_popup",
+   "action": {
+    "type": "tap",
+    "target": "Cart coin bubble (scroll the scene left first)",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Collects AFK income (R-020)."
+  },
+  {
+   "from": "home",
+   "to": "server_chat",
+   "action": {
+    "type": "tap",
+    "target": "Chat strip (avoid)",
+    "template": null,
+    "pos": [
+     0.5,
+     0.86
+    ]
+   },
+   "confidence": "observed",
+   "notes": "Accidental; y 0.82-0.90."
+  },
+  {
+   "from": "server_chat",
+   "to": "home",
+   "action": {
+    "type": "tap",
+    "target": "Down arrow",
+    "template": null,
+    "pos": [
+     0.06,
+     0.96
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  }
+ ]
+}

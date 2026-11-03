@@ -25,6 +25,7 @@ Then read the docs and code your task needs.
 | `status.md` | Works / In progress / Next / Open questions / Known problems. Each "In progress" item names its branch, PR and environment. | Any session that changes the state of the work. | ~80 lines |
 | `log.md` | Session handoffs, newest first. | End of every session that changed something. | ~15 entries, then move the oldest to `docs/archive/memory-bank-log.md` (create it the first time) |
 | `notes.md` | mae's preferences, environment and tool gotchas, unwritten conventions. | As soon as you learn something the next session would rediscover. | ~100 lines |
+| `game/` | Game knowledge: rules of the world (`game/rules.md`) and the menu navigation graph (`game/nav-graph.json`). Its own README explains the format. | A session learns a rule or a route between screens. | One entry per rule; graph checked by `scripts/nav-graph.py` |
 | `decisions.md` | Decisions with lasting consequences, why, and what was rejected. The repo has no other decision log. | A decision is made or superseded. | Newest first; never delete an entry |
 
 ## Sources of truth (higher wins)
