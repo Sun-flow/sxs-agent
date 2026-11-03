@@ -56,6 +56,9 @@ flowchart TD
     prayer_result["Prayer result"]
     apply_requests["Apply (social requests)"]
     area_map["Area map (full map)"]
+    puzzle_energy_circuits["Energy Circuits puzzle"]
+    team["Team panel"]
+    blessing_level["Blessing level"]
     home -->|"tap: Bottom nav bar (y 0.97): Character"| character
     world_map -.->|"tap: Bottom nav bar (y 0.97): Character"| character
     home -->|"tap: Bottom nav bar (y 0.97): Travel Journal"| travel_journal
@@ -114,16 +117,21 @@ flowchart TD
     home -->|"tap: Statue furniture (next to the 'Class to Unlock' stone)"| prayer
     prayer -->|"tap: Pray x10 [a human allowed it (never on the bot's own)]"| prayer_result
     world_map -->|"tap: Person icon with badge, left edge"| apply_requests
-    world_map -.->|"tap: The minimap"| area_map
-    area_map -.->|"tap: The spot to move the camera over"| area_map
-    area_map -.->|"tap: Close the map"| world_map
+    world_map -->|"tap: The minimap"| area_map
+    area_map -->|"tap: The spot to move the camera over"| area_map
+    area_map -->|"tap: Close the map"| world_map
+    world_map -->|"tap: Flag button, top left"| team
+    interact -->|"tap: Unlock (Goddess Statue) [area at 100% exploration]"| blessing_level
+    interact -.->|"tap: Activate (Voyage Obelisk) [goal needs the next kingdom]"| world_overview
+    interact -->|"tap: Explore (mine) [goal=explore and hp_ok]"| battle_prep
+    world_map -->|"tap: Ancient Fortress puzzle object"| puzzle_energy_circuits
 ```
 
 ## Screens
 
 | id | Name | Kind | Confidence | Unlock | Notes |
 |---|---|---|---|---|---|
-| `home` | Home | hub | observed |  | Scene scrolls horizontally; the Cart (AFK income) and cherry tree are on the left (R-020). The chat strip at y 0.82-0.90 opens server_chat: avoid it. |
+| `home` | Home | hub | observed |  | Scene scrolls horizontally; the Cart (AFK income) and cherry tree are on the left (R-020). The chat strip at y 0.82-0.90 opens server_chat: avoid it. After Originisle: top-right 'Thrilling Events' and 'Starter Pack' (shop; never buy) buttons (R-075). |
 | `main_menu` | Menu | menu | observed |  | Also has Photo (0.14,0.85), Notice (0.30,0.85), User Center (0.47,0.85), Settings (0.64,0.85), a 'Coming soon' card (0.72,0.75). Shows the server clock (R-024). From Lv 10 a Friends button is added and the row shifts: Friends (0.14,0.85), Photo (0.32), Notice (0.49), User Center (0.67), Settings (0.85). |
 | `quests` | Quests | menu | observed |  | Tabs Quest (0.40,0.95) and Achievement (0.78,0.95). Each row has 'Go >>' at x 0.83 that jumps to the relevant screen (R-009). |
 | `quest_detail` | Quest detail | popup | observed |  | Quest detail card: Details, Goal, Rewards and a Go or Track button (R-044). |
@@ -131,10 +139,10 @@ flowchart TD
 | `world_map` | World map (island) | world | observed |  | Walkable island map with minimap, fog and pickups (R-002, R-004, R-021, R-022). Shows a fruit counter instead of Rolla in the top bar. |
 | `player_profile` | Player profile | popup | observed |  | Gear, techniques, Dish, Quick Heal. Not detected yet. Android back does nothing here. |
 | `battle_prep` | Battle prep | menu | observed |  | Enemy line-up, 'Round 0/15'. |
-| `battle` | Battle | battle | observed |  | Plays itself (R-001); 15 rounds max. Loss leads to defeated. |
+| `battle` | Battle | battle | observed |  | Plays itself (R-001); 15 rounds max. Loss leads to defeated. Mine battles run up to 25 rounds. |
 | `battle_result` | Battle result | popup | reported |  | Not seen: wins return straight to world_map, sometimes with a reward_popup; losses show the defeated dialog. |
 | `defeated` | Defeated dialog | popup | observed |  | Confirm dialog 'Your character is incapacitated. Return to Home now?' after losing a map fight (R-031). |
-| `interact` | Exploration card | popup | observed |  | Card for a map structure or object: picture, title, one-line description, one button at about (0.5, 0.70). Seen: Portal (Activate), Temple Ruins (Explore). Dismiss by tapping outside. What to press is decided by the card policy (R-042). |
+| `interact` | Exploration card | popup | observed |  | Card for a map structure or object: picture, title, one-line description, one button at about (0.5, 0.70). Seen: Portal (Activate), Temple Ruins (Explore). Dismiss by tapping outside. What to press is decided by the card policy (R-042). Also Voyage Obelisk (Activate, kingdom travel), Goddess Statue (Unlock) and mines (Explore at 0.5, 0.80) (R-069 to R-071). |
 | `reward_popup` | Reward popup | popup | observed |  | Close by tapping anywhere. |
 | `confirm_dialog` | Confirm dialog | popup | observed |  | Cancel (0.32,0.57), OK (0.68,0.57). Returns to whatever the confirmed action leads to. Height varies: the 'Confirm' title sits between y 0.26 and 0.35, so buttons move with it (OK at y 0.57 for travel, 0.65 for defeat). |
 | `dialogue` | Story dialogue | overlay | observed |  | Tutorial/story overlay (Akane). Tap (0.5,0.9) to advance; can sit on top of any screen. Sometimes offers reply options (white pill with a black arrow). |
@@ -171,7 +179,10 @@ flowchart TD
 | `prayer` | Prayer (skill gacha) | menu | observed | Statue furniture on home | Pray x1 / x10 with prayer tickets; tabs Prayer / Exchange / Goals. The bot never taps Pray (R-055). |
 | `prayer_result` | Prayer result | popup | observed |  | Skills and shards from a pull. |
 | `apply_requests` | Apply (social requests) | popup | observed |  | Tabs Friends / Team Up / Challenge / Room; incoming requests with x / check, Decline All / Agree All. Leave untouched (R-057). |
-| `area_map` | Area map (full map) | overlay | told |  | Full map of the current area, opened by tapping the minimap. Tapping a spot centres the camera there (R-068). |
+| `area_map` | Area map (full map) | overlay | observed |  | Full map of the current area, opened by tapping the minimap. Legend: Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone; areas show exploration % and power gates. Tapping a spot centres the camera there (R-068, R-076). |
+| `puzzle_energy_circuits` | Energy Circuits puzzle | popup | observed |  | Ancient Fortress slab-swap puzzle; not automated (R-072). |
+| `team` | Team panel | popup | observed |  | Players 1/9, Team Goal, World Call / Invite / Nearby. Social; left alone (R-077). |
+| `blessing_level` | Blessing level | popup | observed |  | Shown after unlocking a Goddess Statue (R-070). |
 
 ## Actions
 
@@ -246,6 +257,11 @@ flowchart TD
 | Prayer (skill gacha) | Prayer result | tap Pray x10 (when a human allowed it (never on the bot's own)) | observed | Spends prayer tickets (R-055). |
 | World map (island) | Apply (social requests) | tap Person icon with badge, left edge at [0.06, 0.6] | observed |  |
 | Apply (social requests) | previous screen | tap Above the popup at [0.5, 0.05] | reported |  |
-| World map (island) | Area map (full map) | tap The minimap at [0.86, 0.13] | told | Minimap circle top right. |
-| Area map (full map) | Area map (full map) | tap The spot to move the camera over | told | Centres the camera there; stays on the map. |
-| Area map (full map) | World map (island) | tap Close the map | told | Close control not recorded; the camera now shows the tapped spot. Then tap the ground there and the player auto-paths to it. |
+| World map (island) | Area map (full map) | tap The minimap at [0.86, 0.13] | observed | Minimap circle top right. |
+| Area map (full map) | Area map (full map) | tap The spot to move the camera over | observed | Centres the camera there; stays on the map. |
+| Area map (full map) | World map (island) | tap Close the map | observed | Close control not recorded; the camera now shows the tapped spot. Then tap the ground there and the player auto-paths to it. |
+| World map (island) | Team panel | tap Flag button, top left at [0.08, 0.12] | observed |  |
+| Exploration card | Blessing level | tap Unlock (Goddess Statue) at [0.5, 0.7] (when area at 100% exploration) | observed |  |
+| Exploration card | World (island picker) | tap Activate (Voyage Obelisk) at [0.5, 0.7] (when goal needs the next kingdom) | reported | Kingdom travel Originisle to Verdantglade; landing screen not recorded. |
+| Exploration card | Battle prep | tap Explore (mine) at [0.5, 0.8] (when goal=explore and hp_ok) | observed | Mines put the button lower than other cards. |
+| World map (island) | Energy Circuits puzzle | tap Ancient Fortress puzzle object | observed |  |
