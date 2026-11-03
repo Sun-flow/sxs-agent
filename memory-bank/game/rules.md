@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/` (step 2, PR #5); captures from batches 4 to 9 (R-029 onward, plus `cart.png`) and the marker templates are on branch step3-explore until it merges.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-067).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-068).
 
 Entry format:
 
@@ -445,3 +445,9 @@ Entry format:
 - **Confidence**: told. **Source**: mae, 2026-11-03, with a marked-up screenshot of Verdantglade II (173, 104) circling a shadowed area joined to explored ground (not committed: it shows other players' chat). A clean capture from the builder is wanted.
 - **Images**: none yet.
 - **Related**: R-002, R-004, R-025, R-065.
+
+### R-067 · Areas connect by land bridges: path-find, don't walk straight
+- **Rule**: Areas join through land connections that can be far from the straight line to a target; for example, the way from Verdantglade II into Moonveil Woods is a land bridge at the bottom of the minimap. Straight-line walking will often hit walls or water, so the bot needs path-finding over the walkable tiles read from the minimap (R-066), heading for the connection first.
+- **Confidence**: told. **Source**: mae, 2026-11-03.
+- **Images**: none yet.
+- **Related**: R-025, R-064, R-066.
