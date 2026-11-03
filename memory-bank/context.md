@@ -31,6 +31,7 @@ All combat in the game is auto-battle, so the bot is mostly a menu navigator and
 
 ```bash
 python3 scripts/check-memory.py   # check the memory bank; lists commits since it was last updated
+python3 scripts/nav-graph.py check|render|path FROM TO   # menu graph: validate, regenerate the diagram, find a route
 ```
 
 No build, test or run commands exist yet. Add them here as the step 2 code lands.
@@ -45,6 +46,8 @@ No build, test or run commands exist yet. Add them here as the step 2 code lands
 | Kind of fact | File |
 |---|---|
 | Emulator comparison, architecture, game notes, daily-content catalogue, iteration 1 scope | `docs/step1-emulator-and-game.md` |
+| Rules of the world (currencies, quests, exploration, unlocks) | `memory-bank/game/rules.md` |
+| How screens connect, and the taps between them | `memory-bank/game/nav-graph.json` (diagram in `memory-bank/game/nav-graph.md`) |
 | Why a decision was made, and what was rejected | `memory-bank/decisions.md` |
 | Where the work stands | `memory-bank/status.md` |
 | mae's preferences, environment gotchas | `memory-bank/notes.md` |
