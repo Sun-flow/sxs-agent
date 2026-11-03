@@ -1,0 +1,246 @@
+{
+    "State.Detect": {
+        "doc": "Entry for the 'where am I' detector. The DetectState custom action (sxs/state.py) runs each node in custom_action_param.order against the same frame and stops at the first hit, so put popups and overlays before the screens they cover. (A plain next-list is not used because MaaFramework batches OCR across next-list nodes, which misread several screens.)",
+        "recognition": "DirectHit",
+        "action": "Custom",
+        "custom_action": "DetectState",
+        "custom_action_param": {
+            "order": [
+                "State.Agreement",
+                "State.Loading",
+                "State.Title",
+                "State.Loading.Title",
+                "State.RewardPopup",
+                "State.ConfirmDialog",
+                "State.Dialogue",
+                "State.BattlePrep",
+                "State.Battle",
+                "State.Home",
+                "State.WorldOverview",
+                "State.WorldMap",
+                "State.Character",
+                "State.MainMenu",
+                "State.Quests",
+                "State.Unknown"
+            ]
+        },
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Agreement": {
+        "doc": "Publisher's first-run User Agreement dialog. Needs a human to accept.",
+        "recognition": "OCR",
+        "expected": "accept the User Agreement",
+        "roi": [
+            40,
+            540,
+            640,
+            80
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Loading": {
+        "doc": "The dark 'Loading...' screen, or 'Logging in...' over the title.",
+        "recognition": "Or",
+        "any_of": [
+            {
+                "recognition": "OCR",
+                "expected": "Load",
+                "roi": [
+                    400,
+                    1100,
+                    320,
+                    180
+                ]
+            },
+            {
+                "recognition": "OCR",
+                "expected": "Logging in",
+                "roi": [
+                    200,
+                    600,
+                    320,
+                    80
+                ]
+            }
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.RewardPopup": {
+        "doc": "'YOU RECEIVED' banner after claiming anything (cart, quests, loot). Tap anywhere to close.",
+        "recognition": "OCR",
+        "expected": "YOU RECEIVED",
+        "roi": [
+            100,
+            330,
+            520,
+            90
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.ConfirmDialog": {
+        "doc": "Generic two-button Confirm dialog (Cancel left, OK right).",
+        "recognition": "OCR",
+        "expected": "^Confirm$",
+        "roi": [
+            160,
+            400,
+            400,
+            90
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Dialogue": {
+        "doc": "Story or tutorial dialogue box at the bottom with the 'more' arrow. Tap the box to advance.",
+        "recognition": "TemplateMatch",
+        "template": "state/dialogue_arrow.png",
+        "roi": [
+            300,
+            1200,
+            120,
+            80
+        ],
+        "threshold": 0.8,
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Battle": {
+        "doc": "Battle in progress (auto). 'Round n/15' at top centre. Checked after BattlePrep, which shows the same counter.",
+        "recognition": "OCR",
+        "expected": "Round \\d+/\\d+",
+        "roi": [
+            200,
+            10,
+            320,
+            60
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.BattlePrep": {
+        "doc": "Encounter screen before a fight: enemies at top, 'Start Battle' button.",
+        "recognition": "OCR",
+        "expected": "Start Battle",
+        "roi": [
+            180,
+            900,
+            360,
+            110
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Home": {
+        "doc": "Home scene (cart, cherry tree). Bottom nav shows the 'Home' label under the centre house.",
+        "recognition": "OCR",
+        "expected": "^Home$",
+        "roi": [
+            280,
+            1235,
+            160,
+            45
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.WorldOverview": {
+        "doc": "Island picker reached from the World tab (right end of the bottom nav).",
+        "recognition": "OCR",
+        "expected": "^World$",
+        "roi": [
+            560,
+            1235,
+            160,
+            45
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.WorldMap": {
+        "doc": "Walking map of one island: minimap top right with '(x, y)' coordinates under it.",
+        "recognition": "OCR",
+        "expected": "^\\(?\\d+ ?, ?\\d+\\)?$",
+        "roi": [
+            520,
+            250,
+            200,
+            70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Character": {
+        "doc": "Character tab (gear, stats, Skill, Class).",
+        "recognition": "OCR",
+        "expected": "^Character$",
+        "roi": [
+            0,
+            1235,
+            160,
+            45
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.MainMenu": {
+        "doc": "Menu sheet from the box button on Home: Quest, Photo, Notice, User Center, Settings, server clock.",
+        "recognition": "OCR",
+        "expected": "User Center",
+        "roi": [
+            290,
+            1090,
+            150,
+            50
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Quests": {
+        "doc": "Guidance Quest or Achievement Quest list (title top left).",
+        "recognition": "OCR",
+        "expected": "(Guidance|Achievement) Quest",
+        "roi": [
+            0,
+            20,
+            400,
+            70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Unknown": {
+        "recognition": "DirectHit",
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Title": {
+        "doc": "Title screen after loading finishes: 'Tap to Play' near the bottom, side buttons (Servers, Settings, Notice...) on the right.",
+        "recognition": "OCR",
+        "expected": "Tap to Play",
+        "roi": [
+            200,
+            1010,
+            320,
+            70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Loading.Title": {
+        "doc": "Title art while resources initialise: build string top left but no 'Tap to Play' yet (State.Title is checked first). Reported as 'loading'.",
+        "recognition": "OCR",
+        "expected": "_R\\d+_",
+        "roi": [
+            0,
+            10,
+            420,
+            50
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    }
+}
