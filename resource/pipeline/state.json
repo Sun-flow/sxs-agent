@@ -11,12 +11,14 @@
                 "State.Title",
                 "State.Loading.Title",
                 "State.RewardPopup",
+                "State.TapToContinue",
                 "State.Defeated",
                 "State.ConfirmDialog",
                 "State.Interact",
                 "State.Dialogue",
                 "State.BattlePrep",
                 "State.Battle",
+                "State.Cart",
                 "State.Home",
                 "State.WorldOverview",
                 "State.WorldMap",
@@ -267,6 +269,32 @@
             670,
             600,
             80
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Cart": {
+        "doc": "Cart (AFK income) panel from tapping the cart on home: income rows (Rolla, Wood, Stone, Raw Ore, Battle Essence; Gear unlocks at Lv 15) with upgrade arrows, 'Claim All' at (360, 1098). Close by tapping outside (360, 1220).",
+        "recognition": "OCR",
+        "expected": "^Claim All$",
+        "roi": [
+            200,
+            1065,
+            320,
+            70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.TapToContinue": {
+        "doc": "Full-screen result overlays that end with 'Tap to Continue' at the bottom (e.g. UNLOCKED furniture). Tap anywhere.",
+        "recognition": "OCR",
+        "expected": "Tap to Continue",
+        "roi": [
+            180,
+            1170,
+            360,
+            70
         ],
         "pre_delay": 0,
         "post_delay": 0

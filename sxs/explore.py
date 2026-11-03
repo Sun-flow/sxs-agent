@@ -96,7 +96,7 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
         elif d.state == "dialogue":
             dev.tap(*nav.DIALOGUE_NEXT)
             time.sleep(1.2)
-        elif d.state == "reward_popup":
+        elif d.state in ("reward_popup", "tap_to_continue"):
             dev.tap(*nav.REWARD_CLOSE)
             time.sleep(1.2)
         elif d.state == "confirm_dialog":

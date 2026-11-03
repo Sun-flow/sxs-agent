@@ -30,6 +30,7 @@ TOWARD_HOME = {
     "loading": None,
     "dialogue": DIALOGUE_NEXT,
     "reward_popup": REWARD_CLOSE,
+    "tap_to_continue": REWARD_CLOSE,
     "confirm_dialog": CONFIRM_CANCEL,
     "defeated": (490, 830),  # "Return to Home now?" OK
     "battle": None,  # auto battle, ends by itself
@@ -38,6 +39,7 @@ TOWARD_HOME = {
     "world_overview": NAV_HOME,
     "character": NAV_HOME,
     "main_menu": BACK_ARROW,
+    "cart": (360, 1220),  # tap outside the panel
     "quests": BACK_ARROW,
 }
 
