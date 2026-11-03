@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+.maa/
+debug/
+resource/model/ocr/*.onnx
+captures/
