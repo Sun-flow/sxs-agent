@@ -13,7 +13,9 @@ from __future__ import annotations
 import argparse
 import logging
 import sys
+import re
 import time
+from typing import Optional
 
 import cv2
 import numpy as np
@@ -26,7 +28,8 @@ from .state import StateDetector
 log = logging.getLogger("sxs.explore")
 
 TRACKER_PANEL = (304, 982)  # quest tracker panel on the map; claims the reward at 100/100
-TRACKING_TOGGLE = (290, 1012)  # target icon on the panel: Tracking On/Off
+TRACKING_TOGGLE = (290, 1012)
+TRACKER_ROI = [0, 860, 330, 180]  # quest tracker panel on home  # target icon on the panel: Tracking On/Off
 START_BATTLE = (360, 956)
 PAN_CENTER = (360, 560)  # where a hidden marker is dragged to
 MARKER_TARGET_DY = 100
@@ -34,15 +37,37 @@ STALE_LIMIT = 4
 GUARD_DX, GUARD_DY = -35, 50  # from the top-right guard bracket to the monster  # the target sits about this far below the centre of the tracker ring
 
 
-def tracking_on(frame: np.ndarray) -> bool:
+def tracking_toggle(det: StateDetector, frame: np.ndarray) -> tuple[int, int]:
+    """Where the tracking icon is on the panel (it shifts with the title's length)."""
+    icon = det.find("Explore.TrackingIcon", frame)
+    if icon is None:
+        return TRACKING_TOGGLE
+    x, y, w, h = icon.box
+    return x + w // 2, y + h // 2
+
+
+def tracking_on(frame: np.ndarray, at: tuple[int, int] = TRACKING_TOGGLE) -> bool:
     """The target icon on the tracker panel is bright yellow when tracking is on, dim grey when off."""
-    x, y = TRACKING_TOGGLE
+    x, y = at
     patch = cv2.cvtColor(frame[y - 12:y + 12, x - 12:x + 12], cv2.COLOR_BGR2HSV)
     return float(np.percentile(patch[:, :, 2], 90)) > 150
 
 
+def read_tracker(det: StateDetector) -> Optional[dict]:
+    """Quest tracker panel on home (bottom left). Its height changes when it shows rewards, so read it by OCR.
+    Returns title, progress ("a/b"), done flag and the point to tap (the title), or None if no panel."""
+    lines = det.read_text(TRACKER_ROI)
+    prog = next(((t, b) for t, b in lines if re.search(r"\d+/\d+", t)), None)
+    if prog is None:
+        return None
+    above = [(t, b) for t, b in lines if b[1] < prog[1][1]]
+    title, box = above[-1] if above else prog
+    a, b = map(int, re.search(r"(\d+)/(\d+)", prog[0]).groups())
+    return {"title": title, "progress": f"{a}/{b}", "done": a >= b, "tap": (box[0] + box[2] // 2, box[1] + box[3] // 2)}
+
+
 def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_misses: int = 6) -> str:
-    """Returns "complete", "defeated", "no_marker", "unknown_screen" or "timeout"."""
+    """Returns "complete", "defeated", "no_marker", "no_tracker", "unknown_screen" or "timeout"."""
     decider, ctx = Decider(det), Context(goal="explore")
     deadline = time.monotonic() + minutes * 60
     misses = unknowns = unknown_total = 0
@@ -100,20 +125,22 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
             misses += 1
             if misses >= max_misses:
                 return "no_marker"
-            if not tracking_on(dev.screenshot()):
-                dev.tap(*TRACKING_TOGGLE)
+            frame = dev.screenshot()
+            toggle = tracking_toggle(det, frame)
+            if not tracking_on(frame, toggle):
+                dev.tap(*toggle)
             else:
                 # Tracking is on but the ring is nowhere: re-toggle so the camera re-centres on the target.
-                dev.tap(*TRACKING_TOGGLE)
+                dev.tap(*toggle)
                 time.sleep(1.5)
-                dev.tap(*TRACKING_TOGGLE)
+                dev.tap(*toggle)
             time.sleep(2)
         elif d.state == "battle_prep":
             dev.tap(*START_BATTLE)
             time.sleep(3)
         elif d.state in ("battle", "loading"):
             time.sleep(2)
-        elif d.state in ("defeated", "interact", "dungeon_floor", "confirm_dialog"):
+        elif d.state in ("defeated", "interact", "dungeon_floor", "confirm_dialog", "quest_detail"):
             # Cards and dialogs: pick the option that fits the goal (resource/policy/cards.json).
             card, choice = decider.decide(ctx)
             dev.tap(*choice.point)
@@ -132,8 +159,13 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
             dev.tap(*nav.REWARD_CLOSE)
             time.sleep(1.2)
         elif d.state == "home":
-            dev.tap(296, 994)  # tracker panel on home offers to travel to the quest's island
-            time.sleep(2)
+            # The tracker panel on home either claims a finished quest or offers travel to the quest's island.
+            tracked = read_tracker(det)
+            if tracked is None:
+                return "no_tracker"
+            log.info("tracker: %s %s", tracked["title"], tracked["progress"])
+            dev.tap(*tracked["tap"])
+            time.sleep(2.5)
         else:
             unknowns += 1
             unknown_total += 1

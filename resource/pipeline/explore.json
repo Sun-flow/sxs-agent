@@ -1,10 +1,11 @@
 {
     "Explore.Marker": {
-        "doc": "Gold quest-tracker ring on the island map (tracking must be on). At a screen edge it points to an off-screen target and tapping it pans the camera there; on the map, tapping it walks to the target. Excludes the top bar, minimap and the tracker/chat strip. Two templates: bright (on the lit map) and dim (in shadow or under the level badge).",
+        "doc": "Gold quest-tracker ring on the island map (tracking must be on). At a screen edge it points to an off-screen target and tapping it pans the camera there; on the map, tapping it walks to the target. Excludes the top bar, minimap and the tracker/chat strip. Two templates: bright (on the lit map) and dim (in shadow or under the level badge). A third template is the white edge pointer used for boss targets (Guardian Colossi).",
         "recognition": "TemplateMatch",
         "template": [
             "explore/marker.png",
-            "explore/marker_dim.png"
+            "explore/marker_dim.png",
+            "explore/marker_boss.png"
         ],
         "roi": [
             0,
@@ -47,7 +48,8 @@
         "recognition": "TemplateMatch",
         "template": [
             "explore/marker.png",
-            "explore/marker_dim.png"
+            "explore/marker_dim.png",
+            "explore/marker_boss.png"
         ],
         "roi": [
             0,
@@ -70,6 +72,23 @@
             870
         ],
         "threshold": 0.8,
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "Explore.TrackingIcon": {
+        "doc": "Target icon on the map's quest tracker panel; tap to toggle Tracking On/Off. It moves sideways with the quest title's length. Yellow when on, grey when off.",
+        "recognition": "TemplateMatch",
+        "template": [
+            "explore/tracking_on.png",
+            "explore/tracking_off.png"
+        ],
+        "roi": [
+            0,
+            960,
+            420,
+            90
+        ],
+        "threshold": 0.75,
         "pre_delay": 0,
         "post_delay": 0
     }

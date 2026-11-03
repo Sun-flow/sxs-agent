@@ -15,6 +15,7 @@
                 "State.Defeated",
                 "State.ConfirmDialog",
                 "State.DungeonFloor",
+                "State.QuestDetail",
                 "State.Interact",
                 "State.DialogueChoice",
                 "State.Dialogue",
@@ -77,7 +78,7 @@
     "State.RewardPopup": {
         "doc": "'YOU RECEIVED' banner after claiming anything (cart, quests, loot). Tap anywhere to close.",
         "recognition": "OCR",
-        "expected": "YOU RECEIVED",
+        "expected": "^(YOU RECEIVED|Cooked)$",
         "roi": [
             100,
             330,
@@ -326,6 +327,19 @@
             360,
             560,
             90
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.QuestDetail": {
+        "doc": "Quest detail card (title, Details, Goal, Rewards) from tapping a quest on the tracker; button Track, Stop Tracking or Go at the bottom.",
+        "recognition": "OCR",
+        "expected": "^Details$",
+        "roi": [
+            90,
+            340,
+            260,
+            80
         ],
         "pre_delay": 0,
         "post_delay": 0

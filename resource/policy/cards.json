@@ -1,6 +1,6 @@
 {
     "doc": "How sxs/decide.py chooses on popups and cards. Rules are tried in order; the first whose 'when' holds and whose 'match' regex finds the card's title or body wins. 'choose' is a regex for the button to press, or 'dismiss' (back arrow or tap outside), or 'cancel' (the dialog's Cancel button). Goals: explore (finish the current Explore quest), daily (daily loop), idle (just get home). Add a rule whenever a new card shows up; anything no rule covers is dismissed and logged as unknown. A dismiss taps outside the card unless the rule says \"dismiss_by\": \"back\" (the bottom-left back arrow).",
-    "buttons": "^(OK|Cancel|Confirm|Explore|Enter|Activate|Collect|Claim|Claim All|Open|Interact|Bless|Pray|Gather|Harvest|Mine|Examine|Read|Next Floor|Leave|Retreat|Exit|Continue|Start Battle|Buy|Purchase|Refresh|Spend|Unlock|Upgrade|Enhance|Equip|Replace|Remove|Go)$",
+    "buttons": "^(OK|Cancel|Confirm|Explore|Enter|Activate|Collect|Claim|Claim All|Open|Interact|Bless|Pray|Gather|Harvest|Mine|Examine|Read|Next Floor|Leave|Retreat|Exit|Continue|Start Battle|Buy|Purchase|Refresh|Spend|Unlock|Upgrade|Enhance|Equip|Replace|Remove|Go|Track|Stop Tracking)$",
     "never": "^(Buy|Purchase|Refresh|Spend)$|Dawnium",
     "rules": [
         {
@@ -8,6 +8,24 @@
             "match": "incapacitated",
             "choose": "^OK$",
             "why": "Lost a fight. OK goes home; Cancel would leave the character stranded at 0 HP."
+        },
+        {
+            "kind": "quest_detail",
+            "match": "^Details",
+            "choose": "^(Go|Track)$",
+            "when": {
+                "goal": [
+                    "explore",
+                    "daily"
+                ]
+            },
+            "why": "Quest detail from the tracker: Go travels to the quest, Track turns tracking on."
+        },
+        {
+            "kind": "quest_detail",
+            "match": "^Details",
+            "choose": "dismiss",
+            "why": "Not working on quests right now."
         },
         {
             "kind": "travel",
