@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/` (step 2, PR #5); captures from batches 4 to 9 (R-029 onward, plus `cart.png`) and the marker templates are on branch step3-explore until it merges.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-063).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-064).
 
 Entry format:
 
@@ -409,7 +409,13 @@ Entry format:
 - **Related**: R-031, R-043, R-046, R-047, nodes `player_profile`, `wounded`, `alchemy_pot`.
 
 ### R-062 · NPCs with a red "!" gate progress
-- **Rule**: Quests can be locked behind NPC interactions. An NPC with a red exclamation mark above its head on the world map must be talked to first; it gives instructions on how to progress and then disappears, unlocking the objects around it (for example the Chief at the Originisle V pillar guards the boss loot row). When the tracker points at something that can't be reached, look for a red "!" NPC nearby and tap it first.
+- **Rule**: Quests can be locked behind NPC interactions. An NPC with a red exclamation mark above its head on the world map or overworld (Originisle, Verdantglade...) must be talked to first; it gives instructions on how to progress and then disappears, unlocking the objects around it (for example the Chief at the Originisle V pillar guards the boss loot row). When the tracker points at something that can't be reached, look for a red "!" NPC nearby and tap it first.
 - **Confidence**: told. **Source**: mae, 2026-11-03.
 - **Images**: none yet (want: an NPC with the red "!").
-- **Related**: R-041, R-058.
+- **Related**: R-041, R-058, R-063 (the other kind of "!").
+
+### R-063 · A red "!" in a UI menu means something to claim
+- **Rule**: A red "!" badge on a menu button or tab (not above an NPC in the world) means there is something to claim inside. Follow the badges down to the claim button. Treat it differently from the NPC "!" of R-062, which means talk to them.
+- **Confidence**: told. **Source**: mae, 2026-11-03.
+- **Images**: none yet (want: a menu badge).
+- **Related**: R-062, R-044 (claiming quests).
