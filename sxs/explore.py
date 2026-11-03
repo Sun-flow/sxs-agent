@@ -32,9 +32,11 @@ TRACKING_TOGGLE = (290, 1012)
 TRACKER_ROI = [0, 860, 330, 180]  # quest tracker panel on home
 START_BATTLE = (360, 956)
 PAN_CENTER = (360, 560)  # where a hidden marker is dragged to
+PAN_STEPS = [(360, 800, 360, 450), (360, 400, 360, 750), (550, 600, 200, 600), (200, 600, 550, 600)]
 MARKER_TARGET_DYS = [100, 60, 140, 30]  # how far below the tracker ring its target usually sits, best guess first
-STALE_LIMIT = 4
-STALE_GIVE_UP = 16  # map visits with no progress before the run stops
+STALE_STEP_S = 15  # seconds of no progress per "stale" step (drives the tap-offset cycle)
+STALE_LIMIT = 4  # stale steps (~1 min) before trying NPCs and guards
+STALE_GIVE_UP_S = 300  # no progress for this long ends the run
 DECISION_OPTIONS = r"^(Ascend to|Change Class)"  # dialogue options a human decides
 PLAYER_NAME = "gromb2"  # our character's name label, to tell our own "!" from an NPC's
 NPC_DX, NPC_DY = 30, 50  # from the "!" bubble to the NPC's body
@@ -90,7 +92,21 @@ def npc_to_talk_to(det: StateDetector) -> Optional[tuple[int, int]]:
     return None
 
 
-def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_misses: int = 6,
+def blocker_point(det: StateDetector) -> Optional[tuple[int, int]]:
+    """Halfway between our character (found by its name label) and the marker's target: where a monster blocking
+    the path usually stands (e.g. a wolf between the player and a sword pickup in Verdantglade I)."""
+    frame = det.device.screenshot()
+    marker = det.find("Explore.Marker", frame)
+    me = [b for t, b in det.read_text([0, 120, 720, 840], frame) if PLAYER_NAME in t]
+    if not marker or not me:
+        return None
+    mx, my, mw, mh = marker.box
+    tx, ty = mx + mw // 2, my + mh // 2 + MARKER_TARGET_DYS[0]
+    px, py = me[0][0] + me[0][2] // 2, me[0][1] - 50  # the label sits under the character's feet
+    return (px + tx) // 2, (py + ty) // 2
+
+
+def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_misses: int = 10,
                    choose: Optional[str] = None) -> str:
     """Returns "complete", "defeated", "no_marker", "no_tracker", "unknown_card", "repeating_card", "needs_decision", "stuck_home", "stuck_progress", "unknown_screen" or
     "timeout"."""
@@ -99,7 +115,7 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
     misses = unknowns = unknown_total = unknown_cards = repeats = home_taps = 0
     last_kind = None
     last_progress = last_state = last_progress_seen = None
-    stale = 0  # map visits in a row with no change in progress
+    stale, progress_at, tried_unstick = 0, time.monotonic(), False
     while time.monotonic() < deadline:
         d = det.detect()
         if d.state != last_state:
@@ -122,19 +138,28 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
                 time.sleep(2)
                 log.info("explore quest complete, reward claimed")
                 return "complete"
-            if prog and prog.text == last_progress_seen:
-                stale += 1
-            else:
-                stale, last_progress_seen = 0, prog.text if prog else None
-            if stale >= STALE_GIVE_UP:
+            # "Stale" is time since progress last changed (walking to a far target takes many marker taps).
+            if not prog or prog.text != last_progress_seen:
+                last_progress_seen, progress_at = (prog.text if prog else None), time.monotonic()
+                tried_unstick = False
+            stale_s = time.monotonic() - progress_at
+            stale = int(stale_s // STALE_STEP_S)
+            if stale_s >= STALE_GIVE_UP_S:
                 return "stuck_progress"
-            if stale >= STALE_LIMIT:
+            if stale >= STALE_LIMIT and not tried_unstick:
+                tried_unstick = True
                 # Progress stuck: the target may be gated behind an NPC with a red "!" (talk to them first)...
                 npc = npc_to_talk_to(det)
                 if npc:
                     log.info("progress stuck; talking to an NPC at %s", npc)
                     dev.tap(*npc)
-                    stale = 0
+                    time.sleep(3)
+                    continue
+                # ...or a monster stands in the way between us and the target: tap the spot halfway there.
+                blocker = blocker_point(det)
+                if blocker:
+                    log.info("progress stuck; tapping between player and target at %s", blocker)
+                    dev.tap(*blocker)
                     time.sleep(3)
                     continue
                 # ...or guarded by monsters. Fight a bracketed one.
@@ -142,7 +167,6 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
                 if guard:
                     log.info("progress stuck; attacking a guard at %s", guard.box)
                     dev.tap(guard.box[0] + GUARD_DX, guard.box[1] + GUARD_DY)
-                    stale = 0
                     time.sleep(3)
                     continue
             marker = det.find("Explore.Marker")
@@ -150,7 +174,7 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
                 misses = 0
                 x, y, w, h = marker.box
                 cx, cy = x + w // 2, y + h // 2
-                at_edge = cx < 60 or cx > 660 or cy < 150 or cy > 900
+                at_edge = cx < 30 or cx > 690 or cy < 130 or cy > 930  # ring clipped by the screen edge
                 # The ring floats above its target: tap the ring itself to pan, the spot under it to act.
                 # If progress hasn't moved, the target may sit nearer or farther below the ring: vary the offset.
                 dy = MARKER_TARGET_DYS[(stale // 2) % len(MARKER_TARGET_DYS)]
@@ -169,6 +193,12 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
             misses += 1
             if misses >= max_misses:
                 return "no_marker"
+            if misses % 2 == 1:
+                # The ring may be off screen or behind the chat panel: pan the map a step in turn up/down/left/right.
+                sx, sy, ex, ey = PAN_STEPS[(misses // 2) % len(PAN_STEPS)]
+                dev.swipe(sx, sy, ex, ey, 500)
+                time.sleep(1.5)
+                continue
             frame = dev.screenshot()
             toggle = tracking_toggle(det, frame)
             if not tracking_on(frame, toggle):
