@@ -415,7 +415,7 @@ Entry format:
 - **Related**: R-041, R-058, R-063 (the other kind of "!").
 
 ### R-063 · A red "!" in a UI menu means something to claim
-- **Rule**: A red "!" badge on a menu button or tab (not above an NPC in the world) means there is something to claim inside. Follow the badges down to the claim button. Treat it differently from the NPC "!" of R-062, which means talk to them.
+- **Rule**: A red "!" badge on a menu button or tab (not above an NPC in the world) means there is something to claim inside. Follow the badges down to the claim button. Treat it differently from the NPC "!" of R-062, which means talk to them. Which menus carry badges changes over time as event banners roll over, so a claim sweep must find badges on screen each run (template or colour), not walk a fixed list of menus.
 - **Confidence**: told. **Source**: mae, 2026-11-03.
 - **Images**: none yet (want: a menu badge).
 - **Related**: R-062, R-044 (claiming quests).
