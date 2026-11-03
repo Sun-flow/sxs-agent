@@ -10,6 +10,7 @@
 - Batch 7: quest chain to the Guardian Colossi boss, claiming from the tracker, boss pointer, low-HP dialog, Alchemy Pot dishes, rank advancement (R-044 to R-049; screens `wounded`, `alchemy_pot`, `rank_advancement`).
 - Batch 8: class choice, Notice board events, Exploration Goals, Lv 10 menu layout, Friends and Settings (R-050 to R-053); currency icon crops linked. Opened the step 3 PR (#7) for the builder and merged main into its branch.
 - Batch 9: mae chose Mage; class ascend, Prayer gacha (never pray), technique equipping, social requests left alone, unreachable ledge loot, popups close above (R-054 to R-060).
+- mae's heal-and-retry policy added as R-061 (healing food fine to spend, conserve stat-boost dishes, retry a lost fight at most twice).
 - Open: captures for batches 4 to 9 live on branch step3-explore (PR #7) until it merges; how to reach the ledge loot (R-058); why Quick Heal sometimes doesn't clear the wounded dialog.
 
 ### 2026-11-03 · Game docs batch 2 (Claude Code, cloud)

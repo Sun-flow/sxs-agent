@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/` (step 2, PR #5); captures from batches 4 to 9 (R-029 onward, plus `cart.png`) and the marker templates are on branch step3-explore until it merges.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-061).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-062).
 
 Entry format:
 
@@ -287,7 +287,7 @@ Entry format:
 - **Related**: R-018, R-043, `memory-bank/game/README.md` (the `when` field).
 
 ### R-043 · Never press spending buttons
-- **Rule**: The bot never presses Buy, Purchase, Refresh, Spend, Pray, Recharge or Top up, or any button mentioning Dawnium, unless a later policy rule explicitly allows it.
+- **Rule**: The bot never presses Buy, Purchase, Refresh, Spend, Pray, Recharge or Top up, or any button mentioning Dawnium, unless a later policy rule explicitly allows it. Exception (R-061): buying or cooking healing food with Rolla or ingredients is allowed.
 - **Confidence**: told (policy). **Source**: builder batch 6, following mae's budget rules.
 - **Images**: none.
 - **Related**: R-018, R-042.
@@ -307,13 +307,13 @@ Entry format:
 - **Related**: R-022.
 
 ### R-046 · Low HP blocks fights until you heal
-- **Rule**: Starting a fight while badly hurt shows "The character is badly wounded. Use dishes to heal?" with Return to Home and Quick Heal (costs dishes, e.g. 2; the dish count is top right). Repeated Quick Heal did not always clear it, and it eventually offered only Return to Home: perhaps the heal wasn't enough for the boss or dishes ran out ❓. Dishes come from the Alchemy Pot (R-047).
+- **Rule**: Starting a fight while badly hurt shows "The character is badly wounded. Use dishes to heal?" with Return to Home and Quick Heal (costs dishes, e.g. 2; the dish count is top right). Repeated Quick Heal did not always clear it, and it eventually offered only Return to Home: perhaps the heal wasn't enough for the boss or dishes ran out ❓. Dishes come from the Alchemy Pot (R-047). See R-061 for mae's heal-and-retry policy; the dialog's word "dishes" may mean healing food here, not the rarer stat-boost dishes ❓.
 - **Confidence**: observed; the cause of the stuck heal is unknown. **Source**: builder batch 7.
 - **Images**: `docs/screens/wounded.png`.
 - **Related**: R-031, R-047, node `wounded`.
 
 ### R-047 · The Alchemy Pot cooks healing dishes
-- **Rule**: House furniture unlocked at Lv 7 that "melts down gear and even whips up tasty treats". On its Dish tab, Green Riceball restores 8% + 1000 HP and costs ingredients shown at the top (blue potion 10/2, green herb 5/4); Cook shows a "Cooked" banner. Jelly Bean Pals is a second recipe. Keeping dishes stocked keeps the explore loop going (R-046).
+- **Rule**: House furniture unlocked at Lv 7 that "melts down gear and even whips up tasty treats". On its Dish tab, Green Riceball restores 8% + 1000 HP and costs ingredients shown at the top (blue potion 10/2, green herb 5/4); Cook shows a "Cooked" banner. Jelly Bean Pals is a second recipe. Green Riceball looks like the cheap healing food of R-061 ❓; keeping it stocked keeps the explore loop going (R-046).
 - **Confidence**: observed. **Source**: builder batch 7.
 - **Images**: `docs/screens/furniture_alchemy_pot.png`, `docs/screens/alchemy_pot.png`, `docs/screens/cooked.png`.
 - **Related**: R-035, R-046, node `alchemy_pot`.
@@ -399,3 +399,11 @@ Entry format:
 - **Confidence**: observed. **Source**: builder batch 9. Earlier, (0.5, 0.95) closed the player profile, so either may work there.
 - **Images**: none.
 - **Related**: nodes `cart`, `player_profile`, `apply_requests`.
+
+## Added from mae (2026-11-03, evening)
+
+### R-061 · Heal and retry a lost fight at most twice
+- **Rule**: Healing food (cooked from ingredients in the Alchemy Pot, or bought with Rolla) is cheap and fine to spend: eat it from the player portrait, then the button on the right ("Recover" or similar). While fights are being won, heal as freely as needed; Rolla is abundant early. **Dishes** are different: rarer items that give temporary stat boosts for a fight, so conserve them. If the same fight is lost twice in a row after healing, stop retrying: contact mae or go back to base to get stronger (gear, techniques, rank) first.
+- **Confidence**: told. **Source**: mae, 2026-11-03.
+- **Images**: none yet (want: the profile's Recover button).
+- **Related**: R-031, R-043, R-046, R-047, nodes `player_profile`, `wounded`, `alchemy_pot`.
