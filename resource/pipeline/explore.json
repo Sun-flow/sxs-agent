@@ -1,11 +1,10 @@
 {
     "Explore.Marker": {
-        "doc": "Gold quest-tracker ring on the island map (tracking must be on). At a screen edge it points to an off-screen target and tapping it pans the camera there; on the map, tapping it walks to the target. Excludes the top bar, minimap and the tracker/chat strip. Two templates: bright (on the lit map) and dim (in shadow or under the level badge). A third template is the white edge pointer used for boss targets (Guardian Colossi).",
+        "doc": "Gold quest-tracker ring on the island map (tracking must be on). At a screen edge it points to an off-screen target and tapping it pans the camera there; on the map, tapping it walks to the target. Excludes the top bar, minimap and the tracker/chat strip. Two templates: bright (on the lit map) and dim (in shadow or under the level badge).",
         "recognition": "TemplateMatch",
         "template": [
             "explore/marker.png",
-            "explore/marker_dim.png",
-            "explore/marker_boss.png"
+            "explore/marker_dim.png"
         ],
         "roi": [
             0,
@@ -48,8 +47,7 @@
         "recognition": "TemplateMatch",
         "template": [
             "explore/marker.png",
-            "explore/marker_dim.png",
-            "explore/marker_boss.png"
+            "explore/marker_dim.png"
         ],
         "roi": [
             0,
@@ -134,6 +132,23 @@
             850
         ],
         "threshold": 0.7,
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "Explore.EdgePointer": {
+        "doc": "White ring with a portrait and a speech-bubble tail at the screen edge, pointing to an off-screen target: a boss (Guardian Colossi) or a Goddess Statue. Tapping it pans the camera to the target.",
+        "recognition": "TemplateMatch",
+        "template": [
+            "explore/marker_boss.png",
+            "explore/pointer_statue.png"
+        ],
+        "roi": [
+            0,
+            90,
+            720,
+            900
+        ],
+        "threshold": 0.75,
         "pre_delay": 0,
         "post_delay": 0
     }

@@ -177,6 +177,19 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
                     dev.tap(guard.box[0] + GUARD_DX, guard.box[1] + GUARD_DY)
                     time.sleep(3)
                     continue
+            pointer = det.find("Explore.EdgePointer")
+            if pointer:
+                # Boss or statue off screen: tapping the pointer pans the camera there; then tap what it shows.
+                x, y, w, h = pointer.box
+                dev.tap(x + w // 2, y + h // 2)
+                time.sleep(2.5)
+                npc = npc_to_talk_to(det)
+                if npc:
+                    dev.tap(*npc)
+                    time.sleep(4)
+                    dev.tap(*npc)  # the first tap selects and walks; the second opens it
+                    time.sleep(3)
+                continue
             marker = det.find("Explore.Marker")
             if marker:
                 misses = 0
