@@ -14,7 +14,7 @@ All combat in the game is auto-battle, so the bot is mostly a menu navigator and
 
 ## Plan
 
-1. Choose the emulator and survey the game. Done as a design doc (PR #1, `docs/step1-emulator-and-game.md` once merged).
+1. Choose the emulator and survey the game. Done: `docs/step1-emulator-and-game.md` (PR #1).
 2. Hands-and-eyes layer: MaaFramework pipelines over MuMu Player 12 and ADB, no model calls. Runs on maes2024.
 3. Script the daily loop, with a supervisor that calls a model only on a failure or unknown screen and writes the fix back as a new or patched pipeline.
 4. Later: the entertainment agent, reading the same event log.
@@ -44,7 +44,7 @@ No build, test or run commands exist yet. Add them here as the step 2 code lands
 
 | Kind of fact | File |
 |---|---|
-| Emulator comparison, architecture, game notes, daily-content catalogue, iteration 1 scope | Step 1 doc (PR #1; `docs/step1-emulator-and-game.md` once merged) |
+| Emulator comparison, architecture, game notes, daily-content catalogue, iteration 1 scope | `docs/step1-emulator-and-game.md` |
 | Why a decision was made, and what was rejected | `memory-bank/decisions.md` |
 | Where the work stands | `memory-bank/status.md` |
 | mae's preferences, environment gotchas | `memory-bank/notes.md` |

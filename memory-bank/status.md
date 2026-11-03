@@ -6,16 +6,15 @@
 
 ## Works
 
-- Step 1 design doc: emulator choice (MuMu Player 12), toolkit (MaaFramework + MaaMCP), game survey and daily-content catalogue with a suggested iteration 1 scope. In PR #1, not yet merged.
+- Step 1 design doc: emulator choice (MuMu Player 12), toolkit (MaaFramework + MaaMCP), game survey and daily-content catalogue with a suggested iteration 1 scope. `docs/step1-emulator-and-game.md`, merged in PR #1.
 - Agent setup: `AGENTS.md` entry point, `CLAUDE.md`, this memory bank and `scripts/check-memory.py` (2026-11-03).
 
 ## In progress
 
 Format: `- what — branch, PR, environment (started date)`. Remove the line when it merges or is dropped.
 
-- Step 1 decision doc — branch `docs/step1-emulator-and-game`, PR #1, cloud (2026-11-02). Waiting on mae to review and merge.
 - Set up MuMu Player 12 and Python on maes2024 — no branch, maes2024 via Remote Control (2026-11-03).
-- Memory bank set-up — branch `claude/project-thread-4u6oai`, cloud (2026-11-03).
+- Memory bank set-up — branch `claude/project-thread-4u6oai`, PR #2, cloud (2026-11-03).
 
 ## Next
 
