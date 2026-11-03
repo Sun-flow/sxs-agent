@@ -17,6 +17,7 @@
 Format: `- what — branch, PR, environment (started date)`. Remove the line when it merges or is dropped.
 
 - Step 3 quest following — branch `step3-explore`, PR #7, maes2024 via Remote Control (2026-11-03).
+- Game rules and menu navigation graph (`memory-bank/game/`), filled in from rule batches the builder thread sends — branch `claude/project-thread-npg43i`, PRs #3, #4 and #6 merged (rules up to R-067); new batches go in a new PR, cloud (2026-11-03).
 
 ## Next
 

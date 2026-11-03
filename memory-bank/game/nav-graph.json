@@ -46,9 +46,10 @@
     ]
    },
    "images": [
-    "docs/screens/main_menu.png"
+    "docs/screens/main_menu.png",
+    "docs/screens/main_menu_lv10.png"
    ],
-   "notes": "Also has Photo (0.14,0.85), Notice (0.30,0.85), User Center (0.47,0.85), Settings (0.64,0.85), a 'Coming soon' card (0.72,0.75). Shows the server clock (R-024)."
+   "notes": "Also has Photo (0.14,0.85), Notice (0.30,0.85), User Center (0.47,0.85), Settings (0.64,0.85), a 'Coming soon' card (0.72,0.75). Shows the server clock (R-024). From Lv 10 a Friends button is added and the row shifts: Friends (0.14,0.85), Photo (0.32), Notice (0.49), User Center (0.67), Settings (0.85)."
   },
   {
    "id": "quests",
@@ -75,9 +76,10 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/quest_detail.png"
+    "docs/screens/quest_detail.png",
+    "docs/screens/quest_detail_go.png"
    ],
-   "notes": "Not detected yet."
+   "notes": "Quest detail card: Details, Goal, Rewards and a Go or Track button (R-044)."
   },
   {
    "id": "world_overview",
@@ -93,7 +95,7 @@
    "images": [
     "docs/screens/world_overview.png"
    ],
-   "notes": "Pick an island to walk on."
+   "notes": "Pick an island to walk on. Shows each island's exploration score and rank (e.g. 'Originisle 82, Ahead of 59.7% of Players'). Bottom-left button opens Exploration Goals."
   },
   {
    "id": "world_map",
@@ -166,7 +168,7 @@
    "images": [
     "docs/screens/battle.png"
    ],
-   "notes": "Plays itself (R-001); 15 rounds max."
+   "notes": "Plays itself (R-001); 15 rounds max. Loss leads to defeated."
   },
   {
    "id": "battle_result",
@@ -176,7 +178,45 @@
    "unlock": null,
    "detect": null,
    "images": [],
-   "notes": "Not seen: a won map battle went straight back to world_map within about 4 s. May exist for other modes."
+   "notes": "Not seen: wins return straight to world_map, sometimes with a reward_popup; losses show the defeated dialog."
+  },
+  {
+   "id": "defeated",
+   "name": "Defeated dialog",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "Your character is incapacitated",
+    "roi": null
+   },
+   "images": [
+    "docs/screens/defeated.png"
+   ],
+   "notes": "Confirm dialog 'Your character is incapacitated. Return to Home now?' after losing a map fight (R-031)."
+  },
+  {
+   "id": "interact",
+   "name": "Exploration card",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "one safe verb button: Activate | Collect | Claim | Open | Interact | Bless | Pray | Gather | Harvest | Mine | Examine | Read",
+    "roi": [
+     0.5,
+     0.7,
+     null,
+     null
+    ]
+   },
+   "images": [
+    "docs/screens/interact_portal.png",
+    "docs/screens/interact_temple.png"
+   ],
+   "notes": "Card for a map structure or object: picture, title, one-line description, one button at about (0.5, 0.70). Seen: Portal (Activate), Temple Ruins (Explore). Dismiss by tapping outside. What to press is decided by the card policy (R-042)."
   },
   {
    "id": "reward_popup",
@@ -208,7 +248,7 @@
    "images": [
     "docs/screens/confirm_dialog.png"
    ],
-   "notes": "Cancel (0.32,0.57), OK (0.68,0.57). Returns to whatever the confirmed action leads to."
+   "notes": "Cancel (0.32,0.57), OK (0.68,0.57). Returns to whatever the confirmed action leads to. Height varies: the 'Confirm' title sits between y 0.26 and 0.35, so buttons move with it (OK at y 0.57 for travel, 0.65 for defeat)."
   },
   {
    "id": "dialogue",
@@ -228,9 +268,10 @@
    },
    "images": [
     "docs/screens/dialogue.png",
-    "docs/screens/dialogue_loadout.png"
+    "docs/screens/dialogue_loadout.png",
+    "docs/screens/dialogue_choice.png"
    ],
-   "notes": "Tutorial/story overlay (Akane). Tap (0.5,0.9) to advance; can sit on top of any screen."
+   "notes": "Tutorial/story overlay (Akane). Tap (0.5,0.9) to advance; can sit on top of any screen. Sometimes offers reply options (white pill with a black arrow)."
   },
   {
    "id": "title",
@@ -384,6 +425,270 @@
    "detect": null,
    "images": [],
    "notes": "Solo Arena and 3v3 Tournament (R-001). Entry point unknown."
+  },
+  {
+   "id": "cart",
+   "name": "Cart",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "Claim All",
+    "roi": [
+     0.5,
+     0.86,
+     null,
+     null
+    ]
+   },
+   "images": [
+    "docs/screens/cart.png"
+   ],
+   "notes": "Hourly income per resource, each with a level and an upgrade arrow (R-020)."
+  },
+  {
+   "id": "home_house",
+   "name": "Home house",
+   "kind": "hub",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/home_house.png"
+   ],
+   "notes": "Two-storey house above the home scene (scroll the home scene up). Furniture slots, some locked by level (one 'Unlocks at Lv. 7')."
+  },
+  {
+   "id": "bed",
+   "name": "Bed",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/bed.png",
+    "docs/screens/furniture_unlock.png"
+   ],
+   "notes": "AFK EXP and production panel with 'Today's Free Speedup' (R-035)."
+  },
+  {
+   "id": "tap_to_continue",
+   "name": "Tap to Continue result",
+   "kind": "overlay",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "Tap to Continue",
+    "roi": "bottom"
+   },
+   "images": [
+    "docs/screens/unlocked.png"
+   ],
+   "notes": "Full-screen result such as 'UNLOCKED Bed, EXP/Hr 50'."
+  },
+  {
+   "id": "skill_loadout",
+   "name": "Skill loadout",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/skill_loadout.png"
+   ],
+   "notes": "4 technique slots left, 4 charm slots right, Loadout 1 selector; tabs Technique / Charm / Shard; bottom tabs Skill / Goals (R-037, R-038)."
+  },
+  {
+   "id": "technique_card",
+   "name": "Technique card",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/technique_card.png"
+   ],
+   "notes": "Technique details (e.g. Ice Spike) with Remove / Enhance."
+  },
+  {
+   "id": "technique_upgrade",
+   "name": "Technique upgrade",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/technique_upgrade.png"
+   ],
+   "notes": "Tabs Upgrade / Ascend. Costs Battle Essence; level capped by character level (R-037). Upgrade button at (0.5, 0.85) stays on this screen."
+  },
+  {
+   "id": "dungeon_floor",
+   "name": "Mini-dungeon floor",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "Floor n",
+    "roi": null
+   },
+   "images": [
+    "docs/screens/dungeon_floor.png"
+   ],
+   "notes": "Floor card e.g. 'Temple Ruins: Floor 1' with Next Floor at (0.5, 0.64) and a back arrow bottom left (R-040)."
+  },
+  {
+   "id": "wounded",
+   "name": "Badly wounded dialog",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "The character is badly wounded",
+    "roi": null
+   },
+   "images": [
+    "docs/screens/wounded.png"
+   ],
+   "notes": "Confirm 'The character is badly wounded. Use dishes to heal?' with Return to Home / Quick Heal (cost shown; dish count top right) (R-046)."
+  },
+  {
+   "id": "alchemy_pot",
+   "name": "Alchemy Pot",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": "Lv 7",
+   "detect": null,
+   "images": [
+    "docs/screens/furniture_alchemy_pot.png",
+    "docs/screens/alchemy_pot.png",
+    "docs/screens/cooked.png"
+   ],
+   "notes": "House furniture: melt down gear and cook dishes. Dish tab: recipes with ingredient costs at the top and a Cook button; shows a 'Cooked' banner (R-047)."
+  },
+  {
+   "id": "rank_advancement",
+   "name": "Rank Advancement",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/rank_advancement.png"
+   ],
+   "notes": "Rank up for base stats; needs max level and materials (R-048)."
+  },
+  {
+   "id": "notice",
+   "name": "Notice board",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/notice.png"
+   ],
+   "notes": "Tabs Notice / System / News; lists events (R-051)."
+  },
+  {
+   "id": "friends",
+   "name": "Friends",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": "Lv 10 (button appears on the menu)",
+   "detect": null,
+   "images": [
+    "docs/screens/friends.png"
+   ],
+   "notes": "Friends 0/60; tabs Friends / Add Friends / Requests / Blocklist."
+  },
+  {
+   "id": "settings",
+   "name": "Settings",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [],
+   "notes": "Tabs Game (language, chat channel visibility on home), Graphics (quality, frame rate 30/60, visible players, bloom), Sound, Alerts, Other (vibration, network boost, auto-download). Captures settings_*.png."
+  },
+  {
+   "id": "exploration_goals",
+   "name": "Exploration Goals",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/exploration_goals.png",
+    "docs/screens/destiny_exploration_goals.png"
+   ],
+   "notes": "Progress tab (per-region exploration milestones with rewards) and Explore tab (Destiny Exploration Goals) (R-052)."
+  },
+  {
+   "id": "class_choice",
+   "name": "Class choice dialogue",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/class_choice.png"
+   ],
+   "notes": "Dialogue options Ascend to Mage / Change Class / Leave. The bot never chooses on its own (needs_decision); `python -m sxs.explore --choose \"<regex>\"` applies a human's choice (R-050, R-054)."
+  },
+  {
+   "id": "class_ascend",
+   "name": "Class ascend",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/class_ascend.png"
+   ],
+   "notes": "Class trait stats and class skill grid; Ascend button at (0.5, 0.86) (R-054)."
+  },
+  {
+   "id": "prayer",
+   "name": "Prayer (skill gacha)",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": "Statue furniture on home",
+   "detect": null,
+   "images": [
+    "docs/screens/furniture_statue.png",
+    "docs/screens/prayer.png"
+   ],
+   "notes": "Pray x1 / x10 with prayer tickets; tabs Prayer / Exchange / Goals. The bot never taps Pray (R-055)."
+  },
+  {
+   "id": "prayer_result",
+   "name": "Prayer result",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/prayer_result.png"
+   ],
+   "notes": "Skills and shards from a pull."
+  },
+  {
+   "id": "apply_requests",
+   "name": "Apply (social requests)",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/apply_requests.png"
+   ],
+   "notes": "Tabs Friends / Team Up / Challenge / Room; incoming requests with x / check, Decline All / Agree All. Leave untouched (R-057)."
   }
  ],
  "edges": [
@@ -641,7 +946,7 @@
    "to": "confirm_dialog",
    "action": {
     "type": "tap",
-    "target": "Quest tracker panel",
+    "target": "'>' arrow on the quest tracker panel",
     "template": null,
     "pos": [
      0.41,
@@ -649,7 +954,7 @@
     ]
    },
    "confidence": "observed",
-   "notes": "Asks 'Travel to Originisle I now?'."
+   "notes": "Offers travel to the quest's island ('Travel to ... now?')."
   },
   {
    "from": "confirm_dialog",
@@ -664,7 +969,8 @@
     ]
    },
    "confidence": "observed",
-   "notes": "When the dialog was the travel prompt."
+   "notes": "When the dialog was the travel prompt.",
+   "when": "travel prompt and goal in (explore, dailies)"
   },
   {
    "from": "confirm_dialog",
@@ -679,7 +985,8 @@
     ]
    },
    "confidence": "observed",
-   "notes": ""
+   "notes": "",
+   "when": "travel prompt and goal=home, or any unknown confirm"
   },
   {
    "from": "world_map",
@@ -721,7 +1028,7 @@
     ]
    },
    "confidence": "observed",
-   "notes": ""
+   "notes": "Batch 9 says popups close on a tap above them (0.5, 0.05); (0.5, 0.95) worked here earlier."
   },
   {
    "from": "world_map",
@@ -760,7 +1067,7 @@
     "pos": null
    },
    "confidence": "observed",
-   "notes": "Back on the map within about 4 s after a win. Loss path not seen yet."
+   "notes": "A win returns to the map, sometimes via a reward_popup."
   },
   {
    "from": "home",
@@ -844,6 +1151,515 @@
     ]
    },
    "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "battle",
+   "to": "defeated",
+   "action": {
+    "type": "auto",
+    "target": "Battle lost",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Seen at Lv 3 on Originisle III."
+  },
+  {
+   "from": "defeated",
+   "to": "home",
+   "action": {
+    "type": "tap",
+    "target": "OK",
+    "template": null,
+    "pos": [
+     0.68,
+     0.65
+    ]
+   },
+   "confidence": "observed",
+   "notes": "Cancel is at (0.32, 0.65)."
+  },
+  {
+   "from": "world_map",
+   "to": "interact",
+   "action": {
+    "type": "tap",
+    "target": "A map object (portal, chest...), or just below the quest ring",
+    "template": "resource/image/explore/marker.png",
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "The ring floats about 0.08 of the screen height above its target (R-022)."
+  },
+  {
+   "from": "interact",
+   "to": "world_map",
+   "action": {
+    "type": "tap",
+    "target": "Activate (Portal) or another safe verb",
+    "template": null,
+    "pos": [
+     0.5,
+     0.7
+    ]
+   },
+   "confidence": "observed",
+   "notes": "Counts toward Explore progress."
+  },
+  {
+   "from": "interact",
+   "to": "battle_prep",
+   "action": {
+    "type": "tap",
+    "target": "Explore (Temple Ruins mini-dungeon)",
+    "template": null,
+    "pos": [
+     0.5,
+     0.7
+    ]
+   },
+   "when": "goal=explore and hp_ok",
+   "confidence": "observed",
+   "notes": "Battle prep shows 6 enemies."
+  },
+  {
+   "from": "interact",
+   "to": "world_map",
+   "action": {
+    "type": "tap",
+    "target": "Outside the card (dismiss)",
+    "template": null,
+    "pos": [
+     0.5,
+     0.95
+    ]
+   },
+   "when": "no policy entry says press, or the button is unsafe",
+   "confidence": "observed",
+   "notes": "Exact dismiss point not given; outside the card."
+  },
+  {
+   "from": "home",
+   "to": "cart",
+   "action": {
+    "type": "tap",
+    "target": "The cart on the home scene (scroll left first)",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Its coin bubble collects directly instead (R-020)."
+  },
+  {
+   "from": "cart",
+   "to": "reward_popup",
+   "action": {
+    "type": "tap",
+    "target": "Claim All",
+    "template": null,
+    "pos": [
+     0.5,
+     0.86
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "cart",
+   "to": "home",
+   "action": {
+    "type": "tap",
+    "target": "Above the panel",
+    "template": null,
+    "pos": [
+     0.5,
+     0.05
+    ]
+   },
+   "confidence": "observed",
+   "notes": "Popups close on a tap above them, not below (R-060)."
+  },
+  {
+   "from": "home",
+   "to": "home_house",
+   "action": {
+    "type": "swipe",
+    "target": "Scroll the home scene up",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "home_house",
+   "to": "bed",
+   "action": {
+    "type": "tap",
+    "target": "The bed",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "tap_to_continue",
+   "to": "previous",
+   "action": {
+    "type": "tap",
+    "target": "Anywhere ('Tap to Continue')",
+    "template": null,
+    "pos": [
+     0.5,
+     0.95
+    ]
+   },
+   "confidence": "reported",
+   "notes": "Exact tap point not given; bottom of screen assumed."
+  },
+  {
+   "from": "character",
+   "to": "skill_loadout",
+   "action": {
+    "type": "tap",
+    "target": "Skill button",
+    "template": null,
+    "pos": [
+     0.41,
+     0.59
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "skill_loadout",
+   "to": "technique_card",
+   "action": {
+    "type": "tap",
+    "target": "A technique slot (left side)",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "technique_card",
+   "to": "technique_upgrade",
+   "action": {
+    "type": "tap",
+    "target": "Enhance",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "battle",
+   "to": "dungeon_floor",
+   "action": {
+    "type": "auto",
+    "target": "Floor cleared",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Inside a mini-dungeon."
+  },
+  {
+   "from": "dungeon_floor",
+   "to": "battle_prep",
+   "action": {
+    "type": "tap",
+    "target": "Next Floor",
+    "template": null,
+    "pos": [
+     0.5,
+     0.64
+    ]
+   },
+   "when": "hp_ok",
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "dungeon_floor",
+   "to": "world_map",
+   "action": {
+    "type": "tap",
+    "target": "Back arrow, bottom left",
+    "template": null,
+    "pos": [
+     0.08,
+     0.95
+    ]
+   },
+   "when": "not hp_ok",
+   "confidence": "reported",
+   "notes": "Assumed to return to the island map."
+  },
+  {
+   "from": "home",
+   "to": "reward_popup",
+   "action": {
+    "type": "tap",
+    "target": "Quest tracker panel",
+    "template": null,
+    "pos": [
+     0.41,
+     0.78
+    ]
+   },
+   "when": "tracked quest shows a/b with a = b",
+   "confidence": "observed",
+   "notes": "Claims the finished quest."
+  },
+  {
+   "from": "home",
+   "to": "quest_detail",
+   "action": {
+    "type": "tap",
+    "target": "Quest title on the tracker panel",
+    "template": null,
+    "pos": null
+   },
+   "when": "tracked quest not finished",
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "quest_detail",
+   "to": "previous",
+   "action": {
+    "type": "tap",
+    "target": "Go or Track",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Go jumps to the relevant screen; Track turns on the map marker."
+  },
+  {
+   "from": "world_map",
+   "to": "wounded",
+   "action": {
+    "type": "tap",
+    "target": "A monster",
+    "template": null,
+    "pos": null
+   },
+   "when": "HP low",
+   "confidence": "observed",
+   "notes": "Shown instead of battle_prep."
+  },
+  {
+   "from": "wounded",
+   "to": "home",
+   "action": {
+    "type": "tap",
+    "target": "Return to Home",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "wounded",
+   "to": "previous",
+   "action": {
+    "type": "tap",
+    "target": "Quick Heal (costs dishes)",
+    "template": null,
+    "pos": null
+   },
+   "when": "dishes left",
+   "confidence": "observed",
+   "notes": "Repeated taps did not always clear it; it may then offer only Return to Home (R-046)."
+  },
+  {
+   "from": "home_house",
+   "to": "alchemy_pot",
+   "action": {
+    "type": "tap",
+    "target": "Alchemy Pot furniture",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "character",
+   "to": "rank_advancement",
+   "action": {
+    "type": "tap",
+    "target": "Rank badge, bottom right",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "main_menu",
+   "to": "friends",
+   "action": {
+    "type": "tap",
+    "target": "Friends",
+    "template": null,
+    "pos": [
+     0.14,
+     0.85
+    ]
+   },
+   "when": "account Lv 10 or more",
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "main_menu",
+   "to": "notice",
+   "action": {
+    "type": "tap",
+    "target": "Notice",
+    "template": null,
+    "pos": [
+     0.49,
+     0.85
+    ]
+   },
+   "when": "account Lv 10 or more",
+   "confidence": "observed",
+   "notes": "Below Lv 10 Notice is at (0.30, 0.85)."
+  },
+  {
+   "from": "main_menu",
+   "to": "settings",
+   "action": {
+    "type": "tap",
+    "target": "Settings",
+    "template": null,
+    "pos": [
+     0.85,
+     0.85
+    ]
+   },
+   "when": "account Lv 10 or more",
+   "confidence": "observed",
+   "notes": "Below Lv 10 Settings is at (0.64, 0.85)."
+  },
+  {
+   "from": "world_overview",
+   "to": "exploration_goals",
+   "action": {
+    "type": "tap",
+    "target": "Button, bottom left",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "class_choice",
+   "to": "previous",
+   "action": {
+    "type": "tap",
+    "target": "Leave",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "What the bot does until mae picks a class."
+  },
+  {
+   "from": "class_choice",
+   "to": "class_ascend",
+   "action": {
+    "type": "tap",
+    "target": "Ascend to Mage",
+    "template": null,
+    "pos": null
+   },
+   "when": "a human chose the class (--choose)",
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "class_ascend",
+   "to": "world_map",
+   "action": {
+    "type": "tap",
+    "target": "Ascend",
+    "template": null,
+    "pos": [
+     0.5,
+     0.86
+    ]
+   },
+   "when": "a human chose the class",
+   "confidence": "reported",
+   "notes": "Return screen not recorded."
+  },
+  {
+   "from": "home",
+   "to": "prayer",
+   "action": {
+    "type": "tap",
+    "target": "Statue furniture (next to the 'Class to Unlock' stone)",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "prayer",
+   "to": "prayer_result",
+   "action": {
+    "type": "tap",
+    "target": "Pray x10",
+    "template": null,
+    "pos": null
+   },
+   "when": "a human allowed it (never on the bot's own)",
+   "confidence": "observed",
+   "notes": "Spends prayer tickets (R-055)."
+  },
+  {
+   "from": "world_map",
+   "to": "apply_requests",
+   "action": {
+    "type": "tap",
+    "target": "Person icon with badge, left edge",
+    "template": null,
+    "pos": [
+     0.06,
+     0.6
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "apply_requests",
+   "to": "previous",
+   "action": {
+    "type": "tap",
+    "target": "Above the popup",
+    "template": null,
+    "pos": [
+     0.5,
+     0.05
+    ]
+   },
+   "confidence": "reported",
    "notes": ""
   }
  ]
