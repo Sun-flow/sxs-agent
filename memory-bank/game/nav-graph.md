@@ -20,6 +20,7 @@ flowchart TD
     reward_popup["Reward popup"]
     confirm_dialog["Confirm dialog"]
     dialogue["Story dialogue"]
+    title(["Title screen"])
     loading["Loading"]
     agreement["User Agreement"]
     character["Character"]
@@ -56,6 +57,8 @@ flowchart TD
     home -->|"tap: Cart coin bubble (scroll the scene left first)"| reward_popup
     home -->|"tap: Chat strip (avoid)"| server_chat
     server_chat -->|"tap: Down arrow"| home
+    title -.->|"wait: Title initialises and logs in"| loading
+    loading -.->|"wait: Login finishes"| home
 ```
 
 ## Screens
@@ -75,9 +78,10 @@ flowchart TD
 | `reward_popup` | Reward popup | popup | observed |  | Close by tapping anywhere. |
 | `confirm_dialog` | Confirm dialog | popup | observed |  | Cancel (0.32,0.57), OK (0.68,0.57). Returns to whatever the confirmed action leads to. |
 | `dialogue` | Story dialogue | overlay | observed |  | Tutorial/story overlay (Akane). Tap (0.5,0.9) to advance; can sit on top of any screen. |
-| `loading` | Loading | overlay | observed |  | Wait it out. |
+| `title` | Title screen | hub | observed |  | After the splash at game start. Detection details in the step 2 doc (docs/step2-hands-and-eyes.md on the step 2 branch). |
+| `loading` | Loading | overlay | observed |  | Covers 'Loading...', 'Logging in...' and the title screen initialising. Wait it out. |
 | `agreement` | User Agreement | popup | observed |  | First launch only. Needs a human; the bot must stop and ask. |
-| `character` | Character | menu | observed |  | Gear slots; gear slot -> item card (Replace / Enhance) -> Enhance Gear (R-023). No capture yet. |
+| `character` | Character | menu | observed |  | Gear slots; gear slot -> item card (Replace / Enhance) -> Enhance Gear (R-023). |
 | `loadout_edit` | Loadout (Edit) | menu | observed |  | Not detected yet. Reached from the Combat Veteran quest's Go button. |
 | `server_chat` | Server Chat | overlay | observed |  | Close with the down arrow (0.06,0.96). Never type here. |
 | `travel_journal` | Travel Journal | menu | observed | any mode unlocked (toast 'Unlock any mode to unlock Travel Journal') | Locked on our account. |
@@ -121,3 +125,5 @@ flowchart TD
 | Home | Reward popup | tap Cart coin bubble (scroll the scene left first) | observed | Collects AFK income (R-020). |
 | Home | Server Chat | tap Chat strip (avoid) at [0.5, 0.86] | observed | Accidental; y 0.82-0.90. |
 | Server Chat | Home | tap Down arrow at [0.06, 0.96] | observed |  |
+| Title screen | Loading | wait Title initialises and logs in | reported | Whether a tap is needed to start is not recorded yet. |
+| Loading | Home | wait Login finishes | reported | Assumed landing screen after login. |

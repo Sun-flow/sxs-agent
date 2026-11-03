@@ -3,6 +3,10 @@
 > **Last updated**: 2026-11-03
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
 
+### 2026-11-03 · Game docs batch 2 (Claude Code, cloud)
+- Builder batch 2: added the `title` screen and login waits to `memory-bank/game/nav-graph.json`, confirmed Explore progress (R-002, R-021), noted the blessing statue is still unseen (R-003). Branch `claude/project-thread-npg43i` fast-forwarded to main after PR #3 merged.
+- Open: screen catalogue in the step 2 doc arrives when the step 2 branch is pushed.
+
 ### 2026-11-03 · Game rules and menu graph started (Claude Code, cloud)
 - mae asked for documentation of the game's rules and a traversable map of menus, fed by the step 2 builder thread. Added `memory-bank/game/` (README, `memory-bank/game/rules.md` with R-001 to R-020 from mae and the step 1 doc, `memory-bank/game/nav-graph.json` with 15 screens) and `scripts/nav-graph.py` (check, render, shortest path). Branch `claude/project-thread-npg43i`, PR #3.
 - Batch 1 from the builder (via the coordinator): graph now 25 screens and 29 actions with OCR detection and tap positions; rules R-021 to R-028 added, currency, Cart and unlock rules promoted to observed.

@@ -14,7 +14,7 @@
 Format: `- what — branch, PR, environment (started date)`. Remove the line when it merges or is dropped.
 
 - Set up MuMu Player 12 and Python on maes2024 — no branch, maes2024 via Remote Control (2026-11-03).
-- Game rules and menu navigation graph (`memory-bank/game/`), filled in as the step 2 builder thread reports what it learns — branch `claude/project-thread-npg43i`, PR #3, cloud (2026-11-03).
+- Game rules and menu navigation graph (`memory-bank/game/`), filled in as the step 2 builder thread reports what it learns — branch `claude/project-thread-npg43i`, PR #3 merged with batch 1; later batches go in new PRs from the same branch, cloud (2026-11-03).
 
 ## Next
 

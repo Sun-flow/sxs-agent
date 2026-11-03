@@ -15,4 +15,5 @@
 
 - maes2024 is the Windows PC that runs the emulator; work there goes through `C:\Users\jcmon\Desktop\sxs-player`. Only one Remote Control session should drive it at a time.
 - Cloud sessions can't reach APKPure or APKMirror (network policy). Pull the APK from the emulator with `adb shell pm path com.zjcs.android.us` and `adb pull` instead.
+- Step 2 keeps working screenshots in a gitignored scratch folder (newest 40 frames) and its clean.py script clears them at session end (step 2 branch step2-hands-and-eyes, not merged yet ❓).
 - Seasons partly reset levels, so unlock-level assumptions need re-checking each season (step 1 doc, section 3).

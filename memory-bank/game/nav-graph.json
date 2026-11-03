@@ -233,6 +233,19 @@
    "notes": "Tutorial/story overlay (Akane). Tap (0.5,0.9) to advance; can sit on top of any screen."
   },
   {
+   "id": "title",
+   "name": "Title screen",
+   "kind": "hub",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/title.png",
+    "docs/screens/splash.png"
+   ],
+   "notes": "After the splash at game start. Detection details in the step 2 doc (docs/step2-hands-and-eyes.md on the step 2 branch)."
+  },
+  {
    "id": "loading",
    "name": "Loading",
    "kind": "overlay",
@@ -240,13 +253,15 @@
    "unlock": null,
    "detect": {
     "type": "ocr",
-    "text": "Loading",
+    "text": "Loading... | Logging in...",
     "roi": "bottom right, dark screen"
    },
    "images": [
-    "docs/screens/loading.png"
+    "docs/screens/loading.png",
+    "docs/screens/logging_in.png",
+    "docs/screens/title_loading.png"
    ],
-   "notes": "Wait it out."
+   "notes": "Covers 'Loading...', 'Logging in...' and the title screen initialising. Wait it out."
   },
   {
    "id": "agreement",
@@ -273,8 +288,10 @@
     "text": "Character",
     "roi": "bottom-left nav label"
    },
-   "images": [],
-   "notes": "Gear slots; gear slot -> item card (Replace / Enhance) -> Enhance Gear (R-023). No capture yet."
+   "images": [
+    "docs/screens/character.png"
+   ],
+   "notes": "Gear slots; gear slot -> item card (Replace / Enhance) -> Enhance Gear (R-023)."
   },
   {
    "id": "loadout_edit",
@@ -786,6 +803,30 @@
    },
    "confidence": "observed",
    "notes": ""
+  },
+  {
+   "from": "title",
+   "to": "loading",
+   "action": {
+    "type": "wait",
+    "target": "Title initialises and logs in",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "reported",
+   "notes": "Whether a tap is needed to start is not recorded yet."
+  },
+  {
+   "from": "loading",
+   "to": "home",
+   "action": {
+    "type": "wait",
+    "target": "Login finishes",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "reported",
+   "notes": "Assumed landing screen after login."
   }
  ]
 }
