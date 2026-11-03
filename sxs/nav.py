@@ -31,6 +31,7 @@ TOWARD_HOME = {
     "dialogue": DIALOGUE_NEXT,
     "reward_popup": REWARD_CLOSE,
     "confirm_dialog": CONFIRM_CANCEL,
+    "defeated": (490, 830),  # "Return to Home now?" OK
     "battle": None,  # auto battle, ends by itself
     "battle_prep": BACK_ARROW,
     "world_map": BACK_ARROW,

@@ -1,0 +1,75 @@
+{
+    "Explore.Marker": {
+        "doc": "Gold quest-tracker ring on the island map (tracking must be on). At a screen edge it points to an off-screen target and tapping it pans the camera there; on the map, tapping it walks to the target. Excludes the top bar, minimap and the tracker/chat strip. Two templates: bright (on the lit map) and dim (in shadow or under the level badge).",
+        "recognition": "TemplateMatch",
+        "template": [
+            "explore/marker.png",
+            "explore/marker_dim.png"
+        ],
+        "roi": [
+            0,
+            60,
+            720,
+            900
+        ],
+        "threshold": 0.75,
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "Explore.Progress": {
+        "doc": "Progress line on the quest tracker panel, e.g. 'Explore Originisle II 37/100'.",
+        "recognition": "OCR",
+        "expected": "\\d+/\\d+",
+        "roi": [
+            10,
+            1000,
+            300,
+            50
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "Explore.Complete": {
+        "doc": "Tracker panel at 100/100 (the gift icon appears); tap the panel to claim.",
+        "recognition": "OCR",
+        "expected": "100/100",
+        "roi": [
+            10,
+            1000,
+            300,
+            50
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "Explore.ConfirmTravel": {
+        "doc": "Body text of a confirm_dialog that only asks to travel (safe to accept).",
+        "recognition": "OCR",
+        "expected": "^Travel to",
+        "roi": [
+            60,
+            520,
+            600,
+            80
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "Explore.MarkerAnywhere": {
+        "doc": "Same ring anywhere on screen, including under the top bar or tracker panel; used to pan the camera when Explore.Marker can't see it.",
+        "recognition": "TemplateMatch",
+        "template": [
+            "explore/marker.png",
+            "explore/marker_dim.png"
+        ],
+        "roi": [
+            0,
+            0,
+            720,
+            1280
+        ],
+        "threshold": 0.75,
+        "pre_delay": 0,
+        "post_delay": 0
+    }
+}

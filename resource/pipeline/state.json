@@ -11,7 +11,9 @@
                 "State.Title",
                 "State.Loading.Title",
                 "State.RewardPopup",
+                "State.Defeated",
                 "State.ConfirmDialog",
+                "State.Interact",
                 "State.Dialogue",
                 "State.BattlePrep",
                 "State.Battle",
@@ -82,14 +84,14 @@
         "post_delay": 0
     },
     "State.ConfirmDialog": {
-        "doc": "Generic two-button Confirm dialog (Cancel left, OK right).",
+        "doc": "Generic two-button Confirm dialog (Cancel left, OK right). The dialog grows with its content, so the title sits anywhere from y=330 to 450.",
         "recognition": "OCR",
         "expected": "^Confirm$",
         "roi": [
             160,
+            300,
             400,
-            400,
-            90
+            200
         ],
         "pre_delay": 0,
         "post_delay": 0
@@ -239,6 +241,32 @@
             10,
             420,
             50
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Interact": {
+        "doc": "Card popup for a map object (portal, statue, node...) with one action button at (360, 895). Only whitelisted verbs count, so a 'Purchase' or 'Spend' card stays unknown.",
+        "recognition": "OCR",
+        "expected": "^(Activate|Collect|Claim|Open|Interact|Bless|Pray|Gather|Harvest|Mine|Examine|Read)$",
+        "roi": [
+            150,
+            850,
+            420,
+            90
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Defeated": {
+        "doc": "Confirm dialog after losing a fight: 'Your character is incapacitated. Return to Home now?' OK at (490, 830) goes home. Checked before State.ConfirmDialog.",
+        "recognition": "OCR",
+        "expected": "incapacitated",
+        "roi": [
+            60,
+            670,
+            600,
+            80
         ],
         "pre_delay": 0,
         "post_delay": 0

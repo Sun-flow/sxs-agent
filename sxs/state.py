@@ -97,6 +97,18 @@ class StateDetector:
         text = getattr(best, "text", None) if best is not None else None
         return Detection(state_name(node), node, box=box, text=text, foreground=foreground, elapsed_ms=elapsed)
 
+    def find(self, node: str, frame=None) -> Optional[Detection]:
+        """Run one pipeline node's recognition (e.g. "Explore.Marker") on `frame` or a fresh screenshot.
+        Returns a Detection whose state is the node name, or None if it doesn't match."""
+        start = time.perf_counter()
+        self._action.frame = self.device.screenshot() if frame is None else frame
+        self.tasker.post_task(ENTRY, {ENTRY: {"custom_action_param": {"order": [node]}}}).wait()
+        if self._action.hit is None:
+            return None
+        best = self._action.hit[1].best_result
+        return Detection(node, node, box=list(best.box) if best is not None else None,
+                         text=getattr(best, "text", None), elapsed_ms=int((time.perf_counter() - start) * 1000))
+
     def wait_for(self, states: set[str], timeout: float, interval: float = 1.0) -> Detection:
         """Poll until the detected state is in `states` or the timeout passes; returns the last detection."""
         deadline = time.monotonic() + timeout
