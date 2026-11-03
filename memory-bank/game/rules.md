@@ -1,7 +1,7 @@
 # Game rules
 
 > **Last updated**: 2026-11-03
-> Screen captures named below as `docs/screens/...` are on the step 2 branch `step2-hands-and-eyes` until it merges.
+> Screen captures named below are in `docs/screens/` (step 2, PR #5).
 > One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-029).
 
 Entry format:
@@ -26,19 +26,19 @@ Entry format:
 
 ### R-002 · Exploring an area means clearing green dots and mist
 - **Rule**: An area is fully explored when every green dot on the minimap has been cleared, by walking to it and interacting with the thing it marks, and all the mist (fog of war) on that area's map is revealed.
-- **Confidence**: told. **Source**: mae, 2026-11-03.
+- **Confidence**: told; partly observed (collecting pickups, beating monsters and walking into fog took Originisle I from 43 to 100, R-021). **Source**: mae, 2026-11-03; builder batch 2.
 - **Images**: none yet (want: minimap with green dots; area with mist).
 - **Related**: R-003, R-004, R-006.
 
 ### R-003 · A fully explored area unlocks a blessing statue
 - **Rule**: Once R-002 is met for an area, a statue unlocks in it; interact with the statue to "bless" the area.
-- **Confidence**: told. **Source**: mae, 2026-11-03.
+- **Confidence**: told; not yet seen in game, even after Originisle I reached 100 ❓. **Source**: mae, 2026-11-03.
 - **Images**: none yet.
 - **Related**: R-002, R-014.
 
 ### R-004 · Use the minimap for relative positions
-- **Rule**: The minimap shows where items, interactables and enemies are relative to the character. Use it to choose which way to move to reach the next item or enemy.
-- **Confidence**: told. **Source**: mae, 2026-11-03.
+- **Rule**: The minimap shows where items, interactables and enemies are relative to the character. Use it to choose which way to move to reach the next item or enemy. The island map also shows the player's tile coordinates as "(x, y)" under the minimap (for example "Originisle I (24,23)"), which the state detector reads by OCR; step 3 plans to combine minimap dots with these coordinates to plan walks.
+- **Confidence**: told (minimap use); observed (coordinates). **Source**: mae, 2026-11-03; builder batch 3.
 - **Images**: none yet (want: minimap crop with its icon types labelled).
 - **Related**: R-002, node `world_map`.
 
@@ -95,7 +95,7 @@ Entry format:
 - **Related**: R-011.
 
 ### R-013 · Servers cap at 5,000 players and merge
-- **Rule**: A server holds up to 5,000 players and later merges with others; guilds are per server.
+- **Rule**: A server holds up to 5,000 players and later merges with others; guilds are per server. Our test account is on server Forgehall.
 - **Confidence**: reported. **Source**: step 1 doc section 3.
 - **Images**: none.
 
@@ -149,7 +149,7 @@ Entry format:
 
 ### R-021 · How the Explore quest counter rises
 - **Rule**: An Explore quest ("Wild Isle Trek I: Explore Originisle I n/100") gains progress from walking into fog, collecting pickups (gold piles, plants, chests) and winning fights against roaming monsters. At 100/100 claim it with the gift icon on the quest tracker panel (0.42, 0.77). The next one is Wild Isle Trek II on Originisle II.
-- **Confidence**: observed. **Source**: builder batch 1, 2026-11-03.
+- **Confidence**: observed twice (Originisle I went from 43 to 100 this way). **Source**: builder batches 1 and 2, 2026-11-03.
 - **Images**: `docs/screens/world_map_explore.png`, `docs/screens/world_map_quest_complete.png`.
 - **Related**: R-002, R-008, node `world_map`.
 

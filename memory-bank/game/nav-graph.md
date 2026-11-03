@@ -20,6 +20,7 @@ flowchart TD
     reward_popup["Reward popup"]
     confirm_dialog["Confirm dialog"]
     dialogue["Story dialogue"]
+    title(["Title screen"])
     loading["Loading"]
     agreement["User Agreement"]
     character["Character"]
@@ -37,7 +38,7 @@ flowchart TD
     home -->|"tap: Bottom nav bar (y 0.97): Travel Journal"| travel_journal
     home -->|"tap: Bottom nav bar (y 0.97): Guild"| guild
     home -->|"tap: Bottom nav bar (y 0.97): World"| world_overview
-    character -.->|"tap: Bottom nav bar (y 0.97): Home"| home
+    character -->|"tap: Bottom nav bar (y 0.97): Home"| home
     world_overview -.->|"tap: Bottom nav bar (y 0.97): Home"| home
     world_overview -->|"tap: Island (Originisle)"| world_map
     home -->|"tap: Box/package button"| main_menu
@@ -56,6 +57,8 @@ flowchart TD
     home -->|"tap: Cart coin bubble (scroll the scene left first)"| reward_popup
     home -->|"tap: Chat strip (avoid)"| server_chat
     server_chat -->|"tap: Down arrow"| home
+    title -->|"tap: Tap to Play"| loading
+    character -->|"tap: Back arrow, bottom left"| home
 ```
 
 ## Screens
@@ -75,9 +78,10 @@ flowchart TD
 | `reward_popup` | Reward popup | popup | observed |  | Close by tapping anywhere. |
 | `confirm_dialog` | Confirm dialog | popup | observed |  | Cancel (0.32,0.57), OK (0.68,0.57). Returns to whatever the confirmed action leads to. |
 | `dialogue` | Story dialogue | overlay | observed |  | Tutorial/story overlay (Akane). Tap (0.5,0.9) to advance; can sit on top of any screen. |
-| `loading` | Loading | overlay | observed |  | Wait it out. |
+| `title` | Title screen | hub | observed |  | Boot: Android splash, BOLTRAY logos (~10 s), title art with an 'Initializing' bar (~25 s), then 'Tap to Play' with side buttons (Servers, Settings, Notice, User Center, Repair Client...). Full boot sequence: docs/step2-hands-and-eyes.md, 'Interface catalogue'. |
+| `loading` | Loading | overlay | observed |  | Covers 'Loading...', 'Logging in...' and the title screen initialising. Wait it out. After login the game resumes on the last screen it was closed on (often world_map), not always home. |
 | `agreement` | User Agreement | popup | observed |  | First launch only. Needs a human; the bot must stop and ask. |
-| `character` | Character | menu | observed |  | Gear slots; gear slot -> item card (Replace / Enhance) -> Enhance Gear (R-023). No capture yet. |
+| `character` | Character | menu | observed |  | Gear slots; gear slot -> item card (Replace / Enhance) -> Enhance Gear (R-023). |
 | `loadout_edit` | Loadout (Edit) | menu | observed |  | Not detected yet. Reached from the Combat Veteran quest's Go button. |
 | `server_chat` | Server Chat | overlay | observed |  | Close with the down arrow (0.06,0.96). Never type here. |
 | `travel_journal` | Travel Journal | menu | observed | any mode unlocked (toast 'Unlock any mode to unlock Travel Journal') | Locked on our account. |
@@ -101,7 +105,7 @@ flowchart TD
 | Home | Travel Journal | tap Bottom nav bar (y 0.97): Travel Journal at [0.29, 0.97] | observed | Locked: shows a toast and stays on home. |
 | Home | Guild | tap Bottom nav bar (y 0.97): Guild at [0.69, 0.97] | observed | Locked below Character Lv. 15: shows a toast and stays on home. |
 | Home | World (island picker) | tap Bottom nav bar (y 0.97): World at [0.89, 0.97] | observed |  |
-| Character | Home | tap Bottom nav bar (y 0.97): Home at [0.5, 0.97] | reported |  |
+| Character | Home | tap Bottom nav bar (y 0.97): Home at [0.5, 0.97] | observed |  |
 | World (island picker) | Home | tap Bottom nav bar (y 0.97): Home at [0.5, 0.97] | reported |  |
 | World (island picker) | World map (island) | tap Island (Originisle) at [0.5, 0.42] | observed |  |
 | Home | Menu | tap Box/package button at [0.92, 0.79] | observed |  |
@@ -121,3 +125,6 @@ flowchart TD
 | Home | Reward popup | tap Cart coin bubble (scroll the scene left first) | observed | Collects AFK income (R-020). |
 | Home | Server Chat | tap Chat strip (avoid) at [0.5, 0.86] | observed | Accidental; y 0.82-0.90. |
 | Server Chat | Home | tap Down arrow at [0.06, 0.96] | observed |  |
+| Title screen | Loading | tap Tap to Play at [0.5, 0.825] | observed | Once the title reached login without a tap; tapping anyway is safe. |
+| Loading | previous screen | wait Login finishes; the game resumes on the last screen | observed | Use the state detector to see where it landed, then route from there. |
+| Character | Home | tap Back arrow, bottom left at [0.11, 0.95] | observed |  |
