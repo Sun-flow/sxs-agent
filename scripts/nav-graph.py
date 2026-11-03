@@ -56,6 +56,8 @@ def check(graph):
         pos = action.get("pos")
         if pos is not None and not (len(pos) == 2 and all(v is None or 0 <= v <= 1 for v in pos)):
             problems.append(f"{label}: pos must be [x, y] fractions between 0 and 1 (null for a coordinate that varies), or null")
+        if "when" in edge and not (isinstance(edge["when"], str) and edge["when"]):
+            problems.append(f"{label}: when must be a non-empty condition string if present")
         if edge.get("confidence") not in CONFIDENCE:
             problems.append(f"{label}: confidence {edge.get('confidence')!r} not in {sorted(CONFIDENCE)}")
     reachable = {e["to"] for e in graph.get("edges", [])} | {"home"}
@@ -66,10 +68,11 @@ def check(graph):
     return problems
 
 
-def describe(action):
+def describe(action, when=None):
+    cond = f" (when {when})" if when else ""
     where = f" at {action['pos']}" if action.get("pos") else ""
     tmpl = f" [template {action['template']}]" if action.get("template") else ""
-    return f"{action['type']} {action.get('target') or ''}{where}{tmpl}".strip()
+    return f"{action['type']} {action.get('target') or ''}{where}{tmpl}{cond}".strip()
 
 
 def shortest_path(graph, start, goal):
@@ -112,7 +115,8 @@ def render(graph):
         if e["from"] in PSEUDO_FROM or e["to"] in PSEUDO_TO:
             continue
         arrow = "-->" if e["confidence"] == "observed" else "-.->"
-        out.append(f'    {e["from"]} {arrow}|"{e["action"]["type"]}: {e["action"].get("target", "")}"| {e["to"]}')
+        cond = f' [{e["when"]}]' if e.get("when") else ""
+        out.append(f'    {e["from"]} {arrow}|"{e["action"]["type"]}: {e["action"].get("target", "")}{cond}"| {e["to"]}')
     out += ["```", "", "## Screens", "", "| id | Name | Kind | Confidence | Unlock | Notes |", "|---|---|---|---|---|---|"]
     for n in graph["nodes"]:
         out.append(f'| `{n["id"]}` | {n["name"]} | {n["kind"]} | {n["confidence"]} | {n.get("unlock") or ""} | {n.get("notes", "")} |')
@@ -120,7 +124,7 @@ def render(graph):
     for e in graph["edges"]:
         src = "any screen" if e["from"] == "*" else names.get(e["from"], e["from"])
         dst = "previous screen" if e["to"] == "previous" else names.get(e["to"], e["to"])
-        out.append(f'| {src} | {dst} | {describe(e["action"])} | {e["confidence"]} | {e.get("notes", "")} |')
+        out.append(f'| {src} | {dst} | {describe(e["action"], e.get("when"))} | {e["confidence"]} | {e.get("notes", "")} |')
     RENDERED.write_text("\n".join(out) + "\n", encoding="utf-8")
 
 
@@ -152,7 +156,7 @@ def main(argv):
         print(f"No known route from {argv[2]} to {argv[3]}")
         return 1
     for i, e in enumerate(steps, 1):
-        print(f"{i}. {describe(e['action'])}  -> {e['to']}  ({e['confidence']})")
+        print(f"{i}. {describe(e['action'], e.get('when'))}  -> {e['to']}  ({e['confidence']})")
     return 0
 
 
