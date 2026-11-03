@@ -1,7 +1,7 @@
 # Game rules
 
 > **Last updated**: 2026-11-03
-> Screen captures named below as `docs/screens/...` are on the step 2 branch `step2-hands-and-eyes` until it merges.
+> Screen captures named below are in `docs/screens/` (step 2, PR #5).
 > One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-029).
 
 Entry format:

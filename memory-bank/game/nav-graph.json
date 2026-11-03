@@ -5,7 +5,7 @@
   720,
   1280
  ],
- "notes": "Format and confidence levels: memory-bank/game/README.md. pos is [x, y] as fractions of the 720x1280 portrait frame; null means not located yet, and a null inside pos means that coordinate varies. Captures (docs/screens/) and pipeline files (resource/) come from the step 2 branch step2-hands-and-eyes.",
+ "notes": "Format and confidence levels: memory-bank/game/README.md. pos is [x, y] as fractions of the 720x1280 portrait frame; null means not located yet, and a null inside pos means that coordinate varies. Captures are in docs/screens/ and detection pipelines in resource/pipeline/state.json (step 2).",
  "nodes": [
   {
    "id": "home",
