@@ -25,9 +25,10 @@
    },
    "images": [
     "docs/screens/home.png",
-    "docs/screens/home_cart.png"
+    "docs/screens/home_cart.png",
+    "docs/screens/home_events.png"
    ],
-   "notes": "Scene scrolls horizontally; the Cart (AFK income) and cherry tree are on the left (R-020). The chat strip at y 0.82-0.90 opens server_chat: avoid it."
+   "notes": "Scene scrolls horizontally; the Cart (AFK income) and cherry tree are on the left (R-020). The chat strip at y 0.82-0.90 opens server_chat: avoid it. After Originisle: top-right 'Thrilling Events' and 'Starter Pack' (shop; never buy) buttons (R-075)."
   },
   {
    "id": "main_menu",
@@ -168,7 +169,7 @@
    "images": [
     "docs/screens/battle.png"
    ],
-   "notes": "Plays itself (R-001); 15 rounds max. Loss leads to defeated."
+   "notes": "Plays itself (R-001); 15 rounds max. Loss leads to defeated. Mine battles run up to 25 rounds."
   },
   {
    "id": "battle_result",
@@ -214,9 +215,12 @@
    },
    "images": [
     "docs/screens/interact_portal.png",
-    "docs/screens/interact_temple.png"
+    "docs/screens/interact_temple.png",
+    "docs/screens/interact_obelisk.png",
+    "docs/screens/interact_goddess_statue.png",
+    "docs/screens/interact_ironvein_pit.png"
    ],
-   "notes": "Card for a map structure or object: picture, title, one-line description, one button at about (0.5, 0.70). Seen: Portal (Activate), Temple Ruins (Explore). Dismiss by tapping outside. What to press is decided by the card policy (R-042)."
+   "notes": "Card for a map structure or object: picture, title, one-line description, one button at about (0.5, 0.70). Seen: Portal (Activate), Temple Ruins (Explore). Dismiss by tapping outside. What to press is decided by the card policy (R-042). Also Voyage Obelisk (Activate, kingdom travel), Goddess Statue (Unlock) and mines (Explore at 0.5, 0.80) (R-069 to R-071)."
   },
   {
    "id": "reward_popup",
@@ -689,6 +693,54 @@
     "docs/screens/apply_requests.png"
    ],
    "notes": "Tabs Friends / Team Up / Challenge / Room; incoming requests with x / check, Decline All / Agree All. Leave untouched (R-057)."
+  },
+  {
+   "id": "area_map",
+   "name": "Area map (full map)",
+   "kind": "overlay",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/world_area_map.png"
+   ],
+   "notes": "Full map of the current area, opened by tapping the minimap. Legend: Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone; areas show exploration % and power gates. Tapping a spot centres the camera there (R-068, R-076)."
+  },
+  {
+   "id": "puzzle_energy_circuits",
+   "name": "Energy Circuits puzzle",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/puzzle_energy_circuits.png"
+   ],
+   "notes": "Ancient Fortress slab-swap puzzle; not automated (R-072)."
+  },
+  {
+   "id": "team",
+   "name": "Team panel",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/team.png"
+   ],
+   "notes": "Players 1/9, Team Goal, World Call / Invite / Nearby. Social; left alone (R-077)."
+  },
+  {
+   "id": "blessing_level",
+   "name": "Blessing level",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/blessing_level.png"
+   ],
+   "notes": "Shown after unlocking a Goddess Statue (R-070)."
   }
  ],
  "edges": [
@@ -1660,6 +1712,120 @@
     ]
    },
    "confidence": "reported",
+   "notes": ""
+  },
+  {
+   "from": "world_map",
+   "to": "area_map",
+   "action": {
+    "type": "tap",
+    "target": "The minimap",
+    "template": null,
+    "pos": [
+     0.86,
+     0.13
+    ]
+   },
+   "confidence": "observed",
+   "notes": "Minimap circle top right."
+  },
+  {
+   "from": "area_map",
+   "to": "area_map",
+   "action": {
+    "type": "tap",
+    "target": "The spot to move the camera over",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Centres the camera there; stays on the map."
+  },
+  {
+   "from": "area_map",
+   "to": "world_map",
+   "action": {
+    "type": "tap",
+    "target": "Close the map",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Close control not recorded; the camera now shows the tapped spot. Then tap the ground there and the player auto-paths to it."
+  },
+  {
+   "from": "world_map",
+   "to": "team",
+   "action": {
+    "type": "tap",
+    "target": "Flag button, top left",
+    "template": null,
+    "pos": [
+     0.08,
+     0.12
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "interact",
+   "to": "blessing_level",
+   "action": {
+    "type": "tap",
+    "target": "Unlock (Goddess Statue)",
+    "template": null,
+    "pos": [
+     0.5,
+     0.7
+    ]
+   },
+   "when": "area at 100% exploration",
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "interact",
+   "to": "world_overview",
+   "action": {
+    "type": "tap",
+    "target": "Activate (Voyage Obelisk)",
+    "template": null,
+    "pos": [
+     0.5,
+     0.7
+    ]
+   },
+   "when": "goal needs the next kingdom",
+   "confidence": "reported",
+   "notes": "Kingdom travel Originisle to Verdantglade; landing screen not recorded."
+  },
+  {
+   "from": "interact",
+   "to": "battle_prep",
+   "action": {
+    "type": "tap",
+    "target": "Explore (mine)",
+    "template": null,
+    "pos": [
+     0.5,
+     0.8
+    ]
+   },
+   "when": "goal=explore and hp_ok",
+   "confidence": "observed",
+   "notes": "Mines put the button lower than other cards."
+  },
+  {
+   "from": "world_map",
+   "to": "puzzle_energy_circuits",
+   "action": {
+    "type": "tap",
+    "target": "Ancient Fortress puzzle object",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
    "notes": ""
   }
  ]
