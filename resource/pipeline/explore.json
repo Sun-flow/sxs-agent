@@ -18,27 +18,27 @@
         "post_delay": 0
     },
     "Explore.Progress": {
-        "doc": "Progress line on the quest tracker panel, e.g. 'Explore Originisle II 37/100'.",
+        "doc": "Progress line on the quest tracker panel, e.g. 'Explore Originisle II 37/100'. The panel grows upward when it shows rewards, so the region is tall.",
         "recognition": "OCR",
         "expected": "\\d+/\\d+",
         "roi": [
-            10,
-            1000,
-            300,
-            50
+            0,
+            900,
+            340,
+            150
         ],
         "pre_delay": 0,
         "post_delay": 0
     },
     "Explore.Complete": {
-        "doc": "Tracker panel at 100/100 (the gift icon appears); tap the panel to claim.",
+        "doc": "Tracker panel showing a finished quest (n/n, e.g. 100/100 or 1/1; a gift icon appears); tap the panel to claim.",
         "recognition": "OCR",
-        "expected": "100/100",
+        "expected": "(\\d+) ?/ ?\\1$",
         "roi": [
-            10,
-            1000,
-            300,
-            50
+            0,
+            900,
+            340,
+            150
         ],
         "pre_delay": 0,
         "post_delay": 0

@@ -27,13 +27,15 @@ from .state import StateDetector
 
 log = logging.getLogger("sxs.explore")
 
-TRACKER_PANEL = (304, 982)  # quest tracker panel on the map; claims the reward at 100/100
 TRACKING_TOGGLE = (290, 1012)
 TRACKER_ROI = [0, 860, 330, 180]  # quest tracker panel on home  # target icon on the panel: Tracking On/Off
 START_BATTLE = (360, 956)
 PAN_CENTER = (360, 560)  # where a hidden marker is dragged to
 MARKER_TARGET_DY = 100
 STALE_LIMIT = 4
+DECISION_OPTIONS = r"^(Ascend to|Change Class)"  # dialogue options a human decides
+HEAL_BELOW = 80  # HP % under which the profile's Quick Heal (1 cooked dish) is used
+QUICK_HEAL = (510, 1064)
 REPEAT_LIMIT = 4  # same card title this many times in a row means the choice isn't working
 GUARD_DX, GUARD_DY = -35, 50  # from the top-right guard bracket to the monster  # the target sits about this far below the centre of the tracker ring
 
@@ -60,7 +62,11 @@ def read_tracker(det: StateDetector) -> Optional[dict]:
     lines = det.read_text(TRACKER_ROI)
     prog = next(((t, b) for t, b in lines if re.search(r"\d+/\d+", t)), None)
     if prog is None:
-        return None
+        if not lines:
+            return None
+        # Quests like "Reach Apprentice I" have no counter; tapping the title claims or opens them.
+        title, (x, y, w, h) = lines[0]
+        return {"title": title, "progress": "", "done": None, "tap": (x + w // 2, y + h // 2)}
     above = [(t, b) for t, b in lines if b[1] < prog[1][1]]
     title, box = above[-1] if above else prog
     a, b = map(int, re.search(r"(\d+)/(\d+)", prog[0]).groups())
@@ -68,7 +74,7 @@ def read_tracker(det: StateDetector) -> Optional[dict]:
 
 
 def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_misses: int = 6) -> str:
-    """Returns "complete", "defeated", "no_marker", "no_tracker", "unknown_card", "repeating_card", "unknown_screen" or
+    """Returns "complete", "defeated", "no_marker", "no_tracker", "unknown_card", "repeating_card", "needs_decision", "unknown_screen" or
     "timeout"."""
     decider, ctx = Decider(det), Context(goal="explore")
     deadline = time.monotonic() + minutes * 60
@@ -88,8 +94,10 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
             if prog and prog.text != last_progress:
                 last_progress = prog.text
                 log.info("progress: %s", prog.text)
-            if det.find("Explore.Complete"):
-                dev.tap(*TRACKER_PANEL)
+            done = det.find("Explore.Complete")
+            if done:
+                x, y, w, h = done.box
+                dev.tap(x + w // 2, y + h // 2)
                 time.sleep(2)
                 log.info("explore quest complete, reward claimed")
                 return "complete"
@@ -161,8 +169,27 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
                 if unknown_cards >= 3:
                     log.warning("no rule for card %r; stopping so a rule can be added", card.title)
                     return "unknown_card"
+        elif d.state == "player_profile":
+            # Opened by tapping our own character. Top up HP here if it's low, then close.
+            hp = int(re.search(r"(\d+)%", d.text).group(1)) if d.text else 100
+            if hp < HEAL_BELOW:
+                log.info("HP %d%%: quick heal", hp)
+                dev.tap(*QUICK_HEAL)
+                time.sleep(2)
+            else:
+                dev.tap(360, 60)  # above the popup; a tap below it doesn't close it
+                time.sleep(1.5)
         elif d.state == "dialogue_choice":
-            dev.tap(360, d.box[1] + d.box[3] // 2)
+            options = [t for t, _ in det.read_text([60, 300, 600, 750])]
+            if any(re.search(DECISION_OPTIONS, t) for t in options):
+                # A choice with lasting consequences (class): not the bot's call. Leave and report.
+                leave = [b for t, b in det.read_text([60, 300, 600, 750]) if re.search(r"^Leave$", t)]
+                if leave:
+                    x, y, w, h = leave[0]
+                    dev.tap(x + w // 2, y + h // 2)
+                log.warning("needs a human decision: %s", options)
+                return "needs_decision"
+            dev.tap(360, d.box[1] + d.box[3] // 2)  # the lowest option, nearest the speaker box
             time.sleep(1.5)
         elif d.state == "dialogue":
             dev.tap(*nav.DIALOGUE_NEXT)
@@ -192,12 +219,20 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
 def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--minutes", type=float, default=20)
+    p.add_argument("--chain", action="store_true", help="after a quest completes, carry on with the next one")
     args = p.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s", datefmt="%H:%M:%S")
     dev = Device()
-    result = follow_tracker(dev, StateDetector(dev), args.minutes)
-    print(result)
-    return 0 if result == "complete" else 1
+    det = StateDetector(dev)
+    deadline = time.monotonic() + args.minutes * 60
+    while True:
+        # Quests chain: after claiming one the tracker shows the next, so keep going until something else stops us.
+        left = (deadline - time.monotonic()) / 60
+        result = follow_tracker(dev, det, left) if left > 0 else "timeout"
+        print(result, flush=True)
+        if result != "complete" or not args.chain:
+            return 0 if result == "complete" else 1
+        time.sleep(3)
 
 
 if __name__ == "__main__":

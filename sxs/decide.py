@@ -21,7 +21,7 @@ log = logging.getLogger("sxs.decide")
 POLICY_PATH = REPO_ROOT / "resource" / "policy" / "cards.json"
 CARD_ROI = [0, 250, 720, 820]  # where popups and cards sit
 BACK_ARROW = (60, 1216)
-OUTSIDE = (360, 1230)
+OUTSIDE = (360, 60)  # above the card; taps at the bottom edge sometimes land on nothing and do not close it
 
 
 @dataclass

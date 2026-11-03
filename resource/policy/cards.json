@@ -47,7 +47,7 @@
         },
         {
             "kind": "travel",
-            "match": "^Travel to .+ now\\?$",
+            "match": "(^Travel to .+ now\\?$|Head there now\\?$)",
             "choose": "^OK$",
             "when": {
                 "goal": [
@@ -59,7 +59,7 @@
         },
         {
             "kind": "travel",
-            "match": "^Travel to .+ now\\?$",
+            "match": "(^Travel to .+ now\\?$|Head there now\\?$)",
             "choose": "cancel",
             "why": "Not travelling when the goal is just to get home."
         },
