@@ -304,7 +304,7 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
                 # Maybe a popup the detector doesn't know: a rule may still cover it, otherwise it's dismissed.
                 card, choice = decider.decide(ctx)
                 dev.tap(*choice.point)
-                if choice.kind == "unknown" and card.title:
+                if choice.kind == "unknown" and card.buttons:  # a real card has buttons; battle damage numbers do not
                     unknown_cards += 1
                     if unknown_cards >= 3:
                         log.warning("no rule for card %r; stopping so a rule can be added", card.title)
