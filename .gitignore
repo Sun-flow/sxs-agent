@@ -5,3 +5,4 @@ __pycache__/
 debug/
 resource/model/ocr/*.onnx
 captures/
+logs/

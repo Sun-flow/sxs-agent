@@ -1,0 +1,130 @@
+{
+    "doc": "How sxs/decide.py chooses on popups and cards. Rules are tried in order; the first whose 'when' holds and whose 'match' regex finds the card's title or body wins. 'choose' is a regex for the button to press, or 'dismiss' (back arrow or tap outside), or 'cancel' (the dialog's Cancel button). Goals: explore (finish the current Explore quest), daily (daily loop), idle (just get home). Add a rule whenever a new card shows up; anything no rule covers is dismissed and logged as unknown. A dismiss taps outside the card unless the rule says \"dismiss_by\": \"back\" (the bottom-left back arrow).",
+    "buttons": "^(OK|Cancel|Confirm|Explore|Enter|Activate|Collect|Claim|Claim All|Open|Interact|Bless|Pray|Gather|Harvest|Mine|Examine|Read|Next Floor|Leave|Retreat|Exit|Continue|Start Battle|Buy|Purchase|Refresh|Spend|Unlock|Upgrade|Enhance|Equip|Replace|Remove|Go|Return to Home|Quick Heal.*|Track|Stop Tracking)$",
+    "never": "^(Buy|Purchase|Refresh|Spend)$|Dawnium",
+    "rules": [
+        {
+            "kind": "social_requests",
+            "match": "^(Apply|Friends Team Up Challenge Room)",
+            "choose": "dismiss",
+            "why": "Friend, team-up and challenge requests from other players: social choices are mae's, so leave them untouched."
+        },
+        {
+            "kind": "defeated",
+            "match": "incapacitated",
+            "choose": "^OK$",
+            "why": "Lost a fight. OK goes home; Cancel would leave the character stranded at 0 HP."
+        },
+        {
+            "kind": "wounded",
+            "match": "badly wounded",
+            "choose": "^Quick Heal",
+            "when": {
+                "goal": [
+                    "explore",
+                    "daily"
+                ]
+            },
+            "why": "Low HP after a fight. Quick Heal eats cooked dishes (Green Riceball, made in the Alchemy Pot), not premium currency, and keeps the run going."
+        },
+        {
+            "kind": "wounded",
+            "match": "badly wounded",
+            "choose": "^Return to Home$",
+            "why": "Low HP and nothing to do out here: go home."
+        },
+        {
+            "kind": "quest_detail",
+            "match": "^Details",
+            "choose": "^(Go|Track)$",
+            "when": {
+                "goal": [
+                    "explore",
+                    "daily"
+                ]
+            },
+            "why": "Quest detail from the tracker: Go travels to the quest, Track turns tracking on."
+        },
+        {
+            "kind": "quest_detail",
+            "match": "^Details",
+            "choose": "dismiss",
+            "why": "Not working on quests right now."
+        },
+        {
+            "kind": "travel",
+            "match": "(^Travel to .+ now\\?$|Head there now\\?$)",
+            "choose": "^OK$",
+            "when": {
+                "goal": [
+                    "explore",
+                    "daily"
+                ]
+            },
+            "why": "Travel prompts from the quest tracker; free."
+        },
+        {
+            "kind": "travel",
+            "match": "(^Travel to .+ now\\?$|Head there now\\?$)",
+            "choose": "cancel",
+            "why": "Not travelling when the goal is just to get home."
+        },
+        {
+            "kind": "portal",
+            "match": "^Portal$",
+            "choose": "^Activate$",
+            "why": "Activating a portal is free, counts toward exploration and unlocks fast travel."
+        },
+        {
+            "kind": "obelisk",
+            "match": "^Voyage Obelisk$",
+            "choose": "^Activate$",
+            "when": {
+                "goal": [
+                    "explore"
+                ]
+            },
+            "why": "The Voyage Obelisk is the gate to the next kingdom (Originisle V \u2192 Verdantglade); the quest marker points at it, and activating it is free."
+        },
+        {
+            "kind": "goddess_statue",
+            "match": "^Goddess Statue$",
+            "choose": "^Unlock$",
+            "why": "Unlocking a Goddess Statue once the area is 100% explored blesses the land (+1 Blessing Level, which feeds the Bed's AFK EXP). Free; it's the follow-up quest 'The Goddess's Grace'."
+        },
+        {
+            "kind": "mini_dungeon",
+            "match": "(Ruins|Cave|Tower|Dungeon|Pit|Mine|Lair|Den|Fortress)$|First Clear Rewards",
+            "choose": "^(Explore|Enter)$",
+            "when": {
+                "goal": [
+                    "explore"
+                ],
+                "hp_ok": true
+            },
+            "why": "Structures on the map are mini-dungeons with floors of fights; clearing them counts toward Explore quests."
+        },
+        {
+            "kind": "mini_dungeon",
+            "match": "(Ruins|Cave|Tower|Dungeon|Pit|Mine|Lair|Den|Fortress)$|First Clear Rewards",
+            "choose": "dismiss",
+            "why": "Skip mini-dungeons when not exploring or when HP is low."
+        },
+        {
+            "kind": "dungeon_floor",
+            "match": ": Floor \\d+",
+            "choose": "^Next Floor$",
+            "when": {
+                "hp_ok": true
+            },
+            "why": "Floor cleared; keep climbing while healthy."
+        },
+        {
+            "kind": "dungeon_floor",
+            "match": ": Floor \\d+",
+            "choose": "dismiss",
+            "why": "Leave the dungeon (back arrow) when HP is low.",
+            "dismiss_by": "back"
+        }
+    ]
+}

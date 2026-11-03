@@ -11,10 +11,18 @@
                 "State.Title",
                 "State.Loading.Title",
                 "State.RewardPopup",
+                "State.TapToContinue",
+                "State.Defeated",
                 "State.ConfirmDialog",
+                "State.DungeonFloor",
+                "State.QuestDetail",
+                "State.PlayerProfile",
+                "State.Interact",
+                "State.DialogueChoice",
                 "State.Dialogue",
                 "State.BattlePrep",
                 "State.Battle",
+                "State.Cart",
                 "State.Home",
                 "State.WorldOverview",
                 "State.WorldMap",
@@ -71,7 +79,7 @@
     "State.RewardPopup": {
         "doc": "'YOU RECEIVED' banner after claiming anything (cart, quests, loot). Tap anywhere to close.",
         "recognition": "OCR",
-        "expected": "YOU RECEIVED",
+        "expected": "^(YOU RECEIVED|Cooked)$",
         "roi": [
             100,
             330,
@@ -82,14 +90,14 @@
         "post_delay": 0
     },
     "State.ConfirmDialog": {
-        "doc": "Generic two-button Confirm dialog (Cancel left, OK right).",
+        "doc": "Generic two-button Confirm dialog (Cancel left, OK right). The dialog grows with its content, so the title sits anywhere from y=330 to 450.",
         "recognition": "OCR",
         "expected": "^Confirm$",
         "roi": [
             160,
+            300,
             400,
-            400,
-            90
+            200
         ],
         "pre_delay": 0,
         "post_delay": 0
@@ -239,6 +247,113 @@
             10,
             420,
             50
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Interact": {
+        "doc": "Card popup for a map object (portal, statue, node...) with one action button at (360, 895). Only whitelisted verbs count, so a 'Purchase' or 'Spend' card stays unknown.",
+        "recognition": "OCR",
+        "expected": "^(Activate|Collect|Claim|Open|Interact|Bless|Pray|Gather|Harvest|Mine|Examine|Read|Explore|Enter)$",
+        "roi": [
+            150,
+            850,
+            420,
+            200
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Defeated": {
+        "doc": "Confirm dialog after losing a fight: 'Your character is incapacitated. Return to Home now?' OK at (490, 830) goes home. Checked before State.ConfirmDialog.",
+        "recognition": "OCR",
+        "expected": "incapacitated",
+        "roi": [
+            60,
+            670,
+            600,
+            80
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Cart": {
+        "doc": "Cart (AFK income) panel from tapping the cart on home: income rows (Rolla, Wood, Stone, Raw Ore, Battle Essence; Gear unlocks at Lv 15) with upgrade arrows, 'Claim All' at (360, 1098). Close by tapping outside (360, 1220).",
+        "recognition": "OCR",
+        "expected": "^Claim All$",
+        "roi": [
+            200,
+            1065,
+            320,
+            70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.TapToContinue": {
+        "doc": "Full-screen result overlays that end with 'Tap to Continue' at the bottom (e.g. UNLOCKED furniture). Tap anywhere.",
+        "recognition": "OCR",
+        "expected": "Tap to Continue",
+        "roi": [
+            150,
+            900,
+            420,
+            380
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.DialogueChoice": {
+        "doc": "Dialogue with reply options: white pill buttons with a black arrow at the left, above the speaker box. Tap the option (the bot takes the lowest one, nearest the box). Checked before State.Dialogue, which also matches.",
+        "recognition": "TemplateMatch",
+        "template": "state/dialogue_choice_arrow.png",
+        "roi": [
+            40,
+            300,
+            140,
+            750
+        ],
+        "threshold": 0.8,
+        "order_by": "Vertical",
+        "index": -1,
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.DungeonFloor": {
+        "doc": "Between floors of a mini-dungeon: '<Name>: Floor n' card with flavour text and 'Next Floor'; the back arrow leaves.",
+        "recognition": "OCR",
+        "expected": ": Floor \\d+",
+        "roi": [
+            80,
+            360,
+            560,
+            90
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.QuestDetail": {
+        "doc": "Quest detail card (title, Details, Goal, Rewards) from tapping a quest on the tracker; button Track, Stop Tracking or Go at the bottom.",
+        "recognition": "OCR",
+        "expected": "^Details$",
+        "roi": [
+            90,
+            340,
+            260,
+            80
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.PlayerProfile": {
+        "doc": "Own player profile popup (tap your character on the map): power, rank, stats, gear, techniques, 'HP: n%' bar, Dish and Quick Heal buttons. Close by tapping outside.",
+        "recognition": "OCR",
+        "expected": "^HP: ?\\d+%$",
+        "roi": [
+            50,
+            950,
+            300,
+            60
         ],
         "pre_delay": 0,
         "post_delay": 0
