@@ -46,9 +46,10 @@
     ]
    },
    "images": [
-    "docs/screens/main_menu.png"
+    "docs/screens/main_menu.png",
+    "docs/screens/main_menu_lv10.png"
    ],
-   "notes": "Also has Photo (0.14,0.85), Notice (0.30,0.85), User Center (0.47,0.85), Settings (0.64,0.85), a 'Coming soon' card (0.72,0.75). Shows the server clock (R-024)."
+   "notes": "Also has Photo (0.14,0.85), Notice (0.30,0.85), User Center (0.47,0.85), Settings (0.64,0.85), a 'Coming soon' card (0.72,0.75). Shows the server clock (R-024). From Lv 10 a Friends button is added and the row shifts: Friends (0.14,0.85), Photo (0.32), Notice (0.49), User Center (0.67), Settings (0.85)."
   },
   {
    "id": "quests",
@@ -94,7 +95,7 @@
    "images": [
     "docs/screens/world_overview.png"
    ],
-   "notes": "Pick an island to walk on."
+   "notes": "Pick an island to walk on. Shows each island's exploration score and rank (e.g. 'Originisle 82, Ahead of 59.7% of Players'). Bottom-left button opens Exploration Goals."
   },
   {
    "id": "world_map",
@@ -580,6 +581,65 @@
     "docs/screens/rank_advancement.png"
    ],
    "notes": "Rank up for base stats; needs max level and materials (R-048)."
+  },
+  {
+   "id": "notice",
+   "name": "Notice board",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/notice.png"
+   ],
+   "notes": "Tabs Notice / System / News; lists events (R-051)."
+  },
+  {
+   "id": "friends",
+   "name": "Friends",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": "Lv 10 (button appears on the menu)",
+   "detect": null,
+   "images": [
+    "docs/screens/friends.png"
+   ],
+   "notes": "Friends 0/60; tabs Friends / Add Friends / Requests / Blocklist."
+  },
+  {
+   "id": "settings",
+   "name": "Settings",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [],
+   "notes": "Tabs Game (language, chat channel visibility on home), Graphics (quality, frame rate 30/60, visible players, bloom), Sound, Alerts, Other (vibration, network boost, auto-download). Captures settings_*.png."
+  },
+  {
+   "id": "exploration_goals",
+   "name": "Exploration Goals",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/exploration_goals.png",
+    "docs/screens/destiny_exploration_goals.png"
+   ],
+   "notes": "Progress tab (per-region exploration milestones with rewards) and Explore tab (Destiny Exploration Goals) (R-052)."
+  },
+  {
+   "id": "class_choice",
+   "name": "Class choice dialogue",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/class_choice.png"
+   ],
+   "notes": "Dialogue options Ascend to Mage / Change Class / Leave. Needs mae's decision (R-050)."
   }
  ],
  "edges": [
@@ -1396,6 +1456,78 @@
    },
    "confidence": "observed",
    "notes": ""
+  },
+  {
+   "from": "main_menu",
+   "to": "friends",
+   "action": {
+    "type": "tap",
+    "target": "Friends",
+    "template": null,
+    "pos": [
+     0.14,
+     0.85
+    ]
+   },
+   "when": "account Lv 10 or more",
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "main_menu",
+   "to": "notice",
+   "action": {
+    "type": "tap",
+    "target": "Notice",
+    "template": null,
+    "pos": [
+     0.49,
+     0.85
+    ]
+   },
+   "when": "account Lv 10 or more",
+   "confidence": "observed",
+   "notes": "Below Lv 10 Notice is at (0.30, 0.85)."
+  },
+  {
+   "from": "main_menu",
+   "to": "settings",
+   "action": {
+    "type": "tap",
+    "target": "Settings",
+    "template": null,
+    "pos": [
+     0.85,
+     0.85
+    ]
+   },
+   "when": "account Lv 10 or more",
+   "confidence": "observed",
+   "notes": "Below Lv 10 Settings is at (0.64, 0.85)."
+  },
+  {
+   "from": "world_overview",
+   "to": "exploration_goals",
+   "action": {
+    "type": "tap",
+    "target": "Button, bottom left",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "class_choice",
+   "to": "previous",
+   "action": {
+    "type": "tap",
+    "target": "Leave",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "What the bot does until mae picks a class."
   }
  ]
 }

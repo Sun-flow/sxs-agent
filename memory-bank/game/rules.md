@@ -1,8 +1,8 @@
 # Game rules
 
 > **Last updated**: 2026-11-03
-> Screen captures named below are in `docs/screens/` (step 2, PR #5); captures from batches 4 to 7 (R-029 onward, plus `cart.png`) and the marker templates are on branch step3-explore until it merges.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-050).
+> Screen captures named below are in `docs/screens/` (step 2, PR #5); captures from batches 4 to 8 (R-029 onward, plus `cart.png`) and the marker templates are on branch step3-explore until it merges.
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-054).
 
 Entry format:
 
@@ -124,19 +124,19 @@ Entry format:
 ### R-017 · Stamina caps at 300
 - **Rule**: Stamina is spent on map nodes and caps at 300; stamina gained over the cap is wasted, so spend it before it fills. A free stamina pack is available daily in the Shop.
 - **Confidence**: cap observed (top bar shows e.g. 52/300, lightning icon); the rest reported. **Source**: builder batch 1; step 1 doc section 4.
-- **Images**: none yet (want: stamina icon crop).
+- **Images**: none yet `resource/image/currency/stamina.png` (step 3).
 - **Related**: node `shop`.
 
 ### R-018 · Dawnium is the premium currency
 - **Rule**: Dawnium buys extra dungeon attempts and items in the Shop's Vault. The bot should not spend it without a rule saying so.
 - **Confidence**: the currency and its icon observed (orange diamond in the top bar); its uses reported. **Source**: builder batch 1; step 1 doc section 4.
-- **Images**: none yet (want: Dawnium icon crop).
+- **Images**: none yet `resource/image/currency/dawnium.png` (step 3).
 - **Related**: R-015.
 
 ### R-019 · Rolla is the common currency
 - **Rule**: Rolla (gold coin icon, shown like "1.38K" in the top bar) pays for gear enhancement (R-023) and Daily Shop refreshes; early on it is the priority use of stamina. On the world map the top bar shows a fruit counter in its place.
 - **Confidence**: icon and gear use observed; shop and stamina uses reported. **Source**: builder batch 1; step 1 doc section 4.
-- **Images**: none yet (want: Rolla icon crop).
+- **Images**: none yet `resource/image/currency/rolla.png` (step 3).
 - **Related**: R-017.
 
 ### R-020 · The Cart collects AFK rewards
@@ -329,3 +329,29 @@ Entry format:
 - **Confidence**: observed. **Source**: builder batch 7.
 - **Images**: none.
 - **Related**: R-020, R-023, R-037, R-043.
+
+## Added from builder batch 8 (2026-11-03)
+
+### R-050 · The class choice comes after the Guardian Colossi
+- **Rule**: After the boss, "Crossroads of Classes: Talk to the Mysterious Elder" leads to the Chief at the Originisle V pillar. Its dialogue offers "Ascend to Mage", "Change Class" or "Leave". This is a decision for mae, not the bot: the bot picks Leave and stops with `needs_decision`. Boss loot (chests, an orb, an ore pile) lies around the pillar.
+- **Confidence**: observed. **Source**: builder batch 8.
+- **Images**: `docs/screens/class_choice.png`.
+- **Related**: R-041 (dialogue choices), R-042, node `class_choice`.
+
+### R-051 · Events and their daily sign-ins are on the Notice board
+- **Rule**: The Notice board (tabs Notice / System / News) lists events. A Halloween event, "Haunted Carnival", runs 25 October to 14 November with a daily Carnival Sign-In: a **daily task** while it runs. Event names and dates change, so read them each time rather than hard-coding them.
+- **Confidence**: observed. **Source**: builder batch 8.
+- **Images**: `docs/screens/notice.png`.
+- **Related**: node `notice`; step 1 doc's "Mail, event check-ins, codes".
+
+### R-052 · Exploration Goals reward exploration milestones
+- **Rule**: The World tab's bottom-left button opens Exploration Goals. Its Progress tab lists per-region milestones with rewards (Originisle Exploration 82/100; Verdantglade Exploration 0/5, 0/10, 0/15, 0/20), and its Explore tab lists Destiny Exploration Goals (0/20 up to 0/100). The world overview shows each island's score and rank ("Originisle 82, Ahead of 59.7% of Players"). Claiming milestones is likely worth adding to the daily loop ❓.
+- **Confidence**: observed. **Source**: builder batch 8.
+- **Images**: `docs/screens/exploration_goals.png`, `docs/screens/destiny_exploration_goals.png`.
+- **Related**: R-002, R-005, node `exploration_goals`.
+
+### R-053 · Menu buttons move as features unlock
+- **Rule**: At Lv 10 the menu gains Friends and the bottom row shifts (Friends 0.14, Photo 0.32, Notice 0.49, User Center 0.67, Settings 0.85, all at y 0.85). Find menu buttons by their label, not a fixed position. Friends holds 60; tabs Friends / Add Friends / Requests / Blocklist. Settings has Game, Graphics, Sound, Alerts and Other tabs.
+- **Confidence**: observed. **Source**: builder batch 8.
+- **Images**: `docs/screens/main_menu_lv10.png`, `docs/screens/friends.png`.
+- **Related**: R-010, nodes `main_menu`, `friends`, `settings`.

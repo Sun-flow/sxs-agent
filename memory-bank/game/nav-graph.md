@@ -46,6 +46,11 @@ flowchart TD
     wounded["Badly wounded dialog"]
     alchemy_pot["Alchemy Pot"]
     rank_advancement["Rank Advancement"]
+    notice["Notice board"]
+    friends["Friends"]
+    settings["Settings"]
+    exploration_goals["Exploration Goals"]
+    class_choice["Class choice dialogue"]
     home -->|"tap: Bottom nav bar (y 0.97): Character"| character
     world_map -.->|"tap: Bottom nav bar (y 0.97): Character"| character
     home -->|"tap: Bottom nav bar (y 0.97): Travel Journal"| travel_journal
@@ -95,6 +100,10 @@ flowchart TD
     wounded -->|"tap: Return to Home"| home
     home_house -->|"tap: Alchemy Pot furniture"| alchemy_pot
     character -->|"tap: Rank badge, bottom right"| rank_advancement
+    main_menu -->|"tap: Friends [account Lv 10 or more]"| friends
+    main_menu -->|"tap: Notice [account Lv 10 or more]"| notice
+    main_menu -->|"tap: Settings [account Lv 10 or more]"| settings
+    world_overview -->|"tap: Button, bottom left"| exploration_goals
 ```
 
 ## Screens
@@ -102,10 +111,10 @@ flowchart TD
 | id | Name | Kind | Confidence | Unlock | Notes |
 |---|---|---|---|---|---|
 | `home` | Home | hub | observed |  | Scene scrolls horizontally; the Cart (AFK income) and cherry tree are on the left (R-020). The chat strip at y 0.82-0.90 opens server_chat: avoid it. |
-| `main_menu` | Menu | menu | observed |  | Also has Photo (0.14,0.85), Notice (0.30,0.85), User Center (0.47,0.85), Settings (0.64,0.85), a 'Coming soon' card (0.72,0.75). Shows the server clock (R-024). |
+| `main_menu` | Menu | menu | observed |  | Also has Photo (0.14,0.85), Notice (0.30,0.85), User Center (0.47,0.85), Settings (0.64,0.85), a 'Coming soon' card (0.72,0.75). Shows the server clock (R-024). From Lv 10 a Friends button is added and the row shifts: Friends (0.14,0.85), Photo (0.32), Notice (0.49), User Center (0.67), Settings (0.85). |
 | `quests` | Quests | menu | observed |  | Tabs Quest (0.40,0.95) and Achievement (0.78,0.95). Each row has 'Go >>' at x 0.83 that jumps to the relevant screen (R-009). |
 | `quest_detail` | Quest detail | popup | observed |  | Quest detail card: Details, Goal, Rewards and a Go or Track button (R-044). |
-| `world_overview` | World (island picker) | world | observed |  | Pick an island to walk on. |
+| `world_overview` | World (island picker) | world | observed |  | Pick an island to walk on. Shows each island's exploration score and rank (e.g. 'Originisle 82, Ahead of 59.7% of Players'). Bottom-left button opens Exploration Goals. |
 | `world_map` | World map (island) | world | observed |  | Walkable island map with minimap, fog and pickups (R-002, R-004, R-021, R-022). Shows a fruit counter instead of Rolla in the top bar. |
 | `player_profile` | Player profile | popup | observed |  | Gear, techniques, Dish, Quick Heal. Not detected yet. Android back does nothing here. |
 | `battle_prep` | Battle prep | menu | observed |  | Enemy line-up, 'Round 0/15'. |
@@ -140,6 +149,11 @@ flowchart TD
 | `wounded` | Badly wounded dialog | popup | observed |  | Confirm 'The character is badly wounded. Use dishes to heal?' with Return to Home / Quick Heal (cost shown; dish count top right) (R-046). |
 | `alchemy_pot` | Alchemy Pot | menu | observed | Lv 7 | House furniture: melt down gear and cook dishes. Dish tab: recipes with ingredient costs at the top and a Cook button; shows a 'Cooked' banner (R-047). |
 | `rank_advancement` | Rank Advancement | menu | observed |  | Rank up for base stats; needs max level and materials (R-048). |
+| `notice` | Notice board | menu | observed |  | Tabs Notice / System / News; lists events (R-051). |
+| `friends` | Friends | menu | observed | Lv 10 (button appears on the menu) | Friends 0/60; tabs Friends / Add Friends / Requests / Blocklist. |
+| `settings` | Settings | menu | observed |  | Tabs Game (language, chat channel visibility on home), Graphics (quality, frame rate 30/60, visible players, bloom), Sound, Alerts, Other (vibration, network boost, auto-download). Captures settings_*.png. |
+| `exploration_goals` | Exploration Goals | menu | observed |  | Progress tab (per-region exploration milestones with rewards) and Explore tab (Destiny Exploration Goals) (R-052). |
+| `class_choice` | Class choice dialogue | popup | observed |  | Dialogue options Ascend to Mage / Change Class / Leave. Needs mae's decision (R-050). |
 
 ## Actions
 
@@ -203,3 +217,8 @@ flowchart TD
 | Badly wounded dialog | previous screen | tap Quick Heal (costs dishes) (when dishes left) | observed | Repeated taps did not always clear it; it may then offer only Return to Home (R-046). |
 | Home house | Alchemy Pot | tap Alchemy Pot furniture | observed |  |
 | Character | Rank Advancement | tap Rank badge, bottom right | observed |  |
+| Menu | Friends | tap Friends at [0.14, 0.85] (when account Lv 10 or more) | observed |  |
+| Menu | Notice board | tap Notice at [0.49, 0.85] (when account Lv 10 or more) | observed | Below Lv 10 Notice is at (0.30, 0.85). |
+| Menu | Settings | tap Settings at [0.85, 0.85] (when account Lv 10 or more) | observed | Below Lv 10 Settings is at (0.64, 0.85). |
+| World (island picker) | Exploration Goals | tap Button, bottom left | observed |  |
+| Class choice dialogue | previous screen | tap Leave | observed | What the bot does until mae picks a class. |
