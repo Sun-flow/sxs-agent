@@ -27,6 +27,7 @@ Then read the docs and code your task needs.
 | `notes.md` | mae's preferences, environment and tool gotchas, unwritten conventions. | As soon as you learn something the next session would rediscover. | ~100 lines |
 | `game/` | Game knowledge: rules of the world (`game/rules.md`) and the menu navigation graph (`game/nav-graph.json`). Its own README explains the format. | A session learns a rule or a route between screens. | One entry per rule; graph checked by `scripts/nav-graph.py` |
 | `decisions.md` | Decisions with lasting consequences, why, and what was rejected. The repo has no other decision log. | A decision is made or superseded. | Newest first; never delete an entry |
+| `handoff.md` | Briefing for the next game-playing session on maes2024: job, process, mae's rules, current state, next steps. | When a playing session hands off. | ~120 lines |
 
 ## Sources of truth (higher wins)
 

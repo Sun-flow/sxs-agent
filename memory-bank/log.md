@@ -3,6 +3,10 @@
 > **Last updated**: 2026-11-03
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
 
+### 2026-11-03 (late) · Verdantglade I–II, minimap reader, handoff (Claude Code, maes2024 via Remote Control)
+- Talked to the Chief to open the Originisle V loot (NPC "!" gating), activated the Voyage Obelisk, then cleared and blessed Verdantglade I and II (Lv 12, 7.7K power). Added: talk to NPC "!" when stuck, fight path blockers (wolf templates), edge pointers (boss, statue, unlock), the tracker gift claim, rules for the obelisk, goddess statue and mines, mae's heal-and-retry rule, dialogue logging, `sxs/minimap.py` and `sxs/fogwalk.py`. Branch `step3-explore`, PR #7.
+- Open: Moonveil Woods route (blocker); handed off in `memory-bank/handoff.md` at mae's request.
+
 ### 2026-11-03 (evening) · Mage, prayer, strengthen routine (Claude Code, maes2024 via Remote Control)
 - mae chose Mage, and the character ascended. The tutorial unlocked the Statue and Prayer (10 free tickets used), and Cyclone and Flame Jet are equipped. Added `--choose` to `sxs.explore`, stall guards (vary tap offset, give up), unknown screens through the decider, a spend guard in the tutorial follower, and `sxs/strengthen.py`. Rule batch 9 went to the docs thread. Branch `step3-explore`, PR #7.
 - Open: the unreachable loot on Originisle V blocks Wild Isle Trek V.
