@@ -119,7 +119,7 @@ flowchart TD
     world_map -->|"tap: Person icon with badge, left edge"| apply_requests
     world_map -->|"tap: The minimap"| area_map
     area_map -->|"tap: The spot to move the camera over"| area_map
-    area_map -->|"tap: Close the map"| world_map
+    area_map -->|"tap: Back arrow (closes the map)"| world_map
     world_map -->|"tap: Flag button, top left"| team
     interact -->|"tap: Unlock (Goddess Statue) [area at 100% exploration]"| blessing_level
     interact -.->|"tap: Activate (Voyage Obelisk) [goal needs the next kingdom]"| world_overview
@@ -259,7 +259,7 @@ flowchart TD
 | Apply (social requests) | previous screen | tap Above the popup at [0.5, 0.05] | reported |  |
 | World map (island) | Area map (full map) | tap The minimap at [0.86, 0.13] | observed | Minimap circle top right. |
 | Area map (full map) | Area map (full map) | tap The spot to move the camera over | observed | Centres the camera there; stays on the map. |
-| Area map (full map) | World map (island) | tap Close the map | observed | Close control not recorded; the camera now shows the tapped spot. Then tap the ground there and the player auto-paths to it. |
+| Area map (full map) | World map (island) | tap Back arrow (closes the map) at [0.08, 0.95] | observed | The camera now shows the tapped spot; then tap the ground there and the player auto-paths to it (memory-bank/handoff.md). |
 | World map (island) | Team panel | tap Flag button, top left at [0.08, 0.12] | observed |  |
 | Exploration card | Blessing level | tap Unlock (Goddess Statue) at [0.5, 0.7] (when area at 100% exploration) | observed |  |
 | Exploration card | World (island picker) | tap Activate (Voyage Obelisk) at [0.5, 0.7] (when goal needs the next kingdom) | reported | Kingdom travel Originisle to Verdantglade; landing screen not recorded. |

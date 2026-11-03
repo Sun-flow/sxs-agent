@@ -24,6 +24,7 @@ LOG_ARCHIVE = "docs/archive/memory-bank-log.md"
 # Paths the docs name on purpose before they exist. Remove an entry once the path is real.
 PLANNED_PATHS = {
     LOG_ARCHIVE,
+    "sxs/navigate.py",  # planned in memory-bank/handoff.md (map-based navigation)
 }
 
 PATH_EXTENSIONS = (".md", ".py", ".js", ".ts", ".html", ".txt", ".json", ".yml", ".yaml", ".toml", ".png", ".sh", ".css")

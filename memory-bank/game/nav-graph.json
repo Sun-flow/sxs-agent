@@ -1746,12 +1746,15 @@
    "to": "world_map",
    "action": {
     "type": "tap",
-    "target": "Close the map",
+    "target": "Back arrow (closes the map)",
     "template": null,
-    "pos": null
+    "pos": [
+     0.08,
+     0.95
+    ]
    },
    "confidence": "observed",
-   "notes": "Close control not recorded; the camera now shows the tapped spot. Then tap the ground there and the player auto-paths to it."
+   "notes": "The camera now shows the tapped spot; then tap the ground there and the player auto-paths to it (memory-bank/handoff.md)."
   },
   {
    "from": "world_map",
