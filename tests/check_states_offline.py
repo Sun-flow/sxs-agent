@@ -49,6 +49,7 @@ EXPECTED = {
     "alchemy_pot": "unknown",
     "furniture_alchemy_pot": "unknown",
     "world_map": "world_map",
+    "wounded": "confirm_dialog",
     "world_map_explore": "world_map",
     "world_map_monsters": "world_map",
     "world_overview": "world_overview",

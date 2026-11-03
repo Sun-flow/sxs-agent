@@ -34,6 +34,7 @@ START_BATTLE = (360, 956)
 PAN_CENTER = (360, 560)  # where a hidden marker is dragged to
 MARKER_TARGET_DY = 100
 STALE_LIMIT = 4
+REPEAT_LIMIT = 4  # same card title this many times in a row means the choice isn't working
 GUARD_DX, GUARD_DY = -35, 50  # from the top-right guard bracket to the monster  # the target sits about this far below the centre of the tracker ring
 
 
@@ -67,10 +68,12 @@ def read_tracker(det: StateDetector) -> Optional[dict]:
 
 
 def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_misses: int = 6) -> str:
-    """Returns "complete", "defeated", "no_marker", "no_tracker", "unknown_screen" or "timeout"."""
+    """Returns "complete", "defeated", "no_marker", "no_tracker", "unknown_card", "repeating_card", "unknown_screen" or
+    "timeout"."""
     decider, ctx = Decider(det), Context(goal="explore")
     deadline = time.monotonic() + minutes * 60
-    misses = unknowns = unknown_total = 0
+    misses = unknowns = unknown_total = unknown_cards = repeats = 0
+    last_kind = None
     last_progress = last_state = last_progress_seen = None
     stale = 0  # map visits in a row with no change in progress
     while time.monotonic() < deadline:
@@ -143,12 +146,21 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
         elif d.state in ("defeated", "interact", "dungeon_floor", "confirm_dialog", "quest_detail"):
             # Cards and dialogs: pick the option that fits the goal (resource/policy/cards.json).
             card, choice = decider.decide(ctx)
+            repeats = repeats + 1 if card.title == last_kind else 0
+            last_kind = card.title
+            if repeats >= REPEAT_LIMIT:
+                # The same choice keeps bringing the same card back: it isn't working, so stop and report.
+                log.warning("card %r keeps coming back after %s; stopping", card.title, choice.action)
+                return "repeating_card"
             dev.tap(*choice.point)
             time.sleep(4)
             if choice.kind == "defeated":
                 return "defeated"
             if choice.kind == "unknown":
-                unknowns += 1
+                unknown_cards += 1
+                if unknown_cards >= 3:
+                    log.warning("no rule for card %r; stopping so a rule can be added", card.title)
+                    return "unknown_card"
         elif d.state == "dialogue_choice":
             dev.tap(360, d.box[1] + d.box[3] // 2)
             time.sleep(1.5)
