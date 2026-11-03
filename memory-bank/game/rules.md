@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/` (step 2, PR #5); captures from batches 4 to 9 (R-029 onward, plus `cart.png`) and the marker templates are on branch step3-explore until it merges.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-066).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-067).
 
 Entry format:
 
@@ -431,3 +431,17 @@ Entry format:
 - **Confidence**: told. **Source**: mae, 2026-11-03.
 - **Images**: none.
 - **Related**: R-002, R-021, R-025, R-064.
+
+## Map reading
+
+### R-066 · Minimap legend: it shows the true tiles
+- **Rule**: The minimap (circle at the top right of the island map, region name and "(x, y)" below it) shows the game's true tiles, so it can be read as a grid map. Known tile types:
+  - **green dots**: items or POIs to pick up;
+  - **light green**: explored walkable terrain;
+  - **light green under a shadow**: walkable terrain not yet explored;
+  - **dark green**: walls (lighter when explored, darker when not);
+  - **transparent cross-hatch with no colour beneath**: unspotted terrain, which turns into one of the known types once the player gets close.
+  Other types exist and aren't catalogued yet. Shadowed walkable areas that connect to explored ground are reachable targets for exploration (R-065). mae asked the builder for a minimap reader that classifies these tiles and marks POIs, to plan walks with the coordinates (R-004).
+- **Confidence**: told. **Source**: mae, 2026-11-03, with a marked-up screenshot of Verdantglade II (173, 104) circling a shadowed area joined to explored ground (not committed: it shows other players' chat). A clean capture from the builder is wanted.
+- **Images**: none yet.
+- **Related**: R-002, R-004, R-025, R-065.
