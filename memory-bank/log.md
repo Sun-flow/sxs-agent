@@ -3,6 +3,11 @@
 > **Last updated**: 2026-11-03
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
 
+### 2026-11-03 · Step 2: hands and eyes (Claude Code, maes2024 via Remote Control)
+- Installed MaaFramework 5.15 in `.venv`; it uses MuMu's IPC screenshots. Built `sxs/` (device, state detector, navigator, CLI, offline replay), `resource/` (state pipeline, dialogue template, OCR models via `scripts/fetch-ocr-models.py`), `tests/` and `docs/step2-hands-and-eyes.md`. Branch `step2-hands-and-eyes`.
+- mae accepted the agreement and signed in. I played the rest of the tutorial prompts (enhanced the staff, equipped the cap, finished Wild Isle Trek I) and captured 25 screens. I sent game rules to the docs thread (PR #3) through the coordinator.
+- The smoke test passed twice. Open: push and PR (Git on maes2024 needs mae's GitHub sign-in). Daily-content screens are still locked at Lv 2.
+
 ### 2026-11-03 · Memory bank set up (Claude Code, cloud)
 - mae asked to bring the memory bank generation prompt from the TrackFlow-Company-Overhaul repo into this one and instantiate it. Copied `.agents/prompts/memory-bank.md` and `scripts/check-memory.py` unchanged. PR #2. Wrote `AGENTS.md`, `CLAUDE.md` and the six memory files. Branch `claude/project-thread-4u6oai`.
 - Open: mae reviews and merges PR #2.

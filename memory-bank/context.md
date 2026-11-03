@@ -15,7 +15,7 @@ All combat in the game is auto-battle, so the bot is mostly a menu navigator and
 ## Plan
 
 1. Choose the emulator and survey the game. Done: `docs/step1-emulator-and-game.md` (PR #1).
-2. Hands-and-eyes layer: MaaFramework pipelines over MuMu Player 12 and ADB, no model calls. Runs on maes2024.
+2. Hands-and-eyes layer: MaaFramework over MuMu Player 12, state detector, CLI, smoke test. `docs/step2-hands-and-eyes.md` (branch `step2-hands-and-eyes`).
 3. Script the daily loop, with a supervisor that calls a model only on a failure or unknown screen and writes the fix back as a new or patched pipeline.
 4. Later: the entertainment agent, reading the same event log.
 
@@ -24,7 +24,8 @@ All combat in the game is auto-battle, so the bot is mostly a menu navigator and
 - **Emulator**: MuMu Player 12 on Windows, one instance per account at 1280×720, 240 dpi. Fallback BlueStacks 5. Why: `decisions.md`.
 - **Automation toolkit**: MaaFramework (JSON pipelines plus Python custom logic, template matching and OCR), with MaaMCP so Claude can drive the device and save what it did as a pipeline.
 - **Models**: Claude to start, a local model later. Called only when stuck or planning.
-- **Language**: Python 3.12 ❓ (planned in the step 1 doc; no code in the repo yet).
+- **Language**: Python 3.12 in a repo-local `.venv`; package `sxs/`, MaaFramework bundle `resource/`.
+- **Screen**: the game is portrait, frames are 720 wide × 1280 tall; all coordinates use that frame.
 - **Machines**: maes2024, mae's Windows PC that runs the emulator, project folder `C:\Users\jcmon\Desktop\sxs-player`. Cloud Claude Code sessions edit the repo; device work happens on maes2024.
 
 ## Commands
@@ -33,7 +34,13 @@ All combat in the game is auto-battle, so the bot is mostly a menu navigator and
 python3 scripts/check-memory.py   # check the memory bank; lists commits since it was last updated
 ```
 
-No build, test or run commands exist yet. Add them here as the step 2 code lands.
+Setup, CLI and how to add a screen: `docs/step2-hands-and-eyes.md`. Run from the repo root on maes2024 (Windows paths):
+
+```bash
+.venv\Scripts\python -m sxs state               # where is the game right now (JSON)
+.venv\Scripts\python tests\check_states_offline.py   # detector vs docs/screens, no emulator
+.venv\Scripts\python tests\smoke_test.py           # live: cold start -> home -> menus -> home
+```
 
 ## Repo facts
 
@@ -45,6 +52,8 @@ No build, test or run commands exist yet. Add them here as the step 2 code lands
 | Kind of fact | File |
 |---|---|
 | Emulator comparison, architecture, game notes, daily-content catalogue, iteration 1 scope | `docs/step1-emulator-and-game.md` |
+| Device layer, state detector, screen catalogue with tap coordinates | `docs/step2-hands-and-eyes.md` |
+| Reference screenshots | `docs/screens/` |
 | Why a decision was made, and what was rejected | `memory-bank/decisions.md` |
 | Where the work stands | `memory-bank/status.md` |
 | mae's preferences, environment gotchas | `memory-bank/notes.md` |

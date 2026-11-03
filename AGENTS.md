@@ -25,4 +25,5 @@ Before you finish or hand work back, update the memory bank as `memory-bank/READ
 | `docs/` | Design notes, one file per step of the plan. |
 | `memory-bank/` | Agent memory: context, status, session log, notes, decisions. |
 | `scripts/check-memory.py` | Checks the memory bank and lists commits it hasn't caught up with. |
+| `sxs/`, `resource/`, `tests/` | Step 2 hands-and-eyes code, MaaFramework bundle and tests; see `docs/step2-hands-and-eyes.md`. |
 | `.agents/prompts/memory-bank.md` | The project-agnostic prompt that builds and maintains `memory-bank/` (copied from mae's TrackFlow-Company-Overhaul repo). |

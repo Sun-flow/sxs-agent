@@ -45,5 +45,8 @@ class ImageDevice:
             frame = cv2.imread(str(frame))
         self.controller.image = frame
 
+    def screenshot(self) -> np.ndarray:
+        return self.controller.image
+
     def foreground_package(self) -> str:
         return PACKAGE

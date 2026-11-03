@@ -15,4 +15,11 @@
 
 - maes2024 is the Windows PC that runs the emulator; work there goes through `C:\Users\jcmon\Desktop\sxs-player`. Only one Remote Control session should drive it at a time.
 - Cloud sessions can't reach APKPure or APKMirror (network policy). Pull the APK from the emulator with `adb shell pm path com.zjcs.android.us` and `adb pull` instead.
+- The game is **portrait**: frames are 720 wide × 1280 tall, although MuMu is set to 1280×720. All tap coordinates use the portrait frame.
+- Use the venv: `.venv\Scripts\python`. Plain `python` in Git Bash on maes2024 hits the Microsoft Store alias; the real interpreter is `py -3.12`.
+- MaaFramework batches OCR across a node's `next` list, and the batched results misread screens, so the detector runs nodes one by one instead (`sxs/state.py`). MaaFramework has `And`/`Or` recognitions but no `Not`.
+- MaaFramework's MuMu plug-in prints `nemu_connect`/`product:` lines to stdout, so take the last line for JSON. Its log is in `.maa/debug/`.
+- The game mostly ignores the Android back key; use the on-screen back arrows. Tapping the home chat strip (y ≈ 1040–1150) opens Server Chat.
+- After a restart the game resumes on the last screen, so a cold start can land on the world map instead of home.
+- The auto-mode classifier refused running a helper script from the session scratchpad; keep helper scripts in `scripts/`.
 - Seasons partly reset levels, so unlock-level assumptions need re-checking each season (step 1 doc, section 3).
