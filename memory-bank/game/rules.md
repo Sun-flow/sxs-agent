@@ -403,7 +403,7 @@ Entry format:
 ## Added from mae (2026-11-03, evening)
 
 ### R-061 · Heal and retry a lost fight at most twice
-- **Rule**: Healing food (cooked from ingredients in the Alchemy Pot, or bought with Rolla) is cheap and fine to spend: eat it from the player portrait, then the button on the right ("Recover" or similar). While fights are being won, heal as freely as needed; Rolla is abundant early. **Dishes** are different: rarer items that give temporary stat boosts for a fight, so conserve them. If the same fight is lost twice in a row after healing, stop retrying: contact mae or go back to base to get stronger (gear, techniques, rank) first.
+- **Rule**: Healing food (cooked from ingredients in the Alchemy Pot, or bought with Rolla) is cheap and fine to spend: eat it from the player portrait, then the button on the right ("Recover" or similar). While fights are being won, heal as freely as needed; Rolla is abundant early. **Dishes** are different: rarer items that give temporary stat boosts for a fight, so conserve them. If the same fight is lost twice in a row after healing, stop retrying: contact mae or go back to base to get stronger (gear, techniques, rank) first. **Before any fight, HP must be at least 70%**; if it's lower, heal first (read HP from the HUD bar, R-078). A red "!" over the player character most likely means a heal is needed; it is not the NPC "!" of R-062. (The step 3 explore loop heals below 80%, which already satisfies this.)
 - **Confidence**: told. **Source**: mae, 2026-11-03.
 - **Images**: none yet (want: the profile's Recover button).
 - **Related**: R-031, R-043, R-046, R-047, R-078, nodes `player_profile`, `wounded`, `alchemy_pot`.
