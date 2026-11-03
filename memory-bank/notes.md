@@ -21,6 +21,9 @@
 - MaaFramework's MuMu plug-in prints `nemu_connect`/`product:` lines to stdout, so take the last line for JSON. Its log is in the gitignored .maa/debug folder.
 - The game mostly ignores the Android back key; use the on-screen back arrows. Tapping the home chat strip (y ≈ 1040–1150) opens Server Chat.
 - mae doesn't want temp files piling up: run `python scripts/clean.py` at the end of every session on maes2024 (it clears the gitignored captures and .maa/debug folders).
+- mae's design rule for game logic: write "given the goal and circumstances, pick the right option (which may be declining)" functions, not "advance through the menu" scripts. Cards go through `sxs/decide.py`.
+- Overnight rules from mae (2026-11-03): don't spend Dawnium, delete or dismantle items, type in chat, or accept agreements or account prompts. Leave lasting choices (class) to mae.
+- Popups close on a tap above them (360, 60); a tap below them sometimes does nothing.
 - After a restart the game resumes on the last screen, so a cold start can land on the world map instead of home.
 - The auto-mode classifier refused running a helper script from the session scratchpad; keep helper scripts in `scripts/`.
 - Seasons partly reset levels, so unlock-level assumptions need re-checking each season (step 1 doc, section 3).

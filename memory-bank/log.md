@@ -3,6 +3,11 @@
 > **Last updated**: 2026-11-03
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
 
+### 2026-11-03 (night) · Step 3 start: quest following (Claude Code, maes2024 via Remote Control)
+- mae asked me to keep playing the tutorial overnight and map screens. Built `sxs/explore.py` (tracker-marker loop with chaining), `sxs/tutorial.py` (highlight and hint follower), `sxs/decide.py` with `resource/policy/cards.json` (goal-based card decisions, per mae's design note), `scripts/enhance_all.py` and `docs/step3-explore.md`. Branch `step3-explore`.
+- Account went from Lv 2 to Lv 10: Originisle I–V, Temple Ruins floor 1, the Guardian Colossi boss, rank Apprentice I. Rule batches 4–7 went to the docs thread through the coordinator.
+- Open: class choice (mae), automating strengthening, a PR for `step3-explore`.
+
 ### 2026-11-03 · Step 2: hands and eyes (Claude Code, maes2024 via Remote Control)
 - Installed MaaFramework 5.15 in `.venv`; it uses MuMu's IPC screenshots. Built `sxs/` (device, state detector, navigator, CLI, offline replay), `resource/` (state pipeline, dialogue template, OCR models via `scripts/fetch-ocr-models.py`), `tests/` and `docs/step2-hands-and-eyes.md`. Branch `step2-hands-and-eyes`.
 - mae accepted the agreement and signed in. I played the rest of the tutorial prompts (enhanced the staff, equipped the cap, finished Wild Isle Trek I) and captured 25 screens. I sent game rules to the docs thread (PR #3) through the coordinator.
