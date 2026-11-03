@@ -95,7 +95,7 @@ Entry format:
 - **Related**: R-011.
 
 ### R-013 · Servers cap at 5,000 players and merge
-- **Rule**: A server holds up to 5,000 players and later merges with others; guilds are per server.
+- **Rule**: A server holds up to 5,000 players and later merges with others; guilds are per server. Our test account is on server Forgehall.
 - **Confidence**: reported. **Source**: step 1 doc section 3.
 - **Images**: none.
 

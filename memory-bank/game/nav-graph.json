@@ -243,7 +243,7 @@
     "docs/screens/title.png",
     "docs/screens/splash.png"
    ],
-   "notes": "After the splash at game start. Detection details in the step 2 doc (docs/step2-hands-and-eyes.md on the step 2 branch)."
+   "notes": "Boot: Android splash, BOLTRAY logos (~10 s), title art with an 'Initializing' bar (~25 s), then 'Tap to Play' with side buttons (Servers, Settings, Notice, User Center, Repair Client...). Full boot sequence: docs/step2-hands-and-eyes.md, 'Interface catalogue'."
   },
   {
    "id": "loading",
@@ -261,7 +261,7 @@
     "docs/screens/logging_in.png",
     "docs/screens/title_loading.png"
    ],
-   "notes": "Covers 'Loading...', 'Logging in...' and the title screen initialising. Wait it out."
+   "notes": "Covers 'Loading...', 'Logging in...' and the title screen initialising. Wait it out. After login the game resumes on the last screen it was closed on (often world_map), not always home."
   },
   {
    "id": "agreement",
@@ -528,7 +528,7 @@
      0.97
     ]
    },
-   "confidence": "reported",
+   "confidence": "observed",
    "notes": ""
   },
   {
@@ -808,25 +808,43 @@
    "from": "title",
    "to": "loading",
    "action": {
-    "type": "wait",
-    "target": "Title initialises and logs in",
+    "type": "tap",
+    "target": "Tap to Play",
     "template": null,
-    "pos": null
+    "pos": [
+     0.5,
+     0.825
+    ]
    },
-   "confidence": "reported",
-   "notes": "Whether a tap is needed to start is not recorded yet."
+   "confidence": "observed",
+   "notes": "Once the title reached login without a tap; tapping anyway is safe."
   },
   {
    "from": "loading",
-   "to": "home",
+   "to": "previous",
    "action": {
     "type": "wait",
-    "target": "Login finishes",
+    "target": "Login finishes; the game resumes on the last screen",
     "template": null,
     "pos": null
    },
-   "confidence": "reported",
-   "notes": "Assumed landing screen after login."
+   "confidence": "observed",
+   "notes": "Use the state detector to see where it landed, then route from there."
+  },
+  {
+   "from": "character",
+   "to": "home",
+   "action": {
+    "type": "tap",
+    "target": "Back arrow, bottom left",
+    "template": null,
+    "pos": [
+     0.11,
+     0.95
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
   }
  ]
 }
