@@ -20,6 +20,7 @@
 - MaaFramework batches OCR across a node's `next` list, and the batched results misread screens, so the detector runs nodes one by one instead (`sxs/state.py`). MaaFramework has `And`/`Or` recognitions but no `Not`.
 - MaaFramework's MuMu plug-in prints `nemu_connect`/`product:` lines to stdout, so take the last line for JSON. Its log is in `.maa/debug/`.
 - The game mostly ignores the Android back key; use the on-screen back arrows. Tapping the home chat strip (y ≈ 1040–1150) opens Server Chat.
+- mae doesn't want temp files piling up: run `python scripts/clean.py` at the end of every session on maes2024 (it clears `captures/` and `.maa/debug/`).
 - After a restart the game resumes on the last screen, so a cold start can land on the world map instead of home.
 - The auto-mode classifier refused running a helper script from the session scratchpad; keep helper scripts in `scripts/`.
 - Seasons partly reset levels, so unlock-level assumptions need re-checking each season (step 1 doc, section 3).

@@ -35,7 +35,7 @@ print(" ".join(seen))
 out = REPO_ROOT / "captures" / "explore"
 out.mkdir(parents=True, exist_ok=True)
 img = dev.screenshot()
-path = out / f"{len(list(out.glob('*.png'))):03d}.png"
+path = out / f"{max((int(f.stem) for f in out.glob('*.png')), default=-1) + 1:03d}.png"
 cv2.imwrite(str(path), img)
 cv2.imwrite(str(REPO_ROOT / "captures" / "latest.jpg"), cv2.resize(img, (360, 640)), [cv2.IMWRITE_JPEG_QUALITY, 70])
 print(path)

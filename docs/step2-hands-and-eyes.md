@@ -23,6 +23,7 @@ _2026-11-03, built and tested on maes2024._
 | `docs/screens/` | Reference screenshots, full 720×1280, saved as 256-colour PNGs (~200 KB each). |
 | `scripts/fetch-ocr-models.py` | Downloads the OCR models (gitignored, ~12 MB). |
 | `scripts/explore.py`, `advance.py`, `record.py`, `ocr.py`, `crop.py`, `sheet.py`, `grid.py` | Tools for exploring new screens by hand (see "Adding a screen"). Their output goes to `captures/` (gitignored). |
+| `scripts/clean.py` | Deletes working files (`captures/`, `.maa/debug/`). Run at the end of a session. |
 | `tests/` | `check_states_offline.py` (no emulator) and `smoke_test.py` (live). |
 
 ## Setup on a fresh clone
@@ -105,6 +106,17 @@ Coordinates are (x, y) in the 720×1280 frame.
 **Character → gear.** Tap a gear slot → item card (Replace / Enhance) → Enhance Gear (costs Raw Ore, Refined Ore, Rolla; "Insufficient materials to enhance." when short). Back arrow (76, 1216).
 
 **Android back key**: did nothing on the player profile popup. Treat it as unreliable and use on-screen back arrows.
+
+## Where screenshots go, and cleanup
+
+| Where | What | Grows? |
+|---|---|---|
+| `docs/screens/` (committed) | Reference screenshots, ~200 KB each (25 files, ~4.7 MB) | Only when someone runs `capture`; keep it to one shot per screen |
+| `captures/` (gitignored) | Exploration frames (`explore/`, newest 40 kept), `record/` (cleared each run), previews, `smoke-failure.png` | Bounded, but clear it anyway |
+| `.maa/debug/maafw.log` (gitignored) | MaaFramework's log, ~2 MB per hour of exploring | Yes |
+| wherever you point `screenshot OUT` or `state --save DIR` | One frame per call | Only if you ask |
+
+`python -m sxs state`, `watch`, `tap` and the smoke test save nothing (except a frame on smoke-test failure). **At the end of a session, run `python scripts/clean.py`** (use `--dry-run` to see sizes first). It deletes `captures/` and `.maa/debug/`.
 
 ## Adding a screen
 

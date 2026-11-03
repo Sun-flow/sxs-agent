@@ -5,7 +5,8 @@
     python scripts/explore.py back [WAIT]
     python scripts/explore.py none [WAIT]
 
-Frames go to captures/explore/NNN.png (gitignored); a half-size JPEG preview goes to captures/latest.jpg.
+Frames go to captures/explore/NNN.png (gitignored, only the newest KEEP are kept); a half-size JPEG preview goes to
+captures/latest.jpg.
 Used to walk new screens by hand before writing pipeline nodes for them.
 """
 
@@ -17,6 +18,8 @@ import cv2
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from sxs.device import REPO_ROOT, Device  # noqa: E402
+
+KEEP = 40
 
 
 def main(argv: list[str]) -> int:
@@ -36,11 +39,13 @@ def main(argv: list[str]) -> int:
 
     out = REPO_ROOT / "captures" / "explore"
     out.mkdir(parents=True, exist_ok=True)
-    n = len(list(out.glob("*.png")))
+    n = max((int(f.stem) for f in out.glob("*.png")), default=-1) + 1
     img = d.screenshot()
     path = out / f"{n:03d}.png"
     cv2.imwrite(str(path), img)
     cv2.imwrite(str(REPO_ROOT / "captures" / "latest.jpg"), cv2.resize(img, (360, 640)), [cv2.IMWRITE_JPEG_QUALITY, 70])
+    for old in sorted(out.glob("*.png"))[:-KEEP]:
+        old.unlink()
     print(path)
     return 0
 
