@@ -64,7 +64,9 @@ def follow(dev: Device, det: StateDetector, steps: int = 40) -> str:
     idle = 0
     for _ in range(steps):
         d = det.detect()
-        if d.state == "dialogue":
+        if d.state == "dialogue_choice":
+            dev.tap(360, d.box[1] + d.box[3] // 2)
+        elif d.state == "dialogue":
             dev.tap(*nav.DIALOGUE_NEXT)
         elif d.state in ("reward_popup", "tap_to_continue"):
             dev.tap(*nav.REWARD_CLOSE)

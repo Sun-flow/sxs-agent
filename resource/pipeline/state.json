@@ -14,7 +14,9 @@
                 "State.TapToContinue",
                 "State.Defeated",
                 "State.ConfirmDialog",
+                "State.DungeonFloor",
                 "State.Interact",
+                "State.DialogueChoice",
                 "State.Dialogue",
                 "State.BattlePrep",
                 "State.Battle",
@@ -250,7 +252,7 @@
     "State.Interact": {
         "doc": "Card popup for a map object (portal, statue, node...) with one action button at (360, 895). Only whitelisted verbs count, so a 'Purchase' or 'Spend' card stays unknown.",
         "recognition": "OCR",
-        "expected": "^(Activate|Collect|Claim|Open|Interact|Bless|Pray|Gather|Harvest|Mine|Examine|Read)$",
+        "expected": "^(Activate|Collect|Claim|Open|Interact|Bless|Pray|Gather|Harvest|Mine|Examine|Read|Explore|Enter)$",
         "roi": [
             150,
             850,
@@ -295,6 +297,35 @@
             1170,
             360,
             70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.DialogueChoice": {
+        "doc": "Dialogue with reply options: white pill buttons with a black arrow at the left, above the speaker box. Tap the option (the bot takes the lowest one, nearest the box). Checked before State.Dialogue, which also matches.",
+        "recognition": "TemplateMatch",
+        "template": "state/dialogue_choice_arrow.png",
+        "roi": [
+            40,
+            300,
+            140,
+            750
+        ],
+        "threshold": 0.8,
+        "order_by": "Vertical",
+        "index": -1,
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.DungeonFloor": {
+        "doc": "Between floors of a mini-dungeon: '<Name>: Floor n' card with flavour text and 'Next Floor'; the back arrow leaves.",
+        "recognition": "OCR",
+        "expected": ": Floor \\d+",
+        "roi": [
+            80,
+            360,
+            560,
+            90
         ],
         "pre_delay": 0,
         "post_delay": 0

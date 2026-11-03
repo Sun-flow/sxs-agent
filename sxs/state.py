@@ -109,6 +109,17 @@ class StateDetector:
         return Detection(node, node, box=list(best.box) if best is not None else None,
                          text=getattr(best, "text", None), elapsed_ms=int((time.perf_counter() - start) * 1000))
 
+    def read_text(self, roi: list[int], frame=None) -> list[tuple[str, list[int]]]:
+        """Every OCR line inside roi as (text, box), top to bottom. For reading popups whose wording varies."""
+        self._action.frame = self.device.screenshot() if frame is None else frame
+        override = {ENTRY: {"custom_action_param": {"order": ["Read.Text"]}},
+                    "Read.Text": {"recognition": "OCR", "roi": roi, "pre_delay": 0, "post_delay": 0}}
+        self.tasker.post_task(ENTRY, override).wait()
+        if self._action.hit is None:
+            return []
+        lines = [(r.text, list(r.box)) for r in self._action.hit[1].all_results if r.text]
+        return sorted(lines, key=lambda t: (t[1][1], t[1][0]))
+
     def wait_for(self, states: set[str], timeout: float, interval: float = 1.0) -> Detection:
         """Poll until the detected state is in `states` or the timeout passes; returns the last detection."""
         deadline = time.monotonic() + timeout

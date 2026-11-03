@@ -42,19 +42,6 @@
         "pre_delay": 0,
         "post_delay": 0
     },
-    "Explore.ConfirmTravel": {
-        "doc": "Body text of a confirm_dialog that only asks to travel (safe to accept).",
-        "recognition": "OCR",
-        "expected": "^Travel to",
-        "roi": [
-            60,
-            520,
-            600,
-            80
-        ],
-        "pre_delay": 0,
-        "post_delay": 0
-    },
     "Explore.MarkerAnywhere": {
         "doc": "Same ring anywhere on screen, including under the top bar or tracker panel; used to pan the camera when Explore.Marker can't see it.",
         "recognition": "TemplateMatch",
@@ -69,6 +56,20 @@
             1280
         ],
         "threshold": 0.75,
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "Explore.GuardBracket": {
+        "doc": "Top-right of the gold corner brackets drawn around monsters that guard a target (e.g. two Chaosborn guarding the Pink Bird on Originisle III). Talking to the target only repeats a line until the guards are beaten. The monster sits about (-35, +50) from this corner.",
+        "recognition": "TemplateMatch",
+        "template": "explore/guard_bracket.png",
+        "roi": [
+            0,
+            90,
+            720,
+            870
+        ],
+        "threshold": 0.8,
         "pre_delay": 0,
         "post_delay": 0
     }

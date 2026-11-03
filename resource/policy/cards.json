@@ -1,0 +1,71 @@
+{
+    "doc": "How sxs/decide.py chooses on popups and cards. Rules are tried in order; the first whose 'when' holds and whose 'match' regex finds the card's title or body wins. 'choose' is a regex for the button to press, or 'dismiss' (back arrow or tap outside), or 'cancel' (the dialog's Cancel button). Goals: explore (finish the current Explore quest), daily (daily loop), idle (just get home). Add a rule whenever a new card shows up; anything no rule covers is dismissed and logged as unknown. A dismiss taps outside the card unless the rule says \"dismiss_by\": \"back\" (the bottom-left back arrow).",
+    "buttons": "^(OK|Cancel|Confirm|Explore|Enter|Activate|Collect|Claim|Claim All|Open|Interact|Bless|Pray|Gather|Harvest|Mine|Examine|Read|Next Floor|Leave|Retreat|Exit|Continue|Start Battle|Buy|Purchase|Refresh|Spend|Unlock|Upgrade|Enhance|Equip|Replace|Remove|Go)$",
+    "never": "^(Buy|Purchase|Refresh|Spend)$|Dawnium",
+    "rules": [
+        {
+            "kind": "defeated",
+            "match": "incapacitated",
+            "choose": "^OK$",
+            "why": "Lost a fight. OK goes home; Cancel would leave the character stranded at 0 HP."
+        },
+        {
+            "kind": "travel",
+            "match": "^Travel to .+ now\\?$",
+            "choose": "^OK$",
+            "when": {
+                "goal": [
+                    "explore",
+                    "daily"
+                ]
+            },
+            "why": "Travel prompts from the quest tracker; free."
+        },
+        {
+            "kind": "travel",
+            "match": "^Travel to .+ now\\?$",
+            "choose": "cancel",
+            "why": "Not travelling when the goal is just to get home."
+        },
+        {
+            "kind": "portal",
+            "match": "^Portal$",
+            "choose": "^Activate$",
+            "why": "Activating a portal is free, counts toward exploration and unlocks fast travel."
+        },
+        {
+            "kind": "mini_dungeon",
+            "match": "^(Temple Ruins|.*Ruins|.*Cave|.*Tower|.*Dungeon)$",
+            "choose": "^(Explore|Enter)$",
+            "when": {
+                "goal": [
+                    "explore"
+                ],
+                "hp_ok": true
+            },
+            "why": "Structures on the map are mini-dungeons with floors of fights; clearing them counts toward Explore quests."
+        },
+        {
+            "kind": "mini_dungeon",
+            "match": "^(Temple Ruins|.*Ruins|.*Cave|.*Tower|.*Dungeon)$",
+            "choose": "dismiss",
+            "why": "Skip mini-dungeons when not exploring or when HP is low."
+        },
+        {
+            "kind": "dungeon_floor",
+            "match": ": Floor \\d+",
+            "choose": "^Next Floor$",
+            "when": {
+                "hp_ok": true
+            },
+            "why": "Floor cleared; keep climbing while healthy."
+        },
+        {
+            "kind": "dungeon_floor",
+            "match": ": Floor \\d+",
+            "choose": "dismiss",
+            "why": "Leave the dungeon (back arrow) when HP is low.",
+            "dismiss_by": "back"
+        }
+    ]
+}
