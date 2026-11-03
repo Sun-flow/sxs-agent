@@ -21,7 +21,7 @@ import cv2
 import numpy as np
 
 from . import nav
-from .device import Device
+from .device import REPO_ROOT, Device
 from .decide import Context, Decider
 from .state import StateDetector
 from .strengthen import Strengthener
@@ -40,6 +40,8 @@ STALE_GIVE_UP_S = 300  # no progress for this long ends the run
 DECISION_OPTIONS = r"^(Ascend to|Change Class)"  # dialogue options a human decides
 PLAYER_NAME = "gromb2"  # our character's name label, to tell our own "!" from an NPC's
 NPC_DX, NPC_DY = 30, 50  # from the "!" bubble to the NPC's body
+DIALOGUE_ROI = [0, 1020, 720, 230]  # speaker name and text in the story box
+DIALOGUE_LOG = REPO_ROOT / "logs" / "dialogue.log"
 RETRIES = 2  # retries of a lost fight before strengthening (mae, 2026-11-03)
 HEAL_BELOW = 80  # HP % under which the profile's Quick Heal (1 cooked dish) is used
 QUICK_HEAL = (510, 1064)
@@ -109,6 +111,16 @@ def blocker_point(det: StateDetector) -> Optional[tuple[int, int]]:
         return x + w // 2, y + h // 2
     px, py = me[0][0] + me[0][2] // 2, me[0][1] - 50  # the label sits under the character's feet
     return (px + tx) // 2, (py + ty) // 2
+
+
+def log_dialogue(det: StateDetector) -> None:
+    """Keep the story text: some quests are only explained in dialogue ("go see X in Y"), not in the tracker.
+    Lines go to logs/dialogue.log (gitignored) for whoever gets stuck next: mae, or the model supervisor."""
+    lines = [t for t, _ in det.read_text(DIALOGUE_ROI)]
+    if lines:
+        DIALOGUE_LOG.parent.mkdir(exist_ok=True)
+        with DIALOGUE_LOG.open("a", encoding="utf-8") as f:
+            f.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} {' | '.join(lines)}\n")
 
 
 def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_misses: int = 10,
@@ -288,6 +300,7 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
             dev.tap(360, d.box[1] + d.box[3] // 2)  # the lowest option, nearest the speaker box
             time.sleep(1.5)
         elif d.state == "dialogue":
+            log_dialogue(det)
             dev.tap(*nav.DIALOGUE_NEXT)
             time.sleep(1.2)
         elif d.state in ("reward_popup", "tap_to_continue"):
