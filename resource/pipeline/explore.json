@@ -136,11 +136,12 @@
         "post_delay": 0
     },
     "Explore.EdgePointer": {
-        "doc": "White ring with a portrait and a speech-bubble tail at the screen edge, pointing to an off-screen target: a boss (Guardian Colossi) or a Goddess Statue. Tapping it pans the camera to the target.",
+        "doc": "White ring with a portrait and a speech-bubble tail at the screen edge, pointing to an off-screen target: a boss (Guardian Colossi) or a Goddess Statue. Tapping it pans the camera to the target. Also the blue-orb pointer for 'Unlock <area>' quests.",
         "recognition": "TemplateMatch",
         "template": [
             "explore/marker_boss.png",
-            "explore/pointer_statue.png"
+            "explore/pointer_statue.png",
+            "explore/pointer_unlock.png"
         ],
         "roi": [
             0,
