@@ -102,6 +102,11 @@ def blocker_point(det: StateDetector) -> Optional[tuple[int, int]]:
         return None
     mx, my, mw, mh = marker.box
     tx, ty = mx + mw // 2, my + mh // 2 + MARKER_TARGET_DYS[0]
+    monsters = det.find_all("Explore.Monster", frame)
+    if monsters:
+        # A known monster on screen: the one nearest the target is the likely blocker.
+        x, y, w, h = min(monsters, key=lambda b: (b[0] + b[2] / 2 - tx) ** 2 + (b[1] + b[3] / 2 - ty) ** 2)
+        return x + w // 2, y + h // 2
     px, py = me[0][0] + me[0][2] // 2, me[0][1] - 50  # the label sits under the character's feet
     return (px + tx) // 2, (py + ty) // 2
 
@@ -116,6 +121,7 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
     last_kind = None
     last_progress = last_state = last_progress_seen = None
     stale, progress_at, tried_unstick = 0, time.monotonic(), False
+    hit_self = False  # the last marker tap landed on our own character
     while time.monotonic() < deadline:
         d = det.detect()
         if d.state != last_state:
@@ -178,7 +184,9 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
                 # The ring floats above its target: tap the ring itself to pan, the spot under it to act.
                 # If progress hasn't moved, the target may sit nearer or farther below the ring: vary the offset.
                 dy = MARKER_TARGET_DYS[(stale // 2) % len(MARKER_TARGET_DYS)]
-                dev.tap(cx, cy if at_edge else cy + dy)
+                # If the last tap below the ring opened our own profile, the ring is an edge pointer next to us: tap it.
+                dev.tap(cx, cy if at_edge or hit_self else cy + dy)
+                hit_self = False
                 time.sleep(3)
                 continue
             hidden = det.find("Explore.MarkerAnywhere")
@@ -233,6 +241,7 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
                     log.warning("no rule for card %r; stopping so a rule can be added", card.title)
                     return "unknown_card"
         elif d.state == "player_profile":
+            hit_self = True
             # Opened by tapping our own character. Top up HP here if it's low, then close.
             hp = int(re.search(r"(\d+)%", d.text).group(1)) if d.text else 100
             if hp < HEAL_BELOW:

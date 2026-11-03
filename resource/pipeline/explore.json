@@ -119,5 +119,22 @@
         "threshold": 0.8,
         "pre_delay": 0,
         "post_delay": 0
+    },
+    "Explore.Monster": {
+        "doc": "Roaming monsters on the island map (templates in image/monsters/, add one per new kind). Used when progress stalls: a monster near the target is usually blocking the only path to it.",
+        "recognition": "TemplateMatch",
+        "template": [
+            "monsters/wolf_spear.png",
+            "monsters/wolf_spear_2.png"
+        ],
+        "roi": [
+            0,
+            110,
+            720,
+            850
+        ],
+        "threshold": 0.7,
+        "pre_delay": 0,
+        "post_delay": 0
     }
 }
