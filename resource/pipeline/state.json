@@ -38,6 +38,13 @@
                 "State.Character",
                 "State.MainMenu",
                 "State.EnhanceGear",
+                "State.MapExploration",
+                "State.GearResonance",
+                "State.RankAdvancement",
+                "State.ClassPage",
+                "State.UpgradeGoals",
+                "State.TechniqueUpgrade",
+                "State.SkillPage",
                 "State.Featured",
                 "State.DailySignin",
                 "State.GrowthTrial",
@@ -650,6 +657,97 @@
             950
         ],
         "threshold": 0.75,
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.SkillPage": {
+        "doc": "Skill page (Character > Skill): techniques left, charms right, Quick Upgrade beside the lower-right charm, Loadout switcher, Technique/Charm/Shard tabs (R-080, R-104).",
+        "recognition": "OCR",
+        "expected": "^Loadout \\d",
+        "roi": [
+            200,
+            670,
+            320,
+            60
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.TechniqueUpgrade": {
+        "doc": "A technique's Upgrade (Battle Essence) or Ascension (its own shards) tab.",
+        "recognition": "OCR",
+        "expected": "^(Upgrade|Ascension)$",
+        "roi": [
+            0,
+            20,
+            440,
+            70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.UpgradeGoals": {
+        "doc": "Goals tab of an upgrade screen (Skill, Quality, Enhancement, Level, Power, Total Class Level goals): free Claim buttons.",
+        "recognition": "OCR",
+        "expected": "(Skill|Quality|Enhancement|Level|Power) Goals$|^Total Class Level$",
+        "roi": [
+            0,
+            20,
+            440,
+            70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.ClassPage": {
+        "doc": "Class screen (Change Class, Class Hierarchy, Goals tabs) and a class's Info/Upgrade page. Change Class is mae's decision: never tapped.",
+        "recognition": "OCR",
+        "expected": "^Class$|Class ?Level|^Total Level$",
+        "roi": [
+            0,
+            0,
+            720,
+            420
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.RankAdvancement": {
+        "doc": "Rank Advancement (the Apprentice badge on Character): raises the level cap; costs ore, Bellflowers and Rolla.",
+        "recognition": "OCR",
+        "expected": "Rank Advancement",
+        "roi": [
+            0,
+            20,
+            440,
+            70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.GearResonance": {
+        "doc": "Gear Resonance (Enhance Gear > Resonance): free stat bonuses when all 4 pieces reach +5, +10, ...; Activate claims one.",
+        "recognition": "OCR",
+        "expected": "^Gear Resonance$",
+        "roi": [
+            0,
+            20,
+            440,
+            70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.MapExploration": {
+        "doc": "Journal > Map Exploration: Resource Hunt card with stamina, 4 material choices (Rolla, ore, sand, Battle Essence) and Go (R-108).",
+        "recognition": "OCR",
+        "expected": "^Map Exploration$",
+        "roi": [
+            0,
+            20,
+            440,
+            70
+        ],
         "pre_delay": 0,
         "post_delay": 0
     }

@@ -1,0 +1,11 @@
+{
+    "Gather.StaminaCost": {
+        "doc": "The lightning-bolt '5' label under an overworld resource pickup (ore rock, sand pile, ...) once the character is near: each pickup costs 5 stamina (R-106). The pickup sits about 33 px above the label. Not a screen state; used by sxs.gather.",
+        "recognition": "TemplateMatch",
+        "template": "explore/stamina_cost_5.png",
+        "roi": [0, 130, 720, 720],
+        "threshold": 0.8,
+        "pre_delay": 0,
+        "post_delay": 0
+    }
+}

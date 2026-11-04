@@ -14,8 +14,10 @@ Steps, in order (each starts from home and ends there):
   guild_donate     Guild Lobby > Donation: up to 2 a day (Free, then 20 Dawnium: mae-approved), by the game's counter.
   guild_afk        Keep the character on a guild gather slot (Forge first).
   guild_conquest   Guild boss: claim beaten floors, use the 2 daily attempts in the background, claim goals.
-  strengthen       Better gear and charms from the profile, banded gear enhancement, techniques. Repeated after
-                   quest claims, because enhancing finishes quests and quests pay ore.
+  gather           Journal > Map Exploration: spend stamina above 70 on the priority material (sxs.gather, R-107).
+  strengthen       Better gear and charms from the profile, then the Upgrade Loop (sxs.upgrade): every "!" on the
+                   Character screen (banded gear, resonance, Quick Upgrade, ascensions, class levels, rank, goals).
+                   Repeated after quest claims, because enhancing finishes quests and quests pay ore.
 
 Once-a-day steps are recorded in logs/daily.json under the server date (UTC-5, resets 8:00 server time).
 mae's rules hold throughout: no Dawnium, no spend buttons, no class choices, no social, no Rcmd Loadouts, heal
@@ -33,7 +35,7 @@ import sys
 import time
 from typing import Callable
 
-from . import claims, guild, nav, tower
+from . import claims, gather, guild, nav, tower, upgrade
 from .device import REPO_ROOT, Device, banner, save_unknown, server_day
 from .state import StateDetector
 from .strengthen import Strengthener
@@ -78,6 +80,8 @@ class Dailies:
         self.nav = nav.Navigator(dev, det)
         self.st = Strengthener(dev, det)
         self.guild = guild.Guild(dev, det)
+        self.gatherer = gather.Gatherer(dev, det)
+        self.upgrader = upgrade.Upgrader(dev, det)
 
     def _tap(self, xy, wait=2.0):
         self.dev.tap(*xy)
@@ -185,6 +189,12 @@ class Dailies:
     def guild_conquest(self) -> str:
         return self.guild.conquest()
 
+    def gather(self) -> str:
+        """Spend stamina above the 70 reserve on the priority material (R-107, resource/policy/gather.json)."""
+        result = self.gatherer.run()
+        return {"budget_spent": "done", "no_spare_stamina": "nothing", "timeout": "done"}.get(result["end"],
+                                                                                              result["end"])
+
     def strengthen(self) -> str:
         self.st.claim_cart()
         self.nav.go_home()
@@ -192,8 +202,8 @@ class Dailies:
         if self.det.detect().state == "player_profile":
             self.st.equip_better_gear()
             self.st.equip_charms(from_profile=True)
-        self.st.enhance_gear()
-        self.st.upgrade_techniques()
+        # Every "!" on the Character screen (R-080): banded gear, Quick Upgrade, ascensions, class levels, goals.
+        self.upgrader.run()
         return "done"
 
     # --- the loop ---
@@ -201,7 +211,7 @@ class Dailies:
     STEPS: list[tuple[str, bool]] = [  # (name, once a day)
         ("sign_in", True), ("cart", False), ("bed", True), ("growth_trial", False), ("fantasia_ascent", True),
         ("material_realms", False), ("guild_donate", True), ("guild_afk", False), ("guild_conquest", True),
-        ("quests", False), ("strengthen", False), ("quests", False), ("strengthen", False),
+        ("quests", False), ("gather", False), ("strengthen", False), ("quests", False), ("strengthen", False),
     ]
 
     def run(self, only: set = None, force: bool = False, step_minutes: float = 12) -> dict:
