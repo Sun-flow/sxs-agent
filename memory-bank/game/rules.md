@@ -767,9 +767,9 @@ Entry format:
 - **Images**: `docs/screens/technique_upgrade.png`, `docs/screens/technique_ascend.png`.
 - **Related**: R-037, R-080, R-104, nodes `technique_card`, `technique_upgrade`.
 
-### R-116 · Claim the free rewards on upgrade screens' Goals tabs
-- **Rule**: Upgrade screens have Goals tabs with free rewards; claim them whenever they show "!". Several had been sitting unclaimed. Seen so far: Skill Goals (Level: Battle Essence used, pays Battle Essence; Quality: pays Iron Hammers and more), Enhance Gear Goals (Raw Ores Used, pays Rolla), Rank Goals (Level: character Lv 12 to 20, pays hammers, picks and more; Power), Class Goals (Total Class Level, 300 Battle Essence each).
-- **Confidence**: observed. **Source**: upgrade-systems batch 1.
+### R-116 · Menu Goals tabs: collect them all at once from Home
+- **Rule**: **mae (2026-11-04 09:31): the milestone Goals tabs at the bottom of many menus can be ignored.** One "collect all goals" control in the Home menu claims them all at once, and the bot uses that instead of claiming tab by tab. Where it sits isn't mapped yet; mae will show it ❓. Until it's mapped, claiming on the tabs (below) is the fallback. Quest-like goals (tasks to do rather than milestone rewards) are not ignored. Upgrade screens have Goals tabs with free rewards that show "!". Several had been sitting unclaimed. Seen so far: Skill Goals (Level: Battle Essence used, pays Battle Essence; Quality: pays Iron Hammers and more), Enhance Gear Goals (Raw Ores Used, pays Rolla), Rank Goals (Level: character Lv 12 to 20, pays hammers, picks and more; Power), Class Goals (Total Class Level, 300 Battle Essence each).
+- **Confidence**: observed; collect-all told (mae). **Source**: upgrade-systems batch 1; mae 2026-11-04 09:31.
 - **Images**: `docs/screens/skill_goals_quality.png`, `docs/screens/gear_goals.png`, `docs/screens/rank_level_goals.png`, `docs/screens/rank_power_goals.png`, `docs/screens/class_goals.png`.
 - **Related**: R-063, R-080, R-093, R-095.
 
