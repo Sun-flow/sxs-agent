@@ -48,6 +48,7 @@ RETRIES = 2  # retries of a lost fight before strengthening (mae, 2026-11-03)
 HEAL_BELOW = 80  # HP % under which the profile's Quick Heal (1 cooked dish) is used
 QUICK_HEAL = (510, 1064)
 HUD_PORTRAIT = (70, 60)  # top-left avatar: opens the player profile (HP, Quick Heal, charms)
+HUD_HP_BAR = (116, 268, 52, 64)  # x0, x1, y0, y1 of the HP bar under the name, top left (mae, 2026-11-04)
 REPEAT_LIMIT = 4  # same card title this many times in a row means the choice isn't working
 GUARD_DX, GUARD_DY = -35, 50  # from the top-right guard bracket to the monster
 
@@ -84,6 +85,15 @@ def read_tracker(det: StateDetector) -> Optional[dict]:
     title, box = above[-1] if above else prog
     a, b = map(int, re.search(r"(\d+)/(\d+)", prog[0]).groups())
     return {"title": title, "progress": f"{a}/{b}", "done": a >= b, "tap": (box[0] + box[2] // 2, box[1] + box[3] // 2)}
+
+
+def hud_hp(frame: np.ndarray) -> float:
+    """HP as a fraction, from the HUD bar under our name: the filled part is bright and saturated (yellow-green at
+    full HP), the empty track dull (V ~110-120)."""
+    x0, x1, y0, y1 = HUD_HP_BAR
+    hsv = cv2.cvtColor(frame[y0:y1, x0:x1], cv2.COLOR_BGR2HSV)
+    filled = (hsv[..., 1] > 100) & (hsv[..., 2] > 150)
+    return float(filled.any(axis=0).mean())
 
 
 def progress_signal(text: Optional[str]) -> Optional[str]:
@@ -230,12 +240,16 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
         if d.state not in ("home", "unknown", "loading"):
             home_taps = 0
         if d.state == "world_map" and after_fight:
-            # mae, 2026-11-04: check HP through the HUD portrait, not by tapping the character (several things on
-            # one tile open a picker instead of the profile). The player_profile branch heals or fills charms.
-            after_fight, via_portrait = False, True
-            dev.tap(*HUD_PORTRAIT)
-            time.sleep(2)
-            continue
+            # mae, 2026-11-04: read HP from the HUD bar; open the profile through the HUD portrait (tapping the
+            # character opens a picker when several things share its tile) only to heal, or once to fill charms.
+            after_fight = False
+            hp = hud_hp(dev.screenshot())
+            if hp * 100 < HEAL_BELOW or not charms_tried:
+                log.info("after the fight: HP %d%% from the HUD bar; opening the profile", hp * 100)
+                via_portrait = True
+                dev.tap(*HUD_PORTRAIT)
+                time.sleep(2)
+                continue
         if d.state == "world_map":
             prog = det.find("Explore.Progress")
             if prog and prog.text != last_progress:
