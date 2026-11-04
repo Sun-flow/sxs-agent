@@ -1,7 +1,12 @@
 # Session Log
 
-> **Last updated**: 2026-11-03
+> **Last updated**: 2026-11-04
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
+
+### 2026-11-04 · Moonveil Woods, Fantasia Ascent, side areas, loop robustness (Claude Code, maes2024 via Remote Control)
+- Got into Moonveil Woods with mae's area-map procedure (now `sxs/goto.py`), talked to Molly, won the gate fight, climbed the Moonveil tower to F5 (new `sxs/tower.py`; lost F6). Explored Stone Ruins I (tile puzzle, two chests) and Highland Woods, blessed the Highland and Moonveil statues. Damp Woods is behind a 15.5K Gate of Power; Verdantglade III (12K) fights are lost at 10K. 5 Verdantglade areas done. Lv 13, power 10K (new gear via `equip_better_gear`, charms via `equip_charms`).
+- Loop robustness per mae: heartbeat lines, rotating unstick rounds, counterless-quest progress, own-profile watchdog, unknown screens saved to `captures/unknown/` before stopping, loop banners, fog walk stays in its area and stops when no new tile is reached. Branch `step3-explore`, PR #7.
+- Open: Verdantglade III needs about 12K power; the "badly wounded" dialog after a lost map fight isn't counted as a loss; the minimap classifier mislabels Highland Woods' darker walkable tiles.
 
 ### 2026-11-03 (late) · Verdantglade I–II, minimap reader, handoff (Claude Code, maes2024 via Remote Control)
 - Talked to the Chief to open the Originisle V loot (NPC "!" gating), activated the Voyage Obelisk, then cleared and blessed Verdantglade I and II (Lv 12, 7.7K power). Added: talk to NPC "!" when stuck, fight path blockers (wolf templates), edge pointers (boss, statue, unlock), the tracker gift claim, rules for the obelisk, goddess statue and mines, mae's heal-and-retry rule, dialogue logging, `sxs/minimap.py` and `sxs/fogwalk.py`. Branch `step3-explore`, PR #7.

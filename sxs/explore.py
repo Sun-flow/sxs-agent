@@ -257,6 +257,22 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
             if stale >= STALE_LIMIT * (unstick_round + 1):
                 unstick_round += 1
                 log.info("no progress for %ds: unstick round %d", stale_s, unstick_round)
+                # The quest's area may be out of walking reach of the marker taps (a cliff or fog in between):
+                # walk there with the area map first (mae's procedure), once per stall.
+                area = re.search(r"Explore (.+?) \d+/\d+", last_progress or "")
+                if area and unstick_round == 1:
+                    from . import goto
+                    log.info("unstick: walking to the quest's area %r with the area map", area.group(1))
+                    if goto.go_to(dev, det, area.group(1).strip()) == "arrived":
+                        continue
+                    # Unreachable on foot (its label sits in fog): go home, where the tracker offers to travel there.
+                    log.info("unstick: can't walk there; going home to travel via the tracker")
+                    try:
+                        nav.Navigator(dev, det).go_home()
+                        continue
+                    except (RuntimeError, TimeoutError) as e:
+                        log.warning("%s; frame saved to %s", e, save_unknown(dev, "explore_home"))
+                        return "unknown_screen"
                 if unstick(dev, det, unstick_round):
                     continue
             pointer = det.find("Explore.EdgePointer")

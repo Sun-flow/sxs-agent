@@ -1,6 +1,6 @@
 # Notes
 
-> **Last updated**: 2026-11-03
+> **Last updated**: 2026-11-04
 > Things learned the hard way. Add to this as soon as you learn something the next session would otherwise rediscover. Keep each note to a line or two, keep only what is highly relevant, and remove notes that stop being true.
 
 ## Working with mae
@@ -28,3 +28,9 @@
 - After a restart the game resumes on the last screen, so a cold start can land on the world map instead of home.
 - The auto-mode classifier refused running a helper script from the session scratchpad; keep helper scripts in `scripts/`.
 - Seasons partly reset levels, so unlock-level assumptions need re-checking each season (step 1 doc, section 3).
+- Loop rules from mae (2026-11-04): every loop checks regularly whether it's stuck (heartbeat, watchdogs) and ends early with a reason rather than idling; if a loop gets stuck regularly, make it more robust rather than restarting it. Unfamiliar screens are flagged (frame saved to `captures/unknown/`) and end the loop. Loops call each other (explore hands Fantasia Ascent to `sxs.tower` and resumes). When starting a loop, post mae a banner: `[Running X Loop]` / `[Goal: ...]` / `[End condition: ...]` (the loops also log it).
+- Fantasia Ascent (mae, 2026-11-04): Auto Challenge always on, no retries, one run a day as a daily (`logs/daily.json`).
+- A red "!" over our own character doesn't only mean low HP: empty charm slots and better gear also raise it. Decide healing from the profile's HP bar.
+- The area map's zoom changes between openings, so pick places on it by OCR'd area label (`sxs.goto`), not fixed points. An area whose label sits in fog can't be walked to; go home and travel via the tracker instead.
+- Map coordinates: y decreases going south, x increases going east.
+

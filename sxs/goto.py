@@ -73,6 +73,13 @@ def go_to(dev: Device, det: StateDetector, target) -> str:
     banner(log, "Go To", f"walk to {target} picked on the area map",
            f"the character stops moving, {WALK_TIMEOUT_S}s, or no movement at all after the tap")
     start = coords(det)
+    for nudge in ((360, 600, 360, 760), (360, 600, 200, 600)):
+        if start is not None:
+            break
+        # A quest ring or pointer can sit on the coordinates under the minimap: nudge the camera and look again.
+        dev.swipe(*nudge, 400)
+        time.sleep(1.5)
+        start = coords(det)
     if start is None:
         return "not_on_map"
     dev.tap(*MINIMAP)

@@ -1,6 +1,6 @@
 # Handoff: game-playing and screen-mapping session on maes2024
 
-> **Last updated**: 2026-11-03
+> **Last updated**: 2026-11-04
 
 > Written 2026-11-03 by the session that built steps 2 and 3. You're taking over the same job. Read `AGENTS.md` and `memory-bank/README.md` first (the start-of-session steps), then this file.
 
@@ -29,12 +29,16 @@ You run as a Remote Control session on mae's PC, in `C:\Users\jcmon\Desktop\sxs-
 - **Verdantglade cap**: clear only the first 4 to 7 Verdantglade areas, or stop at a natural wall. Done so far: Verdantglade I and II. Moonveil Woods would be the 3rd.
 - Map "!" over an NPC means talk to them (quests can be gated behind it). A red "!" badge on a menu or button means something to claim. Badged menus change as event banners roll over, so don't hard-code the list.
 - Some quests are explained only in dialogue. Read `logs/dialogue.log` when stuck.
+- **Loops (mae, 2026-11-04)**: every loop checks regularly whether it's stuck and ends early with a reason; a loop that gets stuck regularly needs fixing, not restarting. Unfamiliar screens are flagged (frame in `captures/unknown/`) and end the loop. Loops call each other (explore → tower → back). **Post mae a banner in the thread whenever you start a loop**: `[Running X Loop]` / `[Goal: ...]` / `[End condition: ...]`.
+- **Fantasia Ascent**: Auto Challenge always on, no retries, one run a day (a daily).
+- A red "!" over the player can mean empty charm slots or better gear, not only low HP; heal by the HP bar.
 
-## State right now (2026-11-03 evening)
+## State right now (2026-11-04 evening)
 
-- **Game**: gromb2 on server Forgehall, Lv 12, Mage, Apprentice I, power ~7.7K, Rolla ~41K, Dawnium ~789. Standing in Verdantglade II at about (173, 104), near its west cliff. Tracker: "Moonveil Woods I: Unlock Moonveil Woods" (no counter, no Go button). The tracker's blue-orb edge pointer sits inside the fog west of the cliff.
-- **Blocker**: the route into Moonveil Woods. mae marked a connected strip of unexplored walkable tiles on the minimap, south-west of the player (`docs/screens/minimap/minimap_verdantglade2.png`, classified in `docs/screens/minimap/minimap_classified.png`). The area map (tap the minimap; `docs/screens/world_area_map.png`) shows Moonveil Woods, Stone Ruins I and Damp Woods at 0%, Highland Woods needing 9.6K power and Verdantglade III needing 12K.
-- **Code**: everything is pushed on `step3-explore`. The detector knows 24 screen nodes (plus unknown and not_running), checked against 76 reference screenshots.
+- **Game**: gromb2 on Forgehall, Lv 13, Mage, power ~10K, Rolla ~42K, Dawnium ~1.03K. Standing in Verdantglade II near the portal at about (181, 96). Tracker: "Verdant Wonders III: Explore Verdantglade III 0/100" (Rcmd 12K).
+- **Verdantglade count**: 5 of the 4 to 7 cap done (I, II, Moonveil Woods, Stone Ruins I, Highland Woods). Damp Woods: Gate of Power needs 15.5K. Verdantglade III: guard fights lost at 10K (respawn in Verdantglade II). Sunrise Isle shows on the area map, unvisited.
+- **Today's dailies done**: Fantasia Ascent Moonveil Woods (F1→F5, lost F6).
+- **Code**: everything pushed on `step3-explore`.
 
 ## How to run things
 
@@ -46,7 +50,9 @@ You run as a Remote Control session on mae's PC, in `C:\Users\jcmon\Desktop\sxs-
 .venv\Scripts\python -m sxs.tutorial --steps 40         # follow tutorial highlights
 .venv\Scripts\python -m sxs.strengthen                  # Cart, gear, techniques
 .venv\Scripts\python -m sxs.minimap [frame.png]         # classify minimap -> captures\minimap.png
-.venv\Scripts\python -m sxs.fogwalk --minutes 5         # experimental: walk to unexplored ground
+.venv\Scripts\python -m sxs.fogwalk --area "Stone Ruins I" --minutes 5   # explore a side area (walks there first)
+.venv\Scripts\python -m sxs.goto "Highland Woods"      # walk somewhere via the area map
+.venv\Scripts\python -m sxs.tower --tower "Moonveil Woods"   # daily Fantasia Ascent climb
 .venv\Scripts\python scripts\advance.py 20              # tap through dialogue and popups
 .venv\Scripts\python scripts\ocr.py IMG X Y W H         # what text MaaFramework sees in a region
 .venv\Scripts\python scripts\crop.py IMG X Y W H OUT    # make a template
@@ -59,11 +65,9 @@ Code map: `docs/step2-hands-and-eyes.md` (device, detector, CLI) and `docs/step3
 
 ## Next steps, in order
 
-0. **Build map-based navigation (mae, 2026-11-03)**, used by everything below. Open the area map by tapping the minimap (docs/screens/world_area_map.png). Search it for unexplored areas: 0% labels, shadowed or unspotted ground, pickups. Then go there: tap that spot on the map so the camera centres over it, close the map (back arrow; the camera now looks at that spot), and tap the ground where you want to go, and the game auto-paths the character there. Wrap it as `sxs/navigate.py` with `find_unexplored()` (read the area map like the minimap) and `go_to(map_point)`, and use it instead of straight-line taps.
-
-1. **Get into Moonveil Woods.** First try mae's navigation procedure (2026-11-03): open the area map (tap the minimap), tap the spot you want so the camera centres there, close the map, then tap the ground at that spot and the game auto-paths the character. Turn it into a reusable `go_to(area_map_point)` helper. Finish the minimap walker in `sxs/fogwalk.py` → `minimap_target()`. It already classifies tiles and finds a BFS path to the nearest `walk_unexplored` or `item` tile. It still needs the player's screen position, and the camera doesn't follow the player: tap the player's edge pointer (a white ring with the player's face) to re-centre, or OCR the "gromb2" label. Calibrate `SCREEN_TILE` (~104 px per tile) by tapping and reading the coordinates under the minimap. Check after each tap that the coordinates changed, and if not, try another tile. Then walk the strip mae pointed out. If it's still blocked, ask mae.
-2. **Explore the Verdantglade side areas** (Stone Ruins I, Damp Woods) with the same walker, blessing each area's statue at 100%. Keep a count: stop at 4 to 7 Verdantglade areas in total.
-3. **Strengthening, finish it**: equip new gear and techniques (red-dot slots), rank up when the requirements are met (Character → Rank badge), cook Green Riceballs in the Alchemy Pot when they run low, and use the Bed's "Today's Free Speedup" once a day.
-4. **Badge sweep**: a routine that finds red "!" badges on menus and buttons (not on the map), opens each one, and claims through the card rules. It must be generic, because events rotate.
-5. **Dailies** (`docs/step1-emulator-and-game.md` §4 iteration 1 list): one pipeline each, as they unlock (Guild at Lv 15, Vendor at 18).
-6. **Supervisor**: when a loop returns `unknown_card`, `stuck_progress` or `unknown_screen`, hand the screenshot and recent log to a model once, and save its answer as a rule, template or state, so the same situation costs nothing next time.
+1. **Get stronger toward 12K** for Verdantglade III: rank up when the requirements are met (Character → Rank badge), cook Green Riceballs when low, the Bed's free speedup, the daily Fantasia Ascent run (`sxs.tower`), Cart, gear and techniques (`sxs.strengthen`, which now also equips better gear and charms from the profile). Then retry the main quest with `sxs.explore --chain`.
+2. **Count "badly wounded" respawns as losses** in `sxs/explore.py`, so mae's retry rule applies (today it heals and keeps fighting the same guard).
+3. **Minimap classifier per area palette**: Highland Woods' explored walkable tiles read as walls. Calibrate from tiles the player has stood on (they're walkable by definition).
+4. **Badge sweep**: claim red "!" badges on menus (Fantasia Ascent Goals tab had one), generic because events rotate.
+5. **Dailies** pipelines as they unlock (`docs/step1-emulator-and-game.md` §4), starting with Fantasia Ascent (done) and the Cart.
+6. **Supervisor**: when a loop returns `unknown_card`, `unknown_screen` or a stuck reason, hand the saved frame and recent log to a model once and save its answer as a rule, template or state.

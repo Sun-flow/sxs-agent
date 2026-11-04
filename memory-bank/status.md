@@ -1,8 +1,8 @@
 # Status
 
-> **Last updated**: 2026-11-03
+> **Last updated**: 2026-11-04
 
-**Current step**: step 3. The bot plays the quest line by itself (`python -m sxs.explore --chain`) and has reached Verdantglade. It's blocked on "Moonveil Woods I: Unlock Moonveil Woods", where the way in seems to run through unexplored ground that only the minimap shows. The thread is being handed off: read `memory-bank/handoff.md` first.
+**Current step**: step 3. The bot plays the quest line by itself (`python -m sxs.explore --chain`). Verdantglade is done up to its power walls: 5 areas cleared (I, II, Moonveil Woods, Stone Ruins I, Highland Woods). The main quest "Explore Verdantglade III" needs ~12K power (have 10K); Damp Woods needs 15.5K. Read `memory-bank/handoff.md` first.
 
 ## Works
 
@@ -10,7 +10,8 @@
 - Agent setup: `AGENTS.md` entry point, `CLAUDE.md`, this memory bank and `scripts/check-memory.py` (2026-11-03, PR #2).
 - Hands-and-eyes layer: MaaFramework device control over MuMu IPC (~7 ms screenshots), the `python -m sxs` CLI, the state detector, `Navigator.go_home()` from a cold start, the offline detector check and a live smoke test. `docs/step2-hands-and-eyes.md`, merged in PR #5 (2026-11-03).
 - Quest following (2026-11-03): `sxs/explore.py` follows the tracker marker and edge pointers (boss, statue, unlock). It fights; opens cards through the decision rules (`sxs/decide.py`, `resource/policy/cards.json`); climbs mini-dungeons; heals and retries per mae's rule; claims quests via the tracker gift; and gets unstuck by talking to NPCs with a red "!", fighting path blockers and guards, and panning the camera. `sxs/tutorial.py` follows the tutorial (yellow highlight, Akane hints; never spend-looking buttons). `sxs/strengthen.py` claims the Cart, enhances gear and upgrades techniques. `sxs/minimap.py` reads minimap tiles and finds a path to unexplored ground; `sxs/fogwalk.py` uses it for side areas (experimental). Story text is logged to the gitignored `logs/dialogue.log`. `docs/step3-explore.md`.
-- maes2024 game state: account gromb2 on Forgehall, Lv 12, Mage, rank Apprentice I, power ~7.7K. Originisle is done (I–V, the Guardian Colossi boss, Voyage Obelisk). Verdantglade I and II are 100% explored and blessed (Blessing Level 3). Dawnium ~789 is untouched by the bot; the 10 free tutorial prayer tickets were used.
+- maes2024 game state (2026-11-04): account gromb2 on Forgehall, Lv 13, Mage, Apprentice I, power ~10K, Dawnium ~1.03K untouched by the bot. Originisle done; Verdantglade I, II, Moonveil Woods, Stone Ruins I and Highland Woods explored, statues blessed (Moonveil, Highland). Fantasia Ascent Moonveil Woods F5 cleared (today's run used). 3 of 4 charm slots filled.
+- Step 3 additions (2026-11-04): `sxs/goto.py` (walk via the area map), `sxs/tower.py` (Fantasia Ascent daily), charm and gear equipping in `sxs/strengthen.py`, loop banners, heartbeats, watchdogs and unknown-screen saves in all loops.
 
 ## In progress
 
@@ -21,16 +22,18 @@ Format: `- what — branch, PR, environment (started date)`. Remove the line whe
 
 ## Next
 
-See `memory-bank/handoff.md` → "Next steps". In short: get into Moonveil Woods with the minimap walker (it needs the player's screen position, and the camera doesn't follow the player); explore the Verdantglade side areas (Stone Ruins I, Damp Woods), stopping at 4 to 7 Verdantglade areas in total; automate the rest of strengthening and a "claim the red badges" sweep; then the daily-content pipelines and the model supervisor.
+See `memory-bank/handoff.md` → "Next steps". In short: get stronger toward 12K (rank up, cook, daily Fantasia Ascent, Cart) and retry Verdantglade III; count "badly wounded" respawns as losses; badge sweep; daily pipelines; model supervisor.
 
 ## Open questions
 
-- How to unlock Moonveil Woods (asked mae 2026-11-03 with a screenshot; mae's hint: the minimap shows a connected route south of the cliff).
 - Daily reset time. The server clock is UTC-5 (shown on the main menu) and weekly achievement quests refresh Monday 08:00 UTC-5, but the daily reset hour is unknown. (`memory-bank/game/rules.md`, R-024)
 - Is co-op content in iteration 1?
 - Should chat channels on home be hidden in Settings → Game → Social Settings? It would cut OCR noise and stray taps, but it's a settings change, so it's left for mae.
 
 ## Known problems
+
+- A lost map fight can end on the "badly wounded" dialog and a respawn in the previous area, which the explore loop doesn't count as a loss yet (Verdantglade III, 2026-11-04).
+- The minimap classifier was tuned in Verdantglade II; in Highland Woods it labels walkable explored tiles as walls, so the fog walk plans poorly there.
 
 - Cloud sessions can't download the APK (network policy blocks APK mirrors); it has to come from the emulator on maes2024.
 - maes2024 has no `gh` CLI, so PRs are opened from the cloud by the coordinator. Git push works.
