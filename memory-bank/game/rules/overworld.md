@@ -9,7 +9,7 @@ Walk to each green minimap dot and interact with what it marks, beat roaming mon
 *told, observed* · R-021, R-066, R-070
 
 ### R-065 · When stuck or between quests, walk the fog edge
-Side areas have no quest but give resources and levels; walking into the fog edge also reveals new areas. Explore outward from the connected area the character is in; never jump back across the map (mae). Code: `python -m sxs.roam` (`--area`, `--minutes`, `--max-areas`). It picks an unexplored area with recommended power under ours (R-084), enters from a connected explored neighbour (R-067), explores it with the Fog Walk (`sxs/fogwalk.py`, which stays in its current area when that borders the target) and blesses the statue (R-070). It takes 5-stamina pickups only while stamina stays ≥70 (R-107).
+Side areas have no quest but give resources and levels; walking into the fog edge reveals new areas. **Explore outward from the connected area the character is in; never jump back across the map** (mae). Code: `python -m sxs.roam` (`--area`, `--minutes`, `--max-areas`). It picks an unexplored area with recommended power under ours (R-084), enters from a connected explored neighbour (R-067), explores it with the Fog Walk (`sxs/fogwalk.py`; stays in its current area when that borders the target) and blesses the statue (R-070). It takes 5-stamina pickups only while stamina stays ≥70 (R-107).
 *told, observed* · R-066, R-067, R-070, R-084
 
 ## Walking and the camera
@@ -41,8 +41,8 @@ Code: `sxs/minimap.py`. About 8 px per tile; player at the centre (0.856, 0.138)
 - **dark green**: wall; explored S>=95, V>=85; unexplored V<85.
 - **cross-hatch, no colour**: unspotted (grey, S<35, V about 35); resolves when the player gets close.
 - **gold buildings**: interactables; the biggest are dungeons (daily challenges after the first clear), smaller ones mini-dungeons such as mines (R-071).
-- **orange** (about 18/116/187): monsters, and gold buildings under shadow. Fight monsters within the HP rules (R-061, R-078).
-Other types aren't catalogued ❓. Highland Woods (9.6K) sits behind a bracketed wolf-boss pack (R-041, beaten at 10K); its ground pickups by a cooking pot alone take it to 100%.
+- **orange** (about 18/116/187): monsters, and gold buildings under shadow. Fight monsters (mae), within the HP rules (R-061, R-078).
+Other types aren't catalogued ❓. Highland Woods (9.6K): entered past a bracketed wolf-boss pack (R-041, beaten at 10K); its ground pickups by a cooking pot alone finish it.
 *told, observed* · `minimap/minimap_verdantglade2.png`, `minimap/minimap_classified.png`, `minimap/tile_walk_explored.png`, `minimap/tile_walk_unexplored.png`, `minimap/tile_wall_explored.png`, `minimap/tile_wall_unexplored.png`, `minimap/tile_unspotted.png`, `minimap/minimap_highland_items.png` · R-004, R-065, R-071
 
 ## Getting somewhere
@@ -73,14 +73,13 @@ At home, tapping the tracker for a quest elsewhere asks "Travel to <Area> now?";
 - Unfinished areas show "Exploration: N%" and any power gate ("12K") under the label; finished ones show only the name. Gates seen: Highland Woods 9.6K, Verdantglade III 12K. Skip areas gated above your power (R-084).
 - Lost Statue icon: `resource/image/areamap/lost_statue.png` at 0.8.
 - Edge labels are clipped on the left ("tglade III"); `sxs/roam.py` accepts a 6+ letter suffix with matching numerals.
-- The area % is separate from the Explore quest's n/100 counter (R-021).
 - A 100% area with a red "!" probably has its statue waiting ❓. Sunrise Isle is at the bottom right of the Verdantglade map; its % isn't read ❓.
 *observed* · `world_area_map.png`, `area_map_lv22.png` · node `area_map` · R-068, R-070, R-084, R-086
 
 ## Power walls and gates
 
 ### R-084 · A recommended power far above yours is a wall: stop exploring there
-If fights keep ending in losses (R-031) where recommended power is well above yours, stop exploring and don't retry. Verdantglade cap (mae): clear only the first 4 to 7 Verdantglade areas, or stop at a natural wall; `sxs/roam.py` stops at the first power wall and caps areas with `--max-areas`. Get stronger first: gear, charms, techniques, tower clears. Verdantglade III (12K) lost every fight at 8.1K and 10K. Its entrance isn't from Moonveil Woods (the walk stops at about (169, 94), no fog in reach) and is unknown ❓; probably a quest unlock like R-082.
+Where recommended power is well above yours and fights end in losses (R-031), stop exploring; don't retry. Verdantglade cap (mae): clear only the first 4 to 7 Verdantglade areas, or stop at a natural wall; `sxs/roam.py` stops at the first power wall and caps areas with `--max-areas`. Get stronger first: gear, charms, techniques, tower clears. Verdantglade III (12K) lost every fight at 8.1K and 10K. Its entrance isn't from Moonveil Woods (the walk stops at about (169, 94), no fog in reach) and is unknown ❓; probably a quest unlock like R-082.
 *observed* · R-031, R-061, R-076, R-086
 
 ### R-086 · Gate of Power: a wall until power meets it, then press Open
@@ -103,7 +102,7 @@ Tapping a map object (e.g. a Portal) opens a card with one button at (0.5, 0.70)
 *observed, reported* · `interact_goddess_statue.png`, `interact_goddess_statue_blessed.png`, `blessing_level.png`, `lost_goddess_statue.png` · R-002, R-074
 
 ### R-085 · Stone tile floor puzzle: step on every tile for chests
-Stone Ruins I: a 2x2 floor of stone tiles; each lights cyan when stepped on. All 4 lit spawns two chests (about 60 Dawnium each, plus Rolla, ore, gear, Abundance Leaf). Each chest pops a gear-swap prompt that closes with the reward popup.
+Stone Ruins I: a 2x2 floor of stone tiles; each lights cyan when stepped on. All 4 lit spawns two chests (about 60 Dawnium each, plus Rolla, ore, gear, Abundance Leaf). Each chest pops a gear-swap prompt (swap button bottom right) that closes with the reward popup.
 *observed* · `world_map_tile_puzzle_chests.png`, `gear_swap_prompt.png` · node `gear_swap_prompt`
 
 ### R-072 · Energy Circuits puzzle: not automated
@@ -117,5 +116,5 @@ An NPC with a red "!" overhead gives instructions, then disappears and unlocks t
 *told, observed* · `world_map_loot_ledge.png` · R-064, R-080, R-082
 
 ### R-064 · If the marker leads nowhere, follow NPC instructions
-Some quests rely on NPC dialogue, not the marker (e.g. "Unlock Moonveil Woods" pointing into fog). If the target is unreachable or tapping does nothing, open the area map (tap the minimap) and look for a "!" NPC. Log NPC dialogue text so missed directions can be read later.
+Some quests rely on NPC dialogue, not the marker ("Unlock Moonveil Woods" pointed into fog). If tapping does nothing, open the area map (tap the minimap) and look for a "!" NPC (R-062). Log NPC dialogue text so missed directions can be read later.
 *told* · R-062, R-082

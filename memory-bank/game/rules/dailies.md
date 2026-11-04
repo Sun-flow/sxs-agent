@@ -30,8 +30,8 @@ Read when running or extending the daily loop (`python -m sxs.daily`): sign-in, 
 ### R-095 · Material Realms: mine with free hammers; never buy hammers
 - First realm Ironvein Pit (Raw and Refined Ore); three more locked. Inside: hammer button (0.5, 0.72), "Iron Mined" counter, tabs Ironvein Pit / Rankings / Goals (Iron Mined 5-25 goals pay fruit items).
 - Each Iron Hammer mines once (about +115 Raw Ore); count shows top right and on the button. Free hammers come from Prayer Goals (R-093) and other Goals tabs (R-116).
-- **At 0 hammers the button opens "Purchase Iron Hammer" (60 Dawnium each, limit 20/day): never buy, Cancel (0.32, 0.65).**
-- Daily step `material_realms`.
+- **At 0 hammers the button opens "Purchase Iron Hammer" (60 Dawnium each, limit 20/day): never buy, Cancel (0.32, 0.65).** Tap it only while the counter reads 1+.
+- Daily step `material_realms` (also claims the Goals tab).
 *observed* · `material_realms.png`, `ironvein_pit.png`, `purchase_iron_hammer.png` · node `material_realms`, `ironvein_pit` · R-043, R-093, R-092
 
 ### R-015 · Material dungeons: two free attempts each

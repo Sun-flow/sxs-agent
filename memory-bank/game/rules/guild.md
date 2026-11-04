@@ -29,7 +29,7 @@ Read before any guild screen. Code: `sxs/guild.py` (`python -m sxs.guild [--only
 *told, observed* · `guild_donation.png`, `guild_donation_confirm.png` · node `guild` · R-043, R-113
 
 ### R-110 · AFK gathering: keep the character at the Forge
-- Forge (7800/h), Power Station and Mine (5400/h), 10 slots each; the Forge has more slots on a second screen.
+- Forge (7800/h), Power Station and Mine (5400/h), 10 slots each; the Forge's list continues on a second screen.
 - Empty "+" slot: AFK Details (+600/h to the guild, capped at 36 h; personally 120 Guild Tokens/h plus a random item), then Start.
 - One slot per character; switching asks "Currently AFK: ... Switch anyway?" and collects the old slot. mae: **Forge**; already there = done.
 - Bottom-right widget: sleeping figure = idle; character with timer = gathering.
@@ -38,7 +38,7 @@ Read before any guild screen. Code: `sxs/guild.py` (`python -m sxs.guild [--only
 ### R-111 · Conquest: claim floors, use both attempts in the background
 - Gate of Expedition: Guild Events, Conquest (guild boss) and Guild Clash (unlocks 2026-11-12).
 - Shared boss per floor; "Daily Challenge Attempts: N/2" (OCR gives "Dailly Challenge Attempts:O/2": match "Challenge Attempts", read O as 0).
-- Beaten floor: claim its chest (0.49, 0.57), then step to the live floor.
+- Beaten floor: claim its chest (0.49, 0.57), then step right (0.95, 0.37) to the live floor.
 - Challenge (0.50, 0.77), Start Battle (0.50, 0.75), 50-round fight: minimise it (R-112). Result: damage and participation rewards (10 Dawnium, 150 Guild Tokens), Tap to Continue. A "Done Conquest Fn" chip then shows at left, y≈0.75, on home and island.
 - Goals tab: claim Serverwide (per server floor) and Personal (total challenges 10/20/...). Rankings tab is a known state (the detector once misread Challenge as a map object and wandered in).
 *observed* · `guild_events.png`, `guild_conquest.png`, `guild_conquest_battle.png`, `guild_conquest_result.png`, `guild_conquest_rankings.png` · node `guild_events`, `guild_conquest`, `guild_conquest_result` · R-112, R-113

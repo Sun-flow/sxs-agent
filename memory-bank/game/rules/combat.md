@@ -18,7 +18,7 @@ Read before any fight, when HP is low, after a loss, or inside a mini-dungeon or
 *told* · node `player_profile` · R-061, R-091
 
 ### R-046 · "Badly wounded" dialog
-- Starting a fight badly hurt shows "The character is badly wounded. Use dishes to heal?": Return to Home / Quick Heal (costs dishes, e.g. 2; count top right). Dishes come from the Alchemy Pot (R-047).
+- Starting a fight badly hurt shows "The character is badly wounded. Use dishes to heal?": Return to Home / Quick Heal (costs dishes, e.g. 2; count top right; cooked in the Alchemy Pot, R-047).
 - Repeated Quick Heal sometimes didn't clear it, then only Return to Home was offered ❓ (heal too small, or dishes ran out). "Dishes" may mean healing food here ❓.
 *observed* · `wounded.png` · node `wounded` · R-061, R-031, R-047
 
@@ -67,9 +67,9 @@ Read before any fight, when HP is low, after a loss, or inside a mini-dungeon or
 ## Fantasia Ascent (tower)
 
 ### R-079 · Fantasia Ascent: one climb a day, Auto Challenge on, never Retry
-- Daily step `fantasia_ascent` (`sxs/tower.py`, run date in `logs/daily.json`); also callable from the explore loop, handing back when done. One climb a day; **never retry a tower loss** (mae).
+- Daily step `fantasia_ascent` (`sxs/tower.py`, run date in `logs/daily.json`); the explore loop can call it too and gets control back. One climb a day; **never retry a tower loss** (mae).
 - Route: Journal, Fantasia Ascent (R-094). Or quest "Into the Moon's Shadow I" Go, then OK (0.68, 0.57) on "Return to Home to challenge the Fantasia Ascent?".
 - `tower_list` (cards "Current: Fn/110") -> `tower_floors` (F1 at bottom; Goals tab may be badged, R-063; recommended power, Challenge (0.85, 0.86)) -> prep (15 rounds) -> `tower_result`.
 - VICTORY: Clear Rewards (ores, Worn Knuckles), Continue (0.77, 0.95) goes to the next floor's prep. DEFEAT: Retry in the same spot: **never press it**.
-- Auto Challenge unlocks after F3. Its checkbox (0.66, 0.90) appears only on the result screen: tick it after each win. A loss unticks it; leave it off (ticking on DEFEAT starts a retry).
+- Before F3 is cleared, climb floor by floor (Continue). Auto Challenge then unlocks: its checkbox (0.66, 0.90) appears only on the result screen, so tick it after each win; Continue then counts down "(3s)". A loss unticks it; leave it off (ticking on DEFEAT starts a retry).
 *told, observed* · `confirm_fantasia_home.png`, `fantasia_ascent.png`, `fantasia_floors.png`, `fantasia_victory.png`, `fantasia_defeat.png` · node `fantasia_ascent`, `fantasia_floors`, `fantasia_result` · R-094, R-112

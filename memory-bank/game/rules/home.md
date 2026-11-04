@@ -7,7 +7,7 @@ Read when acting on the Home scene (Cart, Statue, Vendor Booth, house) or when h
 ### R-126 · Find home objects by template; the camera keeps its pan
 - Home pans both ways and remembers its camera, so fixed taps miss. Use template search.
 - Left to right: Cart and pink tree (R-020), goddess Statue for pulls (R-093), Vendor Booth wagon (R-120), gate, house with bed (R-101). The house is **right** of the Cart, not above.
-- Top right: "Thrilling Events" (0.91, 0.125) (R-096) and "Starter Pack". **Starter Pack is a shop: never buy** (R-043).
+- Top right: "Thrilling Events" (R-096) and "Starter Pack". **Starter Pack is a shop: never buy** (R-043).
 *observed* · `home.png`, `home_events.png` · node `home` · R-100, R-059
 
 ### R-100 · Home stuck on sky: restart the game
@@ -23,13 +23,13 @@ Scene labels (e.g. "Class to Unlock") overlap the quest tracker region; filter t
 ### R-020 · Collect the Cart's AFK rewards from its bubble
 - The Cart fills offline up to a cap (reported); collect at least once per cap period.
 - Tap the loot bubble (`resource/image/home/cart_bubble.png`): reward popup (Rolla, Stone, Wood).
-- Tapping the cart opens hourly income (Rolla, Wood, Stone, Raw Ore +100/h, Battle Essence +125/h), each with a level and upgrade arrow. "Claim All" (0.5, 0.86); close with (0.5, 0.95).
+- Tapping the cart opens hourly income (Rolla, Wood, Stone, Raw Ore, Battle Essence; Gear unlocks at Lv 15), each with a level and upgrade arrow. "Claim All" (0.5, 0.86); close with (0.5, 0.95).
 *observed* · `home_cart.png`, `cart.png`, `reward_popup.png` · node `home` · R-126
 
 ## The house
 
 ### R-035 · Use the bed's free speed-up once a day
-- The bed ("Sleep to earn AFK EXP...") shows Blessing Level, Activated Lost Goddess Statues, EXP/Hr, EXP Reserve and more.
+- The bed ("Sleep to earn AFK EXP...") shows Blessing Level, EXP/Hr, EXP Reserve and more.
 - "Today's Free Speedup" is a **daily task**: one free a day.
 - Furniture slots unlock by level (Lv 7: Alchemy Pot, R-047). Blessing statues likely raise Blessing Level ❓ (R-070).
 *observed* · `home_house.png`, `bed.png`, `furniture_unlock.png`, `unlocked.png` · node `home_house`, `bed` · R-101

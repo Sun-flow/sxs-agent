@@ -6,7 +6,7 @@ Read before pressing any button that might spend, and on any class, social, acco
 
 ### R-043 · Never press a spending button unless an exception below allows it
 **Never press:**
-- **Any button reading Buy, Purchase, Refresh, Spend, Pray, Recharge or Top up, or showing Dawnium or a USD price.** Dawnium is spent only on the two daily guild donations.
+- **Any button reading Buy, Purchase, Refresh, Spend, Pray, Recharge or Top up, or showing Dawnium or a USD price.** The only Dawnium spend is the first two daily guild donations.
 - **"Catch Up"** on the sign-in calendar (R-097); **"Advanced Trial"** (R-098); **Dawnstar Prelude draws** (R-096).
 - **"Purchase Iron Hammer"** (60 Dawnium): tap Cancel (0.32, 0.65) (R-095).
 - **Prayer "+"** (buys tickets); **Pray x1 ever; Pray x10 outside mae's pull script** (R-093).
@@ -21,7 +21,7 @@ Read before pressing any button that might spend, and on any class, social, acco
 - **Choose a class or press "Change Class"**: mae's call (R-054, R-117).
 - **"Rcmd Loadouts"** or its Apply (R-080).
 - **Anything social** (requests, Apply, Team, other players); guild choice beyond joining one random open guild is mae's (R-057, R-077, R-102).
-- **Delete, dismantle or sell items**; **accept agreements, terms or account prompts** (mae).
+- **Delete or dismantle items**; **accept agreements or account prompts** (mae).
 - **Type in chat**; close Server Chat with the down arrow (0.06, 0.96) (R-027).
 - **Rate the game or open the store**: rating popups get **Later** (mae) (R-060).
 - **Retry on the Fantasia Ascent DEFEAT screen**, or tick Auto Challenge there (R-079).
@@ -49,8 +49,8 @@ Policy: `resource/policy/cards.json`, `sxs/decide.py`; nav-graph edges mirror it
 ## Skill pulls (Prayer)
 
 ### R-093 · Skill pulls run only from mae's pull script, x10 only
-- Prayer is the skill gacha at the home **goddess Statue furniture** ("Pray to the goddess..."), beside the "Class to Unlock" stone, about (0.07, 0.63) on the default camera (find by template, R-126). Not the map statues that bless areas (R-070).
-- **The bot never taps Pray itself.** Pulls run only via `python -m sxs.pray --pulls N --handler-approved`, started by mae by hand. Never in a loop; no loop or decision function may call it.
+- Prayer (skill gacha) is the home **goddess Statue furniture** ("Pray to the goddess...") beside the "Class to Unlock" stone, about (0.07, 0.63) on the default camera; find it by template (R-126). Not the map statues that bless areas (R-070).
+- **The bot never taps Pray itself.** Pulls run only via `python -m sxs.pray --pulls N --handler-approved`, started by mae for that run. No loop or decision function may call it.
 - **x10 only, never x1** (mae). N is a multiple of 10; under 10 Stellatie, no pull.
 - Standard banner, Stellatie only (x10 = 10). The script never presses "+", cancels purchase prompts, and stops if Dawnium changes. The Affection banner (red tokens, x10 = 250) is not used.
 - Screen: tabs Prayer / Exchange / Goals, banner selector, "Prayers Today n/10000", "200 Prayers Bonus" (Legendary of choice), pity counter.
@@ -62,7 +62,8 @@ Policy: `resource/policy/cards.json`, `sxs/decide.py`; nav-graph edges mirror it
 ### R-054 · Class choices are mae's: pick Leave and stop
 - After the Guardian Colossi boss, "Crossroads of Classes: Talk to the Mysterious Elder" leads to the Chief at the Originisle V pillar: "Ascend to Mage", "Change Class" or "Leave".
 - **The bot never chooses a class.** It picks Leave and stops with `needs_decision`; `python -m sxs.explore --choose "<regex>"` applies a human's choice. mae chose **Mage**.
-- The class screen shows the trait stats and a class-skill grid, with Ascend at (0.5, 0.86).
+- The class screen shows trait stats and a class-skill grid, Ascend at (0.5, 0.86).
+- Boss loot (chests, an orb, an ore pile) lies around the pillar: collect it.
 *observed, told* · `class_choice.png`, `class_ascend.png` · node `class_choice`, `class_ascend` · R-117, R-062
 
 ## Social

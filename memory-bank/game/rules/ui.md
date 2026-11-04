@@ -5,11 +5,11 @@ Read when a menu, popup, overlay, tutorial highlight or red badge is on screen, 
 ## Dialogue and tutorial overlays
 
 ### R-028 · Tap through story dialogue, then carry on
-Story dialogue (Akane) can overlay any screen, with a ▼ at the bottom. Tap (0.5, 0.9) until it's gone, then resume.
+Story dialogue (Akane, ▼ at the bottom) can overlay any screen. Tap (0.5, 0.9) until it's gone, then resume.
 *observed* · `dialogue.png`, `dialogue_loadout.png` · node `dialogue` · R-036
 
 ### R-036 · Tap what the tutorial highlights
-- Highlights: (a) a bright yellow pulsing frame, (b) an Akane chibi bubble ("Tap to unlock") about 0.08 screen height above the button, (c) sometimes a white or pale frame. Step 3's tutorial follower handles (a) and (b).
+- Highlights: (a) a bright yellow pulsing frame, (b) an Akane chibi bubble ("Tap to unlock", "Tap to speed up", "Upgrade skill to Lv. 5") about 0.08 screen height above the button, (c) sometimes a white or pale frame. Step 3's tutorial follower handles (a) and (b).
 - "UNLOCKED ..." full-screen card: tap to continue.
 - The detector reads a highlight overlay as unknown and `nav.go_home` can fail on it: tap the highlighted control (e.g. Character, rank badge, Advance after the Bellflower harvest, R-123).
 *observed* · `tutorial_highlight.png`, `tutorial_highlight_dim.png`, `unlocked.png` · node `tap_to_continue` · R-028, R-118
