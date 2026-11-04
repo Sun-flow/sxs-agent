@@ -115,8 +115,13 @@ def minimap_target(det: StateDetector, frame: np.ndarray, lookahead: int = 4, pl
     return minimap.screen_point(player, mm, path[min(lookahead, len(path) - 1)])
 
 
-def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[str] = None) -> str:
-    """Explore `area` (walking there first with the area map), or the area we're standing in."""
+def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[str] = None,
+         allowed: Optional[set[str]] = None, walk_there: bool = True) -> str:
+    """Explore `area` (walking there first with the area map unless walk_there is False), or the area we're
+    standing in. `allowed` names neighbouring areas it may stand in without walking back: mae, 2026-11-04, "try
+    moving from areas you are connected to": enter a new area from the explored one next to it, not by a long
+    area-map walk that lands at its fogged label."""
+    allowed = set(allowed or ())
     banner(log, "Fog Walk", "explore a side area with no quest marker: walk to unexplored tiles the minimap shows, "
            "else to the fog edge; fight and open cards on the way",
            f"{minutes:g} minutes, no fog in view after 4 pans, no new tile reached in "
@@ -130,8 +135,10 @@ def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[st
     repeats, last_card = 0, None
     buildings_seen: set = set()
     heal_tries = 0
-    if area:
+    last_tap = None
+    if area and walk_there:
         goto.go_to(dev, det, area)
+    bumped: list[tuple[int, int]] = []  # walk taps that opened a card we dismissed (a blessed statue, a sign)
     beat = Heartbeat()
     while time.monotonic() < deadline:
         d = det.detect()
@@ -158,7 +165,8 @@ def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[st
             name = area_name(det, frame)
             if home_area is None and name:
                 home_area = name
-            elif name and not goto.same_area(name, home_area) and not strayed:
+            elif (name and not goto.same_area(name, home_area) and not strayed
+                  and not any(goto.same_area(name, a) for a in allowed)):
                 # Wandered into a neighbouring area: walk back with the area map rather than exploring the wrong one.
                 strayed = True
                 log.info("left %s for %s; going back", home_area, name)
@@ -192,8 +200,15 @@ def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[st
             if target is None and recentre_on_player(dev, det, frame):
                 frame = dev.screenshot()
                 target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen)
+            if target and any(abs(target[0] - b[0]) < 70 and abs(target[1] - b[1]) < 70 for b in bumped):
+                # The path runs through something that opens a card (seen: a blessed Goddess Statue). Tapping it
+                # again just reopens the card, so step one tile to the side; the game paths around the rest.
+                side = minimap.SCREEN_TILE if len(bumped) % 2 else -minimap.SCREEN_TILE
+                target = (min(690, max(30, target[0] + side)), target[1] + minimap.SCREEN_TILE // 2)
+                log.info("that spot opened a card before; stepping aside to %s", target)
             if target:
                 log.info("walking toward unexplored ground at %s", target)
+                last_tap = target
                 dev.tap(*target)
                 time.sleep(3)
                 continue
@@ -208,6 +223,7 @@ def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[st
                 continue
             no_fog = 0
             log.info("walking to fog edge at %s", target)
+            last_tap = target
             dev.tap(*target)
             time.sleep(3)
         elif d.state == "battle_prep":
@@ -258,6 +274,8 @@ def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[st
             card, choice = decider.decide(ctx)
             repeats = repeats + 1 if card.title == last_card else 0
             last_card = card.title
+            if choice.action == "dismiss" and last_tap:
+                bumped.append(last_tap)
             dev.tap(*choice.point)
             time.sleep(3)
             if choice.kind == "power_gate":
