@@ -42,7 +42,7 @@
                     "daily"
                 ]
             },
-            "why": "Low HP after a fight. Quick Heal eats cooked dishes (Green Riceball, made in the Alchemy Pot), not premium currency, and keeps the run going."
+            "why": "Shown after a LOST fight (mae, 2026-11-04: a dead run; in a mini-dungeon progress resets). Quick Heal eats cooked dishes (Green Riceball), not premium currency, so the character can try again; the loop counts it as a loss for the retry rule."
         },
         {
             "kind": "wounded",

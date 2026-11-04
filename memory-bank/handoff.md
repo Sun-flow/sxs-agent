@@ -66,7 +66,7 @@ Code map: `docs/step2-hands-and-eyes.md` (device, detector, CLI) and `docs/step3
 ## Next steps, in order
 
 1. **Get stronger toward 12K** for Verdantglade III: rank up when the requirements are met (Character → Rank badge), cook Green Riceballs when low, the Bed's free speedup, the daily Fantasia Ascent run (`sxs.tower`), Cart, gear and techniques (`sxs.strengthen`, which now also equips better gear and charms from the profile). Then retry the main quest with `sxs.explore --chain`.
-2. **Count "badly wounded" respawns as losses** in `sxs/explore.py`, so mae's retry rule applies (today it heals and keeps fighting the same guard).
+2. (Done 2026-11-04: "badly wounded" now counts as a loss.) Watch that the retry rule then behaves: 2 retries, strengthen, ask mae.
 3. **Minimap classifier per area palette**: Highland Woods' explored walkable tiles read as walls. Calibrate from tiles the player has stood on (they're walkable by definition).
 4. **Badge sweep**: claim red "!" badges on menus (Fantasia Ascent Goals tab had one), generic because events rotate.
 5. **Dailies** pipelines as they unlock (`docs/step1-emulator-and-game.md` §4), starting with Fantasia Ascent (done) and the Cart.

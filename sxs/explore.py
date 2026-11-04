@@ -421,6 +421,10 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
                 return "repeating_card"
             dev.tap(*choice.point)
             time.sleep(4)
+            if choice.kind == "wounded":
+                # "Badly wounded" comes after a lost fight (mae, 2026-11-04): a dead run, not a reason to carry on.
+                log.info("lost the fight (badly wounded); healed, counting it as a loss")
+                return "defeated"
             if choice.kind == "defeated":
                 return "defeated"
             if choice.kind == "unknown":

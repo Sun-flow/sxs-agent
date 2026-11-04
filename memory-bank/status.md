@@ -32,7 +32,6 @@ See `memory-bank/handoff.md` → "Next steps". In short: get stronger toward 12K
 
 ## Known problems
 
-- A lost map fight can end on the "badly wounded" dialog and a respawn in the previous area, which the explore loop doesn't count as a loss yet (Verdantglade III, 2026-11-04).
 - The minimap classifier was tuned in Verdantglade II; in Highland Woods it labels walkable explored tiles as walls, so the fog walk plans poorly there.
 
 - Cloud sessions can't download the APK (network policy blocks APK mirrors); it has to come from the emulator on maes2024.
