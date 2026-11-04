@@ -6,6 +6,7 @@
 ### 2026-11-04 (late) · Game docs: final step 3 batch (Claude Code, cloud)
 - PRs #10 and #11 merged. Opened PR #12 for the builder's `step3-wrapup` branch (banded gear enhancement, handoff).
 - Final step 3 batch: the Enhance Gear screen and the `enhance_gear` node (R-023), HP bar positions on the map and battle prep (R-078, R-091), both loss dialogs and where a loss puts you (R-090), and exact area-label matching (R-068).
+- mae: skill pulls get a dedicated script that only the handler starts (R-093; R-055 updated).
 
 ### 2026-11-04 · Game docs: Fantasia Ascent (Claude Code, cloud)
 - PR #9 merged (memory check fix, healing rules, gold buildings, loop design rules). Added R-079 (Auto Challenge in Fantasia Ascent) and the `fantasia_ascent` screen.

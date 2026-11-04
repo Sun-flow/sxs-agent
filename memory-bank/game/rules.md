@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/`; templates in `resource/image/`.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-093).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-094).
 
 Entry format:
 
@@ -365,10 +365,10 @@ Entry format:
 - **Related**: R-050, node `class_ascend`.
 
 ### R-055 · Prayer is the skill gacha; the bot never prays
-- **Rule**: The Statue furniture ("Pray to the goddess and embrace her divine power") on home, next to the "Class to Unlock" stone, opens Prayer: Pray x1 / Pray x10 cost blue prayer tickets (counter top right, with "+" to buy more), Prayers Today n/10000, "200 Prayers Bonus: a Legendary skill of your choice", a pity counter ("Prayer x70 away from a guaranteed Legendary skill"), a banner selector (Mage) and tabs Prayer / Exchange / Goals. The tutorial gives 10 free tickets; one x10 pull gave Cyclone (Epic wind: pick a grid within 6, knock up and pull), Flame Jet (Rare fire, 3 hits in a 1x3 area), Heart of Flame, Dew's Blessing and shards (Tough Soul, Flame Jet, Insight); power rose to 6.79K once equipped. **The bot never taps Pray or any spend-looking button (Pray, Buy, Purchase, Refresh, Spend, Dawnium, Recharge, Top up) on its own.**
+- **Rule**: The Statue furniture ("Pray to the goddess and embrace her divine power") on home, next to the "Class to Unlock" stone, opens Prayer: Pray x1 / Pray x10 cost blue prayer tickets (counter top right, with "+" to buy more), Prayers Today n/10000, "200 Prayers Bonus: a Legendary skill of your choice", a pity counter ("Prayer x70 away from a guaranteed Legendary skill"), a banner selector (Mage) and tabs Prayer / Exchange / Goals. The tutorial gives 10 free tickets; one x10 pull gave Cyclone (Epic wind: pick a grid within 6, knock up and pull), Flame Jet (Rare fire, 3 hits in a 1x3 area), Heart of Flame, Dew's Blessing and shards (Tough Soul, Flame Jet, Insight); power rose to 6.79K once equipped. **The bot never taps Pray or any spend-looking button (Pray, Buy, Purchase, Refresh, Spend, Dawnium, Recharge, Top up) on its own.** The one exception is a dedicated pull script that mae (the handler) starts by hand (R-093).
 - **Confidence**: observed. **Source**: builder batch 9.
 - **Images**: `docs/screens/furniture_statue.png`, `docs/screens/prayer.png`, `docs/screens/prayer_result.png`.
-- **Related**: R-043 (now with Pray, Recharge and Top up added), nodes `prayer`, `prayer_result`.
+- **Related**: R-043 (now with Pray, Recharge and Top up added), R-093, nodes `prayer`, `prayer_result`.
 
 ### R-056 · Equipping and levelling techniques
 - **Rule**: Each loadout has 4 technique slots on the left. Equip from the Technique tab: card, Equip, then tap an empty slot. New techniques start at Lv 1; levelling Cyclone from 1 to 10 cost about 490 Battle Essence.
@@ -612,3 +612,9 @@ Entry format:
 - **Confidence**: told. **Source**: mae, 2026-11-04.
 - **Images**: none yet (want: the Enhance Gear screen).
 - **Related**: R-020, R-023, R-088.
+
+### R-093 · Skill pulls run only when the handler starts them
+- **Rule**: Pulling skills at Prayer (R-055) is needed to keep growing in strength, so the bot gets a dedicated pull script. That script runs only when the agent's handler (mae) starts it at a time they judge right. It is never part of a loop, and no loop or decision function may call it on its own. Everything else stays under the spend rules (R-043, R-055): no Dawnium, no other spend-looking buttons.
+- **Confidence**: told. **Source**: mae, 2026-11-04.
+- **Images**: `docs/screens/prayer.png`, `docs/screens/prayer_result.png`.
+- **Related**: R-043, R-055, nodes `prayer`, `prayer_result`.
