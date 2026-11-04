@@ -161,7 +161,7 @@ flowchart TD
 | `world_overview` | World (island picker) | world | observed |  | Pick an island to walk on. Shows each island's exploration score and rank (e.g. 'Originisle 82, Ahead of 59.7% of Players'). Bottom-left button opens Exploration Goals. |
 | `world_map` | World map (island) | world | observed |  | Walkable island map with minimap, fog and pickups (R-002, R-004, R-021, R-022). Shows a fruit counter instead of Rolla in the top bar. |
 | `player_profile` | Player profile | popup | observed |  | Gear, techniques, Dish, Quick Heal. Not detected yet. Android back does nothing here. Red badges = empty Charm slots (row y≈0.71); blue badges on Equip = gear upgrades (R-080). |
-| `battle_prep` | Battle prep | menu | observed |  | Enemy line-up, 'Round 0/15'. |
+| `battle_prep` | Battle prep | menu | observed |  | Enemy line-up, 'Round 0/15'. HP bar under the character model; read it to decide on healing before Start Battle. Can be backed out of (R-091). |
 | `battle` | Battle | battle | observed |  | Plays itself (R-001); 15 rounds max. Loss leads to defeated. Mine battles run up to 25 rounds. |
 | `battle_result` | Battle result | popup | reported |  | Not seen: wins return straight to world_map, sometimes with a reward_popup; losses show the defeated dialog. |
 | `defeated` | Defeated dialog | popup | observed |  | Confirm dialog 'Your character is incapacitated. Return to Home now?' after losing a map fight (R-031). |

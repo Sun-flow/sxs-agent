@@ -602,7 +602,7 @@ Entry format:
 ## Added from mae (2026-11-04, night)
 
 ### R-091 · Heal mid-run in mini-dungeons instead of leaving
-- **Rule**: In mini-dungeons (Temple Ruins, mines and other floor-by-floor dungeons), the player can heal between floors, so low HP is not a reason to leave. On the floor card, heal from the portrait (Quick Heal, or the profile's Recover, using healing food per R-061), then press Next Floor and carry on. The 70% HP check of R-061 still applies before each floor.
+- **Rule**: In mini-dungeons (Temple Ruins, mines and other floor-by-floor dungeons), the player can heal between floors, so low HP is not a reason to leave. On the floor card, heal from the portrait (Quick Heal, or the profile's Recover, using healing food per R-061), then press Next Floor and carry on. After Next Floor, the battle prep screen shows an HP bar under the character model: read HP there to decide whether to heal before starting (the 70% check of R-061 still applies), and that screen can also be backed out of.
 - **Confidence**: told. **Source**: mae, 2026-11-04.
 - **Images**: `docs/screens/dungeon_floor.png`.
 - **Related**: R-040, R-061, R-071, R-078, node `dungeon_floor`.

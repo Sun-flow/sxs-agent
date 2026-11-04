@@ -154,7 +154,7 @@
    "images": [
     "docs/screens/battle_prep.png"
    ],
-   "notes": "Enemy line-up, 'Round 0/15'."
+   "notes": "Enemy line-up, 'Round 0/15'. HP bar under the character model; read it to decide on healing before Start Battle. Can be backed out of (R-091)."
   },
   {
    "id": "battle",
