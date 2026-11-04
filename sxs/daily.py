@@ -7,6 +7,7 @@
 Steps, in order (each starts from home and ends there):
   sign_in          Thrilling Events -> Daily Sign-in: claim today's tile (never Catch Up).
   mall_gifts       Mall: tap the free gift box on each page (Daily Gift, Weekly Gift, ...); never a price (sxs.mall).
+  vendor_stamina   Vendor Booth > Vault: claim the free x30 Stamina once a day (mae, 2026-11-04); nothing else (sxs.vendor).
   cart             Claim the Cart's AFK loot.
   bed              Collect the bed's AFK EXP once a day (mae, 2026-11-04): tap the blue-orb bubble over the bed.
   growth_trial     Thrilling Events -> Growth Trial: claim finished trial quests.
@@ -36,7 +37,7 @@ import sys
 import time
 from typing import Callable
 
-from . import claims, gather, guild, mall, nav, tower, upgrade
+from . import claims, gather, guild, mall, nav, tower, upgrade, vendor
 from .device import REPO_ROOT, Device, banner, save_unknown, server_day
 from .state import StateDetector
 from .strengthen import Strengthener
@@ -82,6 +83,7 @@ class Dailies:
         self.st = Strengthener(dev, det)
         self.guild = guild.Guild(dev, det)
         self.gatherer = gather.Gatherer(dev, det)
+        self.vendor = vendor.Vendor(dev, det)
         self.upgrader = upgrade.Upgrader(dev, det)
         self.mall = mall.Mall(dev, det)
 
@@ -112,7 +114,10 @@ class Dailies:
         """Bed AFK EXP: once a day (XP builds slowly; mae collects by hand when close to a level-up). The bubble
         sits over the bed in the house; if the camera is elsewhere, pan the home scene up to the house first."""
         self.nav.go_home()
-        for attempt in range(3):
+        # The house sits to the right of the cart (seen 2026-11-04 on rif-love-su: one right-to-left drag from the
+        # cart view shows the bed); older notes said up. Try right first, then up.
+        pans = [(600, 600, 150, 600), (600, 600, 150, 600), (360, 400, 360, 900), (360, 400, 360, 900)]
+        for attempt in range(len(pans) + 1):
             hits = self.det.find_all("Home.BedXP")
             if hits:
                 x, y, w, h = hits[0]
@@ -120,7 +125,9 @@ class Dailies:
                 if self.det.detect().state in {"reward_popup", "tap_to_continue"}:
                     self._tap(nav.REWARD_CLOSE, 2)
                 return "done"
-            self.dev.swipe(360, 400, 360, 900, 500)  # drag down = look up toward the house
+            if attempt == len(pans):
+                break
+            self.dev.swipe(*pans[attempt], 600)
             time.sleep(1.5)
         return "nothing"
 
@@ -197,6 +204,10 @@ class Dailies:
         return {"budget_spent": "done", "no_spare_stamina": "nothing", "timeout": "done"}.get(result["end"],
                                                                                               result["end"])
 
+    def vendor_stamina(self) -> str:
+        """The Vendor Booth Vault's free x30 Stamina (mae, 2026-11-04, R-120). Before gather, so it gets spent."""
+        return self.vendor.claim_free_stamina()
+
     def mall_gifts(self) -> str:
         """Free gift boxes on the Mall pages (Daily Gift, Weekly Gift, event pages; mae, 2026-11-04, R-121)."""
         return self.mall.claim_gifts()
@@ -215,7 +226,7 @@ class Dailies:
     # --- the loop ---
 
     STEPS: list[tuple[str, bool]] = [  # (name, once a day)
-        ("sign_in", True), ("mall_gifts", True), ("cart", False), ("bed", True), ("growth_trial", False), ("fantasia_ascent", True),
+        ("sign_in", True), ("mall_gifts", True), ("vendor_stamina", True), ("cart", False), ("bed", True), ("growth_trial", False), ("fantasia_ascent", True),
         ("material_realms", False), ("guild_donate", True), ("guild_afk", False), ("guild_conquest", True),
         ("quests", False), ("gather", False), ("strengthen", False), ("quests", False), ("strengthen", False),
     ]

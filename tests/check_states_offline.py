@@ -107,6 +107,7 @@ EXPECTED = {
     "world_map_player_pointer": "world_map",
     "world_map_tile_puzzle_chests": "world_map",
     "lost_goddess_statue": "unknown",
+    "interact_goddess_statue_blessed": "unknown",
     "gate_of_power": "unknown",
     "world_map_tracker_gift": "world_map",
     "world_map_explore": "world_map",

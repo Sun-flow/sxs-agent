@@ -77,6 +77,17 @@ def coords(det: StateDetector) -> Optional[tuple[int, int]]:
     return (int(m.group(1)), int(m.group(2))) if m else None
 
 
+def _label_point(det: StateDetector, name: str) -> Optional[tuple[int, int]]:
+    labels = area_labels(det)
+    hit = ([b for t, b in labels.items() if t.lower() == name.lower()]
+           or [b for t, b in labels.items() if squeeze(t) == squeeze(name)]
+           or [b for t, b in labels.items() if same_area(t, name)])
+    if not hit:
+        return None
+    x, y, w, h = hit[0]
+    return x + w // 2, y + h // 2
+
+
 def go_to(dev: Device, det: StateDetector, target) -> str:
     """target: an area name on the area map, or an (x, y) point there. Returns "arrived" (walked and stopped),
     "no_move" (coordinates didn't change: blocked or unreachable), "no_label", or "not_on_map"."""
@@ -94,7 +105,18 @@ def go_to(dev: Device, det: StateDetector, target) -> str:
         return "not_on_map"
     dev.tap(*MINIMAP)
     time.sleep(2)
-    if isinstance(target, str):
+    if isinstance(target, tuple) and len(target) == 3 and isinstance(target[0], str):
+        # (from_area, to_area, fraction): a point that far along from one label to the other, both read in this
+        # same opening (the map's zoom changes between openings, so points from an earlier reading drift).
+        a, b_, frac = target
+        pa, pb = _label_point(det, a), _label_point(det, b_)
+        if pa is None or pb is None:
+            log.warning("no %r or %r on the area map; frame %s", a, b_, save_unknown(dev, "goto"))
+            dev.tap(*nav.BACK_ARROW)
+            time.sleep(1.5)
+            return "no_label"
+        point = (int(pa[0] + (pb[0] - pa[0]) * frac), int(pa[1] + (pb[1] - pa[1]) * frac))
+    elif isinstance(target, str):
         labels = area_labels(det)
         # OCR swaps I, l and 1 and drops edge letters: match exactly first, then loosely.
         hit = ([b for t, b in labels.items() if t.lower() == target.lower()]

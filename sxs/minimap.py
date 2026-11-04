@@ -43,7 +43,11 @@ WALKABLE = {"walk_explored", "walk_unexplored", "item", "building", "monster", "
 
 def is_item(h: int, s: int, v: int) -> bool:
     """Pickup dots are bright green: S 150+ in Verdantglade II, but only ~128 in Highland Woods, so S > 110."""
-    return 38 <= h <= 80 and s > 110 and v > 180
+    if 38 <= h <= 80 and s > 110 and v > 180:
+        return True
+    # Under the unexplored shadow they turn pale: HSV ~39/81/213 (Damp Woods, 2026-11-04). Walkable ground
+    # is never that bright (V <= ~150).
+    return 36 <= h <= 46 and s >= 65 and v >= 195
 
 
 def is_building(h: int, s: int, v: int) -> bool:
@@ -56,7 +60,7 @@ def classify_pixel(h: int, s: int, v: int) -> str:
         return "icon"
     if s < 35:
         return "unspotted"
-    if 5 <= h <= 22 and s > 120 and v > 150:
+    if 5 <= h <= 22 and s > 100 and v > 150:  # S ~116 under the shadow (Damp Woods); also a shaded gold building
         return "monster"
     if is_item(h, s, v):
         return "item"
@@ -143,7 +147,8 @@ if __name__ == "__main__":
 # --- path planning -------------------------------------------------------------------------------------------
 
 SCREEN_TILE = 104  # px per game tile on the island map at the default zoom (grid lines are this far apart)
-GOALS = ("item", "walk_unexplored")  # what free exploration heads for, in order of preference
+GOALS = ("item", "monster", "walk_unexplored")  # what free exploration heads for (nearest first); orange monster
+# dots are fought (mae, 2026-11-04: "orange minimap icons are monsters and should be fought")
 
 
 def path_to_nearest(mm: Minimap, goals=GOALS, skip=frozenset()) -> list[tuple[int, int]]:
