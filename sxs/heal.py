@@ -1,7 +1,7 @@
 """Heal before a fight (mae, 2026-11-03: at least 70% HP before any fight).
 
-Shared by loops that start fights outside the explore loop (the tower, dailies). The explore loop keeps its own
-copy of this logic inline for now.
+Shared by loops that start fights outside the explore loop (the tower, dailies). explore and fogwalk use its constants
+and bar reader but still run the heal taps inline (moving them here changes retry behaviour; test live first).
 """
 
 from __future__ import annotations
@@ -25,7 +25,7 @@ HUD_HP_BAR = (116, 268, 52, 64)  # map HUD: the bar under our name
 
 
 def bar_fraction(frame: np.ndarray, bar=HUD_HP_BAR) -> float:
-    """Filled fraction of an HP bar, as explore.hud_hp: the fill is bright and saturated, the empty track dull."""
+    """Filled fraction of an HP bar (explore.hud_hp wraps it): the fill is bright and saturated, the empty track dull."""
     import cv2
     x0, x1, y0, y1 = bar
     hsv = cv2.cvtColor(frame[y0:y1, x0:x1], cv2.COLOR_BGR2HSV)

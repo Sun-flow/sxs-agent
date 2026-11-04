@@ -8,13 +8,12 @@ early at a given floor (for testing); the run date is kept in logs/daily.json.
     python -m sxs.tower [--tower "Moonveil Woods"] [--to 3] [--floors 10] [--minutes 10]
 
 Screens: tower_list -> tower_floors -> battle_prep -> battle -> tower_result (Continue goes straight to the next
-floor's battle_prep). See docs/step3-explore.md and memory-bank/game/rules.md.
+floor's battle_prep). See docs/step3-explore.md and memory-bank/game/rules/.
 """
 
 from __future__ import annotations
 
 import argparse
-import json
 import logging
 import re
 import sys
@@ -23,13 +22,12 @@ from typing import Optional
 
 import cv2
 
-from . import heal, nav
-from .device import REPO_ROOT, Device, banner, save_unknown, server_day
+from . import heal, marks, nav
+from .device import Device, banner, save_unknown
 from .state import StateDetector
 
 log = logging.getLogger("sxs.tower")
 
-DAILY = REPO_ROOT / "logs" / "daily.json"  # last run date per daily chore
 START_BATTLE = (360, 956)
 CONTINUE = (552, 1212)  # Continue (next floor) after a win, Retry after a loss
 FLOORS_CHALLENGE_ROI = [380, 1040, 320, 120]  # the current floor's Challenge button on the floors screen
@@ -62,20 +60,11 @@ def ensure_auto_challenge(dev: Device) -> None:
 
 
 def done_today() -> bool:
-    try:
-        return json.loads(DAILY.read_text(encoding="utf-8")).get("fantasia_ascent") == server_day()
-    except (OSError, ValueError):
-        return False
+    return marks.done_today("fantasia_ascent")
 
 
 def mark_done() -> None:
-    try:
-        data = json.loads(DAILY.read_text(encoding="utf-8"))
-    except (OSError, ValueError):
-        data = {}
-    data["fantasia_ascent"] = server_day()
-    DAILY.parent.mkdir(exist_ok=True)
-    DAILY.write_text(json.dumps(data, indent=2), encoding="utf-8")
+    marks.mark_done("fantasia_ascent")
 
 
 JOURNAL_FANTASIA = (560, 300)  # Journal tab: the Fantasia Ascent card (top right)

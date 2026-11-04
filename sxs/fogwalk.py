@@ -33,13 +33,8 @@ PLAY_AREA = (0, 130, 720, 840)  # x, y, w, h of the map between the HUD and the 
 FOG_S_MAX, FOG_V_MIN = 40, 150  # fog is pale grey
 STEP_IN = 40  # px from the fog edge into clear ground
 STILL_LIMIT = 8  # walk taps with unchanged coordinates before giving up
-AREA_NAME_ROI = [500, 255, 220, 36]  # area name above the coordinates, under the minimap
 STAMINA_KEEP = 70  # R-107: stamina kept for the daily commissions
 HUD_AVATAR = (130, 130)  # matches of the player's face inside this top-left box are the HUD, not the pointer
-
-
-def area_name(det: StateDetector, frame) -> str:
-    return " ".join(t for t, _ in det.read_text(AREA_NAME_ROI, frame)).strip()
 
 
 def centre_player(dev: Device, det: StateDetector, frame) -> bool:
@@ -168,7 +163,7 @@ def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[st
                     time.sleep(1.5)
                 continue
             heal_tries = 0 if hud_hp(frame) * 100 >= FIGHT_MIN_HP else heal_tries
-            name = area_name(det, frame)
+            name = goto.area_name_here(det, frame)
             if home_area is None and name:
                 home_area = name
             elif (name and not goto.same_area(name, home_area) and not strayed
