@@ -37,6 +37,7 @@ MARKER_TARGET_DYS = [100, 60, 140, 30]  # how far below the tracker ring its tar
 STALE_STEP_S = 15  # seconds of no progress per "stale" step (drives the tap-offset cycle)
 STALE_LIMIT = 4  # stale steps (~1 min) before trying NPCs and guards
 STALE_GIVE_UP_S = 300  # no progress for this long ends the run
+HEARTBEAT_S = 30  # liveness log line and stuck check interval
 DECISION_OPTIONS = r"^(Ascend to|Change Class)"  # dialogue options a human decides
 PLAYER_NAME = "gromb2"  # our character's name label, to tell our own "!" from an NPC's
 NPC_DX, NPC_DY = 30, 50  # from the "!" bubble to the NPC's body
@@ -83,6 +84,38 @@ def read_tracker(det: StateDetector) -> Optional[dict]:
     return {"title": title, "progress": f"{a}/{b}", "done": a >= b, "tap": (box[0] + box[2] // 2, box[1] + box[3] // 2)}
 
 
+def progress_signal(text: Optional[str]) -> Optional[str]:
+    """What counts as quest progress on the map tracker: its n/m counter, or else its goal text with OCR noise
+    (spaces, I/l/1 confusions) squeezed out, so a counterless quest still shows progress when its goal changes."""
+    if not text:
+        return None
+    m = re.search(r"\d+/\d+", text)
+    if m:
+        return m.group(0)
+    return re.sub(r"[\sIl1|]", "", text).lower()
+
+
+class Heartbeat:
+    """Regular liveness check for long runs (mae, 2026-11-04: loops check for being stuck even when automated).
+    Logs a line every HEARTBEAT_S with screen, map coordinates and time since progress, and warns when the screen
+    and coordinates haven't changed at all for several beats, so a log shows at a glance where a loop idles."""
+
+    def __init__(self) -> None:
+        self.next_at = time.monotonic() + HEARTBEAT_S
+        self.last = None
+        self.same = 0
+
+    def check(self, d, progress: Optional[str], progress_at: float) -> None:
+        if time.monotonic() < self.next_at:
+            return
+        self.next_at = time.monotonic() + HEARTBEAT_S
+        snap = (d.state, d.text)
+        self.same = self.same + 1 if snap == self.last else 0
+        self.last = snap
+        log.info("heartbeat: %s %s | tracker %r | %ds since progress%s", d.state, d.text or "", progress,
+                 time.monotonic() - progress_at, f" | unchanged x{self.same}" if self.same >= 2 else "")
+
+
 def npc_to_talk_to(det: StateDetector) -> Optional[tuple[int, int]]:
     """Tap point for an NPC showing a red "!" bubble, skipping the one over our own character (name label below)."""
     frame = det.device.screenshot()
@@ -113,6 +146,53 @@ def blocker_point(det: StateDetector) -> Optional[tuple[int, int]]:
     return (px + tx) // 2, (py + ty) // 2
 
 
+def unstick(dev: Device, det: StateDetector, round_no: int) -> bool:
+    """One unstick attempt when quest progress has stalled. Each round starts from a different strategy, so a
+    strategy that acted but didn't help isn't simply repeated. Returns True if something was tapped."""
+
+    def talk() -> bool:
+        # The target may be gated behind an NPC or map object with a red "!" (Molly, then the Moonveil gate).
+        npc = npc_to_talk_to(det)
+        if not npc:
+            return False
+        log.info("unstick: tapping a red '!' at %s", npc)
+        dev.tap(*npc)
+        time.sleep(4)
+        if det.detect().state == "world_map":
+            dev.tap(*npc)  # the first tap may only walk there; the second opens it
+            time.sleep(3)
+        return True
+
+    def blocker() -> bool:
+        # A monster stands in the way between us and the target: tap the spot halfway there.
+        point = blocker_point(det)
+        if point:
+            log.info("unstick: tapping between player and target at %s", point)
+            dev.tap(*point)
+            time.sleep(3)
+        return bool(point)
+
+    def guard() -> bool:
+        box = det.find("Explore.GuardBracket")
+        if box:
+            log.info("unstick: attacking a guard at %s", box.box)
+            dev.tap(box.box[0] + GUARD_DX, box.box[1] + GUARD_DY)
+            time.sleep(3)
+        return bool(box)
+
+    def look_around() -> bool:
+        # Something to talk to may be just off screen (or behind the chat panel): pan a step, look for a "!".
+        sx, sy, ex, ey = PAN_STEPS[(round_no // len(strategies)) % len(PAN_STEPS)]
+        log.info("unstick: panning to look for a red '!'")
+        dev.swipe(sx, sy, ex, ey, 500)
+        time.sleep(1.5)
+        return talk() or True
+
+    strategies = [talk, blocker, guard, look_around]
+    first = (round_no - 1) % len(strategies)
+    return any(f() for f in strategies[first:] + strategies[:first])
+
+
 def log_dialogue(det: StateDetector) -> None:
     """Keep the story text: some quests are only explained in dialogue ("go see X in Y"), not in the tracker.
     Lines go to logs/dialogue.log (gitignored) for whoever gets stuck next: mae, or the model supervisor."""
@@ -132,10 +212,12 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
     misses = unknowns = unknown_total = unknown_cards = repeats = home_taps = 0
     last_kind = None
     last_progress = last_state = last_progress_seen = None
-    stale, progress_at, tried_unstick = 0, time.monotonic(), False
+    stale, progress_at, unstick_round = 0, time.monotonic(), 0
+    beat = Heartbeat()
     hit_self = False  # the last marker tap landed on our own character
     while time.monotonic() < deadline:
         d = det.detect()
+        beat.check(d, last_progress, progress_at)
         if d.state != last_state:
             log.info("state %s", d.state)
             last_state = d.state
@@ -158,36 +240,22 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
                 return "complete"
             # "Stale" is time since progress last changed (walking to a far target takes many marker taps).
             # Compare only the counter: OCR flips "II" and "ll" in the area name from frame to frame.
-            counter = re.search(r"\d+/\d+", prog.text).group(0) if prog and re.search(r"\d+/\d+", prog.text) else None
-            if counter != last_progress_seen:
-                last_progress_seen, progress_at = counter, time.monotonic()
-                tried_unstick = False
+            # Quests without a counter ("Unlock Moonveil Woods") still change their goal text when they advance.
+            signal = progress_signal(prog.text if prog else None)
+            if signal != last_progress_seen:
+                last_progress_seen, progress_at = signal, time.monotonic()
+                unstick_round = 0
             stale_s = time.monotonic() - progress_at
             stale = int(stale_s // STALE_STEP_S)
             if stale_s >= STALE_GIVE_UP_S:
+                log.warning("no progress for %ds after %d unstick rounds; stopping", stale_s, unstick_round)
                 return "stuck_progress"
-            if stale >= STALE_LIMIT and not tried_unstick:
-                tried_unstick = True
-                # Progress stuck: the target may be gated behind an NPC with a red "!" (talk to them first)...
-                npc = npc_to_talk_to(det)
-                if npc:
-                    log.info("progress stuck; talking to an NPC at %s", npc)
-                    dev.tap(*npc)
-                    time.sleep(3)
-                    continue
-                # ...or a monster stands in the way between us and the target: tap the spot halfway there.
-                blocker = blocker_point(det)
-                if blocker:
-                    log.info("progress stuck; tapping between player and target at %s", blocker)
-                    dev.tap(*blocker)
-                    time.sleep(3)
-                    continue
-                # ...or guarded by monsters. Fight a bracketed one.
-                guard = det.find("Explore.GuardBracket")
-                if guard:
-                    log.info("progress stuck; attacking a guard at %s", guard.box)
-                    dev.tap(guard.box[0] + GUARD_DX, guard.box[1] + GUARD_DY)
-                    time.sleep(3)
+            # Watchdog (mae, 2026-11-04): each ~minute without progress, try the next unstick strategy rather
+            # than repeating the same marker tap until the give-up timer runs out.
+            if stale >= STALE_LIMIT * (unstick_round + 1):
+                unstick_round += 1
+                log.info("no progress for %ds: unstick round %d", stale_s, unstick_round)
+                if unstick(dev, det, unstick_round):
                     continue
             pointer = det.find("Explore.EdgePointer")
             if pointer:

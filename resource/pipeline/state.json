@@ -254,7 +254,7 @@
     "State.Interact": {
         "doc": "Card popup for a map object (portal, statue, node...) with one action button at (360, 895). Only whitelisted verbs count, so a 'Purchase' or 'Spend' card stays unknown.",
         "recognition": "OCR",
-        "expected": "^(Activate|Collect|Claim|Open|Interact|Bless|Pray|Gather|Harvest|Mine|Examine|Read|Explore|Enter)$",
+        "expected": "^(Activate|Collect|Claim|Open|Interact|Bless|Pray|Gather|Harvest|Mine|Examine|Read|Explore|Enter|Challenge)$",
         "roi": [
             150,
             850,
