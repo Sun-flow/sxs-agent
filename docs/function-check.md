@@ -1,4 +1,4 @@
-# Function check: what the bot can do (2026-11-04)
+# Function check: what the bot can do (2026-11-04, updated after the live shakedown)
 
 Every loop runs as `python -m sxs <loop> [options]` from the repo root (`.venv\Scripts\python`). Each one logs
 mae's banner (`[Running X Loop]` / `[Goal]` / `[End condition]`), and ends with one JSON line such as
@@ -38,3 +38,15 @@ unlabelled screenshots; `scripts/probe.py`. Offline checks: `tests/check_repo.py
 
 `sxs/policy/fights.py`: a recommended power up to 1.25x ours is worth fighting (mae). `roam` uses it to pick areas.
 Gates of Power still open only once our power reaches their number.
+
+## Live shakedown results (2026-11-04 evening)
+
+| Loop | Result |
+|---|---|
+| `upgrade` | Works. Goals pass first; ascended Ice Spike and Elemental Mystery from their shards (18.5K to 18.8K). |
+| `gearswap` | Works. Compared all 4 slots, kept every piece (equipped ones stronger). |
+| `daily` | Works after fixes: sign-in, Growth Trial, quests, Conquest (both attempts), Ironvein, Mall halves, Vendor, guild donate/AFK. |
+| `tower` | Works after fixes: 25% check, starts Auto Challenge, which climbs in the background (F6 to F24). |
+| `explore` | Works: Verdantglade III 0 to 73/100 in four 2-minute runs. |
+| `roam` / `fogwalk` | Ends cleanly, but can't walk into Verdantglade III (the only area left); the quest route can. |
+| `gather` | Picked 2 ore, then stopped as stuck when panning found nothing. |
