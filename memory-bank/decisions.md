@@ -6,12 +6,6 @@
 Entry format:
 
 ```
-### [2026-11-04] Loops are watched and hand off to each other
-- **Decision**: Each loop (`sxs.explore`, `sxs.tower`, `sxs.fogwalk`, `sxs.goto`) logs a banner at start, a heartbeat every 30 s, and ends early with a named reason (stuck_progress, stuck_self, stuck, unknown_screen with a saved frame, power_gate, repeating_card) instead of idling. Stalls rotate through unstick strategies (walk to the quest's area, talk to a red "!", fight a blocker or guard, pan). The explore loop calls the tower loop on Fantasia Ascent screens and resumes after.
-- **Rationale**: mae (2026-11-04): loops must notice being stuck, report unfamiliar screens, and call each other; a stuck loop is a robustness bug to fix, not a restart.
-- **Alternatives considered**: one 5-minute give-up timer (what we had; it idled silently on a counterless quest).
-- **Status**: Accepted
-
 ### [YYYY-MM-DD] Title
 - **Decision**: one line
 - **Rationale**: why
@@ -20,6 +14,18 @@ Entry format:
 ```
 
 ---
+
+### [2026-11-04] Rules split by situation, memory bank slimmed
+- **Decision**: The single rules file (memory-bank/game/rules.md) became `memory-bank/game/rules/`: one file per situation (policy, ui, home, world, overworld, quests, combat, dailies, guild, gathering, upgrades, economy) plus a README index. Rules were rewritten to what an acting agent needs (no sources, dates, batch history or account snapshots). IDs are kept; merged duplicates are listed as retired IDs in the index, and `scripts/check-rules.py` checks every cited ID resolves. The handoff file was split into `playbook.md` (stable process) and `status.md` (state and next steps); machine facts moved from `notes.md` to `environments.md`.
+- **Rationale**: mae (2026-11-04): context had grown bloated; organise rules by content type so an agent in one environment reads one file. The 101 KB rules file and a 22 KB handoff with seven appended updates cost every session ~8.6K tokens, about half duplicated.
+- **Alternatives considered**: renumbering rules per file (breaks the R-IDs cited in code, policy files and the nav graph); keeping one file with better headings (still loads everything for every situation).
+- **Status**: Accepted
+
+### [2026-11-04] Loops are watched and hand off to each other
+- **Decision**: Each loop (`sxs.explore`, `sxs.tower`, `sxs.fogwalk`, `sxs.goto`) logs a banner at start, a heartbeat every 30 s, and ends early with a named reason (stuck_progress, stuck_self, stuck, unknown_screen with a saved frame, power_gate, repeating_card) instead of idling. Stalls rotate through unstick strategies (walk to the quest's area, talk to a red "!", fight a blocker or guard, pan). The explore loop calls the tower loop on Fantasia Ascent screens and resumes after.
+- **Rationale**: mae (2026-11-04): loops must notice being stuck, report unfamiliar screens, and call each other; a stuck loop is a robustness bug to fix, not a restart.
+- **Alternatives considered**: one 5-minute give-up timer (what we had; it idled silently on a counterless quest).
+- **Status**: Accepted
 
 ### [2026-11-03] Goal-based decisions on cards, rules in a data file
 - **Decision**: Every popup or card is read (title, text, buttons) and matched against ordered rules in `resource/policy/cards.json`, keyed on the current goal (explore, daily, idle) and circumstances (HP). A rule picks a button, Cancel, or dismiss. A card with no rule is dismissed and stops the run after 3, so a rule gets added once. Lasting choices (class) always stop with `needs_decision`.

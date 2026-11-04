@@ -23,6 +23,7 @@ import numpy as np
 from . import nav, tower
 from .device import REPO_ROOT, Device, banner, save_unknown
 from .decide import Context, Decider
+from .heal import FIGHT_MIN_HP, HUD_HP_BAR, HUD_PORTRAIT, PREP_HP_BAR, QUICK_HEAL, bar_fraction  # noqa: F401 (fogwalk imports these from here)
 from .state import StateDetector
 from .strengthen import Strengthener
 
@@ -45,12 +46,7 @@ NPC_DX, NPC_DY = 30, 50  # from the "!" bubble to the NPC's body
 DIALOGUE_ROI = [0, 1020, 720, 230]  # speaker name and text in the story box
 DIALOGUE_LOG = REPO_ROOT / "logs" / "dialogue.log"
 RETRIES = 2  # retries of a lost fight before strengthening (mae, 2026-11-03)
-FIGHT_MIN_HP = 70  # mae, 2026-11-04: at least 70% HP before any fight
 HEAL_BELOW = 80  # HP % under which the profile's Quick Heal (1 cooked dish) is used
-QUICK_HEAL = (510, 1064)
-HUD_PORTRAIT = (70, 60)  # top-left avatar: opens the player profile (HP, Quick Heal, charms)
-PREP_HP_BAR = (314, 406, 866, 876)  # x0, x1, y0, y1 of the bar under our character on battle prep
-HUD_HP_BAR = (116, 268, 52, 64)  # x0, x1, y0, y1 of the HP bar under the name, top left (mae, 2026-11-04)
 REPEAT_LIMIT = 4  # same card title this many times in a row means the choice isn't working
 GUARD_DX, GUARD_DY = -35, 50  # from the top-right guard bracket to the monster
 
@@ -90,12 +86,8 @@ def read_tracker(det: StateDetector) -> Optional[dict]:
 
 
 def hud_hp(frame: np.ndarray, bar=None) -> float:
-    """HP as a fraction, from the HUD bar under our name (or another HP bar, e.g. PREP_HP_BAR): the filled part is
-    bright and saturated (yellow-green at full HP), the empty track dull (V ~110-120)."""
-    x0, x1, y0, y1 = bar or HUD_HP_BAR
-    hsv = cv2.cvtColor(frame[y0:y1, x0:x1], cv2.COLOR_BGR2HSV)
-    filled = (hsv[..., 1] > 100) & (hsv[..., 2] > 150)
-    return float(filled.any(axis=0).mean())
+    """HP as a fraction, from the HUD bar under our name (or another HP bar, e.g. PREP_HP_BAR). See heal.bar_fraction."""
+    return bar_fraction(frame, bar or HUD_HP_BAR)
 
 
 def progress_signal(text: Optional[str]) -> Optional[str]:
