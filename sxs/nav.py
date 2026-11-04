@@ -51,6 +51,13 @@ TOWARD_HOME = {
     "material_realms": BACK_ARROW,
     "notice": BACK_ARROW,
     "journal": NAV_HOME,
+    "guild": NAV_HOME,
+    "guild_no_guild": NAV_HOME,
+    "guild_join_list": BACK_ARROW,
+    "guild_panel": BACK_ARROW,
+    "guild_conquest": BACK_ARROW,
+    "guild_donation": (360, 60),  # tap above the popup
+    "background_fight": (72, 1216),  # minimise: the fight carries on by itself
     "prayer": BACK_ARROW,
     "prayer_result": BACK_ARROW,
 }

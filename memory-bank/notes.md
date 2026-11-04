@@ -45,4 +45,6 @@
 - The area map's zoom changes between openings, so pick places on it by OCR'd area label (`sxs.goto`), not fixed points. An area whose label sits in fog can't be walked to; go home and travel via the tracker instead.
 - Map coordinates: y decreases going south, x increases going east.
 - Minimap POIs (mae, 2026-11-04): besides green pickup dots, gold icons are interactable buildings: the biggest are dungeons (cleared once naturally, then challenged in dailies), smaller ones are mines and the like. `sxs/minimap.py` classifies them as `building`; the fog walk visits each one once per run after pickups and unexplored ground.
-
+- Guild (mae, 2026-11-04): donate at most twice a day; Dawnium is approved for those two only (2nd costs 20, 3rd 50: never). Gather at the Forge. Fights with the bottom-left minimise icon run in the background: start them and leave (Conquest). `sxs/guild.py`.
+- Typing into a game search field works with `adb shell input text` (MuMu's adb: `C:\Program Files\Netease\MuMuPlayer\nx_device\15.0\shell\adb.exe -s 127.0.0.1:16384`). Never type in chat.
+- OCR misreads digits on the Conquest header ("O/2" for 0/2, "Dailly"); match loosely and map O to 0.
