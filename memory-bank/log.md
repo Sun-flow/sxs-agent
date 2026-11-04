@@ -3,9 +3,21 @@
 > **Last updated**: 2026-11-04
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
 
+### 2026-11-04 · Game docs: Fantasia Ascent (Claude Code, cloud)
+- PR #9 merged (memory check fix, healing rules, gold buildings, loop design rules). Added R-079 (Auto Challenge in Fantasia Ascent) and the `fantasia_ascent` screen.
+- R-079 addendum from the builder: a tower floor loss turns Auto Challenge off; re-enable it next time. mae: tower losses are not retried; one challenge per day as a daily mission. Branch `claude/project-thread-npg43i` fast-forwarded to main.
+- mae's design rule in `memory-bank/notes.md`: loops flag the unknown state and recover or end early with a report, instead of spinning.
+- mae's reporting rule in `memory-bank/notes.md`: each loop prints `[Running XXX Loop]`, `[Goal: ...]` and `[End condition: ...]` when it starts.
+- mae's correction: a red "!" over the player is not a heal signal (it can mean charms to equip). R-061 amended; new R-080 (check the character panel; heal only from the HP bar; red panel badge = empty Charm slot, blue = gear upgrade; marker next to the player can cause mis-taps).
+- Builder batch 11: R-081 to R-085 (map coordinates, counterless unlock quests, tracker gift claim, power wall at Verdantglade III, stone tile puzzle); R-068, R-074, R-076, R-079 and R-080 extended with goto, the player pointer, the tower flow and the charm loadout steps. New screens `fantasia_floors`, `fantasia_result`, `charm_detail`, `rcmd_loadouts`, `gear_swap_prompt`. Images are on the step 3 branch. All in PR #10.
+- Builder batch 12: R-086 to R-090 (Gate of Power, Highland Woods, replacing gear, travel from home, "badly wounded" as a loss); R-022, R-068, R-070, R-083 and R-084 extended (ring hiding the area name, map zoom and OCR labels, Lost Goddess Statue, gift claims for counter quests). New screens `replace_gear`, `gear_compare`. Same PR #10.
+- mae: heal mid-run in mini-dungeons instead of leaving (R-091). Auto Challenge timing refined in R-079. Opened PR #11 for the builder's `step3-explore` work and merged main into it.
+- mae: Quick Heal from the portrait on any screen (R-078); a defeat in a mini-dungeon resets the run (R-091); enhance gear evenly in 5-level bands with a priority order (R-092).
+- PR #11 (builder's step 3b code) merged; merged main back into this branch.
+
 ### 2026-11-04 · Moonveil Woods, Fantasia Ascent, side areas, loop robustness (Claude Code, maes2024 via Remote Control)
 - Got into Moonveil Woods with mae's area-map procedure (now `sxs/goto.py`), talked to Molly, won the gate fight, climbed the Moonveil tower to F5 (new `sxs/tower.py`; lost F6). Explored Stone Ruins I (tile puzzle, two chests) and Highland Woods, blessed the Highland and Moonveil statues. Damp Woods is behind a 15.5K Gate of Power; Verdantglade III (12K) fights are lost at 10K. 5 Verdantglade areas done. Lv 13, power 10K (new gear via `equip_better_gear`, charms via `equip_charms`).
-- Loop robustness per mae: heartbeat lines, rotating unstick rounds, counterless-quest progress, own-profile watchdog, unknown screens saved to `captures/unknown/` before stopping, loop banners, fog walk stays in its area and stops when no new tile is reached. Branch `step3-explore`, PR #7.
+- Loop robustness per mae: heartbeat lines, rotating unstick rounds, counterless-quest progress, own-profile watchdog, unknown screens saved to `captures/unknown/` before stopping, loop banners, fog walk stays in its area and stops when no new tile is reached. Branch `step3-explore`, PR #11.
 - Open: Verdantglade III needs about 12K power; the "badly wounded" dialog after a lost map fight isn't counted as a loss; the minimap classifier mislabels Highland Woods' darker walkable tiles.
 
 ### 2026-11-03 (late) · Game docs after PR #6 (Claude Code, cloud)

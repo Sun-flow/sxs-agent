@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/`; templates in `resource/image/`.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-079).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-093).
 
 Entry format:
 
@@ -155,8 +155,8 @@ Entry format:
 - **Related**: R-002, R-008, node `world_map`.
 
 ### R-022 · Quest tracking puts a gold ring on the next target
-- **Rule**: The target icon on the quest tracker panel (0.40, 0.79) toggles tracking. While on, a gold ring marks the next target; if the target is off screen the ring sits at the screen edge pointing to it. Tap the edge ring to pan the camera, then tap the item. The ring floats about 100 px (0.08 of the screen height) above its target, so tap below it. It can hide under the top-left avatar and level badge; dragging the map brings it back. Templates: `resource/image/explore/marker.png` (lit) and `resource/image/explore/marker_dim.png` (shadowed).
-- **Confidence**: observed. **Source**: builder batches 1 and 4.
+- **Rule**: The target icon on the quest tracker panel (0.40, 0.79) toggles tracking. While on, a gold ring marks the next target; if the target is off screen the ring sits at the screen edge pointing to it. Tap the edge ring to pan the camera, then tap the item. The ring floats about 100 px (0.08 of the screen height) above its target, so tap below it. It can hide under the top-left avatar and level badge; dragging the map brings it back. It can also sit on the area name and coordinates under the minimap, which breaks `world_map` detection; nudge the camera to uncover them (builder batch 12). Templates: `resource/image/explore/marker.png` (lit) and `resource/image/explore/marker_dim.png` (shadowed).
+- **Confidence**: observed. **Source**: builder batches 1, 4 and 12.
 - **Images**: none yet (want: tracking ring on screen and at the edge).
 - **Related**: R-009.
 
@@ -403,10 +403,16 @@ Entry format:
 ## Added from mae (2026-11-03, evening)
 
 ### R-061 · Heal and retry a lost fight at most twice
-- **Rule**: Healing food (cooked from ingredients in the Alchemy Pot, or bought with Rolla) is cheap and fine to spend: eat it from the player portrait, then the button on the right ("Recover" or similar). While fights are being won, heal as freely as needed; Rolla is abundant early. **Dishes** are different: rarer items that give temporary stat boosts for a fight, so conserve them. If the same fight is lost twice in a row after healing, stop retrying: contact mae or go back to base to get stronger (gear, techniques, rank) first. **Before any fight, HP must be at least 70%**; if it's lower, heal first (read HP from the HUD bar, R-078). A red "!" over the player character most likely means a heal is needed; it is not the NPC "!" of R-062. (The step 3 explore loop heals below 80%, which already satisfies this.)
-- **Confidence**: told. **Source**: mae, 2026-11-03.
+- **Rule**: Healing food (cooked from ingredients in the Alchemy Pot, or bought with Rolla) is cheap and fine to spend: eat it from the player portrait, then the button on the right ("Recover" or similar). While fights are being won, heal as freely as needed; Rolla is abundant early. **Dishes** are different: rarer items that give temporary stat boosts for a fight, so conserve them. If the same fight is lost twice in a row after healing, stop retrying: contact mae or go back to base to get stronger (gear, techniques, rank) first. **Before any fight, HP must be at least 70%**; if it's lower, heal first (read HP from the HUD bar, R-078). Decide heal need from the HP bar only. A red "!" over the player character does not by itself mean heal: it can also mean charms or other gear are ready to equip, among other things (R-080). (The step 3 explore loop heals below 80%, which already satisfies this.)
+- **Confidence**: told. **Source**: mae, 2026-11-03; "!" correction 2026-11-04.
 - **Images**: none yet (want: the profile's Recover button).
 - **Related**: R-031, R-043, R-046, R-047, R-078, nodes `player_profile`, `wounded`, `alchemy_pot`.
+
+### R-080 · A red "!" over the player means check the character panel
+- **Rule**: A red "!" above the player character on the overworld is a general "something to do with your character" badge, not a heal signal. Causes include charms (or other gear) ready to equip, and possibly low HP among others. When it appears, open the character panel (HUD portrait), follow the badged tab and handle it (equip, upgrade or claim, within the spending rules); decide whether to heal only from the HP bar (R-061, R-078). On the character panel (tap your own character, or the HUD portrait), red badges mark empty Charm slots (row at y≈0.71) and blue badges on Equip mark available gear upgrades. To fill a charm slot: tap an empty charm slot, which opens the loadout editor "Edit" (techniques on the left, 4 charm slots on the right at x≈0.87, y≈0.21 / 0.30 / 0.39 / 0.48). It opens on the Technique tab; the Charm tab is at (0.56, 0.62). Tap a charm to open its card (for example "Heart of Flame", Rare, Fire Affinity 166, source Skill Prayer), press Equip (0.5, 0.70), then tap an empty slot. Once a slot is filled the button reads Replace. The 4th charm slot was still locked at Lv 13. The Rcmd button opens "Rcmd Loadouts" (Beginner's Pick, AoE DMG) with Apply; the bot doesn't use it. Filling the slots also completed "Combat Master: Equip 6 Skills 6/6". Do not block fights on the "!" alone: the explore loop got stuck treating a charm "!" as a heal request. Also beware mis-taps: when the quest marker sits next to the player, a tap meant for the marker can land on the player sprite and open the character panel instead; aim off the sprite or move first.
+- **Confidence**: told (mae); badge colours and the mis-tap observed by the builder. **Source**: mae, 2026-11-04; builder thread, 2026-11-04.
+- **Images**: `docs/screens/player_profile_charm_badges.png`, `docs/screens/loadout_edit_charms.png`, `docs/screens/charm_detail.png`, `docs/screens/rcmd_loadouts.png` (step 3 branch).
+- **Related**: R-061, R-063, R-078, nodes `player_profile`, `loadout_edit`, `charm_detail`, `rcmd_loadouts`.
 
 ### R-062 · NPCs with a red "!" gate progress
 - **Rule**: Quests can be locked behind NPC interactions. An NPC with a red exclamation mark above its head on the world map or overworld (Originisle, Verdantglade...) must be talked to first; it gives instructions on how to progress and then disappears, unlocking the objects around it (for example the Chief at the Originisle V pillar guards the boss loot row). When the tracker points at something that can't be reached, look for a red "!" NPC nearby and tap it first.
@@ -455,9 +461,9 @@ Entry format:
 - **Related**: R-025, R-064, R-066.
 
 ### R-068 · Travel to a far or unexplored area through the full map
-- **Rule**: To move somewhere distant or unexplored: tap the minimap to open the full area map; look for unexplored areas on it; tap the spot you want the camera over (this centres the camera there); close the map, and the camera now shows that spot; then tap the ground where you want to go and the player auto-paths there, around walls and through land bridges (R-067). This is the intended way to reach unexplored areas found on the map.
-- **Confidence**: told. **Source**: mae, 2026-11-03.
-- **Images**: `docs/screens/world_area_map.png` (step 3 branch).
+- **Rule**: To move somewhere distant or unexplored: tap the minimap to open the full area map; look for unexplored areas on it; tap the spot you want the camera over (this centres the camera there); close the map, and the camera now shows that spot; then tap the ground where you want to go and the player auto-paths there, around walls and through land bridges (R-067). This is the intended way to reach unexplored areas found on the map. The white box on the area map is the camera viewport. The map's zoom differs between openings, so labels land at different screen spots each time: pick places by their OCR'd label, never by fixed position. An area whose label sits in fog can't be reached this way (walking there fails with `no_move`); travel from home instead (R-089). Auto-pathing works even through gaps you can't see on screen. Code: `sxs/goto.py` (`python -m sxs.goto "Area Name"` or `X Y`); this route got the bot into Moonveil Woods.
+- **Confidence**: told, then observed (builder batches 11 and 12). **Source**: mae, 2026-11-03; builder batches 11 and 12, 2026-11-04.
+- **Images**: `docs/screens/world_area_map.png`, `docs/screens/world_map_moonveil_entry.png`, `docs/screens/world_area_map_stone_ruins.png` (step 3 branch).
 - **Related**: R-025, R-032, R-065, R-066, R-067, node `area_map`.
 
 ## Added from builder batch 10 (2026-11-03, handoff)
@@ -469,9 +475,9 @@ Entry format:
 - **Related**: R-006, R-030.
 
 ### R-070 · Goddess Statues bless a fully explored area
-- **Rule**: A Goddess Statue's card requires "Reach 100% exploration in <area>" and rewards Blessing Level +1, with an Unlock button. The quest "The Goddess's Grace I/II" follows each Explore quest. It is reached through a white edge pointer with a statue icon (`resource/image/explore/pointer_statue.png`). Blessing Level 2 raised the Max Cart Level from 1 to 2 and the AFK EXP rate from 50 to 500, so blessing every area is worth it.
-- **Confidence**: observed. **Source**: builder batch 10. Confirms R-003.
-- **Images**: `docs/screens/interact_goddess_statue.png`, `docs/screens/blessing_level.png`.
+- **Rule**: A Goddess Statue's card requires "Reach 100% exploration in <area>" and rewards Blessing Level +1, with an Unlock button. The quest "The Goddess's Grace I/II" follows each Explore quest. It is reached through a white edge pointer with a statue icon (`resource/image/explore/pointer_statue.png`). Blessing Level 2 raised the Max Cart Level from 1 to 2 and the AFK EXP rate from 50 to 500, so blessing every area is worth it. A variant, the **Lost Goddess Statue** ("Activate this dim statue to dispel darkness... Blessed Land"), has the same 100% exploration requirement but its Unlock sits lower, at (0.5, 0.81); its rewards are home boosts (Highland Woods: Home EXP and Home Wood Yield Boost +1%; Moonveil Woods: Home EXP and Home Rolla Yield Boost +1%), then Tap to Continue. Match both with "(Lost )?Goddess Statue".
+- **Confidence**: observed. **Source**: builder batches 10 and 12. Confirms R-003.
+- **Images**: `docs/screens/interact_goddess_statue.png`, `docs/screens/blessing_level.png`, `docs/screens/lost_goddess_statue.png` (step 3 branch).
 - **Related**: R-002, R-003, R-014, R-020, R-035.
 
 ### R-071 · Mines are mini-dungeons with first-clear rewards
@@ -493,9 +499,9 @@ Entry format:
 - **Related**: R-001, R-041.
 
 ### R-074 · Edge pointer types
-- **Rule**: Off-screen targets show as pointers at the screen edge: the gold quest ring (R-022), the boss portrait (R-045), the Goddess Statue icon (R-070), a blue orb for "Unlock <area>" (`resource/image/explore/pointer_unlock.png`), and the player's own portrait when the camera has drifted away from them (R-032). Tap a pointer to pan the camera there.
-- **Confidence**: observed. **Source**: builder batch 10.
-- **Images**: none.
+- **Rule**: Off-screen targets show as pointers at the screen edge: the gold quest ring (R-022), the boss portrait (R-045), the Goddess Statue icon (R-070), a blue orb for "Unlock <area>" (`resource/image/explore/pointer_unlock.png`), and the player's own portrait when the camera has drifted away from them (R-032): a white ring with the player's face, and tapping it re-centres the camera on the player. Tap a pointer to pan the camera there.
+- **Confidence**: observed. **Source**: builder batches 10 and 11.
+- **Images**: `docs/screens/world_map_player_pointer.png` (player pointer).
 - **Related**: R-022, R-032, R-045, R-070.
 
 ### R-075 · Home gains event and shop buttons; collect the Cart from its bubble
@@ -505,8 +511,8 @@ Entry format:
 - **Related**: R-020, R-043, R-051.
 
 ### R-076 · The area map shows resources, progress and power gates
-- **Rule**: The full area map (R-068) has a legend (Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone) and shows each area's exploration % and any power gate (Highland Woods 9.6K, Verdantglade III 12K). Areas below the gate's power are not worth entering yet. Ore nodes cost 5 stamina each. At handoff (Lv 12, Mage, power 7.7K, Verdantglade I and II 100% and blessed) Moonveil Woods, Stone Ruins I and Damp Woods were at 0%, and the bot was blocked on "Moonveil Woods I: Unlock Moonveil Woods" (R-064, R-067).
-- **Confidence**: observed. **Source**: builder batch 10.
+- **Rule**: The full area map (R-068) has a legend (Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone) and shows each area's exploration % and any power gate (Highland Woods 9.6K, Verdantglade III 12K). Areas below the gate's power are not worth entering yet. Ore nodes cost 5 stamina each. At handoff (Lv 12, Mage, power 7.7K, Verdantglade I and II 100% and blessed) Moonveil Woods, Stone Ruins I and Damp Woods were at 0%, and the bot was blocked on "Moonveil Woods I: Unlock Moonveil Woods" (R-064, R-067; solved by R-082). A fully explored area with a red "!" on the area map (Moonveil Woods at 100%) most likely has its statue waiting to be blessed (R-070); not confirmed yet. "Sunrise Isle" shows at the bottom right of the Verdantglade area map.
+- **Confidence**: observed. **Source**: builder batches 10 and 11.
 - **Images**: `docs/screens/world_area_map.png`.
 - **Related**: R-017, R-064, R-067, R-068, node `area_map`.
 
@@ -517,7 +523,92 @@ Entry format:
 - **Related**: R-057, node `team`.
 
 ### R-078 · Heal from the HUD portrait when the player's tile is crowded
-- **Rule**: If the player sprite has a red bubble and other interactables share its tile, tapping the player opens a pick-one menu on the right instead of the heal menu, and tapping again just loops. To heal, either pick the entry with the character's name in that menu, or tap the character portrait in the top-left HUD, which opens the healing menu directly. The HUD portrait avoids the menu entirely, so it is the simpler path for a script. Current HP shows as the bar under the name at the top-left of the map HUD, so read it there to decide whether to heal, without opening any menu.
-- **Confidence**: told. **Source**: mae, 2026-11-03.
+- **Rule**: If the player sprite has a red bubble and other interactables share its tile, tapping the player opens a pick-one menu on the right instead of the heal menu, and tapping again just loops. To heal, either pick the entry with the character's name in that menu, or tap the character portrait in the top-left HUD, which opens the healing menu directly. The HUD portrait avoids the menu entirely, so it is the simpler path for a script. Current HP shows as the bar under the name at the top-left of the map HUD, so read it there to decide whether to heal, without opening any menu. Quick Heal works from any screen that shows the character portrait in the upper left (map, battle prep, dungeon floor cards and others): tap the portrait. There's no need to back out of a menu to heal (mae, 2026-11-04).
+- **Confidence**: told. **Source**: mae, 2026-11-03 and 2026-11-04.
 - **Images**: none yet (want: the pick-one menu).
 - **Related**: R-061, node `player_profile`.
+
+### R-079 · Turn on Auto Challenge in Fantasia Ascent
+- **Rule**: Whenever challenging Fantasia Ascent, the multi-floor tower (for example in Moonveil Woods), turn on Auto Challenge so floors run back to back. Auto Challenge unlocks after clearing floor 3; before that, climb floor by floor as in other mini-dungeons (R-040). The tower loop runs inside the exploration loop and hands back when it stops (`memory-bank/notes.md`, composable loops). The Auto Challenge checkbox only appears on the result screen, so it can't be ticked before a run's first fight: tick it after each win. A floor loss (DEFEAT screen with a Retry button) switches it off, and the bot leaves it off there, because ticking it on the defeat screen would start a retry. Tower losses are not retried, unlike the normal heal-and-retry rule (R-061): one challenge per day is enough, run as part of the daily missions, then hand back to the calling loop.
+- **Flow** (builder batch 11): the quest "Into the Moon's Shadow I" asks to "Reach Fantasia Ascent - Moonveil Woods F3"; its Go opens a Confirm dialog, "Return to Home to challenge the Fantasia Ascent?", and OK (0.68, 0.57) travels home. The tower list has one card per tower showing "Current: Fn/110". Tapping a card opens its floors, F1 at the bottom, with tabs "Fantasia Ascent" and "Goals" (Goals can carry a red badge, R-063). The current floor shows its recommended power (F1: 6.5K) and Challenge at (0.85, 0.86). Then battle prep (15 rounds) and the result screen: VICTORY with "<Tower> Fn", Clear Rewards (e.g. Worn Knuckles, Refined Ore x15, Raw Ore x128) and Continue at (0.77, 0.95), which goes straight to the next floor's prep; a loss shows DEFEAT mid-screen with Retry in the same spot (don't press it). After F3 the Auto Challenge checkbox appears at (0.66, 0.90) with a tutorial ("battles keep running in the background") and Continue counts down "(3s)". At 8.1K power one run cleared F1 to F5 and lost F6. Code: `sxs/tower.py` (states `tower_list`, `tower_floors`, `tower_result`; the run date is kept in `logs/daily.json`).
+- **Confidence**: told (mae); flow and loss behaviour observed (builder batch 11). **Source**: mae, 2026-11-04 (twice); builder batch 11, 2026-11-04.
+- **Images**: `docs/screens/confirm_fantasia_home.png`, `docs/screens/fantasia_ascent.png`, `docs/screens/fantasia_floors.png`, `docs/screens/fantasia_victory.png`, `docs/screens/fantasia_defeat.png` (step 3 branch).
+- **Related**: R-040, R-061, R-063, R-071, nodes `fantasia_ascent`, `fantasia_floors`, `fantasia_result`.
+
+## Added from builder batch 11 (2026-11-04)
+
+### R-081 · Map coordinates: x grows east, y shrinks south
+- **Rule**: In map coordinates (as used by `sxs/goto.py`), x increases going east (screen right) and y decreases going south (screen down).
+- **Confidence**: observed. **Source**: builder batch 11.
+- **Images**: none.
+- **Related**: R-066, R-068.
+
+### R-082 · Counterless unlock quests: talk to the NPC, then the gate
+- **Rule**: Some quests have no counter, for example "Moonveil Woods I: Unlock Moonveil Woods". It was done by talking to Molly (an NPC with a red "!", R-062) and then tapping the dungeon gate (red "!", glowing rune). The gate card is titled "Moonveil Woods" with First Clear Rewards and a free Challenge button at (0.5, 0.79). The gate fight was 20 rounds against a wolf boss and 3 wolves.
+- **Confidence**: observed. **Source**: builder batch 11.
+- **Images**: `docs/screens/quest_detail_unlock.png`, `docs/screens/dungeon_gate_moonveil.png` (step 3 branch).
+- **Related**: R-040, R-062, R-064, R-083.
+
+### R-083 · A gift icon on the tracker claims a finished quest
+- **Rule**: When a tracked quest is done (counterless ones, and counter ones such as "Weapon Enhancement II: Main Weapon Enhancement Level 21/20"), the map tracker's olive panel shows a small gift icon at about (0.36, 0.77). Tapping it claims the quest. The gift animates, so template matches flicker; match over a few frames or with a looser threshold.
+- **Confidence**: observed. **Source**: builder batches 11 and 12.
+- **Images**: `docs/screens/world_map_tracker_gift.png` (step 3 branch).
+- **Related**: R-022, R-082.
+
+### R-084 · A recommended power far above yours is a wall: stop exploring there
+- **Rule**: After Moonveil Woods the next main quest is "Verdant Wonders III: Explore Verdantglade III", recommended power 12K. At 8.1K every fight there ended "badly wounded", so the bot treats it as the natural wall for this stage (mae's scope cap) and stops exploring rather than retrying. Get stronger first (gear, charms, techniques, tower clears). Still lost at 10K (R-090).
+- **Confidence**: observed. **Source**: builder batch 11.
+- **Images**: none.
+- **Related**: R-061, R-076, R-079.
+
+### R-085 · Stone tile floor puzzle: step on every tile to get chests
+- **Rule**: Stone Ruins I has a 2x2 floor of stone tiles. Stepping on each tile lights it cyan; when all 4 are lit, two treasure chests appear. Loot seen: Dawnium 60 and 67, Abundance Leaf 30 x2, Rolla ~900 each, Explorer's Light Armor, Refined and Raw Ore. Each chest also popped a gear-swap prompt (+445 / +484 power, swap button bottom right), which closed when the reward popup was dismissed.
+- **Confidence**: observed. **Source**: builder batch 11.
+- **Images**: `docs/screens/world_map_tile_puzzle_chests.png`, `docs/screens/gear_swap_prompt.png` (step 3 branch).
+- **Related**: R-072, node `gear_swap_prompt`.
+
+## Added from builder batch 12 (2026-11-04)
+
+### R-086 · Gate of Power: a hard power wall
+- **Rule**: A stone pillar card "Gate of Power" (seen in Damp Woods) reads "Requires: Power reaches 15.5K (Current: 8.1K)" and has no button. It's a wall until power is high enough. Policy kind `power_gate`: dismiss the card, and the fog walk stops there.
+- **Confidence**: observed. **Source**: builder batch 12.
+- **Images**: `docs/screens/gate_of_power.png` (step 3 branch).
+- **Related**: R-065, R-076, R-084.
+
+### R-087 · Highland Woods: guard pack, ground pickups, paler minimap dots
+- **Rule**: Highland Woods (9.6K recommended) is entered past a bracketed wolf-boss guard pack (beaten at 10K). Its pickups (orbs, a spellbook, crystals, a "Meat & Veggie Pot") lie on the ground near a cooking pot, and collecting them alone took the area to 100%. Its minimap item dots are paler than elsewhere (HSV saturation about 128, against 150+ in Verdantglade II), so the green-dot threshold of R-066 must allow for that.
+- **Confidence**: observed. **Source**: builder batch 12.
+- **Images**: `docs/screens/minimap/minimap_highland_items.png` (step 3 branch).
+- **Related**: R-066, R-073, R-076.
+
+### R-088 · Replace gear with better items from the profile
+- **Rule**: In the profile, tap an Equip slot, then Replace on its card. The Replace Gear list shows candidates best first, with a green up arrow on upgrades. Tapping one opens a side-by-side compare (equipped on the left, new on the right) with power numbers, and Replace sits under the new item. Enhancement levels carry over to the new item (Beginner's Cap +10 to Adventurer's Leather Hat +10: 133 to 759 power; Novice Staff +15 to Seeker's Staff: 142 to 785). Two swaps took power from 8.1K to about 9K; Cart, enhancement and technique upgrades then reached 10K. Blue badges on Equip (R-080) point at these upgrades.
+- **Confidence**: observed. **Source**: builder batch 12.
+- **Images**: `docs/screens/replace_gear.png`, `docs/screens/gear_compare.png` (step 3 branch).
+- **Related**: R-080, R-085, nodes `replace_gear`, `gear_compare`.
+
+### R-089 · Travel from home through the quest tracker
+- **Rule**: At home, tapping the tracker for a quest in another area asks "Travel to <Area> now?" with Cancel and OK; it's free. This is the way into an area whose area-map label is still in fog, where walking there via the area map fails (R-068).
+- **Confidence**: observed. **Source**: builder batch 12.
+- **Images**: `docs/screens/confirm_dialog.png`.
+- **Related**: R-068, node `confirm_dialog`.
+
+### R-090 · "Badly wounded" after a map fight is a loss
+- **Rule**: A map fight lost in Verdantglade III (recommended 12K, at 10K) ended with the "badly wounded" dialog (R-046) and the character back in Verdantglade II, not the "incapacitated" dialog (R-031). Treat either as a loss for the heal-and-retry count (R-061) and the power-wall check (R-084).
+- **Confidence**: observed. **Source**: builder batch 12.
+- **Images**: `docs/screens/wounded.png`.
+- **Related**: R-031, R-046, R-061, R-084.
+
+## Added from mae (2026-11-04, night)
+
+### R-091 · Heal mid-run in mini-dungeons instead of leaving
+- **Rule**: In mini-dungeons (Temple Ruins, mines and other floor-by-floor dungeons), the player can heal between floors, so low HP is not a reason to leave. Heal in place from the top-left portrait on the floor card or the battle prep screen, no backing out needed (R-078; Quick Heal or Recover, using healing food per R-061), then press Next Floor and carry on. After Next Floor, the battle prep screen shows an HP bar under the character model: read HP there to decide whether to heal before starting (the 70% check of R-061 still applies), and that screen can also be backed out of. Mid-run healing only applies while the player is still alive and merely low (the HP bar, or a low-health "!" over the player, R-080). A defeat inside the dungeon (the fight lost, then the "badly wounded" or forced-heal dialog) resets the dungeon's progress: that run is dead, so count it as a loss (R-090) and don't try to continue it.
+- **Confidence**: told. **Source**: mae, 2026-11-04 (three messages).
+- **Images**: `docs/screens/dungeon_floor.png`.
+- **Related**: R-040, R-061, R-071, R-078, node `dungeon_floor`.
+
+### R-092 · Enhance gear evenly, in 5-level bands
+- **Rule**: Don't pour enhancement into one piece. Raise gear in 5-level bands: bring every equipped piece to +5, then all to +10, then all to +15, and so on; a piece only goes past a band once every other piece has reached it. Within a band, a configurable priority order decides which piece reaches the threshold first. The default order is weapon, offhand (not unlocked yet), headpiece, chest, boots. Costs and limits are in R-023 (ore and Rolla). The current enhance script kept enhancing the same piece, which this rule replaces.
+- **Confidence**: told. **Source**: mae, 2026-11-04.
+- **Images**: none yet (want: the Enhance Gear screen).
+- **Related**: R-020, R-023, R-088.

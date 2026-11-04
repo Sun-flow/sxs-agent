@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-11-03",
+ "updated": "2026-11-04",
  "screen": [
   720,
   1280
@@ -130,9 +130,10 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/player_profile.png"
+    "docs/screens/player_profile.png",
+    "docs/screens/player_profile_charm_badges.png"
    ],
-   "notes": "Gear, techniques, Dish, Quick Heal. Not detected yet. Android back does nothing here."
+   "notes": "Gear, techniques, Dish, Quick Heal. Not detected yet. Android back does nothing here. Red badges = empty Charm slots (row y≈0.71); blue badges on Equip = gear upgrades (R-080)."
   },
   {
    "id": "battle_prep",
@@ -153,7 +154,7 @@
    "images": [
     "docs/screens/battle_prep.png"
    ],
-   "notes": "Enemy line-up, 'Round 0/15'."
+   "notes": "Enemy line-up, 'Round 0/15'. HP bar under the character model; read it to decide on healing before Start Battle. Can be backed out of (R-091)."
   },
   {
    "id": "battle",
@@ -218,9 +219,11 @@
     "docs/screens/interact_temple.png",
     "docs/screens/interact_obelisk.png",
     "docs/screens/interact_goddess_statue.png",
-    "docs/screens/interact_ironvein_pit.png"
+    "docs/screens/interact_ironvein_pit.png",
+    "docs/screens/lost_goddess_statue.png",
+    "docs/screens/gate_of_power.png"
    ],
-   "notes": "Card for a map structure or object: picture, title, one-line description, one button at about (0.5, 0.70). Seen: Portal (Activate), Temple Ruins (Explore). Dismiss by tapping outside. What to press is decided by the card policy (R-042). Also Voyage Obelisk (Activate, kingdom travel), Goddess Statue (Unlock) and mines (Explore at 0.5, 0.80) (R-069 to R-071)."
+   "notes": "Card for a map structure or object: picture, title, one-line description, one button at about (0.5, 0.70). Seen: Portal (Activate), Temple Ruins (Explore). Dismiss by tapping outside. What to press is decided by the card policy (R-042). Also Voyage Obelisk (Activate, kingdom travel), Goddess Statue (Unlock) and mines (Explore at 0.5, 0.80) (R-069 to R-071). Gate of Power cards have no button: dismiss (R-086). Lost Goddess Statue Unlock at (0.5, 0.81) (R-070)."
   },
   {
    "id": "reward_popup",
@@ -250,7 +253,8 @@
     "roi": "title"
    },
    "images": [
-    "docs/screens/confirm_dialog.png"
+    "docs/screens/confirm_dialog.png",
+    "docs/screens/confirm_fantasia_home.png"
    ],
    "notes": "Cancel (0.32,0.57), OK (0.68,0.57). Returns to whatever the confirmed action leads to. Height varies: the 'Confirm' title sits between y 0.26 and 0.35, so buttons move with it (OK at y 0.57 for travel, 0.65 for defeat)."
   },
@@ -346,9 +350,10 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/loadout_edit.png"
+    "docs/screens/loadout_edit.png",
+    "docs/screens/loadout_edit_charms.png"
    ],
-   "notes": "Not detected yet. Reached from the Combat Veteran quest's Go button."
+   "notes": "Not detected yet. Reached from the Combat Veteran quest's Go button. Techniques left, 4 charm slots right (x≈0.87, y≈0.21/0.30/0.39/0.48; 4th locked at Lv 13). Opens on Technique tab; Charm tab (0.56, 0.62)."
   },
   {
    "id": "server_chat",
@@ -542,7 +547,7 @@
    "images": [
     "docs/screens/dungeon_floor.png"
    ],
-   "notes": "Floor card e.g. 'Temple Ruins: Floor 1' with Next Floor at (0.5, 0.64) and a back arrow bottom left (R-040)."
+   "notes": "Floor card e.g. 'Temple Ruins: Floor 1' with Next Floor at (0.5, 0.64) and a back arrow bottom left (R-040). Low HP: heal from the portrait here and continue; don't leave (R-091)."
   },
   {
    "id": "wounded",
@@ -702,9 +707,11 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/world_area_map.png"
+    "docs/screens/world_area_map.png",
+    "docs/screens/world_map_moonveil_entry.png",
+    "docs/screens/world_area_map_stone_ruins.png"
    ],
-   "notes": "Full map of the current area, opened by tapping the minimap. Legend: Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone; areas show exploration % and power gates. Tapping a spot centres the camera there (R-068, R-076)."
+   "notes": "Full map of the current area, opened by tapping the minimap. Legend: Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone; areas show exploration % and power gates. Tapping a spot centres the camera there (R-068, R-076). The white box is the camera viewport. sxs/goto.py drives it."
   },
   {
    "id": "puzzle_energy_circuits",
@@ -741,6 +748,103 @@
     "docs/screens/blessing_level.png"
    ],
    "notes": "Shown after unlocking a Goddess Statue (R-070)."
+  },
+  {
+   "id": "fantasia_ascent",
+   "name": "Fantasia Ascent: tower list",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/fantasia_ascent.png"
+   ],
+   "notes": "One card per tower, 'Current: Fn/110'. State `tower_list` in sxs/tower.py. Turn on Auto Challenge (unlocks after F3); a loss turns it off. Losses are not retried: one run per day, as a daily (R-079)."
+  },
+  {
+   "id": "fantasia_floors",
+   "name": "Fantasia Ascent: floors",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/fantasia_floors.png"
+   ],
+   "notes": "F1 at the bottom; tabs 'Fantasia Ascent' and 'Goals'. Current floor shows recommended power (F1 6.5K). State `tower_floors`."
+  },
+  {
+   "id": "fantasia_result",
+   "name": "Fantasia Ascent: floor result",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/fantasia_victory.png",
+    "docs/screens/fantasia_defeat.png"
+   ],
+   "notes": "VICTORY with '<Tower> Fn' and Clear Rewards, or DEFEAT mid-screen. Continue/Retry at (0.77, 0.95). Auto Challenge checkbox (0.66, 0.90) after F3, with a one-time tutorial; Continue counts down '(3s)'. State `tower_result`."
+  },
+  {
+   "id": "charm_detail",
+   "name": "Charm card",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/charm_detail.png"
+   ],
+   "notes": "Name, rarity, affinity, source. Equip (0.5, 0.70), then tap an empty slot; reads Replace when the slot is filled."
+  },
+  {
+   "id": "rcmd_loadouts",
+   "name": "Recommended loadouts",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/rcmd_loadouts.png"
+   ],
+   "notes": "Beginner's Pick, AoE DMG, Apply. The bot doesn't use it (R-080)."
+  },
+  {
+   "id": "gear_swap_prompt",
+   "name": "Gear swap prompt",
+   "kind": "overlay",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/gear_swap_prompt.png"
+   ],
+   "notes": "Pops after chests with better gear (+power, swap button bottom right). Closed when the reward popup was dismissed (R-085)."
+  },
+  {
+   "id": "replace_gear",
+   "name": "Replace Gear list",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/replace_gear.png"
+   ],
+   "notes": "Candidates best first; green up arrow = upgrade (R-088)."
+  },
+  {
+   "id": "gear_compare",
+   "name": "Gear compare",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/gear_compare.png"
+   ],
+   "notes": "Equipped left, new right, with power. Replace under the new item; enhancement carries over (R-088)."
   }
  ],
  "edges": [
@@ -1830,6 +1934,236 @@
    },
    "confidence": "observed",
    "notes": ""
+  },
+  {
+   "from": "interact",
+   "to": "fantasia_ascent",
+   "action": {
+    "type": "tap",
+    "target": "Challenge / Explore on the Fantasia Ascent card",
+    "template": null,
+    "pos": null
+   },
+   "when": "goal=explore and hp_ok",
+   "confidence": "told",
+   "notes": "Entry not captured yet."
+  },
+  {
+   "from": "quest_detail",
+   "to": "confirm_dialog",
+   "action": {
+    "type": "tap",
+    "target": "Go on \"Into the Moon's Shadow I\"",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Opens 'Return to Home to challenge the Fantasia Ascent?'."
+  },
+  {
+   "from": "confirm_dialog",
+   "to": "home",
+   "action": {
+    "type": "tap",
+    "target": "OK",
+    "template": null,
+    "pos": [
+     0.68,
+     0.57
+    ]
+   },
+   "confidence": "observed",
+   "notes": "When the dialog was the Fantasia Ascent prompt; travels home. How home leads on to the tower list is in sxs/tower.py.",
+   "when": "Fantasia Ascent prompt and tower not done today"
+  },
+  {
+   "from": "fantasia_ascent",
+   "to": "fantasia_floors",
+   "action": {
+    "type": "tap",
+    "target": "The tower's card",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "fantasia_floors",
+   "to": "battle_prep",
+   "action": {
+    "type": "tap",
+    "target": "Challenge on the current floor",
+    "template": null,
+    "pos": [
+     0.85,
+     0.86
+    ]
+   },
+   "confidence": "observed",
+   "notes": "",
+   "when": "hp_ok"
+  },
+  {
+   "from": "battle",
+   "to": "fantasia_result",
+   "action": {
+    "type": "auto",
+    "target": "(fight ends)",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "In a tower."
+  },
+  {
+   "from": "fantasia_result",
+   "to": "battle_prep",
+   "action": {
+    "type": "tap",
+    "target": "Continue",
+    "template": null,
+    "pos": [
+     0.77,
+     0.95
+    ]
+   },
+   "confidence": "observed",
+   "notes": "Straight to the next floor's prep. Turn Auto Challenge on first (0.66, 0.90).",
+   "when": "VICTORY"
+  },
+  {
+   "from": "fantasia_result",
+   "to": "previous",
+   "action": {
+    "type": "tap",
+    "target": "Back arrow",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "After a DEFEAT: don't press Retry (R-079); leave and hand back.",
+   "when": "DEFEAT"
+  },
+  {
+   "from": "player_profile",
+   "to": "loadout_edit",
+   "action": {
+    "type": "tap",
+    "target": "An empty (red-badged) charm slot",
+    "template": null,
+    "pos": [
+     null,
+     0.71
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "loadout_edit",
+   "to": "loadout_edit",
+   "action": {
+    "type": "tap",
+    "target": "Charm tab",
+    "template": null,
+    "pos": [
+     0.56,
+     0.62
+    ]
+   },
+   "confidence": "observed",
+   "notes": "Switches from the Technique tab."
+  },
+  {
+   "from": "loadout_edit",
+   "to": "charm_detail",
+   "action": {
+    "type": "tap",
+    "target": "A charm in the Charm tab",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "charm_detail",
+   "to": "loadout_edit",
+   "action": {
+    "type": "tap",
+    "target": "Equip, then tap an empty slot",
+    "template": null,
+    "pos": [
+     0.5,
+     0.7
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "loadout_edit",
+   "to": "rcmd_loadouts",
+   "action": {
+    "type": "tap",
+    "target": "Rcmd",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Never on the bot's own; listed for completeness.",
+   "when": "never (bot)"
+  },
+  {
+   "from": "gear_swap_prompt",
+   "to": "previous",
+   "action": {
+    "type": "tap",
+    "target": "Dismiss the reward popup",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Closes with it."
+  },
+  {
+   "from": "player_profile",
+   "to": "replace_gear",
+   "action": {
+    "type": "tap",
+    "target": "An Equip slot, then Replace on its card",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Two taps; the item card in between isn't a node yet.",
+   "when": "goal=strengthen"
+  },
+  {
+   "from": "replace_gear",
+   "to": "gear_compare",
+   "action": {
+    "type": "tap",
+    "target": "A candidate (green up arrow)",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "gear_compare",
+   "to": "player_profile",
+   "action": {
+    "type": "tap",
+    "target": "Replace under the new item",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Returns to the profile, presumably; not confirmed.",
+   "when": "new power > equipped power"
   }
  ]
 }
