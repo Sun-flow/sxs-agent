@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/`; templates in `resource/image/`.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-121).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-122).
 
 Entry format:
 
@@ -796,3 +796,9 @@ Entry format:
 - **Confidence**: observed. **Source**: upgrade-systems builder, 2026-11-04 08:18.
 - **Images**: `docs/screens/home_white_sheet_tutorial.png`, `docs/screens/vendor_booth_unlock.png` (upgrade-systems branch).
 - **Related**: R-043, R-118, node `home`.
+
+### R-121 · Mall: claim the free gift boxes, never the packs
+- **Rule**: Every Mall pack costs real money (USD): Welcome Gift, Halloween Charmer, Little Devil, Pilgrimage Pass, Daily Deals, Weekly Deals, and Pathfinder Pack (USD 0.99 for stamina). The bot never taps a pack (R-043). Each pack page has a free gift box at the top left, marked "!" when it can be claimed, and mae says the bot may tap these (2026-11-04 08:49). The boxes are Daily Gift (refreshes daily), Weekly Gift (refreshes weekly), Welcome Benefit (claimable once, gave +30 Dawnium), plus boxes on Halloween Charmer and Little Devil. The bot claims each box once per refresh and taps nothing else on the page.
+- **Confidence**: told (mae); pages observed (upgrade-systems builder, 08:48). **Source**: mae and the builder, 2026-11-04.
+- **Images**: to come from the builder's branch.
+- **Related**: R-043, R-063.
