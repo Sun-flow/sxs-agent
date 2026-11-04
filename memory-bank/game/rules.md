@@ -754,10 +754,10 @@ Entry format:
 - **Related**: R-103, R-110, R-111, nodes `guild`, `guild_lobby`.
 
 ### R-114 · Warehouse is leader-only; the Guild Shop is untouched for now
-- **Rule**: The Warehouse is locked and only the leader or deputies can build it. The Shop (NEW badge) spends Guild Tokens; the bot doesn't buy there until mae says whether it may ❓.
+- **Rule**: The Warehouse is locked and only the leader or deputies can build it. The Shop (NEW badge) spends Guild Tokens; the bot buys nothing there until mae has marked items on the mapped stock table and a buy list exists (mae's shop policy, R-120).
 - **Confidence**: observed. **Source**: guild batch 1.
 - **Images**: `docs/screens/guild_warehouse_locked.png` (guild-tutorial branch).
-- **Related**: R-043, R-113, node `guild`.
+- **Related**: R-043, R-113, R-120, node `guild`.
 
 ## Added from upgrade-systems batch 1 (2026-11-04)
 
@@ -792,8 +792,8 @@ Entry format:
 - **Related**: R-023, R-092, node `enhance_gear`.
 
 ### R-120 · Molly's Vendor Booth: a daily-refresh shop on home
-- **Rule**: Following the Bellflower item's source link (R-118) started a home tutorial with Akane and Molly that ends with "Vendor Booth (Furniture): Unlock", which is free. The booth is Molly's shop on the home scene, and its stock refreshes daily. What it sells and what it costs aren't known yet ❓. Until mae sets a buying policy, the spend rules apply (R-043): look, don't buy.
-- **Confidence**: observed. **Source**: upgrade-systems builder, 2026-11-04 08:18.
+- **Rule**: Following the Bellflower item's source link (R-118) started a home tutorial with Akane and Molly that ends with "Vendor Booth (Furniture): Unlock", which is free. The booth is Molly's shop on the home scene, and its stock refreshes daily. What it sells and what it costs aren't known yet ❓. Shop policy (mae, 2026-11-04 08:17), for the Vendor Booth, the Guild Shop and every other shop: map every item (name, cost, currency, limits) into a table, mae marks which are buyable, and those become a per-shop buy list in the repo. The bot buys nothing in a shop until its buy list exists (R-043).
+- **Confidence**: observed; shop policy told (mae). **Source**: upgrade-systems builder, 2026-11-04 08:18; mae 08:17.
 - **Images**: `docs/screens/home_white_sheet_tutorial.png`, `docs/screens/vendor_booth_unlock.png` (upgrade-systems branch).
 - **Related**: R-043, R-118, node `home`.
 
