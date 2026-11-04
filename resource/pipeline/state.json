@@ -15,6 +15,9 @@
                 "State.Defeated",
                 "State.ConfirmDialog",
                 "State.DungeonFloor",
+                "State.TowerResult",
+                "State.TowerList",
+                "State.TowerFloors",
                 "State.QuestDetail",
                 "State.PlayerProfile",
                 "State.Interact",
@@ -328,6 +331,45 @@
             360,
             560,
             90
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.TowerResult": {
+        "doc": "Fantasia Ascent (tower) result screen: VICTORY (or a loss banner) with '<Tower> Fn', Clear Rewards, a locked Auto Challenge and Continue at (552, 1212), which goes straight to the next floor's battle prep. Image: docs/screens/fantasia_victory.png.",
+        "recognition": "OCR",
+        "expected": "^(VICTORY|DEFEAT|DEFEATED|FAILED|FAILURE)$",
+        "roi": [
+            100,
+            170,
+            520,
+            130
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.TowerList": {
+        "doc": "Fantasia Ascent tower list (reached by the quest's Go, which travels home first). Each tower card shows 'Current: Fn/110'; tap the card to open its floors. Image: docs/screens/fantasia_ascent.png.",
+        "recognition": "OCR",
+        "expected": "^Current: ?F\\d+",
+        "roi": [
+            100,
+            380,
+            520,
+            80
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.TowerFloors": {
+        "doc": "One tower's floors (F1 at the bottom), tabs 'Fantasia Ascent' (detected) and 'Goals' at the bottom; the current floor shows the recommended power and a Challenge button at (610, 1096). Image: docs/screens/fantasia_floors.png.",
+        "recognition": "OCR",
+        "expected": "^Fantasia Ascent$",
+        "roi": [
+            150,
+            1180,
+            260,
+            70
         ],
         "pre_delay": 0,
         "post_delay": 0

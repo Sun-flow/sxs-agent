@@ -20,7 +20,7 @@ from typing import Optional
 import cv2
 import numpy as np
 
-from . import nav
+from . import nav, tower
 from .device import REPO_ROOT, Device
 from .decide import Context, Decider
 from .state import StateDetector
@@ -230,9 +230,9 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
             if prog and prog.text != last_progress:
                 last_progress = prog.text
                 log.info("progress: %s", prog.text)
-            done = det.find("Explore.Complete")
+            done = det.find("Explore.Complete") or det.find("Explore.TrackerGiftMap")
             if done:
-                gift = det.find("Explore.TrackerGift")
+                gift = det.find("Explore.TrackerGift") or det.find("Explore.TrackerGiftMap")
                 x, y, w, h = (gift or done).box
                 dev.tap(x + w // 2, y + h // 2)
                 time.sleep(2)
@@ -312,6 +312,18 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
                 time.sleep(1.5)
                 dev.tap(*toggle)
             time.sleep(2)
+        elif d.state in ("tower_list", "tower_floors", "tower_result"):
+            # The quest's Go brought us to Fantasia Ascent: climb to the floor it asks for ("Reach <Tower> Fn").
+            m = re.search(r"Reach (.+?) F ?(\d+)", last_progress or "")
+            result = tower.climb(dev, det, m.group(1).strip() if m else None, int(m.group(2)) if m else None,
+                                 minutes=max(1.0, (deadline - time.monotonic()) / 60))
+            log.info("tower climb: %s", result)
+            if result == "lost":
+                return "defeated"
+            if result not in ("reached", "floors_done"):
+                return result
+            nav.Navigator(dev, det).go_home()
+            progress_at = time.monotonic()
         elif d.state == "battle_prep":
             dev.tap(*START_BATTLE)
             time.sleep(3)

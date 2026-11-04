@@ -16,6 +16,17 @@
             "why": "Lost a fight. OK goes home; Cancel would leave the character stranded at 0 HP."
         },
         {
+            "kind": "travel_home_for_quest",
+            "match": "^Return to Home to (challenge|enter|go)",
+            "choose": "^OK$",
+            "when": {
+                "goal": [
+                    "explore"
+                ]
+            },
+            "why": "The tracked quest's Go button wants to travel home to reach its content (e.g. the Fantasia Ascent tower). Travel only, nothing spent."
+        },
+        {
             "kind": "wounded",
             "match": "badly wounded",
             "choose": "^Quick Heal",
