@@ -29,7 +29,7 @@ flowchart TD
     loadout_edit["Loadout (Edit)"]
     server_chat["Server Chat"]
     travel_journal["Journal (Travel Journal)"]
-    guild["Guild"]
+    guild["Guild island"]
     shop["Shop"]
     dungeons["Dungeons"]
     vendor["Vendor Booth"]
@@ -74,6 +74,14 @@ flowchart TD
     featured["Thrilling Events: Featured"]
     daily_signin["Daily Sign-in"]
     growth_trial["Growth Trial"]
+    guild_no_guild["Guild: no guild yet"]
+    guild_join_list["Guild join list"]
+    guild_lobby["Guild Lobby"]
+    guild_donation["Guild donation"]
+    guild_facility["Guild gathering facility"]
+    guild_events["Guild Events"]
+    guild_conquest["Conquest"]
+    guild_conquest_result["Conquest result"]
     home -->|"tap: Bottom nav bar (y 0.97): Character"| character
     world_map -.->|"tap: Bottom nav bar (y 0.97): Character"| character
     home -->|"tap: Bottom nav bar (y 0.97): Travel Journal"| travel_journal
@@ -165,6 +173,17 @@ flowchart TD
     featured -->|"tap: Daily Sign-in [goal=dailies]"| daily_signin
     featured -->|"tap: Growth Trial [goal=dailies]"| growth_trial
     daily_signin -->|"tap: Today's tile (green Claim)"| reward_popup
+    home -->|"tap: Guild crest (4th bottom-bar icon) [no guild]"| guild_no_guild
+    guild_no_guild -->|"tap: Join Guild Go>>"| guild_join_list
+    guild_join_list -->|"tap: Join on an open row [no guild]"| guild
+    guild -->|"tap: Guild Lobby building"| guild_lobby
+    guild_lobby -->|"tap: Donation [donations today < 2]"| guild_donation
+    guild -->|"tap: Forge building [not gathering]"| guild_facility
+    guild -->|"tap: Gate of Expedition"| guild_events
+    guild_events -->|"tap: Conquest"| guild_conquest
+    guild_conquest -->|"tap: Challenge [attempts left > 0]"| battle_prep
+    battle -->|"auto: (fight ends)"| guild_conquest_result
+    guild_conquest_result -->|"tap: Tap to Continue"| guild_conquest
 ```
 
 ## Screens
@@ -189,11 +208,11 @@ flowchart TD
 | `title` | Title screen | hub | observed |  | Boot: Android splash, BOLTRAY logos (~10 s), title art with an 'Initializing' bar (~25 s), then 'Tap to Play' with side buttons (Servers, Settings, Notice, User Center, Repair Client...). Full boot sequence: docs/step2-hands-and-eyes.md, 'Interface catalogue'. |
 | `loading` | Loading | overlay | observed |  | Covers 'Loading...', 'Logging in...' and the title screen initialising. Wait it out. After login the game resumes on the last screen it was closed on (often world_map), not always home. |
 | `agreement` | User Agreement | popup | observed |  | First launch only. Needs a human; the bot must stop and ask. |
-| `character` | Character | menu | observed |  | Gear slots; gear slot -> item card (Replace / Enhance) -> Enhance Gear (R-023). |
+| `character` | Character | menu | observed |  | Gear slots; gear slot -> item card (Replace / Enhance) -> Enhance Gear (R-023). Red badges on gear slots, Skill, Class and the rank badge mean upgrades ready (R-080). Rank badge about (0.82, 0.72). |
 | `loadout_edit` | Loadout (Edit) | menu | observed |  | Not detected yet. Reached from the Combat Veteran quest's Go button. Techniques left, 4 charm slots right (x≈0.87, y≈0.21/0.30/0.39/0.48; 4th locked at Lv 13). Opens on Technique tab; Charm tab (0.56, 0.62). |
 | `server_chat` | Server Chat | overlay | observed |  | Close with the down arrow (0.06,0.96). Never type here. |
 | `travel_journal` | Journal (Travel Journal) | menu | observed | any mode unlocked (toast 'Unlock any mode to unlock Travel Journal') | Cards: Fantasia Ascent (0.78, 0.23), Map Exploration, Material Realms, Weekly Events, two Unavailable (R-094). Map Exploration: pick a material and Go to track it (R-108). |
-| `guild` | Guild | menu | observed | Character Lv. 15 (toast on the locked tab) | Donations, Farm, Boss, floating-island AFK farm (R-016, reported). Unlocked at Lv 20 with a guild tutorial (mae, 2026-11-04; R-011, R-101). Joined karsa_1515. Island buildings: Lobby, Power Station, Forge, Mine, Shop, Gate of Expedition, Donation. Donate at most twice a day (R-103). |
+| `guild` | Guild island | menu | observed | Character Lv. 15 (toast on the locked tab) | Bottom label 'Guild'; pans sideways. West: Guild Lobby, Gate of Expedition. East: Power Station, Forge, Warehouse (locked), Shop (not used yet). Bottom-right widget shows AFK status (R-110, R-113). Unlocked at Lv 20 with a tutorial; joined karsa_1515. |
 | `shop` | Shop | menu | reported |  | Free daily stamina, Daily Shop, Vault (Dawnium) (R-017, R-018). Entry point unknown. |
 | `dungeons` | Dungeons | menu | reported |  | Material, Daily and Co-op dungeons (R-015). Entry point unknown. |
 | `vendor` | Vendor Booth | menu | reported | account level 18 (R-011) | Entry point unknown. |
@@ -203,13 +222,13 @@ flowchart TD
 | `home_house` | Home house | hub | observed |  | Two-storey house above the home scene (scroll the home scene up). Furniture slots, some locked by level (one 'Unlocks at Lv. 7'). |
 | `bed` | Bed | popup | observed |  | AFK EXP and production panel with 'Today's Free Speedup' (R-035). An icon over the bed means AFK EXP to collect: a daily task, or sooner when close to levelling (R-101). |
 | `tap_to_continue` | Tap to Continue result | overlay | observed |  | Full-screen result such as 'UNLOCKED Bed, EXP/Hr 50'. |
-| `skill_loadout` | Skill loadout | menu | observed |  | 4 technique slots left, 4 charm slots right, Loadout 1 selector; tabs Technique / Charm / Shard; bottom tabs Skill / Goals (R-037, R-038). Tap a skill, then Quick Upgrade beside the lower-right charm (R-104). |
+| `skill_loadout` | Skill loadout | menu | observed |  | 4 technique slots left, 4 charm slots right, Loadout 1 selector; tabs Technique / Charm / Shard; bottom tabs Skill / Goals (R-037, R-038). Tap a skill, then Quick Upgrade beside the lower-right charm (R-104). Quick Upgrade icon about (0.73, 0.47) levels all skills at once (R-104). |
 | `technique_card` | Technique card | popup | observed |  | Technique details (e.g. Ice Spike) with Remove / Enhance. |
 | `technique_upgrade` | Technique upgrade | menu | observed |  | Tabs Upgrade / Ascend. Costs Battle Essence; level capped by character level (R-037). Upgrade button at (0.5, 0.85) stays on this screen. |
 | `dungeon_floor` | Mini-dungeon floor | popup | observed |  | Floor card e.g. 'Temple Ruins: Floor 1' with Next Floor at (0.5, 0.64) and a back arrow bottom left (R-040). Low HP: heal from the portrait here and continue; don't leave (R-091). |
 | `wounded` | Badly wounded dialog | popup | observed |  | Confirm 'The character is badly wounded. Use dishes to heal?' with Return to Home / Quick Heal (cost shown; dish count top right) (R-046). |
 | `alchemy_pot` | Alchemy Pot | menu | observed | Lv 7 | House furniture: melt down gear and cook dishes. Dish tab: recipes with ingredient costs at the top and a Cook button; shows a 'Cooked' banner (R-047). |
-| `rank_advancement` | Rank Advancement | menu | observed |  | Rank up for base stats; needs max level and materials (R-048). |
+| `rank_advancement` | Rank Advancement | menu | observed |  | Rank up for base stats; needs max level and materials (R-048). Apprentice I→II raises max level 20→30; needs 20 Bellflowers (R-118). |
 | `notice` | Notice board | menu | observed |  | Tabs Notice / System / News; lists events (R-051). Red tab badges = unread posts, not claims (R-063). |
 | `friends` | Friends | menu | observed | Lv 10 (button appears on the menu) | Friends 0/60; tabs Friends / Add Friends / Requests / Blocklist. |
 | `settings` | Settings | menu | observed |  | Tabs Game (language, chat channel visibility on home), Graphics (quality, frame rate 30/60, visible players, bloom), Sound, Alerts, Other (vibration, network boost, auto-download). Captures settings_*.png. |
@@ -231,13 +250,21 @@ flowchart TD
 | `gear_swap_prompt` | Gear swap prompt | overlay | observed |  | Pops after chests with better gear (+power, swap button bottom right). Closed when the reward popup was dismissed (R-085). |
 | `replace_gear` | Replace Gear list | menu | observed |  | Candidates best first; green up arrow = upgrade (R-088). |
 | `gear_compare` | Gear compare | popup | observed |  | Equipped left, new right, with power. Replace under the new item; enhancement carries over (R-088). |
-| `enhance_gear` | Enhance Gear | menu | observed |  | Tabs per piece with +N; '+21 → +22' at y≈0.42, stat deltas, cost (Raw Ore, Rolla), Enhance (0.5, 0.85), Resonance, Goals tab. Not a detector state yet, so go_home gets stuck here. Level pieces evenly in 5-level bands (R-092). |
+| `enhance_gear` | Enhance Gear | menu | observed |  | Tabs per piece with +N; '+21 → +22' at y≈0.42, stat deltas, cost (Raw Ore, Rolla), Enhance (0.5, 0.85), Resonance, Goals tab. Not a detector state yet, so go_home gets stuck here. Level pieces evenly in 5-level bands (R-092). Resonance (0.86, 0.20): activate tiers as bands complete (R-119). |
 | `material_realms` | Material Realms | menu | observed |  | Realm list; Ironvein Pit first, 3 locked (R-095). |
 | `ironvein_pit` | Ironvein Pit (mining) | menu | observed |  | Hammer (0.5, 0.72), Iron Mined counter, tabs Ironvein Pit / Rankings / Goals. Needs Iron Hammers (R-095). |
 | `purchase_iron_hammer` | Purchase Iron Hammer | popup | observed |  | 60 Dawnium each: never buy. Cancel (0.32, 0.65). |
 | `featured` | Thrilling Events: Featured | menu | observed |  | Dawnstar Prelude (never), Growth Trial, Daily Sign-in, Link Account (never) (R-096). |
 | `daily_signin` | Daily Sign-in | menu | observed |  | 30-tile calendar; today's green Claim; never Catch Up (R-097). |
 | `growth_trial` | Growth Trial | menu | observed |  | Day 1-7 trial quests, points to a chest track; never Advanced Trial (R-098). |
+| `guild_no_guild` | Guild: no guild yet | menu | observed |  | Join Guild Go>> (0.71, 0.38), Create Guild <<Go (0.29, 0.77): never create (R-102). |
+| `guild_join_list` | Guild join list | menu | observed |  | Rows with Join (instant) or Apply; red '50K+ Power' = requirement; search field and Refresh (R-102). |
+| `guild_lobby` | Guild Lobby | menu | observed |  | Donation (0.29, 0.82), Guildmates, More; tabs Guild / Territory / Upgrade (leader only) (R-113). |
+| `guild_donation` | Guild donation | popup | observed |  | Daily Donations N/5; 1st free, 2nd 20 Dawnium (confirm), 3rd 50. Max 2 a day (R-103). |
+| `guild_facility` | Guild gathering facility | menu | observed |  | Forge / Power Station / Mine, 10 slots. Empty '+' opens AFK Details, then Start. One slot per character; switching collects (R-110). |
+| `guild_events` | Guild Events | menu | observed |  | Guild Clash (locked for now), Conquest (R-111). |
+| `guild_conquest` | Conquest | menu | observed |  | Shared boss per floor; Daily Challenge Attempts N/2; floor chest (0.49, 0.57); Challenge (0.50, 0.77); tabs Rankings, Goals (R-111). |
+| `guild_conquest_result` | Conquest result | popup | observed |  | Damage dealt, participation rewards; Tap to Continue. |
 
 ## Actions
 
@@ -250,7 +277,7 @@ flowchart TD
 | Home | Character | tap Bottom nav bar (y 0.97): Character at [0.11, 0.97] | observed |  |
 | World map (island) | Character | tap Bottom nav bar (y 0.97): Character at [0.11, 0.97] | reported | Assumes the nav bar is visible on the map too. |
 | Home | Journal (Travel Journal) | tap Bottom nav bar (y 0.97): Travel Journal at [0.29, 0.97] | observed | Locked: shows a toast and stays on home. |
-| Home | Guild | tap Bottom nav bar (y 0.97): Guild at [0.69, 0.97] | observed | Locked below Character Lv. 15: shows a toast and stays on home. |
+| Home | Guild island | tap Bottom nav bar (y 0.97): Guild at [0.69, 0.97] | observed | Locked below Character Lv. 15: shows a toast and stays on home. |
 | Home | World (island picker) | tap Bottom nav bar (y 0.97): World at [0.89, 0.97] | observed |  |
 | Character | Home | tap Bottom nav bar (y 0.97): Home at [0.5, 0.97] | observed |  |
 | World (island picker) | Home | tap Bottom nav bar (y 0.97): Home at [0.5, 0.97] | reported |  |
@@ -349,3 +376,14 @@ flowchart TD
 | Thrilling Events: Featured | Daily Sign-in | tap Daily Sign-in (when goal=dailies) | observed |  |
 | Thrilling Events: Featured | Growth Trial | tap Growth Trial (when goal=dailies) | observed |  |
 | Daily Sign-in | Reward popup | tap Today's tile (green Claim) | observed | 'YOU RECEIVED'. |
+| Home | Guild: no guild yet | tap Guild crest (4th bottom-bar icon) at [0.68, 0.97] (when no guild) | observed | Before joining a guild; tutorial first. |
+| Guild: no guild yet | Guild join list | tap Join Guild Go>> at [0.71, 0.38] | observed |  |
+| Guild join list | Guild island | tap Join on an open row (when no guild) | observed | mae: a random open guild (R-102). |
+| Guild island | Guild Lobby | tap Guild Lobby building | observed | Pan west. |
+| Guild Lobby | Guild donation | tap Donation at [0.29, 0.82] (when donations today < 2) | observed |  |
+| Guild island | Guild gathering facility | tap Forge building (when not gathering) | observed | Pan east. mae: gather at the Forge. |
+| Guild island | Guild Events | tap Gate of Expedition | observed | Pan west. |
+| Guild Events | Conquest | tap Conquest | observed |  |
+| Conquest | Battle prep | tap Challenge at [0.5, 0.77] (when attempts left > 0) | observed | Then Start Battle (0.50, 0.75); send the fight to the background (R-112). |
+| Battle | Conquest result | auto (fight ends) | observed | In Conquest. |
+| Conquest result | Conquest | tap Tap to Continue | observed |  |

@@ -340,7 +340,7 @@
    "images": [
     "docs/screens/character.png"
    ],
-   "notes": "Gear slots; gear slot -> item card (Replace / Enhance) -> Enhance Gear (R-023)."
+   "notes": "Gear slots; gear slot -> item card (Replace / Enhance) -> Enhance Gear (R-023). Red badges on gear slots, Skill, Class and the rank badge mean upgrades ready (R-080). Rank badge about (0.82, 0.72)."
   },
   {
    "id": "loadout_edit",
@@ -379,15 +379,16 @@
   },
   {
    "id": "guild",
-   "name": "Guild",
+   "name": "Guild island",
    "kind": "menu",
    "confidence": "observed",
    "unlock": "Character Lv. 15 (toast on the locked tab)",
    "detect": null,
    "images": [
-    "docs/screens/home_guild_tutorial.png"
+    "docs/screens/home_guild_tutorial.png",
+    "docs/screens/guild_island.png"
    ],
-   "notes": "Donations, Farm, Boss, floating-island AFK farm (R-016, reported). Unlocked at Lv 20 with a guild tutorial (mae, 2026-11-04; R-011, R-101). Joined karsa_1515. Island buildings: Lobby, Power Station, Forge, Mine, Shop, Gate of Expedition, Donation. Donate at most twice a day (R-103)."
+   "notes": "Bottom label 'Guild'; pans sideways. West: Guild Lobby, Gate of Expedition. East: Power Station, Forge, Warehouse (locked), Shop (not used yet). Bottom-right widget shows AFK status (R-110, R-113). Unlocked at Lv 20 with a tutorial; joined karsa_1515."
   },
   {
    "id": "shop",
@@ -511,7 +512,7 @@
    "images": [
     "docs/screens/skill_loadout.png"
    ],
-   "notes": "4 technique slots left, 4 charm slots right, Loadout 1 selector; tabs Technique / Charm / Shard; bottom tabs Skill / Goals (R-037, R-038). Tap a skill, then Quick Upgrade beside the lower-right charm (R-104)."
+   "notes": "4 technique slots left, 4 charm slots right, Loadout 1 selector; tabs Technique / Charm / Shard; bottom tabs Skill / Goals (R-037, R-038). Tap a skill, then Quick Upgrade beside the lower-right charm (R-104). Quick Upgrade icon about (0.73, 0.47) levels all skills at once (R-104)."
   },
   {
    "id": "technique_card",
@@ -593,7 +594,7 @@
    "images": [
     "docs/screens/rank_advancement.png"
    ],
-   "notes": "Rank up for base stats; needs max level and materials (R-048)."
+   "notes": "Rank up for base stats; needs max level and materials (R-048). Apprentice I→II raises max level 20→30; needs 20 Bellflowers (R-118)."
   },
   {
    "id": "notice",
@@ -861,7 +862,7 @@
    "unlock": null,
    "detect": null,
    "images": [],
-   "notes": "Tabs per piece with +N; '+21 → +22' at y≈0.42, stat deltas, cost (Raw Ore, Rolla), Enhance (0.5, 0.85), Resonance, Goals tab. Not a detector state yet, so go_home gets stuck here. Level pieces evenly in 5-level bands (R-092)."
+   "notes": "Tabs per piece with +N; '+21 → +22' at y≈0.42, stat deltas, cost (Raw Ore, Rolla), Enhance (0.5, 0.85), Resonance, Goals tab. Not a detector state yet, so go_home gets stuck here. Level pieces evenly in 5-level bands (R-092). Resonance (0.86, 0.20): activate tiers as bands complete (R-119)."
   },
   {
    "id": "material_realms",
@@ -933,6 +934,109 @@
     "docs/screens/growth_trial.png"
    ],
    "notes": "Day 1-7 trial quests, points to a chest track; never Advanced Trial (R-098)."
+  },
+  {
+   "id": "guild_no_guild",
+   "name": "Guild: no guild yet",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/guild_tutorial_intro.png",
+    "docs/screens/guild_no_guild.png"
+   ],
+   "notes": "Join Guild Go>> (0.71, 0.38), Create Guild <<Go (0.29, 0.77): never create (R-102)."
+  },
+  {
+   "id": "guild_join_list",
+   "name": "Guild join list",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/guild_join_list.png"
+   ],
+   "notes": "Rows with Join (instant) or Apply; red '50K+ Power' = requirement; search field and Refresh (R-102)."
+  },
+  {
+   "id": "guild_lobby",
+   "name": "Guild Lobby",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/guild_lobby.png",
+    "docs/screens/guild_territory.png",
+    "docs/screens/guild_upgrade.png"
+   ],
+   "notes": "Donation (0.29, 0.82), Guildmates, More; tabs Guild / Territory / Upgrade (leader only) (R-113)."
+  },
+  {
+   "id": "guild_donation",
+   "name": "Guild donation",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/guild_donation.png",
+    "docs/screens/guild_donation_confirm.png"
+   ],
+   "notes": "Daily Donations N/5; 1st free, 2nd 20 Dawnium (confirm), 3rd 50. Max 2 a day (R-103)."
+  },
+  {
+   "id": "guild_facility",
+   "name": "Guild gathering facility",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/guild_forge.png",
+    "docs/screens/guild_power_station.png",
+    "docs/screens/guild_afk_switch_confirm.png"
+   ],
+   "notes": "Forge / Power Station / Mine, 10 slots. Empty '+' opens AFK Details, then Start. One slot per character; switching collects (R-110)."
+  },
+  {
+   "id": "guild_events",
+   "name": "Guild Events",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/guild_events.png"
+   ],
+   "notes": "Guild Clash (locked for now), Conquest (R-111)."
+  },
+  {
+   "id": "guild_conquest",
+   "name": "Conquest",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/guild_conquest.png",
+    "docs/screens/guild_conquest_rankings.png"
+   ],
+   "notes": "Shared boss per floor; Daily Challenge Attempts N/2; floor chest (0.49, 0.57); Challenge (0.50, 0.77); tabs Rankings, Goals (R-111)."
+  },
+  {
+   "id": "guild_conquest_result",
+   "name": "Conquest result",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/guild_conquest_result.png"
+   ],
+   "notes": "Damage dealt, participation rewards; Tap to Continue."
   }
  ],
  "edges": [
@@ -2417,6 +2521,155 @@
    },
    "confidence": "observed",
    "notes": "'YOU RECEIVED'."
+  },
+  {
+   "from": "home",
+   "to": "guild_no_guild",
+   "action": {
+    "type": "tap",
+    "target": "Guild crest (4th bottom-bar icon)",
+    "template": null,
+    "pos": [
+     0.68,
+     0.97
+    ]
+   },
+   "confidence": "observed",
+   "notes": "Before joining a guild; tutorial first.",
+   "when": "no guild"
+  },
+  {
+   "from": "guild_no_guild",
+   "to": "guild_join_list",
+   "action": {
+    "type": "tap",
+    "target": "Join Guild Go>>",
+    "template": null,
+    "pos": [
+     0.71,
+     0.38
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "guild_join_list",
+   "to": "guild",
+   "action": {
+    "type": "tap",
+    "target": "Join on an open row",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "mae: a random open guild (R-102).",
+   "when": "no guild"
+  },
+  {
+   "from": "guild",
+   "to": "guild_lobby",
+   "action": {
+    "type": "tap",
+    "target": "Guild Lobby building",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Pan west."
+  },
+  {
+   "from": "guild_lobby",
+   "to": "guild_donation",
+   "action": {
+    "type": "tap",
+    "target": "Donation",
+    "template": null,
+    "pos": [
+     0.29,
+     0.82
+    ]
+   },
+   "confidence": "observed",
+   "notes": "",
+   "when": "donations today < 2"
+  },
+  {
+   "from": "guild",
+   "to": "guild_facility",
+   "action": {
+    "type": "tap",
+    "target": "Forge building",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Pan east. mae: gather at the Forge.",
+   "when": "not gathering"
+  },
+  {
+   "from": "guild",
+   "to": "guild_events",
+   "action": {
+    "type": "tap",
+    "target": "Gate of Expedition",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Pan west."
+  },
+  {
+   "from": "guild_events",
+   "to": "guild_conquest",
+   "action": {
+    "type": "tap",
+    "target": "Conquest",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "guild_conquest",
+   "to": "battle_prep",
+   "action": {
+    "type": "tap",
+    "target": "Challenge",
+    "template": null,
+    "pos": [
+     0.5,
+     0.77
+    ]
+   },
+   "confidence": "observed",
+   "notes": "Then Start Battle (0.50, 0.75); send the fight to the background (R-112).",
+   "when": "attempts left > 0"
+  },
+  {
+   "from": "battle",
+   "to": "guild_conquest_result",
+   "action": {
+    "type": "auto",
+    "target": "(fight ends)",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "In Conquest."
+  },
+  {
+   "from": "guild_conquest_result",
+   "to": "guild_conquest",
+   "action": {
+    "type": "tap",
+    "target": "Tap to Continue",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
   }
  ]
 }
