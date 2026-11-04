@@ -66,6 +66,8 @@ EXPECTED = {
     "player_profile_charm_badges": "player_profile",
     "world_map_player_pointer": "world_map",
     "world_map_tile_puzzle_chests": "world_map",
+    "lost_goddess_statue": "unknown",
+    "gate_of_power": "unknown",
     "world_map_tracker_gift": "world_map",
     "world_map_explore": "world_map",
     "world_map_monsters": "world_map",

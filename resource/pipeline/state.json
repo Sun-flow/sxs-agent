@@ -255,14 +255,14 @@
         "post_delay": 0
     },
     "State.Interact": {
-        "doc": "Card popup for a map object (portal, statue, node...) with one action button at (360, 895). Only whitelisted verbs count, so a 'Purchase' or 'Spend' card stays unknown.",
+        "doc": "Card popup for a map object (portal, statue, node...) with one action button at (360, 895). Only whitelisted verbs count, so a 'Purchase' or 'Spend' card stays unknown. Card heights vary (statue cards put Unlock at y≈1040), so the region runs to y=1080.",
         "recognition": "OCR",
         "expected": "^(Activate|Collect|Claim|Open|Interact|Bless|Pray|Gather|Harvest|Mine|Examine|Read|Explore|Enter|Challenge)$",
         "roi": [
             150,
             850,
             420,
-            200
+            230
         ],
         "pre_delay": 0,
         "post_delay": 0

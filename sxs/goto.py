@@ -38,6 +38,16 @@ def squeeze(t: str) -> str:
     return re.sub(r"[\s\-]", "", t).lower()
 
 
+def same_area(a: str, b: str) -> bool:
+    """Loose name match for OCR'd area names: equal after squeeze(), or one is the other missing up to two end
+    characters (OCR drops or adds a trailing "I": "Highland Woods" / "Highland Woods I")."""
+    x, y = squeeze(a), squeeze(b)
+    if not x or not y:
+        return False
+    short, long_ = sorted((x, y), key=len)
+    return x == y or (long_.startswith(short) and len(long_) - len(short) <= 2)
+
+
 def area_labels(det: StateDetector) -> dict[str, list[int]]:
     """Area-map OCR: name -> box, for lines that look like area names (not the legend or percentages)."""
     out = {}

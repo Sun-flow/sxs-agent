@@ -105,7 +105,7 @@
         },
         {
             "kind": "goddess_statue",
-            "match": "^Goddess Statue$",
+            "match": "^(Lost )?Goddess Statue$",
             "choose": "^Unlock$",
             "why": "Unlocking a Goddess Statue once the area is 100% explored blesses the land (+1 Blessing Level, which feeds the Bed's AFK EXP). Free; it's the follow-up quest 'The Goddess's Grace'."
         },

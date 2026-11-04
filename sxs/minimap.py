@@ -39,6 +39,11 @@ COLOURS = {  # BGR for the debug image
 WALKABLE = {"walk_explored", "walk_unexplored", "item", "monster", "icon"}
 
 
+def is_item(h: int, s: int, v: int) -> bool:
+    """Pickup dots are bright green: S 150+ in Verdantglade II, but only ~128 in Highland Woods, so S > 110."""
+    return 38 <= h <= 80 and s > 110 and v > 180
+
+
 def classify_pixel(h: int, s: int, v: int) -> str:
     if s < 35 and v > 150:
         return "icon"
@@ -46,7 +51,7 @@ def classify_pixel(h: int, s: int, v: int) -> str:
         return "unspotted"
     if 5 <= h <= 22 and s > 120 and v > 150:
         return "monster"
-    if 45 <= h <= 80 and s > 150 and v > 150:
+    if is_item(h, s, v):
         return "item"
     if s < 95 and v >= 115:
         return "walk_explored"
@@ -80,6 +85,10 @@ def read(frame: np.ndarray) -> Minimap:
                 row.append("")
                 continue
             patch = hsv[y - 2:y + 3, x - 2:x + 3].reshape(-1, 3)
+            # Pickup dots are smaller than a tile, so a median can wash them out: a few dot pixels make it an item.
+            if sum(is_item(int(a), int(b), int(c)) for a, b, c in patch) >= 5:
+                row.append("item")
+                continue
             h, s, v = np.median(patch, axis=0).astype(int)
             row.append(classify_pixel(int(h), int(s), int(v)))
         grid.append(row)

@@ -23,7 +23,7 @@ import numpy as np
 from . import goto, minimap, nav
 from .decide import Context, Decider
 from .device import Device, banner, save_unknown
-from .explore import PLAYER_NAME, REPEAT_LIMIT, Heartbeat
+from .explore import GUARD_DX, GUARD_DY, PLAYER_NAME, REPEAT_LIMIT, Heartbeat
 from .state import StateDetector
 
 log = logging.getLogger("sxs.fogwalk")
@@ -38,6 +38,22 @@ HUD_AVATAR = (130, 130)  # matches of the player's face inside this top-left box
 
 def area_name(det: StateDetector, frame) -> str:
     return " ".join(t for t, _ in det.read_text(AREA_NAME_ROI, frame)).strip()
+
+
+def centre_player(dev: Device, det: StateDetector, frame) -> bool:
+    """Drag the map so our character (found by its name label) sits mid-screen: targets planned from the minimap
+    land a few tiles away, and near the edge they fall off screen or onto the HUD."""
+    me = [b for t, b in det.read_text([0, 130, 720, 840], frame) if PLAYER_NAME in t]
+    if not me:
+        return False
+    x, y, w, h = me[0]
+    px, py = x + w // 2, y - 40
+    cx, cy = PLAY_AREA[0] + PLAY_AREA[2] // 2, PLAY_AREA[1] + PLAY_AREA[3] // 2
+    if abs(px - cx) < 160 and abs(py - cy) < 200:
+        return False
+    dev.swipe(px, py, cx, cy, 600)
+    time.sleep(1.5)
+    return True
 
 
 def recentre_on_player(dev: Device, det: StateDetector, frame) -> bool:
@@ -116,13 +132,13 @@ def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[st
             name = area_name(det, frame)
             if home_area is None and name:
                 home_area = name
-            elif name and goto.squeeze(name) != goto.squeeze(home_area) and not strayed:
+            elif name and not goto.same_area(name, home_area) and not strayed:
                 # Wandered into a neighbouring area: walk back with the area map rather than exploring the wrong one.
                 strayed = True
                 log.info("left %s for %s; going back", home_area, name)
                 goto.go_to(dev, det, home_area)
                 continue
-            elif name and goto.squeeze(name) == goto.squeeze(home_area):
+            elif name and goto.same_area(name, home_area):
                 strayed = False
             # Watchdog: progress means standing on a tile we haven't stood on this run. Taps that don't move us,
             # or that bounce between the same few tiles, mean we're blocked: stop instead of idling.
@@ -131,10 +147,19 @@ def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[st
                 last_xy, still, progress_at = d.text, 0, time.monotonic()
             else:
                 still += 1
+                guard = det.find("Explore.GuardBracket", frame) if still in (3, 6) else None
+                if guard:
+                    # Monsters in brackets guard the way into the area: fight one, then walk on.
+                    log.info("blocked; attacking a guard at %s", guard.box)
+                    dev.tap(guard.box[0] + GUARD_DX, guard.box[1] + GUARD_DY)
+                    time.sleep(3)
+                    continue
                 if still >= STILL_LIMIT:
                     log.warning("no new tile for %d taps (at %s, %d tiles visited); stopping", still, d.text,
                                 len(visited))
                     return "stuck"
+            if centre_player(dev, det, frame):
+                frame = dev.screenshot()
             target = minimap_target(det, frame)
             if target is None and recentre_on_player(dev, det, frame):
                 frame = dev.screenshot()
