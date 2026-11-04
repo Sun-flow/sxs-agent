@@ -16,8 +16,13 @@ Do each quest the quest guide shows, in order.
 - On home, scene labels can pollute the tracker's OCR (R-059).
 *observed, told* · `dailies/quest_detail_go.png`, `world/world_map_tracker_gift.png`, `icons/reward_gift_box_mae.png` · node `quest_detail` · R-022, R-059, R-089
 
+### R-128 · Daily Quest: the default Quest page
+- Menu > Quest opens "Daily Quest", tabs Daily | Weekly | Quest | Achievement. Detector state `quests`.
+- Daily quests: Log in; 2 Vendor purchases (not done: buying waits on mae's Buy? list, R-114); consume 30 stamina; Material Realms x5 (R-095); Fantasia Ascent once (R-079); Conquest once (R-111).
+*observed* · `dailies/daily_quest.png` · node `quests` · R-079, R-095, R-099, R-111, R-114
+
 ### R-099 · Guidance quests are an ore source
-Menu > Quest > Guidance: Helmet / Armor / Boots Enhancement I ("Enhance a helmet to +15": 80 Raw Ore, 50 Refined Ore), Cart Upgrade I (1K Rolla), Skill Mastery. Steer toward them; the ore feeds gear (R-092). The Achievement tab's weekly achievements (Daily Dungeon, Crucible of Hieromon, Split Mirage) refresh Mondays 8:00 UTC-5 (R-024).
+Menu > Quest > Guidance (the Quest tab): Helmet / Armor / Boots Enhancement I ("Enhance a helmet to +15": 80 Raw Ore, 50 Refined Ore), Cart Upgrade I (1K Rolla), Skill Mastery. Cart Upgrade I, II, III chain and claim instantly from the tracker gift (R-044). Steer toward them; the ore feeds gear (R-092). The Achievement tab's weekly achievements (Daily Dungeon, Crucible of Hieromon, Split Mirage) refresh Mondays 8:00 UTC-5 (R-024).
 *observed* · node `quests` · R-024, R-092
 
 ## Tracking a target

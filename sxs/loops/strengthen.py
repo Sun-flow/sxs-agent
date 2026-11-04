@@ -21,6 +21,8 @@ from ..core.state import StateDetector
 from ..core.loop import Loop
 from ..core.nav import Navigator
 
+from ..vision.badges import find_badges
+
 log = logging.getLogger("sxs.loops.strengthen")
 
 CLAIM_ALL = (360, 1098)
@@ -39,6 +41,7 @@ TECHNIQUE_CARD_ENHANCE = ui.TECHNIQUE_CARD_ENHANCE
 TECHNIQUE_TABS = [(160, 190), (318, 190), (424, 190), (552, 190)]
 TECHNIQUE_UPGRADE = (360, 1086)
 SHORT = r"Insufficient|Unlocks at Character"
+PROFILE_CHARM_ROW_ROI = [360, 840, 360, 110]  # player profile: the Charm row and its badges
 PROFILE_CHARM_SLOTS = [(406, 910), (480, 910), (554, 910), (628, 910)]  # player profile: Charm row; an empty one opens the loadout editor
 CHARM_SLOTS = [(626, 268), (626, 384), (626, 500), (626, 616)]  # loadout editor, right column
 CHARM_LIST = [(100, 930), (230, 930), (360, 930), (490, 930), (620, 930)]  # Charm tab, owned and unequipped
@@ -168,6 +171,11 @@ class Strengthener:
         if not from_profile:
             return 0  # TODO: reach the loadout editor from home (Character -> Skill) when needed
         frame = self.dev.screenshot()
+        # Need-check first (mae, 2026-11-04): the game badges an empty charm slot only when an owned charm can go
+        # in it. Without a badge on the Charm row there is nothing to do (the colour test alone took a pale,
+        # equipped Elemental Body for an empty slot and opened its card).
+        if not find_badges(frame, PROFILE_CHARM_ROW_ROI) and not find_badges(self.dev.screenshot(), PROFILE_CHARM_ROW_ROI):
+            return 0
         empty = [xy for xy in PROFILE_CHARM_SLOTS if not self._filled(frame, xy)]
         if not empty:
             return 0

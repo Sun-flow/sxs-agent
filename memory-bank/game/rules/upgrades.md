@@ -11,7 +11,7 @@ Read when raising character power: the character-screen "!", gear, skills, charm
 - Fill a charm slot: tap it to open "Edit" (charm slots at x≈0.87, y≈0.21 / 0.30 / 0.39 / 0.48), Charm tab (0.56, 0.62), a charm card, Equip (0.5, 0.70), then a pulsing empty slot. A filled slot's button reads Replace. The 4th slot was still locked at Lv 13 ❓.
 - **Never use Rcmd ("Rcmd Loadouts" / Apply).**
 - Opened by accident when a marker sits beside the player: R-022.
-- Code: `python -m sxs upgrade` (`--only skills,gear,class_levels,rank,relics`), `sxs/vision/badges.py`.
+- One function per type. `python -m sxs upgrade` runs passes `goals`, `skills`, `gear`, `class_levels`, `rank` (and `relics` once unlocked), each up to 90 s, only where a badge shows (`--only` picks passes). Charms are filled only when the profile's Charm row is badged. Gear replace is its own loop (R-088). Badge finder: `sxs/vision/badges.py`.
 *told, observed* · `character/player_profile_charm_badges.png`, `character/loadout_edit_charms.png`, `character/charm_detail.png`, `character/rcmd_loadouts.png` · nodes `player_profile`, `loadout_edit`, `charm_detail`, `rcmd_loadouts` · R-063, R-088, R-092, R-104, R-105, R-115, R-116, R-117, R-118
 
 ## Gear
@@ -35,6 +35,7 @@ Enhance Gear > Resonance (0.86, 0.20). Tiers read "Enhance Gear x4 to +N" (N = 5
 
 ### R-088 · Replace gear with better items from the profile
 A "!" over a gear piece's picture means a better piece is available for that slot (mae: red; blue Equip badges seen too, R-080). Replace it whenever one drops. This is its own task, independent of enhancing (R-092), and the bot should do it on its own (mae). Profile, an Equip slot, Replace. The list puts the best first, green up arrow on upgrades. Tap one for a compare (equipped left, new right, with power); Replace is under the new item. Enhancement levels carry over, so replacing loses nothing.
+- Code: its own loop `python -m sxs gearswap`, also daily step `gear_swap`. The slot badge says to look; the power compare decides whether to Replace.
 *observed, told* · `character/replace_gear.png`, `character/gear_compare.png` · nodes `replace_gear`, `gear_compare` · R-080, R-092
 
 ## Skills and charms
@@ -51,8 +52,10 @@ A "!" over a gear piece's picture means a better piece is available for that slo
 Skill page, Quick Upgrade icon at about (0.73, 0.47), captioned "Upgrade". No selection needed: one tap levels everything Battle Essence can afford, charms included. It disappears when nothing is affordable.
 *told, observed* · `character/skill_page.png`, `character/skill_page_after_quick_upgrade.png` · node `skill_loadout` · R-037, R-106
 
-### R-115 · Ascend a technique with its own shards
-A "!" on a technique means it can ascend: tap it, Enhance (0.68, 0.74), Ascend tab (bottom right), Ascend (0.50, 0.85). Each step costs 10 of its own shards (Rare → Rare 1★ → Epic). No Dawnium.
+### R-115 · Ascend a badged skill with its own shards
+- A "!" on any skill icon, equipped or in the Technique or Charm bag, means it can ascend (10/10 of its own shards). Ascend it. Each step costs 10 of its own shards (Rare → Rare 1★ → Epic). No Dawnium.
+- Technique card: Enhance (0.68, 0.74) opens Ascension directly; Ascend (0.50, 0.85). Charm card: Enhance opens Upgrade, then the Ascend tab (bottom right), then Ascend.
+- Seen: Ice Spike Rare to Epic, Elemental Mystery. Code: the `skills` pass of `python -m sxs upgrade`.
 *observed* · `character/technique_upgrade.png`, `character/technique_ascend.png` · nodes `technique_card`, `technique_upgrade` · R-037, R-080
 
 ## Class

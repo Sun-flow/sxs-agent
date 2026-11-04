@@ -24,6 +24,7 @@ from ..vision.ocr import read_line
 log = logging.getLogger("sxs.actions.goto")
 
 MINIMAP = ui.MINIMAP  # tapping the minimap opens the area map
+AREA_MAP_ZOOM_OUT = (682, 1113)  # the "-" under the area map's zoom slider
 SCREEN_CENTRE = ui.SCREEN_CENTRE  # where the area-map point lands after the camera re-centres
 COORDS = re.compile(r"\(?(\d+), ?(\d+)\)?")
 WALK_TIMEOUT_S = 60
@@ -88,6 +89,15 @@ def _label_point(det, name: str) -> Optional[tuple[int, int]]:
     return x + w // 2, y + h // 2
 
 
+def _widen(dev) -> bool:
+    """A label wasn't on the area map: it opens centred on the camera, so a far area can sit off screen (seen
+    2026-11-04: from Moonveil Woods, Verdantglade II and Damp Woods were cut off). Zoom out one step and let the
+    labels settle, then the caller reads again. Returns True when it tried."""
+    dev.tap(*AREA_MAP_ZOOM_OUT)
+    time.sleep(1.5)
+    return True
+
+
 def go_to(dev, det, target) -> str:
     """target: an area name on the area map, or an (x, y) point there. Returns "arrived" (walked and stopped),
     "no_move" (coordinates didn't change: blocked or unreachable), "no_label", or "not_on_map"."""
@@ -110,6 +120,8 @@ def go_to(dev, det, target) -> str:
         # same opening (the map's zoom changes between openings, so points from an earlier reading drift).
         a, b_, frac = target
         pa, pb = _label_point(det, a), _label_point(det, b_)
+        if (pa is None or pb is None) and _widen(dev):
+            pa, pb = _label_point(det, a), _label_point(det, b_)
         if pa is None or pb is None:
             log.warning("no %r or %r on the area map; frame %s", a, b_, save_unknown(dev, "goto"))
             dev.tap(*ui.BACK_ARROW)
@@ -117,13 +129,17 @@ def go_to(dev, det, target) -> str:
             return "no_label"
         point = (int(pa[0] + (pb[0] - pa[0]) * frac), int(pa[1] + (pb[1] - pa[1]) * frac))
     elif isinstance(target, str):
-        labels = area_labels(det)
-        # OCR swaps I, l and 1 and drops edge letters: match exactly first, then loosely.
-        hit = ([b for t, b in labels.items() if t.lower() == target.lower()]
-               or [b for t, b in labels.items() if squeeze(t) == squeeze(target)]
-               or [b for t, b in labels.items() if squeeze(target) in squeeze(t)]
-               or [b for t, b in labels.items() if squeeze(t) and squeeze(target).startswith(squeeze(t))
-                   and same_area(t, target)])
+        def find():
+            labels = area_labels(det)
+            # OCR swaps I, l and 1 and drops edge letters: match exactly first, then loosely.
+            return labels, ([b for t, b in labels.items() if t.lower() == target.lower()]
+                            or [b for t, b in labels.items() if squeeze(t) == squeeze(target)]
+                            or [b for t, b in labels.items() if squeeze(target) in squeeze(t)]
+                            or [b for t, b in labels.items() if squeeze(t) and squeeze(target).startswith(squeeze(t))
+                                and same_area(t, target)])
+        labels, hit = find()
+        if not hit and _widen(dev):
+            labels, hit = find()
         if not hit:
             log.warning("no %r on the area map (saw %s); frame %s", target, list(labels), save_unknown(dev, "goto"))
             dev.tap(*ui.BACK_ARROW)

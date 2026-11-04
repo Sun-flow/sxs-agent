@@ -10,6 +10,7 @@
                 "State.Loading",
                 "State.Title",
                 "State.Loading.Title",
+                "State.Chat",
                 "State.RatingPopup",
                 "State.RewardPopup",
                 "State.TapToContinue",
@@ -236,9 +237,9 @@
         "post_delay": 0
     },
     "State.Quests": {
-        "doc": "Guidance Quest or Achievement Quest list (title top left).",
+        "doc": "Quest list (title top left): Guidance, Achievement, or Daily / Weekly Quest (the Menu > Quest default since 2026-11-04; tabs Daily | Weekly | Quest | Achievement).",
         "recognition": "OCR",
-        "expected": "(Guidance|Achievement) Quest",
+        "expected": "(Guidance|Achievement|Daily|Weekly) Quest",
         "roi": [
             0,
             20,
@@ -611,7 +612,7 @@
     "State.GuildConquest": {
         "doc": "Gate of Expedition > Conquest: shared guild boss by floor. Top: 'Daily Challenge Attempts: N/2'. Reward chest (356,732) claims a beaten floor's reward; floor strip y 892; Challenge (360,982) -> battle prep Start Battle (360,956) -> background-fight icon. Tabs: Conquer (160,1216), Rankings, Goals (608,1216).",
         "recognition": "OCR",
-        "expected": "Challenge Attempts",
+        "expected": "Challenge ?Attempts",
         "roi": [
             220,
             30,
@@ -775,6 +776,19 @@
             20,
             440,
             70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Chat": {
+        "doc": "Server / Guild / Private chat panel, opened by a stray tap on the chat strip of any screen (seen 2026-11-04 during a Conquest fight). Close with the down chevron bottom left (42, 1226). Image: docs/screens/system/chat.png.",
+        "recognition": "OCR",
+        "expected": "^(Server|Guild|Private) Chat$",
+        "roi": [
+            230,
+            15,
+            360,
+            50
         ],
         "pre_delay": 0,
         "post_delay": 0

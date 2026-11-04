@@ -35,7 +35,8 @@ Read before any fight, when HP is low, after a loss, or inside a mini-dungeon or
 
 ### R-127 · Take fights against up to 25% more CP than ours
 When weighing a fight or challenge, accept monsters with up to 25% more CP (power) than the character (mae). Monsters usually out-power us on CP, but skills and gear win when the character is well equipped. Above 25% treat it as a wall (R-084). HP rules still apply first (R-061).
-*told* · R-061, R-073, R-084
+- The same 1.25x test decides which areas roam picks (recommended power, R-065) and which tower floors to challenge (R-079). Gates of Power keep their own rule (R-086). Code: `sxs/policy/fights.py`.
+*told, observed* · R-061, R-065, R-073, R-079, R-084, R-086
 
 ### R-112 · Background fights: start, minimise, move on
 - A fight with the "run in background" icon (square, arrow into its lower-left corner) needs no watching. On Conquest it's at (0.10, 0.95); tap to minimise, do other things, come back for the result. Template `resource/image/state/background_fight.png`.
@@ -76,4 +77,5 @@ When weighing a fight or challenge, accept monsters with up to 25% more CP (powe
 - `tower_list` (cards "Current: Fn/110") -> `tower_floors` (F1 at bottom; Goals tab may be badged, R-063; recommended power, Challenge (0.85, 0.86)) -> prep (15 rounds) -> `tower_result`.
 - VICTORY: Clear Rewards (ores, Worn Knuckles), Continue (0.77, 0.95) goes to the next floor's prep. DEFEAT: Retry in the same spot: **never press it**.
 - Before F3 is cleared, climb floor by floor (Continue). Auto Challenge then unlocks: its checkbox (0.66, 0.90) appears only on the result screen, so tick it after each win; Continue then counts down "(3s)". A loss unticks it; leave it off (ticking on DEFEAT starts a retry).
-*told, observed* · `dialogs/confirm_fantasia_home.png`, `dailies/fantasia_ascent.png`, `dailies/fantasia_floors.png`, `dailies/fantasia_victory.png`, `dailies/fantasia_defeat.png` · node `fantasia_ascent`, `fantasia_floors`, `fantasia_result` · R-094, R-112
+- With Auto Challenge on, the climb carries on in the background after you leave (F6 to F24 in one evening). The floor list then shows "Auto-Challenging" and Resume: leave it running. The current floor's Challenge row moves (F6's at y≈913): find it on the list, not at a fixed spot. Take a floor only within 1.25x our power (R-127).
+*told, observed* · `dialogs/confirm_fantasia_home.png`, `dailies/fantasia_ascent.png`, `dailies/fantasia_floors.png`, `dailies/fantasia_victory.png`, `dailies/fantasia_defeat.png`, `dailies/fantasia_floors_auto.png`, `dailies/fantasia_floors_f6.png` · node `fantasia_ascent`, `fantasia_floors`, `fantasia_result` · R-094, R-112, R-127

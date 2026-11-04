@@ -33,7 +33,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 
 ## Adding or changing a rule
 
-- New rule: next free ID (**next free: R-128**), under the right `##` heading of the right file, plus a row in the ID index below.
+- New rule: next free ID (**next free: R-129**), under the right `##` heading of the right file, plus a row in the ID index below.
 - Never reuse or renumber an ID. When merging a rule into another, delete it, add it to the retired table, and repoint citations.
 - Run `python3 scripts/check-rules.py`: it checks that every cited ID resolves, retired IDs aren't cited, every file is listed here, and image paths exist.
 
@@ -128,7 +128,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-112 | `combat.md` | Background fights: start, minimise, move on |
 | R-113 | `guild.md` | Find buildings by label; find the Gate from the Lobby label |
 | R-114 | `guild.md` | Guild Shop: buy nothing until mae's buy list exists |
-| R-115 | `upgrades.md` | Ascend a technique with its own shards |
+| R-115 | `upgrades.md` | Ascend a badged skill with its own shards |
 | R-116 | `ui.md` | Claim every lit Goals tab with the claim-goals task |
 | R-117 | `upgrades.md` | Level classes with Class Badges; never Change Class |
 | R-118 | `upgrades.md` | Rank Advancement raises the level cap |
@@ -141,6 +141,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-125 | `ui.md` | Read items through their info cards, never the price button |
 | R-126 | `home.md` | Find home objects by template; the camera keeps its pan |
 | R-127 | `combat.md` | Take fights against up to 25% more CP than ours |
+| R-128 | `quests.md` | Daily Quest: the default Quest page |
 
 ## Retired IDs
 

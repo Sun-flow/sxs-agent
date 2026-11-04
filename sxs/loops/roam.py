@@ -7,7 +7,7 @@ over areas that strings them together:
 
 1. Read the area map (R-076): every area label, and under the ones not finished yet an "Exploration: N%" line and
    sometimes a power gate ("12K"). Labels without a percentage are taken as done.
-2. Pick the next area: under 100%, power gate at or under our power (HUD), not given up on this run. The
+2. Pick the next area: under 100%, recommended power at most 25% above ours (HUD, `policy.fights`), not given up on this run. The
    Verdantglade cap (handoff: 4 to 7 areas, or stop at a natural wall) is enforced by stopping at the first
    power wall, and by `--max-areas`.
 3. Walk there with the area map and explore it (`fogwalk.walk`: minimap dots and unexplored tiles, then fog edge;
@@ -39,6 +39,7 @@ from ..core.marks import server_day
 from ..core.nav import Navigator
 from ..core.paths import LOGS, RESOURCE
 from ..policy.decide import Context, Decider
+from ..policy import fights
 from ..vision.hud import read_power
 from ..vision.ocr import power_k
 from . import fogwalk
@@ -50,6 +51,7 @@ STATUE_THRESHOLD = 0.8
 STATUE_NEAR_LABEL = 260  # px on the area map: statues this close to an area's label belong to it
 MAP_ROI = [0, 120, 720, 1100]  # labels below y 1185 are the kingdom buttons
 STOP_REASONS = {"defeated", "unknown_screen", "left_area:home"}
+MAX_ENTRY_TRIES = 3  # connected areas to try walking in from before giving up on an area for the day
 STATE_FILE = LOGS / "roam.json"  # statues opened and areas given up on, kept across runs
 VERDANTGLADE_ISLAND = (300, 640)  # world overview (kingdom picker): Verdantglade's island
 RETRY_POWER_GAIN = 0.5  # K: an area given up on is tried again once power grew this much (or on a later day)
@@ -139,6 +141,22 @@ class Roamer:
         self.state.setdefault("given_up", {})[name] = {"day": server_day(), "power": self.power, "why": why}
         _save_state(self.state)
 
+    def tried_from(self, target: str) -> list[str]:
+        """Neighbours a fog walk into `target` started from today without making progress."""
+        t = self.state.get("tried_from", {}).get(target, {})
+        return t.get("via", []) if t.get("day") == server_day() else []
+
+    def failed_from(self, target: str, via: str) -> int:
+        """Record a neighbour that didn't lead into `target`; returns how many untried neighbours remain."""
+        rec = self.state.setdefault("tried_from", {})
+        t = rec.get(target) if rec.get(target, {}).get("day") == server_day() else None
+        t = t or {"day": server_day(), "via": []}
+        if via not in t["via"]:
+            t["via"].append(via)
+        rec[target] = t
+        _save_state(self.state)
+        return len(t["via"])
+
     def skipped(self, name: str) -> bool:
         if name in self.given_up:
             return True
@@ -178,7 +196,7 @@ class Roamer:
     def pick(self, areas: list[Area], power: Optional[float]) -> tuple[Optional[Area], Optional[Area]]:
         """(next area to explore, first area behind a power wall)."""
         todo = [a for a in areas if a.pct is not None and a.pct < 100 and not self.skipped(a.name)]
-        walled = [a for a in todo if a.gate and (power is None or a.gate > power)]
+        walled = [a for a in todo if not fights.within_reach(a.gate, power)]  # up to 25% above us (mae)
         open_ = [a for a in todo if a not in walled]
         open_.sort(key=lambda a: -a.pct)  # nearly done first: finishing an area unlocks its statue
         return (open_[0] if open_ else None), (walled[0] if walled else None)
@@ -192,7 +210,12 @@ class Roamer:
             goto.go_to(self.dev, self.det, target.name)
             return None
         tx, ty = target.point
-        via = min(done, key=lambda a: (a.point[0] - tx) ** 2 + (a.point[1] - ty) ** 2)
+        # Nearest neighbour first; one that already failed today for this target is tried last (2026-11-04:
+        # Verdantglade III can't be entered from Moonveil Woods, its nearest label, so try Damp Woods or
+        # Verdantglade II next, in the next short run).
+        tried = self.tried_from(target.name)
+        done.sort(key=lambda a: (any(same(a.name, t) for t in tried), (a.point[0] - tx) ** 2 + (a.point[1] - ty) ** 2))
+        via = done[0]
         here = goto.area_name_here(self.det)
         log.info("approaching %s from the connected area %s (standing in %s)", target.name, via.name, here)
         # Most of the way from the neighbour's label toward the target's, so the walk ends on the shared border.
@@ -288,7 +311,13 @@ class Roamer:
                 self.bless_near(target.name)
                 done += 1
             elif now.pct == target.pct:
-                self.give_up(target.name, f"fog walk ended {why!r} without moving off {now.pct}%")
+                if via and self.failed_from(target.name, via.name) < MAX_ENTRY_TRIES:
+                    # Not in from this side: the next run tries the next-nearest connected area instead.
+                    log.info("no way into %s from %s; the next run tries another neighbour", target.name, via.name)
+                    self.given_up.add(target.name)
+                else:
+                    self.give_up(target.name, f"fog walk ended {why!r} without moving off {now.pct}% "
+                                 f"(tried from {', '.join(self.tried_from(target.name)) or 'its label'})")
                 if area:
                     return "no_progress"
         return "timeout" if time.monotonic() >= deadline else "max_areas"

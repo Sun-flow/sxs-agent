@@ -14,7 +14,7 @@ SCALE = {"": 1, "K": 1e3, "M": 1e6}
 
 def read_line(det, roi, frame=None) -> str:
     """Every OCR line in the region joined with spaces, top to bottom."""
-    return read_line(det, roi, frame)
+    return " ".join(t for t, _ in det.read_text(roi, frame))
 
 
 def int_in(text: str, pattern: str, ocr_fixes: bool = False) -> Optional[int]:

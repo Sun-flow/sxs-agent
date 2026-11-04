@@ -60,14 +60,15 @@
    "unlock": null,
    "detect": {
     "type": "ocr",
-    "text": "Guidance Quest | Achievement Quest",
+    "text": "Guidance Quest | Achievement Quest | Daily Quest | Weekly Quest",
     "roi": "title, top left"
    },
    "images": [
     "docs/screens/dailies/quest_list.png",
-    "docs/screens/dailies/achievement_quest.png"
+    "docs/screens/dailies/achievement_quest.png",
+    "docs/screens/dailies/daily_quest.png"
    ],
-   "notes": "Tabs Quest (0.40,0.95) and Achievement (0.78,0.95). Each row has 'Go >>' at x 0.83 that jumps to the relevant screen (R-022)."
+   "notes": "Menu > Quest opens Daily Quest (tabs Daily | Weekly | Quest | Achievement, R-128). Each row has 'Go >>' at x 0.83 that jumps to the relevant screen (R-022)."
   },
   {
    "id": "quest_detail",
@@ -361,9 +362,15 @@
    "kind": "overlay",
    "confidence": "observed",
    "unlock": null,
-   "detect": null,
-   "images": [],
-   "notes": "Close with the down arrow (0.06,0.96). Never type here."
+   "detect": {
+    "type": "ocr",
+    "text": "Server Chat | Guild Chat | Private Chat",
+    "roi": "title, top centre"
+   },
+   "images": [
+    "docs/screens/system/chat.png"
+   ],
+   "notes": "Opened by a stray tap on the chat strip of any screen; detector state `chat`. Close with the down chevron (42,1226). Never type here (R-027)."
   },
   {
    "id": "travel_journal",
@@ -907,8 +914,10 @@
    "confidence": "observed",
    "unlock": null,
    "detect": null,
-   "images": [],
-   "notes": "Dawnstar Prelude (never), Growth Trial, Daily Sign-in, Link Account (never) (R-096)."
+   "images": [
+    "docs/screens/dailies/featured_events.png"
+   ],
+   "notes": "Order changes with events; find cards by title. Dawnstar Prelude (never), Growth Trial, Daily Sign-in, Link Account (never), event cards (R-096)."
   },
   {
    "id": "daily_signin",

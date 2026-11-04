@@ -445,7 +445,7 @@ def explore(dev, det, minutes: float = 20, chain: bool = False, choose: Optional
             time.sleep(3)
             continue
         if result != "complete" or not chain:
-            return Result(result, result == "complete", {"completed": completed})
+            return Result(result, result in ("complete", "timeout"), {"completed": completed})
         time.sleep(3)
 
 
@@ -460,4 +460,5 @@ def _run(ctx, opts) -> Result:
 
 
 LOOP = Loop("explore", "Explore", "follow the tracked quest line (fights, cards, unstick, claims)", _run, _args,
-            ok={"complete"})
+            ok={"complete", "timeout"})  # runs are 2 minutes: a timeout with progress is the normal end; no progress
+# for --stall seconds ends it as "stalled" instead
