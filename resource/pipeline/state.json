@@ -10,6 +10,7 @@
                 "State.Loading",
                 "State.Title",
                 "State.Loading.Title",
+                "State.RatingPopup",
                 "State.RewardPopup",
                 "State.TapToContinue",
                 "State.Defeated",
@@ -20,10 +21,16 @@
                 "State.TowerFloors",
                 "State.QuestDetail",
                 "State.PlayerProfile",
+                "State.GuildDonation",
+                "State.GuildConquest",
+                "State.GuildPanel",
                 "State.Interact",
                 "State.DialogueChoice",
                 "State.Dialogue",
+                "State.GuildJoinList",
+                "State.GuildNoGuild",
                 "State.BattlePrep",
+                "State.BackgroundFight",
                 "State.Battle",
                 "State.Cart",
                 "State.Home",
@@ -32,6 +39,13 @@
                 "State.Character",
                 "State.MainMenu",
                 "State.EnhanceGear",
+                "State.MapExploration",
+                "State.GearResonance",
+                "State.RankAdvancement",
+                "State.UpgradeGoals",
+                "State.ClassPage",
+                "State.TechniqueUpgrade",
+                "State.SkillPage",
                 "State.Featured",
                 "State.DailySignin",
                 "State.GrowthTrial",
@@ -41,6 +55,7 @@
                 "State.PrayerResult",
                 "State.Prayer",
                 "State.Quests",
+                "State.Guild",
                 "State.Unknown"
             ]
         },
@@ -522,6 +537,230 @@
             20,
             300,
             70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.GuildJoinList": {
+        "doc": "Join Guild list (Guild tab > Join Guild Go>>): guild rows with Join/Apply buttons, Refresh, Join/Create tabs. Social: never press Join/Apply/Create without mae. Back arrow bottom-left (74,1216).",
+        "recognition": "OCR",
+        "expected": "^Join Guild$",
+        "roi": [
+            20,
+            20,
+            220,
+            60
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.GuildNoGuild": {
+        "doc": "Guild tab before joining a guild: Join Guild (Go>> at 510,485) and Create Guild (<<Go at 210,980) cards. Joining or creating is mae's decision.",
+        "recognition": "OCR",
+        "expected": "^Join Guild$",
+        "roi": [
+            400,
+            280,
+            260,
+            80
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Guild": {
+        "doc": "Any Guild tab screen: bottom bar label 'Guild' under the 4th icon (selected tab). Fallback for guild screens not mapped yet.",
+        "recognition": "OCR",
+        "expected": "^Guild$",
+        "roi": [
+            440,
+            1240,
+            120,
+            40
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.BackgroundFight": {
+        "doc": "A fight that can run in the background (Conquest, ...): the minimise icon at the bottom left. Tap it (72,1216) to leave the fight running and do other things (mae, 2026-11-04).",
+        "recognition": "TemplateMatch",
+        "template": "state/background_fight.png",
+        "roi": [
+            0,
+            1150,
+            180,
+            130
+        ],
+        "threshold": 0.8,
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.GuildDonation": {
+        "doc": "Guild Lobby > Donation popup. 'Daily Donations: N/5' above the button; the button reads Free (first) then Donate + Dawnium cost (20, then 50). mae: at most 2 a day, Dawnium approved for those two. Close by tapping above (360,60).",
+        "recognition": "OCR",
+        "expected": "^Donation$",
+        "roi": [
+            160,
+            200,
+            400,
+            70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.GuildConquest": {
+        "doc": "Gate of Expedition > Conquest: shared guild boss by floor. Top: 'Daily Challenge Attempts: N/2'. Reward chest (356,732) claims a beaten floor's reward; floor strip y 892; Challenge (360,982) -> battle prep Start Battle (360,956) -> background-fight icon. Tabs: Conquer (160,1216), Rankings, Goals (608,1216).",
+        "recognition": "OCR",
+        "expected": "Challenge Attempts",
+        "roi": [
+            220,
+            30,
+            320,
+            40
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.GuildPanel": {
+        "doc": "A guild sub-screen with a top-left title: Lobby (Guild), Territory (Overview), Upgrade (Facility Upgrade), Construction, Forge / Power Station / Mine (gather slots), Guild Events, Conquest goals. Back arrow bottom-left (74,1216). Conquest Rankings too.",
+        "recognition": "OCR",
+        "expected": "^(Guild|Overview|Facility Upgrade|Construction|Forge|Power Station|Mine|Guild Events|Rankings|Serverwide Conquest Goals|Personal Conquest Goals)( ?Level: ?\\d+/\\d+)?$",
+        "roi": [
+            20,
+            20,
+            400,
+            60
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "Guild.EmptySlot": {
+        "doc": "Empty gather slot (+) in a guild facility (Forge, Power Station, Mine). Not a screen state; used by sxs/guild.py.",
+        "recognition": "TemplateMatch",
+        "template": "guild/empty_slot.png",
+        "roi": [
+            0,
+            100,
+            720,
+            1050
+        ],
+        "threshold": 0.7,
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "Home.BedXP": {
+        "doc": "Bed XP bubble (blue orb in a yellow frame) over the bed in the home house: AFK EXP is ready to collect. Not a screen state; used by the daily bed step.",
+        "recognition": "TemplateMatch",
+        "template": "home/bed_xp_bubble.png",
+        "roi": [
+            0,
+            100,
+            720,
+            950
+        ],
+        "threshold": 0.75,
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.SkillPage": {
+        "doc": "Skill page (Character > Skill): techniques left, charms right, Quick Upgrade beside the lower-right charm, Loadout switcher, Technique/Charm/Shard tabs (R-080, R-104). Detected by its bottom 'Skill' tab (the profile's loadout editor, titled Edit, has none).",
+        "recognition": "OCR",
+        "expected": "^Skill$",
+        "roi": [
+            180,
+            1190,
+            220,
+            60
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.TechniqueUpgrade": {
+        "doc": "A technique's Upgrade (Battle Essence) or Ascension (its own shards) tab.",
+        "recognition": "OCR",
+        "expected": "^(Upgrade|Ascension)$",
+        "roi": [
+            0,
+            20,
+            440,
+            70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.UpgradeGoals": {
+        "doc": "Goals tab of an upgrade screen (Skill, Quality, Enhancement, Level, Power, Total Class Level goals): free Claim buttons.",
+        "recognition": "OCR",
+        "expected": "(Skill|Quality|Enhancement|Level|Power) Goals$|^Total Class Level$",
+        "roi": [
+            0,
+            20,
+            440,
+            70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.ClassPage": {
+        "doc": "Class screen (Change Class, Class Hierarchy, Goals tabs) and a class's Info/Upgrade page. Change Class is mae's decision: never tapped.",
+        "recognition": "OCR",
+        "expected": "^Class$|Class ?Level|^Total Level$|^Level Stats$|^Class Trait$",
+        "roi": [
+            0,
+            0,
+            720,
+            700
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.RankAdvancement": {
+        "doc": "Rank Advancement (the Apprentice badge on Character): raises the level cap; costs ore, Bellflowers and Rolla.",
+        "recognition": "OCR",
+        "expected": "Rank Advancement",
+        "roi": [
+            0,
+            20,
+            440,
+            70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.GearResonance": {
+        "doc": "Gear Resonance (Enhance Gear > Resonance): free stat bonuses when all 4 pieces reach +5, +10, ...; Activate claims one.",
+        "recognition": "OCR",
+        "expected": "^Gear Resonance$",
+        "roi": [
+            0,
+            20,
+            440,
+            70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.MapExploration": {
+        "doc": "Journal > Map Exploration: Resource Hunt card with stamina, 4 material choices (Rolla, ore, sand, Battle Essence) and Go (R-108).",
+        "recognition": "OCR",
+        "expected": "^Map Exploration$",
+        "roi": [
+            0,
+            20,
+            440,
+            70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.RatingPopup": {
+        "doc": "Akane's 'do you satisfy with your experience' rating prompt (Very Satisfied / Dissatisfied / Later). mae, 2026-11-04: press Later.",
+        "recognition": "OCR",
+        "expected": "^Very Satisfied$",
+        "roi": [
+            200,
+            680,
+            320,
+            60
         ],
         "pre_delay": 0,
         "post_delay": 0

@@ -90,6 +90,20 @@ Filter MaaFramework's chatter when reading logs: `grep -v -i "nemu\|product:\|sa
 
 Code map: `docs/step2-hands-and-eyes.md` (device, detector, CLI) and `docs/step3-explore.md` (explore loop, decisions, tutorial follower). The game knowledge lives in `memory-bank/game/` (maintained by the docs thread).
 
+## Update 2026-11-04 (night, guild thread)
+
+- **Guild done**: gromb2 is in karsa_1515 (mae's OK) and gathers at the Forge. `python -m sxs.guild` (also steps guild_donate, guild_afk, guild_conquest in `sxs.daily`): donations up to 2 a day (Free, then 20 Dawnium: mae-approved; never the 50 one), Forge AFK, Conquest's 2 daily attempts sent to the background, Conquest goals claimed. Screens `docs/screens/guild_*`; rules sent to the coordinator. Untested live: Conquest with attempts left (do it next server day and watch).
+- **Bed step** added to `sxs.daily` (template `resource/image/home/bed_xp_bubble.png`), once a day; untested live (mae had collected).
+- Not touched: guild Shop (spends Guild Tokens: ask mae), Guildmates, chat, Guild Clash (unlocks ~2026-11-12).
+- **Next job (mae, 2026-11-04)**: scripts and rules for upgrade systems, including ones not unlocked yet: skill quick upgrade (tap a skill, "quick upgrade" beside the lower-right charm); relic banding (step 1, per element as one band, all elements level together, element priority by affinity, highest first); materials (ore: armor, sand: relics, battle essence: skills, rolla: coins); stamina gathering via Journal > Map Exploration > material > Go, 5 stamina per pickup, keep 70 stamina for daily commissions, ore first then sand; always tap special nodes with a green timer circle (e.g. Grand Mine, free); always check "!" on the character screen.
+
+## Update 2026-11-04 (late night, upgrade-systems thread)
+
+- **Done**: `python -m sxs.upgrade` (Upgrade Loop) and `python -m sxs.gather` (Gather Loop), both in `sxs.daily` (`gather` step; the Upgrade Loop runs inside `strengthen` and replaced `upgrade_techniques`). Design and screens: `docs/step5-upgrades.md`. Rules sent (now R-080, R-104, R-108 updates and R-115 to R-119, docs PR #18; next free R-120) to the coordinator.
+- **Blocker found**: gromb2 is Lv 20/20. Rank Advancement (Apprentice I to II, cap 30) needs 20 Bellflowers from "Verdantglade Flower Harvest" (not found yet) plus ore item and 5.5K Rolla. Find the Flower Harvest next.
+- **Untested**: the skills, class_levels and rank passes inside the loop (I did them by hand first, so the loop's run found no badges there); special nodes (green timer circle detector is a guess; save a screenshot the first time one appears); the per-material daily cap; guarded pickups.
+- The boars with a "lightning 5" label near the ore mine: meaning unknown (hunt for a material?).
+
 ## Next steps, in order
 
 1. **Map the Guild** (unlocked at Lv 20). Follow its tutorial (`python -m sxs.tutorial --steps 40`, which follows the yellow highlight and never presses spend-looking buttons; step in by hand where it stalls). For every new screen: a `State.*` node, a reference screenshot in `docs/screens/` plus an `EXPECTED` entry, and a rule batch to the coordinator. Expected guild dailies (step 1 doc §4, R-016): 3 basic donations a day, Guild Farm (plant and harvest), guild boss. Joining or creating a guild, applying, or anything social (chat, requests) is mae's decision: ask before any of it. Donations that cost Dawnium are never made.

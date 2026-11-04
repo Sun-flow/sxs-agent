@@ -88,7 +88,8 @@ class Strengthener:
 
     def _gear_level(self) -> Optional[int]:
         """Current level of the selected piece on Enhance Gear, from the big "+21 -> +22" line."""
-        for t, _ in self.det.read_text(GEAR_LEVEL_ROI):
+        # OCR order is not left to right ("+10" can come before "+9"): the current level is the leftmost number.
+        for t, _ in sorted(self.det.read_text(GEAR_LEVEL_ROI), key=lambda tb: tb[1][0]):
             m = re.fullmatch(r"\+?(\d+)", t.strip())
             if m:
                 return int(m.group(1))
