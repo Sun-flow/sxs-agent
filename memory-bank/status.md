@@ -22,10 +22,14 @@
 
 Format: `- what — branch, PR, environment (started)`. Remove the line when it merges or is dropped.
 
+- Progress tracker (mae 22:07): `python -m sxs progress` / `python -m sxs report`, daily `progress` step, `logs/runs.jsonl` for every run, `docs/progress-tracker.md`; also fixes `vision.ocr.read_line` calling itself (broke every caller on main after #30) — `claude/project-thread-8prvsn`, cloud (2026-11-04). Offline checks pass; untested live.
+
 - Package restructure (mae's proposals 1–5): `sxs/` split into `core/ vision/ policy/ actions/ loops/`, shared helpers (screen coordinates, OCR, heal, reward/dialogue pass-through, watchdog, unstick), explore split, one loop contract and `python -m sxs <loop>` — `claude/project-thread-kb6hi9`, cloud (2026-11-04). Offline checks pass; untested live.
 - Screenshot folders (folders under `docs/screens/`, `docs/screens/expected.json`) and the unlabelled-screens bank (`python -m sxs bank` / `label`) — same branch and PR (2026-11-04).
 
 ## Next (in order)
+
+0. Progress tracker live check: run `python -m sxs progress` on rif-love-su, confirm the profile/Journal/guild/area readings, then the daily run's report. Routes still missing: the bag (Lumium, Material Realm tools), relics (not unlocked).
 
 1. Conquest with tries left: watch it live after the 13:00Z reset.
 2. Fog Walk pickup detection on screen (glowing items): the minimap barely shows pickups under the unexplored shadow (R-086).

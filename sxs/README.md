@@ -9,14 +9,15 @@ Run from the repo root on the Windows PC (`.venv\Scripts\python`, shown below as
     python -m sxs <loop> --help             # that loop's options
     python -m sxs see badges|minimap|gift [FRAME ...]   # run one detector on saved frames or a live screenshot
     python -m sxs bank | label             # unlabelled-screens bank (docs/screens/README.md)
+    python -m sxs report [--day DAY]       # the day's progress report from saved snapshots (no emulator)
     python -m sxs state | screenshot | tap X Y | swipe ... | back | start | stop | capture NAME | watch
 
 Coordinates are in the 720×1280 portrait frame. No module calls a model.
 
 | Folder | Holds | Rule |
 |---|---|---|
-| `core/` | Device, state detector, navigator, paths, shared screen coordinates (`ui.py`), daily marks, the loop contract (`loop.py`) | Knows nothing about any one game system |
-| `vision/` | Reading the screen: OCR helpers, HP bar, HUD numbers, player label, tracker, pickups, badges, minimap, gift | Never taps |
+| `core/` | Device, state detector, navigator, paths, shared screen coordinates (`ui.py`), daily marks, run and progress records (`records.py`), the loop contract (`loop.py`) | Knows nothing about any one game system |
+| `vision/` | Reading the screen: OCR helpers, HP bar, HUD numbers, account stats (`stats.py`), player label, tracker, pickups, badges, minimap, gift | Never taps |
 | `policy/` | Decisions from `resource/policy/*.json`: card/popup decider, free-claim presser | The spend blocklists live here (**safeguard**) |
 | `actions/` | Small reusable steps that tap: heal, close rewards / step dialogue, go to an area, unstick, camera, watchdog | No loop of its own, except `goto` |
 | `loops/` | Goal-driven loops, one module each, each exposing `LOOP` | Registered in `loops/__init__.py` |
@@ -30,7 +31,7 @@ Every loop has the same inputs, outputs and readouts:
 - **Outputs.** `run` returns a `Result(status, ok, data)`, or a plain status string or a dict with `end`/`status`
   (converted by `as_result`). `ok` is whether `status` is in the loop's `ok` set.
 - **Readouts.** At start the loop logs mae's banner (`[Running X Loop]` / `[Goal: ...]` / `[End condition: ...]`).
-  At the end the runner logs `[Result X] status` and prints one JSON line:
+  At the end the runner logs `[Result X] status`, appends the readout to `logs/runs.jsonl`, and prints one JSON line:
   `{"loop": "explore", "status": "complete", "ok": true, "seconds": 812, ...}`.
   Exit code 0 ok, 1 needs a look, 2 refused (a `refused: ...` status, e.g. pray without approval).
 
@@ -60,9 +61,11 @@ Every loop has the same inputs, outputs and readouts:
 | `mall` | `loops/mall.py` | Mall free gift boxes, never a price (**safeguard**) | |
 | `vendor` | `loops/vendor.py` | Vault free x30 stamina only (**safeguard**) | `--check` |
 | `tutorial` | `loops/tutorial.py` | Follow tutorial highlights | `--steps 40` |
+| `progress` | `loops/progress.py` | Read the account's numbers (read only), keep them per day, report the changes | `--only hud,profile`, `--guild-shop` |
 | `pray` | `loops/pray.py` | Skill pulls. **Only when mae authorises a run**; no loop imports it | `--check` / `--pulls N --handler-approved` (x10 only) |
 
-Who calls whom: `daily` → `mall`, `vendor`, `tower`, `guild`, `gather`, `strengthen`, `upgrade`, `policy.claims`.
+Who calls whom: `daily` → `mall`, `vendor`, `tower`, `guild`, `gather`, `strengthen`, `upgrade`, `policy.claims`, `progress`.
+`progress` → `guild` (island and building taps), `roam` (area map reader).
 `roam` → `actions.goto`, `fogwalk`; `fogwalk` → `explore` (HP reader), `gather` (stamina cost), `actions.rewards`;
 `explore` → `tower`, `strengthen`. Everything → `core`.
 
@@ -76,6 +79,8 @@ Who calls whom: `daily` → `mall`, `vendor`, `tower`, `guild`, `gather`, `stren
 | Fight / loading / dialogue / reward screens in a loop | `actions/common.py`: `pass_through(dev, d)`, `close_rewards(dev, det)` |
 | HP before a fight | `actions/heal.py`: `hp_ok`, `quick_heal`, `heal_via_portrait` (70% rule) |
 | Stuck or unfamiliar screens | `actions/watchdog.py` (`Heartbeat`, `UnknownScreens`), `actions/unstick.py`, `device.save_unknown` → `captures/unknown/` |
+| Account numbers off a screen (top bar, profile, Journal, Cart, guild) | `vision/stats.py`; small badge labels: `ocr.zoomed_lines` |
+| Per-day records (`logs/runs.jsonl`, `logs/progress/`) | `core/records.py`: `note(source, values)` from any loop that sees a stat on the way |
 | Repo paths | `core/paths.py` (`RESOURCE`, `POLICY`, `SCREENS`, `CAPTURES`, `LOGS`) |
 | Reference screenshots | `core/screens.py`: `folder_for(name)`, `find(name)`, `reference_screens()`, `load_expected()`, the bank |
 

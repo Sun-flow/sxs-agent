@@ -20,6 +20,7 @@ Steps, in order (each starts from home and ends there):
   strengthen       Better gear and charms from the profile, then the Upgrade Loop (sxs.loops.upgrade): every "!" on the
                    Character screen (banded gear, resonance, Quick Upgrade, ascensions, class levels, rank, goals).
                    Repeated after quest claims, because enhancing finishes quests and quests pay ore.
+  progress         Read the day's numbers (home, profile, Journal) for the progress report (sxs.loops.progress).
 
 Once-a-day steps are recorded in logs/daily.json under the server date (UTC-5, resets 8:00 server time).
 mae's rules hold throughout: no Dawnium, no spend buttons, no class choices, no social, no Rcmd Loadouts, heal
@@ -35,7 +36,7 @@ import time
 from typing import Callable
 
 from ..actions.common import close_rewards
-from ..core import ui
+from ..core import records, ui
 from ..core.device import save_unknown
 from ..core.loop import OVER_BUDGET, Loop, banner, task
 from ..core.marks import done_today, mark_done
@@ -151,6 +152,7 @@ class Dailies:
         self._tap(REALM_GOALS_TAB, 2)
         claims.claim_all(self.dev, self.det, home_state="material_realms")
         log.info("Ironvein Pit: %d hammers used", used)
+        records.note("iron_hammers", {"used": used})  # progress tracker
         return "done" if used else "nothing"
 
     def quests(self) -> str:
@@ -199,12 +201,22 @@ class Dailies:
         self.upgrader.run()
         return "done"
 
+    def progress(self) -> str:
+        """Read the day's numbers for the progress tracker (sxs.loops.progress: read only, no taps that act)."""
+        from . import progress as tracker
+
+        values, outcome = tracker.Tracker(self.dev, self.det).snapshot(["hud", "profile", "journal"])
+        records.add_snapshot(values)
+        tracker.write_report(records.server_day())
+        return "done" if all(v == "read" for v in outcome.values()) else "nothing"
+
     # --- the loop ---
 
     STEPS: list[tuple[str, bool]] = [  # (name, once a day)
         ("sign_in", True), ("mall_gifts", True), ("vendor_stamina", True), ("cart", False), ("bed", True), ("growth_trial", False), ("fantasia_ascent", True),
         ("material_realms", False), ("guild_donate", True), ("guild_afk", False), ("guild_conquest", True),
         ("quests", False), ("gather", False), ("strengthen", False), ("quests", False), ("strengthen", False),
+        ("progress", False),
     ]
 
     def run(self, only: set = None, force: bool = False, step_s: float = STEP_BUDGET_S) -> dict:
