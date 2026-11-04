@@ -6,6 +6,7 @@
 ### 2026-11-04 · Game docs: Fantasia Ascent (Claude Code, cloud)
 - PR #9 merged (memory check fix, healing rules, gold buildings, loop design rules). Added R-079 (Auto Challenge in Fantasia Ascent) and the `fantasia_ascent` screen.
 - R-079 addendum from the builder: a tower floor loss turns Auto Challenge off; re-enable it next time. mae: tower losses are not retried; one challenge per day as a daily mission. Branch `claude/project-thread-npg43i` fast-forwarded to main.
+- mae's design rule in `memory-bank/notes.md`: loops flag the unknown state and recover or end early with a report, instead of spinning.
 
 ### 2026-11-03 (late) · Game docs after PR #6 (Claude Code, cloud)
 - PR #6 merged batches 4 to 9 and mae's rules up to R-067. Added R-068 (travel through the full area map) and the `area_map` screen; branch `claude/project-thread-npg43i` fast-forwarded to main.
