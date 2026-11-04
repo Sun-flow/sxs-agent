@@ -409,8 +409,8 @@ Entry format:
 - **Related**: R-031, R-043, R-046, R-047, R-078, nodes `player_profile`, `wounded`, `alchemy_pot`.
 
 ### R-080 · A red "!" over the player means check the character panel
-- **Rule**: A red "!" above the player character on the overworld is a general "something to do with your character" badge, not a heal signal. Causes include charms (or other gear) ready to equip, and possibly low HP among others. When it appears, open the character panel (HUD portrait), follow the badged tab and handle it (equip, upgrade or claim, within the spending rules); decide whether to heal only from the HP bar (R-061, R-078). Do not block fights on the "!" alone: the explore loop got stuck treating a charm "!" as a heal request.
-- **Confidence**: told. **Source**: mae, 2026-11-04.
+- **Rule**: A red "!" above the player character on the overworld is a general "something to do with your character" badge, not a heal signal. Causes include charms (or other gear) ready to equip, and possibly low HP among others. When it appears, open the character panel (HUD portrait), follow the badged tab and handle it (equip, upgrade or claim, within the spending rules); decide whether to heal only from the HP bar (R-061, R-078). On the character panel, red badges mark empty Charm slots and blue badges mark available gear upgrades. Do not block fights on the "!" alone: the explore loop got stuck treating a charm "!" as a heal request. Also beware mis-taps: when the quest marker sits next to the player, a tap meant for the marker can land on the player sprite and open the character panel instead; aim off the sprite or move first.
+- **Confidence**: told (mae); badge colours and the mis-tap observed by the builder. **Source**: mae, 2026-11-04; builder thread, 2026-11-04.
 - **Images**: none yet (want: the player "!" and the badged charm tab).
 - **Related**: R-061, R-063, R-078, node `player_profile`.
 
