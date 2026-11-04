@@ -3,6 +3,9 @@
 > **Last updated**: 2026-11-04
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
 
+### 2026-11-04 · Setup on rif-love-su (Claude Code, rif-love-su via Remote Control)
+- Branch `claude/project-thread-5s0w12` = `upgrade-systems` (4 commits not yet in main) + main. venv, requirements, OCR models; offline detector check all good. MuMu found at 127.0.0.1:16416; `sxs.device` now falls back to the single adb device. Live screenshot: home, gromb2 Lv 21, power 16.3K. Game not touched beyond the screenshot.
+
 ### 2026-11-04 (morning) · Pulls, Mall gifts, Bellflower hunt start (Claude Code, maes2024 via Remote Control)
 - Same branch `upgrade-systems`, main merged in. 20 handler-approved pulls (10 singles by mistake; `sxs.pray` now x10 only). Rating popup: Later. `sxs/mall.py` + daily step `mall_gifts` (4 free gift boxes). Vendor Booth unlocked by tutorial.
 - Bellflower Flower Harvest found (free picks in Moonveil Woods, 2/20); `gather --harvest` needs a better plant detector. Paused by mae to swap computers. Details in handoff.md.
