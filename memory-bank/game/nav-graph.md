@@ -65,6 +65,8 @@ flowchart TD
     charm_detail["Charm card"]
     rcmd_loadouts["Recommended loadouts"]
     gear_swap_prompt["Gear swap prompt"]
+    replace_gear["Replace Gear list"]
+    gear_compare["Gear compare"]
     home -->|"tap: Bottom nav bar (y 0.97): Character"| character
     world_map -.->|"tap: Bottom nav bar (y 0.97): Character"| character
     home -->|"tap: Bottom nav bar (y 0.97): Travel Journal"| travel_journal
@@ -143,6 +145,9 @@ flowchart TD
     loadout_edit -->|"tap: A charm in the Charm tab"| charm_detail
     charm_detail -->|"tap: Equip, then tap an empty slot"| loadout_edit
     loadout_edit -->|"tap: Rcmd [never (bot)]"| rcmd_loadouts
+    player_profile -->|"tap: An Equip slot, then Replace on its card [goal=strengthen]"| replace_gear
+    replace_gear -->|"tap: A candidate (green up arrow)"| gear_compare
+    gear_compare -->|"tap: Replace under the new item [new power > equipped power]"| player_profile
 ```
 
 ## Screens
@@ -160,7 +165,7 @@ flowchart TD
 | `battle` | Battle | battle | observed |  | Plays itself (R-001); 15 rounds max. Loss leads to defeated. Mine battles run up to 25 rounds. |
 | `battle_result` | Battle result | popup | reported |  | Not seen: wins return straight to world_map, sometimes with a reward_popup; losses show the defeated dialog. |
 | `defeated` | Defeated dialog | popup | observed |  | Confirm dialog 'Your character is incapacitated. Return to Home now?' after losing a map fight (R-031). |
-| `interact` | Exploration card | popup | observed |  | Card for a map structure or object: picture, title, one-line description, one button at about (0.5, 0.70). Seen: Portal (Activate), Temple Ruins (Explore). Dismiss by tapping outside. What to press is decided by the card policy (R-042). Also Voyage Obelisk (Activate, kingdom travel), Goddess Statue (Unlock) and mines (Explore at 0.5, 0.80) (R-069 to R-071). |
+| `interact` | Exploration card | popup | observed |  | Card for a map structure or object: picture, title, one-line description, one button at about (0.5, 0.70). Seen: Portal (Activate), Temple Ruins (Explore). Dismiss by tapping outside. What to press is decided by the card policy (R-042). Also Voyage Obelisk (Activate, kingdom travel), Goddess Statue (Unlock) and mines (Explore at 0.5, 0.80) (R-069 to R-071). Gate of Power cards have no button: dismiss (R-086). Lost Goddess Statue Unlock at (0.5, 0.81) (R-070). |
 | `reward_popup` | Reward popup | popup | observed |  | Close by tapping anywhere. |
 | `confirm_dialog` | Confirm dialog | popup | observed |  | Cancel (0.32,0.57), OK (0.68,0.57). Returns to whatever the confirmed action leads to. Height varies: the 'Confirm' title sits between y 0.26 and 0.35, so buttons move with it (OK at y 0.57 for travel, 0.65 for defeat). |
 | `dialogue` | Story dialogue | overlay | observed |  | Tutorial/story overlay (Akane). Tap (0.5,0.9) to advance; can sit on top of any screen. Sometimes offers reply options (white pill with a black arrow). |
@@ -207,6 +212,8 @@ flowchart TD
 | `charm_detail` | Charm card | popup | observed |  | Name, rarity, affinity, source. Equip (0.5, 0.70), then tap an empty slot; reads Replace when the slot is filled. |
 | `rcmd_loadouts` | Recommended loadouts | popup | observed |  | Beginner's Pick, AoE DMG, Apply. The bot doesn't use it (R-080). |
 | `gear_swap_prompt` | Gear swap prompt | overlay | observed |  | Pops after chests with better gear (+power, swap button bottom right). Closed when the reward popup was dismissed (R-085). |
+| `replace_gear` | Replace Gear list | menu | observed |  | Candidates best first; green up arrow = upgrade (R-088). |
+| `gear_compare` | Gear compare | popup | observed |  | Equipped left, new right, with power. Replace under the new item; enhancement carries over (R-088). |
 
 ## Actions
 
@@ -303,3 +310,6 @@ flowchart TD
 | Charm card | Loadout (Edit) | tap Equip, then tap an empty slot at [0.5, 0.7] | observed |  |
 | Loadout (Edit) | Recommended loadouts | tap Rcmd (when never (bot)) | observed | Never on the bot's own; listed for completeness. |
 | Gear swap prompt | previous screen | tap Dismiss the reward popup | observed | Closes with it. |
+| Player profile | Replace Gear list | tap An Equip slot, then Replace on its card (when goal=strengthen) | observed | Two taps; the item card in between isn't a node yet. |
+| Replace Gear list | Gear compare | tap A candidate (green up arrow) | observed |  |
+| Gear compare | Player profile | tap Replace under the new item (when new power > equipped power) | observed | Returns to the profile, presumably; not confirmed. |

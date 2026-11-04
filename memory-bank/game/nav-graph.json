@@ -219,9 +219,11 @@
     "docs/screens/interact_temple.png",
     "docs/screens/interact_obelisk.png",
     "docs/screens/interact_goddess_statue.png",
-    "docs/screens/interact_ironvein_pit.png"
+    "docs/screens/interact_ironvein_pit.png",
+    "docs/screens/lost_goddess_statue.png",
+    "docs/screens/gate_of_power.png"
    ],
-   "notes": "Card for a map structure or object: picture, title, one-line description, one button at about (0.5, 0.70). Seen: Portal (Activate), Temple Ruins (Explore). Dismiss by tapping outside. What to press is decided by the card policy (R-042). Also Voyage Obelisk (Activate, kingdom travel), Goddess Statue (Unlock) and mines (Explore at 0.5, 0.80) (R-069 to R-071)."
+   "notes": "Card for a map structure or object: picture, title, one-line description, one button at about (0.5, 0.70). Seen: Portal (Activate), Temple Ruins (Explore). Dismiss by tapping outside. What to press is decided by the card policy (R-042). Also Voyage Obelisk (Activate, kingdom travel), Goddess Statue (Unlock) and mines (Explore at 0.5, 0.80) (R-069 to R-071). Gate of Power cards have no button: dismiss (R-086). Lost Goddess Statue Unlock at (0.5, 0.81) (R-070)."
   },
   {
    "id": "reward_popup",
@@ -819,6 +821,30 @@
     "docs/screens/gear_swap_prompt.png"
    ],
    "notes": "Pops after chests with better gear (+power, swap button bottom right). Closed when the reward popup was dismissed (R-085)."
+  },
+  {
+   "id": "replace_gear",
+   "name": "Replace Gear list",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/replace_gear.png"
+   ],
+   "notes": "Candidates best first; green up arrow = upgrade (R-088)."
+  },
+  {
+   "id": "gear_compare",
+   "name": "Gear compare",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/gear_compare.png"
+   ],
+   "notes": "Equipped left, new right, with power. Replace under the new item; enhancement carries over (R-088)."
   }
  ],
  "edges": [
@@ -2100,6 +2126,44 @@
    },
    "confidence": "observed",
    "notes": "Closes with it."
+  },
+  {
+   "from": "player_profile",
+   "to": "replace_gear",
+   "action": {
+    "type": "tap",
+    "target": "An Equip slot, then Replace on its card",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Two taps; the item card in between isn't a node yet.",
+   "when": "goal=strengthen"
+  },
+  {
+   "from": "replace_gear",
+   "to": "gear_compare",
+   "action": {
+    "type": "tap",
+    "target": "A candidate (green up arrow)",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "gear_compare",
+   "to": "player_profile",
+   "action": {
+    "type": "tap",
+    "target": "Replace under the new item",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Returns to the profile, presumably; not confirmed.",
+   "when": "new power > equipped power"
   }
  ]
 }

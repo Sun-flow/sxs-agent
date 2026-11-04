@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/`; templates in `resource/image/`.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-086).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-091).
 
 Entry format:
 
@@ -155,8 +155,8 @@ Entry format:
 - **Related**: R-002, R-008, node `world_map`.
 
 ### R-022 · Quest tracking puts a gold ring on the next target
-- **Rule**: The target icon on the quest tracker panel (0.40, 0.79) toggles tracking. While on, a gold ring marks the next target; if the target is off screen the ring sits at the screen edge pointing to it. Tap the edge ring to pan the camera, then tap the item. The ring floats about 100 px (0.08 of the screen height) above its target, so tap below it. It can hide under the top-left avatar and level badge; dragging the map brings it back. Templates: `resource/image/explore/marker.png` (lit) and `resource/image/explore/marker_dim.png` (shadowed).
-- **Confidence**: observed. **Source**: builder batches 1 and 4.
+- **Rule**: The target icon on the quest tracker panel (0.40, 0.79) toggles tracking. While on, a gold ring marks the next target; if the target is off screen the ring sits at the screen edge pointing to it. Tap the edge ring to pan the camera, then tap the item. The ring floats about 100 px (0.08 of the screen height) above its target, so tap below it. It can hide under the top-left avatar and level badge; dragging the map brings it back. It can also sit on the area name and coordinates under the minimap, which breaks `world_map` detection; nudge the camera to uncover them (builder batch 12). Templates: `resource/image/explore/marker.png` (lit) and `resource/image/explore/marker_dim.png` (shadowed).
+- **Confidence**: observed. **Source**: builder batches 1, 4 and 12.
 - **Images**: none yet (want: tracking ring on screen and at the edge).
 - **Related**: R-009.
 
@@ -461,8 +461,8 @@ Entry format:
 - **Related**: R-025, R-064, R-066.
 
 ### R-068 · Travel to a far or unexplored area through the full map
-- **Rule**: To move somewhere distant or unexplored: tap the minimap to open the full area map; look for unexplored areas on it; tap the spot you want the camera over (this centres the camera there); close the map, and the camera now shows that spot; then tap the ground where you want to go and the player auto-paths there, around walls and through land bridges (R-067). This is the intended way to reach unexplored areas found on the map. The white box on the area map is the camera viewport. Auto-pathing works even through gaps you can't see on screen. Code: `sxs/goto.py` (`python -m sxs.goto "Area Name"` or `X Y`); this route got the bot into Moonveil Woods.
-- **Confidence**: told, then observed (builder batch 11). **Source**: mae, 2026-11-03; builder batch 11, 2026-11-04.
+- **Rule**: To move somewhere distant or unexplored: tap the minimap to open the full area map; look for unexplored areas on it; tap the spot you want the camera over (this centres the camera there); close the map, and the camera now shows that spot; then tap the ground where you want to go and the player auto-paths there, around walls and through land bridges (R-067). This is the intended way to reach unexplored areas found on the map. The white box on the area map is the camera viewport. The map's zoom differs between openings, so labels land at different screen spots each time: pick places by their OCR'd label, never by fixed position. An area whose label sits in fog can't be reached this way (walking there fails with `no_move`); travel from home instead (R-089). Auto-pathing works even through gaps you can't see on screen. Code: `sxs/goto.py` (`python -m sxs.goto "Area Name"` or `X Y`); this route got the bot into Moonveil Woods.
+- **Confidence**: told, then observed (builder batches 11 and 12). **Source**: mae, 2026-11-03; builder batches 11 and 12, 2026-11-04.
 - **Images**: `docs/screens/world_area_map.png`, `docs/screens/world_map_moonveil_entry.png`, `docs/screens/world_area_map_stone_ruins.png` (step 3 branch).
 - **Related**: R-025, R-032, R-065, R-066, R-067, node `area_map`.
 
@@ -475,9 +475,9 @@ Entry format:
 - **Related**: R-006, R-030.
 
 ### R-070 · Goddess Statues bless a fully explored area
-- **Rule**: A Goddess Statue's card requires "Reach 100% exploration in <area>" and rewards Blessing Level +1, with an Unlock button. The quest "The Goddess's Grace I/II" follows each Explore quest. It is reached through a white edge pointer with a statue icon (`resource/image/explore/pointer_statue.png`). Blessing Level 2 raised the Max Cart Level from 1 to 2 and the AFK EXP rate from 50 to 500, so blessing every area is worth it.
-- **Confidence**: observed. **Source**: builder batch 10. Confirms R-003.
-- **Images**: `docs/screens/interact_goddess_statue.png`, `docs/screens/blessing_level.png`.
+- **Rule**: A Goddess Statue's card requires "Reach 100% exploration in <area>" and rewards Blessing Level +1, with an Unlock button. The quest "The Goddess's Grace I/II" follows each Explore quest. It is reached through a white edge pointer with a statue icon (`resource/image/explore/pointer_statue.png`). Blessing Level 2 raised the Max Cart Level from 1 to 2 and the AFK EXP rate from 50 to 500, so blessing every area is worth it. A variant, the **Lost Goddess Statue** ("Activate this dim statue to dispel darkness... Blessed Land"), has the same 100% exploration requirement but its Unlock sits lower, at (0.5, 0.81); its rewards are home boosts (Highland Woods: Home EXP and Home Wood Yield Boost +1%; Moonveil Woods: Home EXP and Home Rolla Yield Boost +1%), then Tap to Continue. Match both with "(Lost )?Goddess Statue".
+- **Confidence**: observed. **Source**: builder batches 10 and 12. Confirms R-003.
+- **Images**: `docs/screens/interact_goddess_statue.png`, `docs/screens/blessing_level.png`, `docs/screens/lost_goddess_statue.png` (step 3 branch).
 - **Related**: R-002, R-003, R-014, R-020, R-035.
 
 ### R-071 · Mines are mini-dungeons with first-clear rewards
@@ -549,14 +549,14 @@ Entry format:
 - **Images**: `docs/screens/quest_detail_unlock.png`, `docs/screens/dungeon_gate_moonveil.png` (step 3 branch).
 - **Related**: R-040, R-062, R-064, R-083.
 
-### R-083 · A gift icon on the tracker claims a finished counterless quest
-- **Rule**: When a counterless quest is done, the map tracker's olive panel shows a small gift icon at about (0.36, 0.77). Tapping it claims the quest. The gift animates, so template matches flicker; match over a few frames or with a looser threshold.
-- **Confidence**: observed. **Source**: builder batch 11.
+### R-083 · A gift icon on the tracker claims a finished quest
+- **Rule**: When a tracked quest is done (counterless ones, and counter ones such as "Weapon Enhancement II: Main Weapon Enhancement Level 21/20"), the map tracker's olive panel shows a small gift icon at about (0.36, 0.77). Tapping it claims the quest. The gift animates, so template matches flicker; match over a few frames or with a looser threshold.
+- **Confidence**: observed. **Source**: builder batches 11 and 12.
 - **Images**: `docs/screens/world_map_tracker_gift.png` (step 3 branch).
 - **Related**: R-022, R-082.
 
 ### R-084 · A recommended power far above yours is a wall: stop exploring there
-- **Rule**: After Moonveil Woods the next main quest is "Verdant Wonders III: Explore Verdantglade III", recommended power 12K. At 8.1K every fight there ended "badly wounded", so the bot treats it as the natural wall for this stage (mae's scope cap) and stops exploring rather than retrying. Get stronger first (gear, charms, techniques, tower clears).
+- **Rule**: After Moonveil Woods the next main quest is "Verdant Wonders III: Explore Verdantglade III", recommended power 12K. At 8.1K every fight there ended "badly wounded", so the bot treats it as the natural wall for this stage (mae's scope cap) and stops exploring rather than retrying. Get stronger first (gear, charms, techniques, tower clears). Still lost at 10K (R-090).
 - **Confidence**: observed. **Source**: builder batch 11.
 - **Images**: none.
 - **Related**: R-061, R-076, R-079.
@@ -566,3 +566,35 @@ Entry format:
 - **Confidence**: observed. **Source**: builder batch 11.
 - **Images**: `docs/screens/world_map_tile_puzzle_chests.png`, `docs/screens/gear_swap_prompt.png` (step 3 branch).
 - **Related**: R-072, node `gear_swap_prompt`.
+
+## Added from builder batch 12 (2026-11-04)
+
+### R-086 · Gate of Power: a hard power wall
+- **Rule**: A stone pillar card "Gate of Power" (seen in Damp Woods) reads "Requires: Power reaches 15.5K (Current: 8.1K)" and has no button. It's a wall until power is high enough. Policy kind `power_gate`: dismiss the card, and the fog walk stops there.
+- **Confidence**: observed. **Source**: builder batch 12.
+- **Images**: `docs/screens/gate_of_power.png` (step 3 branch).
+- **Related**: R-065, R-076, R-084.
+
+### R-087 · Highland Woods: guard pack, ground pickups, paler minimap dots
+- **Rule**: Highland Woods (9.6K recommended) is entered past a bracketed wolf-boss guard pack (beaten at 10K). Its pickups (orbs, a spellbook, crystals, a "Meat & Veggie Pot") lie on the ground near a cooking pot, and collecting them alone took the area to 100%. Its minimap item dots are paler than elsewhere (HSV saturation about 128, against 150+ in Verdantglade II), so the green-dot threshold of R-066 must allow for that.
+- **Confidence**: observed. **Source**: builder batch 12.
+- **Images**: `docs/screens/minimap/minimap_highland_items.png` (step 3 branch).
+- **Related**: R-066, R-073, R-076.
+
+### R-088 · Replace gear with better items from the profile
+- **Rule**: In the profile, tap an Equip slot, then Replace on its card. The Replace Gear list shows candidates best first, with a green up arrow on upgrades. Tapping one opens a side-by-side compare (equipped on the left, new on the right) with power numbers, and Replace sits under the new item. Enhancement levels carry over to the new item (Beginner's Cap +10 to Adventurer's Leather Hat +10: 133 to 759 power; Novice Staff +15 to Seeker's Staff: 142 to 785). Two swaps took power from 8.1K to about 9K; Cart, enhancement and technique upgrades then reached 10K. Blue badges on Equip (R-080) point at these upgrades.
+- **Confidence**: observed. **Source**: builder batch 12.
+- **Images**: `docs/screens/replace_gear.png`, `docs/screens/gear_compare.png` (step 3 branch).
+- **Related**: R-080, R-085, nodes `replace_gear`, `gear_compare`.
+
+### R-089 · Travel from home through the quest tracker
+- **Rule**: At home, tapping the tracker for a quest in another area asks "Travel to <Area> now?" with Cancel and OK; it's free. This is the way into an area whose area-map label is still in fog, where walking there via the area map fails (R-068).
+- **Confidence**: observed. **Source**: builder batch 12.
+- **Images**: `docs/screens/confirm_dialog.png`.
+- **Related**: R-068, node `confirm_dialog`.
+
+### R-090 · "Badly wounded" after a map fight is a loss
+- **Rule**: A map fight lost in Verdantglade III (recommended 12K, at 10K) ended with the "badly wounded" dialog (R-046) and the character back in Verdantglade II, not the "incapacitated" dialog (R-031). Treat either as a loss for the heal-and-retry count (R-061) and the power-wall check (R-084).
+- **Confidence**: observed. **Source**: builder batch 12.
+- **Images**: `docs/screens/wounded.png`.
+- **Related**: R-031, R-046, R-061, R-084.

@@ -10,6 +10,7 @@
 - mae's reporting rule in `memory-bank/notes.md`: each loop prints `[Running XXX Loop]`, `[Goal: ...]` and `[End condition: ...]` when it starts.
 - mae's correction: a red "!" over the player is not a heal signal (it can mean charms to equip). R-061 amended; new R-080 (check the character panel; heal only from the HP bar; red panel badge = empty Charm slot, blue = gear upgrade; marker next to the player can cause mis-taps).
 - Builder batch 11: R-081 to R-085 (map coordinates, counterless unlock quests, tracker gift claim, power wall at Verdantglade III, stone tile puzzle); R-068, R-074, R-076, R-079 and R-080 extended with goto, the player pointer, the tower flow and the charm loadout steps. New screens `fantasia_floors`, `fantasia_result`, `charm_detail`, `rcmd_loadouts`, `gear_swap_prompt`. Images are on the step 3 branch. All in PR #10.
+- Builder batch 12: R-086 to R-090 (Gate of Power, Highland Woods, replacing gear, travel from home, "badly wounded" as a loss); R-022, R-068, R-070, R-083 and R-084 extended (ring hiding the area name, map zoom and OCR labels, Lost Goddess Statue, gift claims for counter quests). New screens `replace_gear`, `gear_compare`. Same PR #10.
 
 ### 2026-11-03 (late) · Game docs after PR #6 (Claude Code, cloud)
 - PR #6 merged batches 4 to 9 and mae's rules up to R-067. Added R-068 (travel through the full area map) and the `area_map` screen; branch `claude/project-thread-npg43i` fast-forwarded to main.
