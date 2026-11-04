@@ -102,6 +102,10 @@ class Strengthener:
         self.nav.tap_and_expect(nav.NAV_CHARACTER, "character")
         self._tap(GEAR_SLOTS[0], 2)
         self._tap(ITEM_CARD_ENHANCE, 2.5)
+        if self.det.detect().state != "enhance_gear":
+            log.warning("Enhance Gear did not open; skipping gear")
+            self.nav.go_home()
+            return
         levels = {}
         for i, tab in enumerate(GEAR_TABS):
             self._tap(tab)

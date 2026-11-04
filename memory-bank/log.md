@@ -3,6 +3,10 @@
 > **Last updated**: 2026-11-04
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
 
+### 2026-11-04 · Dailies and upgrades (Claude Code, maes2024 via Remote Control)
+- Branch `dailies-upgrades` from `step3-wrapup`: `python -m sxs.daily` runs sign-in, Cart, Growth Trial, Fantasia Ascent (Journal tab entry, heal on prep, server-day marks), guidance quest claims and two strengthen passes. Safe claim helper `sxs/claims.py`. New states: enhance_gear, featured, daily_signin, growth_trial, journal, material_realms, notice; main_menu ROI widened. Live: all steps ran; gear enhancement is ore-bound (7 Raw Ore).
+- Found: Journal tab (Fantasia Ascent, Map Exploration, Material Realms, Weekly Events); Ironvein Pit needs Iron Hammers (bought only with Dawnium: never). Notice badges mean unread posts.
+
 ### 2026-11-04 · Game docs: Fantasia Ascent (Claude Code, cloud)
 - PR #9 merged (memory check fix, healing rules, gold buildings, loop design rules). Added R-079 (Auto Challenge in Fantasia Ascent) and the `fantasia_ascent` screen.
 - R-079 addendum from the builder: a tower floor loss turns Auto Challenge off; re-enable it next time. mae: tower losses are not retried; one challenge per day as a daily mission. Branch `claude/project-thread-npg43i` fast-forwarded to main.

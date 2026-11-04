@@ -31,6 +31,15 @@
                 "State.WorldMap",
                 "State.Character",
                 "State.MainMenu",
+                "State.EnhanceGear",
+                "State.Featured",
+                "State.DailySignin",
+                "State.GrowthTrial",
+                "State.Journal",
+                "State.MaterialRealms",
+                "State.Notice",
+                "State.PrayerResult",
+                "State.Prayer",
                 "State.Quests",
                 "State.Unknown"
             ]
@@ -198,14 +207,14 @@
         "post_delay": 0
     },
     "State.MainMenu": {
-        "doc": "Menu sheet from the box button on Home: Quest, Photo, Notice, User Center, Settings, server clock.",
+        "doc": "Menu sheet from the box button on Home: event banner, Quest, Mall, Friends, Gallery, Photo, Notice, User Center, Settings, server clock. User Center moves up as rows are added, so the ROI covers the grid.",
         "recognition": "OCR",
         "expected": "User Center",
         "roi": [
-            290,
-            1090,
-            150,
-            50
+            0,
+            840,
+            720,
+            320
         ],
         "pre_delay": 0,
         "post_delay": 0
@@ -396,6 +405,123 @@
             950,
             300,
             60
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.EnhanceGear": {
+        "doc": "Enhance Gear: piece tabs along the top (+level badges), the selected piece's '+21 -> +22', cost, Enhance.",
+        "recognition": "OCR",
+        "expected": "^Enhance Gear$",
+        "roi": [
+            0,
+            20,
+            400,
+            70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Featured": {
+        "doc": "Featured events list from Home's 'Thrilling Events' button: Dawnstar Prelude (draws: never), Growth Trial, Daily Sign-in, Link Account (never).",
+        "recognition": "OCR",
+        "expected": "^Featured$",
+        "roi": [
+            0,
+            20,
+            300,
+            70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.DailySignin": {
+        "doc": "Daily Sign-in calendar (30 tiles). Today's tile says Claim; 'Catch Up' tiles for missed days are skipped.",
+        "recognition": "OCR",
+        "expected": "Daily Sign-in",
+        "roi": [
+            40,
+            110,
+            400,
+            90
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.GrowthTrial": {
+        "doc": "Growth Trial: day tabs of trial quests with Claim buttons when complete. 'Advanced Trial' is paid: never.",
+        "recognition": "OCR",
+        "expected": "^Growth Trial$",
+        "roi": [
+            40,
+            10,
+            300,
+            60
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Journal": {
+        "doc": "Journal tab (bottom bar, second icon): Fantasia Ascent, Map Exploration, Material Realms, Weekly Events.",
+        "recognition": "OCR",
+        "expected": "^Map Exploration$",
+        "roi": [
+            0,
+            630,
+            320,
+            60
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.MaterialRealms": {
+        "doc": "Material Realms: realm list (Ironvein Pit), a realm's mining screen, or its Goals tab.",
+        "recognition": "OCR",
+        "expected": "Material Realms|Mining Goals",
+        "roi": [
+            0,
+            20,
+            400,
+            70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Notice": {
+        "doc": "Notice board (tabs Notice / System / News). Its red badges mean unread posts, not claims.",
+        "recognition": "OCR",
+        "expected": "^Notice$",
+        "roi": [
+            250,
+            60,
+            220,
+            70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.PrayerResult": {
+        "doc": "Prayer result: the pulled skills and shards, 'Prayers Today' top left, Pray x1/x10 again at the bottom (never on the bot's own).",
+        "recognition": "OCR",
+        "expected": "^Prayers Today",
+        "roi": [
+            0,
+            20,
+            460,
+            70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Prayer": {
+        "doc": "Prayer (Goddess Statue on home): Standard / Affection banners, Pray x1 / x10, tabs Prayer / Exchange / Goals. Pulls only via sxs.pray with the handler's approval.",
+        "recognition": "OCR",
+        "expected": "^Prayer$",
+        "roi": [
+            0,
+            20,
+            300,
+            70
         ],
         "pre_delay": 0,
         "post_delay": 0
