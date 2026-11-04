@@ -281,7 +281,7 @@ Entry format:
 - **Related**: R-022, R-028.
 
 ### R-042 · Card policy: what the bot presses depends on its goal
-- **Rule**: Cards and dialogs are answered by a goal-dependent policy (`resource/policy/cards.json` and `sxs/decide.py` on the step 3 branch), not a fixed tap: defeated → OK (home); travel prompt → OK when exploring or doing dailies, Cancel when only going home; Portal → Activate; mini-dungeon card → Explore only when the goal is explore and HP is fine, else dismiss; dungeon floor → Next Floor when HP is fine, else the back arrow; unknown cards → dismiss and log. The nav graph's `when` field on edges records the same conditions.
+- **Rule**: Cards and dialogs are answered by a goal-dependent policy (`resource/policy/cards.json` and `sxs/decide.py`), not a fixed tap: defeated → OK (home); travel prompt → OK when exploring or doing dailies, Cancel when only going home; Portal → Activate; mini-dungeon card → Explore only when the goal is explore and HP is fine, else dismiss; dungeon floor → Next Floor when HP is fine, else the back arrow; unknown cards → dismiss and log. The nav graph's `when` field on edges records the same conditions.
 - **Confidence**: told (mae's design principle), implemented by the builder. **Source**: builder batch 6.
 - **Images**: none.
 - **Related**: R-018, R-043, `memory-bank/game/README.md` (the `when` field).
@@ -411,7 +411,7 @@ Entry format:
 ### R-080 · A red "!" over the player means check the character panel
 - **Rule**: A red "!" above the player character on the overworld is a general "something to do with your character" badge, not a heal signal. Causes include charms (or other gear) ready to equip, and possibly low HP among others. When it appears, open the character panel (HUD portrait), follow the badged tab and handle it (equip, upgrade or claim, within the spending rules); decide whether to heal only from the HP bar (R-061, R-078). On the character panel (tap your own character, or the HUD portrait), red badges mark empty Charm slots (row at y≈0.71) and blue badges on Equip mark available gear upgrades. To fill a charm slot: tap an empty charm slot, which opens the loadout editor "Edit" (techniques on the left, 4 charm slots on the right at x≈0.87, y≈0.21 / 0.30 / 0.39 / 0.48). It opens on the Technique tab; the Charm tab is at (0.56, 0.62). Tap a charm to open its card (for example "Heart of Flame", Rare, Fire Affinity 166, source Skill Prayer), press Equip (0.5, 0.70), then tap an empty slot. Once a slot is filled the button reads Replace. The 4th charm slot was still locked at Lv 13. The Rcmd button opens "Rcmd Loadouts" (Beginner's Pick, AoE DMG) with Apply; the bot doesn't use it. Filling the slots also completed "Combat Master: Equip 6 Skills 6/6". Any "!" on the character screen generally means an upgrade is available (skills, gear and so on): always check it and take the upgrade, within the spending rules (mae, 2026-11-04). Seen live: the badges sit on the gear slots, Skill, Class and the rank badge ("Apprentice I"), and inside the next screens they mark the exact tab or button to press. Badges pulse, so check 2 frames before deciding there's none. Code: `sxs/badges.py`, `sxs/upgrade.py`. Do not block fights on the "!" alone: the explore loop got stuck treating a charm "!" as a heal request. Also beware mis-taps: when the quest marker sits next to the player, a tap meant for the marker can land on the player sprite and open the character panel instead; aim off the sprite or move first.
 - **Confidence**: told (mae); badge colours and the mis-tap observed by the builder. **Source**: mae, 2026-11-04; builder thread, 2026-11-04.
-- **Images**: `docs/screens/player_profile_charm_badges.png`, `docs/screens/loadout_edit_charms.png`, `docs/screens/charm_detail.png`, `docs/screens/rcmd_loadouts.png` (step 3 branch).
+- **Images**: `docs/screens/player_profile_charm_badges.png`, `docs/screens/loadout_edit_charms.png`, `docs/screens/charm_detail.png`, `docs/screens/rcmd_loadouts.png`.
 - **Related**: R-061, R-063, R-078, nodes `player_profile`, `loadout_edit`, `charm_detail`, `rcmd_loadouts`, R-034, R-104, R-115 to R-119.
 
 ### R-062 · NPCs with a red "!" gate progress
@@ -450,7 +450,7 @@ Entry format:
   - **gold buildings**: interactable structures. The biggest are dungeons, which become daily challenges once cleared naturally the first time (step 1 doc's daily dungeons); smaller ones are mini-dungeons such as mines (R-071). (mae, 2026-11-03.)
   - **orange icons**: monsters. Fight them (mae, 2026-11-04 11:25), keeping the HP rules in mind (R-078, R-061).
   Other types exist and aren't catalogued yet. Shadowed walkable areas that connect to explored ground are reachable targets for exploration (R-065). mae asked the builder for a minimap reader that classifies these tiles and marks POIs, to plan walks with the coordinates (R-004).
-- **Detail** (builder batch 10, `sxs/minimap.py` on the step 3 branch): about 8 px per tile; the player sits at the centre (0.856, 0.138), radius about 86 px. OpenCV HSV thresholds: walkable explored S<95, V>=115 (BGR about 103,144,128); walkable unexplored is the same colour shaded about 0.55x (BGR about 56,75,65); wall explored S>=95, V>=85 (BGR about 59,106,69); wall unexplored V<85 (BGR about 32,57,38); unspotted grey S<35, V about 35.
+- **Detail** (builder batch 10, `sxs/minimap.py`): about 8 px per tile; the player sits at the centre (0.856, 0.138), radius about 86 px. OpenCV HSV thresholds: walkable explored S<95, V>=115 (BGR about 103,144,128); walkable unexplored is the same colour shaded about 0.55x (BGR about 56,75,65); wall explored S>=95, V>=85 (BGR about 59,106,69); wall unexplored V<85 (BGR about 32,57,38); unspotted grey S<35, V about 35.
 - **Under the unexplored shadow**: pickup dots look pale (HSV about 39/81/213). Monster dots, and gold buildings under shadow, are orange (about 18/116/187). The thresholds in `sxs/minimap.py` were widened to match (2026-11-04).
 - **Confidence**: told (legend), observed (thresholds). **Source**: mae, 2026-11-03 (orange icons 2026-11-04), with a marked-up screenshot of Verdantglade II (173, 104), not committed because it shows other players' chat; builder batch 10.
 - **Images**: `docs/screens/minimap/minimap_verdantglade2.png` (raw), `docs/screens/minimap/minimap_classified.png`, tile crops `docs/screens/minimap/tile_walk_explored.png`, `docs/screens/minimap/tile_walk_unexplored.png`, `docs/screens/minimap/tile_wall_explored.png`, `docs/screens/minimap/tile_wall_unexplored.png`, `docs/screens/minimap/tile_unspotted.png`.
@@ -465,7 +465,7 @@ Entry format:
 ### R-068 · Travel to a far or unexplored area through the full map
 - **Rule**: To move somewhere distant or unexplored: tap the minimap to open the full area map; look for unexplored areas on it; tap the spot you want the camera over (this centres the camera there); close the map, and the camera now shows that spot; then tap the ground where you want to go and the player auto-paths there, around walls and through land bridges (R-067). This is the intended way to reach unexplored areas found on the map. The white box on the area map is the camera viewport. The map's zoom differs between openings, so labels land at different screen spots each time: pick places by their OCR'd label, never by fixed position. Match labels exactly, including trailing numerals: when OCR misses "Verdantglade III", a loose match picks "Verdantglade I" instead, so a different numeral means a different area. An area whose label sits in fog can't be reached this way (walking there fails with `no_move`); travel from home instead (R-089). Auto-pathing works even through gaps you can't see on screen. Code: `sxs/goto.py` (`python -m sxs.goto "Area Name"` or `X Y`); this route got the bot into Moonveil Woods.
 - **Confidence**: told, then observed (builder batches 11 and 12). **Source**: mae, 2026-11-03; builder batches 11 and 12, 2026-11-04.
-- **Images**: `docs/screens/world_area_map.png`, `docs/screens/world_map_moonveil_entry.png`, `docs/screens/world_area_map_stone_ruins.png` (step 3 branch).
+- **Images**: `docs/screens/world_area_map.png`, `docs/screens/world_map_moonveil_entry.png`, `docs/screens/world_area_map_stone_ruins.png`.
 - **Related**: R-025, R-032, R-065, R-066, R-067, node `area_map`.
 
 ## Added from builder batch 10 (2026-11-03, handoff)
@@ -478,9 +478,9 @@ Entry format:
 
 ### R-070 · Goddess Statues bless a fully explored area
 - **Rule**: A Goddess Statue's card requires "Reach 100% exploration in <area>" and rewards Blessing Level +1, with an Unlock button. The quest "The Goddess's Grace I/II" follows each Explore quest. It is reached through a white edge pointer with a statue icon (`resource/image/explore/pointer_statue.png`). Blessing Level 2 raised the Max Cart Level from 1 to 2 and the AFK EXP rate from 50 to 500, so blessing every area is worth it. A variant, the **Lost Goddess Statue** ("Activate this dim statue to dispel darkness... Blessed Land"), has the same 100% exploration requirement but its Unlock sits lower, at (0.5, 0.81); its rewards are home boosts (Highland Woods: Home EXP and Home Wood Yield Boost +1%; Moonveil Woods: Home EXP and Home Rolla Yield Boost +1%), then Tap to Continue. Match both with "(Lost )?Goddess Statue".
-- **Already blessed**: a statue that's already unlocked has a card reading "A starlit statue silently guards this Blessed Land", lists Regional Relics, and has no button. Dismiss it and walk around it (policy kind `blessed_statue`); the fog walk kept bumping into the Moonveil Woods one. Image: `docs/screens/interact_goddess_statue_blessed.png` (rif-love-su builder's branch, not pushed yet).
+- **Already blessed**: a statue that's already unlocked has a card reading "A starlit statue silently guards this Blessed Land", lists Regional Relics, and has no button. Dismiss it and walk around it (policy kind `blessed_statue`); the fog walk kept bumping into the Moonveil Woods one. Example unlock: Damp Woods' Lost Goddess Statue ("Reach 100% exploration in Damp Woods") gave Home EXP Yield +1% and Home Stone Yield +1%, then Tap to Continue (2026-11-04). Image: `docs/screens/interact_goddess_statue_blessed.png`.
 - **Confidence**: observed. **Source**: builder batches 10 and 12. Confirms R-003.
-- **Images**: `docs/screens/interact_goddess_statue.png`, `docs/screens/blessing_level.png`, `docs/screens/lost_goddess_statue.png` (step 3 branch).
+- **Images**: `docs/screens/interact_goddess_statue.png`, `docs/screens/blessing_level.png`, `docs/screens/lost_goddess_statue.png`.
 - **Related**: R-002, R-003, R-014, R-020, R-035.
 
 ### R-071 · Mines are mini-dungeons with first-clear rewards
@@ -514,9 +514,9 @@ Entry format:
 - **Related**: R-020, R-043, R-051.
 
 ### R-076 · The area map shows resources, progress and power gates
-- **Rule**: The full area map (R-068) has a legend (Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone) and shows each area's exploration % and any power gate (Highland Woods 9.6K, Verdantglade III 12K). Only unfinished areas show "Exploration: N%" (and a gate such as "12K") under their label; finished ones show just the name. Lost Statue icons match `resource/image/areamap/lost_statue.png` at 0.8. Sunrise Isle shows at the right edge (its % not read yet). Areas below the gate's power are not worth entering yet. Ore nodes cost 5 stamina each. At handoff (Lv 12, Mage, power 7.7K, Verdantglade I and II 100% and blessed) Moonveil Woods, Stone Ruins I and Damp Woods were at 0%, and the bot was blocked on "Moonveil Woods I: Unlock Moonveil Woods" (R-064, R-067; solved by R-082). A fully explored area with a red "!" on the area map (Moonveil Woods at 100%) most likely has its statue waiting to be blessed (R-070); not confirmed yet. "Sunrise Isle" shows at the bottom right of the Verdantglade area map.
+- **Rule**: The full area map (R-068) has a legend (Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone) and shows each area's exploration % and any power gate (Highland Woods 9.6K, Verdantglade III 12K). Only unfinished areas show "Exploration: N%" (and a gate such as "12K") under their label; finished ones show just the name. Lost Statue icons match `resource/image/areamap/lost_statue.png` at 0.8. Sunrise Isle shows at the right edge (its % not read yet). Labels near the screen edge come back clipped on the left ("tglade III"), so `sxs/roam.py` matches label suffixes. Areas below the gate's power are not worth entering yet. Ore nodes cost 5 stamina each. At handoff (Lv 12, Mage, power 7.7K, Verdantglade I and II 100% and blessed) Moonveil Woods, Stone Ruins I and Damp Woods were at 0%, and the bot was blocked on "Moonveil Woods I: Unlock Moonveil Woods" (R-064, R-067; solved by R-082). A fully explored area with a red "!" on the area map (Moonveil Woods at 100%) most likely has its statue waiting to be blessed (R-070); not confirmed yet. "Sunrise Isle" shows at the bottom right of the Verdantglade area map.
 - **Confidence**: observed. **Source**: builder batches 10 and 11.
-- **Images**: `docs/screens/world_area_map.png`, `docs/screens/area_map_lv22.png` (rif-love-su builder's branch, not pushed yet).
+- **Images**: `docs/screens/world_area_map.png`, `docs/screens/area_map_lv22.png`.
 - **Related**: R-017, R-064, R-067, R-068, R-086, node `area_map`.
 
 ### R-077 · The Team panel is social; leave it alone
@@ -535,7 +535,7 @@ Entry format:
 - **Rule**: Whenever challenging Fantasia Ascent, the multi-floor tower (for example in Moonveil Woods), turn on Auto Challenge so floors run back to back. Auto Challenge unlocks after clearing floor 3; before that, climb floor by floor as in other mini-dungeons (R-040). The tower loop runs inside the exploration loop and hands back when it stops (`memory-bank/notes.md`, composable loops). The Auto Challenge checkbox only appears on the result screen, so it can't be ticked before a run's first fight: tick it after each win. A floor loss (DEFEAT screen with a Retry button) switches it off, and the bot leaves it off there, because ticking it on the defeat screen would start a retry. Tower losses are not retried, unlike the normal heal-and-retry rule (R-061): one challenge per day is enough, run as part of the daily missions, then hand back to the calling loop.
 - **Flow** (builder batch 11): the quest "Into the Moon's Shadow I" asks to "Reach Fantasia Ascent - Moonveil Woods F3"; its Go opens a Confirm dialog, "Return to Home to challenge the Fantasia Ascent?", and OK (0.68, 0.57) travels home. The tower list has one card per tower showing "Current: Fn/110". Tapping a card opens its floors, F1 at the bottom, with tabs "Fantasia Ascent" and "Goals" (Goals can carry a red badge, R-063). The current floor shows its recommended power (F1: 6.5K) and Challenge at (0.85, 0.86). Then battle prep (15 rounds) and the result screen: VICTORY with "<Tower> Fn", Clear Rewards (e.g. Worn Knuckles, Refined Ore x15, Raw Ore x128) and Continue at (0.77, 0.95), which goes straight to the next floor's prep; a loss shows DEFEAT mid-screen with Retry in the same spot (don't press it). After F3 the Auto Challenge checkbox appears at (0.66, 0.90) with a tutorial ("battles keep running in the background") and Continue counts down "(3s)". At 8.1K power one run cleared F1 to F5 and lost F6. Code: `sxs/tower.py` (states `tower_list`, `tower_floors`, `tower_result`; the run date is kept in `logs/daily.json`).
 - **Confidence**: told (mae); flow and loss behaviour observed (builder batch 11). **Source**: mae, 2026-11-04 (twice); builder batch 11, 2026-11-04.
-- **Images**: `docs/screens/confirm_fantasia_home.png`, `docs/screens/fantasia_ascent.png`, `docs/screens/fantasia_floors.png`, `docs/screens/fantasia_victory.png`, `docs/screens/fantasia_defeat.png` (step 3 branch).
+- **Images**: `docs/screens/confirm_fantasia_home.png`, `docs/screens/fantasia_ascent.png`, `docs/screens/fantasia_floors.png`, `docs/screens/fantasia_victory.png`, `docs/screens/fantasia_defeat.png`.
 - **Related**: R-040, R-061, R-063, R-071, nodes `fantasia_ascent`, `fantasia_floors`, `fantasia_result`.
 
 ## Added from builder batch 11 (2026-11-04)
@@ -549,17 +549,17 @@ Entry format:
 ### R-082 · Counterless unlock quests: talk to the NPC, then the gate
 - **Rule**: Some quests have no counter, for example "Moonveil Woods I: Unlock Moonveil Woods". It was done by talking to Molly (an NPC with a red "!", R-062) and then tapping the dungeon gate (red "!", glowing rune). The gate card is titled "Moonveil Woods" with First Clear Rewards and a free Challenge button at (0.5, 0.79). The gate fight was 20 rounds against a wolf boss and 3 wolves.
 - **Confidence**: observed. **Source**: builder batch 11.
-- **Images**: `docs/screens/quest_detail_unlock.png`, `docs/screens/dungeon_gate_moonveil.png` (step 3 branch).
+- **Images**: `docs/screens/quest_detail_unlock.png`, `docs/screens/dungeon_gate_moonveil.png`.
 - **Related**: R-040, R-062, R-064, R-083.
 
 ### R-083 · A gift icon on the tracker claims a finished quest
 - **Rule**: When a tracked quest is done (counterless ones, and counter ones such as "Weapon Enhancement II: Main Weapon Enhancement Level 21/20"), the map tracker's olive panel shows a small gift icon at about (0.36, 0.77). Tapping it claims the quest. The gift animates, so template matches flicker; match over a few frames or with a looser threshold.
 - **Confidence**: observed. **Source**: builder batches 11 and 12.
-- **Images**: `docs/screens/world_map_tracker_gift.png` (step 3 branch).
+- **Images**: `docs/screens/world_map_tracker_gift.png`.
 - **Related**: R-022, R-082.
 
 ### R-084 · A recommended power far above yours is a wall: stop exploring there
-- **Rule**: After Moonveil Woods the next main quest is "Verdant Wonders III: Explore Verdantglade III", recommended power 12K. At 8.1K every fight there ended "badly wounded", so the bot treats it as the natural wall for this stage (mae's scope cap) and stops exploring rather than retrying. Get stronger first (gear, charms, techniques, tower clears). Still lost at 10K (R-090). The tracker's next quest after Verdant Wonders III is "Path to Upgrade: Reach Lv. 20" (rewards Stellatie). Verdantglade III doesn't open from the Moonveil Woods side: the walk always stops at about (169, 94) with no fog in reach. Its entrance is somewhere else, still unknown ❓ (2026-11-04).
+- **Rule**: After Moonveil Woods the next main quest is "Verdant Wonders III: Explore Verdantglade III", recommended power 12K. At 8.1K every fight there ended "badly wounded", so the bot treats it as the natural wall for this stage (mae's scope cap) and stops exploring rather than retrying. Get stronger first (gear, charms, techniques, tower clears). Still lost at 10K (R-090). The tracker's next quest after Verdant Wonders III is "Path to Upgrade: Reach Lv. 20" (rewards Stellatie). Verdantglade III doesn't open from the Moonveil Woods side: the walk always stops at about (169, 94) with no fog in reach. Its entrance is somewhere else, still unknown ❓ (2026-11-04); probably a quest unlock like Moonveil Woods' (R-082). Fog can't be walked into: tapping inside the fog doesn't move the character, and only tiles at its edge work.
 - **Confidence**: observed. **Source**: builder batch 11.
 - **Images**: none.
 - **Related**: R-061, R-076, R-079.
@@ -567,28 +567,28 @@ Entry format:
 ### R-085 · Stone tile floor puzzle: step on every tile to get chests
 - **Rule**: Stone Ruins I has a 2x2 floor of stone tiles. Stepping on each tile lights it cyan; when all 4 are lit, two treasure chests appear. Loot seen: Dawnium 60 and 67, Abundance Leaf 30 x2, Rolla ~900 each, Explorer's Light Armor, Refined and Raw Ore. Each chest also popped a gear-swap prompt (+445 / +484 power, swap button bottom right), which closed when the reward popup was dismissed.
 - **Confidence**: observed. **Source**: builder batch 11.
-- **Images**: `docs/screens/world_map_tile_puzzle_chests.png`, `docs/screens/gear_swap_prompt.png` (step 3 branch).
+- **Images**: `docs/screens/world_map_tile_puzzle_chests.png`, `docs/screens/gear_swap_prompt.png`.
 - **Related**: R-072, node `gear_swap_prompt`.
 
 ## Added from builder batch 12 (2026-11-04)
 
 ### R-086 · Gate of Power: a wall only while power is short
 - **Rule**: A stone pillar card "Gate of Power" (seen in Damp Woods) reads "Requires: Power reaches 15.5K (Current: 8.1K)". While power is short the card has no button: it's a wall. Policy kind `power_gate`: dismiss the card, and the fog walk stops there. Once power meets the requirement, the card reads e.g. "Power reaches 15.5K (Current: 16.9K)" and shows a free "Open" button at about (0.5, 0.74). The bot presses it (policy kind `power_gate_open`), and the pillar sinks. The Damp Woods 15.5K gate opened this way at 16.9K, 2026-11-04.
-  - **Damp Woods entry**: an area-map walk to the Damp Woods label from Verdantglade II lands at about (184, 86). That's a small fogged pocket with a stone mini-dungeon building, ore baskets and a statue in the fog, and the gate stands inside it.
+  - **Damp Woods entry**: an area-map walk to the Damp Woods label from Verdantglade II lands at about (184, 86). That's a small fogged pocket with a stone mini-dungeon building, ore baskets and a statue in the fog, and the gate stands inside it. Behind the opened gate are ore baskets, a glowing crystal and a duck-shaped item. Tapping each was free (stamina stayed at 122), and collecting them all brought Damp Woods to 100%. One pickup gave a level (Lv 22 to 23, power 17.4K). The minimap barely shows these pickups under the shadow, so the bot can't find them from it yet ❓. Then the Lost Goddess Statue there unlocked (R-070).
 - **Confidence**: observed. **Source**: builder batch 12; rif-love-su builder, 2026-11-04 11:28.
-- **Images**: `docs/screens/gate_of_power.png`, `docs/screens/gate_of_power_open.png` (rif-love-su builder's branch, not pushed yet).
+- **Images**: `docs/screens/gate_of_power.png`, `docs/screens/gate_of_power_open.png`.
 - **Related**: R-065, R-076, R-084.
 
 ### R-087 · Highland Woods: guard pack, ground pickups, paler minimap dots
 - **Rule**: Highland Woods (9.6K recommended) is entered past a bracketed wolf-boss guard pack (beaten at 10K). Its pickups (orbs, a spellbook, crystals, a "Meat & Veggie Pot") lie on the ground near a cooking pot, and collecting them alone took the area to 100%. Its minimap item dots are paler than elsewhere (HSV saturation about 128, against 150+ in Verdantglade II), so the green-dot threshold of R-066 must allow for that.
 - **Confidence**: observed. **Source**: builder batch 12.
-- **Images**: `docs/screens/minimap/minimap_highland_items.png` (step 3 branch).
+- **Images**: `docs/screens/minimap/minimap_highland_items.png`.
 - **Related**: R-066, R-073, R-076.
 
 ### R-088 · Replace gear with better items from the profile
 - **Rule**: In the profile, tap an Equip slot, then Replace on its card. The Replace Gear list shows candidates best first, with a green up arrow on upgrades. Tapping one opens a side-by-side compare (equipped on the left, new on the right) with power numbers, and Replace sits under the new item. Enhancement levels carry over to the new item (Beginner's Cap +10 to Adventurer's Leather Hat +10: 133 to 759 power; Novice Staff +15 to Seeker's Staff: 142 to 785). Two swaps took power from 8.1K to about 9K; Cart, enhancement and technique upgrades then reached 10K. Blue badges on Equip (R-080) point at these upgrades.
 - **Confidence**: observed. **Source**: builder batch 12.
-- **Images**: `docs/screens/replace_gear.png`, `docs/screens/gear_compare.png` (step 3 branch).
+- **Images**: `docs/screens/replace_gear.png`, `docs/screens/gear_compare.png`.
 - **Related**: R-080, R-085, nodes `replace_gear`, `gear_compare`.
 
 ### R-089 · Travel from home through the quest tracker
@@ -761,7 +761,7 @@ Entry format:
 ### R-114 · Warehouse is leader-only; the Guild Shop is untouched for now
 - **Rule**: The Warehouse is locked and only the leader or deputies can build it. The Shop (NEW badge, the island's east side) is paid in Guild Tokens (760 held; 300 per donation) and refreshes weekly. It's at Shop Level 1/1 (levels are guild-side). Most items are locked until Shop Lv 2 to 6: Bond Trinket, Auroral Badges, Guild Garden plants, livestock. Only Stellatie (500, limit 3) and Lucky Ticket (1.5K, limit 1, spins the Wheel of Destiny) can be bought now. Full table: `docs/shop-tables.md`. the bot buys nothing there until mae has marked items on the mapped stock table and a buy list exists (mae's shop policy, R-120).
 - **Confidence**: observed. **Source**: guild batch 1; shops batch, 2026-11-04.
-- **Images**: `docs/screens/guild_warehouse_locked.png`, `docs/screens/guild_shop_top.png`, `docs/screens/guild_shop_bottom.png` (upgrade-systems branch).
+- **Images**: `docs/screens/guild_warehouse_locked.png`, `docs/screens/guild_shop_top.png`, `docs/screens/guild_shop_bottom.png`.
 - **Related**: R-043, R-113, R-120, R-125, node `guild`.
 
 ## Added from upgrade-systems batch 1 (2026-11-04)
@@ -789,7 +789,7 @@ Entry format:
   - **Apprentice I to II** (done 2026-11-04 09:24, mae approved): costs 5 grey stones, 20 Bellflowers (R-123) and 5.5K Rolla. A "RANK UP" screen follows; tap to continue. The cap went from 20 to 30 and the stored XP applied at once (Lv 20 to 21; power 14.8K to 16.4K). The rank Goals tab then had 1 free claim (R-116). At Lv 20/20 the Bellflowers had blocked all further levelling.
   - **Apprentice II to III** (cap 30 to 40): first "Reach Max Level to Unlock Next Rank" (Lv 30). It costs 5 of a green leaf item (9 owned), 30 of a new flower item (0/30, probably from another Flower Harvest; its name isn't recorded yet ❓) and 10.5K Rolla.
 - **Confidence**: observed. **Source**: upgrade-systems batch 1; builder's "Bellflower + Rank II" batch, 2026-11-04.
-- **Images**: `docs/screens/rank_advancement.png`, `docs/screens/rank_up_result.png` (upgrade-systems branch).
+- **Images**: `docs/screens/rank_advancement.png`, `docs/screens/rank_up_result.png`.
 - **Related**: R-048, R-049, R-101, R-116, R-123, node `rank_advancement`.
 
 ### R-119 · Gear Resonance: free bonuses when all four pieces reach a band
@@ -801,7 +801,7 @@ Entry format:
 ### R-120 · Molly's Vendor Booth: a daily-refresh shop on home
 - **Rule**: Following the Bellflower item's source link (R-123) started a home tutorial with Akane and Molly that ends with "Vendor Booth (Furniture): Unlock" (Molly: "new goodies pop up every single day"), which is free, then "UNLOCKED". The booth now stands on the home scene with a "!". The booth is Molly's shop: the green-roofed wagon on home at about (0.58, 0.63). Bottom tabs are General | Vault | Goals. Stock refreshes daily (timer top left). The Refresh button is paid (4K Rolla, 10 a day): never press it (R-043). General is paid in Rolla, Vault in Dawnium. Vault has a "Free" x30 Stamina item with a red "!" (limit 1 per refresh). **mae (09:36): the bot claims it, once a day after each refresh.** Everything else in the Vault costs Dawnium, so tap only that item's Free button. Code: daily step `vendor_stamina` (`python -m sxs.vendor`), run once a day before `gather`. It finds the wagon by the template `Home.VendorBooth` (cropped in night lighting, so it may need a daylight copy), opens Vault, and taps the first cell's price only if OCR reads exactly "Free". The claim took stamina from 83 to 113, with no confirm dialog and no currency change. Afterwards the cell still reads "Free" with no sold-out look, so the step relies on its own done-today mark. Goals are Vendor Booth Pts milestones (5K to 25K) and fall under R-116. The full stock with prices and limits is in `docs/shop-tables.md`, which has a Buy? column for mae to fill in. Read shops safely with `scripts/shop_survey.py` (R-125). Shop policy (mae, 2026-11-04 08:17), for the Vendor Booth, the Guild Shop and every other shop: map every item (name, cost, currency, limits) into a table, mae marks which are buyable, and those become a per-shop buy list in the repo. The bot buys nothing in a shop until its buy list exists (R-043).
 - **Confidence**: observed; shop policy and free stamina told (mae). **Source**: upgrade-systems builder, 2026-11-04 08:18; mae 08:17 and 09:36.
-- **Images**: `docs/screens/home_white_sheet_tutorial.png`, `docs/screens/vendor_booth_unlock.png`, `docs/screens/vendor_booth_general.png`, `docs/screens/vendor_booth_vault.png`, `docs/screens/vendor_booth_goals.png` (upgrade-systems branch).
+- **Images**: `docs/screens/home_white_sheet_tutorial.png`, `docs/screens/vendor_booth_unlock.png`, `docs/screens/vendor_booth_general.png`, `docs/screens/vendor_booth_vault.png`, `docs/screens/vendor_booth_goals.png`.
 - **Related**: R-043, R-114, R-116, R-123, R-125, node `home`.
 
 ### R-121 · Mall: claim the free gift boxes, never the packs
@@ -823,7 +823,7 @@ Entry format:
   - **Done**: at 20/20 Akane says "You've got everything you need! Go for that rank advancement!" (dialogue; tap to continue). Home then shows a tutorial overlay highlighting Character, the rank badge and Advance (R-036).
   - The first time, following the source link also played the home tutorial that unlocks the Vendor Booth (R-120). mae's priority (08:58): Bellflowers and Rank Advancement come before mapping the shops.
 - **Confidence**: observed; tapping the plants told (mae). **Source**: upgrade-systems builder, 2026-11-04 08:20 to 09:24.
-- **Images**: `docs/screens/item_bellflower.png`, `docs/screens/explore_bellflower_tracker.png`, `docs/screens/explore_bellflower_field.png`, `docs/screens/explore_bellflower_field_wide.png`, `docs/screens/explore_bellflower_picked.png`, `docs/screens/explore_bellflower_done_dialogue.png` (upgrade-systems branch); template `resource/image/explore/bellflower.png`, from mae's picture `resource/image/explore/bellflower_mae.png`.
+- **Images**: `docs/screens/item_bellflower.png`, `docs/screens/explore_bellflower_tracker.png`, `docs/screens/explore_bellflower_field.png`, `docs/screens/explore_bellflower_field_wide.png`, `docs/screens/explore_bellflower_picked.png`, `docs/screens/explore_bellflower_done_dialogue.png`; template `resource/image/explore/bellflower.png`, from mae's picture `resource/image/explore/bellflower_mae.png`.
 - **Related**: R-057, R-107, R-118, R-120, R-122, R-124.
 
 ### R-124 · What the gather collector taps, in order
@@ -849,7 +849,7 @@ Entry format:
   - Lucky Ticket spins the Wheel of Destiny.
   - Water is a cooking ingredient.
 - **Confidence**: observed. **Source**: upgrade-systems builder, shops batch, 2026-11-04.
-- **Images**: `docs/screens/vendor_booth_general.png` (upgrade-systems branch).
+- **Images**: `docs/screens/vendor_booth_general.png`.
 - **Related**: R-043, R-095, R-106, R-114, R-120.
 
 ### R-126 · Home scene layout: find things by template, not fixed taps
