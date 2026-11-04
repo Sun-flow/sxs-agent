@@ -44,7 +44,8 @@ def area_name(det: StateDetector, frame) -> str:
 def centre_player(dev: Device, det: StateDetector, frame) -> bool:
     """Drag the map so our character (found by its name label) sits mid-screen: targets planned from the minimap
     land a few tiles away, and near the edge they fall off screen or onto the HUD."""
-    me = [b for t, b in det.read_text([0, 130, 720, 840], frame) if PLAYER_NAME in t]
+    # Whole map height: after an area-map walk the character can stand low on screen, under the tracker strip.
+    me = [b for t, b in det.read_text([0, 130, 720, 1100], frame) if PLAYER_NAME in t]
     if not me:
         return False
     x, y, w, h = me[0]
@@ -107,7 +108,10 @@ def minimap_target(det: StateDetector, frame: np.ndarray, lookahead: int = 4, pl
             lookahead = len(path)  # walk all the way: the tap on it opens its card
     if len(path) < 2:
         return None
-    me = [b for t, b in det.read_text([0, 130, 720, 840], frame) if PLAYER_NAME in t]
+    if mm.grid[path[-1][0]][path[-1][1]] == "monster":
+        log.info("heading for a monster %d tiles away", len(path) - 1)
+        lookahead = len(path)  # tap the monster itself: walking onto it starts the fight
+    me = [b for t, b in det.read_text([0, 130, 720, 1100], frame) if PLAYER_NAME in t]
     if not me:
         return None
     x, y, w, h = me[0]
@@ -166,7 +170,7 @@ def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[st
             if home_area is None and name:
                 home_area = name
             elif (name and not goto.same_area(name, home_area) and not strayed
-                  and not any(goto.same_area(name, a) for a in allowed)):
+                  and not any(goto.same_area(name, a) or goto.squeeze(name)[:7] == goto.squeeze(a)[:7] for a in allowed)):
                 # Wandered into a neighbouring area: walk back with the area map rather than exploring the wrong one.
                 strayed = True
                 log.info("left %s for %s; going back", home_area, name)
