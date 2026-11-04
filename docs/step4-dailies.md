@@ -10,6 +10,7 @@ refresh at 8:00 server time, see `device.server_day`).
 | `cart` | Home scene sweep for the Cart's loot bubble | `Strengthener.claim_cart`. |
 | `growth_trial` | Thrilling Events → Growth Trial | Claims finished trial quests on each day tab. "Advanced Trial" is paid: never. |
 | `fantasia_ascent` | Journal tab (bottom bar, 2nd icon) → Fantasia Ascent card | `tower.open_from_home` + `tower.climb`: Auto Challenge on, no retries, heal to 70% on battle prep (`sxs/heal.py`). Once a day. |
+| `material_realms` | Journal → Material Realms → Ironvein Pit | Uses owned Iron Hammers (about +115 Raw Ore each), then claims the Goals tab. The hammer button is tapped only while the counter reads 1 or more: at 0 it opens a 60-Dawnium purchase. |
 | `quests` | Home menu → Quest | Claims finished guidance quests; their rewards are ore, which feeds gear enhancement. |
 | `strengthen` | Profile (HUD portrait), Character | Better gear and charms, banded gear enhancement (all pieces to the next multiple of 5 in `GEAR_PRIORITY` order), techniques. |
 
@@ -20,6 +21,8 @@ Claims go through `sxs/claims.py`: only buttons whose whole text is Claim / Clai
 with a spend word (Pray, Buy, Purchase, Refresh, Spend, Dawnium, Recharge, Top up, prices, Catch Up, Draw,
 Advanced) on the same row.
 
-Not automated yet: Material Realms (Ironvein Pit) needs Iron Hammers, and buying them costs Dawnium, so it only
-makes sense with free hammers; the Bed's free speed-up; the Daily Shop's free stamina pack (a Mall screen, left
+Iron Hammers come free from the Prayer Goals tab (Total Standard Prayers milestones). Skill pulls themselves are
+not part of this loop: `python -m sxs.pray --pulls N --handler-approved` runs them when the handler asks.
+
+Not automated yet: the Bed's free speed-up; the Daily Shop's free stamina pack (a Mall screen, left
 alone until mae says which buttons are safe).

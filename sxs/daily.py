@@ -42,6 +42,11 @@ FEATURED_GROWTH = (360, 470)  # Featured list: Growth Trial card
 MENU_QUEST = (200, 820)  # main menu: Quest
 QUEST_TAB = (290, 1216)  # quest list: Quest (guidance) tab
 GROWTH_DAY_TABS = [(100, 476), (176, 476), (266, 476), (356, 476), (446, 476), (536, 476), (626, 476)]
+JOURNAL_REALMS = (210, 1020)  # Journal: Material Realms card
+REALM_IRONVEIN = (180, 300)  # Material Realms: Ironvein Pit
+MINE_BUTTON = (360, 920)  # Ironvein Pit: hammer button
+HAMMERS_ROI = [596, 30, 70, 45]  # Iron Hammer count, top right
+REALM_GOALS_TAB = (610, 1216)
 OK = {"done", "nothing", "reached", "floors_done", "lost"}
 
 
@@ -111,6 +116,33 @@ class Dailies:
             tower.mark_done()
         return result
 
+    def material_realms(self) -> str:
+        """Ironvein Pit: use owned Iron Hammers (about +115 Raw Ore each). With 0 hammers the button opens a Dawnium
+        purchase, so it's only tapped while the counter reads 1 or more; any purchase dialog is cancelled."""
+        self.nav.go_home()
+        if not self._open(nav.NAV_JOURNAL, "journal") or not self._open(JOURNAL_REALMS, "material_realms"):
+            return "unknown_screen"
+        self._tap(REALM_IRONVEIN, 3)
+        used = 0
+        for _ in range(30):
+            hammers = None
+            for t, _ in self.det.read_text(HAMMERS_ROI):
+                if t.strip().isdigit():
+                    hammers = int(t.strip())
+            if not hammers:
+                break
+            self._tap(MINE_BUTTON, 3)
+            texts = self.det.read_text([0, 200, 720, 900])
+            if any(claims.SPEND.search(t) for t, _ in texts):
+                log.warning("purchase prompt at the pit; cancelling")
+                self._tap((228, 830), 2)
+                break
+            used += 1
+        self._tap(REALM_GOALS_TAB, 2)
+        claims.claim_all(self.dev, self.det, home_state="material_realms")
+        log.info("Ironvein Pit: %d hammers used", used)
+        return "done" if used else "nothing"
+
     def quests(self) -> str:
         self.nav.go_home()
         self._tap(nav.HOME_MENU_BUTTON, 2.5)
@@ -138,7 +170,7 @@ class Dailies:
 
     STEPS: list[tuple[str, bool]] = [  # (name, once a day)
         ("sign_in", True), ("cart", False), ("growth_trial", False), ("fantasia_ascent", True),
-        ("quests", False), ("strengthen", False), ("quests", False), ("strengthen", False),
+        ("material_realms", False), ("quests", False), ("strengthen", False), ("quests", False), ("strengthen", False),
     ]
 
     def run(self, only: set = None, force: bool = False, step_minutes: float = 12) -> dict:
