@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/`; templates in `resource/image/`.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-112).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-113).
 
 Entry format:
 
@@ -734,7 +734,13 @@ Entry format:
 - **Related**: R-103, node `guild`.
 
 ### R-111 · Gate of Expedition: Conquest and Guild Clash
-- **Rule**: The guild's Gate of Expedition holds Conquest (the guild boss) and Guild Clash, which unlocks 8 days after 2026-11-04.
+- **Rule**: The guild's Gate of Expedition holds Conquest (the guild boss) and Guild Clash, which unlocks 8 days after 2026-11-04. Conquest is a shared guild boss with 2 free tries a day, and its floor rewards include Stellatie; it runs in the background (R-112).
 - **Confidence**: observed. **Source**: guild thread.
 - **Images**: none.
 - **Related**: R-103, node `guild`.
+
+### R-112 · Background fights: start them and move on
+- **Rule**: A fight screen showing the "run in background" symbol (a square with an arrow pointing into its lower-left corner, `docs/screens/icons/background_battle.png`) keeps going without being watched. For such fights, Conquest for example, start the fight, then leave and do other things; come back later for the result. Fantasia Ascent's Auto Challenge also runs in the background (R-079).
+- **Confidence**: told. **Source**: mae, 2026-11-04.
+- **Images**: `docs/screens/icons/background_battle.png` (crop sent by mae).
+- **Related**: R-079, R-111.
