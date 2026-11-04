@@ -36,6 +36,8 @@
   "fantasia_ascent": "tower_list",
   "fantasia_defeat": "tower_result",
   "fantasia_floors": "tower_floors",
+  "fantasia_floors_auto": "tower_floors",
+  "fantasia_floors_f6": "tower_floors",
   "fantasia_victory": "tower_result",
   "featured_events": "featured",
   "furniture_alchemy_pot": "unknown",

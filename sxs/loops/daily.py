@@ -65,7 +65,7 @@ REALM_IRONVEIN = (180, 300)  # Material Realms: Ironvein Pit
 MINE_BUTTON = (360, 920)  # Ironvein Pit: hammer button
 HAMMERS_ROI = [596, 30, 70, 45]  # Iron Hammer count, top right
 REALM_GOALS_TAB = (610, 1216)
-OK = {"done", "nothing", "reached", "floors_done", "lost"}
+OK = {"done", "nothing", "reached", "floors_done", "lost", "too_strong", "auto_running"}
 
 
 class Dailies:
