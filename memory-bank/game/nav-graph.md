@@ -82,6 +82,7 @@ flowchart TD
     guild_events["Guild Events"]
     guild_conquest["Conquest"]
     guild_conquest_result["Conquest result"]
+    mall["Mall (Premium Picks)"]
     home -->|"tap: Bottom nav bar (y 0.97): Character"| character
     world_map -.->|"tap: Bottom nav bar (y 0.97): Character"| character
     home -->|"tap: Bottom nav bar (y 0.97): Travel Journal"| travel_journal
@@ -184,6 +185,8 @@ flowchart TD
     guild_conquest -->|"tap: Challenge [attempts left > 0]"| battle_prep
     battle -->|"auto: (fight ends)"| guild_conquest_result
     guild_conquest_result -->|"tap: Tap to Continue"| guild_conquest
+    main_menu -->|"tap: Mall card"| mall
+    mall -.->|"tap: Back arrow, bottom left"| main_menu
 ```
 
 ## Screens
@@ -265,6 +268,7 @@ flowchart TD
 | `guild_events` | Guild Events | menu | observed |  | Guild Clash (locked for now), Conquest (R-111). |
 | `guild_conquest` | Conquest | menu | observed |  | Shared boss per floor; Daily Challenge Attempts N/2; floor chest (0.49, 0.57); Challenge (0.50, 0.77); tabs Rankings, Goals (R-111). |
 | `guild_conquest_result` | Conquest result | popup | observed |  | Damage dealt, participation rewards; Tap to Continue. |
+| `mall` | Mall (Premium Picks) | menu | observed |  | Shop. Every pack is USD: never tap one. Only the free gift box at the top left of each page (red "!" above right) may be tapped, once per refresh: Daily Gift 4 h, Weekly Gift 5 d, Welcome Benefit once, event boxes (R-121). Bottom tabs Event / Monthly Pass / Top Up (never Top Up). Code sxs/mall.py, state mall. |
 
 ## Actions
 
@@ -387,3 +391,5 @@ flowchart TD
 | Conquest | Battle prep | tap Challenge at [0.5, 0.77] (when attempts left > 0) | observed | Then Start Battle (0.50, 0.75); send the fight to the background (R-112). |
 | Battle | Conquest result | auto (fight ends) | observed | In Conquest. |
 | Conquest result | Conquest | tap Tap to Continue | observed |  |
+| Menu | Mall (Premium Picks) | tap Mall card at [0.72, 0.65] | observed |  |
+| Mall (Premium Picks) | Menu | tap Back arrow, bottom left at [0.08, 0.95] | reported | Assumed, like other menu pages. |

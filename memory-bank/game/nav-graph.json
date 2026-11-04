@@ -1037,6 +1037,24 @@
     "docs/screens/guild_conquest_result.png"
    ],
    "notes": "Damage dealt, participation rewards; Tap to Continue."
+  },
+  {
+   "id": "mall",
+   "name": "Mall (Premium Picks)",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "Premium Picks",
+    "roi": null
+   },
+   "images": [
+    "docs/screens/mall_premium_picks.png",
+    "docs/screens/mall_premium_picks_2.png",
+    "docs/screens/mall_welcome_benefit.png"
+   ],
+   "notes": "Shop. Every pack is USD: never tap one. Only the free gift box at the top left of each page (red \"!\" above right) may be tapped, once per refresh: Daily Gift 4 h, Weekly Gift 5 d, Welcome Benefit once, event boxes (R-121). Bottom tabs Event / Monthly Pass / Top Up (never Top Up). Code sxs/mall.py, state mall."
   }
  ],
  "edges": [
@@ -2670,6 +2688,36 @@
    },
    "confidence": "observed",
    "notes": ""
+  },
+  {
+   "from": "main_menu",
+   "to": "mall",
+   "action": {
+    "type": "tap",
+    "target": "Mall card",
+    "template": null,
+    "pos": [
+     0.72,
+     0.65
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "mall",
+   "to": "main_menu",
+   "action": {
+    "type": "tap",
+    "target": "Back arrow, bottom left",
+    "template": null,
+    "pos": [
+     0.08,
+     0.95
+    ]
+   },
+   "confidence": "reported",
+   "notes": "Assumed, like other menu pages."
   }
  ]
 }
