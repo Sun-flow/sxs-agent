@@ -17,6 +17,8 @@
 
 Format: `- what — branch, PR, environment (started date)`. Remove the line when it merges or is dropped.
 
+- Stuck-point fixes (tracker reward tap, statue bumps in map coordinates, roam give-ups kept per server day, collector player search) — branch `claude/project-thread-16r1uh`, needs a PR, cloud (2026-11-04). Untested live.
+
 - Guild dailies and bed XP step - branch `guild-tutorial`, needs a PR, maes2024 via Remote Control (2026-11-04). Conquest with attempts left and the bed step are untested live (done by hand that day).
 - Upgrade and gather loops - branch `upgrade-systems` (from `guild-tutorial`), needs a PR, maes2024 via Remote Control (2026-11-04). Both ran live once; the skills/class/rank passes were tested by hand, not yet by the loop (no badges left on the second run).
 - Game rules and menu navigation graph (`memory-bank/game/`), filled in from rule batches the builder sends — branch `claude/project-thread-npg43i`, PRs #3, #4 and #6 merged; R-068 to R-077 in PR #8, cloud (2026-11-03).

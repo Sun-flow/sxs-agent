@@ -2,6 +2,11 @@
 
 Older entries moved from `memory-bank/log.md`, newest first.
 
+### 2026-11-03 (night) · Step 3 start: quest following (Claude Code, maes2024 via Remote Control)
+- mae asked me to keep playing the tutorial overnight and map screens. Built `sxs/explore.py` (tracker-marker loop with chaining), `sxs/tutorial.py` (highlight and hint follower), `sxs/decide.py` with `resource/policy/cards.json` (goal-based card decisions, per mae's design note), `scripts/enhance_all.py` and `docs/step3-explore.md`. Branch `step3-explore`.
+- Account went from Lv 2 to Lv 10: Originisle I–V, Temple Ruins floor 1, the Guardian Colossi boss, rank Apprentice I. Rule batches 4–7 went to the docs thread through the coordinator.
+- Open: class choice (mae), automating strengthening, a PR for `step3-explore`.
+
 ### 2026-11-03 · Game docs batch 4 (Claude Code, cloud)
 - Builder batch 4 (step 3 explore loop): added `interact` and `defeated` screens and their taps to `memory-bank/game/nav-graph.json`; rules R-029 to R-034 (Trek quest chain, map object cards, defeat, camera, stamina regen, exploration rewards) and the quest-ring offset in R-022. Branch `claude/project-thread-npg43i` fast-forwarded to main after PR #4.
 - Batch 5 added to the same PR: cart, house, bed, unlock result and skill/technique screens; rules R-035 to R-039; Cart income in R-020.

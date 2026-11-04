@@ -221,12 +221,10 @@ class Gatherer:
     # ---- seeing ----
 
     def _player(self, frame) -> Optional[tuple[int, int]]:
-        """The character's body: just above the "gromb2" name label."""
-        me = [b for t, b in self.det.read_text([0, 130, 720, 840], frame) if fogwalk.PLAYER_NAME in t]
-        if not me:
-            return None
-        x, y, w, h = me[0]
-        return x + w // 2, y - 40
+        """The character's body: just above the "gromb2" name label. Searched down to the chat strip, like Fog
+        Walk: after an area-map walk the character can stand low on screen, and missing it there let the ring over
+        the character look like a ring to tap (R-124 says never)."""
+        return fogwalk.player_on_screen(self.det, frame)
 
     def tracked_count(self) -> Optional[tuple[int, int]]:
         """The item tracker on the left ("2/20" next to the tracked item's icon), e.g. Bellflowers."""
