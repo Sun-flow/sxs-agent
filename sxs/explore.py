@@ -49,6 +49,7 @@ FIGHT_MIN_HP = 70  # mae, 2026-11-04: at least 70% HP before any fight
 HEAL_BELOW = 80  # HP % under which the profile's Quick Heal (1 cooked dish) is used
 QUICK_HEAL = (510, 1064)
 HUD_PORTRAIT = (70, 60)  # top-left avatar: opens the player profile (HP, Quick Heal, charms)
+PREP_HP_BAR = (314, 406, 866, 876)  # x0, x1, y0, y1 of the bar under our character on battle prep
 HUD_HP_BAR = (116, 268, 52, 64)  # x0, x1, y0, y1 of the HP bar under the name, top left (mae, 2026-11-04)
 REPEAT_LIMIT = 4  # same card title this many times in a row means the choice isn't working
 GUARD_DX, GUARD_DY = -35, 50  # from the top-right guard bracket to the monster
@@ -88,10 +89,10 @@ def read_tracker(det: StateDetector) -> Optional[dict]:
     return {"title": title, "progress": f"{a}/{b}", "done": a >= b, "tap": (box[0] + box[2] // 2, box[1] + box[3] // 2)}
 
 
-def hud_hp(frame: np.ndarray) -> float:
-    """HP as a fraction, from the HUD bar under our name: the filled part is bright and saturated (yellow-green at
-    full HP), the empty track dull (V ~110-120)."""
-    x0, x1, y0, y1 = HUD_HP_BAR
+def hud_hp(frame: np.ndarray, bar=None) -> float:
+    """HP as a fraction, from the HUD bar under our name (or another HP bar, e.g. PREP_HP_BAR): the filled part is
+    bright and saturated (yellow-green at full HP), the empty track dull (V ~110-120)."""
+    x0, x1, y0, y1 = bar or HUD_HP_BAR
     hsv = cv2.cvtColor(frame[y0:y1, x0:x1], cv2.COLOR_BGR2HSV)
     filled = (hsv[..., 1] > 100) & (hsv[..., 2] > 150)
     return float(filled.any(axis=0).mean())
@@ -230,7 +231,7 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
     hit_self = False  # the last marker tap landed on our own character
     self_taps, charms_tried = 0, False
     after_fight = via_portrait = False
-    heal_tries = 0
+    heal_tries = prep_backouts = 0
     while time.monotonic() < deadline:
         d = det.detect()
         beat.check(d, last_progress, progress_at)
@@ -385,6 +386,25 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
                 return "unknown_screen"
             progress_at = time.monotonic()
         elif d.state == "battle_prep":
+            hp = hud_hp(dev.screenshot(), PREP_HP_BAR)
+            if hp * 100 < FIGHT_MIN_HP and prep_backouts < 2:
+                # mae, 2026-11-04: the bar under our character shows HP before the fight; back out and heal first
+                # (also mid-way through a mini-dungeon: after "Next Floor", back out, heal, carry on).
+                prep_backouts += 1
+                log.info("battle prep: HP %d%% < %d%%; backing out to heal", hp * 100, FIGHT_MIN_HP)
+                dev.tap(*nav.BACK_ARROW)
+                time.sleep(2)
+                via_portrait = True
+                dev.tap(*HUD_PORTRAIT)
+                time.sleep(2)
+                if det.detect().state == "player_profile":
+                    dev.tap(*QUICK_HEAL)
+                    time.sleep(2)
+                    dev.tap(360, 60)
+                    time.sleep(1.5)
+                via_portrait = False
+                continue
+            prep_backouts = 0
             dev.tap(*START_BATTLE)
             time.sleep(3)
         elif d.state in ("battle", "loading"):

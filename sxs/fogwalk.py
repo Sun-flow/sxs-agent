@@ -23,7 +23,7 @@ import numpy as np
 from . import goto, minimap, nav, tower
 from .decide import Context, Decider
 from .device import Device, banner, save_unknown
-from .explore import (FIGHT_MIN_HP, GUARD_DX, GUARD_DY, HUD_PORTRAIT, PLAYER_NAME, QUICK_HEAL, REPEAT_LIMIT,
+from .explore import (FIGHT_MIN_HP, GUARD_DX, GUARD_DY, HUD_PORTRAIT, PLAYER_NAME, PREP_HP_BAR, QUICK_HEAL, REPEAT_LIMIT,
                       Heartbeat, hud_hp)
 from .state import StateDetector
 
@@ -211,6 +211,12 @@ def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[st
             dev.tap(*target)
             time.sleep(3)
         elif d.state == "battle_prep":
+            if hud_hp(dev.screenshot(), PREP_HP_BAR) * 100 < FIGHT_MIN_HP and heal_tries < 2:
+                heal_tries += 1
+                log.info("battle prep: HP under %d%%; backing out to heal", FIGHT_MIN_HP)
+                dev.tap(*nav.BACK_ARROW)
+                time.sleep(2)
+                continue  # the map branch heals from the profile
             dev.tap(360, 956)
             time.sleep(3)
         elif d.state in ("battle", "loading"):
