@@ -16,5 +16,14 @@
         "threshold": 0.6,
         "pre_delay": 0,
         "post_delay": 0
+    },
+    "Home.VendorBooth": {
+        "doc": "Molly's Vendor Booth wagon on the home scene (green leaf roof, clay pot on top), between the Goddess Statue and the gate; the house is further right. Not a screen state; used by sxs.vendor. Cropped at night lighting (2026-11-04).",
+        "recognition": "TemplateMatch",
+        "template": "home/vendor_booth.png",
+        "roi": [0, 130, 720, 870],
+        "threshold": 0.7,
+        "pre_delay": 0,
+        "post_delay": 0
     }
 }
