@@ -90,6 +90,13 @@ Filter MaaFramework's chatter when reading logs: `grep -v -i "nemu\|product:\|sa
 
 Code map: `docs/step2-hands-and-eyes.md` (device, detector, CLI) and `docs/step3-explore.md` (explore loop, decisions, tutorial follower). The game knowledge lives in `memory-bank/game/` (maintained by the docs thread).
 
+## Update 2026-11-04 (night, guild thread)
+
+- **Guild done**: gromb2 is in karsa_1515 (mae's OK) and gathers at the Forge. `python -m sxs.guild` (also steps guild_donate, guild_afk, guild_conquest in `sxs.daily`): donations up to 2 a day (Free, then 20 Dawnium: mae-approved; never the 50 one), Forge AFK, Conquest's 2 daily attempts sent to the background, Conquest goals claimed. Screens `docs/screens/guild_*`; rules sent to the coordinator. Untested live: Conquest with attempts left (do it next server day and watch).
+- **Bed step** added to `sxs.daily` (template `resource/image/home/bed_xp_bubble.png`), once a day; untested live (mae had collected).
+- Not touched: guild Shop (spends Guild Tokens: ask mae), Guildmates, chat, Guild Clash (unlocks ~2026-11-12).
+- **Next job (mae, 2026-11-04)**: scripts and rules for upgrade systems, including ones not unlocked yet: skill quick upgrade (tap a skill, "quick upgrade" beside the lower-right charm); relic banding (step 1, per element as one band, all elements level together, element priority by affinity, highest first); materials (ore: armor, sand: relics, battle essence: skills, rolla: coins); stamina gathering via Journal > Map Exploration > material > Go, 5 stamina per pickup, keep 70 stamina for daily commissions, ore first then sand; always tap special nodes with a green timer circle (e.g. Grand Mine, free); always check "!" on the character screen.
+
 ## Next steps, in order
 
 1. **Map the Guild** (unlocked at Lv 20). Follow its tutorial (`python -m sxs.tutorial --steps 40`, which follows the yellow highlight and never presses spend-looking buttons; step in by hand where it stalls). For every new screen: a `State.*` node, a reference screenshot in `docs/screens/` plus an `EXPECTED` entry, and a rule batch to the coordinator. Expected guild dailies (step 1 doc §4, R-016): 3 basic donations a day, Guild Farm (plant and harvest), guild boss. Joining or creating a guild, applying, or anything social (chat, requests) is mae's decision: ask before any of it. Donations that cost Dawnium are never made.

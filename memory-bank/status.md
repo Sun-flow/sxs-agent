@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-04
 
-**Current step**: step 4 done (dailies loop `python -m sxs.daily`, handler-triggered pulls `sxs.pray`, PR #14). Next: map the Guild, unlocked at Lv 20. Earlier: step 3. The bot plays the quest line by itself (`python -m sxs.explore --chain`). Verdantglade is done up to its power walls: 5 areas cleared (I, II, Moonveil Woods, Stone Ruins I, Highland Woods). The main quest "Explore Verdantglade III" needs ~12K power (have 13.1K at Lv 20, untested); Damp Woods needs 15.5K. Read `memory-bank/handoff.md` first.
+**Current step**: Guild mapped and in the dailies (2026-11-04, branch `guild-tutorial`): gromb2 joined karsa_1515 with mae's OK; `sxs/guild.py` (donate x2, Forge AFK, Conquest in the background, goal claims) and a once-a-day bed XP step are in `python -m sxs.daily`. Next: mae's upgrade-systems list (skills quick upgrade, relic banding, stamina material gathering via Map Exploration). Earlier: step 4 dailies (PR #14). Earlier: step 3. The bot plays the quest line by itself (`python -m sxs.explore --chain`). Verdantglade is done up to its power walls: 5 areas cleared (I, II, Moonveil Woods, Stone Ruins I, Highland Woods). The main quest "Explore Verdantglade III" needs ~12K power (have 13.1K at Lv 20, untested); Damp Woods needs 15.5K. Read `memory-bank/handoff.md` first.
 
 ## Works
 
@@ -17,7 +17,7 @@
 
 Format: `- what — branch, PR, environment (started date)`. Remove the line when it merges or is dropped.
 
-- Dailies wrap-up: handoff for the guild-mapping thread — branch `dailies-wrapup`, needs a PR, maes2024 via Remote Control (2026-11-04).
+- Guild dailies and bed XP step - branch `guild-tutorial`, needs a PR, maes2024 via Remote Control (2026-11-04). Conquest with attempts left and the bed step are untested live (done by hand that day).
 - Game rules and menu navigation graph (`memory-bank/game/`), filled in from rule batches the builder sends — branch `claude/project-thread-npg43i`, PRs #3, #4 and #6 merged; R-068 to R-077 in PR #8, cloud (2026-11-03).
 
 ## Next

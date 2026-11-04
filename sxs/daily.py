@@ -7,9 +7,13 @@
 Steps, in order (each starts from home and ends there):
   sign_in          Thrilling Events -> Daily Sign-in: claim today's tile (never Catch Up).
   cart             Claim the Cart's AFK loot.
+  bed              Collect the bed's AFK EXP once a day (mae, 2026-11-04): tap the blue-orb bubble over the bed.
   growth_trial     Thrilling Events -> Growth Trial: claim finished trial quests.
   fantasia_ascent  Journal -> Fantasia Ascent: one climb, Auto Challenge on, no retries (mae, 2026-11-04).
   quests           Menu -> Quest: claim finished guidance quests (their rewards are ore for enhancing).
+  guild_donate     Guild Lobby > Donation: up to 2 a day (Free, then 20 Dawnium: mae-approved), by the game's counter.
+  guild_afk        Keep the character on a guild gather slot (Forge first).
+  guild_conquest   Guild boss: claim beaten floors, use the 2 daily attempts in the background, claim goals.
   strengthen       Better gear and charms from the profile, banded gear enhancement, techniques. Repeated after
                    quest claims, because enhancing finishes quests and quests pay ore.
 
@@ -29,7 +33,7 @@ import sys
 import time
 from typing import Callable
 
-from . import claims, nav, tower
+from . import claims, guild, nav, tower
 from .device import REPO_ROOT, Device, banner, save_unknown, server_day
 from .state import StateDetector
 from .strengthen import Strengthener
@@ -73,6 +77,7 @@ class Dailies:
         self.dev, self.det = dev, det
         self.nav = nav.Navigator(dev, det)
         self.st = Strengthener(dev, det)
+        self.guild = guild.Guild(dev, det)
 
     def _tap(self, xy, wait=2.0):
         self.dev.tap(*xy)
@@ -96,6 +101,22 @@ class Dailies:
 
     def cart(self) -> str:
         return "done" if self.st.claim_cart() else "nothing"
+
+    def bed(self) -> str:
+        """Bed AFK EXP: once a day (XP builds slowly; mae collects by hand when close to a level-up). The bubble
+        sits over the bed in the house; if the camera is elsewhere, pan the home scene up to the house first."""
+        self.nav.go_home()
+        for attempt in range(3):
+            hits = self.det.find_all("Home.BedXP")
+            if hits:
+                x, y, w, h = hits[0]
+                self._tap((x + w // 2, y + h // 2), 3)
+                if self.det.detect().state in {"reward_popup", "tap_to_continue"}:
+                    self._tap(nav.REWARD_CLOSE, 2)
+                return "done"
+            self.dev.swipe(360, 400, 360, 900, 500)  # drag down = look up toward the house
+            time.sleep(1.5)
+        return "nothing"
 
     def growth_trial(self) -> str:
         if not self._featured() or not self._open(FEATURED_GROWTH, "growth_trial"):
@@ -155,6 +176,15 @@ class Dailies:
             time.sleep(1.5)
         return "done" if n else "nothing"
 
+    def guild_donate(self) -> str:
+        return self.guild.donate()
+
+    def guild_afk(self) -> str:
+        return self.guild.afk()
+
+    def guild_conquest(self) -> str:
+        return self.guild.conquest()
+
     def strengthen(self) -> str:
         self.st.claim_cart()
         self.nav.go_home()
@@ -169,8 +199,9 @@ class Dailies:
     # --- the loop ---
 
     STEPS: list[tuple[str, bool]] = [  # (name, once a day)
-        ("sign_in", True), ("cart", False), ("growth_trial", False), ("fantasia_ascent", True),
-        ("material_realms", False), ("quests", False), ("strengthen", False), ("quests", False), ("strengthen", False),
+        ("sign_in", True), ("cart", False), ("bed", True), ("growth_trial", False), ("fantasia_ascent", True),
+        ("material_realms", False), ("guild_donate", True), ("guild_afk", False), ("guild_conquest", True),
+        ("quests", False), ("strengthen", False), ("quests", False), ("strengthen", False),
     ]
 
     def run(self, only: set = None, force: bool = False, step_minutes: float = 12) -> dict:
