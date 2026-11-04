@@ -27,6 +27,12 @@
             "why": "The tracked quest's Go button wants to travel home to reach its content (e.g. the Fantasia Ascent tower). Travel only, nothing spent."
         },
         {
+            "kind": "power_gate",
+            "match": "^Gate of Power$|Power reaches",
+            "choose": "dismiss",
+            "why": "A stone pillar that only moves once power reaches the number on the card (Damp Woods: 15.5K). Nothing to press; it's a wall until we're stronger."
+        },
+        {
             "kind": "wounded",
             "match": "badly wounded",
             "choose": "^Quick Heal",

@@ -23,7 +23,7 @@ import numpy as np
 from . import goto, minimap, nav
 from .decide import Context, Decider
 from .device import Device, banner, save_unknown
-from .explore import PLAYER_NAME, Heartbeat
+from .explore import PLAYER_NAME, REPEAT_LIMIT, Heartbeat
 from .state import StateDetector
 
 log = logging.getLogger("sxs.fogwalk")
@@ -100,6 +100,7 @@ def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[st
     last_xy, progress_at = None, time.monotonic()
     home_area, strayed = area, False
     visited: set[str] = set()
+    repeats, last_card = 0, None
     if area:
         goto.go_to(dev, det, area)
     beat = Heartbeat()
@@ -179,8 +180,16 @@ def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[st
         else:
             # Cards, dialogs and unknown popups: the same rules as the quest loop.
             card, choice = decider.decide(ctx)
+            repeats = repeats + 1 if card.title == last_card else 0
+            last_card = card.title
             dev.tap(*choice.point)
             time.sleep(3)
+            if choice.kind == "power_gate":
+                log.info("blocked by %r (needs more power): this area's wall", card.title)
+                return "power_gate"
+            if repeats >= REPEAT_LIMIT:
+                log.warning("card %r keeps coming back; stopping", card.title)
+                return "repeating_card"
     return "timeout"
 
 
