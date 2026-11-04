@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/`; templates in `resource/image/`.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-103).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-104).
 
 Entry format:
 
@@ -114,10 +114,10 @@ Entry format:
 - **Related**: R-018, node `dungeons`.
 
 ### R-016 · Guild donations: three basic a day
-- **Rule**: A guild member can make 3 basic donations a day; the Guild Farm can be planted and harvested once a day.
+- **Rule**: A guild member can make 3 basic donations a day; the Guild Farm can be planted and harvested once a day. The bot donates at most twice a day (mae's rule, R-103).
 - **Confidence**: reported. **Source**: step 1 doc section 4.
 - **Images**: none yet.
-- **Related**: R-011, node `guild`.
+- **Related**: R-011, R-103, node `guild`.
 
 ## Currencies and resources
 
@@ -287,7 +287,7 @@ Entry format:
 - **Related**: R-018, R-043, `memory-bank/game/README.md` (the `when` field).
 
 ### R-043 · Never press spending buttons
-- **Rule**: The bot never presses Buy, Purchase, Refresh, Spend, Pray, Recharge or Top up, or any button mentioning Dawnium, unless a later policy rule explicitly allows it. Exception (R-061): buying or cooking healing food with Rolla or ingredients is allowed; skill pulls only through mae's own script (R-093). Also never: "Catch Up" on the sign-in calendar, "Advanced Trial", Dawnstar Prelude draws, Iron Hammer purchases, the main menu's event-banner packs (e.g. "Halloween Charmer", USD 2.99), and Link Account or anything else account-related.
+- **Rule**: The bot never presses Buy, Purchase, Refresh, Spend, Pray, Recharge or Top up, or any button mentioning Dawnium, unless a later policy rule explicitly allows it. Exception (R-061): buying or cooking healing food with Rolla or ingredients is allowed; skill pulls only through mae's own script (R-093); the first two guild donations of the day, even when they cost Dawnium (R-103). Also never: "Catch Up" on the sign-in calendar, "Advanced Trial", Dawnstar Prelude draws, Iron Hammer purchases, the main menu's event-banner packs (e.g. "Halloween Charmer", USD 2.99), and Link Account or anything else account-related.
 - **Confidence**: told (policy). **Source**: builder batch 6, following mae's budget rules.
 - **Images**: none.
 - **Related**: R-018, R-042, R-093, R-095 to R-098.
@@ -680,3 +680,9 @@ Entry format:
 - **Confidence**: observed (tutorial and list); told (the choice). **Source**: guild thread and mae, 2026-11-04.
 - **Images**: none yet (want: the Join / Create choice and the guild list).
 - **Related**: R-011, R-016, R-043, R-057, node `guild`.
+
+### R-103 · Donate to the guild twice a day, never more
+- **Rule**: Donate to the guild up to twice per day and never more. These first two donations are an approved use of Dawnium, an exception to R-043: the first donation of the day is free and later ones cost 20 Dawnium each. Facility upgrades are for the guild leader only. The account joined guild karsa_1515 (28/30 members, 607K power) on 2026-11-04 (R-102). Buildings on the guild island: Lobby, Power Station (AFK gathering), Forge, Mine, Shop, Gate of Expedition and Donation.
+- **Confidence**: told (the limit); observed (costs, buildings). **Source**: mae and the guild thread, 2026-11-04.
+- **Images**: none yet (want: the Donation screen and the guild island).
+- **Related**: R-016, R-043, R-102, node `guild`.
