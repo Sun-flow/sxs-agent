@@ -58,6 +58,7 @@ TOWARD_HOME = {
     "guild_conquest": BACK_ARROW,
     "guild_donation": (360, 60),  # tap above the popup
     "background_fight": (72, 1216),  # minimise: the fight carries on by itself
+    "mall": BACK_ARROW,
     "rating_popup": (360, 882),  # "Later" (mae, 2026-11-04: popups like this are okay to press Later)
     "prayer": BACK_ARROW,
     "prayer_result": BACK_ARROW,
@@ -103,8 +104,10 @@ class Navigator:
             unknown_streak += 1
             if unknown_streak >= max_unknown:
                 raise RuntimeError(f"Stuck on an unknown screen; states seen: {' > '.join(self.trail)}")
-            if unknown_streak % 3 == 0:
+            if unknown_streak % 6 == 3:
                 self.dev.tap(360, 1250)  # below most popups; on full pages this is the nav bar
+            elif unknown_streak % 6 == 0:
+                self.dev.tap(*BACK_ARROW)  # full pages without a known state (Mall deal pages, ...) have "<" here
             time.sleep(1.5)
         raise TimeoutError(f"Did not reach home in {timeout:.0f}s; states seen: {' > '.join(self.trail)}")
 

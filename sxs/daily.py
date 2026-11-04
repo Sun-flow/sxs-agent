@@ -6,6 +6,7 @@
 
 Steps, in order (each starts from home and ends there):
   sign_in          Thrilling Events -> Daily Sign-in: claim today's tile (never Catch Up).
+  mall_gifts       Mall: tap the free gift box on each page (Daily Gift, Weekly Gift, ...); never a price (sxs.mall).
   cart             Claim the Cart's AFK loot.
   bed              Collect the bed's AFK EXP once a day (mae, 2026-11-04): tap the blue-orb bubble over the bed.
   growth_trial     Thrilling Events -> Growth Trial: claim finished trial quests.
@@ -35,7 +36,7 @@ import sys
 import time
 from typing import Callable
 
-from . import claims, gather, guild, nav, tower, upgrade
+from . import claims, gather, guild, mall, nav, tower, upgrade
 from .device import REPO_ROOT, Device, banner, save_unknown, server_day
 from .state import StateDetector
 from .strengthen import Strengthener
@@ -82,6 +83,7 @@ class Dailies:
         self.guild = guild.Guild(dev, det)
         self.gatherer = gather.Gatherer(dev, det)
         self.upgrader = upgrade.Upgrader(dev, det)
+        self.mall = mall.Mall(dev, det)
 
     def _tap(self, xy, wait=2.0):
         self.dev.tap(*xy)
@@ -195,6 +197,10 @@ class Dailies:
         return {"budget_spent": "done", "no_spare_stamina": "nothing", "timeout": "done"}.get(result["end"],
                                                                                               result["end"])
 
+    def mall_gifts(self) -> str:
+        """Free gift boxes on the Mall pages (Daily Gift, Weekly Gift, event pages; mae, 2026-11-04, R-121)."""
+        return self.mall.claim_gifts()
+
     def strengthen(self) -> str:
         self.st.claim_cart()
         self.nav.go_home()
@@ -209,7 +215,7 @@ class Dailies:
     # --- the loop ---
 
     STEPS: list[tuple[str, bool]] = [  # (name, once a day)
-        ("sign_in", True), ("cart", False), ("bed", True), ("growth_trial", False), ("fantasia_ascent", True),
+        ("sign_in", True), ("mall_gifts", True), ("cart", False), ("bed", True), ("growth_trial", False), ("fantasia_ascent", True),
         ("material_realms", False), ("guild_donate", True), ("guild_afk", False), ("guild_conquest", True),
         ("quests", False), ("gather", False), ("strengthen", False), ("quests", False), ("strengthen", False),
     ]

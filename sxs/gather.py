@@ -47,6 +47,7 @@ HUNT_STAMINA_ROI = [40, 200, 200, 40]  # "175/300" on the Resource Hunt card
 MAP_STAMINA_ROI = [540, 25, 180, 45]  # "171/300" top right on the world map
 PLAY_ROI = (0, 130, 720, 870)  # x0, y0, x1, y1 where pickups can be tapped (HUD above, tracker/chat below)
 MINIMAP_ROI = (520, 60, 720, 270)
+TRACKER_COUNT_ROI = [50, 845, 180, 50]  # "2/20" beside the tracked item's icon, left of the map
 MINIMAP_CENTRE = (616, 177)  # the character's spot on the minimap (sxs.minimap.CENTER)
 WALK_STEP = 280  # px per walk tap toward a ring seen only on the minimap
 LEFT_PANEL = (0, 700, 140, 1000)  # quest/resource tracker icons on the left: ring-shaped, never targets
@@ -87,7 +88,10 @@ def find_rings(frame: np.ndarray, colour: str = "track") -> list[tuple[int, int,
         mask = (v > 195) & (((h >= 18) & (h <= 40) & (s > 60)) | (s < 35))
     mask = mask.astype(np.uint8) * 255
     mask[:130, :140] = 0  # HUD portrait
+    bottom_edge = mask[1180:, 200:620].copy()  # a ring clipped at the bottom edge sits here, between the buttons
     mask[1000:] = 0  # chat strip and bottom bar
+    if colour != "green":
+        mask[1180:, 200:620] = bottom_edge
     cs = cv2.HoughCircles(cv2.GaussianBlur(mask, (5, 5), 1), cv2.HOUGH_GRADIENT, dp=1, minDist=40, param1=100,
                           param2=22, minRadius=24 if colour != "green" else 14, maxRadius=36)
     if cs is None:
@@ -237,6 +241,96 @@ class Gatherer:
                 return "stuck_progress", taken
         return ("budget_spent" if taken >= budget else "timeout"), taken
 
+    def tracked_count(self) -> Optional[tuple[int, int]]:
+        """The item tracker on the left ("2/20" next to the tracked item's icon), e.g. Bellflowers for Rank Advancement."""
+        for t, _ in self.det.read_text(TRACKER_COUNT_ROI):
+            m = re.fullmatch(r"(\d+)\s*/\s*(\d+)", t.strip())
+            if m:
+                return int(m.group(1)), int(m.group(2))
+        return None
+
+    def _player(self, frame) -> Optional[tuple[int, int]]:
+        me = [b for t, b in self.det.read_text([0, 130, 720, 840], frame) if fogwalk.PLAYER_NAME in t]
+        if not me:
+            return None
+        x, y, w, h = me[0]
+        return x + w // 2, y - 40
+
+    def _near_player(self, frame, xy, radius: int = 70) -> bool:
+        p = self._player(frame)
+        return bool(p) and abs(p[0] - xy[0]) < radius and abs(p[1] - xy[1]) < radius
+
+    def _harvest_target(self, frame) -> Optional[tuple[str, tuple[int, int]]]:
+        """Nearest visible plant of the tracked item (template Gather.Bellflower), not the one under the character.
+        mae, 2026-11-04: plants with a blue aura are rarer and give bonus ingredients, so they go first."""
+        hits = [(x + w // 2, y + h // 2) for x, y, w, h in self.det.find_all("Gather.Bellflower", frame)
+                if x > 90 and y + h < PLAY_ROI[3] and not _in((x, y), MINIMAP_ROI)]  # not the HUD side panels
+        p = self._player(frame) or (360, 560)
+        hits = [h for h in hits if not (abs(h[0] - p[0]) < 70 and abs(h[1] - p[1]) < 70)]
+        if not hits:
+            return None
+        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+        def aura(pt):  # share of light-blue pixels in a ring round the plant
+            x, y = pt
+            patch = hsv[max(0, y - 55):y + 55, max(0, x - 55):x + 55]
+            return float(((patch[..., 0] >= 85) & (patch[..., 0] <= 105) & (patch[..., 1] > 60)
+                          & (patch[..., 2] > 170)).mean())
+
+        best = max(hits, key=lambda h: (aura(h) > 0.04, -((h[0] - p[0]) ** 2 + (h[1] - p[1]) ** 2)))
+        return "plant", best
+
+    def harvest(self, keep: int = 70, minutes: float = MAX_MINUTES) -> dict:
+        """Collect a tracked item (opened from an item's Source link, e.g. Bellflower > "Verdantglade Flower
+        Harvest") until the tracker reads a/b with a >= b. Bellflowers cost no stamina (2026-11-04); if a pickup
+        ever does, stop at the reserve (R-107). Progress is the tracker count; same stuck checks as gather()."""
+        banner(log, "Harvest", "collect the tracked item until its tracker count is full",
+               f"tracker full, stamina at {keep}, {STALE_ACTIONS} taps without progress, or {minutes:g} min")
+        deadline = time.monotonic() + minutes * 60
+        stale = self_taps = 0
+        count = self.tracked_count()
+        log.info("tracker: %s", count)
+        while count and count[0] < count[1] and time.monotonic() < deadline:
+            d = self.det.detect()
+            if d.state == "player_profile":
+                self_taps += 1
+                self._tap((360, 1230), 1.5)
+                if self_taps >= 3:
+                    return {"end": "stuck_self", "count": count}
+                continue
+            if d.state in ("reward_popup", "tap_to_continue"):
+                self._tap(nav.REWARD_CLOSE, 1.5)
+                continue
+            if d.state != "world_map":
+                log.warning("left the map (%s); frame %s", d.state, save_unknown(self.dev, "harvest_state"))
+                return {"end": "unknown_screen", "count": count}
+            stamina = read_stamina(self.det)
+            if stamina is not None and stamina < keep:
+                return {"end": "stamina_reserve", "count": count}
+            frame = self.dev.screenshot()
+            action = self._harvest_target(frame) or self.next_action(frame)
+            if action and action[0] == "ring" and self._near_player(frame, action[1]):
+                action = None  # the ring sits on us (the item under it is gone): don't tap ourselves
+            if action is None or (action[0] == "walk" and fogwalk.centre_player(self.dev, self.det, frame)):
+                if action is None:
+                    fogwalk.centre_player(self.dev, self.det, frame) or self.dev.swipe(360, 400, 360, 700, 400)
+                    time.sleep(1.5)
+                    stale += 1
+            else:
+                log.info("%s at %s", *action)
+                self._tap(action[1], 5)
+                stale += 1
+            now = self.tracked_count()
+            if now and count and now[0] > count[0]:
+                log.info("harvested: %d/%d", *now)
+                stale = self_taps = 0
+            if now:
+                count = now
+            if stale >= STALE_ACTIONS:
+                log.warning("%d taps without progress; frame %s", stale, save_unknown(self.dev, "harvest_stuck"))
+                return {"end": "stuck_progress", "count": count}
+        return {"end": "full" if count and count[0] >= count[1] else "timeout", "count": count}
+
     def run(self, material: Optional[str] = None, check: bool = False) -> dict:
         policy = load_policy()
         material = material or policy["priority"][0]
@@ -264,9 +358,15 @@ def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--material", choices=sorted(MATERIALS))
     p.add_argument("--check", action="store_true", help="read stamina and the budget only")
+    p.add_argument("--harvest", action="store_true",
+                   help="already on the map with an item tracker (e.g. Bellflower): collect until it's full")
     args = p.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s", datefmt="%H:%M:%S")
     dev = Device()
+    if args.harvest:
+        result = Gatherer(dev, StateDetector(dev)).harvest(int(load_policy().get("keep_stamina", 70)))
+        print(json.dumps(result), flush=True)
+        return 0 if result["end"] == "full" else 1
     result = Gatherer(dev, StateDetector(dev)).run(args.material, args.check)
     print(json.dumps(result), flush=True)
     return 0 if result["end"] in ("budget_spent", "no_spare_stamina", "check", "timeout") else 1

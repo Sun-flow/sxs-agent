@@ -39,6 +39,7 @@
                 "State.Character",
                 "State.MainMenu",
                 "State.EnhanceGear",
+                "State.Mall",
                 "State.MapExploration",
                 "State.GearResonance",
                 "State.RankAdvancement",
@@ -761,6 +762,19 @@
             680,
             320,
             60
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Mall": {
+        "doc": "Mall (home menu > Mall): Premium Picks list of USD pages; only the free gift boxes inside are ever tapped (sxs.mall, R-121).",
+        "recognition": "OCR",
+        "expected": "^Premium Picks$",
+        "roi": [
+            0,
+            20,
+            440,
+            70
         ],
         "pre_delay": 0,
         "post_delay": 0
