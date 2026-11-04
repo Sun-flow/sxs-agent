@@ -523,8 +523,8 @@ Entry format:
 - **Related**: R-057, node `team`.
 
 ### R-078 · Heal from the HUD portrait when the player's tile is crowded
-- **Rule**: If the player sprite has a red bubble and other interactables share its tile, tapping the player opens a pick-one menu on the right instead of the heal menu, and tapping again just loops. To heal, either pick the entry with the character's name in that menu, or tap the character portrait in the top-left HUD, which opens the healing menu directly. The HUD portrait avoids the menu entirely, so it is the simpler path for a script. Current HP shows as the bar under the name at the top-left of the map HUD, so read it there to decide whether to heal, without opening any menu.
-- **Confidence**: told. **Source**: mae, 2026-11-03.
+- **Rule**: If the player sprite has a red bubble and other interactables share its tile, tapping the player opens a pick-one menu on the right instead of the heal menu, and tapping again just loops. To heal, either pick the entry with the character's name in that menu, or tap the character portrait in the top-left HUD, which opens the healing menu directly. The HUD portrait avoids the menu entirely, so it is the simpler path for a script. Current HP shows as the bar under the name at the top-left of the map HUD, so read it there to decide whether to heal, without opening any menu. Quick Heal works from any screen that shows the character portrait in the upper left (map, battle prep, dungeon floor cards and others): tap the portrait. There's no need to back out of a menu to heal (mae, 2026-11-04).
+- **Confidence**: told. **Source**: mae, 2026-11-03 and 2026-11-04.
 - **Images**: none yet (want: the pick-one menu).
 - **Related**: R-061, node `player_profile`.
 
@@ -602,7 +602,7 @@ Entry format:
 ## Added from mae (2026-11-04, night)
 
 ### R-091 · Heal mid-run in mini-dungeons instead of leaving
-- **Rule**: In mini-dungeons (Temple Ruins, mines and other floor-by-floor dungeons), the player can heal between floors, so low HP is not a reason to leave. On the floor card, heal from the portrait (Quick Heal, or the profile's Recover, using healing food per R-061), then press Next Floor and carry on. After Next Floor, the battle prep screen shows an HP bar under the character model: read HP there to decide whether to heal before starting (the 70% check of R-061 still applies), and that screen can also be backed out of. Mid-run healing only applies while the player is still alive and merely low (the HP bar, or a low-health "!" over the player, R-080). A defeat inside the dungeon (the fight lost, then the "badly wounded" or forced-heal dialog) resets the dungeon's progress: that run is dead, so count it as a loss (R-090) and don't try to continue it.
+- **Rule**: In mini-dungeons (Temple Ruins, mines and other floor-by-floor dungeons), the player can heal between floors, so low HP is not a reason to leave. Heal in place from the top-left portrait on the floor card or the battle prep screen, no backing out needed (R-078; Quick Heal or Recover, using healing food per R-061), then press Next Floor and carry on. After Next Floor, the battle prep screen shows an HP bar under the character model: read HP there to decide whether to heal before starting (the 70% check of R-061 still applies), and that screen can also be backed out of. Mid-run healing only applies while the player is still alive and merely low (the HP bar, or a low-health "!" over the player, R-080). A defeat inside the dungeon (the fight lost, then the "badly wounded" or forced-heal dialog) resets the dungeon's progress: that run is dead, so count it as a loss (R-090) and don't try to continue it.
 - **Confidence**: told. **Source**: mae, 2026-11-04 (three messages).
 - **Images**: `docs/screens/dungeon_floor.png`.
 - **Related**: R-040, R-061, R-071, R-078, node `dungeon_floor`.
