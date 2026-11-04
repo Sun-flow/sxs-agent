@@ -41,8 +41,8 @@
                 "State.MapExploration",
                 "State.GearResonance",
                 "State.RankAdvancement",
-                "State.ClassPage",
                 "State.UpgradeGoals",
+                "State.ClassPage",
                 "State.TechniqueUpgrade",
                 "State.SkillPage",
                 "State.Featured",
@@ -661,13 +661,13 @@
         "post_delay": 0
     },
     "State.SkillPage": {
-        "doc": "Skill page (Character > Skill): techniques left, charms right, Quick Upgrade beside the lower-right charm, Loadout switcher, Technique/Charm/Shard tabs (R-080, R-104).",
+        "doc": "Skill page (Character > Skill): techniques left, charms right, Quick Upgrade beside the lower-right charm, Loadout switcher, Technique/Charm/Shard tabs (R-080, R-104). Detected by its bottom 'Skill' tab (the profile's loadout editor, titled Edit, has none).",
         "recognition": "OCR",
-        "expected": "^Loadout \\d",
+        "expected": "^Skill$",
         "roi": [
-            200,
-            670,
-            320,
+            180,
+            1190,
+            220,
             60
         ],
         "pre_delay": 0,
@@ -702,12 +702,12 @@
     "State.ClassPage": {
         "doc": "Class screen (Change Class, Class Hierarchy, Goals tabs) and a class's Info/Upgrade page. Change Class is mae's decision: never tapped.",
         "recognition": "OCR",
-        "expected": "^Class$|Class ?Level|^Total Level$",
+        "expected": "^Class$|Class ?Level|^Total Level$|^Level Stats$|^Class Trait$",
         "roi": [
             0,
             0,
             720,
-            420
+            700
         ],
         "pre_delay": 0,
         "post_delay": 0
