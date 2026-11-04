@@ -20,7 +20,7 @@ from typing import Optional
 import cv2
 import numpy as np
 
-from . import goto, minimap, nav
+from . import goto, minimap, nav, tower
 from .decide import Context, Decider
 from .device import Device, banner, save_unknown
 from .explore import (FIGHT_MIN_HP, GUARD_DX, GUARD_DY, HUD_PORTRAIT, PLAYER_NAME, QUICK_HEAL, REPEAT_LIMIT,
@@ -228,7 +228,16 @@ def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[st
         elif d.state == "player_profile":
             dev.tap(360, 60)
             time.sleep(1.5)
-        elif d.state in ("tower_list", "tower_floors", "tower_result", "home"):
+        elif d.state in ("tower_list", "tower_floors", "tower_result"):
+            # A tower opened from here: hand over to the tower loop, then come back to this area (mae: loops call
+            # each other). Mini-dungeon floors need no hand-over: their cards and fights are handled below.
+            log.info("tower climb: %s", tower.climb(dev, det, minutes=max(1.0, (deadline - time.monotonic()) / 60)))
+            nav.Navigator(dev, det).go_home()
+            if home_area:
+                dev.tap(*nav.NAV_WORLD)
+                time.sleep(4)
+                goto.go_to(dev, det, home_area)
+        elif d.state == "home":
             return f"left_area:{d.state}"
         else:
             # Cards, dialogs and unknown popups: the same rules as the quest loop.
