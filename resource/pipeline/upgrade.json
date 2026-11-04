@@ -13,7 +13,7 @@
         "recognition": "TemplateMatch",
         "template": "explore/bellflower.png",
         "roi": [0, 130, 720, 720],
-        "threshold": 0.72,
+        "threshold": 0.8,
         "pre_delay": 0,
         "post_delay": 0
     }
