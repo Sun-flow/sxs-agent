@@ -171,7 +171,7 @@ flowchart TD
 
 | id | Name | Kind | Confidence | Unlock | Notes |
 |---|---|---|---|---|---|
-| `home` | Home | hub | observed |  | Scene scrolls horizontally; the Cart (AFK income) and cherry tree are on the left (R-020). The chat strip at y 0.82-0.90 opens server_chat: avoid it. After Originisle: top-right 'Thrilling Events' and 'Starter Pack' (shop; never buy) buttons (R-075). |
+| `home` | Home | hub | observed |  | Scene scrolls horizontally; the Cart (AFK income) and cherry tree are on the left (R-020). The chat strip at y 0.82-0.90 opens server_chat: avoid it. After Originisle: top-right 'Thrilling Events' and 'Starter Pack' (shop; never buy) buttons (R-075). If home shows only sky (no Cart bubble, no Statue) and swipes do nothing, restart the game (R-100). Friend Request toasts near the tracker: leave alone (R-057). |
 | `main_menu` | Menu | menu | observed |  | Also has Photo (0.14,0.85), Notice (0.30,0.85), User Center (0.47,0.85), Settings (0.64,0.85), a 'Coming soon' card (0.72,0.75). Shows the server clock (R-024). From Lv 10 a Friends button is added and the row shifts: Friends (0.14,0.85), Photo (0.32), Notice (0.49), User Center (0.67), Settings (0.85). Later a second row (Friends, Gallery, Photo, Notice, User Center, Settings) plus Quest and Mall cards; the event banner opens paid packs: never (R-053). |
 | `quests` | Quests | menu | observed |  | Tabs Quest (0.40,0.95) and Achievement (0.78,0.95). Each row has 'Go >>' at x 0.83 that jumps to the relevant screen (R-009). |
 | `quest_detail` | Quest detail | popup | observed |  | Quest detail card: Details, Goal, Rewards and a Go or Track button (R-044). |
@@ -216,7 +216,7 @@ flowchart TD
 | `exploration_goals` | Exploration Goals | menu | observed |  | Progress tab (per-region exploration milestones with rewards) and Explore tab (Destiny Exploration Goals) (R-052). |
 | `class_choice` | Class choice dialogue | popup | observed |  | Dialogue options Ascend to Mage / Change Class / Leave. The bot never chooses on its own (needs_decision); `python -m sxs.explore --choose "<regex>"` applies a human's choice (R-050, R-054). |
 | `class_ascend` | Class ascend | menu | observed |  | Class trait stats and class skill grid; Ascend button at (0.5, 0.86) (R-054). |
-| `prayer` | Prayer (skill gacha) | menu | observed | Statue furniture on home | Pray x1 / x10 with prayer tickets; tabs Prayer / Exchange / Goals. The bot never taps Pray (R-055). |
+| `prayer` | Prayer (skill gacha) | menu | observed | Statue furniture on home | Pray x1 / x10 with prayer tickets; tabs Prayer / Exchange / Goals. The bot never taps Pray (R-055). Statue at about (0.07, 0.63) on the default home camera. Banners Standard (Stellatie) and Affection (tokens). Goals tab: Total Standard Prayers milestones pay Iron Hammers. Pulls only via mae's sxs.pray (R-093). |
 | `prayer_result` | Prayer result | popup | observed |  | Skills and shards from a pull. |
 | `apply_requests` | Apply (social requests) | popup | observed |  | Tabs Friends / Team Up / Challenge / Room; incoming requests with x / check, Decline All / Agree All. Leave untouched (R-057). |
 | `area_map` | Area map (full map) | overlay | observed |  | Full map of the current area, opened by tapping the minimap. Legend: Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone; areas show exploration % and power gates. Tapping a spot centres the camera there (R-068, R-076). The white box is the camera viewport. sxs/goto.py drives it. |

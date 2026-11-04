@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/`; templates in `resource/image/`.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-100).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-101).
 
 Entry format:
 
@@ -377,7 +377,7 @@ Entry format:
 - **Related**: R-037, R-039.
 
 ### R-057 · Social requests are left alone
-- **Rule**: A person icon with a badge on the map's left edge (0.06, 0.6) opens "Apply": tabs Friends / Team Up / Challenge / Room, incoming friend requests with x and check, Decline All and Agree All. The bot doesn't touch these; accepting or declining is mae's call.
+- **Rule**: A person icon with a badge on the map's left edge (0.06, 0.6) opens "Apply": tabs Friends / Team Up / Challenge / Room, incoming friend requests with x and check, Decline All and Agree All. The bot doesn't touch these; accepting or declining is mae's call. Friend Request toasts (X / check) that pop up on home near the tracker are left alone too (dailies batch 2).
 - **Confidence**: observed. **Source**: builder batch 9.
 - **Images**: `docs/screens/apply_requests.png`.
 - **Related**: R-053, node `apply_requests`.
@@ -614,10 +614,10 @@ Entry format:
 - **Related**: R-020, R-023, R-088.
 
 ### R-093 · Skill pulls run only when the handler starts them
-- **Rule**: This means the skill pulls (Pray x1 / x10) at the goddess Statue at home, the furniture that reads "Pray to the goddess" and opens Prayer (R-055), not the Goddess Statues on the map that bless areas (R-070). Pulling skills is needed to keep growing in strength, so the bot gets a dedicated pull script. That script runs only when the agent's handler (mae) starts it at a time they judge right. It is never part of a loop, and no loop or decision function may call it on its own. Everything else stays under the spend rules (R-043, R-055): no Dawnium, no other spend-looking buttons. Standard pulls cost Stellatie (blue crystal tickets), not Dawnium; the Affection banner uses Affection Tokens. The script is `python -m sxs.pray --pulls N --handler-approved`: it never presses "+" to buy tickets, cancels any purchase prompt and stops if the Dawnium counter changes. The Prayer Goals tab pays Iron Hammers (R-095).
+- **Rule**: This means the skill pulls (Pray x1 / x10) at the goddess Statue at home, the furniture that reads "Pray to the goddess" and opens Prayer (R-055), not the Goddess Statues on the map that bless areas (R-070). Pulling skills is needed to keep growing in strength, so the bot gets a dedicated pull script. That script runs only when the agent's handler (mae) starts it at a time they judge right. It is never part of a loop, and no loop or decision function may call it on its own. Everything else stays under the spend rules (R-043, R-055): no Dawnium, no other spend-looking buttons. Prayer is the goddess Statue on the left of the home scene, about (0.07, 0.63) on the default camera. Two banners: Standard uses Stellatie (blue crystal tickets; Pray x1 = 1, x10 = 10; pity "Prayer x60 away from a guaranteed Legendary"; "200 Prayers Bonus"), and Affection uses Affection Tokens (red; x1 = 25, x10 = 250; "Affection Tokens Earned This Week 0/1000"). Stellatie comes from the Daily Sign-in, 10 a day (R-097); the account had 20. The script pulls on the Standard banner with Stellatie only. The script is `python -m sxs.pray --pulls N --handler-approved`: it never presses "+" to buy tickets, cancels any purchase prompt and stops if the Dawnium counter changes. The Goals tab has "Total Standard Prayers" milestones at 10/20/30/40/50/60 with Claim buttons: the 10 milestone paid 3 Iron Hammers (R-095); later ones show a pickaxe, a helmet item and blue and purple scrolls.
 - **Confidence**: told (mae); script and costs observed (dailies builder). **Source**: mae, 2026-11-04; dailies batch 1 addendum.
-- **Images**: `docs/screens/prayer.png`, `docs/screens/prayer_result.png`.
-- **Related**: R-043, R-055, R-095, nodes `prayer`, `prayer_result`.
+- **Images**: `docs/screens/prayer.png`, `docs/screens/prayer_result.png`, `docs/screens/prayer_tickets.png`, `docs/screens/prayer_affection.png`.
+- **Related**: R-043, R-055, R-095, R-097, nodes `prayer`, `prayer_result`.
 
 ## Added from dailies batch 1 (2026-11-04)
 
@@ -628,7 +628,7 @@ Entry format:
 - **Related**: R-079, R-095, nodes `travel_journal`, `fantasia_ascent`.
 
 ### R-095 · Material Realms: mining needs Iron Hammers; never buy them
-- **Rule**: Material Realms lists realms; the first is Ironvein Pit (Raw and Refined Ore), three more are locked. Inside is a mining screen with a hammer button (0.5, 0.72), an "Iron Mined" counter and tabs Ironvein Pit / Rankings / Goals (Iron Mined 5/10/15/20/25 goals each pay a fruit item). Mining uses Iron Hammers (counter top right). With 0 hammers the button opens "Purchase Iron Hammer" (60 Dawnium each, daily limit 20): never buy, tap Cancel (0.32, 0.65). Free hammers come from the Prayer Goals rewards (R-093): the first goal pays 1, the next 3, and later prayer milestones pay more. Each hammer yields about 115 Raw Ore. Mining Ironvein Pit with free hammers is a step in the daily loop.
+- **Rule**: Material Realms lists realms; the first is Ironvein Pit (Raw and Refined Ore), three more are locked. Inside is a mining screen with a hammer button (0.5, 0.72), an "Iron Mined" counter and tabs Ironvein Pit / Rankings / Goals (Iron Mined 5/10/15/20/25 goals each pay a fruit item). Mining uses Iron Hammers (counter top right). With 0 hammers the button opens "Purchase Iron Hammer" (60 Dawnium each, daily limit 20): never buy, tap Cancel (0.32, 0.65). Free hammers come from the Prayer Goals milestones (R-093; the 10-prayer milestone paid 3). Owned hammers show on the hammer button and the top-right counter. One hammer gave about +115 Raw Ore (7 to 122), so hammers, and through them prayers, are an ore source. Mining Ironvein Pit with free hammers is a step in the daily loop.
 - **Confidence**: observed. **Source**: dailies batch 1 and its addendum.
 - **Images**: `docs/screens/material_realms.png`, `docs/screens/ironvein_pit.png`, `docs/screens/purchase_iron_hammer.png`.
 - **Related**: R-043, R-071, nodes `material_realms`, `ironvein_pit`.
@@ -656,3 +656,11 @@ Entry format:
 - **Confidence**: observed. **Source**: dailies batch 1.
 - **Images**: none.
 - **Related**: R-009, R-024, R-092, node `quests`.
+
+## Added from dailies batch 2 (2026-11-04)
+
+### R-100 · Home stuck on sky: restart the game
+- **Rule**: After a long session the home scene can get stuck showing only sky: no swipe moves it, and neither the Cart bubble nor the goddess Statue can be found. Restarting the game fixes it. Treat "home, but no Cart bubble and no Statue" as a reason to restart rather than keep swiping.
+- **Confidence**: observed. **Source**: dailies batch 2.
+- **Images**: none.
+- **Related**: R-020, R-075, R-093, node `home`.
