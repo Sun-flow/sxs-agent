@@ -750,7 +750,7 @@
    "unlock": null,
    "detect": null,
    "images": [],
-   "notes": "Multi-floor tower (e.g. in Moonveil Woods). Turn on Auto Challenge when challenging it; Auto Challenge unlocks after floor 3 (R-079). A floor loss (DEFEAT with Retry) turns Auto Challenge off; re-enable it, and retry at most twice (R-061)."
+   "notes": "Multi-floor tower (e.g. in Moonveil Woods). Turn on Auto Challenge when challenging it; Auto Challenge unlocks after floor 3 (R-079). A floor loss (DEFEAT with Retry) turns Auto Challenge off; re-enable it next time. Losses are not retried: one challenge per day, as a daily mission."
   }
  ],
  "edges": [
