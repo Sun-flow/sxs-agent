@@ -5,6 +5,7 @@
 
 ### 2026-11-04 (morning) · Game docs: bed EXP (Claude Code, cloud)
 - PR #13 merged. mae: collect bed EXP daily, not in every upgrade pass, and sooner near a level-up (R-101); the guild unlocked at Lv 20 (R-011). Next: rule batches from the guild-mapping thread.
+- Dailies builder's final batch: guild crest icon at Lv 20 (R-011), bed EXP took Lv 13 to 20 (R-101), "Path to Upgrade: Reach Lv. 20" after Verdant Wonders III (R-084). Opened PR #16 for `dailies-wrapup` (handoff for the guild thread).
 
 ### 2026-11-04 (late) · Game docs: final step 3 batch (Claude Code, cloud)
 - PRs #10 and #11 merged. Opened PR #12 for the builder's `step3-wrapup` branch (banded gear enhancement, handoff).

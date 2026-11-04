@@ -384,7 +384,9 @@
    "confidence": "observed",
    "unlock": "Character Lv. 15 (toast on the locked tab)",
    "detect": null,
-   "images": [],
+   "images": [
+    "docs/screens/home_guild_tutorial.png"
+   ],
    "notes": "Donations, Farm, Boss, floating-island AFK farm (R-016, reported). Unlocked at Lv 20 with a guild tutorial (mae, 2026-11-04; R-011, R-101)."
   },
   {
