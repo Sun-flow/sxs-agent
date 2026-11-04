@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/`; templates in `resource/image/`.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-125).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-126).
 
 Entry format:
 
@@ -708,7 +708,7 @@ Entry format:
 - **Related**: R-019, R-023, R-039, R-076, R-095, R-105, R-107.
 
 ### R-107 · Stamina budget: keep 70 for daily commissions, spend the rest on the priority material
-- **Rule**: Stamina regenerates over time (R-033). Always keep at least 70 stamina for the daily commissions. Spend anything above that on gathering the priority material, currently **ore**; mae will switch it to sand later. Gathering route: R-108.
+- **Rule**: Stamina regenerates over time (R-033). Per the stamina card, it recovers 5 an hour and passive recovery stops at 300; items can push it past 300, up to 1,200. Always keep at least 70 stamina for the daily commissions. Spend anything above that on gathering the priority material, currently **ore**; mae will switch it to sand later. Gathering route: R-108.
 - **Confidence**: told. **Source**: mae, 2026-11-04.
 - **Images**: none.
 - **Related**: R-033, R-076, R-106, R-108.
@@ -754,10 +754,10 @@ Entry format:
 - **Related**: R-103, R-110, R-111, nodes `guild`, `guild_lobby`.
 
 ### R-114 · Warehouse is leader-only; the Guild Shop is untouched for now
-- **Rule**: The Warehouse is locked and only the leader or deputies can build it. The Shop (NEW badge) spends Guild Tokens; the bot buys nothing there until mae has marked items on the mapped stock table and a buy list exists (mae's shop policy, R-120).
-- **Confidence**: observed. **Source**: guild batch 1.
-- **Images**: `docs/screens/guild_warehouse_locked.png`.
-- **Related**: R-043, R-113, R-120, node `guild`.
+- **Rule**: The Warehouse is locked and only the leader or deputies can build it. The Shop (NEW badge, the island's east side) is paid in Guild Tokens (760 held; 300 per donation) and refreshes weekly. It's at Shop Level 1/1 (levels are guild-side). Most items are locked until Shop Lv 2 to 6: Bond Trinket, Auroral Badges, Guild Garden plants, livestock. Only Stellatie (500, limit 3) and Lucky Ticket (1.5K, limit 1, spins the Wheel of Destiny) can be bought now. Full table: `docs/shop-tables.md`. the bot buys nothing there until mae has marked items on the mapped stock table and a buy list exists (mae's shop policy, R-120).
+- **Confidence**: observed. **Source**: guild batch 1; shops batch, 2026-11-04.
+- **Images**: `docs/screens/guild_warehouse_locked.png`, `docs/screens/guild_shop_top.png`, `docs/screens/guild_shop_bottom.png` (upgrade-systems branch).
+- **Related**: R-043, R-113, R-120, R-125, node `guild`.
 
 ## Added from upgrade-systems batch 1 (2026-11-04)
 
@@ -794,10 +794,10 @@ Entry format:
 - **Related**: R-023, R-092, node `enhance_gear`.
 
 ### R-120 · Molly's Vendor Booth: a daily-refresh shop on home
-- **Rule**: Following the Bellflower item's source link (R-123) started a home tutorial with Akane and Molly that ends with "Vendor Booth (Furniture): Unlock" (Molly: "new goodies pop up every single day"), which is free, then "UNLOCKED". The booth now stands on the home scene with a "!". The booth is Molly's shop on the home scene, and its stock refreshes daily. What it sells and what it costs aren't known yet ❓. Shop policy (mae, 2026-11-04 08:17), for the Vendor Booth, the Guild Shop and every other shop: map every item (name, cost, currency, limits) into a table, mae marks which are buyable, and those become a per-shop buy list in the repo. The bot buys nothing in a shop until its buy list exists (R-043).
+- **Rule**: Following the Bellflower item's source link (R-123) started a home tutorial with Akane and Molly that ends with "Vendor Booth (Furniture): Unlock" (Molly: "new goodies pop up every single day"), which is free, then "UNLOCKED". The booth now stands on the home scene with a "!". The booth is Molly's shop: the green-roofed wagon on home at about (0.58, 0.63). Bottom tabs are General | Vault | Goals. Stock refreshes daily (timer top left). The Refresh button is paid (4K Rolla, 10 a day): never press it (R-043). General is paid in Rolla, Vault in Dawnium. Vault has a "Free" x30 Stamina item with a red "!"; mae hasn't said yet whether the bot may claim it ❓. Goals are Vendor Booth Pts milestones (5K to 25K) and fall under R-116. The full stock with prices and limits is in `docs/shop-tables.md`, which has a Buy? column for mae to fill in. Read shops safely with `scripts/shop_survey.py` (R-125). Shop policy (mae, 2026-11-04 08:17), for the Vendor Booth, the Guild Shop and every other shop: map every item (name, cost, currency, limits) into a table, mae marks which are buyable, and those become a per-shop buy list in the repo. The bot buys nothing in a shop until its buy list exists (R-043).
 - **Confidence**: observed; shop policy told (mae). **Source**: upgrade-systems builder, 2026-11-04 08:18; mae 08:17.
-- **Images**: `docs/screens/home_white_sheet_tutorial.png`, `docs/screens/vendor_booth_unlock.png`.
-- **Related**: R-043, R-123, node `home`.
+- **Images**: `docs/screens/home_white_sheet_tutorial.png`, `docs/screens/vendor_booth_unlock.png`, `docs/screens/vendor_booth_general.png`, `docs/screens/vendor_booth_vault.png`, `docs/screens/vendor_booth_goals.png` (upgrade-systems branch).
+- **Related**: R-043, R-114, R-116, R-123, R-125, node `home`.
 
 ### R-121 · Mall: claim the free gift boxes, never the packs
 - **Rule**: Every Mall pack costs real money (USD): Welcome Gift, Halloween Charmer, Little Devil, Pilgrimage Pass, Daily Deals, Weekly Deals, and Pathfinder Pack (USD 0.99 for stamina). The bot never taps a pack (R-043). Each pack page has a free gift box at the top left, marked "!" when it can be claimed, and mae says the bot may tap these (2026-11-04 08:49). Route: Home menu (0.92, 0.79), then Mall (0.72, 0.65), opens "Premium Picks" (state `mall`), with bottom tabs Event, Monthly Pass and Top Up (never Top Up). The box sits at the top left of each page with a red "!" just above and to its right, and one tap claims it. The boxes are Daily Gift (4 h refresh), Weekly Gift (5 d refresh), Welcome Benefit (claimable once, gave +30 Dawnium), plus boxes on Halloween Charmer and Little Devil. The bot claims each box once per refresh and taps nothing else on the page. Code: `sxs/mall.py`, daily step `mall_gifts`.
@@ -833,3 +833,16 @@ Entry format:
 - **Confidence**: observed. **Source**: upgrade-systems builder, 2026-11-04 09:24.
 - **Images**: `docs/screens/explore_bellflower_field_wide.png`.
 - **Related**: R-106 to R-109, R-122, R-123.
+
+### R-125 · Read items safely through their info cards
+- **Rule**: In a shop, tap an item's icon, not its price button (about 100 px lower), to open a read-only info card: name, type, owned, use, source. Tap outside the card to close it. That's the safe way to read any shop, and `scripts/shop_survey.py` does it for a whole grid. It taps only icons, never price buttons.
+  - Wood and Stone are for home furniture upgrades (Home AFK yield).
+  - Gold Pickaxe is for Realm: Gilded Depths.
+  - Worn Knuckles are for Realm: Dread Hollow.
+  - Refined Ore is for gear enhancement. It comes from dismantling advanced gear and from Fantasia Ascent.
+  - Golden Beetle skips a puzzle.
+  - Lucky Ticket spins the Wheel of Destiny.
+  - Water is a cooking ingredient.
+- **Confidence**: observed. **Source**: upgrade-systems builder, shops batch, 2026-11-04.
+- **Images**: `docs/screens/vendor_booth_general.png` (upgrade-systems branch).
+- **Related**: R-043, R-095, R-106, R-114, R-120.

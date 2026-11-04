@@ -32,6 +32,7 @@
 - Builder's last batch folded in, no new numbers: Mall route and images (R-121), the Bellflower route and field in Moonveil Woods (R-118), Vendor Booth details (R-120), rating popup (R-060), x10-only pulls in code (R-093). Opened a PR for `upgrade-systems`.
 - Builder's "Bellflower + Rank II" batch: R-118 is now just Rank Advancement (Apprentice II done: cap 30, Lv 21, 16.4K; III needs Lv 30 and 30 of a new flower). New R-123 covers the Bellflower route and field (+2 per free pick) and R-124 the collector's tap order. The rank tutorial overlay counts as unknown (R-036).
 - mae: skip the menus' milestone Goals tabs and use the Home menu's collect-all instead (not mapped yet); quest-like goals still count (R-116).
+- Shops batch: Vendor Booth tabs, paid Refresh, free Vault stamina waiting on mae (R-120); Guild Shop stock (R-114); stamina recovers 5/h up to 300 and items can hold it to 1,200 (R-107); item info cards and the read-only survey script (R-125). Stock tables are in the shop-tables doc on upgrade-systems.
 
 ### 2026-11-04 (morning) · Game docs: bed EXP (Claude Code, cloud)
 - PR #13 merged. mae: collect bed EXP daily, not in every upgrade pass, and sooner near a level-up (R-101); the guild unlocked at Lv 20 (R-011). Next: rule batches from the guild-mapping thread.
