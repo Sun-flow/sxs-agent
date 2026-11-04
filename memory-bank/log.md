@@ -43,7 +43,8 @@
 - Vendor step: `vendor_stamina` daily step and its OCR "Free" check (R-120); the home scene pans and keeps its camera, so find objects by template, and its left-to-right order (R-126) with the bed to the right of the Cart; mae's bed crop is a reference picture, not a template (R-101).
 - mae: orange minimap icons are monsters, fight them (R-066). Roam Loop and Fog Walk scope (R-065).
 - Gates of Power open with a free Open button once power is enough (Damp Woods at 16.9K) and the Damp Woods entry pocket (R-086); Verdantglade III doesn't open from Moonveil Woods (R-084); Fog Walk keeps 70 stamina and sees dimmed dots (R-065).
-- Builder's formal batch (11:33): bed pan direction (R-101), Open button position and `power_gate_open` (R-086), already-blessed statues (R-070), shadowed minimap colours (R-066), area-map labels and the Lost Statue template (R-076), Grand Iron and Sand Mines in chat (R-109), `sxs.roam` (R-065). Its images aren't pushed yet.
+- Builder's formal batch (11:33): bed pan direction (R-101), Open button position and `power_gate_open` (R-086), already-blessed statues (R-070), shadowed minimap colours (R-066), area-map labels and the Lost Statue template (R-076), Grand Iron and Sand Mines in chat (R-109), `sxs.roam` (R-065). PR #26 merged with its images.
+- Builder's wrap-up: Damp Woods to 100% through free pickups behind the gate, Lv 23 at 17.4K (R-086); the Damp Woods statue's rewards (R-070); you can't walk into fog, and Verdantglade III is probably a quest unlock (R-084); clipped area labels (R-076).
 
 ### 2026-11-04 (morning) · Game docs: bed EXP (Claude Code, cloud)
 - PR #13 merged. mae: collect bed EXP daily, not in every upgrade pass, and sooner near a level-up (R-101); the guild unlocked at Lv 20 (R-011). Next: rule batches from the guild-mapping thread.
