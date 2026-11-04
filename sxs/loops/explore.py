@@ -460,4 +460,5 @@ def _run(ctx, opts) -> Result:
 
 
 LOOP = Loop("explore", "Explore", "follow the tracked quest line (fights, cards, unstick, claims)", _run, _args,
-            ok={"complete"})
+            ok={"complete", "timeout"})  # runs are 2 minutes: a timeout with progress is the normal end; no progress
+# for --stall seconds ends it as "stalled" instead
