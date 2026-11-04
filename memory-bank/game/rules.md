@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/`; templates in `resource/image/`.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-113).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-115).
 
 Entry format:
 
@@ -668,23 +668,23 @@ Entry format:
 ## Added from mae (2026-11-04, morning)
 
 ### R-101 · Collect bed EXP daily, not every upgrade pass
-- **Rule**: An icon appears over the bed in the house when AFK EXP is ready to collect; tap the bed to collect it. EXP builds up slowly, so collecting it is a daily task (alongside the free speed-up of R-035), not a standard step of the upgrade loop. Exception: check it whenever the character is close to levelling up. Collecting it took the account from Lv 13 to Lv 20 (power 10.1K to 13.1K), which unlocked the Guild and its tutorial (R-011).
+- **Rule**: An icon appears over the bed in the house when AFK EXP is ready to collect: a blue orb in a yellow frame. The daily step `bed` in `sxs.daily` taps it once a day; tap the bed to collect it. EXP builds up slowly, so collecting it is a daily task (alongside the free speed-up of R-035), not a standard step of the upgrade loop. Exception: check it whenever the character is close to levelling up. Collecting it took the account from Lv 13 to Lv 20 (power 10.1K to 13.1K), which unlocked the Guild and its tutorial (R-011).
 - **Confidence**: told. **Source**: mae, 2026-11-04; dailies builder's final batch.
-- **Images**: none yet (want: the bed EXP icon; mae will send a screenshot).
+- **Images**: `docs/screens/home_bed_xp.png` (guild-tutorial branch; template `resource/image/home/bed_xp_bubble.png`).
 - **Related**: R-011, R-020, R-035, nodes `home_house`, `bed`, `guild`.
 
 ## Added from the guild thread (2026-11-04)
 
 ### R-102 · Joining a guild: join a random open one
-- **Rule**: The Guild tutorial is a short dialogue with Akane that ends at a choice: Join Guild or Create Guild. Donations (R-016), the guild farm and the guild boss all need membership. The Join list shows mostly guilds with an instant "Join" button and some with "Apply" (needs approval). Creating a guild may cost Dawnium, so never create one (R-043). mae's decision for now: join a random open guild (an instant "Join"). Picking or leaving guilds beyond that is mae's call, like other social choices (R-057).
+- **Rule**: The Guild tutorial starts from the bottom bar's 4th icon (0.68, 0.97), then a short dialogue with Akane, then the no-guild screen with "Join Guild Go>>" (0.71, 0.38) and "Create Guild <<Go" (0.29, 0.77). The Join list has a search field at the top (a name or ID works) and Refresh; a red "50K+ Power" label on a row is a power requirement. Donations (R-016), the guild farm and the guild boss all need membership. The Join list shows mostly guilds with an instant "Join" button and some with "Apply" (needs approval). Creating a guild may cost Dawnium, so never create one (R-043). mae's decision for now: join a random open guild (an instant "Join"). Picking or leaving guilds beyond that is mae's call, like other social choices (R-057).
 - **Confidence**: observed (tutorial and list); told (the choice). **Source**: guild thread and mae, 2026-11-04.
-- **Images**: none yet (want: the Join / Create choice and the guild list).
-- **Related**: R-011, R-016, R-043, R-057, node `guild`.
+- **Images**: `docs/screens/guild_tutorial_intro.png`, `docs/screens/guild_no_guild.png`, `docs/screens/guild_join_list.png` (guild-tutorial branch).
+- **Related**: R-011, R-016, R-043, R-057, nodes `guild_no_guild`, `guild_join_list`.
 
 ### R-103 · Donate to the guild twice a day, never more
-- **Rule**: Donate to the guild up to twice per day and never more. These first two donations are an approved use of Dawnium, an exception to R-043: the first donation of the day is free, the second costs 20 Dawnium and the third 50, so stop after two. Facility upgrades are for the guild leader only. The account joined guild karsa_1515 (28/30 members, 607K power) on 2026-11-04 (R-102). Buildings on the guild island: Lobby, Power Station (AFK gathering), Forge, Mine, Shop, Gate of Expedition and Donation.
+- **Rule**: Donate to the guild up to twice per day and never more. These first two donations are an approved use of Dawnium, an exception to R-043: the Donation screen (Lobby, Donation (0.29, 0.82)) reads "Daily Donations: N/5"; the first is free, the second costs 20 Dawnium behind a confirm dialog, and the third 50, so stop after two. Each donation pays 300 Guild Tokens personally and 500 of each guild resource to the guild. Facility upgrades are for the guild leader only. The account joined guild karsa_1515 (ID 700460600036; 28/30 members, about 607K power, guild Lv 1) on 2026-11-04 (R-102). Buildings on the guild island: Lobby, Power Station (AFK gathering), Forge, Mine, Shop, Gate of Expedition and Donation.
 - **Confidence**: told (the limit); observed (costs, buildings). **Source**: mae and the guild thread, 2026-11-04.
-- **Images**: none yet (want: the Donation screen and the guild island).
+- **Images**: `docs/screens/guild_donation.png`, `docs/screens/guild_donation_confirm.png`, `docs/screens/guild_lobby.png` (guild-tutorial branch).
 - **Related**: R-016, R-043, R-102, node `guild`.
 
 ## Added from mae (2026-11-04): upgrades and materials
@@ -728,19 +728,33 @@ Entry format:
 ## Added from the guild thread (2026-11-04, later)
 
 ### R-110 · Guild gathering: one slot per character
-- **Rule**: A character holds only one guild gathering slot at a time (Power Station, R-103). Moving to another slot collects the earnings from the old one.
-- **Confidence**: observed. **Source**: guild thread.
-- **Images**: none.
-- **Related**: R-103, node `guild`.
+- **Rule**: The gathering facilities are the Forge (7800/h), the Power Station (5400/h) and the Mine (5400/h), with 10 slots each. Tap an empty "+" slot to open AFK Details (+600/h to the guild, AFK rewards capped at 36 h, personally 120 Guild Tokens/h plus a random item), then Start. A character holds only one slot at a time: switching asks "Currently AFK: ... Switch anyway?" and collects the old slot's rewards automatically. mae: gather at the **Forge** (gromb2 is there now). The island's bottom-right widget shows a sleeping figure when not gathering, or the character at a facility with a timer when gathering.
+- **Confidence**: observed; Forge choice told by mae. **Source**: guild batch 1.
+- **Images**: `docs/screens/guild_forge.png`, `docs/screens/guild_power_station.png`, `docs/screens/guild_afk_switch_confirm.png` (guild-tutorial branch).
+- **Related**: R-103, R-113, node `guild_facility`.
 
 ### R-111 · Gate of Expedition: Conquest and Guild Clash
-- **Rule**: The guild's Gate of Expedition holds Conquest (the guild boss) and Guild Clash, which unlocks 8 days after 2026-11-04. Conquest is a shared guild boss with 2 free tries a day, and its floor rewards include Stellatie; it runs in the background (R-112).
-- **Confidence**: observed. **Source**: guild thread.
-- **Images**: none.
-- **Related**: R-103, node `guild`.
+- **Rule**: The guild's Gate of Expedition opens Guild Events, with Conquest (the guild boss) and Guild Clash, which unlocks 8 days after 2026-11-04. Conquest is a shared boss per floor with "Daily Challenge Attempts: N/2". A beaten floor has a reward chest (0.49, 0.57) (gave 1 Stellatie). Flow: Challenge (0.50, 0.77), battle prep Start Battle (0.50, 0.75), then a 50-round fight that can be sent to the background (R-112). The result screen shows damage dealt and participation rewards (10 Dawnium, 150 Guild Tokens), then Tap to Continue; a "Done Conquest F2" chip shows on home afterwards. Tabs: Rankings (karsa_1515 was 18th at F2, 85%) and Goals, with Serverwide goals (claim per server floor; 4 claimed) and Personal goals (total challenges 10/20/...). Code: `sxs/guild.py` (donate, afk, conquest) and the daily steps `guild_donate`, `guild_afk`, `guild_conquest`. Gotcha: the detector once read the Challenge button as a map object and wandered into Rankings; guild screens are now checked first and Rankings is a known state.
+- **Confidence**: observed. **Source**: guild thread and guild batch 1.
+- **Images**: `docs/screens/guild_events.png`, `docs/screens/guild_conquest.png`, `docs/screens/guild_conquest_battle.png`, `docs/screens/guild_conquest_result.png`, `docs/screens/guild_conquest_rankings.png` (guild-tutorial branch).
+- **Related**: R-103, R-112, nodes `guild_events`, `guild_conquest`, `guild_conquest_result`.
 
 ### R-112 · Background fights: start them and move on
-- **Rule**: A fight screen showing the "run in background" symbol (a square with an arrow pointing into its lower-left corner, `docs/screens/icons/background_battle.png`) keeps going without being watched. For such fights, Conquest for example, start the fight, then leave and do other things; come back later for the result. Fantasia Ascent's Auto Challenge also runs in the background (R-079).
+- **Rule**: A fight screen showing the "run in background" symbol (a square with an arrow pointing into its lower-left corner, `docs/screens/icons/background_battle.png`) keeps going without being watched. On the Conquest fight it sits at the bottom left (0.10, 0.95) (template `resource/image/state/background_fight.png`); tapping it minimises the fight. For such fights, Conquest for example, start the fight, then leave and do other things; come back later for the result. Fantasia Ascent's Auto Challenge also runs in the background (R-079).
 - **Confidence**: told. **Source**: mae, 2026-11-04.
 - **Images**: `docs/screens/icons/background_battle.png` (crop sent by mae).
 - **Related**: R-079, R-111.
+
+## Added from guild batch 1 (2026-11-04)
+
+### R-113 · Guild island layout and the Lobby
+- **Rule**: The guild island (state `guild`, bottom label "Guild") pans sideways. Buildings by label: Guild Lobby and Gate of Expedition on the west; Power Station, Forge, Warehouse and Shop on the east. The Lobby shows guild info and Activeness, with Donation (0.29, 0.82) (R-103), Guildmates and More. Its tabs are Guild, Territory (guild resources, facility levels, gathering speeds, AFK member counts) and Upgrade (leader and deputies only).
+- **Confidence**: observed. **Source**: guild batch 1.
+- **Images**: `docs/screens/guild_island.png`, `docs/screens/guild_lobby.png`, `docs/screens/guild_territory.png`, `docs/screens/guild_upgrade.png` (guild-tutorial branch).
+- **Related**: R-103, R-110, R-111, nodes `guild`, `guild_lobby`.
+
+### R-114 · Warehouse is leader-only; the Guild Shop is untouched for now
+- **Rule**: The Warehouse is locked and only the leader or deputies can build it. The Shop (NEW badge) spends Guild Tokens; the bot doesn't buy there until mae says whether it may ❓.
+- **Confidence**: observed. **Source**: guild batch 1.
+- **Images**: `docs/screens/guild_warehouse_locked.png` (guild-tutorial branch).
+- **Related**: R-043, R-113, node `guild`.

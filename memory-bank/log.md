@@ -8,6 +8,7 @@
 - mae: donate to the guild at most twice a day; those two may use Dawnium (R-103, R-043, R-016). Joined karsa_1515.
 - mae's upgrades and materials rules: Quick Upgrade for skills (R-104), relic banding by element (R-105, not unlocked yet), the four materials (R-106), keep 70 stamina and gather ore (R-107), material tracking (R-108), special nodes (R-109), any character "!" means an upgrade (R-080). Guild thread: one gathering slot (R-110), Gate of Expedition (R-111), third donation costs 50 (R-103).
 - PR #17 merged. mae: fights with the background symbol run unattended, so start them and move on (R-112, icon crop in `docs/screens/icons/`); Conquest has 2 free tries a day (R-111).
+- Guild batch 1: tutorial and join list (R-102), donation screen (R-103), gathering facilities and mae's Forge choice (R-110), Conquest flow and the guild script (R-111), island and Lobby (R-113), Warehouse and Shop (R-114), bed EXP bubble (R-101). Eight guild screens in the nav graph. Images are on the builder's guild-tutorial branch until it merges.
 
 ### 2026-11-04 (morning) · Game docs: bed EXP (Claude Code, cloud)
 - PR #13 merged. mae: collect bed EXP daily, not in every upgrade pass, and sooner near a level-up (R-101); the guild unlocked at Lv 20 (R-011). Next: rule batches from the guild-mapping thread.
