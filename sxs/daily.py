@@ -114,7 +114,10 @@ class Dailies:
         """Bed AFK EXP: once a day (XP builds slowly; mae collects by hand when close to a level-up). The bubble
         sits over the bed in the house; if the camera is elsewhere, pan the home scene up to the house first."""
         self.nav.go_home()
-        for attempt in range(3):
+        # The house sits to the right of the cart (seen 2026-11-04 on rif-love-su: one right-to-left drag from the
+        # cart view shows the bed); older notes said up. Try right first, then up.
+        pans = [(600, 600, 150, 600), (600, 600, 150, 600), (360, 400, 360, 900), (360, 400, 360, 900)]
+        for attempt in range(len(pans) + 1):
             hits = self.det.find_all("Home.BedXP")
             if hits:
                 x, y, w, h = hits[0]
@@ -122,7 +125,9 @@ class Dailies:
                 if self.det.detect().state in {"reward_popup", "tap_to_continue"}:
                     self._tap(nav.REWARD_CLOSE, 2)
                 return "done"
-            self.dev.swipe(360, 400, 360, 900, 500)  # drag down = look up toward the house
+            if attempt == len(pans):
+                break
+            self.dev.swipe(*pans[attempt], 600)
             time.sleep(1.5)
         return "nothing"
 
