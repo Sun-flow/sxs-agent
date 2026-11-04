@@ -614,7 +614,7 @@ Entry format:
 - **Related**: R-020, R-023, R-088.
 
 ### R-093 · Skill pulls run only when the handler starts them
-- **Rule**: Pulling skills at Prayer (R-055) is needed to keep growing in strength, so the bot gets a dedicated pull script. That script runs only when the agent's handler (mae) starts it at a time they judge right. It is never part of a loop, and no loop or decision function may call it on its own. Everything else stays under the spend rules (R-043, R-055): no Dawnium, no other spend-looking buttons.
+- **Rule**: This means the skill pulls (Pray x1 / x10) at the goddess Statue at home, the furniture that reads "Pray to the goddess" and opens Prayer (R-055), not the Goddess Statues on the map that bless areas (R-070). Pulling skills is needed to keep growing in strength, so the bot gets a dedicated pull script. That script runs only when the agent's handler (mae) starts it at a time they judge right. It is never part of a loop, and no loop or decision function may call it on its own. Everything else stays under the spend rules (R-043, R-055): no Dawnium, no other spend-looking buttons.
 - **Confidence**: told. **Source**: mae, 2026-11-04.
 - **Images**: `docs/screens/prayer.png`, `docs/screens/prayer_result.png`.
 - **Related**: R-043, R-055, nodes `prayer`, `prayer_result`.
