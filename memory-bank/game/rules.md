@@ -848,7 +848,7 @@ Entry format:
 - **Related**: R-043, R-095, R-106, R-114, R-120.
 
 ### R-126 · Home scene layout: find things by template, not fixed taps
-- **Rule**: The home scene pans in both directions and keeps its camera position between visits, so a fixed tap point on home can miss. Find every home object by template search. From left to right: the AFK Cart and the pink tree (R-020), the Goddess Statue for skill pulls (R-093), Molly's Vendor Booth wagon (R-120), the gate, and the house with the bed (R-101). If home shows only sky, restart the game (R-100).
-- **Confidence**: observed. **Source**: upgrade-systems builder, 2026-11-04 09:43.
+- **Rule**: The home scene pans in both directions and keeps its camera position between visits, so a fixed tap point on home can miss. Find every home object by template search. From left to right: the AFK Cart and the pink tree (R-020), the Goddess Statue for skill pulls (R-093), Molly's Vendor Booth wagon (R-120), the gate, and the house with the bed (R-101). The house and bed sit to the right of the AFK Cart, not above it. The bed step once panned the wrong way and found no bubble; after the fix, bed EXP took Lv 21 to 22 (power 16.9K). If home shows only sky, restart the game (R-100).
+- **Confidence**: observed. **Source**: upgrade-systems builder, 2026-11-04 09:43; rif-love-su builder 11:16.
 - **Images**: `docs/screens/home.png`.
 - **Related**: R-020, R-059, R-093, R-100, R-101, R-120, node `home`.

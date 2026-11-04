@@ -34,7 +34,7 @@
 - mae: skip the menus' milestone Goals tabs and use the Home menu's collect-all instead (not mapped yet); quest-like goals still count (R-116).
 - Shops batch: Vendor Booth tabs, paid Refresh, free Vault stamina waiting on mae (R-120); Guild Shop stock (R-114); stamina recovers 5/h up to 300 and items can hold it to 1,200 (R-107); item info cards and the read-only survey script (R-125). Stock tables are in the shop-tables doc on upgrade-systems.
 - mae's bed EXP screenshot added as `docs/screens/bed_xp_ready.png` (R-101). mae: claim the Vendor Booth Vault's free x30 stamina daily (R-120).
-- Vendor step: `vendor_stamina` daily step and its OCR "Free" check (R-120); the home scene pans and keeps its camera, so find objects by template, and its left-to-right order (R-126); mae's bed crop is a reference picture, not a template (R-101).
+- Vendor step: `vendor_stamina` daily step and its OCR "Free" check (R-120); the home scene pans and keeps its camera, so find objects by template, and its left-to-right order (R-126) with the bed to the right of the Cart; mae's bed crop is a reference picture, not a template (R-101).
 
 ### 2026-11-04 (morning) · Game docs: bed EXP (Claude Code, cloud)
 - PR #13 merged. mae: collect bed EXP daily, not in every upgrade pass, and sooner near a level-up (R-101); the guild unlocked at Lv 20 (R-011). Next: rule batches from the guild-mapping thread.
