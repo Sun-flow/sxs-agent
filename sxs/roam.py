@@ -28,7 +28,6 @@ import re
 import sys
 import time
 from dataclasses import dataclass
-from pathlib import Path
 from typing import Optional
 
 import cv2
@@ -36,19 +35,20 @@ import numpy as np
 
 from . import fogwalk, goto, nav
 from .decide import Context, Decider
-from .device import Device, banner
+from .device import REPO_ROOT, Device, banner, server_day
 from .state import StateDetector
 
 log = logging.getLogger("sxs.roam")
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = REPO_ROOT
 STATUE_TEMPLATE = ROOT / "resource" / "image" / "areamap" / "lost_statue.png"  # from docs/screens/area_map_lv22.png
 STATUE_THRESHOLD = 0.8
 STATUE_NEAR_LABEL = 260  # px on the area map: statues this close to an area's label belong to it
 HUD_POWER_ROI = [110, 70, 170, 40]  # "16.9K" next to the crossed-swords icon on the map and home HUDs
 MAP_ROI = [0, 120, 720, 1100]  # labels below y 1185 are the kingdom buttons
 STOP_REASONS = {"defeated", "unknown_screen", "left_area:home"}
-STATE_FILE = ROOT / "logs" / "roam.json"  # statues opened, so a later run doesn't walk back to them
+STATE_FILE = ROOT / "logs" / "roam.json"  # statues opened and areas given up on, kept across runs
+RETRY_POWER_GAIN = 0.5  # K: an area given up on is tried again once power grew this much (or on a later day)
 
 
 @dataclass
@@ -133,8 +133,25 @@ class Roamer:
     def __init__(self, dev: Device, det: StateDetector):
         self.dev, self.det = dev, det
         self.nav = nav.Navigator(dev, det)
-        self.given_up: set[str] = set()
         self.state = _load_state()
+        self.given_up: set[str] = set()
+        self.power: Optional[float] = None
+
+    def give_up(self, name: str, why: str) -> None:
+        """Skip `name` for the rest of this run, and in later runs the same server day until power grows (seen 2026-11-04:
+        Verdantglade III has no way in on foot, and every new run spent its fog-walk budget at the same fog)."""
+        log.info("giving up on %s: %s", name, why)
+        self.given_up.add(name)
+        self.state.setdefault("given_up", {})[name] = {"day": server_day(), "power": self.power, "why": why}
+        _save_state(self.state)
+
+    def skipped(self, name: str) -> bool:
+        if name in self.given_up:
+            return True
+        g = next((v for k, v in self.state.get("given_up", {}).items() if same(k, name)), None)
+        if not g or g.get("day") != server_day():
+            return False
+        return not (self.power and g.get("power") and self.power >= g["power"] + RETRY_POWER_GAIN)
 
     def _to_world(self) -> bool:
         if self.det.detect().state == "world_map":
@@ -152,6 +169,7 @@ class Roamer:
     def survey(self) -> tuple[list[Area], list[tuple[int, int]], Optional[float]]:
         """Open the area map, read it, close it. Returns areas, statue icons (area-map points) and power."""
         power = read_power(self.det)
+        self.power = power or self.power
         self.dev.tap(*goto.MINIMAP)
         time.sleep(2.5)
         frame = self.dev.screenshot()
@@ -165,7 +183,7 @@ class Roamer:
 
     def pick(self, areas: list[Area], power: Optional[float]) -> tuple[Optional[Area], Optional[Area]]:
         """(next area to explore, first area behind a power wall)."""
-        todo = [a for a in areas if a.pct is not None and a.pct < 100 and a.name not in self.given_up]
+        todo = [a for a in areas if a.pct is not None and a.pct < 100 and not self.skipped(a.name)]
         walled = [a for a in todo if a.gate and (power is None or a.gate > power)]
         open_ = [a for a in todo if a not in walled]
         open_.sort(key=lambda a: -a.pct)  # nearly done first: finishing an area unlocks its statue
@@ -269,6 +287,7 @@ class Roamer:
             now = next((a for a in areas if same(a.name, target.name)), None)
             if now is None:
                 # Label not read this time (clipped by the edge, or OCR): not evidence that it's finished.
+                # Label not read: only this run, it says nothing about the area itself.
                 log.info("%s not on this reading of the area map; giving up on it this run", target.name)
                 self.given_up.add(target.name)
                 if area:
@@ -278,8 +297,7 @@ class Roamer:
                 self.bless_near(target.name)
                 done += 1
             elif now.pct == target.pct:
-                log.info("%s didn't move off %s%%; giving up on it this run", target.name, now.pct)
-                self.given_up.add(target.name)
+                self.give_up(target.name, f"fog walk ended {why!r} without moving off {now.pct}%")
                 if area:
                     return "no_progress"
         return "timeout" if time.monotonic() >= deadline else "max_areas"

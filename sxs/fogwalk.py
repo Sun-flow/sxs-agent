@@ -20,7 +20,7 @@ from typing import Optional
 import cv2
 import numpy as np
 
-from . import gather, goto, minimap, nav, tower
+from . import gather, goto, minimap, nav, rewards, tower
 from .decide import Context, Decider
 from .device import Device, banner, save_unknown
 from .explore import (FIGHT_MIN_HP, GUARD_DX, GUARD_DY, HUD_PORTRAIT, PLAYER_NAME, PREP_HP_BAR, QUICK_HEAL, REPEAT_LIMIT,
@@ -33,24 +33,19 @@ PLAY_AREA = (0, 130, 720, 840)  # x, y, w, h of the map between the HUD and the 
 FOG_S_MAX, FOG_V_MIN = 40, 150  # fog is pale grey
 STEP_IN = 40  # px from the fog edge into clear ground
 STILL_LIMIT = 8  # walk taps with unchanged coordinates before giving up
-AREA_NAME_ROI = [500, 255, 220, 36]  # area name above the coordinates, under the minimap
 STAMINA_KEEP = 70  # R-107: stamina kept for the daily commissions
 HUD_AVATAR = (130, 130)  # matches of the player's face inside this top-left box are the HUD, not the pointer
-
-
-def area_name(det: StateDetector, frame) -> str:
-    return " ".join(t for t, _ in det.read_text(AREA_NAME_ROI, frame)).strip()
+REWARD_TAPS_MAX = 3  # tracker gift taps per walk: a gift that stays after this many taps isn't claimable from here
 
 
 def centre_player(dev: Device, det: StateDetector, frame) -> bool:
     """Drag the map so our character (found by its name label) sits mid-screen: targets planned from the minimap
     land a few tiles away, and near the edge they fall off screen or onto the HUD."""
     # Whole map height: after an area-map walk the character can stand low on screen, under the tracker strip.
-    me = [b for t, b in det.read_text([0, 130, 720, 1100], frame) if PLAYER_NAME in t]
-    if not me:
+    me = player_on_screen(det, frame)
+    if me is None:
         return False
-    x, y, w, h = me[0]
-    px, py = x + w // 2, y - 40
+    px, py = me
     cx, cy = PLAY_AREA[0] + PLAY_AREA[2] // 2, PLAY_AREA[1] + PLAY_AREA[3] // 2
     if abs(px - cx) < 160 and abs(py - cy) < 200:
         return False
@@ -92,8 +87,28 @@ def fog_edge_target(frame: np.ndarray) -> Optional[tuple[int, int]]:
     return int(xs[pick] + x0), int(ys[pick] + y0)
 
 
+def player_on_screen(det: StateDetector, frame) -> Optional[tuple[int, int]]:
+    """Screen point of our character's feet (its name label sits just under them), or None."""
+    me = [b for t, b in det.read_text([0, 130, 720, 1100], frame) if PLAYER_NAME in t]
+    if not me:
+        return None
+    x, y, w, h = me[0]
+    return x + w // 2, y - 40
+
+
+def to_world(player_xy: Optional[tuple[int, int]], player: Optional[tuple[int, int]],
+             point: tuple[int, int]) -> Optional[tuple[int, int]]:
+    """Map coordinates of a screen point, from the player's map coordinates and screen position (x grows east, y
+    grows north). Screen points go stale as soon as the camera moves; map coordinates don't."""
+    if player_xy is None or player is None:
+        return None
+    return (player_xy[0] + round((point[0] - player[0]) / minimap.SCREEN_TILE),
+            player_xy[1] - round((point[1] - player[1]) / minimap.SCREEN_TILE))
+
+
 def minimap_target(det: StateDetector, frame: np.ndarray, lookahead: int = 4, player_xy=None,
-                   buildings_seen: Optional[set] = None, items_ok: bool = True) -> Optional[tuple[int, int]]:
+                   buildings_seen: Optional[set] = None, items_ok: bool = True,
+                   player: Optional[tuple[int, int]] = None) -> Optional[tuple[int, int]]:
     """Plan on the minimap: shortest walkable path to the nearest pickup or unexplored walkable tile, else to a gold
     building not visited yet this run (dungeons, mines: interactable; their cards go through the rules), then tap
     a few tiles along it (relative to the player, found by its name label). None if nothing is reachable."""
@@ -113,11 +128,9 @@ def minimap_target(det: StateDetector, frame: np.ndarray, lookahead: int = 4, pl
     if mm.grid[path[-1][0]][path[-1][1]] == "monster":
         log.info("heading for a monster %d tiles away", len(path) - 1)
         lookahead = len(path)  # tap the monster itself: walking onto it starts the fight
-    me = [b for t, b in det.read_text([0, 130, 720, 1100], frame) if PLAYER_NAME in t]
-    if not me:
+    player = player or player_on_screen(det, frame)
+    if player is None:
         return None
-    x, y, w, h = me[0]
-    player = (x + w // 2, y - 40)  # the label sits under the character's feet
     return minimap.screen_point(player, mm, path[min(lookahead, len(path) - 1)])
 
 
@@ -141,10 +154,14 @@ def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[st
     repeats, last_card = 0, None
     buildings_seen: set = set()
     heal_tries = 0
-    last_tap = None
+    last_tap = None  # map coordinates of the last walk tap (None when the player wasn't found on screen)
+    reward_taps = 0
+    stamina_unread = False
     if area and walk_there:
         goto.go_to(dev, det, area)
-    bumped: list[tuple[int, int]] = []  # walk taps that opened a card we dismissed (a blessed statue, a sign)
+    # Map coordinates of walk taps that opened a card we dismissed (a blessed statue, a sign). Kept in map
+    # coordinates: centre_player and the edge pointer move the camera, so screen points don't stay put.
+    bumped: list[tuple[int, int]] = []
     beat = Heartbeat()
     while time.monotonic() < deadline:
         d = det.detect()
@@ -168,7 +185,11 @@ def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[st
                     time.sleep(1.5)
                 continue
             heal_tries = 0 if hud_hp(frame) * 100 >= FIGHT_MIN_HP else heal_tries
-            name = area_name(det, frame)
+            # mae, 2026-11-04: a gift box with a red "!" on the tracker is a finished quest's reward: claim it.
+            if reward_taps < REWARD_TAPS_MAX and rewards.claim_tracker_reward(dev, det, frame):
+                reward_taps += 1
+                continue
+            name = goto.area_name_here(det, frame)
             if home_area is None and name:
                 home_area = name
             elif (name and not goto.same_area(name, home_area) and not strayed
@@ -202,22 +223,33 @@ def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[st
                 frame = dev.screenshot()
             # Pickups cost 5 stamina; keep the 70 the daily commissions need (R-107).
             stamina = gather.read_stamina(det, frame=frame)
+            if stamina is None and not stamina_unread:
+                stamina_unread = True
+                log.info("stamina not readable; skipping stamina pickups until it is")
+            elif stamina is not None:
+                stamina_unread = False
             items_ok = stamina is not None and stamina >= STAMINA_KEEP + gather.COST
             xy = goto.COORDS.search(d.text or "")
             xy = (int(xy.group(1)), int(xy.group(2))) if xy else None
-            target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen, items_ok=items_ok)
+            player = player_on_screen(det, frame)
+            target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen, items_ok=items_ok,
+                                    player=player)
             if target is None and recentre_on_player(dev, det, frame):
                 frame = dev.screenshot()
-                target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen, items_ok=items_ok)
-            if target and any(abs(target[0] - b[0]) < 70 and abs(target[1] - b[1]) < 70 for b in bumped):
+                player = player_on_screen(det, frame)
+                target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen, items_ok=items_ok,
+                                        player=player)
+            spot = to_world(xy, player, target) if target else None
+            if spot and any(max(abs(spot[0] - b[0]), abs(spot[1] - b[1])) <= 1 for b in bumped):
                 # The path runs through something that opens a card (seen: a blessed Goddess Statue). Tapping it
                 # again just reopens the card, so step one tile to the side; the game paths around the rest.
                 side = minimap.SCREEN_TILE if len(bumped) % 2 else -minimap.SCREEN_TILE
                 target = (min(690, max(30, target[0] + side)), target[1] + minimap.SCREEN_TILE // 2)
-                log.info("that spot opened a card before; stepping aside to %s", target)
+                spot = to_world(xy, player, target)
+                log.info("map %s opened a card before; stepping aside to %s", spot, target)
             if target:
-                log.info("walking toward unexplored ground at %s", target)
-                last_tap = target
+                log.info("walking toward unexplored ground at %s (map %s)", target, spot)
+                last_tap = spot
                 dev.tap(*target)
                 time.sleep(3)
                 continue
@@ -232,7 +264,7 @@ def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[st
                 continue
             no_fog = 0
             log.info("walking to fog edge at %s", target)
-            last_tap = target
+            last_tap = to_world(xy, player_on_screen(det, frame), target)
             dev.tap(*target)
             time.sleep(3)
         elif d.state == "battle_prep":
@@ -283,8 +315,10 @@ def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[st
             card, choice = decider.decide(ctx)
             repeats = repeats + 1 if card.title == last_card else 0
             last_card = card.title
-            if choice.action == "dismiss" and last_tap:
+            if choice.action == "dismiss" and last_tap and last_tap not in bumped:
                 bumped.append(last_tap)
+                log.info("card %r opened from the tap at map %s: walking around that spot from now on",
+                         card.title, last_tap)
             dev.tap(*choice.point)
             time.sleep(3)
             if choice.kind == "power_gate":
