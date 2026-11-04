@@ -9,7 +9,7 @@
         "post_delay": 0
     },
     "Gather.Bellflower": {
-        "doc": "A Bellflower plant on the Verdantglade map (white bells on a green stem; Moonveil Woods field). Harvesting one is free and adds 1 to the item tracker. Not a screen state; used by sxs.gather harvest. Template is mae's picture at 1.3x; at 0.6 it finds all 5 plants in explore_bellflower_field_wide.png and nothing on ore, boar, tracker or world-map screens (2026-11-04).",
+        "doc": "A Bellflower plant on the Verdantglade map (white bells on a green stem; Moonveil Woods field). Harvesting one is free and adds 1 to the item tracker. Not a screen state; used by sxs.gather harvest. Template is mae's picture at 1.3x; at 0.6 it finds all 5 plants in world/explore_bellflower_field_wide.png and nothing on ore, boar, tracker or world-map screens (2026-11-04).",
         "recognition": "TemplateMatch",
         "template": "explore/bellflower.png",
         "roi": [0, 130, 720, 720],

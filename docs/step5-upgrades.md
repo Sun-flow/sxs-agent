@@ -1,15 +1,15 @@
 # Step 5: upgrade systems and gathering
 
-Two composable loops, also run from `sxs.daily` (steps `strengthen` and `gather`).
+Two composable loops, also run from `sxs.loops.daily` (steps `strengthen` and `gather`).
 
-## Upgrade Loop (`sxs/upgrade.py`)
+## Upgrade Loop (`sxs/loops/upgrade.py`)
 
 ```bash
-python -m sxs.upgrade [--only skills,gear,class_levels,rank,relics]
-python -m sxs.strengthen     # Cart, gear, techniques only (older pass; soft resources)
+python -m sxs upgrade [--only skills,gear,class_levels,rank,relics]
+python -m sxs strengthen     # Cart, gear, techniques only (older pass; soft resources)
 ```
 
-Any red "!" on the Character screen means an upgrade is ready: always check and apply it (R-080). `sxs/badges.py` finds the badges by colour (red disc, thin white mark); badges pulse, so two frames are merged. Each badge runs one pass:
+Any red "!" on the Character screen means an upgrade is ready: always check and apply it (R-080). `sxs/vision/badges.py` finds the badges by colour (red disc, thin white mark); badges pulse, so two frames are merged. Each badge runs one pass:
 
 | Badge | Pass | Does | Rules |
 |---|---|---|---|
@@ -21,13 +21,13 @@ Any red "!" on the Character screen means an upgrade is ready: always check and 
 
 Every button is tapped only while its own "!" stays (the game shows it only while affordable), within a tap budget, each tap checked for an effect, never with a `claims.SPEND` word on its row. Spends only Rolla, ore, Battle Essence, shards, class badges (later sand); never Dawnium or Rcmd Loadouts. Reference screens (`docs/screens/`): `gear_resonance`, `gear_goals`, `skill_page`, `technique_upgrade`, `technique_ascend`, `class_hierarchy`, `class_upgrade`, `class_goals`, `rank_advancement`, `rank_level_goals`, `rank_power_goals`, and more.
 
-## Gather Loop (`sxs/gather.py`)
+## Gather Loop (`sxs/loops/gather.py`)
 
 ```bash
-python -m sxs.gather                          # priority material from resource/policy/gather.json
-python -m sxs.gather --material ore|sand|essence|rolla
-python -m sxs.gather --check                  # read stamina and the plan, tap nothing
-python -m sxs.gather --harvest [bellflower]   # already on the map with an item tracker: collect until full
+python -m sxs gather                          # priority material from resource/policy/gather.json
+python -m sxs gather --material ore|sand|essence|rolla
+python -m sxs gather --check                  # read stamina and the plan, tap nothing
+python -m sxs gather --harvest [bellflower]   # already on the map with an item tracker: collect until full
 ```
 
 - One entry point, `Gatherer.collect(target)`. A `Target` says how the material's objects are found, how progress shows (stamina drop or tracker "a/b") and the cost per pickup.

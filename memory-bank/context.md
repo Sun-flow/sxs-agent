@@ -46,7 +46,7 @@ python3 scripts/nav-graph.py check|render|path FROM TO  # menu graph
 | Card and dialog decisions; gather priorities | `resource/policy/cards.json`, `resource/policy/gather.json` |
 | What each step built, its design and limits | `docs/step1-emulator-and-game.md` … `docs/step5-upgrades.md`; index `docs/README.md` |
 | Shop stock and mae's Buy? marks | `docs/shop-tables.md` |
-| Reference screenshots | `docs/screens/` |
+| Reference screenshots | `docs/screens/` (folders by situation; `docs/screens/README.md`) |
 | Modules and their commands | `sxs/README.md` |
 | Where the work and the game account stand | `status.md` |
 | How a game-playing session works | `playbook.md` |

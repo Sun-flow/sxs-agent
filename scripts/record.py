@@ -7,7 +7,7 @@ from pathlib import Path
 import cv2
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from sxs.device import REPO_ROOT, Device  # noqa: E402
+from sxs.core.device import REPO_ROOT, Device  # noqa: E402
 
 duration = float(sys.argv[1]) if len(sys.argv) > 1 else 20
 interval = float(sys.argv[2]) if len(sys.argv) > 2 else 0.5

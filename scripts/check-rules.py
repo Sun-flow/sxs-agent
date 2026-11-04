@@ -25,7 +25,7 @@ SKIP_DIRS = {"archive", "screens", "image", "model"}
 CITING_EXT = {".py", ".json", ".md"}
 # Runtime outputs (gitignored) and paths a pending PR adds.
 RUNTIME = ("logs/", "captures/")
-PLANNED = {"explore_bellflower_mae.png"}
+PLANNED: set[str] = set()
 
 
 def citing_files():

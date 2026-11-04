@@ -22,13 +22,13 @@ Read when spending stamina, gathering materials on the overworld, or picking up 
 - The tracked object sits in a yellow and white ring, also on the minimap and as an edge ring (tap it to pan there).
 - Ore: a mine in Verdantglade II near map (187, 97), grey rocks with blue crystals. Pickups show a "lightning 5" label; one tap on a rock walks there and mines it (5 stamina, about +178 Raw Ore). Stop at the R-107 budget.
 - Boars with a "lightning 5" label also appear there ❓ (what they give is unknown).
-- Code: `python -m sxs.gather` (priority material), `--material sand` (override), `--check` (read stamina and plan only).
-*told, observed* · `journal.png`, `map_exploration.png`, `confirm_enter_explore.png`, `explore_ore_rocks.png`, `explore_ore_mined.png`, `explore_stamina_boar.png`, `resource/image/explore/stamina_cost_5.png` · node `travel_journal` · R-094, R-107, R-124
+- Code: `python -m sxs gather` (priority material), `--material sand` (override), `--check` (read stamina and plan only).
+*told, observed* · `home/journal.png`, `world/map_exploration.png`, `dialogs/confirm_enter_explore.png`, `world/explore_ore_rocks.png`, `world/explore_ore_mined.png`, `world/explore_stamina_boar.png`, `resource/image/explore/stamina_cost_5.png` · node `travel_journal` · R-094, R-107, R-124
 
 ## On the field: what to tap
 
 ### R-124 · The collector's tap order
-`Gatherer.collect(target)` in `sxs/gather.py` handles ore, sand, essence, Rolla and Bellflowers. Each pass it taps the first it sees of:
+`Gatherer.collect(target)` in `sxs/loops/gather.py` handles ore, sand, essence, Rolla and Bellflowers. Each pass it taps the first it sees of:
 1. a green-timer special node (R-109);
 2. material objects on the ground (template or the "5" stamina label), blue-aura first (R-122);
 3. the tracking ring, only if more than 70 px from the character;
@@ -36,7 +36,7 @@ Read when spending stamina, gathering materials on the overworld, or picking up 
 5. a walk toward the minimap ring.
 
 Never the ring or icon over the character (R-123). Bellflower template: mae's picture at 1.3x, threshold 0.6 (no false hits on ore, boars, tracker or world map).
-*observed* · `explore_bellflower_field_wide.png`, `explore_bellflower_mae.png`, `resource/image/explore/bellflower.png` · R-108, R-109, R-122, R-123
+*observed* · `world/explore_bellflower_field_wide.png`, `icons/bellflower_mae.png`, `resource/image/explore/bellflower.png` · R-108, R-109, R-122, R-123
 
 ### R-122 · Prefer pickups with a blue aura
 Blue-aura pickups are rarer and give bonus ingredients. Take them before plain ones in reach.
@@ -49,9 +49,9 @@ Special nodes or encounters carry a green timer circle at their upper right and 
 ## Bellflowers
 
 ### R-123 · Bellflowers come from the free Verdantglade Flower Harvest
-- Route: Character (0.11, 0.97), rank badge (0.82, 0.72), the middle cost icon on Rank Advancement (0.50, 0.74), the item card's Source row "Verdantglade Flower Harvest »" (0.82, 0.59), OK (0.68, 0.57). Lands in Verdantglade II near minimap (181, 90) with a tracker "a/20" on the left panel and an edge ring toward the field. Code: `Gatherer.enter_bellflower_field()`; `python -m sxs.gather --harvest bellflower` collects once on the map.
+- Route: Character (0.11, 0.97), rank badge (0.82, 0.72), the middle cost icon on Rank Advancement (0.50, 0.74), the item card's Source row "Verdantglade Flower Harvest »" (0.82, 0.59), OK (0.68, 0.57). Lands in Verdantglade II near minimap (181, 90) with a tracker "a/20" on the left panel and an edge ring toward the field. Code: `Gatherer.enter_bellflower_field()`; `python -m sxs gather --harvest bellflower` collects once on the map.
 - Field: Moonveil Woods, minimap (169, 94-95), the clearing south of the big hollow-tree arch, stone statue on its west side. About 8 white-bell plants respawn.
 - **Tap the plants themselves, never the tracker ring over the character or the Bellflower icon** (mae). Picks are free, +2 each; blue-aura first (R-122). **Never tap other players in the field** (R-057).
 - At 20/20 Akane's dialogue says "Go for that rank advancement!" (tap on); home then shows a tutorial overlay on Character, rank badge, Advance (R-036).
 - The first visit also plays the tutorial that unlocks the Vendor Booth (R-120). Bellflowers and Rank Advancement come before mapping shops (mae).
-*observed, told* · `item_bellflower.png`, `explore_bellflower_tracker.png`, `explore_bellflower_field.png`, `explore_bellflower_field_wide.png`, `explore_bellflower_picked.png`, `explore_bellflower_done_dialogue.png`, `explore_bellflower_mae.png`, `resource/image/explore/bellflower.png` · R-118, R-122, R-124
+*observed, told* · `world/item_bellflower.png`, `world/explore_bellflower_tracker.png`, `world/explore_bellflower_field.png`, `world/explore_bellflower_field_wide.png`, `world/explore_bellflower_picked.png`, `world/explore_bellflower_done_dialogue.png`, `icons/bellflower_mae.png`, `resource/image/explore/bellflower.png` · R-118, R-122, R-124

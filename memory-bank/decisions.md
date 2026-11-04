@@ -15,6 +15,18 @@ Entry format:
 
 ---
 
+### [2026-11-04] Screenshots in folders by situation, unlabelled screens banked for mae
+- **Decision**: `docs/screens/` holds one folder per situation (home, character, world, battle, dailies, guild, shops, dialogs, system, icons, minimap); the folder comes from the name's prefix (`sxs/core/screens.py`). Expected detector states live in `docs/screens/expected.json`. Unfamiliar screens go to `docs/screens/unlabeled/` with a table mae fills in; `python -m sxs label` files them.
+- **Rationale**: mae (2026-11-04): "We should have a bank of unfamiliar/undefined screens that I can manually label and build context on"; 190 flat files were slow to browse.
+- **Alternatives considered**: keep the flat folder until ~300 screens (my earlier suggestion); delete unreferenced screens (mae: keep them).
+- **Status**: Accepted
+
+### [2026-11-04] Layered package and one loop contract
+- **Decision**: `sxs/` is split into `sxs/core/`, `sxs/vision/` (never taps), `sxs/policy/`, `sxs/actions/` and `sxs/loops/`. Every loop is a `Loop` spec (`sxs/core/loop.py`) run by one runner: same inputs (`ctx` with device, detector, navigator, plus its own options), same output (`Result(status, ok, data)`), same readouts (banner at start, `[Result X]` log line and one JSON line at the end, exit 0/1/2). Commands are `python -m sxs <loop>`. Runs are short: a 120 s budget per loop and per daily step, and a stall stop after 60 s without progress (mae, 2026-11-04 21:45: "1-2 min max", exit shortly after a task stops moving). Code used in two places becomes one helper (`sxs/core/ui.py` coordinates, `sxs/vision/ocr.py`, `sxs/actions/heal.py`, `sxs/actions/common.py`).
+- **Rationale**: mae (2026-11-04 21:25): "clear inputs, outputs, and readouts, that are consistent and operationalizable", used "structurally as often as possible"; duplicated code becomes functions; smaller modules so an agent reads less context per task.
+- **Alternatives considered**: keep flat modules with per-module `main()` (each printed its own format and exit code); drop MaaFramework (mae: keep Maa).
+- **Status**: Accepted
+
 ### [2026-11-04] Rules split by situation, memory bank slimmed
 - **Decision**: The single rules file (memory-bank/game/rules.md) became `memory-bank/game/rules/`: one file per situation (policy, ui, home, world, overworld, quests, combat, dailies, guild, gathering, upgrades, economy) plus a README index. Rules were rewritten to what an acting agent needs (no sources, dates, batch history or account snapshots). IDs are kept; merged duplicates are listed as retired IDs in the index, and `scripts/check-rules.py` checks every cited ID resolves. The handoff file was split into `playbook.md` (stable process) and `status.md` (state and next steps); machine facts moved from `notes.md` to `environments.md`.
 - **Rationale**: mae (2026-11-04): context had grown bloated; organise rules by content type so an agent in one environment reads one file. The 101 KB rules file and a 22 KB handoff with seven appended updates cost every session ~8.6K tokens, about half duplicated.
@@ -22,7 +34,7 @@ Entry format:
 - **Status**: Accepted
 
 ### [2026-11-04] Loops are watched and hand off to each other
-- **Decision**: Each loop (`sxs.explore`, `sxs.tower`, `sxs.fogwalk`, `sxs.goto`) logs a banner at start, a heartbeat every 30 s, and ends early with a named reason (stuck_progress, stuck_self, stuck, unknown_screen with a saved frame, power_gate, repeating_card) instead of idling. Stalls rotate through unstick strategies (walk to the quest's area, talk to a red "!", fight a blocker or guard, pan). The explore loop calls the tower loop on Fantasia Ascent screens and resumes after.
+- **Decision**: Each loop (`sxs.loops.explore`, `sxs.loops.tower`, `sxs.loops.fogwalk`, `sxs.actions.goto`) logs a banner at start, a heartbeat every 30 s, and ends early with a named reason (stuck_progress, stuck_self, stuck, unknown_screen with a saved frame, power_gate, repeating_card) instead of idling. Stalls rotate through unstick strategies (walk to the quest's area, talk to a red "!", fight a blocker or guard, pan). The explore loop calls the tower loop on Fantasia Ascent screens and resumes after.
 - **Rationale**: mae (2026-11-04): loops must notice being stuck, report unfamiliar screens, and call each other; a stuck loop is a robustness bug to fix, not a restart.
 - **Alternatives considered**: one 5-minute give-up timer (what we had; it idled silently on a counterless quest).
 - **Status**: Accepted
