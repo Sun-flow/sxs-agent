@@ -445,7 +445,7 @@ def explore(dev, det, minutes: float = 20, chain: bool = False, choose: Optional
             time.sleep(3)
             continue
         if result != "complete" or not chain:
-            return Result(result, result == "complete", {"completed": completed})
+            return Result(result, result in ("complete", "timeout"), {"completed": completed})
         time.sleep(3)
 
 
