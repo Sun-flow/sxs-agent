@@ -166,5 +166,19 @@
         "threshold": 0.75,
         "pre_delay": 0,
         "post_delay": 0
+    },
+    "Explore.PlayerPointer": {
+        "doc": "Our own character's off-screen pointer: a white ring with the player's face, at the screen edge in the player's direction (the camera doesn't follow the player). Tapping it re-centres the camera on the player. The same face is the HUD avatar top-left, so callers drop matches there. Image: docs/screens/world_map_player_pointer.png.",
+        "recognition": "TemplateMatch",
+        "template": "explore/player_pointer.png",
+        "roi": [
+            0,
+            0,
+            720,
+            1100
+        ],
+        "threshold": 0.75,
+        "pre_delay": 0,
+        "post_delay": 0
     }
 }
