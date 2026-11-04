@@ -52,10 +52,6 @@ class Device:
         if not self.controller.post_connection().wait().succeeded:
             raise RuntimeError(f"MaaFramework could not connect to {address}")
 
-    @property
-    def uses_mumu_ipc(self) -> bool:
-        return bool(self.info.config.get("extras", {}).get("mumu", {}).get("enable"))
-
     def screenshot(self) -> np.ndarray:
         """Return the current frame as a BGR array, 720x1280x3."""
         self.controller.post_screencap().wait()

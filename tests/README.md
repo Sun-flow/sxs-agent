@@ -1,0 +1,10 @@
+# tests
+
+| File | Needs | Checks |
+|---|---|---|
+| `check_repo.py` | Python only | Pipelines parse, every template and policy file exists, every `python -m sxs.X` / `scripts/X.py` named in docs exists, all modules compile |
+| `check_states_offline.py` | MaaFramework + OCR models | State detector over `docs/screens/*.png` against EXPECTED (add an entry with each new screen) |
+| `check_upgrade_logic.py` | MaaFramework, OpenCV | Badge finder, gather pickup choice, relic banding plan |
+| `smoke_test.py [--no-restart]` | Live emulator | Cold start → home → menus → home |
+
+Run the first three after any code change; `smoke_test.py` after changing navigation.

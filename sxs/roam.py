@@ -28,7 +28,6 @@ import re
 import sys
 import time
 from dataclasses import dataclass
-from pathlib import Path
 from typing import Optional
 
 import cv2
@@ -36,12 +35,12 @@ import numpy as np
 
 from . import fogwalk, goto, nav
 from .decide import Context, Decider
-from .device import Device, banner
+from .device import REPO_ROOT, Device, banner
 from .state import StateDetector
 
 log = logging.getLogger("sxs.roam")
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = REPO_ROOT
 STATUE_TEMPLATE = ROOT / "resource" / "image" / "areamap" / "lost_statue.png"  # from docs/screens/area_map_lv22.png
 STATUE_THRESHOLD = 0.8
 STATUE_NEAR_LABEL = 260  # px on the area map: statues this close to an area's label belong to it
