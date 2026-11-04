@@ -213,10 +213,18 @@ def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[st
         elif d.state == "battle_prep":
             if hud_hp(dev.screenshot(), PREP_HP_BAR) * 100 < FIGHT_MIN_HP and heal_tries < 2:
                 heal_tries += 1
-                log.info("battle prep: HP under %d%%; backing out to heal", FIGHT_MIN_HP)
-                dev.tap(*nav.BACK_ARROW)
+                log.info("battle prep: HP under %d%%; healing from the portrait", FIGHT_MIN_HP)
+                dev.tap(*HUD_PORTRAIT)  # Quick Heal opens from the portrait on any screen that shows it (mae)
                 time.sleep(2)
-                continue  # the map branch heals from the profile
+                if det.detect().state == "player_profile":
+                    dev.tap(*QUICK_HEAL)
+                    time.sleep(2)
+                    dev.tap(360, 60)
+                    time.sleep(1.5)
+                else:
+                    dev.tap(*nav.BACK_ARROW)  # no portrait here: back out; the map branch heals
+                    time.sleep(2)
+                continue
             dev.tap(360, 956)
             time.sleep(3)
         elif d.state in ("battle", "loading"):

@@ -391,12 +391,17 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
                 # mae, 2026-11-04: the bar under our character shows HP before the fight; back out and heal first
                 # (also mid-way through a mini-dungeon: after "Next Floor", back out, heal, carry on).
                 prep_backouts += 1
-                log.info("battle prep: HP %d%% < %d%%; backing out to heal", hp * 100, FIGHT_MIN_HP)
-                dev.tap(*nav.BACK_ARROW)
-                time.sleep(2)
+                # mae: Quick Heal opens from the top-left portrait on any screen that shows it, so try that first;
+                # back out only if this screen has no portrait.
+                log.info("battle prep: HP %d%% < %d%%; healing first", hp * 100, FIGHT_MIN_HP)
                 via_portrait = True
                 dev.tap(*HUD_PORTRAIT)
                 time.sleep(2)
+                if det.detect().state != "player_profile":
+                    dev.tap(*nav.BACK_ARROW)
+                    time.sleep(2)
+                    dev.tap(*HUD_PORTRAIT)
+                    time.sleep(2)
                 if det.detect().state == "player_profile":
                     dev.tap(*QUICK_HEAL)
                     time.sleep(2)
