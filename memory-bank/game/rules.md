@@ -1,8 +1,8 @@
 # Game rules
 
 > **Last updated**: 2026-11-03
-> Screen captures named below are in `docs/screens/` (step 2, PR #5); captures from batches 4 to 9 (R-029 onward, plus `cart.png`) and the marker templates are on branch step3-explore until it merges.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-068).
+> Screen captures named below are in `docs/screens/`; templates in `resource/image/`.
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-079).
 
 Entry format:
 
@@ -32,7 +32,7 @@ Entry format:
 
 ### R-003 · A fully explored area unlocks a blessing statue
 - **Rule**: Once R-002 is met for an area, a statue unlocks in it; interact with the statue to "bless" the area.
-- **Confidence**: told; not yet seen in game, even after Originisle I reached 100 ❓. **Source**: mae, 2026-11-03.
+- **Confidence**: told; observed as the Goddess Statue (R-070). **Source**: mae, 2026-11-03.
 - **Images**: none yet.
 - **Related**: R-002, R-014.
 
@@ -301,7 +301,7 @@ Entry format:
 - **Related**: R-009, R-022, R-029, node `quest_detail`.
 
 ### R-045 · The tracker panel moves; bosses have their own pointer
-- **Rule**: On the map the tracker panel's height and its tracking icon's x position change with the quest title's length (icon at x ≈ 287 px for "Wild Isle Trek III", ≈ 352 px for "Fight the Guardian Colossi!"), so find the icon by template, not a fixed spot. A boss target's off-screen pointer is a white ring with the boss portrait and a speech-bubble tail (template `resource/image/explore/marker_boss.png`), not the gold ring.
+- **Rule**: On the map the tracker panel's height and its tracking icon's x position change with the quest title's length (icon at x ≈ 287 px for "Wild Isle Trek III", ≈ 352 px for "Fight the Guardian Colossi!"), so find the icon by template, not a fixed spot. The gift icon at the panel's right end (`resource/image/explore/tracker_gift.png`) claims a finished quest more reliably than tapping the text. A boss target's off-screen pointer is a white ring with the boss portrait and a speech-bubble tail (template `resource/image/explore/marker_boss.png`), not the gold ring.
 - **Confidence**: observed. **Source**: builder batch 7.
 - **Images**: none yet.
 - **Related**: R-022.
@@ -403,10 +403,10 @@ Entry format:
 ## Added from mae (2026-11-03, evening)
 
 ### R-061 · Heal and retry a lost fight at most twice
-- **Rule**: Healing food (cooked from ingredients in the Alchemy Pot, or bought with Rolla) is cheap and fine to spend: eat it from the player portrait, then the button on the right ("Recover" or similar). While fights are being won, heal as freely as needed; Rolla is abundant early. **Dishes** are different: rarer items that give temporary stat boosts for a fight, so conserve them. If the same fight is lost twice in a row after healing, stop retrying: contact mae or go back to base to get stronger (gear, techniques, rank) first.
+- **Rule**: Healing food (cooked from ingredients in the Alchemy Pot, or bought with Rolla) is cheap and fine to spend: eat it from the player portrait, then the button on the right ("Recover" or similar). While fights are being won, heal as freely as needed; Rolla is abundant early. **Dishes** are different: rarer items that give temporary stat boosts for a fight, so conserve them. If the same fight is lost twice in a row after healing, stop retrying: contact mae or go back to base to get stronger (gear, techniques, rank) first. **Before any fight, HP must be at least 70%**; if it's lower, heal first (read HP from the HUD bar, R-078). A red "!" over the player character most likely means a heal is needed; it is not the NPC "!" of R-062. (The step 3 explore loop heals below 80%, which already satisfies this.)
 - **Confidence**: told. **Source**: mae, 2026-11-03.
 - **Images**: none yet (want: the profile's Recover button).
-- **Related**: R-031, R-043, R-046, R-047, nodes `player_profile`, `wounded`, `alchemy_pot`.
+- **Related**: R-031, R-043, R-046, R-047, R-078, nodes `player_profile`, `wounded`, `alchemy_pot`.
 
 ### R-062 · NPCs with a red "!" gate progress
 - **Rule**: Quests can be locked behind NPC interactions. An NPC with a red exclamation mark above its head on the world map or overworld (Originisle, Verdantglade...) must be talked to first; it gives instructions on how to progress and then disappears, unlocking the objects around it (for example the Chief at the Originisle V pillar guards the boss loot row). When the tracker points at something that can't be reached, look for a red "!" NPC nearby and tap it first.
@@ -441,13 +441,83 @@ Entry format:
   - **light green under a shadow**: walkable terrain not yet explored;
   - **dark green**: walls (lighter when explored, darker when not);
   - **transparent cross-hatch with no colour beneath**: unspotted terrain, which turns into one of the known types once the player gets close.
+  - **gold buildings**: interactable structures. The biggest are dungeons, which become daily challenges once cleared naturally the first time (step 1 doc's daily dungeons); smaller ones are mini-dungeons such as mines (R-071). (mae, 2026-11-03.)
   Other types exist and aren't catalogued yet. Shadowed walkable areas that connect to explored ground are reachable targets for exploration (R-065). mae asked the builder for a minimap reader that classifies these tiles and marks POIs, to plan walks with the coordinates (R-004).
-- **Confidence**: told. **Source**: mae, 2026-11-03, with a marked-up screenshot of Verdantglade II (173, 104) circling a shadowed area joined to explored ground (not committed: it shows other players' chat). A clean capture from the builder is wanted.
-- **Images**: none yet.
-- **Related**: R-002, R-004, R-025, R-065.
+- **Detail** (builder batch 10, `sxs/minimap.py` on the step 3 branch): about 8 px per tile; the player sits at the centre (0.856, 0.138), radius about 86 px. OpenCV HSV thresholds: walkable explored S<95, V>=115 (BGR about 103,144,128); walkable unexplored is the same colour shaded about 0.55x (BGR about 56,75,65); wall explored S>=95, V>=85 (BGR about 59,106,69); wall unexplored V<85 (BGR about 32,57,38); unspotted grey S<35, V about 35.
+- **Confidence**: told (legend), observed (thresholds). **Source**: mae, 2026-11-03, with a marked-up screenshot of Verdantglade II (173, 104), not committed because it shows other players' chat; builder batch 10.
+- **Images**: `docs/screens/minimap/minimap_verdantglade2.png` (raw), `docs/screens/minimap/minimap_classified.png`, tile crops `docs/screens/minimap/tile_walk_explored.png`, `docs/screens/minimap/tile_walk_unexplored.png`, `docs/screens/minimap/tile_wall_explored.png`, `docs/screens/minimap/tile_wall_unexplored.png`, `docs/screens/minimap/tile_unspotted.png`.
+- **Related**: R-002, R-004, R-015, R-025, R-065, R-071.
 
 ### R-067 · Areas connect by land bridges: path-find, don't walk straight
 - **Rule**: Areas join through land connections that can be far from the straight line to a target; for example, the way from Verdantglade II into Moonveil Woods is a land bridge at the bottom of the minimap. Straight-line walking will often hit walls or water, so the bot needs path-finding over the walkable tiles read from the minimap (R-066), heading for the connection first.
 - **Confidence**: told. **Source**: mae, 2026-11-03.
 - **Images**: none yet.
 - **Related**: R-025, R-064, R-066.
+
+### R-068 · Travel to a far or unexplored area through the full map
+- **Rule**: To move somewhere distant or unexplored: tap the minimap to open the full area map; look for unexplored areas on it; tap the spot you want the camera over (this centres the camera there); close the map, and the camera now shows that spot; then tap the ground where you want to go and the player auto-paths there, around walls and through land bridges (R-067). This is the intended way to reach unexplored areas found on the map.
+- **Confidence**: told. **Source**: mae, 2026-11-03.
+- **Images**: `docs/screens/world_area_map.png` (step 3 branch).
+- **Related**: R-025, R-032, R-065, R-066, R-067, node `area_map`.
+
+## Added from builder batch 10 (2026-11-03, handoff)
+
+### R-069 · The Voyage Obelisk travels to the next kingdom
+- **Rule**: "A massive stone pillar etched with arcane symbols. Your pathway to the next kingdom." Tap the obelisk once to select it and again to open its card, then Activate to travel (Originisle to Verdantglade).
+- **Confidence**: observed. **Source**: builder batch 10.
+- **Images**: `docs/screens/interact_obelisk.png`.
+- **Related**: R-006, R-030.
+
+### R-070 · Goddess Statues bless a fully explored area
+- **Rule**: A Goddess Statue's card requires "Reach 100% exploration in <area>" and rewards Blessing Level +1, with an Unlock button. The quest "The Goddess's Grace I/II" follows each Explore quest. It is reached through a white edge pointer with a statue icon (`resource/image/explore/pointer_statue.png`). Blessing Level 2 raised the Max Cart Level from 1 to 2 and the AFK EXP rate from 50 to 500, so blessing every area is worth it.
+- **Confidence**: observed. **Source**: builder batch 10. Confirms R-003.
+- **Images**: `docs/screens/interact_goddess_statue.png`, `docs/screens/blessing_level.png`.
+- **Related**: R-002, R-003, R-014, R-020, R-035.
+
+### R-071 · Mines are mini-dungeons with first-clear rewards
+- **Rule**: Mines such as "Ironvein Pit" ("A deserted mine swarming with monsters") show First Clear Rewards (Refined Ore 100, Raw Ore 640) and an Explore button lower on the card, at (0.5, 0.80). Mine battles run up to 25 rounds ("Round n/25"). The card policy treats as a mini-dungeon any card whose name ends in Ruins, Cave, Tower, Dungeon, Pit, Mine, Lair, Den or Fortress, or that shows "First Clear Rewards".
+- **Confidence**: observed. **Source**: builder batch 10.
+- **Images**: `docs/screens/interact_ironvein_pit.png`.
+- **Related**: R-040, R-042, R-049 (Raw Ore limits gear).
+
+### R-072 · Energy Circuits puzzle (not automated)
+- **Rule**: In the Ancient Fortress, "Energy Circuits" asks you to "drag or tap to swap slabs, linking all nodes and powering the circuits": 3 slabs in a row; tap two to swap them. Swapping the end slabs solved the one seen. A reset button is top right. The bot doesn't solve these yet.
+- **Confidence**: observed. **Source**: builder batch 10.
+- **Images**: `docs/screens/puzzle_energy_circuits.png`.
+- **Related**: node `puzzle_energy_circuits`.
+
+### R-073 · Fight monsters that block the path
+- **Rule**: Roaming monsters (spear wolves in Verdantglade, templates `resource/image/monsters/wolf_spear*.png`) can stand between the player and a pickup; fight them first (tap the monster, then battle prep).
+- **Confidence**: observed. **Source**: builder batch 10.
+- **Images**: none.
+- **Related**: R-001, R-041.
+
+### R-074 · Edge pointer types
+- **Rule**: Off-screen targets show as pointers at the screen edge: the gold quest ring (R-022), the boss portrait (R-045), the Goddess Statue icon (R-070), a blue orb for "Unlock <area>" (`resource/image/explore/pointer_unlock.png`), and the player's own portrait when the camera has drifted away from them (R-032). Tap a pointer to pan the camera there.
+- **Confidence**: observed. **Source**: builder batch 10.
+- **Images**: none.
+- **Related**: R-022, R-032, R-045, R-070.
+
+### R-075 · Home gains event and shop buttons; collect the Cart from its bubble
+- **Rule**: After Originisle, home shows "Thrilling Events" and "Starter Pack" buttons at the top right. Starter Pack is a shop: never buy (R-043). The Cart's trophy loot bubble (`resource/image/home/cart_bubble.png`) on the sideways-scrolling home scene claims AFK loot directly.
+- **Confidence**: observed. **Source**: builder batch 10.
+- **Images**: `docs/screens/home_events.png`.
+- **Related**: R-020, R-043, R-051.
+
+### R-076 · The area map shows resources, progress and power gates
+- **Rule**: The full area map (R-068) has a legend (Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone) and shows each area's exploration % and any power gate (Highland Woods 9.6K, Verdantglade III 12K). Areas below the gate's power are not worth entering yet. Ore nodes cost 5 stamina each. At handoff (Lv 12, Mage, power 7.7K, Verdantglade I and II 100% and blessed) Moonveil Woods, Stone Ruins I and Damp Woods were at 0%, and the bot was blocked on "Moonveil Woods I: Unlock Moonveil Woods" (R-064, R-067).
+- **Confidence**: observed. **Source**: builder batch 10.
+- **Images**: `docs/screens/world_area_map.png`.
+- **Related**: R-017, R-064, R-067, R-068, node `area_map`.
+
+### R-077 · The Team panel is social; leave it alone
+- **Rule**: The flag button at the top left of the map (0.08, 0.12) opens the Team panel: Players 1/9, Team Goal (Free Exploration), World Call / Invite / Nearby. Like friend requests (R-057), the bot doesn't touch it.
+- **Confidence**: observed. **Source**: builder batch 10.
+- **Images**: `docs/screens/team.png`.
+- **Related**: R-057, node `team`.
+
+### R-078 · Heal from the HUD portrait when the player's tile is crowded
+- **Rule**: If the player sprite has a red bubble and other interactables share its tile, tapping the player opens a pick-one menu on the right instead of the heal menu, and tapping again just loops. To heal, either pick the entry with the character's name in that menu, or tap the character portrait in the top-left HUD, which opens the healing menu directly. The HUD portrait avoids the menu entirely, so it is the simpler path for a script. Current HP shows as the bar under the name at the top-left of the map HUD, so read it there to decide whether to heal, without opening any menu.
+- **Confidence**: told. **Source**: mae, 2026-11-03.
+- **Images**: none yet (want: the pick-one menu).
+- **Related**: R-061, node `player_profile`.
