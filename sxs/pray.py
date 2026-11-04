@@ -7,7 +7,9 @@ mae, 2026-11-04: pulls are how the character gets new skills, but they're the ha
 never called from an autonomous loop (sxs.daily, sxs.explore and the others don't import it), and it refuses to
 pull without --pulls and --handler-approved.
 
-Standard banner only. A pull costs Stellatie (the blue crystal prayer ticket; Pray x1 = 1, Pray x10 = 10).
+Standard banner only. A pull costs Stellatie (the blue crystal prayer ticket; Pray x10 = 10). Pulls are only ever
+made in groups of ten with the x10 button, never Pray x1 (mae, 2026-11-04, R-093): --pulls must be a multiple of 10
+and the run stops when fewer than 10 tickets are left.
 Stellatie comes free from the Daily Sign-in and quests; the "+" next to it buys more and is never touched.
 Dawnium is never spent: the script reads the Dawnium counter before and after each pull and stops at once if it
 moved, and a purchase dialog is cancelled and ends the run. It stops when tickets run out rather than buying.
@@ -31,8 +33,9 @@ log = logging.getLogger("sxs.pray")
 
 HOME_STATUE = (50, 810)  # Goddess Statue at the left of the home scene (default camera after a fresh start)
 BANNER_STANDARD = (190, 1124)
-PRAY_X1 = (250, 968)
+PRAY_X1 = (250, 968)  # never tapped (mae, 2026-11-04: pulls only in groups of ten); kept to document the screen
 PRAY_X10 = (530, 968)
+PULL_GROUP = 10
 GOALS_TAB = (608, 1216)
 PRAYER_TAB = (246, 1216)
 TICKETS_ROI = [470, 30, 90, 45]  # Stellatie count, top right
@@ -110,19 +113,19 @@ class Prayer:
             return "no_statue"
         left, result, got = pulls, "done", []
         while left > 0:
-            tickets, gems = self.tickets(), self.dawnium()
-            if tickets is None:
-                log.warning("can't read the ticket count; stopping")
+            # Read the count twice: one misread ("4" for 20) once caused a single pull.
+            tickets, again, gems = self.tickets(), self.tickets(), self.dawnium()
+            if tickets is None or tickets != again:
+                log.warning("can't read the ticket count reliably (%s, %s); stopping", tickets, again)
                 result = "unknown_screen"
                 break
-            x10 = left >= 10 and tickets >= 10
-            cost = 10 if x10 else 1
-            if tickets < cost:
-                log.info("%d tickets left, %d pulls not done: stopping (never buying tickets)", tickets, left)
+            if tickets < PULL_GROUP:
+                log.info("%d tickets left, %d pulls not done: stopping (x10 only, never buying tickets)", tickets, left)
                 result = "out_of_tickets"
                 break
+            cost = PULL_GROUP
             log.info("Pray x%d (%d tickets, %d pulls to go)", cost, tickets, left)
-            self.dev.tap(*(PRAY_X10 if x10 else PRAY_X1))
+            self.dev.tap(*PRAY_X10)  # mae, 2026-11-04: only ever in groups of ten, never Pray x1
             time.sleep(2.5)
             if self._spend_dialog():
                 log.warning("a purchase prompt appeared; cancelled and stopping")
@@ -155,7 +158,7 @@ class Prayer:
 
 def main() -> int:
     p = argparse.ArgumentParser(description="Skill pulls at the Goddess Statue. Handler-triggered only.")
-    p.add_argument("--pulls", type=int, help="number of pulls (x10 is used while 10 or more remain)")
+    p.add_argument("--pulls", type=int, help="number of pulls, a multiple of 10 (x10 button only)")
     p.add_argument("--handler-approved", action="store_true", help="required: the handler asked for these pulls")
     p.add_argument("--check", action="store_true", help="open Prayer and print the ticket count, no pulls")
     args = p.parse_args()
@@ -169,6 +172,10 @@ def main() -> int:
         return 0
     if not args.pulls or not args.handler_approved:
         print("refusing: pulls are the handler's call; pass --pulls N --handler-approved", flush=True)
+        return 2
+    if args.pulls % PULL_GROUP:
+        print(f"refusing: pulls only in groups of {PULL_GROUP} (mae, 2026-11-04); --pulls must be a multiple of "
+              f"{PULL_GROUP}", flush=True)
         return 2
     print(pr.pull(args.pulls), flush=True)
     return 0
