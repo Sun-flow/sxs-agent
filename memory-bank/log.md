@@ -6,6 +6,7 @@
 ### 2026-11-04 (morning, later) · Game docs: guild (Claude Code, cloud)
 - PRs #15 and #16 merged. Guild thread: tutorial ends at Join / Create; mae chose to join a random open guild; never create (R-102).
 - mae: donate to the guild at most twice a day; those two may use Dawnium (R-103, R-043, R-016). Joined karsa_1515.
+- mae's upgrades and materials rules: Quick Upgrade for skills (R-104), relic banding by element (R-105, not unlocked yet), the four materials (R-106), keep 70 stamina and gather ore (R-107), material tracking (R-108), special nodes (R-109), any character "!" means an upgrade (R-080). Guild thread: one gathering slot (R-110), Gate of Expedition (R-111), third donation costs 50 (R-103).
 
 ### 2026-11-04 (morning) · Game docs: bed EXP (Claude Code, cloud)
 - PR #13 merged. mae: collect bed EXP daily, not in every upgrade pass, and sooner near a level-up (R-101); the guild unlocked at Lv 20 (R-011). Next: rule batches from the guild-mapping thread.

@@ -375,7 +375,7 @@
    "images": [
     "docs/screens/journal.png"
    ],
-   "notes": "Cards: Fantasia Ascent (0.78, 0.23), Map Exploration, Material Realms, Weekly Events, two Unavailable (R-094)."
+   "notes": "Cards: Fantasia Ascent (0.78, 0.23), Map Exploration, Material Realms, Weekly Events, two Unavailable (R-094). Map Exploration: pick a material and Go to track it (R-108)."
   },
   {
    "id": "guild",
@@ -511,7 +511,7 @@
    "images": [
     "docs/screens/skill_loadout.png"
    ],
-   "notes": "4 technique slots left, 4 charm slots right, Loadout 1 selector; tabs Technique / Charm / Shard; bottom tabs Skill / Goals (R-037, R-038)."
+   "notes": "4 technique slots left, 4 charm slots right, Loadout 1 selector; tabs Technique / Charm / Shard; bottom tabs Skill / Goals (R-037, R-038). Tap a skill, then Quick Upgrade beside the lower-right charm (R-104)."
   },
   {
    "id": "technique_card",
