@@ -30,6 +30,7 @@
 - mae: skill pulls only in groups of ten, never Pray x1 (R-093 amended). Rating popups: dismiss with "Later" (R-060). The Vendor Booth unlocked on home (R-120). Mall: claim the free gift boxes, never the paid packs (R-121). mae's shop policy: map each shop's stock into a table, mae marks buys, buy nothing without a buy list (R-120, R-114).
 - PRs #18 to #21 merged. Bellflower field in Verdantglade, no stamina cost, tap the plants themselves; Bellflowers and Rank Advancement come before the shops (R-118). Blue-aura pickups are rarer, so prefer them (R-122).
 - Builder's last batch folded in, no new numbers: Mall route and images (R-121), the Bellflower route and field in Moonveil Woods (R-118), Vendor Booth details (R-120), rating popup (R-060), x10-only pulls in code (R-093). Opened a PR for `upgrade-systems`.
+- Rank Advancement to Apprentice II done (cap 30, Lv 21, 16.4K); Apprentice III needs Lv 30 and 30 of a new flower (R-118).
 
 ### 2026-11-04 (morning) · Game docs: bed EXP (Claude Code, cloud)
 - PR #13 merged. mae: collect bed EXP daily, not in every upgrade pass, and sooner near a level-up (R-101); the guild unlocked at Lv 20 (R-011). Next: rule batches from the guild-mapping thread.
