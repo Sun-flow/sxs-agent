@@ -33,4 +33,5 @@
 - A red "!" over our own character doesn't only mean low HP: empty charm slots and better gear also raise it. Decide healing from the profile's HP bar, and open the profile with the HUD portrait (70, 60): tapping the character opens a picker when several things share its tile. HP can be read without opening anything from the HUD bar under the name, x 116-268, y 52-64 (`explore.hud_hp`) (mae, 2026-11-04).
 - The area map's zoom changes between openings, so pick places on it by OCR'd area label (`sxs.goto`), not fixed points. An area whose label sits in fog can't be walked to; go home and travel via the tracker instead.
 - Map coordinates: y decreases going south, x increases going east.
+- Minimap POIs (mae, 2026-11-04): besides green pickup dots, gold icons are interactable buildings: the biggest are dungeons (cleared once naturally, then challenged in dailies), smaller ones are mines and the like. `sxs/minimap.py` classifies them as `building`; the fog walk visits each one once per run after pickups and unexplored ground.
 

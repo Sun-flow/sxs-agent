@@ -89,11 +89,21 @@ def fog_edge_target(frame: np.ndarray) -> Optional[tuple[int, int]]:
     return int(xs[pick] + x0), int(ys[pick] + y0)
 
 
-def minimap_target(det: StateDetector, frame: np.ndarray, lookahead: int = 4) -> Optional[tuple[int, int]]:
-    """Plan on the minimap: shortest walkable path to the nearest pickup or unexplored walkable tile, then tap a
-    few tiles along it (relative to the player, found by its name label). None if nothing is reachable."""
+def minimap_target(det: StateDetector, frame: np.ndarray, lookahead: int = 4, player_xy=None,
+                   buildings_seen: Optional[set] = None) -> Optional[tuple[int, int]]:
+    """Plan on the minimap: shortest walkable path to the nearest pickup or unexplored walkable tile, else to a gold
+    building not visited yet this run (dungeons, mines: interactable; their cards go through the rules), then tap
+    a few tiles along it (relative to the player, found by its name label). None if nothing is reachable."""
     mm = minimap.read(frame)
     path = minimap.path_to_nearest(mm)
+    if len(path) < 2 and player_xy is not None and buildings_seen is not None:
+        skip = {tile for tile in mm.tiles("building") if minimap.world_tile(mm, tile, player_xy) in buildings_seen}
+        path = minimap.path_to_nearest(mm, goals=("building",), skip=skip)
+        if len(path) >= 2:
+            spot = minimap.world_tile(mm, path[-1], player_xy)
+            buildings_seen.add(spot)
+            log.info("heading for a gold building at map %s", spot)
+            lookahead = len(path)  # walk all the way: the tap on it opens its card
     if len(path) < 2:
         return None
     me = [b for t, b in det.read_text([0, 130, 720, 840], frame) if PLAYER_NAME in t]
@@ -117,6 +127,7 @@ def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[st
     home_area, strayed = area, False
     visited: set[str] = set()
     repeats, last_card = 0, None
+    buildings_seen: set = set()
     if area:
         goto.go_to(dev, det, area)
     beat = Heartbeat()
@@ -160,10 +171,12 @@ def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[st
                     return "stuck"
             if centre_player(dev, det, frame):
                 frame = dev.screenshot()
-            target = minimap_target(det, frame)
+            xy = goto.COORDS.search(d.text or "")
+            xy = (int(xy.group(1)), int(xy.group(2))) if xy else None
+            target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen)
             if target is None and recentre_on_player(dev, det, frame):
                 frame = dev.screenshot()
-                target = minimap_target(det, frame)
+                target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen)
             if target:
                 log.info("walking toward unexplored ground at %s", target)
                 dev.tap(*target)

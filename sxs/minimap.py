@@ -11,6 +11,7 @@ about 8 px each. Classes, from mae's legend (2026-11-03) and measured colours:
     wall_unexplored  dark green
     unspotted        no colour, a faint cross pattern: unknown until you get near
     item             bright green dot (pickup)
+    building         gold icon: an interactable building (dungeons, mines, ...; mae, 2026-11-04)
     monster          orange/red dot
     icon             white (player, statues, ...)
 
@@ -30,18 +31,24 @@ CENTER = (616, 177)  # minimap centre = player position, in the 720x1280 frame
 RADIUS = 86  # usable radius inside the ring
 TILE = 8  # px per tile on the minimap
 
-CLASSES = ["unspotted", "wall_unexplored", "wall_explored", "walk_unexplored", "walk_explored", "item", "monster", "icon"]
+CLASSES = ["unspotted", "wall_unexplored", "wall_explored", "walk_unexplored", "walk_explored", "item", "building", "monster", "icon"]
 COLOURS = {  # BGR for the debug image
     "unspotted": (30, 30, 30), "wall_unexplored": (20, 60, 20), "wall_explored": (40, 120, 40),
     "walk_unexplored": (90, 150, 200), "walk_explored": (150, 230, 150), "item": (0, 255, 0),
+    "building": (0, 200, 255),
     "monster": (0, 80, 255), "icon": (255, 255, 255), "": (0, 0, 0),
 }
-WALKABLE = {"walk_explored", "walk_unexplored", "item", "monster", "icon"}
+WALKABLE = {"walk_explored", "walk_unexplored", "item", "building", "monster", "icon"}
 
 
 def is_item(h: int, s: int, v: int) -> bool:
     """Pickup dots are bright green: S 150+ in Verdantglade II, but only ~128 in Highland Woods, so S > 110."""
     return 38 <= h <= 80 and s > 110 and v > 180
+
+
+def is_building(h: int, s: int, v: int) -> bool:
+    """Gold building icons (Moonveil Woods: HSV ~26/170/207); monsters are redder (H <= 22), pickups greener."""
+    return 23 <= h <= 34 and s > 140 and v > 170
 
 
 def classify_pixel(h: int, s: int, v: int) -> str:
@@ -88,6 +95,9 @@ def read(frame: np.ndarray) -> Minimap:
             # Pickup dots are smaller than a tile, so a median can wash them out: a few dot pixels make it an item.
             if sum(is_item(int(a), int(b), int(c)) for a, b, c in patch) >= 5:
                 row.append("item")
+                continue
+            if sum(is_building(int(a), int(b), int(c)) for a, b, c in patch) >= 5:
+                row.append("building")
                 continue
             h, s, v = np.median(patch, axis=0).astype(int)
             row.append(classify_pixel(int(h), int(s), int(v)))
@@ -136,7 +146,7 @@ SCREEN_TILE = 104  # px per game tile on the island map at the default zoom (gri
 GOALS = ("item", "walk_unexplored")  # what free exploration heads for, in order of preference
 
 
-def path_to_nearest(mm: Minimap, goals=GOALS) -> list[tuple[int, int]]:
+def path_to_nearest(mm: Minimap, goals=GOALS, skip=frozenset()) -> list[tuple[int, int]]:
     """Breadth-first path over walkable tiles from the player to the nearest goal tile (unexplored walkable ground
     or a pickup). Goal tiles themselves count as walkable. Empty if nothing reachable."""
     from collections import deque
@@ -148,7 +158,7 @@ def path_to_nearest(mm: Minimap, goals=GOALS) -> list[tuple[int, int]]:
     while q:
         cur = q.popleft()
         r, c = cur
-        if cur != start and mm.grid[r][c] in goals:
+        if cur != start and mm.grid[r][c] in goals and cur not in skip:
             path = []
             while cur is not None:
                 path.append(cur)
@@ -160,6 +170,12 @@ def path_to_nearest(mm: Minimap, goals=GOALS) -> list[tuple[int, int]]:
                 prev[(nr, nc)] = cur
                 q.append((nr, nc))
     return []
+
+
+def world_tile(mm: Minimap, tile: tuple[int, int], player_xy: tuple[int, int]) -> tuple[int, int]:
+    """Map coordinates of a minimap tile, from the player's coordinates (x grows east, y grows north)."""
+    (pr, pc), (r, c) = mm.centre, tile
+    return player_xy[0] + (c - pc), player_xy[1] - (r - pr)
 
 
 def screen_point(player_xy: tuple[int, int], mm: Minimap, tile: tuple[int, int],
