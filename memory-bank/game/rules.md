@@ -702,10 +702,10 @@ Entry format:
 - **Related**: R-092, R-106.
 
 ### R-106 · Upgrade materials: ore, sand, battle essence, rolla
-- **Rule**: Upgrade materials split into four resources: **ore** for gear and armour (R-023), **sand** for relics (R-105), **battle essence** for skills (R-039, R-104), and **rolla** as general coins (R-018). Each can be gathered on the overworld at 5 stamina per pickup (R-107). They also come from other sources, such as mining (R-095); usually each day brings a few resources that let the account gather each of the four types.
+- **Rule**: Upgrade materials split into four resources: **ore** for gear and armour (R-023), **sand** for relics (R-105), **battle essence** for skills (R-039, R-104), and **rolla** as general coins (R-019). Each can be gathered on the overworld at 5 stamina per pickup (R-107). They also come from other sources, such as mining (R-095); usually each day brings a few resources that let the account gather each of the four types.
 - **Confidence**: told. **Source**: mae, 2026-11-04.
 - **Images**: none.
-- **Related**: R-018, R-023, R-039, R-076, R-095, R-105, R-107.
+- **Related**: R-019, R-023, R-039, R-076, R-095, R-105, R-107.
 
 ### R-107 · Stamina budget: keep 70 for daily commissions, spend the rest on the priority material
 - **Rule**: Stamina regenerates over time (R-033). Always keep at least 70 stamina for the daily commissions. Spend anything above that on gathering the priority material, currently **ore**; mae will switch it to sand later. Gathering route: R-108.
