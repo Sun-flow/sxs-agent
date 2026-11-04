@@ -139,6 +139,9 @@ EXPECTED = {
     "explore_ore_rocks_near": "world_map",
     "explore_ore_mined": "world_map",
     "area_map_resource": None,
+    "rating_popup": "rating_popup",
+    "home_white_sheet_tutorial": None,
+    "vendor_booth_unlock": None,
 }
 
 

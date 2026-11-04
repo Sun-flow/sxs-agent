@@ -10,6 +10,7 @@
                 "State.Loading",
                 "State.Title",
                 "State.Loading.Title",
+                "State.RatingPopup",
                 "State.RewardPopup",
                 "State.TapToContinue",
                 "State.Defeated",
@@ -747,6 +748,19 @@
             20,
             440,
             70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.RatingPopup": {
+        "doc": "Akane's 'do you satisfy with your experience' rating prompt (Very Satisfied / Dissatisfied / Later). mae, 2026-11-04: press Later.",
+        "recognition": "OCR",
+        "expected": "^Very Satisfied$",
+        "roi": [
+            200,
+            680,
+            320,
+            60
         ],
         "pre_delay": 0,
         "post_delay": 0
