@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/`; templates in `resource/image/`.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-080).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-081).
 
 Entry format:
 
@@ -403,10 +403,16 @@ Entry format:
 ## Added from mae (2026-11-03, evening)
 
 ### R-061 · Heal and retry a lost fight at most twice
-- **Rule**: Healing food (cooked from ingredients in the Alchemy Pot, or bought with Rolla) is cheap and fine to spend: eat it from the player portrait, then the button on the right ("Recover" or similar). While fights are being won, heal as freely as needed; Rolla is abundant early. **Dishes** are different: rarer items that give temporary stat boosts for a fight, so conserve them. If the same fight is lost twice in a row after healing, stop retrying: contact mae or go back to base to get stronger (gear, techniques, rank) first. **Before any fight, HP must be at least 70%**; if it's lower, heal first (read HP from the HUD bar, R-078). A red "!" over the player character most likely means a heal is needed; it is not the NPC "!" of R-062. (The step 3 explore loop heals below 80%, which already satisfies this.)
-- **Confidence**: told. **Source**: mae, 2026-11-03.
+- **Rule**: Healing food (cooked from ingredients in the Alchemy Pot, or bought with Rolla) is cheap and fine to spend: eat it from the player portrait, then the button on the right ("Recover" or similar). While fights are being won, heal as freely as needed; Rolla is abundant early. **Dishes** are different: rarer items that give temporary stat boosts for a fight, so conserve them. If the same fight is lost twice in a row after healing, stop retrying: contact mae or go back to base to get stronger (gear, techniques, rank) first. **Before any fight, HP must be at least 70%**; if it's lower, heal first (read HP from the HUD bar, R-078). Decide heal need from the HP bar only. A red "!" over the player character does not by itself mean heal: it can also mean charms or other gear are ready to equip, among other things (R-080). (The step 3 explore loop heals below 80%, which already satisfies this.)
+- **Confidence**: told. **Source**: mae, 2026-11-03; "!" correction 2026-11-04.
 - **Images**: none yet (want: the profile's Recover button).
 - **Related**: R-031, R-043, R-046, R-047, R-078, nodes `player_profile`, `wounded`, `alchemy_pot`.
+
+### R-080 · A red "!" over the player means check the character panel
+- **Rule**: A red "!" above the player character on the overworld is a general "something to do with your character" badge, not a heal signal. Causes include charms (or other gear) ready to equip, and possibly low HP among others. When it appears, open the character panel (HUD portrait), follow the badged tab and handle it (equip, upgrade or claim, within the spending rules); decide whether to heal only from the HP bar (R-061, R-078). Do not block fights on the "!" alone: the explore loop got stuck treating a charm "!" as a heal request.
+- **Confidence**: told. **Source**: mae, 2026-11-04.
+- **Images**: none yet (want: the player "!" and the badged charm tab).
+- **Related**: R-061, R-063, R-078, node `player_profile`.
 
 ### R-062 · NPCs with a red "!" gate progress
 - **Rule**: Quests can be locked behind NPC interactions. An NPC with a red exclamation mark above its head on the world map or overworld (Originisle, Verdantglade...) must be talked to first; it gives instructions on how to progress and then disappears, unlocking the objects around it (for example the Chief at the Originisle V pillar guards the boss loot row). When the tracker points at something that can't be reached, look for a red "!" NPC nearby and tap it first.
