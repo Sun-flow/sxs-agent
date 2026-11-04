@@ -18,7 +18,8 @@
 ### 2026-11-04 · Moonveil Woods, Fantasia Ascent, side areas, loop robustness (Claude Code, maes2024 via Remote Control)
 - Got into Moonveil Woods with mae's area-map procedure (now `sxs/goto.py`), talked to Molly, won the gate fight, climbed the Moonveil tower to F5 (new `sxs/tower.py`; lost F6). Explored Stone Ruins I (tile puzzle, two chests) and Highland Woods, blessed the Highland and Moonveil statues. Damp Woods is behind a 15.5K Gate of Power; Verdantglade III (12K) fights are lost at 10K. 5 Verdantglade areas done. Lv 13, power 10K (new gear via `equip_better_gear`, charms via `equip_charms`).
 - Loop robustness per mae: heartbeat lines, rotating unstick rounds, counterless-quest progress, own-profile watchdog, unknown screens saved to `captures/unknown/` before stopping, loop banners, fog walk stays in its area and stops when no new tile is reached. Branch `step3-explore`, PR #11.
-- Open: Verdantglade III needs about 12K power; the "badly wounded" dialog after a lost map fight isn't counted as a loss; the minimap classifier mislabels Highland Woods' darker walkable tiles.
+- Later the same day, from mae's notes: "badly wounded" counts as a loss, HP read from the HUD bar and the battle-prep bar with healing below 70% via the top-left portrait, mini-dungeons heal mid-run, gold-building POIs on the minimap, banded gear enhancement (branch `step3-wrapup`). PR #11 merged step3-explore.
+- Open: Verdantglade III needs about 12K power; the low-HP paths and banded enhancement need live tests; the minimap classifier mislabels Highland Woods' darker walkable tiles. Next thread: dailies and upgrades.
 
 ### 2026-11-03 (late) · Game docs after PR #6 (Claude Code, cloud)
 - PR #6 merged batches 4 to 9 and mae's rules up to R-067. Added R-068 (travel through the full area map) and the `area_map` screen; branch `claude/project-thread-npg43i` fast-forwarded to main.

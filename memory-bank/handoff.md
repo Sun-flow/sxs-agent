@@ -33,12 +33,31 @@ You run as a Remote Control session on mae's PC, in `C:\Users\jcmon\Desktop\sxs-
 - **Fantasia Ascent**: Auto Challenge always on, no retries, one run a day (a daily).
 - A red "!" over the player can mean empty charm slots or better gear, not only low HP; heal by the HP bar.
 
-## State right now (2026-11-04 evening)
+## State right now (2026-11-04, end of the exploration thread)
 
-- **Game**: gromb2 on Forgehall, Lv 13, Mage, power ~10K, Rolla ~42K, Dawnium ~1.03K. Standing in Verdantglade II near the portal at about (181, 96). Tracker: "Verdant Wonders III: Explore Verdantglade III 0/100" (Rcmd 12K).
-- **Verdantglade count**: 5 of the 4 to 7 cap done (I, II, Moonveil Woods, Stone Ruins I, Highland Woods). Damp Woods: Gate of Power needs 15.5K. Verdantglade III: guard fights lost at 10K (respawn in Verdantglade II). Sunrise Isle shows on the area map, unvisited.
-- **Today's dailies done**: Fantasia Ascent Moonveil Woods (F1→F5, lost F6).
-- **Code**: everything pushed on `step3-explore`.
+- **Game**: gromb2 on Forgehall, Lv 13, Mage, Apprentice I, power ~10K, Rolla ~43K, Dawnium ~1.03K (never spent). On the Verdantglade III map after losses. Tracker: "Verdant Wonders III: Explore Verdantglade III 0/100" (Rcmd 12K). Gear: Seeker's Staff +21, Adventurer's Leather Hat +12, armour +9, Starter's Boots +2; ore is short (7/720), which caps enhancement now. 3 of 4 charm slots filled (4th locked).
+- **Verdantglade**: 5 of the 4 to 7 cap done (I, II, Moonveil Woods, Stone Ruins I, Highland Woods); Moonveil and Highland statues blessed. Walls: Verdantglade III (12K; guard fights lost at 10K), Damp Woods (Gate of Power, 15.5K). Sunrise Isle is on the area map, unvisited. Exploration is finished for now; the next thread works on dailies and upgrades.
+- **Today's dailies done**: Fantasia Ascent Moonveil Woods (F1→F5, lost F6; `logs/daily.json`).
+- **Code**: PR #11 (`step3-explore`) is merged into main. Later work is on branch `step3-wrapup` (from main): the banded gear enhancement below and this handoff. It needs a PR.
+
+### Tested vs untested (2026-11-04)
+
+| Piece | Status |
+|---|---|
+| `sxs.goto` area-map walking | Tested (Moonveil, Stone Ruins I, Damp Woods, Highland Woods). Fails on labels inside fog; explore then travels from home via the tracker (tested). |
+| `sxs.tower` (Auto Challenge on, no retries, daily marker) | Tested F1–F6. Auto Challenge only appears on the result screen, so the first fight of a run starts without it. |
+| Explore → tower hand-over and resume | Tested. Fog walk → tower hand-over: untested. |
+| Loss counting ("badly wounded" = lost fight) | Tested: losses counted, retry rule → strengthen ran. A loss dialog seen while the detector says "unknown" is now also counted (untested). |
+| HP from the HUD bar (`explore.hud_hp`, x 116-268 y 52-64) | Tested at full HP only (reads 99%). Low-HP reading untested. |
+| Heal before fights (< 70%) on the map and on battle prep (`PREP_HP_BAR`, x 314-406 y 866-876) via the top-left portrait | Untested live: no low-HP-while-alive case came up. Prep bar reads 97% on the reference screenshot. Whether battle prep has a tappable portrait is unknown; the code backs out and retries if the portrait doesn't open the profile. |
+| Charm filling and better-gear swaps from the profile | Tested. |
+| Banded gear enhancement (spec below) | Tested once: read levels {21, 12, 9, 2}, stopped after 1 tap because ore is short. The band logic itself still needs a run with materials. |
+| Gold-building POIs on the minimap, fog walk visiting them | Detection tested on one frame; walking to them untested. |
+| Mini-dungeon floors: always Next Floor, heal mid-run | Rule changed; untested in a dungeon. |
+
+### Gear enhancement spec (mae, 2026-11-04)
+
+Enhance in **5-level bands with all pieces levelled together**: the target is the next multiple of 5 above the lowest piece; raise every piece below it, in priority order **weapon > offhand > headpiece > chest > boots**, then move to the next band, until materials run short. The order is configurable (`GEAR_PRIORITY` in `sxs/strengthen.py`, indexes into the Enhance Gear tabs; today the tabs are weapon, head, chest, boots, with no offhand yet, so add its index after the weapon when it appears). Implemented in `Strengthener.enhance_gear` (branch `step3-wrapup`). The Enhance Gear screen isn't a detector state yet, so `go_home` can't leave it on its own: add a state for it.
 
 ## How to run things
 
@@ -65,9 +84,10 @@ Code map: `docs/step2-hands-and-eyes.md` (device, detector, CLI) and `docs/step3
 
 ## Next steps, in order
 
-1. **Get stronger toward 12K** for Verdantglade III: rank up when the requirements are met (Character → Rank badge), cook Green Riceballs when low, the Bed's free speedup, the daily Fantasia Ascent run (`sxs.tower`), Cart, gear and techniques (`sxs.strengthen`, which now also equips better gear and charms from the profile). Then retry the main quest with `sxs.explore --chain`.
-2. (Done 2026-11-04: "badly wounded" now counts as a loss.) Watch that the retry rule then behaves: 2 retries, strengthen, ask mae.
-3. **Minimap classifier per area palette**: Highland Woods' explored walkable tiles read as walls. Calibrate from tiles the player has stood on (they're walkable by definition).
-4. **Badge sweep**: claim red "!" badges on menus (Fantasia Ascent Goals tab had one), generic because events rotate.
-5. **Dailies** pipelines as they unlock (`docs/step1-emulator-and-game.md` §4), starting with Fantasia Ascent (done) and the Cart.
-6. **Supervisor**: when a loop returns `unknown_card`, `unknown_screen` or a stuck reason, hand the saved frame and recent log to a model once and save its answer as a rule, template or state.
+1. **Dailies and upgrades** (the next thread): a daily runner that calls the chores in turn (Fantasia Ascent via `sxs.tower`, Cart, the Bed's free speedup, others as they unlock: `docs/step1-emulator-and-game.md` §4), each with its banner and stop reasons, recording runs in `logs/daily.json`.
+2. **Upgrades**: test the banded enhancement with materials; add detector states for Enhance Gear and the technique upgrade screen; rank up when the requirements are met; cook Green Riceballs when low.
+3. **Badge sweep**: claim red "!" badges on menus (the Fantasia Ascent Goals tab had one), generic because events rotate.
+4. **Test the HP logic** the first time HP drops below 70% while alive (map and battle prep), and watch the retry rule (2 retries, strengthen, ask mae).
+5. **Minimap classifier per area palette**: Highland Woods' explored walkable tiles read as walls. Calibrate from tiles the player has stood on.
+6. **Back to Verdantglade III** at ~12K power (`sxs.explore --chain`).
+7. **Supervisor**: when a loop returns `unknown_card`, `unknown_screen` or a stuck reason, hand the saved frame and recent log to a model once and save its answer as a rule, template or state.

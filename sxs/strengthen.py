@@ -14,6 +14,7 @@ import re
 import cv2
 import sys
 import time
+from typing import Optional
 
 from . import nav
 from .device import Device
@@ -26,6 +27,11 @@ GEAR_SLOTS = [(84, 400), (646, 380), (646, 476), (646, 620)]  # Character screen
 ITEM_CARD_ENHANCE = (490, 880)
 GEAR_TABS = [(160, 166), (304, 166), (424, 166), (552, 166)]  # Enhance Gear screen, top row
 GEAR_ENHANCE = (360, 1084)
+GEAR_LEVEL_ROI = [150, 510, 420, 70]  # Enhance Gear: "+21 -> +22" for the selected piece
+GEAR_BAND = 5  # mae, 2026-11-04: enhance in 5-level bands, all pieces together
+# Enhance order inside a band, as indexes into GEAR_TABS (shown weapon, head, chest, boots today). mae's priority is
+# weapon > offhand > headpiece > chest > boots; when an offhand tab appears, insert its index after the weapon.
+GEAR_PRIORITY = [0, 1, 2, 3]
 SKILL_BUTTON = (296, 760)
 TECHNIQUE_SLOT = (92, 270)
 TECHNIQUE_CARD_ENHANCE = (490, 946)
@@ -80,19 +86,51 @@ class Strengthener:
         log.info("no cart loot bubble found")
         return False
 
-    def enhance_gear(self, taps_per_item: int = 10) -> None:
+    def _gear_level(self) -> Optional[int]:
+        """Current level of the selected piece on Enhance Gear, from the big "+21 -> +22" line."""
+        for t, _ in self.det.read_text(GEAR_LEVEL_ROI):
+            m = re.fullmatch(r"\+?(\d+)", t.strip())
+            if m:
+                return int(m.group(1))
+        return None
+
+    def enhance_gear(self, max_taps: int = 60) -> None:
+        """Enhance gear in 5-level bands so all pieces level together (mae, 2026-11-04): raise every piece below the
+        next multiple of 5 above the lowest level up to it, in GEAR_PRIORITY order, then the next band, until
+        materials run short. Spends Rolla and ore only."""
         self.nav.go_home()
         self.nav.tap_and_expect(nav.NAV_CHARACTER, "character")
         self._tap(GEAR_SLOTS[0], 2)
         self._tap(ITEM_CARD_ENHANCE, 2.5)
-        for tab in GEAR_TABS:
+        levels = {}
+        for i, tab in enumerate(GEAR_TABS):
             self._tap(tab)
-            for _ in range(taps_per_item):
-                self._tap(GEAR_ENHANCE, 1.2)
-                if self._short():
+            lv = self._gear_level()
+            if lv is not None:
+                levels[i] = lv
+        log.info("gear levels: %s", levels)
+        taps, short = 0, False
+        while levels and not short and taps < max_taps:
+            target = (min(levels.values()) // GEAR_BAND + 1) * GEAR_BAND
+            for i in [i for i in GEAR_PRIORITY if i in levels]:
+                if levels[i] >= target:
+                    continue
+                self._tap(GEAR_TABS[i])
+                while levels[i] < target and taps < max_taps:
+                    self._tap(GEAR_ENHANCE, 1.2)
+                    taps += 1
+                    if self._short():
+                        short = True
+                        break
+                    lv = self._gear_level()
+                    if lv is None or lv <= levels[i]:
+                        short = True  # nothing changed: stop rather than tap blindly
+                        break
+                    levels[i] = lv
+                if short:
                     break
         self._tap(nav.BACK_ARROW, 2)
-        log.info("gear enhanced")
+        log.info("gear enhanced: %s (%d taps%s)", levels, taps, ", materials short" if short else "")
 
     def upgrade_techniques(self, taps_per_item: int = 12) -> None:
         self.nav.go_home()
