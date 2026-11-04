@@ -3,6 +3,11 @@
 > **Last updated**: 2026-11-04
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
 
+### 2026-11-04 (morning, later) · Game docs: guild (Claude Code, cloud)
+- PRs #15 and #16 merged. Guild thread: tutorial ends at Join / Create; mae chose to join a random open guild; never create (R-102).
+- mae: donate to the guild at most twice a day; those two may use Dawnium (R-103, R-043, R-016). Joined karsa_1515.
+- mae's upgrades and materials rules: Quick Upgrade for skills (R-104), relic banding by element (R-105, not unlocked yet), the four materials (R-106), keep 70 stamina and gather ore (R-107), material tracking (R-108), special nodes (R-109), any character "!" means an upgrade (R-080). Guild thread: one gathering slot (R-110), Gate of Expedition (R-111), third donation costs 50 (R-103).
+
 ### 2026-11-04 (morning) · Game docs: bed EXP (Claude Code, cloud)
 - PR #13 merged. mae: collect bed EXP daily, not in every upgrade pass, and sooner near a level-up (R-101); the guild unlocked at Lv 20 (R-011). Next: rule batches from the guild-mapping thread.
 - Dailies builder's final batch: guild crest icon at Lv 20 (R-011), bed EXP took Lv 13 to 20 (R-101), "Path to Upgrade: Reach Lv. 20" after Verdant Wonders III (R-084). Opened PR #16 for `dailies-wrapup` (handoff for the guild thread).
@@ -84,7 +89,3 @@
 ### 2026-11-03 · Memory bank set up (Claude Code, cloud)
 - mae asked to bring the memory bank generation prompt from the TrackFlow-Company-Overhaul repo into this one and instantiate it. Copied `.agents/prompts/memory-bank.md` and `scripts/check-memory.py` unchanged. PR #2. Wrote `AGENTS.md`, `CLAUDE.md` and the six memory files. Branch `claude/project-thread-4u6oai`.
 - Open: mae reviews and merges PR #2.
-
-### 2026-11-02 · Step 1: emulator choice and game survey (Claude Code, cloud)
-- Compared emulators and automation toolkits and catalogued the game's daily content; picked MuMu Player 12 and MaaFramework (`decisions.md`). mae confirmed the game is Sword x Staff. PR #1, branch `docs/step1-emulator-and-game`.
-- PR #1 merged 2026-11-03. Open: maes2024 setup.

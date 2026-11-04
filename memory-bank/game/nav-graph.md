@@ -192,8 +192,8 @@ flowchart TD
 | `character` | Character | menu | observed |  | Gear slots; gear slot -> item card (Replace / Enhance) -> Enhance Gear (R-023). |
 | `loadout_edit` | Loadout (Edit) | menu | observed |  | Not detected yet. Reached from the Combat Veteran quest's Go button. Techniques left, 4 charm slots right (x≈0.87, y≈0.21/0.30/0.39/0.48; 4th locked at Lv 13). Opens on Technique tab; Charm tab (0.56, 0.62). |
 | `server_chat` | Server Chat | overlay | observed |  | Close with the down arrow (0.06,0.96). Never type here. |
-| `travel_journal` | Journal (Travel Journal) | menu | observed | any mode unlocked (toast 'Unlock any mode to unlock Travel Journal') | Cards: Fantasia Ascent (0.78, 0.23), Map Exploration, Material Realms, Weekly Events, two Unavailable (R-094). |
-| `guild` | Guild | menu | observed | Character Lv. 15 (toast on the locked tab) | Donations, Farm, Boss, floating-island AFK farm (R-016, reported). Unlocked at Lv 20 with a guild tutorial (mae, 2026-11-04; R-011, R-101). |
+| `travel_journal` | Journal (Travel Journal) | menu | observed | any mode unlocked (toast 'Unlock any mode to unlock Travel Journal') | Cards: Fantasia Ascent (0.78, 0.23), Map Exploration, Material Realms, Weekly Events, two Unavailable (R-094). Map Exploration: pick a material and Go to track it (R-108). |
+| `guild` | Guild | menu | observed | Character Lv. 15 (toast on the locked tab) | Donations, Farm, Boss, floating-island AFK farm (R-016, reported). Unlocked at Lv 20 with a guild tutorial (mae, 2026-11-04; R-011, R-101). Joined karsa_1515. Island buildings: Lobby, Power Station, Forge, Mine, Shop, Gate of Expedition, Donation. Donate at most twice a day (R-103). |
 | `shop` | Shop | menu | reported |  | Free daily stamina, Daily Shop, Vault (Dawnium) (R-017, R-018). Entry point unknown. |
 | `dungeons` | Dungeons | menu | reported |  | Material, Daily and Co-op dungeons (R-015). Entry point unknown. |
 | `vendor` | Vendor Booth | menu | reported | account level 18 (R-011) | Entry point unknown. |
@@ -203,7 +203,7 @@ flowchart TD
 | `home_house` | Home house | hub | observed |  | Two-storey house above the home scene (scroll the home scene up). Furniture slots, some locked by level (one 'Unlocks at Lv. 7'). |
 | `bed` | Bed | popup | observed |  | AFK EXP and production panel with 'Today's Free Speedup' (R-035). An icon over the bed means AFK EXP to collect: a daily task, or sooner when close to levelling (R-101). |
 | `tap_to_continue` | Tap to Continue result | overlay | observed |  | Full-screen result such as 'UNLOCKED Bed, EXP/Hr 50'. |
-| `skill_loadout` | Skill loadout | menu | observed |  | 4 technique slots left, 4 charm slots right, Loadout 1 selector; tabs Technique / Charm / Shard; bottom tabs Skill / Goals (R-037, R-038). |
+| `skill_loadout` | Skill loadout | menu | observed |  | 4 technique slots left, 4 charm slots right, Loadout 1 selector; tabs Technique / Charm / Shard; bottom tabs Skill / Goals (R-037, R-038). Tap a skill, then Quick Upgrade beside the lower-right charm (R-104). |
 | `technique_card` | Technique card | popup | observed |  | Technique details (e.g. Ice Spike) with Remove / Enhance. |
 | `technique_upgrade` | Technique upgrade | menu | observed |  | Tabs Upgrade / Ascend. Costs Battle Essence; level capped by character level (R-037). Upgrade button at (0.5, 0.85) stays on this screen. |
 | `dungeon_floor` | Mini-dungeon floor | popup | observed |  | Floor card e.g. 'Temple Ruins: Floor 1' with Next Floor at (0.5, 0.64) and a back arrow bottom left (R-040). Low HP: heal from the portrait here and continue; don't leave (R-091). |

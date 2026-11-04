@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/`; templates in `resource/image/`.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-102).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-112).
 
 Entry format:
 
@@ -114,10 +114,10 @@ Entry format:
 - **Related**: R-018, node `dungeons`.
 
 ### R-016 · Guild donations: three basic a day
-- **Rule**: A guild member can make 3 basic donations a day; the Guild Farm can be planted and harvested once a day.
+- **Rule**: A guild member can make 3 basic donations a day; the Guild Farm can be planted and harvested once a day. The bot donates at most twice a day (mae's rule, R-103).
 - **Confidence**: reported. **Source**: step 1 doc section 4.
 - **Images**: none yet.
-- **Related**: R-011, node `guild`.
+- **Related**: R-011, R-103, node `guild`.
 
 ## Currencies and resources
 
@@ -223,7 +223,7 @@ Entry format:
 - **Related**: R-022, R-025.
 
 ### R-033 · Stamina regenerates slowly
-- **Rule**: Stamina went from 51 to 55 in about 40 minutes, roughly 1 every 10 minutes ❓ (one sample).
+- **Rule**: Stamina went from 51 to 55 in about 40 minutes, roughly 1 every 10 minutes ❓ (one sample). How to spend it: R-107.
 - **Confidence**: observed once. **Source**: builder batch 4.
 - **Images**: none.
 - **Related**: R-017.
@@ -249,7 +249,7 @@ Entry format:
 - **Related**: R-007, R-028, node `tap_to_continue`.
 
 ### R-037 · Techniques are upgraded with Battle Essence, capped by level
-- **Rule**: Character, then Skill (0.41, 0.59), opens the loadout (4 technique slots, 4 charm slots). Tap a technique, then Enhance, to reach the Upgrade screen; the upgrade button is at (0.5, 0.85) and costs Battle Essence. A technique's level can't exceed what the character level allows ("Unlocks at Character Lv. 6" at Lv 5). An Ascend tab exists but is unexplored.
+- **Rule**: Character, then Skill (0.41, 0.59), opens the loadout (4 technique slots, 4 charm slots). Tap a technique, then Enhance, to reach the Upgrade screen; the upgrade button is at (0.5, 0.85) and costs Battle Essence. A technique's level can't exceed what the character level allows ("Unlocks at Character Lv. 6" at Lv 5). An Ascend tab exists but is unexplored. A faster route: tap a skill, then the "Quick Upgrade" button beside the lower-right charm (R-104).
 - **Confidence**: observed. **Source**: builder batch 5.
 - **Images**: `docs/screens/skill_loadout.png`, `docs/screens/technique_card.png`, `docs/screens/technique_upgrade.png`.
 - **Related**: R-039, nodes `skill_loadout`, `technique_upgrade`.
@@ -287,7 +287,7 @@ Entry format:
 - **Related**: R-018, R-043, `memory-bank/game/README.md` (the `when` field).
 
 ### R-043 · Never press spending buttons
-- **Rule**: The bot never presses Buy, Purchase, Refresh, Spend, Pray, Recharge or Top up, or any button mentioning Dawnium, unless a later policy rule explicitly allows it. Exception (R-061): buying or cooking healing food with Rolla or ingredients is allowed; skill pulls only through mae's own script (R-093). Also never: "Catch Up" on the sign-in calendar, "Advanced Trial", Dawnstar Prelude draws, Iron Hammer purchases, the main menu's event-banner packs (e.g. "Halloween Charmer", USD 2.99), and Link Account or anything else account-related.
+- **Rule**: The bot never presses Buy, Purchase, Refresh, Spend, Pray, Recharge or Top up, or any button mentioning Dawnium, unless a later policy rule explicitly allows it. Exception (R-061): buying or cooking healing food with Rolla or ingredients is allowed; skill pulls only through mae's own script (R-093); the first two guild donations of the day, even when they cost Dawnium (R-103). Also never: "Catch Up" on the sign-in calendar, "Advanced Trial", Dawnstar Prelude draws, Iron Hammer purchases, the main menu's event-banner packs (e.g. "Halloween Charmer", USD 2.99), and Link Account or anything else account-related.
 - **Confidence**: told (policy). **Source**: builder batch 6, following mae's budget rules.
 - **Images**: none.
 - **Related**: R-018, R-042, R-093, R-095 to R-098.
@@ -409,7 +409,7 @@ Entry format:
 - **Related**: R-031, R-043, R-046, R-047, R-078, nodes `player_profile`, `wounded`, `alchemy_pot`.
 
 ### R-080 · A red "!" over the player means check the character panel
-- **Rule**: A red "!" above the player character on the overworld is a general "something to do with your character" badge, not a heal signal. Causes include charms (or other gear) ready to equip, and possibly low HP among others. When it appears, open the character panel (HUD portrait), follow the badged tab and handle it (equip, upgrade or claim, within the spending rules); decide whether to heal only from the HP bar (R-061, R-078). On the character panel (tap your own character, or the HUD portrait), red badges mark empty Charm slots (row at y≈0.71) and blue badges on Equip mark available gear upgrades. To fill a charm slot: tap an empty charm slot, which opens the loadout editor "Edit" (techniques on the left, 4 charm slots on the right at x≈0.87, y≈0.21 / 0.30 / 0.39 / 0.48). It opens on the Technique tab; the Charm tab is at (0.56, 0.62). Tap a charm to open its card (for example "Heart of Flame", Rare, Fire Affinity 166, source Skill Prayer), press Equip (0.5, 0.70), then tap an empty slot. Once a slot is filled the button reads Replace. The 4th charm slot was still locked at Lv 13. The Rcmd button opens "Rcmd Loadouts" (Beginner's Pick, AoE DMG) with Apply; the bot doesn't use it. Filling the slots also completed "Combat Master: Equip 6 Skills 6/6". Do not block fights on the "!" alone: the explore loop got stuck treating a charm "!" as a heal request. Also beware mis-taps: when the quest marker sits next to the player, a tap meant for the marker can land on the player sprite and open the character panel instead; aim off the sprite or move first.
+- **Rule**: A red "!" above the player character on the overworld is a general "something to do with your character" badge, not a heal signal. Causes include charms (or other gear) ready to equip, and possibly low HP among others. When it appears, open the character panel (HUD portrait), follow the badged tab and handle it (equip, upgrade or claim, within the spending rules); decide whether to heal only from the HP bar (R-061, R-078). On the character panel (tap your own character, or the HUD portrait), red badges mark empty Charm slots (row at y≈0.71) and blue badges on Equip mark available gear upgrades. To fill a charm slot: tap an empty charm slot, which opens the loadout editor "Edit" (techniques on the left, 4 charm slots on the right at x≈0.87, y≈0.21 / 0.30 / 0.39 / 0.48). It opens on the Technique tab; the Charm tab is at (0.56, 0.62). Tap a charm to open its card (for example "Heart of Flame", Rare, Fire Affinity 166, source Skill Prayer), press Equip (0.5, 0.70), then tap an empty slot. Once a slot is filled the button reads Replace. The 4th charm slot was still locked at Lv 13. The Rcmd button opens "Rcmd Loadouts" (Beginner's Pick, AoE DMG) with Apply; the bot doesn't use it. Filling the slots also completed "Combat Master: Equip 6 Skills 6/6". Any "!" on the character screen generally means an upgrade is available (skills, gear and so on): always check it and take the upgrade, within the spending rules (mae, 2026-11-04). Do not block fights on the "!" alone: the explore loop got stuck treating a charm "!" as a heal request. Also beware mis-taps: when the quest marker sits next to the player, a tap meant for the marker can land on the player sprite and open the character panel instead; aim off the sprite or move first.
 - **Confidence**: told (mae); badge colours and the mis-tap observed by the builder. **Source**: mae, 2026-11-04; builder thread, 2026-11-04.
 - **Images**: `docs/screens/player_profile_charm_badges.png`, `docs/screens/loadout_edit_charms.png`, `docs/screens/charm_detail.png`, `docs/screens/rcmd_loadouts.png` (step 3 branch).
 - **Related**: R-061, R-063, R-078, nodes `player_profile`, `loadout_edit`, `charm_detail`, `rcmd_loadouts`.
@@ -672,3 +672,69 @@ Entry format:
 - **Confidence**: told. **Source**: mae, 2026-11-04; dailies builder's final batch.
 - **Images**: none yet (want: the bed EXP icon; mae will send a screenshot).
 - **Related**: R-011, R-020, R-035, nodes `home_house`, `bed`, `guild`.
+
+## Added from the guild thread (2026-11-04)
+
+### R-102 · Joining a guild: join a random open one
+- **Rule**: The Guild tutorial is a short dialogue with Akane that ends at a choice: Join Guild or Create Guild. Donations (R-016), the guild farm and the guild boss all need membership. The Join list shows mostly guilds with an instant "Join" button and some with "Apply" (needs approval). Creating a guild may cost Dawnium, so never create one (R-043). mae's decision for now: join a random open guild (an instant "Join"). Picking or leaving guilds beyond that is mae's call, like other social choices (R-057).
+- **Confidence**: observed (tutorial and list); told (the choice). **Source**: guild thread and mae, 2026-11-04.
+- **Images**: none yet (want: the Join / Create choice and the guild list).
+- **Related**: R-011, R-016, R-043, R-057, node `guild`.
+
+### R-103 · Donate to the guild twice a day, never more
+- **Rule**: Donate to the guild up to twice per day and never more. These first two donations are an approved use of Dawnium, an exception to R-043: the first donation of the day is free, the second costs 20 Dawnium and the third 50, so stop after two. Facility upgrades are for the guild leader only. The account joined guild karsa_1515 (28/30 members, 607K power) on 2026-11-04 (R-102). Buildings on the guild island: Lobby, Power Station (AFK gathering), Forge, Mine, Shop, Gate of Expedition and Donation.
+- **Confidence**: told (the limit); observed (costs, buildings). **Source**: mae and the guild thread, 2026-11-04.
+- **Images**: none yet (want: the Donation screen and the guild island).
+- **Related**: R-016, R-043, R-102, node `guild`.
+
+## Added from mae (2026-11-04): upgrades and materials
+
+### R-104 · Upgrade skills with Quick Upgrade
+- **Rule**: To upgrade a skill, tap the skill, then the "Quick Upgrade" button beside the lower-right charm. It spends Battle Essence (R-039) and is capped by character level (R-037).
+- **Confidence**: told. **Source**: mae, 2026-11-04.
+- **Images**: none yet (want: the Quick Upgrade button).
+- **Related**: R-037, R-039, R-106, node `skill_loadout`.
+
+### R-105 · Relics: enhance in bands of 1, element by element (not unlocked yet)
+- **Rule**: Relics come in several elemental categories with 4 relics each. Enhance them with banding like gear (R-092) but with a step of 1, not 5: raise the 4 relics of one element together as a single band, bring every element to the same overall level, and only then go up another level. Element priority goes by the character's overall affinity for each element, highest first. Relics use Sand (R-106). Defined ahead of time; relics aren't unlocked on the account yet.
+- **Confidence**: told. **Source**: mae, 2026-11-04.
+- **Images**: none.
+- **Related**: R-092, R-106.
+
+### R-106 · Upgrade materials: ore, sand, battle essence, rolla
+- **Rule**: Upgrade materials split into four resources: **ore** for gear and armour (R-023), **sand** for relics (R-105), **battle essence** for skills (R-039, R-104), and **rolla** as general coins (R-019). Each can be gathered on the overworld at 5 stamina per pickup (R-107). They also come from other sources, such as mining (R-095); usually each day brings a few resources that let the account gather each of the four types.
+- **Confidence**: told. **Source**: mae, 2026-11-04.
+- **Images**: none.
+- **Related**: R-019, R-023, R-039, R-076, R-095, R-105, R-107.
+
+### R-107 · Stamina budget: keep 70 for daily commissions, spend the rest on the priority material
+- **Rule**: Stamina regenerates over time (R-033). Always keep at least 70 stamina for the daily commissions. Spend anything above that on gathering the priority material, currently **ore**; mae will switch it to sand later. Gathering route: R-108.
+- **Confidence**: told. **Source**: mae, 2026-11-04.
+- **Images**: none.
+- **Related**: R-033, R-076, R-106, R-108.
+
+### R-108 · Track a material through Journal > Map Exploration
+- **Rule**: Open the second icon on the home bottom bar (the Journal, R-094), choose "Map Exploration", select the material to track and press Go. A tracking marker leads to the area that holds it, where the material lies scattered on the ground. Tap pickups (5 stamina each) until the budget of R-107 is reached, then stop.
+- **Confidence**: told. **Source**: mae, 2026-11-04.
+- **Images**: `docs/screens/journal.png`.
+- **Related**: R-094, R-106, R-107, R-109, node `travel_journal`.
+
+### R-109 · Special nodes with a green timer circle: always tap them
+- **Rule**: While gathering you may trigger "special nodes" or "special encounters", marked with a green timer circle at their upper right. They're high value and usually give a good reward, so tap them whenever they appear. Example: a "Grand Mine", which allows one material collection without spending stamina.
+- **Confidence**: told. **Source**: mae, 2026-11-04.
+- **Images**: none yet (want: a special node with its timer).
+- **Related**: R-106, R-108.
+
+## Added from the guild thread (2026-11-04, later)
+
+### R-110 · Guild gathering: one slot per character
+- **Rule**: A character holds only one guild gathering slot at a time (Power Station, R-103). Moving to another slot collects the earnings from the old one.
+- **Confidence**: observed. **Source**: guild thread.
+- **Images**: none.
+- **Related**: R-103, node `guild`.
+
+### R-111 · Gate of Expedition: Conquest and Guild Clash
+- **Rule**: The guild's Gate of Expedition holds Conquest (the guild boss) and Guild Clash, which unlocks 8 days after 2026-11-04.
+- **Confidence**: observed. **Source**: guild thread.
+- **Images**: none.
+- **Related**: R-103, node `guild`.
