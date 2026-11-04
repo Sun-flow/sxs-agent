@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/`; templates in `resource/image/`.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-123).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-127).
 
 Entry format:
 
@@ -243,7 +243,7 @@ Entry format:
 - **Related**: R-003 (blessed statues likely raise the bed's Blessing Level ❓), R-020, R-101, nodes `home_house`, `bed`.
 
 ### R-036 · How the tutorial points at the next tap
-- **Rule**: The tutorial marks what to tap with (a) a bright yellow pulsing rounded frame around it, (b) a small Akane chibi bubble ("Tap to unlock", "Tap to speed up", "Upgrade skill to Lv. 5") about 0.08 of the screen height above the button, or sometimes (c) a white or pale frame instead of yellow. Step 3's tutorial follower handles (a) and (b). Unlock results show a full-screen "UNLOCKED ..." card; tap to continue.
+- **Rule**: The tutorial marks what to tap with (a) a bright yellow pulsing rounded frame around it, (b) a small Akane chibi bubble ("Tap to unlock", "Tap to speed up", "Upgrade skill to Lv. 5") about 0.08 of the screen height above the button, or sometimes (c) a white or pale frame instead of yellow. Step 3's tutorial follower handles (a) and (b). Unlock results show a full-screen "UNLOCKED ..." card; tap to continue. Later example: the home tutorial after the Bellflower harvest highlights Character, then the rank badge, then Advance. The detector reads it as unknown and `nav.go_home` failed on it once. Tap the highlighted control (R-123).
 - **Confidence**: observed. **Source**: builder batch 5.
 - **Images**: `docs/screens/tutorial_highlight.png`, `docs/screens/tutorial_highlight_dim.png`, `docs/screens/unlocked.png`.
 - **Related**: R-007, R-028, node `tap_to_continue`.
@@ -433,10 +433,10 @@ Entry format:
 - **Related**: R-028, R-058, R-062.
 
 ### R-065 · Side areas: walk the fog edge when stuck or between quests
-- **Rule**: Many "side areas" have no quest attached but give resources and levels. When stuck, or between quests, walk along the fog edge of the current region (for example Verdantglade) and explore anything unexplored; walking into the fog edge also reveals and unlocks new areas.
-- **Confidence**: told. **Source**: mae, 2026-11-03.
+- **Rule**: Many "side areas" have no quest attached but give resources and levels. When stuck, or between quests, walk along the fog edge of the current region (for example Verdantglade) and explore anything unexplored; walking into the fog edge also reveals and unlocks new areas. Code: the Roam Loop (`python -m sxs.roam`) does free exploration. It picks an unexplored area whose recommended power is under ours (R-084), enters it from a connected, explored neighbour (R-067), explores it, and blesses its statue (R-070). The Fog Walk stays inside its current area when that area borders the target. It takes 5-stamina pickups only while stamina stays at 70 or more (the commissions reserve, R-107). It picks out dimmed dots and monsters under the unexplored shadow, and it finds the character low on the screen.
+- **Confidence**: told; Roam Loop observed. **Source**: mae, 2026-11-03; rif-love-su builder, 2026-11-04.
 - **Images**: none.
-- **Related**: R-002, R-021, R-025, R-064.
+- **Related**: R-002, R-021, R-025, R-064, R-067, R-070, R-084.
 
 ## Map reading
 
@@ -448,9 +448,11 @@ Entry format:
   - **dark green**: walls (lighter when explored, darker when not);
   - **transparent cross-hatch with no colour beneath**: unspotted terrain, which turns into one of the known types once the player gets close.
   - **gold buildings**: interactable structures. The biggest are dungeons, which become daily challenges once cleared naturally the first time (step 1 doc's daily dungeons); smaller ones are mini-dungeons such as mines (R-071). (mae, 2026-11-03.)
+  - **orange icons**: monsters. Fight them (mae, 2026-11-04 11:25), keeping the HP rules in mind (R-078, R-061).
   Other types exist and aren't catalogued yet. Shadowed walkable areas that connect to explored ground are reachable targets for exploration (R-065). mae asked the builder for a minimap reader that classifies these tiles and marks POIs, to plan walks with the coordinates (R-004).
 - **Detail** (builder batch 10, `sxs/minimap.py` on the step 3 branch): about 8 px per tile; the player sits at the centre (0.856, 0.138), radius about 86 px. OpenCV HSV thresholds: walkable explored S<95, V>=115 (BGR about 103,144,128); walkable unexplored is the same colour shaded about 0.55x (BGR about 56,75,65); wall explored S>=95, V>=85 (BGR about 59,106,69); wall unexplored V<85 (BGR about 32,57,38); unspotted grey S<35, V about 35.
-- **Confidence**: told (legend), observed (thresholds). **Source**: mae, 2026-11-03, with a marked-up screenshot of Verdantglade II (173, 104), not committed because it shows other players' chat; builder batch 10.
+- **Under the unexplored shadow**: pickup dots look pale (HSV about 39/81/213). Monster dots, and gold buildings under shadow, are orange (about 18/116/187). The thresholds in `sxs/minimap.py` were widened to match (2026-11-04).
+- **Confidence**: told (legend), observed (thresholds). **Source**: mae, 2026-11-03 (orange icons 2026-11-04), with a marked-up screenshot of Verdantglade II (173, 104), not committed because it shows other players' chat; builder batch 10.
 - **Images**: `docs/screens/minimap/minimap_verdantglade2.png` (raw), `docs/screens/minimap/minimap_classified.png`, tile crops `docs/screens/minimap/tile_walk_explored.png`, `docs/screens/minimap/tile_walk_unexplored.png`, `docs/screens/minimap/tile_wall_explored.png`, `docs/screens/minimap/tile_wall_unexplored.png`, `docs/screens/minimap/tile_unspotted.png`.
 - **Related**: R-002, R-004, R-015, R-025, R-065, R-071.
 
@@ -476,6 +478,7 @@ Entry format:
 
 ### R-070 · Goddess Statues bless a fully explored area
 - **Rule**: A Goddess Statue's card requires "Reach 100% exploration in <area>" and rewards Blessing Level +1, with an Unlock button. The quest "The Goddess's Grace I/II" follows each Explore quest. It is reached through a white edge pointer with a statue icon (`resource/image/explore/pointer_statue.png`). Blessing Level 2 raised the Max Cart Level from 1 to 2 and the AFK EXP rate from 50 to 500, so blessing every area is worth it. A variant, the **Lost Goddess Statue** ("Activate this dim statue to dispel darkness... Blessed Land"), has the same 100% exploration requirement but its Unlock sits lower, at (0.5, 0.81); its rewards are home boosts (Highland Woods: Home EXP and Home Wood Yield Boost +1%; Moonveil Woods: Home EXP and Home Rolla Yield Boost +1%), then Tap to Continue. Match both with "(Lost )?Goddess Statue".
+- **Already blessed**: a statue that's already unlocked has a card reading "A starlit statue silently guards this Blessed Land", lists Regional Relics, and has no button. Dismiss it and walk around it (policy kind `blessed_statue`); the fog walk kept bumping into the Moonveil Woods one. Image: `docs/screens/interact_goddess_statue_blessed.png` (rif-love-su builder's branch, not pushed yet).
 - **Confidence**: observed. **Source**: builder batches 10 and 12. Confirms R-003.
 - **Images**: `docs/screens/interact_goddess_statue.png`, `docs/screens/blessing_level.png`, `docs/screens/lost_goddess_statue.png` (step 3 branch).
 - **Related**: R-002, R-003, R-014, R-020, R-035.
@@ -511,10 +514,10 @@ Entry format:
 - **Related**: R-020, R-043, R-051.
 
 ### R-076 · The area map shows resources, progress and power gates
-- **Rule**: The full area map (R-068) has a legend (Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone) and shows each area's exploration % and any power gate (Highland Woods 9.6K, Verdantglade III 12K). Areas below the gate's power are not worth entering yet. Ore nodes cost 5 stamina each. At handoff (Lv 12, Mage, power 7.7K, Verdantglade I and II 100% and blessed) Moonveil Woods, Stone Ruins I and Damp Woods were at 0%, and the bot was blocked on "Moonveil Woods I: Unlock Moonveil Woods" (R-064, R-067; solved by R-082). A fully explored area with a red "!" on the area map (Moonveil Woods at 100%) most likely has its statue waiting to be blessed (R-070); not confirmed yet. "Sunrise Isle" shows at the bottom right of the Verdantglade area map.
+- **Rule**: The full area map (R-068) has a legend (Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone) and shows each area's exploration % and any power gate (Highland Woods 9.6K, Verdantglade III 12K). Only unfinished areas show "Exploration: N%" (and a gate such as "12K") under their label; finished ones show just the name. Lost Statue icons match `resource/image/areamap/lost_statue.png` at 0.8. Sunrise Isle shows at the right edge (its % not read yet). Areas below the gate's power are not worth entering yet. Ore nodes cost 5 stamina each. At handoff (Lv 12, Mage, power 7.7K, Verdantglade I and II 100% and blessed) Moonveil Woods, Stone Ruins I and Damp Woods were at 0%, and the bot was blocked on "Moonveil Woods I: Unlock Moonveil Woods" (R-064, R-067; solved by R-082). A fully explored area with a red "!" on the area map (Moonveil Woods at 100%) most likely has its statue waiting to be blessed (R-070); not confirmed yet. "Sunrise Isle" shows at the bottom right of the Verdantglade area map.
 - **Confidence**: observed. **Source**: builder batches 10 and 11.
-- **Images**: `docs/screens/world_area_map.png`.
-- **Related**: R-017, R-064, R-067, R-068, node `area_map`.
+- **Images**: `docs/screens/world_area_map.png`, `docs/screens/area_map_lv22.png` (rif-love-su builder's branch, not pushed yet).
+- **Related**: R-017, R-064, R-067, R-068, R-086, node `area_map`.
 
 ### R-077 · The Team panel is social; leave it alone
 - **Rule**: The flag button at the top left of the map (0.08, 0.12) opens the Team panel: Players 1/9, Team Goal (Free Exploration), World Call / Invite / Nearby. Like friend requests (R-057), the bot doesn't touch it.
@@ -556,7 +559,7 @@ Entry format:
 - **Related**: R-022, R-082.
 
 ### R-084 · A recommended power far above yours is a wall: stop exploring there
-- **Rule**: After Moonveil Woods the next main quest is "Verdant Wonders III: Explore Verdantglade III", recommended power 12K. At 8.1K every fight there ended "badly wounded", so the bot treats it as the natural wall for this stage (mae's scope cap) and stops exploring rather than retrying. Get stronger first (gear, charms, techniques, tower clears). Still lost at 10K (R-090). The tracker's next quest after Verdant Wonders III is "Path to Upgrade: Reach Lv. 20" (rewards Stellatie).
+- **Rule**: After Moonveil Woods the next main quest is "Verdant Wonders III: Explore Verdantglade III", recommended power 12K. At 8.1K every fight there ended "badly wounded", so the bot treats it as the natural wall for this stage (mae's scope cap) and stops exploring rather than retrying. Get stronger first (gear, charms, techniques, tower clears). Still lost at 10K (R-090). The tracker's next quest after Verdant Wonders III is "Path to Upgrade: Reach Lv. 20" (rewards Stellatie). Verdantglade III doesn't open from the Moonveil Woods side: the walk always stops at about (169, 94) with no fog in reach. Its entrance is somewhere else, still unknown ❓ (2026-11-04).
 - **Confidence**: observed. **Source**: builder batch 11.
 - **Images**: none.
 - **Related**: R-061, R-076, R-079.
@@ -569,10 +572,11 @@ Entry format:
 
 ## Added from builder batch 12 (2026-11-04)
 
-### R-086 · Gate of Power: a hard power wall
-- **Rule**: A stone pillar card "Gate of Power" (seen in Damp Woods) reads "Requires: Power reaches 15.5K (Current: 8.1K)" and has no button. It's a wall until power is high enough. Policy kind `power_gate`: dismiss the card, and the fog walk stops there.
-- **Confidence**: observed. **Source**: builder batch 12.
-- **Images**: `docs/screens/gate_of_power.png` (step 3 branch).
+### R-086 · Gate of Power: a wall only while power is short
+- **Rule**: A stone pillar card "Gate of Power" (seen in Damp Woods) reads "Requires: Power reaches 15.5K (Current: 8.1K)". While power is short the card has no button: it's a wall. Policy kind `power_gate`: dismiss the card, and the fog walk stops there. Once power meets the requirement, the card reads e.g. "Power reaches 15.5K (Current: 16.9K)" and shows a free "Open" button at about (0.5, 0.74). The bot presses it (policy kind `power_gate_open`), and the pillar sinks. The Damp Woods 15.5K gate opened this way at 16.9K, 2026-11-04.
+  - **Damp Woods entry**: an area-map walk to the Damp Woods label from Verdantglade II lands at about (184, 86). That's a small fogged pocket with a stone mini-dungeon building, ore baskets and a statue in the fog, and the gate stands inside it.
+- **Confidence**: observed. **Source**: builder batch 12; rif-love-su builder, 2026-11-04 11:28.
+- **Images**: `docs/screens/gate_of_power.png`, `docs/screens/gate_of_power_open.png` (rif-love-su builder's branch, not pushed yet).
 - **Related**: R-065, R-076, R-084.
 
 ### R-087 · Highland Woods: guard pack, ground pickups, paler minimap dots
@@ -668,9 +672,9 @@ Entry format:
 ## Added from mae (2026-11-04, morning)
 
 ### R-101 · Collect bed EXP daily, not every upgrade pass
-- **Rule**: An icon appears over the bed in the house when AFK EXP is ready to collect: a blue orb in a yellow frame. The daily step `bed` in `sxs.daily` taps it once a day; tap the bed to collect it. EXP builds up slowly, so collecting it is a daily task (alongside the free speed-up of R-035), not a standard step of the upgrade loop. Exception: check it whenever the character is close to levelling up. Collecting it took the account from Lv 13 to Lv 20 (power 10.1K to 13.1K), which unlocked the Guild and its tutorial (R-011).
-- **Confidence**: told. **Source**: mae, 2026-11-04; dailies builder's final batch.
-- **Images**: `docs/screens/home_bed_xp.png` (template `resource/image/home/bed_xp_bubble.png`).
+- **Rule**: An icon appears over the bed in the house when AFK EXP is ready to collect: a cluster of blue orbs above the bed, the top one in a yellow speech bubble with a red "!", and a second red "!" on the bed From the default home view (the Cart), the house is to the right: one right-to-left drag shows the bed and its bubble, so the `bed` step pans right first, then up (R-126). (mae's crop, `docs/screens/bed_xp_ready.png`; a reference picture only. It's at another scale and matches just 0.62 at 0.8x, so the live template stays `resource/image/home/bed_xp_bubble.png`). The daily step `bed` in `sxs.daily` taps it once a day; tap the bed to collect it. EXP builds up slowly, so collecting it is a daily task (alongside the free speed-up of R-035), not a standard step of the upgrade loop. Exception: check it whenever the character is close to levelling up. Collecting it took the account from Lv 13 to Lv 20 (power 10.1K to 13.1K), which unlocked the Guild and its tutorial (R-011).
+- **Confidence**: told. **Source**: mae, 2026-11-04 (screenshot 09:35); dailies builder's final batch.
+- **Images**: `docs/screens/bed_xp_ready.png` (mae's crop, 144x161), `docs/screens/home_bed_xp.png` (template `resource/image/home/bed_xp_bubble.png`).
 - **Related**: R-011, R-020, R-035, nodes `home_house`, `bed`, `guild`.
 
 ## Added from the guild thread (2026-11-04)
@@ -708,7 +712,7 @@ Entry format:
 - **Related**: R-019, R-023, R-039, R-076, R-095, R-105, R-107.
 
 ### R-107 · Stamina budget: keep 70 for daily commissions, spend the rest on the priority material
-- **Rule**: Stamina regenerates over time (R-033). Always keep at least 70 stamina for the daily commissions. Spend anything above that on gathering the priority material, currently **ore**; mae will switch it to sand later. Gathering route: R-108.
+- **Rule**: Stamina regenerates over time (R-033). Per the stamina card, it recovers 5 an hour and passive recovery stops at 300; items can push it past 300, up to 1,200. Always keep at least 70 stamina for the daily commissions. Spend anything above that on gathering the priority material, currently **ore**; mae will switch it to sand later. Gathering route: R-108.
 - **Confidence**: told. **Source**: mae, 2026-11-04.
 - **Images**: none.
 - **Related**: R-033, R-076, R-106, R-108.
@@ -722,6 +726,7 @@ Entry format:
 ### R-109 · Special nodes with a green timer circle: always tap them
 - **Rule**: While gathering you may trigger "special nodes" or "special encounters", marked with a green timer circle at their upper right. They're high value and usually give a good reward, so tap them whenever they appear. Example: a "Grand Mine", which allows one material collection without spending stamina.
 - **Confidence**: told. **Source**: mae, 2026-11-04.
+- **Seen in chat** (2026-11-04): server messages announced a "Grand Iron Mine" and a "Grand Sand Mine" appearing in Verdantglade. These are the special nodes to tap; where they appear isn't known yet ❓.
 - **Images**: none yet (want: a special node with its timer).
 - **Related**: R-106, R-108.
 
@@ -754,10 +759,10 @@ Entry format:
 - **Related**: R-103, R-110, R-111, nodes `guild`, `guild_lobby`.
 
 ### R-114 · Warehouse is leader-only; the Guild Shop is untouched for now
-- **Rule**: The Warehouse is locked and only the leader or deputies can build it. The Shop (NEW badge) spends Guild Tokens; the bot buys nothing there until mae has marked items on the mapped stock table and a buy list exists (mae's shop policy, R-120).
-- **Confidence**: observed. **Source**: guild batch 1.
-- **Images**: `docs/screens/guild_warehouse_locked.png`.
-- **Related**: R-043, R-113, R-120, node `guild`.
+- **Rule**: The Warehouse is locked and only the leader or deputies can build it. The Shop (NEW badge, the island's east side) is paid in Guild Tokens (760 held; 300 per donation) and refreshes weekly. It's at Shop Level 1/1 (levels are guild-side). Most items are locked until Shop Lv 2 to 6: Bond Trinket, Auroral Badges, Guild Garden plants, livestock. Only Stellatie (500, limit 3) and Lucky Ticket (1.5K, limit 1, spins the Wheel of Destiny) can be bought now. Full table: `docs/shop-tables.md`. the bot buys nothing there until mae has marked items on the mapped stock table and a buy list exists (mae's shop policy, R-120).
+- **Confidence**: observed. **Source**: guild batch 1; shops batch, 2026-11-04.
+- **Images**: `docs/screens/guild_warehouse_locked.png`, `docs/screens/guild_shop_top.png`, `docs/screens/guild_shop_bottom.png` (upgrade-systems branch).
+- **Related**: R-043, R-113, R-120, R-125, node `guild`.
 
 ## Added from upgrade-systems batch 1 (2026-11-04)
 
@@ -767,9 +772,9 @@ Entry format:
 - **Images**: `docs/screens/technique_upgrade.png`, `docs/screens/technique_ascend.png`.
 - **Related**: R-037, R-080, R-104, nodes `technique_card`, `technique_upgrade`.
 
-### R-116 · Claim the free rewards on upgrade screens' Goals tabs
-- **Rule**: Upgrade screens have Goals tabs with free rewards; claim them whenever they show "!". Several had been sitting unclaimed. Seen so far: Skill Goals (Level: Battle Essence used, pays Battle Essence; Quality: pays Iron Hammers and more), Enhance Gear Goals (Raw Ores Used, pays Rolla), Rank Goals (Level: character Lv 12 to 20, pays hammers, picks and more; Power), Class Goals (Total Class Level, 300 Battle Essence each).
-- **Confidence**: observed. **Source**: upgrade-systems batch 1.
+### R-116 · Menu Goals tabs: collect them all at once from Home
+- **Rule**: **mae (2026-11-04 09:31): the milestone Goals tabs at the bottom of many menus can be ignored.** One "collect all goals" control in the Home menu claims them all at once, and the bot uses that instead of claiming tab by tab. Where it sits isn't mapped yet; mae will show it ❓. Until it's mapped, claiming on the tabs (below) is the fallback. Quest-like goals (tasks to do rather than milestone rewards) are not ignored. Upgrade screens have Goals tabs with free rewards that show "!". Several had been sitting unclaimed. Seen so far: Skill Goals (Level: Battle Essence used, pays Battle Essence; Quality: pays Iron Hammers and more), Enhance Gear Goals (Raw Ores Used, pays Rolla), Rank Goals (Level: character Lv 12 to 20, pays hammers, picks and more; Power), Class Goals (Total Class Level, 300 Battle Essence each).
+- **Confidence**: observed; collect-all told (mae). **Source**: upgrade-systems batch 1; mae 2026-11-04 09:31.
 - **Images**: `docs/screens/skill_goals_quality.png`, `docs/screens/gear_goals.png`, `docs/screens/rank_level_goals.png`, `docs/screens/rank_power_goals.png`, `docs/screens/class_goals.png`.
 - **Related**: R-063, R-080, R-093, R-095.
 
@@ -779,11 +784,13 @@ Entry format:
 - **Images**: `docs/screens/class_page.png`, `docs/screens/class_hierarchy.png`, `docs/screens/class_badge_received.png`, `docs/screens/class_info.png`, `docs/screens/class_upgrade.png`.
 - **Related**: R-054, R-080, R-116, node `class_ascend`.
 
-### R-118 · Rank Advancement raises the level cap; Bellflowers block it now
-- **Rule**: Tapping the rank badge ("Apprentice I", about (0.82, 0.72)) on Character opens Rank Advancement (R-048). Apprentice I to II raises the max level from 20 to 30 and costs a grey stone item (18/5 owned), 20 Bellflowers (0 owned) and 5.5K Rolla. Bellflowers come from "Verdantglade Flower Harvest": on Character, tap the Apprentice badge, then the Bellflower icon, then Source "Verdantglade Flower Harvest" (»), then OK on "Enter Verdantglade to explore?". This adds a Bellflower tracker ("0/20") to the left panel and a ring pointing at the field in Moonveil Woods (about (0.23, 0.07) on screen): white-bell plants on green stems. Each pick adds 1 to the tracker. Other players can stand in the field (one seen: "Bellcranel"); never tap them (R-057). Picking Bellflowers costs no stamina, unlike other pickups (R-107). Gather them by tapping the flower plants themselves in the world, as with ore, sand and Rolla pickups. Tapping the tracker ring around the character or the Bellflower icon does nothing (mae, 09:02). Go to the nearest plant, taking blue-aura plants first (R-122). Following the item's source link first started the home tutorial that unlocks the Vendor Booth (R-120). mae's priority (08:58): the Bellflower hunt and Rank Advancement come before mapping the shops. gromb2 is at Lv 20/20, so Bellflowers block all further levelling. The bot advances only when the Advance button itself shows "!".
-- **Confidence**: observed. **Source**: upgrade-systems batch 1.
-- **Images**: `docs/screens/rank_advancement.png`, `docs/screens/item_bellflower.png`, `docs/screens/explore_bellflower_tracker.png`, `docs/screens/explore_bellflower_field.png`, `docs/screens/explore_bellflower_field_wide.png`, `docs/screens/explore_bellflower_picked.png` (upgrade-systems branch).
-- **Related**: R-048, R-049, R-057, R-101, R-122, node `rank_advancement`.
+### R-118 · Rank Advancement raises the level cap
+- **Rule**: Tapping the rank badge ("Apprentice I", about (0.82, 0.72)) on Character opens Rank Advancement (R-048). The bot advances only when the Advance button itself shows "!", and only with free materials (no Dawnium).
+  - **Apprentice I to II** (done 2026-11-04 09:24, mae approved): costs 5 grey stones, 20 Bellflowers (R-123) and 5.5K Rolla. A "RANK UP" screen follows; tap to continue. The cap went from 20 to 30 and the stored XP applied at once (Lv 20 to 21; power 14.8K to 16.4K). The rank Goals tab then had 1 free claim (R-116). At Lv 20/20 the Bellflowers had blocked all further levelling.
+  - **Apprentice II to III** (cap 30 to 40): first "Reach Max Level to Unlock Next Rank" (Lv 30). It costs 5 of a green leaf item (9 owned), 30 of a new flower item (0/30, probably from another Flower Harvest; its name isn't recorded yet ❓) and 10.5K Rolla.
+- **Confidence**: observed. **Source**: upgrade-systems batch 1; builder's "Bellflower + Rank II" batch, 2026-11-04.
+- **Images**: `docs/screens/rank_advancement.png`, `docs/screens/rank_up_result.png` (upgrade-systems branch).
+- **Related**: R-048, R-049, R-101, R-116, R-123, node `rank_advancement`.
 
 ### R-119 · Gear Resonance: free bonuses when all four pieces reach a band
 - **Rule**: Enhance Gear, then Resonance (0.86, 0.20): each tier reads "Enhance Gear x4 to +N" (N = 5, 10, 15 ... 35 and up, with bonuses like HP +2% or ATK +2%) and shows Activate once all 4 equipped pieces reach +N. The tiers match the 5-level bands of R-092, so activate each tier as soon as a band completes. Fix note: the Enhance Gear level reader once read "+9 → +10" as 10 because OCR doesn't return text left to right; it now takes the leftmost number.
@@ -792,19 +799,61 @@ Entry format:
 - **Related**: R-023, R-092, node `enhance_gear`.
 
 ### R-120 · Molly's Vendor Booth: a daily-refresh shop on home
-- **Rule**: Following the Bellflower item's source link (R-118) started a home tutorial with Akane and Molly that ends with "Vendor Booth (Furniture): Unlock" (Molly: "new goodies pop up every single day"), which is free, then "UNLOCKED". The booth now stands on the home scene with a "!". The booth is Molly's shop on the home scene, and its stock refreshes daily. What it sells and what it costs aren't known yet ❓. Shop policy (mae, 2026-11-04 08:17), for the Vendor Booth, the Guild Shop and every other shop: map every item (name, cost, currency, limits) into a table, mae marks which are buyable, and those become a per-shop buy list in the repo. The bot buys nothing in a shop until its buy list exists (R-043).
-- **Confidence**: observed; shop policy told (mae). **Source**: upgrade-systems builder, 2026-11-04 08:18; mae 08:17.
-- **Images**: `docs/screens/home_white_sheet_tutorial.png`, `docs/screens/vendor_booth_unlock.png`.
-- **Related**: R-043, R-118, node `home`.
+- **Rule**: Following the Bellflower item's source link (R-123) started a home tutorial with Akane and Molly that ends with "Vendor Booth (Furniture): Unlock" (Molly: "new goodies pop up every single day"), which is free, then "UNLOCKED". The booth now stands on the home scene with a "!". The booth is Molly's shop: the green-roofed wagon on home at about (0.58, 0.63). Bottom tabs are General | Vault | Goals. Stock refreshes daily (timer top left). The Refresh button is paid (4K Rolla, 10 a day): never press it (R-043). General is paid in Rolla, Vault in Dawnium. Vault has a "Free" x30 Stamina item with a red "!" (limit 1 per refresh). **mae (09:36): the bot claims it, once a day after each refresh.** Everything else in the Vault costs Dawnium, so tap only that item's Free button. Code: daily step `vendor_stamina` (`python -m sxs.vendor`), run once a day before `gather`. It finds the wagon by the template `Home.VendorBooth` (cropped in night lighting, so it may need a daylight copy), opens Vault, and taps the first cell's price only if OCR reads exactly "Free". The claim took stamina from 83 to 113, with no confirm dialog and no currency change. Afterwards the cell still reads "Free" with no sold-out look, so the step relies on its own done-today mark. Goals are Vendor Booth Pts milestones (5K to 25K) and fall under R-116. The full stock with prices and limits is in `docs/shop-tables.md`, which has a Buy? column for mae to fill in. Read shops safely with `scripts/shop_survey.py` (R-125). Shop policy (mae, 2026-11-04 08:17), for the Vendor Booth, the Guild Shop and every other shop: map every item (name, cost, currency, limits) into a table, mae marks which are buyable, and those become a per-shop buy list in the repo. The bot buys nothing in a shop until its buy list exists (R-043).
+- **Confidence**: observed; shop policy and free stamina told (mae). **Source**: upgrade-systems builder, 2026-11-04 08:18; mae 08:17 and 09:36.
+- **Images**: `docs/screens/home_white_sheet_tutorial.png`, `docs/screens/vendor_booth_unlock.png`, `docs/screens/vendor_booth_general.png`, `docs/screens/vendor_booth_vault.png`, `docs/screens/vendor_booth_goals.png` (upgrade-systems branch).
+- **Related**: R-043, R-114, R-116, R-123, R-125, node `home`.
 
 ### R-121 · Mall: claim the free gift boxes, never the packs
 - **Rule**: Every Mall pack costs real money (USD): Welcome Gift, Halloween Charmer, Little Devil, Pilgrimage Pass, Daily Deals, Weekly Deals, and Pathfinder Pack (USD 0.99 for stamina). The bot never taps a pack (R-043). Each pack page has a free gift box at the top left, marked "!" when it can be claimed, and mae says the bot may tap these (2026-11-04 08:49). Route: Home menu (0.92, 0.79), then Mall (0.72, 0.65), opens "Premium Picks" (state `mall`), with bottom tabs Event, Monthly Pass and Top Up (never Top Up). The box sits at the top left of each page with a red "!" just above and to its right, and one tap claims it. The boxes are Daily Gift (4 h refresh), Weekly Gift (5 d refresh), Welcome Benefit (claimable once, gave +30 Dawnium), plus boxes on Halloween Charmer and Little Devil. The bot claims each box once per refresh and taps nothing else on the page. Code: `sxs/mall.py`, daily step `mall_gifts`.
 - **Confidence**: told (mae); pages observed (upgrade-systems builder, 08:48). **Source**: mae and the builder, 2026-11-04.
-- **Images**: `docs/screens/mall_premium_picks.png`, `docs/screens/mall_premium_picks_2.png`, `docs/screens/mall_welcome_gift.png`, `docs/screens/mall_welcome_benefit.png`, `docs/screens/mall_halloween_charmer.png`, `docs/screens/mall_daily_deals.png`, `docs/screens/mall_weekly_deals.png` (upgrade-systems branch).
+- **Images**: `docs/screens/mall_premium_picks.png`, `docs/screens/mall_premium_picks_2.png`, `docs/screens/mall_welcome_gift.png`, `docs/screens/mall_welcome_benefit.png`, `docs/screens/mall_halloween_charmer.png`, `docs/screens/mall_daily_deals.png`, `docs/screens/mall_weekly_deals.png`.
 - **Related**: R-043, R-063, node `mall`.
 
 ### R-122 · Pickups with a blue aura are rarer: prefer them
 - **Rule**: Overworld pickup items that have a blue aura around them are rarer and give bonus ingredients. The gather and harvest loops pick them before plain pickups whenever both are in reach.
 - **Confidence**: told (mae). **Source**: mae, 2026-11-04 09:02.
 - **Images**: none yet.
-- **Related**: R-106, R-107, R-108, R-109, R-118.
+- **Related**: R-106, R-107, R-108, R-109, R-123, R-124.
+
+### R-123 · Bellflowers: the free Verdantglade Flower Harvest
+- **Rule**: Route: Character (0.11, 0.97), then the Apprentice rank badge (0.82, 0.72), then the middle cost icon on Rank Advancement (0.50, 0.74), then the item card's Source row "Verdantglade Flower Harvest »" (0.82, 0.59), then OK on "Enter Verdantglade to explore?" (0.68, 0.57). This lands in Verdantglade II at about minimap (181, 90), with a Bellflower tracker "a/20" on the left panel and an edge ring pointing at the field. Code: `Gatherer.enter_bellflower_field()` in `sxs/gather.py`.
+  - **Field**: Moonveil Woods, about minimap (169, 94) to (169, 95). It's the clearing south of the big hollow-tree arch, with a stone statue on its west side. About 8 white-bell plants on green stems respawn there.
+  - **Picking**: tap the plants themselves in the world, never the tracker ring over the character or the Bellflower icon (mae, 09:02). Picks are free (no stamina, unlike R-107), and each gave +2 on the tracker (2 to 20 in 9 picks). Blue-aura plants go first (R-122). Other players can stand in the field (one seen: "Bellcranel"); never tap them (R-057).
+  - **Done**: at 20/20 Akane says "You've got everything you need! Go for that rank advancement!" (dialogue; tap to continue). Home then shows a tutorial overlay highlighting Character, the rank badge and Advance (R-036).
+  - The first time, following the source link also played the home tutorial that unlocks the Vendor Booth (R-120). mae's priority (08:58): Bellflowers and Rank Advancement come before mapping the shops.
+- **Confidence**: observed; tapping the plants told (mae). **Source**: upgrade-systems builder, 2026-11-04 08:20 to 09:24.
+- **Images**: `docs/screens/item_bellflower.png`, `docs/screens/explore_bellflower_tracker.png`, `docs/screens/explore_bellflower_field.png`, `docs/screens/explore_bellflower_field_wide.png`, `docs/screens/explore_bellflower_picked.png`, `docs/screens/explore_bellflower_done_dialogue.png` (upgrade-systems branch); template `resource/image/explore/bellflower.png`, from mae's picture `resource/image/explore/bellflower_mae.png`.
+- **Related**: R-057, R-107, R-118, R-120, R-122, R-124.
+
+### R-124 · What the gather collector taps, in order
+- **Rule**: The shared `collect(target)` in `sxs/gather.py` gathers ore, sand, essence, Rolla and Bellflowers. Each pass it taps the first of these it can see:
+  1. a green-timer special node (R-109);
+  2. material objects on the ground, found by template or by the "5" stamina label, blue-aura ones first (R-122);
+  3. the tracking ring, but only if it's more than 70 px from the character;
+  4. the edge ring;
+  5. a walk to the minimap ring.
+  
+  It never taps the ring or icon over the character. The Bellflower template is mae's picture at 1.3x, threshold 0.6. That found all 5 plants in the wide field capture, with no hits on ore, boars, the tracker or world-map screens. It cleared the Bellflower field in about 80 s.
+- **Confidence**: observed. **Source**: upgrade-systems builder, 2026-11-04 09:24.
+- **Images**: `docs/screens/explore_bellflower_field_wide.png`.
+- **Related**: R-106 to R-109, R-122, R-123.
+
+### R-125 · Read items safely through their info cards
+- **Rule**: In a shop, tap an item's icon, not its price button (about 100 px lower), to open a read-only info card: name, type, owned, use, source. Tap outside the card to close it. That's the safe way to read any shop, and `scripts/shop_survey.py` does it for a whole grid. It taps only icons, never price buttons.
+  - Wood and Stone are for home furniture upgrades (Home AFK yield).
+  - Gold Pickaxe is for Realm: Gilded Depths.
+  - Worn Knuckles are for Realm: Dread Hollow.
+  - Refined Ore is for gear enhancement. It comes from dismantling advanced gear and from Fantasia Ascent.
+  - Golden Beetle skips a puzzle.
+  - Lucky Ticket spins the Wheel of Destiny.
+  - Water is a cooking ingredient.
+- **Confidence**: observed. **Source**: upgrade-systems builder, shops batch, 2026-11-04.
+- **Images**: `docs/screens/vendor_booth_general.png` (upgrade-systems branch).
+- **Related**: R-043, R-095, R-106, R-114, R-120.
+
+### R-126 · Home scene layout: find things by template, not fixed taps
+- **Rule**: The home scene pans in both directions and keeps its camera position between visits, so a fixed tap point on home can miss. Find every home object by template search. From left to right: the AFK Cart and the pink tree (R-020), the Goddess Statue for skill pulls (R-093), Molly's Vendor Booth wagon (R-120), the gate, and the house with the bed (R-101). The house and bed sit to the right of the AFK Cart, not above it. The bed step once panned the wrong way and found no bubble; after the fix, bed EXP took Lv 21 to 22 (power 16.9K). If home shows only sky, restart the game (R-100).
+- **Confidence**: observed. **Source**: upgrade-systems builder, 2026-11-04 09:43; rif-love-su builder 11:16.
+- **Images**: `docs/screens/home.png`.
+- **Related**: R-020, R-059, R-093, R-100, R-101, R-120, node `home`.

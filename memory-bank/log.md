@@ -36,6 +36,14 @@
 - mae: skill pulls only in groups of ten, never Pray x1 (R-093 amended). Rating popups: dismiss with "Later" (R-060). The Vendor Booth unlocked on home (R-120). Mall: claim the free gift boxes, never the paid packs (R-121). mae's shop policy: map each shop's stock into a table, mae marks buys, buy nothing without a buy list (R-120, R-114).
 - PRs #18 to #21 merged. Bellflower field in Verdantglade, no stamina cost, tap the plants themselves; Bellflowers and Rank Advancement come before the shops (R-118). Blue-aura pickups are rarer, so prefer them (R-122).
 - Builder's last batch folded in, no new numbers: Mall route and images (R-121), the Bellflower route and field in Moonveil Woods (R-118), Vendor Booth details (R-120), rating popup (R-060), x10-only pulls in code (R-093). Opened a PR for `upgrade-systems`.
+- Builder's "Bellflower + Rank II" batch: R-118 is now just Rank Advancement (Apprentice II done: cap 30, Lv 21, 16.4K; III needs Lv 30 and 30 of a new flower). New R-123 covers the Bellflower route and field (+2 per free pick) and R-124 the collector's tap order. The rank tutorial overlay counts as unknown (R-036).
+- mae: skip the menus' milestone Goals tabs and use the Home menu's collect-all instead (not mapped yet); quest-like goals still count (R-116).
+- Shops batch: Vendor Booth tabs, paid Refresh, free Vault stamina waiting on mae (R-120); Guild Shop stock (R-114); stamina recovers 5/h up to 300 and items can hold it to 1,200 (R-107); item info cards and the read-only survey script (R-125). Stock tables are in the shop-tables doc on upgrade-systems.
+- mae's bed EXP screenshot added as `docs/screens/bed_xp_ready.png` (R-101). mae: claim the Vendor Booth Vault's free x30 stamina daily (R-120).
+- Vendor step: `vendor_stamina` daily step and its OCR "Free" check (R-120); the home scene pans and keeps its camera, so find objects by template, and its left-to-right order (R-126) with the bed to the right of the Cart; mae's bed crop is a reference picture, not a template (R-101).
+- mae: orange minimap icons are monsters, fight them (R-066). Roam Loop and Fog Walk scope (R-065).
+- Gates of Power open with a free Open button once power is enough (Damp Woods at 16.9K) and the Damp Woods entry pocket (R-086); Verdantglade III doesn't open from Moonveil Woods (R-084); Fog Walk keeps 70 stamina and sees dimmed dots (R-065).
+- Builder's formal batch (11:33): bed pan direction (R-101), Open button position and `power_gate_open` (R-086), already-blessed statues (R-070), shadowed minimap colours (R-066), area-map labels and the Lost Statue template (R-076), Grand Iron and Sand Mines in chat (R-109), `sxs.roam` (R-065). Its images aren't pushed yet.
 
 ### 2026-11-04 (morning) · Game docs: bed EXP (Claude Code, cloud)
 - PR #13 merged. mae: collect bed EXP daily, not in every upgrade pass, and sooner near a level-up (R-101); the guild unlocked at Lv 20 (R-011). Next: rule batches from the guild-mapping thread.
