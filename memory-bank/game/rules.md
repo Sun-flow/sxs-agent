@@ -433,7 +433,7 @@ Entry format:
 - **Related**: R-028, R-058, R-062.
 
 ### R-065 · Side areas: walk the fog edge when stuck or between quests
-- **Rule**: Many "side areas" have no quest attached but give resources and levels. When stuck, or between quests, walk along the fog edge of the current region (for example Verdantglade) and explore anything unexplored; walking into the fog edge also reveals and unlocks new areas. Code: the Roam Loop does free exploration. It picks an unexplored area whose recommended power is under ours (R-084), enters it from a connected, explored neighbour (R-067), explores it, and blesses its statue (R-070). The Fog Walk stays inside its current area when that area borders the target.
+- **Rule**: Many "side areas" have no quest attached but give resources and levels. When stuck, or between quests, walk along the fog edge of the current region (for example Verdantglade) and explore anything unexplored; walking into the fog edge also reveals and unlocks new areas. Code: the Roam Loop does free exploration. It picks an unexplored area whose recommended power is under ours (R-084), enters it from a connected, explored neighbour (R-067), explores it, and blesses its statue (R-070). The Fog Walk stays inside its current area when that area borders the target. It takes 5-stamina pickups only while stamina stays at 70 or more (the commissions reserve, R-107). It picks out dimmed dots and monsters under the unexplored shadow, and it finds the character low on the screen.
 - **Confidence**: told; Roam Loop observed. **Source**: mae, 2026-11-03; rif-love-su builder, 2026-11-04.
 - **Images**: none.
 - **Related**: R-002, R-021, R-025, R-064, R-067, R-070, R-084.
@@ -557,7 +557,7 @@ Entry format:
 - **Related**: R-022, R-082.
 
 ### R-084 · A recommended power far above yours is a wall: stop exploring there
-- **Rule**: After Moonveil Woods the next main quest is "Verdant Wonders III: Explore Verdantglade III", recommended power 12K. At 8.1K every fight there ended "badly wounded", so the bot treats it as the natural wall for this stage (mae's scope cap) and stops exploring rather than retrying. Get stronger first (gear, charms, techniques, tower clears). Still lost at 10K (R-090). The tracker's next quest after Verdant Wonders III is "Path to Upgrade: Reach Lv. 20" (rewards Stellatie).
+- **Rule**: After Moonveil Woods the next main quest is "Verdant Wonders III: Explore Verdantglade III", recommended power 12K. At 8.1K every fight there ended "badly wounded", so the bot treats it as the natural wall for this stage (mae's scope cap) and stops exploring rather than retrying. Get stronger first (gear, charms, techniques, tower clears). Still lost at 10K (R-090). The tracker's next quest after Verdant Wonders III is "Path to Upgrade: Reach Lv. 20" (rewards Stellatie). Verdantglade III doesn't open from the Moonveil Woods side: the walk always stops at about (169, 94) with no fog in reach. Its entrance is somewhere else, still unknown ❓ (2026-11-04).
 - **Confidence**: observed. **Source**: builder batch 11.
 - **Images**: none.
 - **Related**: R-061, R-076, R-079.
@@ -570,9 +570,10 @@ Entry format:
 
 ## Added from builder batch 12 (2026-11-04)
 
-### R-086 · Gate of Power: a hard power wall
-- **Rule**: A stone pillar card "Gate of Power" (seen in Damp Woods) reads "Requires: Power reaches 15.5K (Current: 8.1K)" and has no button. It's a wall until power is high enough. Policy kind `power_gate`: dismiss the card, and the fog walk stops there.
-- **Confidence**: observed. **Source**: builder batch 12.
+### R-086 · Gate of Power: a wall only while power is short
+- **Rule**: A stone pillar card "Gate of Power" (seen in Damp Woods) reads "Requires: Power reaches 15.5K (Current: 8.1K)". While power is short the card has no button: it's a wall. Policy kind `power_gate`: dismiss the card, and the fog walk stops there. Once power meets the requirement, the card shows a free "Open" button, and the bot presses it. The Damp Woods 15.5K gate opened this way at 16.9K, 2026-11-04.
+  - **Damp Woods entry**: an area-map walk from Verdantglade II lands at about (184, 86). That's a small fogged pocket with a stone mini-dungeon and ore pickups, and the gate stands inside it.
+- **Confidence**: observed. **Source**: builder batch 12; rif-love-su builder, 2026-11-04 11:28.
 - **Images**: `docs/screens/gate_of_power.png` (step 3 branch).
 - **Related**: R-065, R-076, R-084.
 
