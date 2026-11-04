@@ -434,9 +434,9 @@ Entry format:
 
 ### R-065 · Side areas: walk the fog edge when stuck or between quests
 - **Rule**: Many "side areas" have no quest attached but give resources and levels. When stuck, or between quests, walk along the fog edge of the current region (for example Verdantglade) and explore anything unexplored; walking into the fog edge also reveals and unlocks new areas. Code: the Roam Loop does free exploration. It picks an unexplored area whose recommended power is under ours (R-084), enters it from a connected, explored neighbour (R-067), explores it, and blesses its statue (R-070). The Fog Walk stays inside its current area when that area borders the target.
-- **Confidence**: told. **Source**: mae, 2026-11-03.
+- **Confidence**: told; Roam Loop observed. **Source**: mae, 2026-11-03; rif-love-su builder, 2026-11-04.
 - **Images**: none.
-- **Related**: R-002, R-021, R-025, R-064.
+- **Related**: R-002, R-021, R-025, R-064, R-067, R-070, R-084.
 
 ## Map reading
 
