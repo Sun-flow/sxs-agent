@@ -100,6 +100,12 @@ def save_unknown(dev: "Device", why: str) -> Path:
     return path
 
 
+def server_day() -> str:
+    """The game's day for dailies: server time is UTC-5 and dailies refresh at 8:00 server time (13:00 UTC)."""
+    import datetime as dt
+    return (dt.datetime.now(dt.timezone.utc) - dt.timedelta(hours=13)).strftime("%Y-%m-%d")
+
+
 def banner(log, name: str, goal: str, end: str) -> None:
     """mae's loop banner (2026-11-04), printed when a loop starts so a watcher can see what it's for and when it
     stops: [Running X Loop] / [Goal: ...] / [End condition: ...]."""

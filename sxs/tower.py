@@ -23,8 +23,8 @@ from typing import Optional
 
 import cv2
 
-from . import nav
-from .device import REPO_ROOT, Device, banner, save_unknown
+from . import heal, nav
+from .device import REPO_ROOT, Device, banner, save_unknown, server_day
 from .state import StateDetector
 
 log = logging.getLogger("sxs.tower")
@@ -63,7 +63,7 @@ def ensure_auto_challenge(dev: Device) -> None:
 
 def done_today() -> bool:
     try:
-        return json.loads(DAILY.read_text(encoding="utf-8")).get("fantasia_ascent") == time.strftime("%Y-%m-%d")
+        return json.loads(DAILY.read_text(encoding="utf-8")).get("fantasia_ascent") == server_day()
     except (OSError, ValueError):
         return False
 
@@ -73,9 +73,22 @@ def mark_done() -> None:
         data = json.loads(DAILY.read_text(encoding="utf-8"))
     except (OSError, ValueError):
         data = {}
-    data["fantasia_ascent"] = time.strftime("%Y-%m-%d")
+    data["fantasia_ascent"] = server_day()
     DAILY.parent.mkdir(exist_ok=True)
     DAILY.write_text(json.dumps(data, indent=2), encoding="utf-8")
+
+
+JOURNAL_FANTASIA = (560, 300)  # Journal tab: the Fantasia Ascent card (top right)
+
+
+def open_from_home(dev: Device, det: StateDetector) -> bool:
+    """Home -> Journal tab -> Fantasia Ascent card -> tower list. False if the list doesn't show."""
+    nav.Navigator(dev, det).go_home()
+    dev.tap(*nav.NAV_JOURNAL)
+    if det.wait_for({"journal"}, 8, interval=0.5).state != "journal":
+        return False
+    dev.tap(*JOURNAL_FANTASIA)
+    return det.wait_for({"tower_list"}, 8, interval=0.5).state == "tower_list"
 
 
 def climb(dev: Device, det: StateDetector, tower: Optional[str] = None, to_floor: Optional[int] = None,
@@ -114,6 +127,12 @@ def climb(dev: Device, det: StateDetector, tower: Optional[str] = None, to_floor
             dev.tap(x + w // 2, y + h // 2)
             time.sleep(3)
         elif d.state == "battle_prep":
+            # mae: at least 70% HP before any fight. Heal from the portrait; never start a floor hurt.
+            if not heal.heal_via_portrait(dev, det, heal.PREP_HP_BAR):
+                log.warning("HP stays under %d%% (no healing dishes?); not starting the floor", heal.FIGHT_MIN_HP)
+                dev.tap(*nav.BACK_ARROW)
+                time.sleep(2)
+                return "low_hp"
             dev.tap(*START_BATTLE)
             time.sleep(4)
         elif d.state in ("battle", "loading"):
