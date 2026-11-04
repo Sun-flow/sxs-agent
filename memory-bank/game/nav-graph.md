@@ -185,7 +185,7 @@ flowchart TD
 | `puzzle_energy_circuits` | Energy Circuits puzzle | popup | observed |  | Ancient Fortress slab-swap puzzle; not automated (R-072). |
 | `team` | Team panel | popup | observed |  | Players 1/9, Team Goal, World Call / Invite / Nearby. Social; left alone (R-077). |
 | `blessing_level` | Blessing level | popup | observed |  | Shown after unlocking a Goddess Statue (R-070). |
-| `fantasia_ascent` | Fantasia Ascent (tower) | menu | told |  | Multi-floor tower (e.g. in Moonveil Woods). Turn on Auto Challenge when challenging it; Auto Challenge unlocks after floor 3 (R-079). |
+| `fantasia_ascent` | Fantasia Ascent (tower) | menu | told |  | Multi-floor tower (e.g. in Moonveil Woods). Turn on Auto Challenge when challenging it; Auto Challenge unlocks after floor 3 (R-079). A floor loss (DEFEAT with Retry) turns Auto Challenge off; re-enable it, and retry at most twice (R-061). |
 
 ## Actions
 

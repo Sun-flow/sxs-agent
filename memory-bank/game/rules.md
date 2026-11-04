@@ -523,7 +523,7 @@ Entry format:
 - **Related**: R-061, node `player_profile`.
 
 ### R-079 · Turn on Auto Challenge in Fantasia Ascent
-- **Rule**: Whenever challenging Fantasia Ascent, the multi-floor tower (for example in Moonveil Woods), turn on Auto Challenge so floors run back to back. Auto Challenge unlocks after clearing floor 3; before that, climb floor by floor as in other mini-dungeons (R-040). The tower loop runs inside the exploration loop and hands back when it stops (`memory-bank/notes.md`, composable loops).
-- **Confidence**: told. **Source**: mae, 2026-11-04.
+- **Rule**: Whenever challenging Fantasia Ascent, the multi-floor tower (for example in Moonveil Woods), turn on Auto Challenge so floors run back to back. Auto Challenge unlocks after clearing floor 3; before that, climb floor by floor as in other mini-dungeons (R-040). The tower loop runs inside the exploration loop and hands back when it stops (`memory-bank/notes.md`, composable loops). A floor loss (DEFEAT screen with a Retry button) switches Auto Challenge off, so re-enable it after any loss. Tower losses follow the normal heal-and-retry cap (R-061): at most 2 retries, then hand back to the explore loop.
+- **Confidence**: told (mae); the loss behaviour is observed (builder, 2026-11-04). **Source**: mae, 2026-11-04; builder thread, 2026-11-04.
 - **Images**: none yet (want: the tower card and the Auto Challenge toggle).
 - **Related**: R-040, R-061, R-071, node `fantasia_ascent`.
