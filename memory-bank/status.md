@@ -47,6 +47,5 @@ Format: `- what — branch, PR, environment (started)`. Remove the line when it 
 - Quick Heal from the "badly wounded" dialog didn't seem to heal; Quick Heal from the portrait works.
 - `equip_charms` taps the locked 4th charm slot and logs "loadout editor did not open" (harmless; skip locked slots).
 - Untested live: Conquest with tries left; roam's statue walk (`bless_near`); the skills/class/rank passes inside the Upgrade Loop; the green-timer special-node detector.
-- `resource/policy/cards.json` lists "Pray" as a safe card verb and its `never` list lacks Pray, Recharge, Top up and Catch Up; R-043 forbids them outside the pull script. Check the decider never presses them on a spend screen.
 - Docs say every loop logs a heartbeat; only `sxs/explore.py` does.
 - Post-rank tutorial overlays read as unknown; `nav.go_home` failed on one (R-036).
