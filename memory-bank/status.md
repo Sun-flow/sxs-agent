@@ -38,7 +38,7 @@ Format: `- what — branch, PR, environment (started)`. Remove the line when it 
 - Label the 9 screens in `docs/screens/unlabeled/README.md` (and any new ones `python -m sxs bank` adds), then `python -m sxs label`.
 
 - Fill the Buy? column in `docs/shop-tables.md`; buy nothing until then.
-- Show where the Home "collect all goals" control is (R-116).
+- (R-116 changed 22:17: mae retracted the Home collect-all; Goals tabs are claimed per tab by a claim-goals task, builder to build.)
 - A blue-aura pickup crop, and the name of the Apprentice III flower item.
 - Is co-op content in iteration 1? Hide chat channels in Settings → Game → Social Settings (cuts OCR noise; a settings change, so mae's call)?
 

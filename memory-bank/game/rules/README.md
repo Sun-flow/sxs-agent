@@ -129,7 +129,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-113 | `guild.md` | Find buildings by label; find the Gate from the Lobby label |
 | R-114 | `guild.md` | Guild Shop: buy nothing until mae's buy list exists |
 | R-115 | `upgrades.md` | Ascend a technique with its own shards |
-| R-116 | `ui.md` | Milestone Goals tabs: claim them all from Home |
+| R-116 | `ui.md` | Claim every lit Goals tab with the claim-goals task |
 | R-117 | `upgrades.md` | Level classes with Class Badges; never Change Class |
 | R-118 | `upgrades.md` | Rank Advancement raises the level cap |
 | R-119 | `upgrades.md` | Activate Gear Resonance each time a band completes |
