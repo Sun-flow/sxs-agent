@@ -170,6 +170,7 @@ class Dailies:
         self.nav.go_home()
         self._tap(ui.HOME_MENU_BUTTON, 2.5)
         if not self._open(MENU_QUEST, "quests"):
+            log.warning("Quest did not open; frame %s", save_unknown(self.dev, "daily_quests"))
             return "unknown_screen"
         n = 0
         for _ in range(4):  # the list scrolls; finished quests may sit lower down

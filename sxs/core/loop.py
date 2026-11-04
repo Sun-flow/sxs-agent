@@ -180,7 +180,9 @@ def progress(what: Any = None) -> None:
     the task) as "stalled". Loops that never call it are only bound by their time budget."""
     now = time.monotonic()
     with _lock:
-        for w in _watches:
+        # Only the innermost budget: a step's progress must not arm the stall check of the run around it (seen
+        # 2026-11-04: gather's pickups armed the daily run's check, which then cut the next step, strengthen).
+        for w in _watches[-1:]:
             if w.progress_what != what or w.progress_at is None:
                 w.progress_at, w.progress_what = now, what
 
