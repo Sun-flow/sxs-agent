@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/`; templates in `resource/image/`.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-126).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-127).
 
 Entry format:
 
@@ -668,7 +668,7 @@ Entry format:
 ## Added from mae (2026-11-04, morning)
 
 ### R-101 · Collect bed EXP daily, not every upgrade pass
-- **Rule**: An icon appears over the bed in the house when AFK EXP is ready to collect: a cluster of blue orbs above the bed, the top one in a yellow speech bubble with a red "!", and a second red "!" on the bed (mae's crop, `docs/screens/bed_xp_ready.png`). The daily step `bed` in `sxs.daily` taps it once a day; tap the bed to collect it. EXP builds up slowly, so collecting it is a daily task (alongside the free speed-up of R-035), not a standard step of the upgrade loop. Exception: check it whenever the character is close to levelling up. Collecting it took the account from Lv 13 to Lv 20 (power 10.1K to 13.1K), which unlocked the Guild and its tutorial (R-011).
+- **Rule**: An icon appears over the bed in the house when AFK EXP is ready to collect: a cluster of blue orbs above the bed, the top one in a yellow speech bubble with a red "!", and a second red "!" on the bed (mae's crop, `docs/screens/bed_xp_ready.png`; a reference picture only. It's at another scale and matches just 0.62 at 0.8x, so the live template stays `resource/image/home/bed_xp_bubble.png`). The daily step `bed` in `sxs.daily` taps it once a day; tap the bed to collect it. EXP builds up slowly, so collecting it is a daily task (alongside the free speed-up of R-035), not a standard step of the upgrade loop. Exception: check it whenever the character is close to levelling up. Collecting it took the account from Lv 13 to Lv 20 (power 10.1K to 13.1K), which unlocked the Guild and its tutorial (R-011).
 - **Confidence**: told. **Source**: mae, 2026-11-04 (screenshot 09:35); dailies builder's final batch.
 - **Images**: `docs/screens/bed_xp_ready.png` (mae's crop, 144x161), `docs/screens/home_bed_xp.png` (template `resource/image/home/bed_xp_bubble.png`).
 - **Related**: R-011, R-020, R-035, nodes `home_house`, `bed`, `guild`.
@@ -794,7 +794,7 @@ Entry format:
 - **Related**: R-023, R-092, node `enhance_gear`.
 
 ### R-120 · Molly's Vendor Booth: a daily-refresh shop on home
-- **Rule**: Following the Bellflower item's source link (R-123) started a home tutorial with Akane and Molly that ends with "Vendor Booth (Furniture): Unlock" (Molly: "new goodies pop up every single day"), which is free, then "UNLOCKED". The booth now stands on the home scene with a "!". The booth is Molly's shop: the green-roofed wagon on home at about (0.58, 0.63). Bottom tabs are General | Vault | Goals. Stock refreshes daily (timer top left). The Refresh button is paid (4K Rolla, 10 a day): never press it (R-043). General is paid in Rolla, Vault in Dawnium. Vault has a "Free" x30 Stamina item with a red "!" (limit 1 per refresh). **mae (09:36): the bot claims it, once a day after each refresh.** Everything else in the Vault costs Dawnium, so tap only that item's Free button. Goals are Vendor Booth Pts milestones (5K to 25K) and fall under R-116. The full stock with prices and limits is in `docs/shop-tables.md`, which has a Buy? column for mae to fill in. Read shops safely with `scripts/shop_survey.py` (R-125). Shop policy (mae, 2026-11-04 08:17), for the Vendor Booth, the Guild Shop and every other shop: map every item (name, cost, currency, limits) into a table, mae marks which are buyable, and those become a per-shop buy list in the repo. The bot buys nothing in a shop until its buy list exists (R-043).
+- **Rule**: Following the Bellflower item's source link (R-123) started a home tutorial with Akane and Molly that ends with "Vendor Booth (Furniture): Unlock" (Molly: "new goodies pop up every single day"), which is free, then "UNLOCKED". The booth now stands on the home scene with a "!". The booth is Molly's shop: the green-roofed wagon on home at about (0.58, 0.63). Bottom tabs are General | Vault | Goals. Stock refreshes daily (timer top left). The Refresh button is paid (4K Rolla, 10 a day): never press it (R-043). General is paid in Rolla, Vault in Dawnium. Vault has a "Free" x30 Stamina item with a red "!" (limit 1 per refresh). **mae (09:36): the bot claims it, once a day after each refresh.** Everything else in the Vault costs Dawnium, so tap only that item's Free button. Code: daily step `vendor_stamina` (`python -m sxs.vendor`), run once a day before `gather`. It finds the wagon by the template `Home.VendorBooth` (cropped in night lighting, so it may need a daylight copy), opens Vault, and taps the first cell's price only if OCR reads exactly "Free". The claim took stamina from 83 to 113, with no confirm dialog and no currency change. Afterwards the cell still reads "Free" with no sold-out look, so the step relies on its own done-today mark. Goals are Vendor Booth Pts milestones (5K to 25K) and fall under R-116. The full stock with prices and limits is in `docs/shop-tables.md`, which has a Buy? column for mae to fill in. Read shops safely with `scripts/shop_survey.py` (R-125). Shop policy (mae, 2026-11-04 08:17), for the Vendor Booth, the Guild Shop and every other shop: map every item (name, cost, currency, limits) into a table, mae marks which are buyable, and those become a per-shop buy list in the repo. The bot buys nothing in a shop until its buy list exists (R-043).
 - **Confidence**: observed; shop policy and free stamina told (mae). **Source**: upgrade-systems builder, 2026-11-04 08:18; mae 08:17 and 09:36.
 - **Images**: `docs/screens/home_white_sheet_tutorial.png`, `docs/screens/vendor_booth_unlock.png`, `docs/screens/vendor_booth_general.png`, `docs/screens/vendor_booth_vault.png`, `docs/screens/vendor_booth_goals.png` (upgrade-systems branch).
 - **Related**: R-043, R-114, R-116, R-123, R-125, node `home`.
@@ -846,3 +846,9 @@ Entry format:
 - **Confidence**: observed. **Source**: upgrade-systems builder, shops batch, 2026-11-04.
 - **Images**: `docs/screens/vendor_booth_general.png` (upgrade-systems branch).
 - **Related**: R-043, R-095, R-106, R-114, R-120.
+
+### R-126 · Home scene layout: find things by template, not fixed taps
+- **Rule**: The home scene pans in both directions and keeps its camera position between visits, so a fixed tap point on home can miss. Find every home object by template search. From left to right: the AFK Cart and the pink tree (R-020), the Goddess Statue for skill pulls (R-093), Molly's Vendor Booth wagon (R-120), the gate, and the house with the bed (R-101). If home shows only sky, restart the game (R-100).
+- **Confidence**: observed. **Source**: upgrade-systems builder, 2026-11-04 09:43.
+- **Images**: `docs/screens/home.png`.
+- **Related**: R-020, R-059, R-093, R-100, R-101, R-120, node `home`.
