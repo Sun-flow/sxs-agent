@@ -38,6 +38,8 @@
                 "State.Journal",
                 "State.MaterialRealms",
                 "State.Notice",
+                "State.PrayerResult",
+                "State.Prayer",
                 "State.Quests",
                 "State.Unknown"
             ]
@@ -493,6 +495,32 @@
             250,
             60,
             220,
+            70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.PrayerResult": {
+        "doc": "Prayer result: the pulled skills and shards, 'Prayers Today' top left, Pray x1/x10 again at the bottom (never on the bot's own).",
+        "recognition": "OCR",
+        "expected": "^Prayers Today",
+        "roi": [
+            0,
+            20,
+            460,
+            70
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Prayer": {
+        "doc": "Prayer (Goddess Statue on home): Standard / Affection banners, Pray x1 / x10, tabs Prayer / Exchange / Goals. Pulls only via sxs.pray with the handler's approval.",
+        "recognition": "OCR",
+        "expected": "^Prayer$",
+        "roi": [
+            0,
+            20,
+            300,
             70
         ],
         "pre_delay": 0,

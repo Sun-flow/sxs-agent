@@ -51,6 +51,8 @@ TOWARD_HOME = {
     "material_realms": BACK_ARROW,
     "notice": BACK_ARROW,
     "journal": NAV_HOME,
+    "prayer": BACK_ARROW,
+    "prayer_result": BACK_ARROW,
 }
 NAV_JOURNAL = (220, 1236)  # bottom bar, second icon: Fantasia Ascent, Material Realms, ...
 HOME_EVENTS_BUTTON = (656, 160)  # "Thrilling Events" at the top right of Home -> featured
