@@ -6,12 +6,13 @@ Read when raising character power: the character-screen "!", gear, skills, charm
 
 ### R-080 · A "!" on the player or the character screen means an upgrade is waiting: take it
 - A red "!" over the player on the overworld means "something for your character" (charms or gear to equip, maybe low HP). It is **not** a heal signal: heal only from the HP bar (R-061, R-078), and never block fights on the "!".
+- The "!" is not one signal (mae). It can mean gear enhance (R-092), gear replace (R-088), charms, skill upgrade (R-104) or ascend (R-115), class (R-117), rank (R-118) or relics (R-105). Each is its own upgrade task with its own check for whether it is needed; follow the badge to the exact tab or button to tell which, and never assume it means gear.
 - Open the character panel (HUD portrait or your own character). Badges sit on gear slots, Skill, Class and the rank badge, and inside each screen on the exact tab or button. Red badges: empty charm slots (row y≈0.71). Blue badges on Equip: better gear (R-088). Always follow a badge and take the upgrade, within the spending rules (mae). Badges pulse: check 2 frames.
 - Fill a charm slot: tap it to open "Edit" (charm slots at x≈0.87, y≈0.21 / 0.30 / 0.39 / 0.48), Charm tab (0.56, 0.62), a charm card, Equip (0.5, 0.70), then a pulsing empty slot. A filled slot's button reads Replace. The 4th slot was still locked at Lv 13 ❓.
 - **Never use Rcmd ("Rcmd Loadouts" / Apply).**
 - Opened by accident when a marker sits beside the player: R-022.
 - Code: `python -m sxs upgrade` (`--only skills,gear,class_levels,rank,relics`), `sxs/vision/badges.py`.
-*told, observed* · `character/player_profile_charm_badges.png`, `character/loadout_edit_charms.png`, `character/charm_detail.png`, `character/rcmd_loadouts.png` · nodes `player_profile`, `loadout_edit`, `charm_detail`, `rcmd_loadouts` · R-063, R-104, R-116
+*told, observed* · `character/player_profile_charm_badges.png`, `character/loadout_edit_charms.png`, `character/charm_detail.png`, `character/rcmd_loadouts.png` · nodes `player_profile`, `loadout_edit`, `charm_detail`, `rcmd_loadouts` · R-063, R-088, R-092, R-104, R-105, R-115, R-116, R-117, R-118
 
 ## Gear
 

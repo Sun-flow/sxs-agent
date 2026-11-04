@@ -4,6 +4,7 @@
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
 
 ### 2026-11-04 (evening) · Game docs: fight odds, exploration kinds, gear replace, short loops (Claude Code, cloud)
+- mae (22:09): the character "!" is not one signal; each upgrade type (gear enhance, gear replace, charms, skills, class, rank, relics) is its own task with its own check (R-080).
 - mae: take fights against up to 25% more CP (new R-127); two exploration kinds, quest-progression and fog-walking (R-065); a gear "!" means replace, as its own task (R-088); loops run 1-2 min with progress-based exits (`memory-bank/notes.md`). Merged main after the restructure (#30).
 
 ### 2026-11-04 (evening) · Package restructure and loop contract (Claude Code, cloud)
