@@ -64,6 +64,16 @@ class Area:
         return x + w // 2, y + h // 2
 
 
+def same(a: str, b: str) -> bool:
+    """Area names from two area-map readings. Labels near the edge come back clipped on the left ("tglade III"
+    for "Verdantglade III"), so a suffix of 6+ letters also counts; trailing numerals must still agree."""
+    if goto.same_area(a, b):
+        return True
+    x, y = goto.squeeze(a), goto.squeeze(b)
+    short, long_ = sorted((x, y), key=len)
+    return len(short) >= 6 and long_.endswith(short)
+
+
 def parse_power(text: str) -> Optional[float]:
     m = re.search(r"(\d+(?:\.\d+)?)\s*K", text.replace(",", "."))
     return float(m.group(1)) if m else None
@@ -187,7 +197,7 @@ class Roamer:
             time.sleep(2.5)
             frame = self.dev.screenshot()
             areas = {a.name: a for a in read_areas(self.det, frame)}
-            label = next((a for n, a in areas.items() if goto.same_area(n, area_name)), None)
+            label = next((a for n, a in areas.items() if same(n, area_name)), None)
             statues = statue_points(frame)
             self.dev.tap(*nav.BACK_ARROW)
             time.sleep(2)
@@ -232,7 +242,7 @@ class Roamer:
         while time.monotonic() < deadline and done < max_areas:
             areas, _, power = self.survey()
             if area:
-                target = next((a for a in areas if goto.same_area(a.name, area)), None)
+                target = next((a for a in areas if same(a.name, area)), None)
                 if target is None or target.pct is None:
                     log.info("%s shows no percentage: finished", area)
                     self.bless_near(area)
@@ -256,8 +266,14 @@ class Roamer:
             if not self._to_world():
                 return "not_on_map"
             areas, _, _ = self.survey()
-            now = next((a for a in areas if goto.same_area(a.name, target.name)), None)
-            if now is None or now.pct is None:
+            now = next((a for a in areas if same(a.name, target.name)), None)
+            if now is None:
+                # Label not read this time (clipped by the edge, or OCR): not evidence that it's finished.
+                log.info("%s not on this reading of the area map; giving up on it this run", target.name)
+                self.given_up.add(target.name)
+                if area:
+                    return "no_progress"
+            elif now.pct is None:
                 log.info("%s finished; looking for its statue", target.name)
                 self.bless_near(target.name)
                 done += 1

@@ -3,6 +3,9 @@
 > **Last updated**: 2026-11-04
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
 
+### 2026-11-04 (late morning) · Bed, pathfinding, Roam Loop, Damp Woods (Claude Code, rif-love-su via Remote Control)
+- Same branch. Bed pan fix (Lv 22). New `sxs/roam.py`; Fog Walk: monsters, stamina reserve, bumped-card step-aside, neighbour areas; minimap shaded thresholds; goto takes (from, to, fraction); rules `blessed_statue`, `power_gate_open`. Damp Woods explored and blessed (Lv 23, 17.4K). Verdantglade III not enterable from Moonveil. Rules batch sent (folded into docs PR #24). Details in handoff.md.
+
 ### 2026-11-04 · Setup on rif-love-su (Claude Code, rif-love-su via Remote Control)
 - Branch `claude/project-thread-5s0w12` = `upgrade-systems` (4 commits not yet in main) + main. venv, requirements, OCR models; offline detector check all good. MuMu found at 127.0.0.1:16416; `sxs.device` now falls back to the single adb device. Live screenshot: home, gromb2 Lv 21, power 16.3K. Game not touched beyond the screenshot.
 
@@ -87,13 +90,3 @@
 - mae asked me to keep playing the tutorial overnight and map screens. Built `sxs/explore.py` (tracker-marker loop with chaining), `sxs/tutorial.py` (highlight and hint follower), `sxs/decide.py` with `resource/policy/cards.json` (goal-based card decisions, per mae's design note), `scripts/enhance_all.py` and `docs/step3-explore.md`. Branch `step3-explore`.
 - Account went from Lv 2 to Lv 10: Originisle I–V, Temple Ruins floor 1, the Guardian Colossi boss, rank Apprentice I. Rule batches 4–7 went to the docs thread through the coordinator.
 - Open: class choice (mae), automating strengthening, a PR for `step3-explore`.
-
-### 2026-11-03 · Game docs batch 4 (Claude Code, cloud)
-- Builder batch 4 (step 3 explore loop): added `interact` and `defeated` screens and their taps to `memory-bank/game/nav-graph.json`; rules R-029 to R-034 (Trek quest chain, map object cards, defeat, camera, stamina regen, exploration rewards) and the quest-ring offset in R-022. Branch `claude/project-thread-npg43i` fast-forwarded to main after PR #4.
-- Batch 5 added to the same PR: cart, house, bed, unlock result and skill/technique screens; rules R-035 to R-039; Cart income in R-020.
-- Batch 6: exploration cards, Temple Ruins mini-dungeon (`dungeon_floor` screen), guarded targets, the goal-dependent card policy (R-040 to R-043). The graph format gained an optional `when` condition on edges; `scripts/nav-graph.py` shows it.
-- Batch 7: quest chain to the Guardian Colossi boss, claiming from the tracker, boss pointer, low-HP dialog, Alchemy Pot dishes, rank advancement (R-044 to R-049; screens `wounded`, `alchemy_pot`, `rank_advancement`).
-- Batch 8: class choice, Notice board events, Exploration Goals, Lv 10 menu layout, Friends and Settings (R-050 to R-053); currency icon crops linked. Opened the step 3 PR (#7) for the builder and merged main into its branch.
-- Batch 9: mae chose Mage; class ascend, Prayer gacha (never pray), technique equipping, social requests left alone, unreachable ledge loot, popups close above (R-054 to R-060).
-- mae's heal-and-retry policy added as R-061 (healing food fine to spend, conserve stat-boost dishes, retry a lost fight at most twice).
-- Open: captures for batches 4 to 9 live on branch step3-explore (PR #7) until it merges; ledge loot resolved by mae (talk to red "!" NPCs first, R-062); why Quick Heal sometimes doesn't clear the wounded dialog.

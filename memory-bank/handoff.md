@@ -134,3 +134,12 @@ Code map: `docs/step2-hands-and-eyes.md` (device, detector, CLI) and `docs/step3
 5. **Back to Verdantglade III** at 13K (`sxs.explore --chain`).
 6. **Home-stuck check**: restart the game when home shows no Cart bubble and no statue.
 7. Older items still open: test the HP logic when HP drops below 70% while alive; minimap classifier per area palette; badge sweep; model supervisor for `unknown_*` stops.
+
+## Update 2026-11-04 (late morning, rif-love-su setup and exploration thread)
+
+- **Moved to rif-love-su** (see `notes.md`): MuMu on 127.0.0.1:16416, repo in `C:\Users\jcmon\Github\sxs-agent`, branch `claude/project-thread-5s0w12` (PR #26).
+- **Bed**: the house is to the right of the cart view; the bed step pans right first now. Collected: Lv 21 to 22.
+- **New `python -m sxs.roam`** (Roam Loop, mae: "code general non-quest exploration"): reads the area map (unfinished areas show "Exploration: N%" and a power gate), picks one under our power, walks to the border with the connected explored area (mae: "try moving from areas you are connected to"), runs Fog Walk with that neighbour allowed, then opens Lost Statue icons near a finished area. Fog Walk now fights orange minimap monsters (mae), keeps 70 stamina before pickups, steps around cards it keeps bumping into (blessed statues), and finds the player low on screen.
+- **Damp Woods: done.** Gate of Power (15.5K) had a free Open at 16.9K (new rule `power_gate_open`); behind it ore baskets and items were **free pickups** (no stamina) that the minimap doesn't show clearly, so I tapped them by hand; then the Lost Goddess Statue unlocked (100%). Lv 23, power 17.4K.
+- **Verdantglade III (12K, 0%)**: no way in on foot from Moonveil Woods: the walk ends at (168, 94) against fog that can't be entered. Probably opened by a quest or another side; asked mae.
+- **Open**: on-screen pickup detector for Fog Walk (glowing halo items; the minimap misses shaded dots); roam's statue walk (`bless_near`) is untested live; Grand Iron/Sand Mine nodes were announced in chat but not found.
