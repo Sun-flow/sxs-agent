@@ -608,16 +608,16 @@ Entry format:
 - **Related**: R-040, R-061, R-071, R-078, node `dungeon_floor`.
 
 ### R-092 · Enhance gear evenly, in 5-level bands
-- **Rule**: Don't pour enhancement into one piece. Raise gear in 5-level bands: bring every equipped piece to +5, then all to +10, then all to +15, and so on; a piece only goes past a band once every other piece has reached it. Within a band, a configurable priority order decides which piece reaches the threshold first. The default order is weapon, offhand (not unlocked yet), headpiece, chest, boots. Costs and limits are in R-023 (ore and Rolla). The current enhance script kept enhancing the same piece, which this rule replaces. Enhancement is now limited by ore (7/720 Raw Ore at staff +21; boots +2 to +3 was short too); Guidance quests are an ore source (R-099).
+- **Rule**: Don't pour enhancement into one piece. Raise gear in 5-level bands: bring every equipped piece to +5, then all to +10, then all to +15, and so on; a piece only goes past a band once every other piece has reached it. Within a band, a configurable priority order decides which piece reaches the threshold first. The default order is weapon, offhand (not unlocked yet), headpiece, chest, boots. Costs and limits are in R-023 (ore and Rolla). The current enhance script kept enhancing the same piece, which this rule replaces. Enhancement is now limited by ore (7/720 Raw Ore at staff +21; boots +2 to +3 was short too); Guidance quests (R-099) and Ironvein Pit (R-095) are ore sources. Confirmed live with the banded script: boots +2 to +5, chest +9 to +10, then boots to +7.
 - **Confidence**: told. **Source**: mae, 2026-11-04.
 - **Images**: none yet (want: the Enhance Gear screen).
 - **Related**: R-020, R-023, R-088.
 
 ### R-093 · Skill pulls run only when the handler starts them
-- **Rule**: This means the skill pulls (Pray x1 / x10) at the goddess Statue at home, the furniture that reads "Pray to the goddess" and opens Prayer (R-055), not the Goddess Statues on the map that bless areas (R-070). Pulling skills is needed to keep growing in strength, so the bot gets a dedicated pull script. That script runs only when the agent's handler (mae) starts it at a time they judge right. It is never part of a loop, and no loop or decision function may call it on its own. Everything else stays under the spend rules (R-043, R-055): no Dawnium, no other spend-looking buttons.
-- **Confidence**: told. **Source**: mae, 2026-11-04.
+- **Rule**: This means the skill pulls (Pray x1 / x10) at the goddess Statue at home, the furniture that reads "Pray to the goddess" and opens Prayer (R-055), not the Goddess Statues on the map that bless areas (R-070). Pulling skills is needed to keep growing in strength, so the bot gets a dedicated pull script. That script runs only when the agent's handler (mae) starts it at a time they judge right. It is never part of a loop, and no loop or decision function may call it on its own. Everything else stays under the spend rules (R-043, R-055): no Dawnium, no other spend-looking buttons. Standard pulls cost Stellatie (blue crystal tickets), not Dawnium; the Affection banner uses Affection Tokens. The script is `python -m sxs.pray --pulls N --handler-approved`: it never presses "+" to buy tickets, cancels any purchase prompt and stops if the Dawnium counter changes. The Prayer Goals tab pays Iron Hammers (R-095).
+- **Confidence**: told (mae); script and costs observed (dailies builder). **Source**: mae, 2026-11-04; dailies batch 1 addendum.
 - **Images**: `docs/screens/prayer.png`, `docs/screens/prayer_result.png`.
-- **Related**: R-043, R-055, nodes `prayer`, `prayer_result`.
+- **Related**: R-043, R-055, R-095, nodes `prayer`, `prayer_result`.
 
 ## Added from dailies batch 1 (2026-11-04)
 
@@ -628,8 +628,8 @@ Entry format:
 - **Related**: R-079, R-095, nodes `travel_journal`, `fantasia_ascent`.
 
 ### R-095 · Material Realms: mining needs Iron Hammers; never buy them
-- **Rule**: Material Realms lists realms; the first is Ironvein Pit (Raw and Refined Ore), three more are locked. Inside is a mining screen with a hammer button (0.5, 0.72), an "Iron Mined" counter and tabs Ironvein Pit / Rankings / Goals (Iron Mined 5/10/15/20/25 goals each pay a fruit item). Mining uses Iron Hammers (counter top right). With 0 hammers the button opens "Purchase Iron Hammer" (60 Dawnium each, daily limit 20): never buy, tap Cancel (0.32, 0.65). Where free hammers come from is unknown ❓.
-- **Confidence**: observed. **Source**: dailies batch 1.
+- **Rule**: Material Realms lists realms; the first is Ironvein Pit (Raw and Refined Ore), three more are locked. Inside is a mining screen with a hammer button (0.5, 0.72), an "Iron Mined" counter and tabs Ironvein Pit / Rankings / Goals (Iron Mined 5/10/15/20/25 goals each pay a fruit item). Mining uses Iron Hammers (counter top right). With 0 hammers the button opens "Purchase Iron Hammer" (60 Dawnium each, daily limit 20): never buy, tap Cancel (0.32, 0.65). Free hammers come from the Prayer Goals rewards (R-093): the first goal pays 1, the next 3, and later prayer milestones pay more. Each hammer yields about 115 Raw Ore. Mining Ironvein Pit with free hammers is a step in the daily loop.
+- **Confidence**: observed. **Source**: dailies batch 1 and its addendum.
 - **Images**: `docs/screens/material_realms.png`, `docs/screens/ironvein_pit.png`, `docs/screens/purchase_iron_hammer.png`.
 - **Related**: R-043, R-071, nodes `material_realms`, `ironvein_pit`.
 
