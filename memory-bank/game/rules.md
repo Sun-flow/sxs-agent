@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/`; templates in `resource/image/`.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-120).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-121).
 
 Entry format:
 
@@ -395,9 +395,9 @@ Entry format:
 - **Related**: R-044.
 
 ### R-060 · Close popups by tapping above them
-- **Rule**: Popups close on a tap above them, at (0.5, 0.05), not below. Rating and feedback popups (e.g. "Do you satisfy with your experience?") are fine to dismiss with their "Later" button (mae, 2026-11-04 08:27); never rate or open the store.
-- **Confidence**: observed; rating popups told (mae). **Source**: builder batch 9; mae 2026-11-04 08:27. Earlier, (0.5, 0.95) closed the player profile, so either may work there.
-- **Images**: none.
+- **Rule**: Popups close on a tap above them, at (0.5, 0.05), not below. Rating and feedback popups are fine to dismiss with their "Later" button (mae, 2026-11-04 08:27); never rate or open the store. The one seen so far: Akane asks "Dear adventurer, do you satisfy with your experience in Kanstein?" with Very Satisfied (0.50, 0.55), Dissatisfied (0.50, 0.62) and Later (0.50, 0.69); it appeared after skill pulls. Always press Later. The detector knows it as `RatingPopup`, and the navigator's toward-home step taps Later.
+- **Confidence**: observed; rating popups told (mae). **Source**: builder batch 9; mae 2026-11-04 08:27; upgrade-systems builder. Earlier, (0.5, 0.95) closed the player profile, so either may work there.
+- **Images**: `docs/screens/rating_popup.png` (upgrade-systems branch).
 - **Related**: nodes `cart`, `player_profile`, `apply_requests`.
 
 ## Added from mae (2026-11-03, evening)
@@ -780,7 +780,7 @@ Entry format:
 - **Related**: R-054, R-080, R-116, node `class_ascend`.
 
 ### R-118 · Rank Advancement raises the level cap; Bellflowers block it now
-- **Rule**: Tapping the rank badge ("Apprentice I", about (0.82, 0.72)) on Character opens Rank Advancement (R-048). Apprentice I to II raises the max level from 20 to 30 and costs a grey stone item (18/5 owned), 20 Bellflowers (0 owned) and 5.5K Rolla. Bellflowers come from "Verdantglade Flower Harvest" (where that is isn't known yet ❓). gromb2 is at Lv 20/20, so Bellflowers block all further levelling. The bot advances only when the Advance button itself shows "!".
+- **Rule**: Tapping the rank badge ("Apprentice I", about (0.82, 0.72)) on Character opens Rank Advancement (R-048). Apprentice I to II raises the max level from 20 to 30 and costs a grey stone item (18/5 owned), 20 Bellflowers (0 owned) and 5.5K Rolla. Bellflowers come from "Verdantglade Flower Harvest" (where that is isn't known yet ❓; following the item's source link instead started the home tutorial that unlocks the Vendor Booth, R-120). gromb2 is at Lv 20/20, so Bellflowers block all further levelling. The bot advances only when the Advance button itself shows "!".
 - **Confidence**: observed. **Source**: upgrade-systems batch 1.
 - **Images**: `docs/screens/rank_advancement.png`, `docs/screens/item_bellflower.png`.
 - **Related**: R-048, R-049, R-101, node `rank_advancement`.
@@ -790,3 +790,9 @@ Entry format:
 - **Confidence**: observed. **Source**: upgrade-systems batch 1.
 - **Images**: `docs/screens/gear_resonance.png` (upgrade-systems branch).
 - **Related**: R-023, R-092, node `enhance_gear`.
+
+### R-120 · Molly's Vendor Booth: a daily-refresh shop on home
+- **Rule**: Following the Bellflower item's source link (R-118) started a home tutorial with Akane and Molly that ends with "Vendor Booth (Furniture): Unlock", which is free. The booth is Molly's shop on the home scene, and its stock refreshes daily. What it sells and what it costs aren't known yet ❓. Until mae sets a buying policy, the spend rules apply (R-043): look, don't buy.
+- **Confidence**: observed. **Source**: upgrade-systems builder, 2026-11-04 08:18.
+- **Images**: `docs/screens/home_white_sheet_tutorial.png`, `docs/screens/vendor_booth_unlock.png` (upgrade-systems branch).
+- **Related**: R-043, R-118, node `home`.
