@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/`; templates in `resource/image/`.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-101).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-102).
 
 Entry format:
 
@@ -83,7 +83,7 @@ Entry format:
 - **Related**: `unlock` field of each node in `nav-graph.json`.
 
 ### R-011 · Some features unlock by account level
-- **Rule**: Guilds unlock at account level 15, the Vendor Booth at 18, Fantomons at 51. In game the locked Guild tab says "Guild unlocks at Character Lv. 15", and the Travel Journal tab says "Unlock any mode to unlock Travel Journal".
+- **Rule**: Guilds unlock at account level 15, the Vendor Booth at 18, Fantomons at 51. In game the locked Guild tab says "Guild unlocks at Character Lv. 15", and the Travel Journal tab says "Unlock any mode to unlock Travel Journal". mae reports the guild interface and its tutorial unlocked on reaching Lv 20 (2026-11-04), so the Lv 15 label may not be the whole story ❓.
 - **Confidence**: observed for Guild and Travel Journal (builder, 2026-11-03); reported for the rest. **Source**: step 1 doc sections 4 and 5.
 - **Images**: none.
 - **Related**: R-010, nodes `guild`, `vendor`.
@@ -237,10 +237,10 @@ Entry format:
 ## Added from builder batch 5 (2026-11-03)
 
 ### R-035 · The house bed gives AFK EXP and a free daily speed-up
-- **Rule**: Scroll the home scene up to reach the house. Its bed ("Sleep to earn AFK EXP and speed up AFK resource collection", unlocked free) shows Blessing Level, Activated Lost Goddess Statues, Base EXP Yield, Production Bonus, EXP/Hr (50), EXP Reserve and Yield Progress. "Today's Free Speedup" is a **daily task**: one free speed-up per day. Using it took the account from Lv 3 to Lv 5. Other furniture slots unlock by level (one at Lv 7).
+- **Rule**: Scroll the home scene up to reach the house. Its bed ("Sleep to earn AFK EXP and speed up AFK resource collection", unlocked free) shows Blessing Level, Activated Lost Goddess Statues, Base EXP Yield, Production Bonus, EXP/Hr (50), EXP Reserve and Yield Progress. "Today's Free Speedup" is a **daily task**: one free speed-up per day. Using it took the account from Lv 3 to Lv 5. The bed also stores AFK EXP to collect (R-101). Other furniture slots unlock by level (one at Lv 7).
 - **Confidence**: observed. **Source**: builder batch 5.
 - **Images**: `docs/screens/home_house.png`, `docs/screens/bed.png`, `docs/screens/furniture_unlock.png`, `docs/screens/unlocked.png`.
-- **Related**: R-003 (blessed statues likely raise the bed's Blessing Level ❓), R-020, nodes `home_house`, `bed`.
+- **Related**: R-003 (blessed statues likely raise the bed's Blessing Level ❓), R-020, R-101, nodes `home_house`, `bed`.
 
 ### R-036 · How the tutorial points at the next tap
 - **Rule**: The tutorial marks what to tap with (a) a bright yellow pulsing rounded frame around it, (b) a small Akane chibi bubble ("Tap to unlock", "Tap to speed up", "Upgrade skill to Lv. 5") about 0.08 of the screen height above the button, or sometimes (c) a white or pale frame instead of yellow. Step 3's tutorial follower handles (a) and (b). Unlock results show a full-screen "UNLOCKED ..." card; tap to continue.
@@ -664,3 +664,11 @@ Entry format:
 - **Confidence**: observed. **Source**: dailies batch 2.
 - **Images**: none.
 - **Related**: R-020, R-075, R-093, node `home`.
+
+## Added from mae (2026-11-04, morning)
+
+### R-101 · Collect bed EXP daily, not every upgrade pass
+- **Rule**: An icon appears over the bed in the house when AFK EXP is ready to collect; tap the bed to collect it. EXP builds up slowly, so collecting it is a daily task (alongside the free speed-up of R-035), not a standard step of the upgrade loop. Exception: check it whenever the character is close to levelling up. Collecting it took the account to Lv 20, which unlocked the Guild interface and a new guild tutorial.
+- **Confidence**: told. **Source**: mae, 2026-11-04.
+- **Images**: none yet (want: the bed EXP icon; mae will send a screenshot).
+- **Related**: R-011, R-020, R-035, nodes `home_house`, `bed`, `guild`.
