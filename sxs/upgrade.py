@@ -36,7 +36,7 @@ from . import claims, nav
 from .badges import find_badges, near
 from .device import Device, banner, save_unknown
 from .state import StateDetector
-from .strengthen import CHARM_EQUIP, CHARM_LIST, CHARM_SLOTS, GEAR_SLOTS, ITEM_CARD_ENHANCE, Strengthener
+from .strengthen import CHARM_LIST, CHARM_SLOTS, GEAR_SLOTS, ITEM_CARD_ENHANCE, Strengthener
 
 log = logging.getLogger("sxs.upgrade")
 
@@ -46,7 +46,6 @@ CLASS_BUTTON = (424, 760)
 RANK_BADGE = (590, 916)  # "Apprentice I" rank badge right of the level bar
 # Skill page
 QUICK_UPGRADE_ROI = [440, 600, 170, 70]  # the "Upgrade" caption under the Quick Upgrade icon
-QUICK_UPGRADE = (524, 600)
 TECHNIQUE_COLUMN = [(92, 270), (92, 386), (92, 502), (92, 618)]
 TAB_TECHNIQUE, TAB_CHARM, TAB_SHARD = (110, 800), (276, 800), (442, 800)
 BOTTOM_LEFT_TAB, BOTTOM_RIGHT_TAB = (280, 1216), (560, 1216)  # Skill | Goals, Upgrade | Ascend, Rank | Goals ...
@@ -65,7 +64,6 @@ RESONANCE = (620, 256)
 CLOSE_BELOW = (360, 1230)
 
 TAP_BUDGET = 25  # per button: far above any real need, so a dead button can't loop forever
-ELEMENT_RELICS = 4  # relics per element (R-105)
 RELIC_BAND = 1
 
 
@@ -181,7 +179,6 @@ class Upgrader:
 
     def _fill_charms(self) -> int:
         """Charm tab open on the Skill page: put owned charms into empty slots (the right column)."""
-        import cv2  # noqa: F401  (Strengthener._filled uses it)
         equipped = 0
         for _ in range(len(CHARM_SLOTS)):
             frame = self.dev.screenshot()

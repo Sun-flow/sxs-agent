@@ -11,7 +11,6 @@ import json
 import logging
 import re
 from dataclasses import dataclass, field
-from typing import Optional
 
 from .device import REPO_ROOT
 from .state import StateDetector

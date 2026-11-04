@@ -38,17 +38,16 @@ import time
 from typing import Callable
 
 from . import claims, gather, guild, mall, nav, tower, upgrade, vendor
-from .device import REPO_ROOT, Device, banner, save_unknown, server_day
+from .device import Device, banner, save_unknown
+from .marks import done_today, mark_done
 from .state import StateDetector
 from .strengthen import Strengthener
 
 log = logging.getLogger("sxs.daily")
 
-DAILY = REPO_ROOT / "logs" / "daily.json"
 FEATURED_SIGNIN = (360, 720)  # Featured list: Daily Sign-in card
 FEATURED_GROWTH = (360, 470)  # Featured list: Growth Trial card
 MENU_QUEST = (200, 820)  # main menu: Quest
-QUEST_TAB = (290, 1216)  # quest list: Quest (guidance) tab
 GROWTH_DAY_TABS = [(100, 476), (176, 476), (266, 476), (356, 476), (446, 476), (536, 476), (626, 476)]
 JOURNAL_REALMS = (210, 1020)  # Journal: Material Realms card
 REALM_IRONVEIN = (180, 300)  # Material Realms: Ironvein Pit
@@ -56,24 +55,6 @@ MINE_BUTTON = (360, 920)  # Ironvein Pit: hammer button
 HAMMERS_ROI = [596, 30, 70, 45]  # Iron Hammer count, top right
 REALM_GOALS_TAB = (610, 1216)
 OK = {"done", "nothing", "reached", "floors_done", "lost"}
-
-
-def _load() -> dict:
-    try:
-        return json.loads(DAILY.read_text(encoding="utf-8"))
-    except (OSError, ValueError):
-        return {}
-
-
-def done_today(key: str) -> bool:
-    return _load().get(key) == server_day()
-
-
-def mark_done(key: str) -> None:
-    data = _load()
-    data[key] = server_day()
-    DAILY.parent.mkdir(exist_ok=True)
-    DAILY.write_text(json.dumps(data, indent=2), encoding="utf-8")
 
 
 class Dailies:

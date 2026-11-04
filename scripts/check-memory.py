@@ -24,7 +24,6 @@ LOG_ARCHIVE = "docs/archive/memory-bank-log.md"
 # Paths the docs name on purpose before they exist. Remove an entry once the path is real.
 PLANNED_PATHS = {
     LOG_ARCHIVE,
-    "sxs/navigate.py",  # planned in memory-bank/handoff.md (map-based navigation)
     "captures/unknown/",  # runtime output of the loops (gitignored)
     "logs/daily.json",  # runtime daily-run markers (gitignored)
 }
@@ -89,6 +88,8 @@ def main():
         if not doc.exists():
             problems.append(f"{doc.relative_to(ROOT)} is missing")
             continue
+        if doc.name == "log.md":
+            continue  # history: it may name paths that have since moved or gone
         for token in CODE_SPAN.findall(doc.read_text(encoding="utf-8")):
             if looks_like_path(token) and token not in PLANNED_PATHS and not path_exists(token, doc):
                 problems.append(f"{doc.relative_to(ROOT)}: `{token}` doesn't exist")

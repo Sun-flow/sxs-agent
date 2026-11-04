@@ -6,3 +6,4 @@ debug/
 resource/model/ocr/*.onnx
 captures/
 logs/
+screenshot-*.png
