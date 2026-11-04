@@ -1,7 +1,7 @@
 """Find the game's red "!" notification badges on a frame (no templates, no model calls).
 
 A badge is a small filled red disc (about 22 to 30 px across in the 720x1280 frame) with a white "!" in it. The game
-puts one on any button, tab or item that has something to claim or upgrade (R-034, R-080). Other red art (enemy
+puts one on any button, tab or item that has something to claim or upgrade (R-063, R-080). Other red art (enemy
 HP bars, red UI chrome) is ruled out by size, roundness and the white mark inside.
 
     python -m sxs.badges [frame.png]     # list badges on a frame (default: a fresh screenshot)
