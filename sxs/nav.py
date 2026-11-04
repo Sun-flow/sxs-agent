@@ -44,7 +44,18 @@ TOWARD_HOME = {
     "tower_result": BACK_ARROW,
     "tower_floors": BACK_ARROW,
     "tower_list": BACK_ARROW,
+    "enhance_gear": BACK_ARROW,
+    "featured": BACK_ARROW,
+    "daily_signin": BACK_ARROW,
+    "growth_trial": BACK_ARROW,
+    "material_realms": BACK_ARROW,
+    "notice": BACK_ARROW,
+    "journal": NAV_HOME,
+    "prayer": BACK_ARROW,
+    "prayer_result": BACK_ARROW,
 }
+NAV_JOURNAL = (220, 1236)  # bottom bar, second icon: Fantasia Ascent, Material Realms, ...
+HOME_EVENTS_BUTTON = (656, 160)  # "Thrilling Events" at the top right of Home -> featured
 
 
 class Navigator:

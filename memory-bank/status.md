@@ -17,7 +17,8 @@
 
 Format: `- what — branch, PR, environment (started date)`. Remove the line when it merges or is dropped.
 
-- Step 3 exploration continues from `memory-bank/handoff.md` (PR #7 merged), maes2024 via Remote Control (2026-11-03).
+- Step 4 dailies and upgrades: `sxs/daily.py` (sign-in, Cart, Growth Trial, Fantasia Ascent, quest claims, strengthen passes), `sxs/claims.py`, `sxs/heal.py`, new detector states; `docs/step4-dailies.md` — branch `dailies-upgrades` (on top of `step3-wrapup`), needs a PR, maes2024 via Remote Control (2026-11-04).
+- Step 3 wrap-up (banded gear enhancement, handoff for the dailies thread) — branch `step3-wrapup`, needs a PR, maes2024 via Remote Control (2026-11-04). Step 3 exploration merged in PRs #7 and #11.
 - Game rules and menu navigation graph (`memory-bank/game/`), filled in from rule batches the builder sends — branch `claude/project-thread-npg43i`, PRs #3, #4 and #6 merged; R-068 to R-077 in PR #8, cloud (2026-11-03).
 
 ## Next
