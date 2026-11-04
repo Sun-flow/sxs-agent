@@ -23,6 +23,7 @@
 ## Environment and tools
 
 - maes2024 is the Windows PC that runs the emulator; work there goes through `C:\Users\jcmon\Desktop\sxs-player`. Only one Remote Control session should drive it at a time.
+- **rif-love-su** (mae's new PC, from 2026-11-04) replaces maes2024. Repo at `C:\Users\jcmon\Github\sxs-agent`. MuMu runs as instance 1, so adb is at **127.0.0.1:16416** (not 16384); `sxs.device` falls back to the only adb device when the default is missing and `SXS_ADB_ADDRESS` is unset. Display there is 1080×1920 at 480 DPI (same 9:16 portrait, so the 720×1280 coordinates and templates still work; a state check takes ~4-7 s). No `gh` here either. The offline check (`tests/check_states_offline.py`, 186 screens) takes ~10 min.
 - Cloud sessions can't reach APKPure or APKMirror (network policy). Pull the APK from the emulator with `adb shell pm path com.zjcs.android.us` and `adb pull` instead.
 - The game is **portrait**: frames are 720 wide × 1280 tall, although MuMu is set to 1280×720. All tap coordinates use the portrait frame.
 - Use the venv: `.venv\Scripts\python`. Plain `python` in Git Bash on maes2024 hits the Microsoft Store alias; the real interpreter is `py -3.12`.

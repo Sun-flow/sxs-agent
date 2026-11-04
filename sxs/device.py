@@ -36,6 +36,10 @@ class Device:
         _init_toolkit()
         devices = Toolkit.find_adb_devices()
         matches = [d for d in devices if d.address == address]
+        if not matches and "SXS_ADB_ADDRESS" not in os.environ and len(devices) == 1:
+            # MuMu gives instance N port 16384 + 32*N; with one emulator running, use it.
+            matches = list(devices)
+            address = devices[0].address
         if not matches:
             found = ", ".join(d.address for d in devices) or "none"
             raise RuntimeError(f"No adb device at {address} (found: {found}). Is MuMu running?")
