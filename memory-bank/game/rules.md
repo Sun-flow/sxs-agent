@@ -395,8 +395,8 @@ Entry format:
 - **Related**: R-044.
 
 ### R-060 · Close popups by tapping above them
-- **Rule**: Popups close on a tap above them, at (0.5, 0.05), not below.
-- **Confidence**: observed. **Source**: builder batch 9. Earlier, (0.5, 0.95) closed the player profile, so either may work there.
+- **Rule**: Popups close on a tap above them, at (0.5, 0.05), not below. Rating and feedback popups (e.g. "Do you satisfy with your experience?") are fine to dismiss with their "Later" button (mae, 2026-11-04 08:27); never rate or open the store.
+- **Confidence**: observed; rating popups told (mae). **Source**: builder batch 9; mae 2026-11-04 08:27. Earlier, (0.5, 0.95) closed the player profile, so either may work there.
 - **Images**: none.
 - **Related**: nodes `cart`, `player_profile`, `apply_requests`.
 
