@@ -18,9 +18,10 @@ Your memory doesn't carry over between sessions, so this repo keeps it for you i
 
 | Need | Index | Leaves |
 |---|---|---|
-| Where the work stands, what's next | `memory-bank/README.md` | `status.md`, top of `log.md` |
+| Where the work stands, what's next | `memory-bank/README.md` | `memory-bank/status.md`, top of `memory-bank/log.md` |
+| Playing the game (builder session) | `memory-bank/playbook.md` | `sxs/README.md` for commands |
 | mae's preferences, environments, decisions | `memory-bank/README.md` | the bank file it names |
-| Game facts: rules of the world, menus, routes | `memory-bank/game/README.md` | one topic file of the rules; `memory-bank/game/nav-graph.json` |
+| Game facts: rules of the world, menus, routes | `memory-bank/game/rules/README.md` (situation → file → IDs) | one rules file; never-do list in `memory-bank/game/rules/policy.md`; menus in `memory-bank/game/nav-graph.json` |
 | Running or changing the bot (modules, commands) | `sxs/README.md` | one module |
 | Screens the bot can detect, templates, policies | `resource/README.md` | `resource/pipeline/state.json`, the policy files |
 | Why a step is designed the way it is | `docs/README.md` | one `docs/stepN-*.md` |
