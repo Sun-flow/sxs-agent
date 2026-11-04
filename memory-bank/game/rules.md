@@ -433,7 +433,7 @@ Entry format:
 - **Related**: R-028, R-058, R-062.
 
 ### R-065 · Side areas: walk the fog edge when stuck or between quests
-- **Rule**: Many "side areas" have no quest attached but give resources and levels. When stuck, or between quests, walk along the fog edge of the current region (for example Verdantglade) and explore anything unexplored; walking into the fog edge also reveals and unlocks new areas. Code: the Roam Loop does free exploration. It picks an unexplored area whose recommended power is under ours (R-084), enters it from a connected, explored neighbour (R-067), explores it, and blesses its statue (R-070). The Fog Walk stays inside its current area when that area borders the target. It takes 5-stamina pickups only while stamina stays at 70 or more (the commissions reserve, R-107). It picks out dimmed dots and monsters under the unexplored shadow, and it finds the character low on the screen.
+- **Rule**: Many "side areas" have no quest attached but give resources and levels. When stuck, or between quests, walk along the fog edge of the current region (for example Verdantglade) and explore anything unexplored; walking into the fog edge also reveals and unlocks new areas. Code: the Roam Loop (`python -m sxs.roam`) does free exploration. It picks an unexplored area whose recommended power is under ours (R-084), enters it from a connected, explored neighbour (R-067), explores it, and blesses its statue (R-070). The Fog Walk stays inside its current area when that area borders the target. It takes 5-stamina pickups only while stamina stays at 70 or more (the commissions reserve, R-107). It picks out dimmed dots and monsters under the unexplored shadow, and it finds the character low on the screen.
 - **Confidence**: told; Roam Loop observed. **Source**: mae, 2026-11-03; rif-love-su builder, 2026-11-04.
 - **Images**: none.
 - **Related**: R-002, R-021, R-025, R-064, R-067, R-070, R-084.
@@ -451,6 +451,7 @@ Entry format:
   - **orange icons**: monsters. Fight them (mae, 2026-11-04 11:25), keeping the HP rules in mind (R-078, R-061).
   Other types exist and aren't catalogued yet. Shadowed walkable areas that connect to explored ground are reachable targets for exploration (R-065). mae asked the builder for a minimap reader that classifies these tiles and marks POIs, to plan walks with the coordinates (R-004).
 - **Detail** (builder batch 10, `sxs/minimap.py` on the step 3 branch): about 8 px per tile; the player sits at the centre (0.856, 0.138), radius about 86 px. OpenCV HSV thresholds: walkable explored S<95, V>=115 (BGR about 103,144,128); walkable unexplored is the same colour shaded about 0.55x (BGR about 56,75,65); wall explored S>=95, V>=85 (BGR about 59,106,69); wall unexplored V<85 (BGR about 32,57,38); unspotted grey S<35, V about 35.
+- **Under the unexplored shadow**: pickup dots look pale (HSV about 39/81/213). Monster dots, and gold buildings under shadow, are orange (about 18/116/187). The thresholds in `sxs/minimap.py` were widened to match (2026-11-04).
 - **Confidence**: told (legend), observed (thresholds). **Source**: mae, 2026-11-03 (orange icons 2026-11-04), with a marked-up screenshot of Verdantglade II (173, 104), not committed because it shows other players' chat; builder batch 10.
 - **Images**: `docs/screens/minimap/minimap_verdantglade2.png` (raw), `docs/screens/minimap/minimap_classified.png`, tile crops `docs/screens/minimap/tile_walk_explored.png`, `docs/screens/minimap/tile_walk_unexplored.png`, `docs/screens/minimap/tile_wall_explored.png`, `docs/screens/minimap/tile_wall_unexplored.png`, `docs/screens/minimap/tile_unspotted.png`.
 - **Related**: R-002, R-004, R-015, R-025, R-065, R-071.
@@ -477,6 +478,7 @@ Entry format:
 
 ### R-070 · Goddess Statues bless a fully explored area
 - **Rule**: A Goddess Statue's card requires "Reach 100% exploration in <area>" and rewards Blessing Level +1, with an Unlock button. The quest "The Goddess's Grace I/II" follows each Explore quest. It is reached through a white edge pointer with a statue icon (`resource/image/explore/pointer_statue.png`). Blessing Level 2 raised the Max Cart Level from 1 to 2 and the AFK EXP rate from 50 to 500, so blessing every area is worth it. A variant, the **Lost Goddess Statue** ("Activate this dim statue to dispel darkness... Blessed Land"), has the same 100% exploration requirement but its Unlock sits lower, at (0.5, 0.81); its rewards are home boosts (Highland Woods: Home EXP and Home Wood Yield Boost +1%; Moonveil Woods: Home EXP and Home Rolla Yield Boost +1%), then Tap to Continue. Match both with "(Lost )?Goddess Statue".
+- **Already blessed**: a statue that's already unlocked has a card reading "A starlit statue silently guards this Blessed Land", lists Regional Relics, and has no button. Dismiss it and walk around it (policy kind `blessed_statue`); the fog walk kept bumping into the Moonveil Woods one. Image: `docs/screens/interact_goddess_statue_blessed.png` (rif-love-su builder's branch, not pushed yet).
 - **Confidence**: observed. **Source**: builder batches 10 and 12. Confirms R-003.
 - **Images**: `docs/screens/interact_goddess_statue.png`, `docs/screens/blessing_level.png`, `docs/screens/lost_goddess_statue.png` (step 3 branch).
 - **Related**: R-002, R-003, R-014, R-020, R-035.
@@ -512,10 +514,10 @@ Entry format:
 - **Related**: R-020, R-043, R-051.
 
 ### R-076 · The area map shows resources, progress and power gates
-- **Rule**: The full area map (R-068) has a legend (Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone) and shows each area's exploration % and any power gate (Highland Woods 9.6K, Verdantglade III 12K). Areas below the gate's power are not worth entering yet. Ore nodes cost 5 stamina each. At handoff (Lv 12, Mage, power 7.7K, Verdantglade I and II 100% and blessed) Moonveil Woods, Stone Ruins I and Damp Woods were at 0%, and the bot was blocked on "Moonveil Woods I: Unlock Moonveil Woods" (R-064, R-067; solved by R-082). A fully explored area with a red "!" on the area map (Moonveil Woods at 100%) most likely has its statue waiting to be blessed (R-070); not confirmed yet. "Sunrise Isle" shows at the bottom right of the Verdantglade area map.
+- **Rule**: The full area map (R-068) has a legend (Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone) and shows each area's exploration % and any power gate (Highland Woods 9.6K, Verdantglade III 12K). Only unfinished areas show "Exploration: N%" (and a gate such as "12K") under their label; finished ones show just the name. Lost Statue icons match `resource/image/areamap/lost_statue.png` at 0.8. Sunrise Isle shows at the right edge (its % not read yet). Areas below the gate's power are not worth entering yet. Ore nodes cost 5 stamina each. At handoff (Lv 12, Mage, power 7.7K, Verdantglade I and II 100% and blessed) Moonveil Woods, Stone Ruins I and Damp Woods were at 0%, and the bot was blocked on "Moonveil Woods I: Unlock Moonveil Woods" (R-064, R-067; solved by R-082). A fully explored area with a red "!" on the area map (Moonveil Woods at 100%) most likely has its statue waiting to be blessed (R-070); not confirmed yet. "Sunrise Isle" shows at the bottom right of the Verdantglade area map.
 - **Confidence**: observed. **Source**: builder batches 10 and 11.
-- **Images**: `docs/screens/world_area_map.png`.
-- **Related**: R-017, R-064, R-067, R-068, node `area_map`.
+- **Images**: `docs/screens/world_area_map.png`, `docs/screens/area_map_lv22.png` (rif-love-su builder's branch, not pushed yet).
+- **Related**: R-017, R-064, R-067, R-068, R-086, node `area_map`.
 
 ### R-077 · The Team panel is social; leave it alone
 - **Rule**: The flag button at the top left of the map (0.08, 0.12) opens the Team panel: Players 1/9, Team Goal (Free Exploration), World Call / Invite / Nearby. Like friend requests (R-057), the bot doesn't touch it.
@@ -571,10 +573,10 @@ Entry format:
 ## Added from builder batch 12 (2026-11-04)
 
 ### R-086 · Gate of Power: a wall only while power is short
-- **Rule**: A stone pillar card "Gate of Power" (seen in Damp Woods) reads "Requires: Power reaches 15.5K (Current: 8.1K)". While power is short the card has no button: it's a wall. Policy kind `power_gate`: dismiss the card, and the fog walk stops there. Once power meets the requirement, the card shows a free "Open" button, and the bot presses it. The Damp Woods 15.5K gate opened this way at 16.9K, 2026-11-04.
-  - **Damp Woods entry**: an area-map walk from Verdantglade II lands at about (184, 86). That's a small fogged pocket with a stone mini-dungeon and ore pickups, and the gate stands inside it.
+- **Rule**: A stone pillar card "Gate of Power" (seen in Damp Woods) reads "Requires: Power reaches 15.5K (Current: 8.1K)". While power is short the card has no button: it's a wall. Policy kind `power_gate`: dismiss the card, and the fog walk stops there. Once power meets the requirement, the card reads e.g. "Power reaches 15.5K (Current: 16.9K)" and shows a free "Open" button at about (0.5, 0.74). The bot presses it (policy kind `power_gate_open`), and the pillar sinks. The Damp Woods 15.5K gate opened this way at 16.9K, 2026-11-04.
+  - **Damp Woods entry**: an area-map walk to the Damp Woods label from Verdantglade II lands at about (184, 86). That's a small fogged pocket with a stone mini-dungeon building, ore baskets and a statue in the fog, and the gate stands inside it.
 - **Confidence**: observed. **Source**: builder batch 12; rif-love-su builder, 2026-11-04 11:28.
-- **Images**: `docs/screens/gate_of_power.png` (step 3 branch).
+- **Images**: `docs/screens/gate_of_power.png`, `docs/screens/gate_of_power_open.png` (rif-love-su builder's branch, not pushed yet).
 - **Related**: R-065, R-076, R-084.
 
 ### R-087 · Highland Woods: guard pack, ground pickups, paler minimap dots
@@ -670,7 +672,7 @@ Entry format:
 ## Added from mae (2026-11-04, morning)
 
 ### R-101 · Collect bed EXP daily, not every upgrade pass
-- **Rule**: An icon appears over the bed in the house when AFK EXP is ready to collect: a cluster of blue orbs above the bed, the top one in a yellow speech bubble with a red "!", and a second red "!" on the bed (mae's crop, `docs/screens/bed_xp_ready.png`; a reference picture only. It's at another scale and matches just 0.62 at 0.8x, so the live template stays `resource/image/home/bed_xp_bubble.png`). The daily step `bed` in `sxs.daily` taps it once a day; tap the bed to collect it. EXP builds up slowly, so collecting it is a daily task (alongside the free speed-up of R-035), not a standard step of the upgrade loop. Exception: check it whenever the character is close to levelling up. Collecting it took the account from Lv 13 to Lv 20 (power 10.1K to 13.1K), which unlocked the Guild and its tutorial (R-011).
+- **Rule**: An icon appears over the bed in the house when AFK EXP is ready to collect: a cluster of blue orbs above the bed, the top one in a yellow speech bubble with a red "!", and a second red "!" on the bed From the default home view (the Cart), the house is to the right: one right-to-left drag shows the bed and its bubble, so the `bed` step pans right first, then up (R-126). (mae's crop, `docs/screens/bed_xp_ready.png`; a reference picture only. It's at another scale and matches just 0.62 at 0.8x, so the live template stays `resource/image/home/bed_xp_bubble.png`). The daily step `bed` in `sxs.daily` taps it once a day; tap the bed to collect it. EXP builds up slowly, so collecting it is a daily task (alongside the free speed-up of R-035), not a standard step of the upgrade loop. Exception: check it whenever the character is close to levelling up. Collecting it took the account from Lv 13 to Lv 20 (power 10.1K to 13.1K), which unlocked the Guild and its tutorial (R-011).
 - **Confidence**: told. **Source**: mae, 2026-11-04 (screenshot 09:35); dailies builder's final batch.
 - **Images**: `docs/screens/bed_xp_ready.png` (mae's crop, 144x161), `docs/screens/home_bed_xp.png` (template `resource/image/home/bed_xp_bubble.png`).
 - **Related**: R-011, R-020, R-035, nodes `home_house`, `bed`, `guild`.
@@ -724,6 +726,7 @@ Entry format:
 ### R-109 · Special nodes with a green timer circle: always tap them
 - **Rule**: While gathering you may trigger "special nodes" or "special encounters", marked with a green timer circle at their upper right. They're high value and usually give a good reward, so tap them whenever they appear. Example: a "Grand Mine", which allows one material collection without spending stamina.
 - **Confidence**: told. **Source**: mae, 2026-11-04.
+- **Seen in chat** (2026-11-04): server messages announced a "Grand Iron Mine" and a "Grand Sand Mine" appearing in Verdantglade. These are the special nodes to tap; where they appear isn't known yet ❓.
 - **Images**: none yet (want: a special node with its timer).
 - **Related**: R-106, R-108.
 
