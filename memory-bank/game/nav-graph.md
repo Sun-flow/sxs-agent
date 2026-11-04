@@ -1,6 +1,6 @@
 # Navigation graph
 
-> **Last updated**: 2026-11-03
+> **Last updated**: 2026-11-04
 > Generated from `memory-bank/game/nav-graph.json` by `python3 scripts/nav-graph.py render`. Don't edit by hand.
 
 Solid arrows are observed in game; dashed arrows are told or reported and still need confirming.
@@ -59,7 +59,12 @@ flowchart TD
     puzzle_energy_circuits["Energy Circuits puzzle"]
     team["Team panel"]
     blessing_level["Blessing level"]
-    fantasia_ascent["Fantasia Ascent (tower)"]
+    fantasia_ascent["Fantasia Ascent: tower list"]
+    fantasia_floors["Fantasia Ascent: floors"]
+    fantasia_result["Fantasia Ascent: floor result"]
+    charm_detail["Charm card"]
+    rcmd_loadouts["Recommended loadouts"]
+    gear_swap_prompt["Gear swap prompt"]
     home -->|"tap: Bottom nav bar (y 0.97): Character"| character
     world_map -.->|"tap: Bottom nav bar (y 0.97): Character"| character
     home -->|"tap: Bottom nav bar (y 0.97): Travel Journal"| travel_journal
@@ -127,6 +132,17 @@ flowchart TD
     interact -->|"tap: Explore (mine) [goal=explore and hp_ok]"| battle_prep
     world_map -->|"tap: Ancient Fortress puzzle object"| puzzle_energy_circuits
     interact -.->|"tap: Challenge / Explore on the Fantasia Ascent card [goal=explore and hp_ok]"| fantasia_ascent
+    quest_detail -->|"tap: Go on "Into the Moon's Shadow I""| confirm_dialog
+    confirm_dialog -->|"tap: OK [Fantasia Ascent prompt and tower not done today]"| home
+    fantasia_ascent -->|"tap: The tower's card"| fantasia_floors
+    fantasia_floors -->|"tap: Challenge on the current floor [hp_ok]"| battle_prep
+    battle -->|"auto: (fight ends)"| fantasia_result
+    fantasia_result -->|"tap: Continue [VICTORY]"| battle_prep
+    player_profile -->|"tap: An empty (red-badged) charm slot"| loadout_edit
+    loadout_edit -->|"tap: Charm tab"| loadout_edit
+    loadout_edit -->|"tap: A charm in the Charm tab"| charm_detail
+    charm_detail -->|"tap: Equip, then tap an empty slot"| loadout_edit
+    loadout_edit -->|"tap: Rcmd [never (bot)]"| rcmd_loadouts
 ```
 
 ## Screens
@@ -139,7 +155,7 @@ flowchart TD
 | `quest_detail` | Quest detail | popup | observed |  | Quest detail card: Details, Goal, Rewards and a Go or Track button (R-044). |
 | `world_overview` | World (island picker) | world | observed |  | Pick an island to walk on. Shows each island's exploration score and rank (e.g. 'Originisle 82, Ahead of 59.7% of Players'). Bottom-left button opens Exploration Goals. |
 | `world_map` | World map (island) | world | observed |  | Walkable island map with minimap, fog and pickups (R-002, R-004, R-021, R-022). Shows a fruit counter instead of Rolla in the top bar. |
-| `player_profile` | Player profile | popup | observed |  | Gear, techniques, Dish, Quick Heal. Not detected yet. Android back does nothing here. |
+| `player_profile` | Player profile | popup | observed |  | Gear, techniques, Dish, Quick Heal. Not detected yet. Android back does nothing here. Red badges = empty Charm slots (row y≈0.71); blue badges on Equip = gear upgrades (R-080). |
 | `battle_prep` | Battle prep | menu | observed |  | Enemy line-up, 'Round 0/15'. |
 | `battle` | Battle | battle | observed |  | Plays itself (R-001); 15 rounds max. Loss leads to defeated. Mine battles run up to 25 rounds. |
 | `battle_result` | Battle result | popup | reported |  | Not seen: wins return straight to world_map, sometimes with a reward_popup; losses show the defeated dialog. |
@@ -152,7 +168,7 @@ flowchart TD
 | `loading` | Loading | overlay | observed |  | Covers 'Loading...', 'Logging in...' and the title screen initialising. Wait it out. After login the game resumes on the last screen it was closed on (often world_map), not always home. |
 | `agreement` | User Agreement | popup | observed |  | First launch only. Needs a human; the bot must stop and ask. |
 | `character` | Character | menu | observed |  | Gear slots; gear slot -> item card (Replace / Enhance) -> Enhance Gear (R-023). |
-| `loadout_edit` | Loadout (Edit) | menu | observed |  | Not detected yet. Reached from the Combat Veteran quest's Go button. |
+| `loadout_edit` | Loadout (Edit) | menu | observed |  | Not detected yet. Reached from the Combat Veteran quest's Go button. Techniques left, 4 charm slots right (x≈0.87, y≈0.21/0.30/0.39/0.48; 4th locked at Lv 13). Opens on Technique tab; Charm tab (0.56, 0.62). |
 | `server_chat` | Server Chat | overlay | observed |  | Close with the down arrow (0.06,0.96). Never type here. |
 | `travel_journal` | Travel Journal | menu | observed | any mode unlocked (toast 'Unlock any mode to unlock Travel Journal') | Locked on our account. |
 | `guild` | Guild | menu | observed | Character Lv. 15 (toast on the locked tab) | Donations, Farm, Boss, floating-island AFK farm (R-016, reported). |
@@ -181,11 +197,16 @@ flowchart TD
 | `prayer` | Prayer (skill gacha) | menu | observed | Statue furniture on home | Pray x1 / x10 with prayer tickets; tabs Prayer / Exchange / Goals. The bot never taps Pray (R-055). |
 | `prayer_result` | Prayer result | popup | observed |  | Skills and shards from a pull. |
 | `apply_requests` | Apply (social requests) | popup | observed |  | Tabs Friends / Team Up / Challenge / Room; incoming requests with x / check, Decline All / Agree All. Leave untouched (R-057). |
-| `area_map` | Area map (full map) | overlay | observed |  | Full map of the current area, opened by tapping the minimap. Legend: Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone; areas show exploration % and power gates. Tapping a spot centres the camera there (R-068, R-076). |
+| `area_map` | Area map (full map) | overlay | observed |  | Full map of the current area, opened by tapping the minimap. Legend: Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone; areas show exploration % and power gates. Tapping a spot centres the camera there (R-068, R-076). The white box is the camera viewport. sxs/goto.py drives it. |
 | `puzzle_energy_circuits` | Energy Circuits puzzle | popup | observed |  | Ancient Fortress slab-swap puzzle; not automated (R-072). |
 | `team` | Team panel | popup | observed |  | Players 1/9, Team Goal, World Call / Invite / Nearby. Social; left alone (R-077). |
 | `blessing_level` | Blessing level | popup | observed |  | Shown after unlocking a Goddess Statue (R-070). |
-| `fantasia_ascent` | Fantasia Ascent (tower) | menu | told |  | Multi-floor tower (e.g. in Moonveil Woods). Turn on Auto Challenge when challenging it; Auto Challenge unlocks after floor 3 (R-079). A floor loss (DEFEAT with Retry) turns Auto Challenge off; re-enable it next time. Losses are not retried: one challenge per day, as a daily mission. |
+| `fantasia_ascent` | Fantasia Ascent: tower list | menu | observed |  | One card per tower, 'Current: Fn/110'. State `tower_list` in sxs/tower.py. Turn on Auto Challenge (unlocks after F3); a loss turns it off. Losses are not retried: one run per day, as a daily (R-079). |
+| `fantasia_floors` | Fantasia Ascent: floors | menu | observed |  | F1 at the bottom; tabs 'Fantasia Ascent' and 'Goals'. Current floor shows recommended power (F1 6.5K). State `tower_floors`. |
+| `fantasia_result` | Fantasia Ascent: floor result | popup | observed |  | VICTORY with '<Tower> Fn' and Clear Rewards, or DEFEAT mid-screen. Continue/Retry at (0.77, 0.95). Auto Challenge checkbox (0.66, 0.90) after F3, with a one-time tutorial; Continue counts down '(3s)'. State `tower_result`. |
+| `charm_detail` | Charm card | popup | observed |  | Name, rarity, affinity, source. Equip (0.5, 0.70), then tap an empty slot; reads Replace when the slot is filled. |
+| `rcmd_loadouts` | Recommended loadouts | popup | observed |  | Beginner's Pick, AoE DMG, Apply. The bot doesn't use it (R-080). |
+| `gear_swap_prompt` | Gear swap prompt | overlay | observed |  | Pops after chests with better gear (+power, swap button bottom right). Closed when the reward popup was dismissed (R-085). |
 
 ## Actions
 
@@ -268,4 +289,17 @@ flowchart TD
 | Exploration card | World (island picker) | tap Activate (Voyage Obelisk) at [0.5, 0.7] (when goal needs the next kingdom) | reported | Kingdom travel Originisle to Verdantglade; landing screen not recorded. |
 | Exploration card | Battle prep | tap Explore (mine) at [0.5, 0.8] (when goal=explore and hp_ok) | observed | Mines put the button lower than other cards. |
 | World map (island) | Energy Circuits puzzle | tap Ancient Fortress puzzle object | observed |  |
-| Exploration card | Fantasia Ascent (tower) | tap Challenge / Explore on the Fantasia Ascent card (when goal=explore and hp_ok) | told | Entry not captured yet. |
+| Exploration card | Fantasia Ascent: tower list | tap Challenge / Explore on the Fantasia Ascent card (when goal=explore and hp_ok) | told | Entry not captured yet. |
+| Quest detail | Confirm dialog | tap Go on "Into the Moon's Shadow I" | observed | Opens 'Return to Home to challenge the Fantasia Ascent?'. |
+| Confirm dialog | Home | tap OK at [0.68, 0.57] (when Fantasia Ascent prompt and tower not done today) | observed | When the dialog was the Fantasia Ascent prompt; travels home. How home leads on to the tower list is in sxs/tower.py. |
+| Fantasia Ascent: tower list | Fantasia Ascent: floors | tap The tower's card | observed |  |
+| Fantasia Ascent: floors | Battle prep | tap Challenge on the current floor at [0.85, 0.86] (when hp_ok) | observed |  |
+| Battle | Fantasia Ascent: floor result | auto (fight ends) | observed | In a tower. |
+| Fantasia Ascent: floor result | Battle prep | tap Continue at [0.77, 0.95] (when VICTORY) | observed | Straight to the next floor's prep. Turn Auto Challenge on first (0.66, 0.90). |
+| Fantasia Ascent: floor result | previous screen | tap Back arrow (when DEFEAT) | observed | After a DEFEAT: don't press Retry (R-079); leave and hand back. |
+| Player profile | Loadout (Edit) | tap An empty (red-badged) charm slot at [None, 0.71] | observed |  |
+| Loadout (Edit) | Loadout (Edit) | tap Charm tab at [0.56, 0.62] | observed | Switches from the Technique tab. |
+| Loadout (Edit) | Charm card | tap A charm in the Charm tab | observed |  |
+| Charm card | Loadout (Edit) | tap Equip, then tap an empty slot at [0.5, 0.7] | observed |  |
+| Loadout (Edit) | Recommended loadouts | tap Rcmd (when never (bot)) | observed | Never on the bot's own; listed for completeness. |
+| Gear swap prompt | previous screen | tap Dismiss the reward popup | observed | Closes with it. |
