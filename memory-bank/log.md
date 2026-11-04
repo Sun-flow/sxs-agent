@@ -13,6 +13,7 @@
 - PRs #12 and #14 merged; merged main into this branch, so the dailies screenshots now resolve.
 
 ### 2026-11-04 · Dailies and upgrades (Claude Code, maes2024 via Remote Control)
+- Wrap-up: PR #14 merged. Also built `sxs/pray.py` (handler-triggered Standard pulls; not run yet, waiting on mae) and the Ironvein Pit daily step (hammers from prayer goals, ~115 Raw Ore each). mae collected bed XP by hand: Lv 20, power 13.1K, Guild unlocked with a tutorial. Handoff rewritten for the guild-mapping thread (branch `dailies-wrapup`). Open: mae's answer on pulls and on Mall free items; bed XP step waits for mae's icon screenshot.
 - Branch `dailies-upgrades` from `step3-wrapup`: `python -m sxs.daily` runs sign-in, Cart, Growth Trial, Fantasia Ascent (Journal tab entry, heal on prep, server-day marks), guidance quest claims and two strengthen passes. Safe claim helper `sxs/claims.py`. New states: enhance_gear, featured, daily_signin, growth_trial, journal, material_realms, notice; main_menu ROI widened. Live: all steps ran; gear enhancement is ore-bound (7 Raw Ore).
 - Found: Journal tab (Fantasia Ascent, Map Exploration, Material Realms, Weekly Events); Ironvein Pit needs Iron Hammers (bought only with Dawnium: never). Notice badges mean unread posts.
 
