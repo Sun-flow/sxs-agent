@@ -45,6 +45,7 @@ NPC_DX, NPC_DY = 30, 50  # from the "!" bubble to the NPC's body
 DIALOGUE_ROI = [0, 1020, 720, 230]  # speaker name and text in the story box
 DIALOGUE_LOG = REPO_ROOT / "logs" / "dialogue.log"
 RETRIES = 2  # retries of a lost fight before strengthening (mae, 2026-11-03)
+FIGHT_MIN_HP = 70  # mae, 2026-11-04: at least 70% HP before any fight
 HEAL_BELOW = 80  # HP % under which the profile's Quick Heal (1 cooked dish) is used
 QUICK_HEAL = (510, 1064)
 HUD_PORTRAIT = (70, 60)  # top-left avatar: opens the player profile (HP, Quick Heal, charms)
@@ -217,7 +218,7 @@ def log_dialogue(det: StateDetector) -> None:
 
 def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_misses: int = 10,
                    choose: Optional[str] = None) -> str:
-    """Returns "complete", "defeated", "no_marker", "no_tracker", "unknown_card", "repeating_card", "needs_decision", "stuck_home", "stuck_progress", "unknown_screen" or
+    """Returns "complete", "defeated", "no_marker", "no_tracker", "unknown_card", "repeating_card", "needs_decision", "stuck_home", "stuck_progress", "stuck_self", "low_hp", "unknown_screen" or
     "timeout"."""
     decider, ctx = Decider(det), Context(goal="explore")
     deadline = time.monotonic() + minutes * 60
@@ -229,6 +230,7 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
     hit_self = False  # the last marker tap landed on our own character
     self_taps, charms_tried = 0, False
     after_fight = via_portrait = False
+    heal_tries = 0
     while time.monotonic() < deadline:
         d = det.detect()
         beat.check(d, last_progress, progress_at)
@@ -239,6 +241,20 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
             unknowns = 0
         if d.state not in ("home", "unknown", "loading"):
             home_taps = 0
+        if d.state == "world_map" and not via_portrait and hud_hp(dev.screenshot()) * 100 < FIGHT_MIN_HP:
+            # mae, 2026-11-04: never start a fight under 70% HP. Every map tap can start one, so check here.
+            heal_tries += 1
+            if heal_tries > 3:
+                # Quick Heal isn't raising HP (out of cooked dishes?): don't fight hurt; stop and say why.
+                log.warning("HP still under %d%% after %d heals; stopping before any fight", FIGHT_MIN_HP, heal_tries - 1)
+                return "low_hp"
+            log.info("HP under %d%% on the HUD bar; healing before any fight", FIGHT_MIN_HP)
+            after_fight, via_portrait = False, True
+            dev.tap(*HUD_PORTRAIT)
+            time.sleep(2)
+            continue
+        if d.state == "world_map" and heal_tries and not via_portrait and hud_hp(dev.screenshot()) * 100 >= FIGHT_MIN_HP:
+            heal_tries = 0
         if d.state == "world_map" and after_fight:
             # mae, 2026-11-04: read HP from the HUD bar; open the profile through the HUD portrait (tapping the
             # character opens a picker when several things share its tile) only to heal, or once to fill charms.

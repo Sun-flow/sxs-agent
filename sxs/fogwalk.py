@@ -23,7 +23,8 @@ import numpy as np
 from . import goto, minimap, nav
 from .decide import Context, Decider
 from .device import Device, banner, save_unknown
-from .explore import GUARD_DX, GUARD_DY, PLAYER_NAME, REPEAT_LIMIT, Heartbeat
+from .explore import (FIGHT_MIN_HP, GUARD_DX, GUARD_DY, HUD_PORTRAIT, PLAYER_NAME, QUICK_HEAL, REPEAT_LIMIT,
+                      Heartbeat, hud_hp)
 from .state import StateDetector
 
 log = logging.getLogger("sxs.fogwalk")
@@ -128,6 +129,7 @@ def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[st
     visited: set[str] = set()
     repeats, last_card = 0, None
     buildings_seen: set = set()
+    heal_tries = 0
     if area:
         goto.go_to(dev, det, area)
     beat = Heartbeat()
@@ -140,6 +142,19 @@ def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[st
             return "unknown_screen"
         if d.state == "world_map":
             frame = dev.screenshot()
+            if hud_hp(frame) * 100 < FIGHT_MIN_HP and heal_tries < 2:
+                # mae, 2026-11-04: heal before any fight; walking can bump into one. The profile opens from the HUD.
+                heal_tries += 1
+                log.info("HP under %d%%; healing from the profile", FIGHT_MIN_HP)
+                dev.tap(*HUD_PORTRAIT)
+                time.sleep(2)
+                if det.detect().state == "player_profile":
+                    dev.tap(*QUICK_HEAL)
+                    time.sleep(2)
+                    dev.tap(360, 60)
+                    time.sleep(1.5)
+                continue
+            heal_tries = 0 if hud_hp(frame) * 100 >= FIGHT_MIN_HP else heal_tries
             name = area_name(det, frame)
             if home_area is None and name:
                 home_area = name
