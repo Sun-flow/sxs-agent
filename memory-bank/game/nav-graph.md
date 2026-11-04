@@ -59,6 +59,7 @@ flowchart TD
     puzzle_energy_circuits["Energy Circuits puzzle"]
     team["Team panel"]
     blessing_level["Blessing level"]
+    fantasia_ascent["Fantasia Ascent (tower)"]
     home -->|"tap: Bottom nav bar (y 0.97): Character"| character
     world_map -.->|"tap: Bottom nav bar (y 0.97): Character"| character
     home -->|"tap: Bottom nav bar (y 0.97): Travel Journal"| travel_journal
@@ -125,6 +126,7 @@ flowchart TD
     interact -.->|"tap: Activate (Voyage Obelisk) [goal needs the next kingdom]"| world_overview
     interact -->|"tap: Explore (mine) [goal=explore and hp_ok]"| battle_prep
     world_map -->|"tap: Ancient Fortress puzzle object"| puzzle_energy_circuits
+    interact -.->|"tap: Challenge / Explore on the Fantasia Ascent card [goal=explore and hp_ok]"| fantasia_ascent
 ```
 
 ## Screens
@@ -183,6 +185,7 @@ flowchart TD
 | `puzzle_energy_circuits` | Energy Circuits puzzle | popup | observed |  | Ancient Fortress slab-swap puzzle; not automated (R-072). |
 | `team` | Team panel | popup | observed |  | Players 1/9, Team Goal, World Call / Invite / Nearby. Social; left alone (R-077). |
 | `blessing_level` | Blessing level | popup | observed |  | Shown after unlocking a Goddess Statue (R-070). |
+| `fantasia_ascent` | Fantasia Ascent (tower) | menu | told |  | Multi-floor tower (e.g. in Moonveil Woods). Turn on Auto Challenge when challenging it; Auto Challenge unlocks after floor 3 (R-079). |
 
 ## Actions
 
@@ -265,3 +268,4 @@ flowchart TD
 | Exploration card | World (island picker) | tap Activate (Voyage Obelisk) at [0.5, 0.7] (when goal needs the next kingdom) | reported | Kingdom travel Originisle to Verdantglade; landing screen not recorded. |
 | Exploration card | Battle prep | tap Explore (mine) at [0.5, 0.8] (when goal=explore and hp_ok) | observed | Mines put the button lower than other cards. |
 | World map (island) | Energy Circuits puzzle | tap Ancient Fortress puzzle object | observed |  |
+| Exploration card | Fantasia Ascent (tower) | tap Challenge / Explore on the Fantasia Ascent card (when goal=explore and hp_ok) | told | Entry not captured yet. |

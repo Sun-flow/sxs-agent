@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/`; templates in `resource/image/`.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-079).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-080).
 
 Entry format:
 
@@ -521,3 +521,9 @@ Entry format:
 - **Confidence**: told. **Source**: mae, 2026-11-03.
 - **Images**: none yet (want: the pick-one menu).
 - **Related**: R-061, node `player_profile`.
+
+### R-079 · Turn on Auto Challenge in Fantasia Ascent
+- **Rule**: Whenever challenging Fantasia Ascent, the multi-floor tower (for example in Moonveil Woods), turn on Auto Challenge so floors run back to back. Auto Challenge unlocks after clearing floor 3; before that, climb floor by floor as in other mini-dungeons (R-040). The tower loop runs inside the exploration loop and hands back when it stops (`memory-bank/notes.md`, composable loops).
+- **Confidence**: told. **Source**: mae, 2026-11-04.
+- **Images**: none yet (want: the tower card and the Auto Challenge toggle).
+- **Related**: R-040, R-061, R-071, node `fantasia_ascent`.

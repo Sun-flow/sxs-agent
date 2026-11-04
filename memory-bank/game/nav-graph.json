@@ -741,6 +741,16 @@
     "docs/screens/blessing_level.png"
    ],
    "notes": "Shown after unlocking a Goddess Statue (R-070)."
+  },
+  {
+   "id": "fantasia_ascent",
+   "name": "Fantasia Ascent (tower)",
+   "kind": "menu",
+   "confidence": "told",
+   "unlock": null,
+   "detect": null,
+   "images": [],
+   "notes": "Multi-floor tower (e.g. in Moonveil Woods). Turn on Auto Challenge when challenging it; Auto Challenge unlocks after floor 3 (R-079)."
   }
  ],
  "edges": [
@@ -1830,6 +1840,19 @@
    },
    "confidence": "observed",
    "notes": ""
+  },
+  {
+   "from": "interact",
+   "to": "fantasia_ascent",
+   "action": {
+    "type": "tap",
+    "target": "Challenge / Explore on the Fantasia Ascent card",
+    "template": null,
+    "pos": null
+   },
+   "when": "goal=explore and hp_ok",
+   "confidence": "told",
+   "notes": "Entry not captured yet."
   }
  ]
 }

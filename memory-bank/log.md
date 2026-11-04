@@ -3,6 +3,9 @@
 > **Last updated**: 2026-11-03
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
 
+### 2026-11-04 · Game docs: Fantasia Ascent (Claude Code, cloud)
+- PR #9 merged (memory check fix, healing rules, gold buildings, loop design rules). Added R-079 (Auto Challenge in Fantasia Ascent) and the `fantasia_ascent` screen. Branch `claude/project-thread-npg43i` fast-forwarded to main.
+
 ### 2026-11-03 (late) · Game docs after PR #6 (Claude Code, cloud)
 - PR #6 merged batches 4 to 9 and mae's rules up to R-067. Added R-068 (travel through the full area map) and the `area_map` screen; branch `claude/project-thread-npg43i` fast-forwarded to main.
 - Builder batch 10 (handoff): R-069 to R-077 (obelisk, Goddess Statue blessing, mines, puzzle, path blockers, edge pointers, home events, area map, team panel); minimap crops and HSV thresholds linked to R-066; `puzzle_energy_circuits`, `team` and `blessing_level` screens. Same PR #8.
