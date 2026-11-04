@@ -10,7 +10,7 @@ Read when raising character power: the character-screen "!", gear, skills, charm
 - Fill a charm slot: tap it to open "Edit" (charm slots at x≈0.87, y≈0.21 / 0.30 / 0.39 / 0.48), Charm tab (0.56, 0.62), a charm card, Equip (0.5, 0.70), then a pulsing empty slot. A filled slot's button reads Replace. The 4th slot was still locked at Lv 13 ❓.
 - **Never use Rcmd ("Rcmd Loadouts" / Apply).**
 - Opened by accident when a marker sits beside the player: R-022.
-- Code: `python -m sxs.upgrade` (`--only skills,gear,class_levels,rank,relics`), `sxs/badges.py`.
+- Code: `python -m sxs upgrade` (`--only skills,gear,class_levels,rank,relics`), `sxs/vision/badges.py`.
 *told, observed* · `player_profile_charm_badges.png`, `loadout_edit_charms.png`, `charm_detail.png`, `rcmd_loadouts.png` · nodes `player_profile`, `loadout_edit`, `charm_detail`, `rcmd_loadouts` · R-063, R-104, R-116
 
 ## Gear
@@ -24,7 +24,7 @@ Read when raising character power: the character-screen "!", gear, skills, charm
 
 ### R-092 · Enhance all gear evenly, in 5-level bands
 - All equipped pieces to +5, then all to +10, then +15... A piece passes a band only when every other piece has reached it.
-- Inside a band, priority: weapon, offhand (not unlocked), headpiece, chest, boots. Code: `Strengthener.enhance_gear` in `sxs/strengthen.py` (`GEAR_BAND`, `GEAR_PRIORITY`; insert the offhand after the weapon when its tab appears).
+- Inside a band, priority: weapon, offhand (not unlocked), headpiece, chest, boots. Code: `Strengthener.enhance_gear` in `sxs/loops/strengthen.py` (`GEAR_BAND`, `GEAR_PRIORITY`; insert the offhand after the weapon when its tab appears).
 - Ore is the bottleneck. Sources: Cart (+100 Raw Ore/h, R-020), gathering (R-107), Guidance quests (R-099), Ironvein Pit (R-095).
 *told, observed* · R-023, R-106, R-119
 
@@ -74,5 +74,5 @@ A "!" on a technique means it can ascend: tap it, Enhance (0.68, 0.74), Ascend t
 ## Relics
 
 ### R-105 · Enhance relics in bands of 1, element by element (not unlocked yet)
-Relics come in elements of 4. Raise one element's 4 relics together by 1 level; bring every element level before any goes higher. Element order: the character's affinity, highest first. Cost: sand (R-106). Code: `relic_plan` in `sxs/upgrade.py`.
+Relics come in elements of 4. Raise one element's 4 relics together by 1 level; bring every element level before any goes higher. Element order: the character's affinity, highest first. Cost: sand (R-106). Code: `relic_plan` in `sxs/loops/upgrade.py`.
 *told* · R-092, R-106

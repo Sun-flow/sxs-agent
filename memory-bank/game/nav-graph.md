@@ -236,16 +236,16 @@ flowchart TD
 | `friends` | Friends | menu | observed | Lv 10 (button appears on the menu) | Friends 0/60; tabs Friends / Add Friends / Requests / Blocklist. |
 | `settings` | Settings | menu | observed |  | Tabs Game (language, chat channel visibility on home), Graphics (quality, frame rate 30/60, visible players, bloom), Sound, Alerts, Other (vibration, network boost, auto-download). Captures settings_*.png. |
 | `exploration_goals` | Exploration Goals | menu | observed |  | Progress tab (per-region exploration milestones with rewards) and Explore tab (Destiny Exploration Goals) (R-052). |
-| `class_choice` | Class choice dialogue | popup | observed |  | Dialogue options Ascend to Mage / Change Class / Leave. The bot never chooses on its own (needs_decision); `python -m sxs.explore --choose "<regex>"` applies a human's choice (R-054). |
+| `class_choice` | Class choice dialogue | popup | observed |  | Dialogue options Ascend to Mage / Change Class / Leave. The bot never chooses on its own (needs_decision); `python -m sxs explore --choose "<regex>"` applies a human's choice (R-054). |
 | `class_ascend` | Class ascend | menu | observed |  | Class trait stats and class skill grid; Ascend button at (0.5, 0.86) (R-054). |
-| `prayer` | Prayer (skill gacha) | menu | observed | Statue furniture on home | Pray x1 / x10 with prayer tickets; tabs Prayer / Exchange / Goals. The bot never taps Pray (R-093). Statue at about (0.07, 0.63) on the default home camera. Banners Standard (Stellatie) and Affection (tokens). Goals tab: Total Standard Prayers milestones pay Iron Hammers. Pulls only via mae's sxs.pray (R-093). |
+| `prayer` | Prayer (skill gacha) | menu | observed | Statue furniture on home | Pray x1 / x10 with prayer tickets; tabs Prayer / Exchange / Goals. The bot never taps Pray (R-093). Statue at about (0.07, 0.63) on the default home camera. Banners Standard (Stellatie) and Affection (tokens). Goals tab: Total Standard Prayers milestones pay Iron Hammers. Pulls only via mae's sxs.loops.pray (R-093). |
 | `prayer_result` | Prayer result | popup | observed |  | Skills and shards from a pull. |
 | `apply_requests` | Apply (social requests) | popup | observed |  | Tabs Friends / Team Up / Challenge / Room; incoming requests with x / check, Decline All / Agree All. Leave untouched (R-057). |
-| `area_map` | Area map (full map) | overlay | observed |  | Full map of the current area, opened by tapping the minimap. Legend: Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone; areas show exploration % and power gates. Tapping a spot centres the camera there (R-068, R-076). The white box is the camera viewport. sxs/goto.py drives it. |
+| `area_map` | Area map (full map) | overlay | observed |  | Full map of the current area, opened by tapping the minimap. Legend: Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone; areas show exploration % and power gates. Tapping a spot centres the camera there (R-068, R-076). The white box is the camera viewport. sxs/actions/goto.py drives it. |
 | `puzzle_energy_circuits` | Energy Circuits puzzle | popup | observed |  | Ancient Fortress slab-swap puzzle; not automated (R-072). |
 | `team` | Team panel | popup | observed |  | Players 1/9, Team Goal, World Call / Invite / Nearby. Social; left alone (R-077). |
 | `blessing_level` | Blessing level | popup | observed |  | Shown after unlocking a Goddess Statue (R-070). |
-| `fantasia_ascent` | Fantasia Ascent: tower list | menu | observed |  | One card per tower, 'Current: Fn/110'. State `tower_list` in sxs/tower.py. Turn on Auto Challenge (unlocks after F3); a loss turns it off. Losses are not retried: one run per day, as a daily (R-079). |
+| `fantasia_ascent` | Fantasia Ascent: tower list | menu | observed |  | One card per tower, 'Current: Fn/110'. State `tower_list` in sxs/loops/tower.py. Turn on Auto Challenge (unlocks after F3); a loss turns it off. Losses are not retried: one run per day, as a daily (R-079). |
 | `fantasia_floors` | Fantasia Ascent: floors | menu | observed |  | F1 at the bottom; tabs 'Fantasia Ascent' and 'Goals'. Current floor shows recommended power (F1 6.5K). State `tower_floors`. |
 | `fantasia_result` | Fantasia Ascent: floor result | popup | observed |  | VICTORY with '<Tower> Fn' and Clear Rewards, or DEFEAT mid-screen. Continue/Retry at (0.77, 0.95). Auto Challenge checkbox (0.66, 0.90) after F3, with a one-time tutorial; Continue counts down '(3s)'. State `tower_result`. |
 | `charm_detail` | Charm card | popup | observed |  | Name, rarity, affinity, source. Equip (0.5, 0.70), then tap an empty slot; reads Replace when the slot is filled. |
@@ -268,7 +268,7 @@ flowchart TD
 | `guild_events` | Guild Events | menu | observed |  | Guild Clash (locked for now), Conquest (R-111). |
 | `guild_conquest` | Conquest | menu | observed |  | Shared boss per floor; Daily Challenge Attempts N/2; floor chest (0.49, 0.57); Challenge (0.50, 0.77); tabs Rankings, Goals (R-111). |
 | `guild_conquest_result` | Conquest result | popup | observed |  | Damage dealt, participation rewards; Tap to Continue. |
-| `mall` | Mall (Premium Picks) | menu | observed |  | Shop. Every pack is USD: never tap one. Only the free gift box at the top left of each page (red "!" above right) may be tapped, once per refresh: Daily Gift 4 h, Weekly Gift 5 d, Welcome Benefit once, event boxes (R-121). Bottom tabs Event / Monthly Pass / Top Up (never Top Up). Code sxs/mall.py, state mall. |
+| `mall` | Mall (Premium Picks) | menu | observed |  | Shop. Every pack is USD: never tap one. Only the free gift box at the top left of each page (red "!" above right) may be tapped, once per refresh: Daily Gift 4 h, Weekly Gift 5 d, Welcome Benefit once, event boxes (R-121). Bottom tabs Event / Monthly Pass / Top Up (never Top Up). Code sxs/loops/mall.py, state mall. |
 
 ## Actions
 
@@ -353,7 +353,7 @@ flowchart TD
 | World map (island) | Energy Circuits puzzle | tap Ancient Fortress puzzle object | observed |  |
 | Exploration card | Fantasia Ascent: tower list | tap Challenge / Explore on the Fantasia Ascent card (when goal=explore and hp_ok) | told | Entry not captured yet. |
 | Quest detail | Confirm dialog | tap Go on "Into the Moon's Shadow I" | observed | Opens 'Return to Home to challenge the Fantasia Ascent?'. |
-| Confirm dialog | Home | tap OK at [0.68, 0.57] (when Fantasia Ascent prompt and tower not done today) | observed | When the dialog was the Fantasia Ascent prompt; travels home. How home leads on to the tower list is in sxs/tower.py. |
+| Confirm dialog | Home | tap OK at [0.68, 0.57] (when Fantasia Ascent prompt and tower not done today) | observed | When the dialog was the Fantasia Ascent prompt; travels home. How home leads on to the tower list is in sxs/loops/tower.py. |
 | Fantasia Ascent: tower list | Fantasia Ascent: floors | tap The tower's card | observed |  |
 | Fantasia Ascent: floors | Battle prep | tap Challenge on the current floor at [0.85, 0.86] (when hp_ok) | observed |  |
 | Battle | Fantasia Ascent: floor result | auto (fight ends) | observed | In a tower. |

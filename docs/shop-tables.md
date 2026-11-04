@@ -61,6 +61,6 @@ Only Stellatie and Lucky Ticket are buyable now; the rest wait on the guild's Sh
 
 ## Other shops
 
-- **Mall**: real money (USD) except the free gift box on each page, which the bot already claims (`sxs.mall`).
+- **Mall**: real money (USD) except the free gift box on each page, which the bot already claims (`sxs.loops.mall`).
 - **Starter Pack** and event packs on home: real money, never.
 - No other shop found yet; add new ones here.

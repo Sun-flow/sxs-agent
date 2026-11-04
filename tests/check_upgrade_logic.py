@@ -6,9 +6,9 @@ from pathlib import Path
 import cv2
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from sxs.badges import find_badges  # noqa: E402
-from sxs.gather import pickups_to_take  # noqa: E402
-from sxs.upgrade import relic_plan  # noqa: E402
+from sxs.vision.badges import find_badges  # noqa: E402
+from sxs.loops.gather import pickups_to_take  # noqa: E402
+from sxs.loops.upgrade import relic_plan  # noqa: E402
 
 SCREENS = Path(__file__).resolve().parent.parent / "docs" / "screens"
 fails = 0

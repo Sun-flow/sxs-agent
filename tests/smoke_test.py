@@ -15,9 +15,10 @@ from pathlib import Path
 import cv2
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from sxs import nav  # noqa: E402
-from sxs.device import REPO_ROOT, Device  # noqa: E402
-from sxs.state import StateDetector  # noqa: E402
+from sxs.core import ui  # noqa: E402
+from sxs.core.nav import Navigator  # noqa: E402
+from sxs.core.device import REPO_ROOT, Device  # noqa: E402
+from sxs.core.state import StateDetector  # noqa: E402
 
 
 def main() -> int:
@@ -28,7 +29,7 @@ def main() -> int:
 
     dev = Device()
     det = StateDetector(dev)
-    n = nav.Navigator(dev, det)
+    n = Navigator(dev, det)
     start = time.monotonic()
     try:
         if not args.no_restart:
@@ -39,12 +40,12 @@ def main() -> int:
         print(f"reached home in {time.monotonic() - start:.0f}s")
 
         # Home -> menu -> back, home -> world -> home, home -> character -> home.
-        n.tap_and_expect(nav.HOME_MENU_BUTTON, "main_menu")
-        n.tap_and_expect(nav.BACK_ARROW, "home")
-        n.tap_and_expect(nav.NAV_WORLD, "world_overview")
-        n.tap_and_expect(nav.NAV_HOME, "home")
-        n.tap_and_expect(nav.NAV_CHARACTER, "character")
-        n.tap_and_expect(nav.NAV_HOME, "home")
+        n.tap_and_expect(ui.HOME_MENU_BUTTON, "main_menu")
+        n.tap_and_expect(ui.BACK_ARROW, "home")
+        n.tap_and_expect(ui.NAV_WORLD, "world_overview")
+        n.tap_and_expect(ui.NAV_HOME, "home")
+        n.tap_and_expect(ui.NAV_CHARACTER, "character")
+        n.tap_and_expect(ui.NAV_HOME, "home")
     except Exception as e:  # noqa: BLE001 - report any failure the same way
         cv2.imwrite(str(REPO_ROOT / "captures" / "smoke-failure.png"), dev.screenshot())
         print(f"FAIL: {e}\nstates: {' > '.join(n.trail)}")

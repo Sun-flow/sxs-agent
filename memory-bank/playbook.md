@@ -11,8 +11,8 @@ The builder runs as a Remote Control session on mae's PC (machine details: `envi
 
 ## Loop
 
-1. **Let the loop play; step in when it stops.** Run the loop (e.g. `python -m sxs.explore --chain --minutes N`, `python -m sxs.roam`, `python -m sxs.daily`) in the background with output to a log. It returns a reason when it can't go on (`unknown_card`, `stuck_progress`, `needs_decision`, `defeated`, `needs_help`, ...).
-2. **Look once, fix generally.** Screenshot (`python scripts/explore.py none 0`, view `captures/latest.jpg`), work out what the game wants, add the smallest general fix: a `State.*` node in `resource/pipeline/state.json`, a rule in `resource/policy/cards.json`, a template in `resource/image/`, or a handler in the loop. No one-off taps baked into code; write "given the goal and circumstances, pick the option" functions (`sxs/decide.py`).
+1. **Let the loop play; step in when it stops.** Run the loop (e.g. `python -m sxs explore --chain --minutes N`, `python -m sxs roam`, `python -m sxs daily`) in the background with output to a log. It returns a reason when it can't go on (`unknown_card`, `stuck_progress`, `needs_decision`, `defeated`, `needs_help`, ...).
+2. **Look once, fix generally.** Screenshot (`python scripts/probe.py none 0`, view `captures/latest.jpg`), work out what the game wants, add the smallest general fix: a `State.*` node in `resource/pipeline/state.json`, a rule in `resource/policy/cards.json`, a template in `resource/image/`, or a handler in the loop. No one-off taps baked into code; write "given the goal and circumstances, pick the option" functions (`sxs/policy/decide.py`).
 3. **Reference screenshot for every new screen**: `python -m sxs capture NAME` writes NAME.png into `docs/screens/`; add it to `EXPECTED` in `tests/check_states_offline.py`; that check must say "all good".
 4. **Send rule batches** to the coordinator as you learn: what a screen is for, how to detect it, where to tap (fractions of 720×1280), what an item does, with `docs/screens/...` paths. Don't resend what's already forwarded.
 5. **Post short updates** to mae at milestones (area done, blocker, question) with a screenshot when it helps. Post the loop banner whenever a loop starts (format in `notes.md`).
@@ -26,8 +26,8 @@ Module and helper commands: `sxs/README.md` and `scripts/README.md`. The ones us
 
 ```bash
 .venv\Scripts\python -m sxs state                 # what screen is this (JSON)
-.venv\Scripts\python scripts\explore.py none 0    # screenshot -> captures\latest.jpg
-.venv\Scripts\python -m sxs.daily [--only a,b] [--force]
+.venv\Scripts\python scripts\probe.py none 0    # screenshot -> captures\latest.jpg
+.venv\Scripts\python -m sxs daily [--only a,b] [--force]
 .venv\Scripts\python tests\check_states_offline.py
 ```
 

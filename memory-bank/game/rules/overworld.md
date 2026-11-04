@@ -9,7 +9,7 @@ Walk to each green minimap dot and interact with what it marks, beat roaming mon
 *told, observed* · R-021, R-066, R-070
 
 ### R-065 · When stuck or between quests, walk the fog edge
-Side areas have no quest but give resources and levels; walking into the fog edge reveals new areas. **Explore outward from the connected area the character is in; never jump back across the map** (mae). Code: `python -m sxs.roam` (`--area`, `--minutes`, `--max-areas`). It picks an unexplored area with recommended power under ours (R-084), enters from a connected explored neighbour (R-067), explores it with the Fog Walk (`sxs/fogwalk.py`; stays in its current area when that borders the target) and blesses the statue (R-070). It takes 5-stamina pickups only while stamina stays ≥70 (R-107).
+Side areas have no quest but give resources and levels; walking into the fog edge reveals new areas. **Explore outward from the connected area the character is in; never jump back across the map** (mae). Code: `python -m sxs roam` (`--area`, `--minutes`, `--max-areas`). It picks an unexplored area with recommended power under ours (R-084), enters from a connected explored neighbour (R-067), explores it with the Fog Walk (`sxs/loops/fogwalk.py`; stays in its current area when that borders the target) and blesses the statue (R-070). It takes 5-stamina pickups only while stamina stays ≥70 (R-107).
 *told, observed* · R-066, R-067, R-070, R-084
 
 ## Walking and the camera
@@ -30,11 +30,11 @@ Templates in `resource/image/explore/`:
 ## Reading the minimap
 
 ### R-004 · Minimap and coordinates give relative positions
-The minimap shows items, interactables and enemies around the character; use it to choose a direction. Tile coordinates show as "(x, y)" under it ("Originisle I (24,23)"), read by OCR. x grows east (screen right), y shrinks south (screen down), as `sxs/goto.py` uses them.
+The minimap shows items, interactables and enemies around the character; use it to choose a direction. Tile coordinates show as "(x, y)" under it ("Originisle I (24,23)"), read by OCR. x grows east (screen right), y shrinks south (screen down), as `sxs/actions/goto.py` uses them.
 *told, observed* · node `world_map` · R-066, R-068
 
 ### R-066 · Minimap legend: it shows the true tiles
-Code: `sxs/minimap.py`. About 8 px per tile; player at the centre (0.856, 0.138); usable radius about 86 px. Tiles (OpenCV HSV):
+Code: `sxs/vision/minimap.py`. About 8 px per tile; player at the centre (0.856, 0.138); usable radius about 86 px. Tiles (OpenCV HSV):
 - **green dots**: pickups/POIs. Under shadow they look pale (about 39/81/213). Highland Woods dots are paler (S about 128 vs 150+).
 - **light green**: explored walkable, S<95, V>=115.
 - **light green, shaded about 0.55x**: unexplored walkable. If connected to explored ground, it's an exploration target (R-065).
@@ -55,7 +55,7 @@ Connections can be far off the straight line (Verdantglade II to Moonveil Woods 
 1. Tap the minimap to open the area map (the white box is the camera viewport).
 2. Tap the destination; the camera centres there.
 3. Close the map and tap the ground: the player auto-paths, around walls and through land bridges and unseen gaps.
-Zoom differs each opening: pick places by OCR'd label, never fixed positions. Match labels exactly, trailing numerals included ("Verdantglade III" is not "Verdantglade I"). A label in fog can't be reached this way (`no_move`): travel from home (R-089). Code: `python -m sxs.goto "Area Name"` or `python -m sxs.goto X Y`.
+Zoom differs each opening: pick places by OCR'd label, never fixed positions. Match labels exactly, trailing numerals included ("Verdantglade III" is not "Verdantglade I"). A label in fog can't be reached this way (`no_move`): travel from home (R-089). Code: `python -m sxs goto "Area Name"` or `python -m sxs goto X Y`.
 *told, observed* · `world_area_map.png`, `world_map_moonveil_entry.png`, `world_area_map_stone_ruins.png` · node `area_map` · R-067, R-076, R-089
 
 ### R-089 · Travel from home through the quest tracker
@@ -72,14 +72,14 @@ At home, tapping the tracker for a quest elsewhere asks "Travel to <Area> now?";
 - Legend: Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone. Ore nodes cost 5 stamina each.
 - Unfinished areas show "Exploration: N%" and any power gate ("12K") under the label; finished ones show only the name. Gates seen: Highland Woods 9.6K, Verdantglade III 12K. Skip areas gated above your power (R-084).
 - Lost Statue icon: `resource/image/areamap/lost_statue.png` at 0.8.
-- Edge labels are clipped on the left ("tglade III"); `sxs/roam.py` accepts a 6+ letter suffix with matching numerals.
+- Edge labels are clipped on the left ("tglade III"); `sxs/loops/roam.py` accepts a 6+ letter suffix with matching numerals.
 - A 100% area with a red "!" probably has its statue waiting ❓. Sunrise Isle is at the bottom right of the Verdantglade map; its % isn't read ❓.
 *observed* · `world_area_map.png`, `area_map_lv22.png` · node `area_map` · R-068, R-070, R-084, R-086
 
 ## Power walls and gates
 
 ### R-084 · A recommended power far above yours is a wall: stop exploring there
-Where recommended power is well above yours and fights end in losses (R-031), stop exploring; don't retry. Verdantglade cap (mae): clear only the first 4 to 7 Verdantglade areas, or stop at a natural wall; `sxs/roam.py` stops at the first power wall and caps areas with `--max-areas`. Get stronger first: gear, charms, techniques, tower clears. Verdantglade III (12K) lost every fight at 8.1K and 10K. Its entrance isn't from Moonveil Woods (the walk stops at about (169, 94), no fog in reach) and is unknown ❓; probably a quest unlock like R-082.
+Where recommended power is well above yours and fights end in losses (R-031), stop exploring; don't retry. Verdantglade cap (mae): clear only the first 4 to 7 Verdantglade areas, or stop at a natural wall; `sxs/loops/roam.py` stops at the first power wall and caps areas with `--max-areas`. Get stronger first: gear, charms, techniques, tower clears. Verdantglade III (12K) lost every fight at 8.1K and 10K. Its entrance isn't from Moonveil Woods (the walk stops at about (169, 94), no fog in reach) and is unknown ❓; probably a quest unlock like R-082.
 *observed* · R-031, R-061, R-076, R-086
 
 ### R-086 · Gate of Power: a wall until power meets it, then press Open

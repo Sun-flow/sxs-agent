@@ -37,7 +37,7 @@ Scene labels (e.g. "Class to Unlock") overlap the quest tracker region; filter t
 ### R-101 · Collect bed EXP daily, and when close to levelling
 - Ready: blue orbs above the bed, the top one in a yellow bubble with a red "!", plus a red "!" on the bed.
 - From the Cart view, one right-to-left drag shows the bed (the `bed` step pans right, then up). Template `resource/image/home/bed_xp_bubble.png`; mae's `bed_xp_ready.png` is reference only (wrong scale).
-- Tap the bed to collect. Daily step `bed` in `sxs.daily`, not an upgrade-loop step; also check it when close to a level-up. It can give many levels at once.
+- Tap the bed to collect. Daily step `bed` in `sxs.loops.daily`, not an upgrade-loop step; also check it when close to a level-up. It can give many levels at once.
 *told, observed* · `bed_xp_ready.png`, `home_bed_xp.png` · node `home_house`, `bed` · R-035, R-126
 
 ### R-047 · Cook healing food in the Alchemy Pot

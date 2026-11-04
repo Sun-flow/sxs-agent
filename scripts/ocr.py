@@ -4,8 +4,8 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from sxs.replay import ImageDevice  # noqa: E402
-from sxs.state import StateDetector  # noqa: E402
+from sxs.core.replay import ImageDevice  # noqa: E402
+from sxs.core.state import StateDetector  # noqa: E402
 
 dev = ImageDevice()
 dev.set_frame(sys.argv[1])

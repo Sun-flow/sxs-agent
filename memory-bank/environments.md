@@ -6,7 +6,7 @@
 ## rif-love-su (current game PC, from 2026-11-04)
 
 - mae's Windows PC. Repo at `C:\Users\jcmon\Github\sxs-agent`; venv `.venv\Scripts\python`.
-- MuMu Player 12, instance 1, adb at **127.0.0.1:16416**. `sxs.device` falls back to the only adb device when the default is missing and `SXS_ADB_ADDRESS` is unset.
+- MuMu Player 12, instance 1, adb at **127.0.0.1:16416**. `sxs.core.device` falls back to the only adb device when the default is missing and `SXS_ADB_ADDRESS` is unset.
 - Display 1080×1920 @ 480 DPI: same 9:16 portrait, so the 720×1280 coordinates and templates still work. A state check takes ~4-7 s. If image matching misbehaves, switch MuMu to 720×1280 @ 240 first.
 - No `gh` CLI: PRs are opened from the cloud. Git push works.
 - Offline detector check (`tests/check_states_offline.py`, ~186 screens) takes ~10 min.
@@ -25,7 +25,7 @@
 ## Emulator and toolkit gotchas
 
 - The game is **portrait**: frames are 720 wide × 1280 tall even though MuMu's setting reads landscape. All coordinates use the portrait frame.
-- MaaFramework batches OCR across a node's `next` list and misreads screens, so the detector runs nodes one by one (`sxs/state.py`). It has `And`/`Or` recognitions but no `Not`.
+- MaaFramework batches OCR across a node's `next` list and misreads screens, so the detector runs nodes one by one (`sxs/core/state.py`). It has `And`/`Or` recognitions but no `Not`.
 - MaaFramework's MuMu plug-in prints `nemu_connect`/`product:` lines to stdout: take the last line for JSON. Its log is in the gitignored `.maa/debug` folder.
 - After a restart the game resumes on the last screen, so a cold start can land on the world map instead of home.
 - Typing into a game search field works with `adb shell input text` (MuMu's adb: `C:\Program Files\Netease\MuMuPlayer\nx_device\15.0\shell\adb.exe -s 127.0.0.1:<port>`). Never type in chat.

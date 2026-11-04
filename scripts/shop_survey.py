@@ -11,8 +11,8 @@ import sys
 import time
 
 sys.path.insert(0, ".")
-from sxs.device import Device  # noqa: E402
-from sxs.state import StateDetector  # noqa: E402
+from sxs.core.device import Device  # noqa: E402
+from sxs.core.state import StateDetector  # noqa: E402
 
 COLS = (130, 360, 590)
 CLOSE = (360, 80)  # outside the info card

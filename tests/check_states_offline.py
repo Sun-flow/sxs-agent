@@ -9,9 +9,9 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from sxs.device import REPO_ROOT  # noqa: E402
-from sxs.replay import ImageDevice  # noqa: E402
-from sxs.state import StateDetector  # noqa: E402
+from sxs.core.device import REPO_ROOT  # noqa: E402
+from sxs.core.replay import ImageDevice  # noqa: E402
+from sxs.core.state import StateDetector  # noqa: E402
 
 EXPECTED = {
     "achievement_quest": "quests",

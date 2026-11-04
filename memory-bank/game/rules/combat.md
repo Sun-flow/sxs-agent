@@ -5,7 +5,7 @@ Read before any fight, when HP is low, after a loss, or inside a mini-dungeon or
 ## Before a fight: HP and healing
 
 ### R-061 · Heal to 70% before any fight; retry a lost fight at most twice
-- **HP must be at least 70% before any fight** (mae). Judge HP from the HUD bar only (R-078); a red "!" over the player is not a heal signal (R-080). `sxs/explore.py` heals below 80%; `sxs/heal.py` is the shared check.
+- **HP must be at least 70% before any fight** (mae). Judge HP from the HUD bar only (R-078); a red "!" over the player is not a heal signal (R-080). `sxs/loops/explore.py` heals below 80%; `sxs/actions/heal.py` is the shared check.
 - Healing food (Alchemy Pot, or bought with Rolla) is cheap: use freely. Player portrait, then "Recover" (or similar) on the right.
 - **Dishes** are rare temporary stat boosts: conserve them.
 - Same fight lost twice in a row after healing: stop (mae). Contact mae or go home to get stronger (gear, techniques, rank).
@@ -67,7 +67,7 @@ Read before any fight, when HP is low, after a loss, or inside a mini-dungeon or
 ## Fantasia Ascent (tower)
 
 ### R-079 · Fantasia Ascent: one climb a day, Auto Challenge on, never Retry
-- Daily step `fantasia_ascent` (`sxs/tower.py`, run date in `logs/daily.json`); the explore loop can call it too and gets control back. One climb a day; **never retry a tower loss** (mae).
+- Daily step `fantasia_ascent` (`sxs/loops/tower.py`, run date in `logs/daily.json`); the explore loop can call it too and gets control back. One climb a day; **never retry a tower loss** (mae).
 - Route: Journal, Fantasia Ascent (R-094). Or quest "Into the Moon's Shadow I" Go, then OK (0.68, 0.57) on "Return to Home to challenge the Fantasia Ascent?".
 - `tower_list` (cards "Current: Fn/110") -> `tower_floors` (F1 at bottom; Goals tab may be badged, R-063; recommended power, Challenge (0.85, 0.86)) -> prep (15 rounds) -> `tower_result`.
 - VICTORY: Clear Rewards (ores, Worn Knuckles), Continue (0.77, 0.95) goes to the next floor's prep. DEFEAT: Retry in the same spot: **never press it**.

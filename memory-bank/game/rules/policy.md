@@ -28,7 +28,7 @@ Read before pressing any button that might spend, and on any class, social, acco
 
 **Allowed (the only exceptions):**
 - **Healing food**: buy with Rolla or cook, eat freely; conserve stat-boost **dishes** (R-061).
-- **Skill pulls**: only `python -m sxs.pray --pulls N --handler-approved`, started by mae for that run, x10 only (R-093).
+- **Skill pulls**: only `python -m sxs pray --pulls N --handler-approved`, started by mae for that run, x10 only (R-093).
 - **Guild donations**: the first two a day, the 2nd costing 20 Dawnium (R-103).
 - **Vendor Booth Vault "Free" x30 Stamina**: once a day, only if OCR reads exactly "Free" (mae) (R-120).
 - **Mall free gift boxes** (top-left box with "!"), once per refresh, nothing else on the page (mae) (R-121).
@@ -40,7 +40,7 @@ Read before pressing any button that might spend, and on any class, social, acco
 ## Answering cards and dialogs
 
 ### R-042 · Answer cards by a goal-dependent policy, not a fixed tap
-Policy: `resource/policy/cards.json`, `sxs/decide.py`; nav-graph edges mirror it in `when`. The `never` regex in that file blocks the R-043 buttons (Buy, Purchase, Refresh, Spend, Dawnium, Pray, Recharge, Top up, Catch Up, Advanced Trial, Create Guild, Change Class, USD/$, hammer) whatever the card; `sxs.pray` doesn't use the decider.
+Policy: `resource/policy/cards.json`, `sxs/policy/decide.py`; nav-graph edges mirror it in `when`. The `never` regex in that file blocks the R-043 buttons (Buy, Purchase, Refresh, Spend, Dawnium, Pray, Recharge, Top up, Catch Up, Advanced Trial, Create Guild, Change Class, USD/$, hammer) whatever the card; `sxs.loops.pray` doesn't use the decider.
 - Defeated: OK (home). Travel prompt: OK when exploring or doing dailies, Cancel when only going home. Portal: Activate.
 - Mini-dungeon card: Explore only if the goal is explore and HP is fine, else dismiss. Dungeon floor: Next Floor if HP is fine, else the back arrow.
 - Unknown card: dismiss and log.
@@ -50,7 +50,7 @@ Policy: `resource/policy/cards.json`, `sxs/decide.py`; nav-graph edges mirror it
 
 ### R-093 · Skill pulls run only from mae's pull script, x10 only
 - Prayer (skill gacha) is the home **goddess Statue furniture** ("Pray to the goddess...") beside the "Class to Unlock" stone, about (0.07, 0.63) on the default camera; find it by template (R-126). Not the map statues that bless areas (R-070).
-- **The bot never taps Pray itself.** Pulls run only via `python -m sxs.pray --pulls N --handler-approved`, started by mae for that run. No loop or decision function may call it.
+- **The bot never taps Pray itself.** Pulls run only via `python -m sxs pray --pulls N --handler-approved`, started by mae for that run. No loop or decision function may call it.
 - **x10 only, never x1** (mae). N is a multiple of 10; under 10 Stellatie, no pull.
 - Standard banner, Stellatie only (x10 = 10). The script never presses "+", cancels purchase prompts, and stops if Dawnium changes. The Affection banner (red tokens, x10 = 250) is not used.
 - Screen: tabs Prayer / Exchange / Goals, banner selector, "Prayers Today n/10000", "200 Prayers Bonus" (Legendary of choice), pity counter.
@@ -61,7 +61,7 @@ Policy: `resource/policy/cards.json`, `sxs/decide.py`; nav-graph edges mirror it
 
 ### R-054 · Class choices are mae's: pick Leave and stop
 - After the Guardian Colossi boss, "Crossroads of Classes: Talk to the Mysterious Elder" leads to the Chief at the Originisle V pillar: "Ascend to Mage", "Change Class" or "Leave".
-- **The bot never chooses a class.** It picks Leave and stops with `needs_decision`; `python -m sxs.explore --choose "<regex>"` applies a human's choice. mae chose **Mage**.
+- **The bot never chooses a class.** It picks Leave and stops with `needs_decision`; `python -m sxs explore --choose "<regex>"` applies a human's choice. mae chose **Mage**.
 - The class screen shows trait stats and a class-skill grid, Ascend at (0.5, 0.86).
 - Boss loot (chests, an orb, an ore pile) lies around the pillar: collect it.
 *observed, told* · `class_choice.png`, `class_ascend.png` · node `class_choice`, `class_ascend` · R-117, R-062

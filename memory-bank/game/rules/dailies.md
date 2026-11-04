@@ -1,6 +1,6 @@
 # Dailies rules
 
-Read when running or extending the daily loop (`python -m sxs.daily`): sign-in, events, Journal, Material Realms, milestones.
+Read when running or extending the daily loop (`python -m sxs daily`): sign-in, events, Journal, Material Realms, milestones.
 
 ## Thrilling Events (home, top right)
 
@@ -13,7 +13,7 @@ Read when running or extending the daily loop (`python -m sxs.daily`): sign-in, 
 - 30-tile calendar. Today's tile shows a green "Claim"; tap for "YOU RECEIVED" (e.g. 10 Stellatie, R-093).
 - **Missed days show "Catch Up": spending, never press.**
 - Days 5/20: gold card item x50; 10/25: red item; 15/30: purple crystal.
-- Daily step `sign_in`. Dailies reset 8:00 server time (UTC-5, R-024); `sxs/daily.py` keeps done marks in `logs/daily.json` by server date.
+- Daily step `sign_in`. Dailies reset 8:00 server time (UTC-5, R-024); `sxs/loops/daily.py` keeps done marks in `logs/daily.json` by server date.
 *observed* · `daily_signin.png`, `daily_signin_received.png` · node `daily_signin` · R-024, R-043
 
 ### R-098 · Growth Trial: claim free trial quests, never Advanced Trial

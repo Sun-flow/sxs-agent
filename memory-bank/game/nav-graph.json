@@ -654,7 +654,7 @@
    "images": [
     "docs/screens/class_choice.png"
    ],
-   "notes": "Dialogue options Ascend to Mage / Change Class / Leave. The bot never chooses on its own (needs_decision); `python -m sxs.explore --choose \"<regex>\"` applies a human's choice (R-054)."
+   "notes": "Dialogue options Ascend to Mage / Change Class / Leave. The bot never chooses on its own (needs_decision); `python -m sxs explore --choose \"<regex>\"` applies a human's choice (R-054)."
   },
   {
    "id": "class_ascend",
@@ -681,7 +681,7 @@
     "docs/screens/prayer_tickets.png",
     "docs/screens/prayer_affection.png"
    ],
-   "notes": "Pray x1 / x10 with prayer tickets; tabs Prayer / Exchange / Goals. The bot never taps Pray (R-093). Statue at about (0.07, 0.63) on the default home camera. Banners Standard (Stellatie) and Affection (tokens). Goals tab: Total Standard Prayers milestones pay Iron Hammers. Pulls only via mae's sxs.pray (R-093)."
+   "notes": "Pray x1 / x10 with prayer tickets; tabs Prayer / Exchange / Goals. The bot never taps Pray (R-093). Statue at about (0.07, 0.63) on the default home camera. Banners Standard (Stellatie) and Affection (tokens). Goals tab: Total Standard Prayers milestones pay Iron Hammers. Pulls only via mae's sxs.loops.pray (R-093)."
   },
   {
    "id": "prayer_result",
@@ -719,7 +719,7 @@
     "docs/screens/world_map_moonveil_entry.png",
     "docs/screens/world_area_map_stone_ruins.png"
    ],
-   "notes": "Full map of the current area, opened by tapping the minimap. Legend: Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone; areas show exploration % and power gates. Tapping a spot centres the camera there (R-068, R-076). The white box is the camera viewport. sxs/goto.py drives it."
+   "notes": "Full map of the current area, opened by tapping the minimap. Legend: Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone; areas show exploration % and power gates. Tapping a spot centres the camera there (R-068, R-076). The white box is the camera viewport. sxs/actions/goto.py drives it."
   },
   {
    "id": "puzzle_energy_circuits",
@@ -767,7 +767,7 @@
    "images": [
     "docs/screens/fantasia_ascent.png"
    ],
-   "notes": "One card per tower, 'Current: Fn/110'. State `tower_list` in sxs/tower.py. Turn on Auto Challenge (unlocks after F3); a loss turns it off. Losses are not retried: one run per day, as a daily (R-079)."
+   "notes": "One card per tower, 'Current: Fn/110'. State `tower_list` in sxs/loops/tower.py. Turn on Auto Challenge (unlocks after F3); a loss turns it off. Losses are not retried: one run per day, as a daily (R-079)."
   },
   {
    "id": "fantasia_floors",
@@ -1054,7 +1054,7 @@
     "docs/screens/mall_premium_picks_2.png",
     "docs/screens/mall_welcome_benefit.png"
    ],
-   "notes": "Shop. Every pack is USD: never tap one. Only the free gift box at the top left of each page (red \"!\" above right) may be tapped, once per refresh: Daily Gift 4 h, Weekly Gift 5 d, Welcome Benefit once, event boxes (R-121). Bottom tabs Event / Monthly Pass / Top Up (never Top Up). Code sxs/mall.py, state mall."
+   "notes": "Shop. Every pack is USD: never tap one. Only the free gift box at the top left of each page (red \"!\" above right) may be tapped, once per refresh: Daily Gift 4 h, Weekly Gift 5 d, Welcome Benefit once, event boxes (R-121). Bottom tabs Event / Monthly Pass / Top Up (never Top Up). Code sxs/loops/mall.py, state mall."
   }
  ],
  "edges": [
@@ -2183,7 +2183,7 @@
     ]
    },
    "confidence": "observed",
-   "notes": "When the dialog was the Fantasia Ascent prompt; travels home. How home leads on to the tower list is in sxs/tower.py.",
+   "notes": "When the dialog was the Fantasia Ascent prompt; travels home. How home leads on to the tower list is in sxs/loops/tower.py.",
    "when": "Fantasia Ascent prompt and tower not done today"
   },
   {

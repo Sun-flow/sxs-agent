@@ -22,7 +22,7 @@ Your memory doesn't carry over between sessions, so this repo keeps it for you i
 | Playing the game (builder session) | `memory-bank/playbook.md` | `sxs/README.md` for commands |
 | mae's preferences, environments, decisions | `memory-bank/README.md` | the bank file it names |
 | Game facts: rules of the world, menus, routes | `memory-bank/game/rules/README.md` (situation → file → IDs) | one rules file; never-do list in `memory-bank/game/rules/policy.md`; menus in `memory-bank/game/nav-graph.json` |
-| Running or changing the bot (modules, commands) | `sxs/README.md` | one module |
+| Running or changing the bot (modules, commands, loop contract) | `sxs/README.md` | one module |
 | Screens the bot can detect, templates, policies | `resource/README.md` | `resource/pipeline/state.json`, the policy files |
 | Why a step is designed the way it is | `docs/README.md` | one `docs/stepN-*.md` |
 | Helper scripts and checks | `scripts/README.md` | one script |
@@ -37,7 +37,7 @@ Before you finish or hand work back, update the memory bank as `memory-bank/READ
 | Path | Purpose |
 |---|---|
 | `README.md` | One-paragraph description of the repo. |
-| `sxs/` | The bot: device layer, state detector, loops (`python -m sxs.<loop>`). |
+| `sxs/` | The bot: `sxs/core/` (device, detector, nav, loop contract), `sxs/vision/`, `sxs/policy/`, `sxs/actions/`, `sxs/loops/`. Run `python -m sxs <loop>`; `sxs/README.md` has the layout and commands. |
 | `resource/` | MaaFramework bundle: pipelines, templates, OCR models, decision policies. |
 | `tests/` | Offline checks and the live smoke test. |
 | `scripts/` | Dev helpers and repo checks. |

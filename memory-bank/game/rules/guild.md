@@ -1,6 +1,6 @@
 # Guild rules
 
-Read before any guild screen. Code: `sxs/guild.py` (`python -m sxs.guild [--only donate,afk,conquest]`), daily steps `guild_donate`, `guild_afk`, `guild_conquest`.
+Read before any guild screen. Code: `sxs/loops/guild.py` (`python -m sxs guild [--only donate,afk,conquest]`), daily steps `guild_donate`, `guild_afk`, `guild_conquest`.
 
 ## Joining
 
