@@ -21,7 +21,7 @@ import cv2
 import numpy as np
 
 from . import nav, tower
-from .device import REPO_ROOT, Device
+from .device import REPO_ROOT, Device, banner, save_unknown
 from .decide import Context, Decider
 from .state import StateDetector
 from .strengthen import Strengthener
@@ -37,6 +37,7 @@ MARKER_TARGET_DYS = [100, 60, 140, 30]  # how far below the tracker ring its tar
 STALE_STEP_S = 15  # seconds of no progress per "stale" step (drives the tap-offset cycle)
 STALE_LIMIT = 4  # stale steps (~1 min) before trying NPCs and guards
 STALE_GIVE_UP_S = 300  # no progress for this long ends the run
+SELF_TAP_LIMIT = 6  # own-profile opens without progress before the loop gives up
 HEARTBEAT_S = 30  # liveness log line and stuck check interval
 DECISION_OPTIONS = r"^(Ascend to|Change Class)"  # dialogue options a human decides
 PLAYER_NAME = "gromb2"  # our character's name label, to tell our own "!" from an NPC's
@@ -215,6 +216,7 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
     stale, progress_at, unstick_round = 0, time.monotonic(), 0
     beat = Heartbeat()
     hit_self = False  # the last marker tap landed on our own character
+    self_taps, charms_tried = 0, False
     while time.monotonic() < deadline:
         d = det.detect()
         beat.check(d, last_progress, progress_at)
@@ -244,7 +246,7 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
             signal = progress_signal(prog.text if prog else None)
             if signal != last_progress_seen:
                 last_progress_seen, progress_at = signal, time.monotonic()
-                unstick_round = 0
+                unstick_round = self_taps = 0
             stale_s = time.monotonic() - progress_at
             stale = int(stale_s // STALE_STEP_S)
             if stale_s >= STALE_GIVE_UP_S:
@@ -321,7 +323,11 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
             log.info("tower climb: %s", result)
             if result not in ("reached", "floors_done", "lost"):
                 return result
-            nav.Navigator(dev, det).go_home()
+            try:
+                nav.Navigator(dev, det).go_home()
+            except (RuntimeError, TimeoutError) as e:
+                log.warning("%s; frame saved to %s", e, save_unknown(dev, "explore_home"))
+                return "unknown_screen"
             progress_at = time.monotonic()
         elif d.state == "battle_prep":
             dev.tap(*START_BATTLE)
@@ -348,12 +354,23 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
                     return "unknown_card"
         elif d.state == "player_profile":
             hit_self = True
-            # Opened by tapping our own character. Top up HP here if it's low, then close.
+            self_taps += 1
+            if self_taps >= SELF_TAP_LIMIT:
+                # Watchdog: the marker keeps landing on our own character and nothing moves. Stop and say so.
+                log.warning("opened our own profile %d times without progress; stopping", self_taps)
+                dev.tap(360, 60)
+                return "stuck_self"
+            # Opened by tapping our own character. A red "!" over the character is not only low HP: it also means
+            # empty charm slots or gear to equip (mae, 2026-11-04). Heal by the HP bar; fill charm slots once.
             hp = int(re.search(r"(\d+)%", d.text).group(1)) if d.text else 100
             if hp < HEAL_BELOW:
                 log.info("HP %d%%: quick heal", hp)
                 dev.tap(*QUICK_HEAL)
                 time.sleep(2)
+            elif not charms_tried:
+                charms_tried = True
+                n = Strengthener(dev, det).equip_charms(from_profile=True)
+                log.info("profile: HP %d%%, equipped %d charm(s)", hp, n)
             else:
                 dev.tap(360, 60)  # above the popup; a tap below it doesn't close it
                 time.sleep(1.5)
@@ -404,6 +421,7 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
             unknowns += 1
             unknown_total += 1
             if unknowns >= 5 or unknown_total >= 20:  # the second catches unknown <-> map loops
+                log.warning("unfamiliar screen; frame saved to %s", save_unknown(dev, "explore"))
                 return "unknown_screen"
             if unknowns >= 2:
                 # Maybe a popup the detector doesn't know: a rule may still cover it, otherwise it's dismissed.
@@ -429,6 +447,12 @@ def main() -> int:
     det = StateDetector(dev)
     deadline = time.monotonic() + args.minutes * 60
     losses, strengthened = 0, False
+    banner(log, "Explore", "follow the tracked quest line: walk to its marker, fight, open cards by the rules, "
+           "hand tower and dungeon screens to their loops, claim finished quests"
+           + (" and chain to the next" if args.chain else ""),
+           f"{args.minutes:g} minutes, or a stop reason: unknown screen or card, no progress for "
+           f"{STALE_GIVE_UP_S // 60} min after rotating unstick tries, a human decision, or still losing after "
+           f"{RETRIES} retries and strengthening")
     while True:
         # Quests chain: after claiming one the tracker shows the next, so keep going until something else stops us.
         left = (deadline - time.monotonic()) / 60

@@ -24,7 +24,7 @@ from typing import Optional
 import cv2
 
 from . import nav
-from .device import REPO_ROOT, Device
+from .device import REPO_ROOT, Device, banner, save_unknown
 from .state import StateDetector
 
 log = logging.getLogger("sxs.tower")
@@ -83,6 +83,9 @@ def climb(dev: Device, det: StateDetector, tower: Optional[str] = None, to_floor
     """Returns "reached" (to_floor cleared), "floors_done" (max_floors cleared, or no Challenge left), "lost"
     (the day's climb ended at a loss: not retried), "timeout", "not_tower" (started somewhere else) or "unknown_screen". Leaves the game on the floors or
     result screen; nav.go_home() or the back arrow leaves the tower."""
+    banner(log, "Fantasia Ascent", f"daily tower climb{' in ' + tower if tower else ''} with Auto Challenge on",
+           f"first loss (no retries), {f'clearing F{to_floor}, ' if to_floor else ''}{max_floors} floors, "
+           f"{minutes:g} minutes, or an unfamiliar screen")
     deadline = time.monotonic() + minutes * 60
     cleared = unknowns = 0
     last_state = last_floor = None
@@ -116,7 +119,6 @@ def climb(dev: Device, det: StateDetector, tower: Optional[str] = None, to_floor
         elif d.state in ("battle", "loading"):
             time.sleep(2)
         elif d.state == "tower_result":
-            ensure_auto_challenge(dev)
             line = " ".join(t for t, _ in det.read_text(RESULT_FLOOR_ROI))
             floor = floor_of(line)
             if d.text == "VICTORY" and floor is not None and floor == last_floor:
@@ -125,6 +127,7 @@ def climb(dev: Device, det: StateDetector, tower: Optional[str] = None, to_floor
             last_floor = floor
             if d.text == "VICTORY":
                 cleared += 1
+                ensure_auto_challenge(dev)  # not after a loss: ticking it there would start a retry
                 log.info("cleared %s (%d this run)", line or "a floor", cleared)
                 if to_floor and floor and floor >= to_floor:
                     dev.tap(*nav.BACK_ARROW)  # back to the floors, not on to the next fight
@@ -151,6 +154,7 @@ def climb(dev: Device, det: StateDetector, tower: Optional[str] = None, to_floor
             time.sleep(1.2)
         elif d.state == "unknown":
             if unknowns >= 5:
+                log.warning("unfamiliar screen; frame saved to %s", save_unknown(dev, "tower"))
                 return "unknown_screen"
             time.sleep(1.5)
         else:

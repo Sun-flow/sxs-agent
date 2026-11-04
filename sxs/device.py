@@ -87,3 +87,21 @@ class Device:
         """Package of the focused window, or None if it can't be read."""
         m = re.search(r"mCurrentFocus=Window\{\S+ \S+ ([\w.]+)/", self.shell("dumpsys", "window"))
         return m.group(1) if m else None
+
+
+def save_unknown(dev: "Device", why: str) -> Path:
+    """Save the current frame to captures/unknown/ when a loop stops on a screen it doesn't recognise (mae,
+    2026-11-04: an unfamiliar screen is flagged and the loop ends early, never idles). Returns the path."""
+    import cv2
+    out = REPO_ROOT / "captures" / "unknown"
+    out.mkdir(parents=True, exist_ok=True)
+    path = out / f"{time.strftime('%Y%m%d-%H%M%S')}-{why}.png"
+    cv2.imwrite(str(path), dev.screenshot())
+    return path
+
+
+def banner(log, name: str, goal: str, end: str) -> None:
+    """mae's loop banner (2026-11-04), printed when a loop starts so a watcher can see what it's for and when it
+    stops: [Running X Loop] / [Goal: ...] / [End condition: ...]."""
+    for line in (f"[Running {name} Loop]", f"[Goal: {goal}]", f"[End condition: {end}]"):
+        log.info(line)
