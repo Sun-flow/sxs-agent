@@ -784,7 +784,7 @@ Entry format:
   - **Apprentice I to II** (done 2026-11-04 09:24, mae approved): costs 5 grey stones, 20 Bellflowers (R-123) and 5.5K Rolla. A "RANK UP" screen follows; tap to continue. The cap went from 20 to 30 and the stored XP applied at once (Lv 20 to 21; power 14.8K to 16.4K). The rank Goals tab then had 1 free claim (R-116). At Lv 20/20 the Bellflowers had blocked all further levelling.
   - **Apprentice II to III** (cap 30 to 40): first "Reach Max Level to Unlock Next Rank" (Lv 30). It costs 5 of a green leaf item (9 owned), 30 of a new flower item (0/30, probably from another Flower Harvest; its name isn't recorded yet ❓) and 10.5K Rolla.
 - **Confidence**: observed. **Source**: upgrade-systems batch 1; builder's "Bellflower + Rank II" batch, 2026-11-04.
-- **Images**: `docs/screens/rank_advancement.png`, `docs/screens/rank_up_result.png` (builder's next upgrade-systems push).
+- **Images**: `docs/screens/rank_advancement.png`, `docs/screens/rank_up_result.png` (upgrade-systems branch).
 - **Related**: R-048, R-049, R-101, R-116, R-123, node `rank_advancement`.
 
 ### R-119 · Gear Resonance: free bonuses when all four pieces reach a band
@@ -818,7 +818,7 @@ Entry format:
   - **Done**: at 20/20 Akane says "You've got everything you need! Go for that rank advancement!" (dialogue; tap to continue). Home then shows a tutorial overlay highlighting Character, the rank badge and Advance (R-036).
   - The first time, following the source link also played the home tutorial that unlocks the Vendor Booth (R-120). mae's priority (08:58): Bellflowers and Rank Advancement come before mapping the shops.
 - **Confidence**: observed; tapping the plants told (mae). **Source**: upgrade-systems builder, 2026-11-04 08:20 to 09:24.
-- **Images**: `docs/screens/item_bellflower.png`, `docs/screens/explore_bellflower_tracker.png`, `docs/screens/explore_bellflower_field.png`, `docs/screens/explore_bellflower_field_wide.png`, `docs/screens/explore_bellflower_picked.png`, `docs/screens/explore_bellflower_done_dialogue.png` (builder's next upgrade-systems push); template `resource/image/explore/bellflower.png`, from mae's picture `resource/image/explore/bellflower_mae.png`.
+- **Images**: `docs/screens/item_bellflower.png`, `docs/screens/explore_bellflower_tracker.png`, `docs/screens/explore_bellflower_field.png`, `docs/screens/explore_bellflower_field_wide.png`, `docs/screens/explore_bellflower_picked.png`, `docs/screens/explore_bellflower_done_dialogue.png` (upgrade-systems branch); template `resource/image/explore/bellflower.png`, from mae's picture `resource/image/explore/bellflower_mae.png`.
 - **Related**: R-057, R-107, R-118, R-120, R-122, R-124.
 
 ### R-124 · What the gather collector taps, in order
