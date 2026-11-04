@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/`; templates in `resource/image/`.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-123).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-125).
 
 Entry format:
 
@@ -243,7 +243,7 @@ Entry format:
 - **Related**: R-003 (blessed statues likely raise the bed's Blessing Level ❓), R-020, R-101, nodes `home_house`, `bed`.
 
 ### R-036 · How the tutorial points at the next tap
-- **Rule**: The tutorial marks what to tap with (a) a bright yellow pulsing rounded frame around it, (b) a small Akane chibi bubble ("Tap to unlock", "Tap to speed up", "Upgrade skill to Lv. 5") about 0.08 of the screen height above the button, or sometimes (c) a white or pale frame instead of yellow. Step 3's tutorial follower handles (a) and (b). Unlock results show a full-screen "UNLOCKED ..." card; tap to continue.
+- **Rule**: The tutorial marks what to tap with (a) a bright yellow pulsing rounded frame around it, (b) a small Akane chibi bubble ("Tap to unlock", "Tap to speed up", "Upgrade skill to Lv. 5") about 0.08 of the screen height above the button, or sometimes (c) a white or pale frame instead of yellow. Step 3's tutorial follower handles (a) and (b). Unlock results show a full-screen "UNLOCKED ..." card; tap to continue. Later example: the home tutorial after the Bellflower harvest highlights Character, then the rank badge, then Advance. The detector reads it as unknown and `nav.go_home` failed on it once. Tap the highlighted control (R-123).
 - **Confidence**: observed. **Source**: builder batch 5.
 - **Images**: `docs/screens/tutorial_highlight.png`, `docs/screens/tutorial_highlight_dim.png`, `docs/screens/unlocked.png`.
 - **Related**: R-007, R-028, node `tap_to_continue`.
@@ -779,11 +779,13 @@ Entry format:
 - **Images**: `docs/screens/class_page.png`, `docs/screens/class_hierarchy.png`, `docs/screens/class_badge_received.png`, `docs/screens/class_info.png`, `docs/screens/class_upgrade.png`.
 - **Related**: R-054, R-080, R-116, node `class_ascend`.
 
-### R-118 · Rank Advancement raises the level cap; Bellflowers block it now
-- **Rule**: Tapping the rank badge ("Apprentice I", about (0.82, 0.72)) on Character opens Rank Advancement (R-048). Apprentice I to II raises the max level from 20 to 30 and costs a grey stone item (18/5 owned), 20 Bellflowers (0 owned) and 5.5K Rolla. Bellflowers come from "Verdantglade Flower Harvest": on Character, tap the Apprentice badge, then the Bellflower icon, then Source "Verdantglade Flower Harvest" (»), then OK on "Enter Verdantglade to explore?". This adds a Bellflower tracker ("0/20") to the left panel and a ring pointing at the field in Moonveil Woods (about (0.23, 0.07) on screen): white-bell plants on green stems. Each pick adds 1 to the tracker. Other players can stand in the field (one seen: "Bellcranel"); never tap them (R-057). Picking Bellflowers costs no stamina, unlike other pickups (R-107). Gather them by tapping the flower plants themselves in the world, as with ore, sand and Rolla pickups. Tapping the tracker ring around the character or the Bellflower icon does nothing (mae, 09:02). Go to the nearest plant, taking blue-aura plants first (R-122). Following the item's source link first started the home tutorial that unlocks the Vendor Booth (R-120). mae's priority (08:58): the Bellflower hunt and Rank Advancement come before mapping the shops. gromb2 is at Lv 20/20, so Bellflowers block all further levelling. The bot advances only when the Advance button itself shows "!". Done 2026-11-04 09:24: Apprentice I to II cost 20 Bellflowers, 5.5K Rolla and 5 grey stones, with no Dawnium. It raised the cap to 30, and the stored XP applied at once (Lv 20 to 21; power 14.8K to 16.4K). One free rank goal was then claimable (R-116). Next, Apprentice III (cap 40) needs Lv 30 plus 30 of a new flower item whose name isn't recorded yet ❓. The shared `collect(target)` gather call picked the whole Bellflower field in about 80 s, tapping only the plants.
-- **Confidence**: observed. **Source**: upgrade-systems batch 1.
-- **Images**: `docs/screens/rank_advancement.png`, `docs/screens/item_bellflower.png`, `docs/screens/explore_bellflower_tracker.png`, `docs/screens/explore_bellflower_field.png`, `docs/screens/explore_bellflower_field_wide.png`, `docs/screens/explore_bellflower_picked.png`.
-- **Related**: R-048, R-049, R-057, R-101, R-122, node `rank_advancement`.
+### R-118 · Rank Advancement raises the level cap
+- **Rule**: Tapping the rank badge ("Apprentice I", about (0.82, 0.72)) on Character opens Rank Advancement (R-048). The bot advances only when the Advance button itself shows "!", and only with free materials (no Dawnium).
+  - **Apprentice I to II** (done 2026-11-04 09:24, mae approved): costs 5 grey stones, 20 Bellflowers (R-123) and 5.5K Rolla. A "RANK UP" screen follows; tap to continue. The cap went from 20 to 30 and the stored XP applied at once (Lv 20 to 21; power 14.8K to 16.4K). The rank Goals tab then had 1 free claim (R-116). At Lv 20/20 the Bellflowers had blocked all further levelling.
+  - **Apprentice II to III** (cap 30 to 40): first "Reach Max Level to Unlock Next Rank" (Lv 30). It costs 5 of a green leaf item (9 owned), 30 of a new flower item (0/30, probably from another Flower Harvest; its name isn't recorded yet ❓) and 10.5K Rolla.
+- **Confidence**: observed. **Source**: upgrade-systems batch 1; builder's "Bellflower + Rank II" batch, 2026-11-04.
+- **Images**: `docs/screens/rank_advancement.png`, `docs/screens/rank_up_result.png` (builder's next upgrade-systems push).
+- **Related**: R-048, R-049, R-101, R-116, R-123, node `rank_advancement`.
 
 ### R-119 · Gear Resonance: free bonuses when all four pieces reach a band
 - **Rule**: Enhance Gear, then Resonance (0.86, 0.20): each tier reads "Enhance Gear x4 to +N" (N = 5, 10, 15 ... 35 and up, with bonuses like HP +2% or ATK +2%) and shows Activate once all 4 equipped pieces reach +N. The tiers match the 5-level bands of R-092, so activate each tier as soon as a band completes. Fix note: the Enhance Gear level reader once read "+9 → +10" as 10 because OCR doesn't return text left to right; it now takes the leftmost number.
@@ -792,10 +794,10 @@ Entry format:
 - **Related**: R-023, R-092, node `enhance_gear`.
 
 ### R-120 · Molly's Vendor Booth: a daily-refresh shop on home
-- **Rule**: Following the Bellflower item's source link (R-118) started a home tutorial with Akane and Molly that ends with "Vendor Booth (Furniture): Unlock" (Molly: "new goodies pop up every single day"), which is free, then "UNLOCKED". The booth now stands on the home scene with a "!". The booth is Molly's shop on the home scene, and its stock refreshes daily. What it sells and what it costs aren't known yet ❓. Shop policy (mae, 2026-11-04 08:17), for the Vendor Booth, the Guild Shop and every other shop: map every item (name, cost, currency, limits) into a table, mae marks which are buyable, and those become a per-shop buy list in the repo. The bot buys nothing in a shop until its buy list exists (R-043).
+- **Rule**: Following the Bellflower item's source link (R-123) started a home tutorial with Akane and Molly that ends with "Vendor Booth (Furniture): Unlock" (Molly: "new goodies pop up every single day"), which is free, then "UNLOCKED". The booth now stands on the home scene with a "!". The booth is Molly's shop on the home scene, and its stock refreshes daily. What it sells and what it costs aren't known yet ❓. Shop policy (mae, 2026-11-04 08:17), for the Vendor Booth, the Guild Shop and every other shop: map every item (name, cost, currency, limits) into a table, mae marks which are buyable, and those become a per-shop buy list in the repo. The bot buys nothing in a shop until its buy list exists (R-043).
 - **Confidence**: observed; shop policy told (mae). **Source**: upgrade-systems builder, 2026-11-04 08:18; mae 08:17.
 - **Images**: `docs/screens/home_white_sheet_tutorial.png`, `docs/screens/vendor_booth_unlock.png`.
-- **Related**: R-043, R-118, node `home`.
+- **Related**: R-043, R-123, node `home`.
 
 ### R-121 · Mall: claim the free gift boxes, never the packs
 - **Rule**: Every Mall pack costs real money (USD): Welcome Gift, Halloween Charmer, Little Devil, Pilgrimage Pass, Daily Deals, Weekly Deals, and Pathfinder Pack (USD 0.99 for stamina). The bot never taps a pack (R-043). Each pack page has a free gift box at the top left, marked "!" when it can be claimed, and mae says the bot may tap these (2026-11-04 08:49). Route: Home menu (0.92, 0.79), then Mall (0.72, 0.65), opens "Premium Picks" (state `mall`), with bottom tabs Event, Monthly Pass and Top Up (never Top Up). The box sits at the top left of each page with a red "!" just above and to its right, and one tap claims it. The boxes are Daily Gift (4 h refresh), Weekly Gift (5 d refresh), Welcome Benefit (claimable once, gave +30 Dawnium), plus boxes on Halloween Charmer and Little Devil. The bot claims each box once per refresh and taps nothing else on the page. Code: `sxs/mall.py`, daily step `mall_gifts`.
@@ -807,4 +809,27 @@ Entry format:
 - **Rule**: Overworld pickup items that have a blue aura around them are rarer and give bonus ingredients. The gather and harvest loops pick them before plain pickups whenever both are in reach.
 - **Confidence**: told (mae). **Source**: mae, 2026-11-04 09:02.
 - **Images**: none yet.
-- **Related**: R-106, R-107, R-108, R-109, R-118.
+- **Related**: R-106, R-107, R-108, R-109, R-123, R-124.
+
+### R-123 · Bellflowers: the free Verdantglade Flower Harvest
+- **Rule**: Route: Character (0.11, 0.97), then the Apprentice rank badge (0.82, 0.72), then the middle cost icon on Rank Advancement (0.50, 0.74), then the item card's Source row "Verdantglade Flower Harvest »" (0.82, 0.59), then OK on "Enter Verdantglade to explore?" (0.68, 0.57). This lands in Verdantglade II at about minimap (181, 90), with a Bellflower tracker "a/20" on the left panel and an edge ring pointing at the field. Code: `Gatherer.enter_bellflower_field()` in `sxs/gather.py`.
+  - **Field**: Moonveil Woods, about minimap (169, 94) to (169, 95). It's the clearing south of the big hollow-tree arch, with a stone statue on its west side. About 8 white-bell plants on green stems respawn there.
+  - **Picking**: tap the plants themselves in the world, never the tracker ring over the character or the Bellflower icon (mae, 09:02). Picks are free (no stamina, unlike R-107), and each gave +2 on the tracker (2 to 20 in 9 picks). Blue-aura plants go first (R-122). Other players can stand in the field (one seen: "Bellcranel"); never tap them (R-057).
+  - **Done**: at 20/20 Akane says "You've got everything you need! Go for that rank advancement!" (dialogue; tap to continue). Home then shows a tutorial overlay highlighting Character, the rank badge and Advance (R-036).
+  - The first time, following the source link also played the home tutorial that unlocks the Vendor Booth (R-120). mae's priority (08:58): Bellflowers and Rank Advancement come before mapping the shops.
+- **Confidence**: observed; tapping the plants told (mae). **Source**: upgrade-systems builder, 2026-11-04 08:20 to 09:24.
+- **Images**: `docs/screens/item_bellflower.png`, `docs/screens/explore_bellflower_tracker.png`, `docs/screens/explore_bellflower_field.png`, `docs/screens/explore_bellflower_field_wide.png`, `docs/screens/explore_bellflower_picked.png`, `docs/screens/explore_bellflower_done_dialogue.png` (builder's next upgrade-systems push); template `resource/image/explore/bellflower.png`, from mae's picture `resource/image/explore/bellflower_mae.png`.
+- **Related**: R-057, R-107, R-118, R-120, R-122, R-124.
+
+### R-124 · What the gather collector taps, in order
+- **Rule**: The shared `collect(target)` in `sxs/gather.py` gathers ore, sand, essence, Rolla and Bellflowers. Each pass it taps the first of these it can see:
+  1. a green-timer special node (R-109);
+  2. material objects on the ground, found by template or by the "5" stamina label, blue-aura ones first (R-122);
+  3. the tracking ring, but only if it's more than 70 px from the character;
+  4. the edge ring;
+  5. a walk to the minimap ring.
+  
+  It never taps the ring or icon over the character. The Bellflower template is mae's picture at 1.3x, threshold 0.6. That found all 5 plants in the wide field capture, with no hits on ore, boars, the tracker or world-map screens. It cleared the Bellflower field in about 80 s.
+- **Confidence**: observed. **Source**: upgrade-systems builder, 2026-11-04 09:24.
+- **Images**: `docs/screens/explore_bellflower_field_wide.png`.
+- **Related**: R-106 to R-109, R-122, R-123.
