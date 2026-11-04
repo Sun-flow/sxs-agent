@@ -6,6 +6,8 @@
 ## Working with mae
 
 - mae wants the system split into components that run scripts without constant model calls; the model is for being stuck or planning. mae likes the "agent writes its own scripts" pattern: when a model solves something, save it as a script so it costs nothing next time.
+- Loops must check semi-regularly whether they are stuck, even during automated runs (no progress, same screen or card repeating), and stop or recover. A stuck case that keeps recurring means the loop needs to be made more robust, not just restarted (mae, 2026-11-04).
+- Loops must be composable: one loop can call another and then resume, for example the area exploration loop runs the multi-floor dungeon loop when it meets a dungeon, then carries on exploring (mae, 2026-11-04).
 - Budget: a Claude subscription now, a local model later. Don't design anything that needs a model call per action.
 - Windows first; Linux is fine where it is easier.
 - It is a test account and a learning project; the game's terms of service are not a concern. Decompiling the APK is allowed.
