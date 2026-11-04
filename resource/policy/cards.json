@@ -101,7 +101,7 @@
                     "explore"
                 ]
             },
-            "why": "The Voyage Obelisk is the gate to the next kingdom (Originisle V \u2192 Verdantglade); the quest marker points at it, and activating it is free."
+            "why": "The Voyage Obelisk is the gate to the next kingdom (Originisle V → Verdantglade); the quest marker points at it, and activating it is free."
         },
         {
             "kind": "goddess_statue",
@@ -131,17 +131,7 @@
             "kind": "dungeon_floor",
             "match": ": Floor \\d+",
             "choose": "^Next Floor$",
-            "when": {
-                "hp_ok": true
-            },
-            "why": "Floor cleared; keep climbing while healthy."
-        },
-        {
-            "kind": "dungeon_floor",
-            "match": ": Floor \\d+",
-            "choose": "dismiss",
-            "why": "Leave the dungeon (back arrow) when HP is low.",
-            "dismiss_by": "back"
+            "why": "Floor cleared; keep climbing. Low HP isn't a reason to leave a mini-dungeon (mae, 2026-11-04): heal mid-run (the wounded dialog's Quick Heal, or the profile) and go on."
         }
     ]
 }

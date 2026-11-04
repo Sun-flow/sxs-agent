@@ -30,6 +30,7 @@
 - After a restart the game resumes on the last screen, so a cold start can land on the world map instead of home.
 - The auto-mode classifier refused running a helper script from the session scratchpad; keep helper scripts in `scripts/`.
 - Seasons partly reset levels, so unlock-level assumptions need re-checking each season (step 1 doc, section 3).
+- Mini-dungeons (mae, 2026-11-04): low HP is no reason to leave; heal mid-run and keep going (Next Floor always; the wounded dialog offers Quick Heal between floors).
 - Never start a fight under 70% HP (mae, 2026-11-04): explore and fog walk read the HUD bar before every map tap and heal from the profile (Quick Heal); explore stops with `low_hp` if 3 heals don't lift it.
 - Loop rules from mae (2026-11-04): every loop checks regularly whether it's stuck (heartbeat, watchdogs) and ends early with a reason rather than idling; if a loop gets stuck regularly, make it more robust rather than restarting it. Unfamiliar screens are flagged (frame saved to `captures/unknown/`) and end the loop. Loops call each other (explore hands Fantasia Ascent to `sxs.tower` and resumes). When starting a loop, post mae a banner: `[Running X Loop]` / `[Goal: ...]` / `[End condition: ...]` (the loops also log it).
 - Fantasia Ascent (mae, 2026-11-04): Auto Challenge always on, no retries, one run a day as a daily (`logs/daily.json`).
