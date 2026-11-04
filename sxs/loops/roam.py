@@ -45,7 +45,7 @@ from . import fogwalk
 
 log = logging.getLogger("sxs.loops.roam")
 
-STATUE_TEMPLATE = RESOURCE / "image" / "areamap" / "lost_statue.png"  # from docs/screens/area_map_lv22.png
+STATUE_TEMPLATE = RESOURCE / "image" / "areamap" / "lost_statue.png"  # from docs/screens/world/area_map_lv22.png
 STATUE_THRESHOLD = 0.8
 STATUE_NEAR_LABEL = 260  # px on the area map: statues this close to an area's label belong to it
 MAP_ROI = [0, 120, 720, 1100]  # labels below y 1185 are the kingdom buttons
@@ -295,10 +295,10 @@ class Roamer:
 
 
 def _args(p) -> None:
-    p.add_argument("--minutes", type=float, default=30)
+    p.add_argument("--minutes", type=float, default=2)  # mae, 2026-11-04: runs of 1-2 minutes
     p.add_argument("--area", help="explore only this area (as named on the area map)")
     p.add_argument("--max-areas", type=int, default=2)
-    p.add_argument("--walk-minutes", type=float, default=10, help="fog walk budget per pass")
+    p.add_argument("--walk-minutes", type=float, default=2, help="fog walk budget per pass")
 
 
 def _run(ctx, opts):

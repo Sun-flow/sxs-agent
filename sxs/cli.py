@@ -2,6 +2,8 @@
 
     python -m sxs <loop> [options]           run a loop (list below; `python -m sxs <loop> --help` for its options)
     python -m sxs see badges|minimap|gift [FRAME ...]   run one detector on frames (default: a live screenshot)
+    python -m sxs bank                       copy unfamiliar frames (captures/unknown/) into docs/screens/unlabeled/
+    python -m sxs label                      file the screens mae labelled in docs/screens/unlabeled/README.md
 
     python -m sxs screenshot [out.png]       save the current frame
     python -m sxs tap X Y
@@ -9,7 +11,7 @@
     python -m sxs back
     python -m sxs start | stop               launch or kill the game
     python -m sxs state [--save DIR]         print the detected screen state as JSON
-    python -m sxs capture NAME               save a reference screenshot to docs/screens/NAME.png
+    python -m sxs capture NAME               save a reference screenshot to docs/screens/<folder>/NAME.png
     python -m sxs watch [--interval 2]       print the state whenever it changes (Ctrl+C to stop)
 
 Coordinates are in the game's portrait frame, 720 wide by 1280 tall.
@@ -80,6 +82,19 @@ def main(argv: list[str] | None = None) -> int:
             print(f"usage: python -m sxs see {{{','.join(SEE)}}} [FRAME ...]", file=sys.stderr)
             return 2
         return importlib.import_module(SEE[argv[1]]).main(argv[2:])
+    if argv and argv[0] in ("bank", "label"):
+        from .core import screens
+
+        if argv[0] == "bank":
+            new = screens.bank(_save_reference)
+            print(f"{len(new)} new screen(s) in docs/screens/unlabeled/: " + ", ".join(new) if new else
+                  "nothing new to bank")
+            return 0
+        filed, problems = screens.label()
+        for line in filed + problems:
+            print(line)
+        print(f"{len(filed)} filed, {len(problems)} left in the bank with a problem")
+        return 1 if problems else 0
     if address:
         argv = ["--address", address, *argv]
     if not argv or argv[0] in ("-h", "--help") or argv[0] not in (*DEVICE_COMMANDS, "--address"):
@@ -116,7 +131,10 @@ def main(argv: list[str] | None = None) -> int:
     elif args.cmd == "stop":
         dev.stop_game()
     elif args.cmd == "capture":
-        print(_save_reference(dev.screenshot(), SCREENS_DIR / f"{args.name}.png"))
+        from .core.screens import folder_for
+
+        folder = folder_for(args.name)  # by prefix; a name no folder takes goes to unlabeled/
+        print(_save_reference(dev.screenshot(), SCREENS_DIR / folder / f"{args.name}.png"))
     elif args.cmd in ("state", "watch"):
         from .core.state import StateDetector
         det = StateDetector(dev)

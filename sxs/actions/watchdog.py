@@ -6,9 +6,13 @@ import logging
 import time
 from typing import Optional
 
+from ..core.loop import progress
+
 log = logging.getLogger("sxs.watchdog")
 
 HEARTBEAT_S = 30  # liveness log line and stuck check interval
+BUSY_STATES = ("battle", "loading", "background_fight")  # waiting here is not being stuck
+BUSY_TICK_S = 20
 
 
 class Heartbeat:
@@ -21,14 +25,18 @@ class Heartbeat:
         self.last = None
         self.same = 0
 
-    def check(self, d, progress: Optional[str], progress_at: float) -> None:
+    def check(self, d, progress_text: Optional[str], progress_at: float) -> None:
+        # Tell the runner's stall check where we are: the tracker reading, the screen and the map coordinates.
+        # A fight or a loading screen counts as moving (it ends by itself), so a long battle isn't "stalled".
+        busy = int(time.monotonic() // BUSY_TICK_S) if d.state in BUSY_STATES else None
+        progress((progress_text, d.state, d.text, busy))
         if time.monotonic() < self.next_at:
             return
         self.next_at = time.monotonic() + HEARTBEAT_S
         snap = (d.state, d.text)
         self.same = self.same + 1 if snap == self.last else 0
         self.last = snap
-        log.info("heartbeat: %s %s | tracker %r | %ds since progress%s", d.state, d.text or "", progress,
+        log.info("heartbeat: %s %s | tracker %r | %ds since progress%s", d.state, d.text or "", progress_text,
                  time.monotonic() - progress_at, f" | unchanged x{self.same}" if self.same >= 2 else "")
 
 

@@ -37,7 +37,7 @@ from typing import Callable
 from ..actions.common import close_rewards
 from ..core import ui
 from ..core.device import save_unknown
-from ..core.loop import Loop, banner
+from ..core.loop import OVER_BUDGET, Loop, banner, task
 from ..core.marks import done_today, mark_done
 from ..core.nav import Navigator
 from ..policy import claims
@@ -46,6 +46,11 @@ from . import gather, guild, mall, tower, upgrade, vendor
 from .strengthen import Strengthener
 
 log = logging.getLogger("sxs.loops.daily")
+
+# mae, 2026-11-04: discrete tasks of 1-2 minutes. Each step gets STEP_BUDGET_S and is stopped (not retried) when it
+# runs over or stops making progress; the whole sequence is capped at DAILY_BUDGET_S.
+STEP_BUDGET_S = 120
+DAILY_BUDGET_S = 20 * 60
 
 FEATURED_SIGNIN = (360, 720)  # Featured list: Daily Sign-in card
 FEATURED_GROWTH = (360, 470)  # Featured list: Growth Trial card
@@ -202,10 +207,10 @@ class Dailies:
         ("quests", False), ("gather", False), ("strengthen", False), ("quests", False), ("strengthen", False),
     ]
 
-    def run(self, only: set = None, force: bool = False, step_minutes: float = 12) -> dict:
+    def run(self, only: set = None, force: bool = False, step_s: float = STEP_BUDGET_S) -> dict:
         names = [n for n, _ in self.STEPS if not only or n in only]
         banner(log, "Dailies", f"run the daily chores and upgrade passes: {', '.join(dict.fromkeys(names))}",
-               f"every step tried once (budget {step_minutes:g} min each), or 2 failed recoveries to home")
+               f"every step tried once (budget {step_s:g} s each), or 2 failed recoveries to home")
         results, failures = {}, 0
         repeat_ok = True  # the second quests/strengthen pass runs only if the first quests pass claimed something
         for name, once in self.STEPS:
@@ -220,14 +225,17 @@ class Dailies:
             log.info("[step %s]", name)
             fn: Callable[[], str] = getattr(self, name)
             t0 = time.monotonic()
-            try:
-                result = fn()
-            except Exception as e:  # noqa: BLE001  a step must not take the loop down
-                log.warning("[%s] failed: %s; frame %s", name, e, save_unknown(self.dev, f"daily_{name}"))
-                result = "error"
-            if time.monotonic() - t0 > step_minutes * 60:
-                log.warning("[%s] ran over its %g min budget", name, step_minutes)
-            if result not in OK:
+            result = "error"
+            with task(name, step_s) as watch:
+                try:
+                    result = fn()
+                except Exception as e:  # noqa: BLE001  a step must not take the loop down
+                    log.warning("[%s] failed: %s; frame %s", name, e, save_unknown(self.dev, f"daily_{name}"))
+            if watch.status:  # over its budget or stalled: stopped, not retried; the next run picks it up
+                log.warning("[%s] %s after %.0f s; frame %s", name, watch.status, time.monotonic() - t0,
+                            save_unknown(self.dev, f"daily_{name}_{watch.status}"))
+                result = watch.status
+            if result not in OK and result != OVER_BUDGET:  # a step cut for time isn't a failure to recover from
                 failures += 1
             elif once:
                 mark_done(name)
@@ -260,4 +268,4 @@ def _run(ctx, opts):
 
 
 LOOP = Loop("daily", "Dailies", "every daily chore not done today, then the upgrade passes", _run, _args,
-            ok={"done"})
+            ok={"done"}, budget=DAILY_BUDGET_S)

@@ -9,23 +9,35 @@ Readouts  when it starts, the loop prints mae's banner ([Running X Loop] / [Goal
           When it ends, the runner logs `[Result X] status` and prints one JSON line to stdout:
           {"loop": "explore", "status": "complete", "ok": true, "seconds": 812, ...data}.
           Exit code: 0 ok, 1 stopped for a reason that needs a look, 2 refused (bad or unauthorised input).
+Time      loops run briefly (mae, 2026-11-04: 1-2 minutes, never 10+). Every run has a budget (`Loop.budget`,
+          `--budget SECONDS`) and ends "over_budget" when it passes it. A loop that reports progress with
+          `progress(what)` also ends "stalled" when nothing has moved for `--stall` seconds, instead of bashing
+          into the same obstacle. Inside a loop, `with task(name, seconds) as t:` gives one step its own budget
+          and stall limit: the step stops, `t.status` says why, and the loop carries on with the next step.
 
 Run any loop with `python -m sxs <name> [options]`; `python -m sxs --help` lists them.
 """
 
 from __future__ import annotations
 
+import _thread
 import argparse
 import json
 import logging
+import threading
 import time
+from contextlib import contextmanager
 from dataclasses import dataclass, field
-from typing import Any, Callable, Optional
+from typing import Any, Callable, Iterator, Optional
 
 log = logging.getLogger("sxs.loop")
 
 LOG_FORMAT = "%(asctime)s %(message)s"
 REFUSED = "refused"
+OVER_BUDGET, STALLED, INTERRUPTED = "over_budget", "stalled", "interrupted"
+DEFAULT_BUDGET_S = 120  # mae, 2026-11-04: 1-2 minutes per loop
+DEFAULT_STALL_S = 60  # no progress for this long = stuck: stop and report instead of retrying
+GRACE_S = 15  # a loop with its own timer gets this long to stop cleanly before the runner stops it
 
 
 @dataclass
@@ -71,6 +83,114 @@ class Loop:
     args: Optional[Callable[[argparse.ArgumentParser], None]] = None
     ok: set[str] = field(default_factory=lambda: {"done", "nothing"})
     needs_detector: bool = True
+    budget: float = DEFAULT_BUDGET_S  # seconds; override per run with --budget
+
+
+# --- time budget and progress watchdog -----------------------------------------------------------------------------
+
+class _Watch:
+    """One budget: a deadline, the last progress report, and why it fired (if it did)."""
+
+    def __init__(self, name: str, budget: float, stall: float):
+        now = time.monotonic()
+        self.name, self.deadline, self.stall = name, now + budget, stall
+        self.progress_at: Optional[float] = None  # None until the code reports progress at least once
+        self.progress_what: Optional[str] = None
+        self.status: Optional[str] = None  # OVER_BUDGET / STALLED once fired
+
+    def due(self, now: float) -> Optional[str]:
+        if now >= self.deadline:
+            return OVER_BUDGET
+        if self.progress_at is not None and now - self.progress_at >= self.stall:
+            return STALLED
+        return None
+
+
+_watches: list[_Watch] = []
+_lock = threading.Lock()
+_fired: Optional[_Watch] = None
+_ticker: Optional[threading.Thread] = None
+
+
+def _tick() -> None:
+    global _fired
+    while True:
+        time.sleep(0.5)
+        with _lock:
+            if _fired is None:
+                now = time.monotonic()
+                for w in reversed(_watches):  # innermost first
+                    why = w.due(now)
+                    if why:
+                        w.status, _fired = why, w
+                        log.warning("[%s] %s: stopping it (%s)", w.name, why, _detail(w, now))
+                        _thread.interrupt_main()
+                        break
+
+
+def _detail(w: _Watch, now: float) -> str:
+    if w.status == STALLED:
+        return f"no progress for {now - w.progress_at:.0f} s; last: {w.progress_what}"
+    return "time budget used up"
+
+
+@contextmanager
+def task(name: str, budget: float = DEFAULT_BUDGET_S, stall: float = DEFAULT_STALL_S) -> Iterator[_Watch]:
+    """Give a block its own time budget and stall limit. If either fires, the block is stopped (an exception raised
+    wherever it is, usually during a sleep or a screenshot) and `watch.status` is OVER_BUDGET or STALLED; the code
+    after the `with` carries on. Runs only in the main thread."""
+    global _ticker, _fired
+    w = _Watch(name, budget, stall)
+    with _lock:
+        _watches.append(w)
+        if _ticker is None:
+            _ticker = threading.Thread(target=_tick, name="sxs-watchdog", daemon=True)
+            _ticker.start()
+    caught = False
+    try:
+        yield w
+    except KeyboardInterrupt:
+        caught = True
+        with _lock:
+            mine, outer = _fired is w, _fired is not None and _fired is not w
+            if mine:
+                _fired = None
+        if not mine:
+            if outer:
+                raise  # an outer budget fired: let it reach its own `with`
+            w.status = INTERRUPTED  # Ctrl+C from a person
+            raise
+    finally:
+        with _lock:
+            if w in _watches:
+                _watches.remove(w)
+            late = _fired is w  # fired just as the block finished; its interrupt is still on its way
+            if late:
+                _fired = None
+        if late and not caught:
+            try:
+                time.sleep(1)  # absorb it here rather than in whatever runs next
+            except KeyboardInterrupt:
+                pass
+
+
+def progress(what: Any = None) -> None:
+    """Report where the current loop or task stands (a tracker reading, map coordinates, a pickup count). Only a
+    change counts as progress. The first call arms the stall check: no change for --stall seconds ends the run (or
+    the task) as "stalled". Loops that never call it are only bound by their time budget."""
+    now = time.monotonic()
+    with _lock:
+        for w in _watches:
+            if w.progress_what != what or w.progress_at is None:
+                w.progress_at, w.progress_what = now, what
+
+
+def seconds_left() -> Optional[float]:
+    """Time left in the innermost budget, so a loop can skip starting something it can't finish."""
+    with _lock:
+        if not _watches:
+            return None
+        return min(w.deadline for w in _watches) - time.monotonic()
 
 
 def banner(logger, name: str, goal: str, end: str) -> None:
@@ -90,16 +210,43 @@ def connect(address: Optional[str] = None, detector: bool = True) -> Ctx:
     return Ctx(dev, det, Navigator(dev, det) if det else None)
 
 
+def _go_home(ctx: Ctx) -> None:
+    """After a stopped run, try to leave the game on home for the next loop (bounded, best effort)."""
+    if not ctx.nav:
+        return
+    with task("go home after stop", 45, 45) as w:
+        try:
+            ctx.nav.go_home()
+        except Exception as e:  # noqa: BLE001
+            log.warning("could not get home after the stop: %s", e)
+    if w.status:
+        log.warning("could not get home after the stop (%s)", w.status)
+
+
 def run_cli(loop: Loop, argv: Optional[list[str]] = None, address: Optional[str] = None) -> int:
     """Parse the loop's options, connect, run it, print the readout. Returns the exit code."""
     p = argparse.ArgumentParser(prog=f"python -m sxs {loop.name}", description=loop.summary)
     if loop.args:
         loop.args(p)
+    p.add_argument("--budget", type=float, default=None,
+                   help=f"stop after this many seconds (default {loop.budget:g}; a --minutes option adds to it)")
+    p.add_argument("--stall", type=float, default=DEFAULT_STALL_S,
+                   help="stop when the loop reports no progress for this many seconds")
     opts = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format=LOG_FORMAT, datefmt="%H:%M:%S")
+    budget = opts.budget
+    if budget is None:
+        own = getattr(opts, "minutes", None)  # a loop with its own timer stops itself; the runner is the backstop
+        budget = max(loop.budget, own * 60 + GRACE_S) if own else loop.budget
     t0 = time.monotonic()
     ctx = connect(address, loop.needs_detector)
-    result = as_result(loop.run(ctx, opts), loop.ok)
+    with task(loop.title, budget, opts.stall) as watch:
+        raw = loop.run(ctx, opts)
+    if watch.status:
+        result = Result(watch.status, False, {"budget_s": round(budget), "last_progress": watch.progress_what})
+        _go_home(ctx)
+    else:
+        result = as_result(raw, loop.ok)
     readout = result.readout(loop.name, time.monotonic() - t0)
     log.info("[Result %s] %s%s", loop.title, result.status, "" if result.ok else " (needs a look)")
     print(json.dumps(readout, default=str), flush=True)

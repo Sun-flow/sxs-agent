@@ -69,12 +69,12 @@ for path in sorted((ROOT / "resource" / "policy").glob("*.json")):
 # Commands: `python -m sxs <name>` must be a registered loop (sxs/loops/__init__.py REGISTRY, read as text so this
 # check needs no MaaFramework), a device command in sxs/cli.py or `see`. The old `python -m sxs.<module>` form is gone.
 REGISTRY = set(re.findall(r'^\s+"([a-z_]+)": "sxs\.', (ROOT / "sxs" / "loops" / "__init__.py").read_text(), re.M))
-CLI_WORDS = {"see", "--help", "-h", "--address", "<loop>", "<name>"}
+CLI_WORDS = {"see", "bank", "label", "--help", "-h", "--address", "<loop>", "<name>"}
 CLI_WORDS |= set(re.findall(r'"([a-z]+)"', re.search(r"DEVICE_COMMANDS = \(([^)]*)\)",
                                                        (ROOT / "sxs" / "cli.py").read_text()).group(1)))
 OLD_REF = re.compile(r"python3? -m sxs\.([a-z_.]+)")
 CMD_REF = re.compile(r"python3? -m sxs ([a-z<>_-]+)")
-CODE_REF = re.compile(r"\b(sxs/[a-z_/]+\.py)\b")
+CODE_REF = re.compile(r"\b(sxs/[a-z_/]+\.py|docs/screens/[a-z_/0-9]+\.png)\b")
 SCRIPT_REF = re.compile(r"\b((?:scripts|tests)[/\\][a-z][\w-]*\.py)\b")
 texts = [p for p in ROOT.glob("*.md")] + list((ROOT / "docs").glob("*.md")) + list((ROOT / "memory-bank").rglob("*.md"))
 texts += list((ROOT / "sxs").rglob("*.py")) + list((ROOT / "scripts").glob("*.py")) + list((ROOT / "tests").glob("*.py"))
@@ -101,6 +101,15 @@ for path in sorted(list((ROOT / "sxs").rglob("*.py")) + list((ROOT / "scripts").
         py_compile.compile(str(path), doraise=True, cfile=str(ROOT / ".maa" / "pycheck.pyc"))
     except py_compile.PyCompileError as e:
         problems.append(f"{path.relative_to(ROOT)}: does not compile ({e.msg})")
+
+# Screens: every reference screen sits in a folder, and expected.json names only screens that exist.
+screens = ROOT / "docs" / "screens"
+for p in sorted(screens.glob("*.png")):
+    problems.append(f"docs/screens/{p.name}: put it in a folder (sxs/core/screens.py FOLDERS) or unlabeled/")
+names = {p.stem for p in screens.rglob("*.png")}
+for name in sorted(json.loads((screens / "expected.json").read_text(encoding="utf-8"))["states"]):
+    if name not in names:
+        problems.append(f"docs/screens/expected.json: {name} has no screenshot")
 
 if problems:
     print("\n".join(problems))

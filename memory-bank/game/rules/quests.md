@@ -14,7 +14,7 @@ Do each quest the quest guide shows, in order.
 - **Claim** a finished quest (a/b with a = b, or a counterless one done) with the gift icon at the tracker's right end, not the text. Templates `resource/image/explore/tracker_gift.png` (home and map) and the smaller `resource/image/explore/tracker_gift_map.png` (map's olive panel, about (0.36-0.42, 0.77)). It moves with title length and animates: match by template over a few frames or with a looser threshold.
 - **Unfinished**: tapping the title opens its detail card (Details, Goal, Rewards, Go or Track); the ">" arrow offers travel to its island (R-089).
 - On home, scene labels can pollute the tracker's OCR (R-059).
-*observed* · `quest_detail_go.png`, `world_map_tracker_gift.png` · node `quest_detail` · R-022, R-059, R-089
+*observed* · `dailies/quest_detail_go.png`, `world/world_map_tracker_gift.png` · node `quest_detail` · R-022, R-059, R-089
 
 ### R-099 · Guidance quests are an ore source
 Menu > Quest > Guidance: Helmet / Armor / Boots Enhancement I ("Enhance a helmet to +15": 80 Raw Ore, 50 Refined Ore), Cart Upgrade I (1K Rolla), Skill Mastery. Steer toward them; the ore feeds gear (R-092). The Achievement tab's weekly achievements (Daily Dungeon, Crucible of Hieromon, Split Mirage) refresh Mondays 8:00 UTC-5 (R-024).
@@ -33,12 +33,12 @@ The target icon on the tracker (about (0.40, 0.79); yellow on, grey off) toggles
 
 ### R-021 · The Explore counter rises with fog, pickups, fights and objects
 "Explore Originisle I n/100" gains from walking into fog, pickups (gold piles, plants, chests), beating roaming monsters and using map objects (R-030). At 100/100 claim from the tracker gift (R-044). It's separate from the area map's % (R-076).
-*observed* · `world_map_explore.png`, `world_map_quest_complete.png` · node `world_map` · R-002, R-044
+*observed* · `world/world_map_explore.png`, `world/world_map_quest_complete.png` · node `world_map` · R-002, R-044
 
 ### R-041 · Beat a target's bracketed guards before it responds
 Some targets (the Pink Bird on Originisle III) are ringed by monsters with gold corner brackets (`resource/image/explore/guard_bracket.png`; the monster is about (-35, +50) px from the corner). The target only repeats a line ("Chirp! Chirp!") until all of them are beaten. Dialogue reply options are white pills with a black arrow.
-*observed* · `dialogue_choice.png` · R-022, R-062
+*observed* · `dialogs/dialogue_choice.png` · R-022, R-062
 
 ### R-082 · Counterless unlock quests: talk to the NPC, then the gate
 E.g. "Moonveil Woods I: Unlock Moonveil Woods": talk to the red "!" NPC (Molly, R-062), then tap the dungeon gate (red "!", glowing rune). Its card, titled with the area name, has First Clear Rewards and a free Challenge at (0.5, 0.79) (20 rounds: wolf boss and 3 wolves). Then claim from the tracker gift (R-044).
-*observed* · `quest_detail_unlock.png`, `dungeon_gate_moonveil.png` · R-044, R-062, R-064
+*observed* · `dailies/quest_detail_unlock.png`, `world/dungeon_gate_moonveil.png` · R-044, R-062, R-064

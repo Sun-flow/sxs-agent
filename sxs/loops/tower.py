@@ -165,7 +165,7 @@ def _args(p) -> None:
     p.add_argument("--tower", help="tower name on the Fantasia Ascent list, e.g. 'Moonveil Woods'")
     p.add_argument("--to", type=int, help="stop after clearing this floor (a quest's 'Reach <Tower> Fn')")
     p.add_argument("--floors", type=int, default=110, help="most floors to clear in one run")
-    p.add_argument("--minutes", type=float, default=15)
+    p.add_argument("--minutes", type=float, default=2)  # mae, 2026-11-04: runs of 1-2 minutes
 
 
 def _run(ctx, opts):

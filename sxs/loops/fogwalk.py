@@ -275,7 +275,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
 
 
 def _args(p) -> None:
-    p.add_argument("--minutes", type=float, default=10)
+    p.add_argument("--minutes", type=float, default=2)  # mae, 2026-11-04: runs of 1-2 minutes
     p.add_argument("--area", help="area to explore, as named on the area map (walks there first)")
 
 

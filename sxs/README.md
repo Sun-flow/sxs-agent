@@ -8,6 +8,7 @@ Run from the repo root on the Windows PC (`.venv\Scripts\python`, shown below as
     python -m sxs <loop> [options]          # run a loop, e.g. python -m sxs daily --only guild
     python -m sxs <loop> --help             # that loop's options
     python -m sxs see badges|minimap|gift [FRAME ...]   # run one detector on saved frames or a live screenshot
+    python -m sxs bank | label             # unlabelled-screens bank (docs/screens/README.md)
     python -m sxs state | screenshot | tap X Y | swipe ... | back | start | stop | capture NAME | watch
 
 Coordinates are in the 720×1280 portrait frame. No module calls a model.
@@ -33,7 +34,14 @@ Every loop has the same inputs, outputs and readouts:
   `{"loop": "explore", "status": "complete", "ok": true, "seconds": 812, ...}`.
   Exit code 0 ok, 1 needs a look, 2 refused (a `refused: ...` status, e.g. pray without approval).
 
-`tests/check_loops.py` checks every registered loop against this offline.
+- **Time.** Runs are short (mae, 2026-11-04: 1-2 minutes, never 10+). Every run has a budget (`Loop.budget`,
+  default 120 s; `--budget SECONDS`; a loop's own `--minutes` plus 15 s grace) and ends `over_budget` when it
+  passes it, then goes home. Code that calls `progress(reading)` (the Heartbeat in explore and fogwalk, the
+  collector in gather) also ends `stalled` when the reading hasn't changed for `--stall` seconds (default 60;
+  fights and loading screens count as moving). `with task(name, seconds) as t:` gives one step its own budget:
+  daily runs each step that way (120 s each, 20 min in all), so a stuck step is cut and the next one starts.
+
+`tests/check_loops.py` checks every registered loop against this offline, including the budget and stall stops.
 
 ## Loops
 
@@ -69,13 +77,16 @@ Who calls whom: `daily` → `mall`, `vendor`, `tower`, `guild`, `gather`, `stren
 | HP before a fight | `actions/heal.py`: `hp_ok`, `quick_heal`, `heal_via_portrait` (70% rule) |
 | Stuck or unfamiliar screens | `actions/watchdog.py` (`Heartbeat`, `UnknownScreens`), `actions/unstick.py`, `device.save_unknown` → `captures/unknown/` |
 | Repo paths | `core/paths.py` (`RESOURCE`, `POLICY`, `SCREENS`, `CAPTURES`, `LOGS`) |
+| Reference screenshots | `core/screens.py`: `folder_for(name)`, `find(name)`, `reference_screens()`, `load_expected()`, the bank |
 
 Read logs without MaaFramework's chatter: `grep -v -i "nemu\|product:\|same day\|^x:\|after convert"`.
 
 ## Adding things
 
 - A new screen: capture it (`python -m sxs capture NAME`), add a `State.*` node, add it to
-  `tests/check_states_offline.py` EXPECTED. Steps in `docs/step2-hands-and-eyes.md` "Adding a screen".
+  `docs/screens/expected.json`. Steps in `docs/step2-hands-and-eyes.md` "Adding a screen".
+- An unfamiliar screen from a run: `python -m sxs bank`, mae labels it in `docs/screens/unlabeled/README.md`,
+  then `python -m sxs label` (see `docs/screens/README.md`).
 - A new loop: a module in `loops/` with `LOOP = Loop(...)` and a line in `loops/__init__.py` REGISTRY. Log the banner
   at start, keep a time budget, `save_unknown` on unfamiliar screens, return a status. Wire it into `daily.py` if
   it's once a day. Then run `python tests/check_loops.py`.

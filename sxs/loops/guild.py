@@ -33,7 +33,7 @@ from ..vision.ocr import int_in, read_int, read_line
 log = logging.getLogger("sxs.loops.guild")
 
 ISLAND_LABELS = [0, 80, 720, 900]  # where building labels sit on the guild island
-LOBBY_HOME = (316, 624)  # where the "Guild Lobby" label sits in the west view (docs/screens/guild_island_west.png)
+LOBBY_HOME = (316, 624)  # where the "Guild Lobby" label sits in the west view (docs/screens/guild/guild_island_west.png)
 FROM_LOBBY = {"Gate of Expedition": (274, 196)}  # building tap point relative to the Lobby label in that view
 LOBBY_DONATION = (212, 1052)
 DONATION_COUNT_ROI = [160, 860, 400, 50]  # "Daily Donations: N/5"

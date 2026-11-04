@@ -23,7 +23,7 @@
 Format: `- what — branch, PR, environment (started)`. Remove the line when it merges or is dropped.
 
 - Package restructure (mae's proposals 1–5): `sxs/` split into `core/ vision/ policy/ actions/ loops/`, shared helpers (screen coordinates, OCR, heal, reward/dialogue pass-through, watchdog, unstick), explore split, one loop contract and `python -m sxs <loop>` — `claude/project-thread-kb6hi9`, cloud (2026-11-04). Offline checks pass; untested live.
-- Screenshot folders for `docs/screens/` and a bank of unlabelled screens for mae: plan posted, waiting for mae's go.
+- Screenshot folders (folders under `docs/screens/`, `docs/screens/expected.json`) and the unlabelled-screens bank (`python -m sxs bank` / `label`) — same branch and PR (2026-11-04).
 
 ## Next (in order)
 
@@ -34,6 +34,8 @@ Format: `- what — branch, PR, environment (started)`. Remove the line when it 
 5. Older: test HP logic when HP drops below 70% while alive; minimap classifier per area palette; model supervisor for `unknown_*` stops.
 
 ## Waiting on mae
+
+- Label the 9 screens in `docs/screens/unlabeled/README.md` (and any new ones `python -m sxs bank` adds), then `python -m sxs label`.
 
 - Fill the Buy? column in `docs/shop-tables.md`; buy nothing until then.
 - Show where the Home "collect all goals" control is (R-116).

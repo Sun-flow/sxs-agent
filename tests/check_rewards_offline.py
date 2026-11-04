@@ -13,6 +13,7 @@ import cv2
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
+from sxs.core.screens import reference_screens  # noqa: E402
 from sxs.vision import gift  # noqa: E402
 
 SCREENS = ROOT / "docs" / "screens"
@@ -26,7 +27,7 @@ CLAIMABLE = {
 
 def main() -> int:
     bad = []
-    for p in sorted(SCREENS.glob("*.png")):
+    for p in reference_screens():
         frame = cv2.imread(str(p))
         if frame is None or frame.shape[:2] != (1280, 720):
             continue
@@ -34,7 +35,7 @@ def main() -> int:
         if got != (p.stem in CLAIMABLE):
             bad.append(f"{p.name}: expected {p.stem in CLAIMABLE}, got {got}")
     # Same frame with the badge painted over: the gift alone is not enough.
-    frame = cv2.imread(str(SCREENS / "world_map_tracker_gift.png"))
+    frame = cv2.imread(str(SCREENS / "world/world_map_tracker_gift.png"))
     gx, gy = gift.find_gift(frame)
     dx, dy, w, h = gift.BADGE_BOX
     frame[gy + dy:gy - 25, gx + dx:gx + dx + w] = frame[gy + 20, gx + 60]

@@ -10,5 +10,5 @@ Design notes, one per plan step. The code is the source of truth; these explain 
 | `step4-dailies.md` | `sxs.loops.daily` steps and routes |
 | `step5-upgrades.md` | Upgrade Loop and Gather Loop |
 | `shop-tables.md` | Shop stock and mae's Buy? marks |
-| `screens/` | Reference screenshots (`tests/check_states_offline.py` runs on the top level); `icons/`, `minimap/` crops |
+| `screens/` | Reference screenshots in folders by situation, `expected.json`, the `unlabeled/` bank; index in `screens/README.md` |
 | `archive/` | History only (old log entries), never instructions |

@@ -4,7 +4,7 @@ When a tracked quest is done, the right end of the tracker panel (lower left of 
 shows a yellow gift box with a red "!" badge above its right corner. mae, 2026-11-04: in the general exploration
 loops, tap it when both are there, close the reward card and carry on. Reference: mae's crop
 `docs/screens/icons/reward_gift_box_mae.png`; template `resource/image/explore/reward_gift.png` (the gift on the
-dark panel, 36x36). It also matches the olive "finished" panel (`docs/screens/world_map_tracker_gift.png`).
+dark panel, 36x36). It also matches the olive "finished" panel (`docs/screens/world/world_map_tracker_gift.png`).
 
 The "!" pulses between red and a dull orange-brown, so the badge check is looser than `badges.find_badges`: warm
 pixels in a disc with a white upright mark, in the box above and right of the gift (seen 21 px right, 69 px up).

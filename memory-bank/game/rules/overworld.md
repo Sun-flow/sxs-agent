@@ -16,7 +16,7 @@ Side areas have no quest but give resources and levels; walking into the fog edg
 
 ### R-025 · Tap to walk, swipe to pan; the camera doesn't follow
 Tap a spot to walk; swipe to pan. A tap inside fog doesn't move the character: tap tiles at its edge. The camera stays put after walking, so re-centre (drag the map or tap an edge pointer, R-074) before the next tap.
-*observed* · `world_map.png` · R-067, R-074
+*observed* · `world/world_map.png` · R-067, R-074
 
 ### R-074 · Edge pointers: tap one to pan the camera to its target
 Templates in `resource/image/explore/`:
@@ -25,7 +25,7 @@ Templates in `resource/image/explore/`:
 - Goddess Statue (R-070): `resource/image/explore/pointer_statue.png`;
 - "Unlock <area>": blue orb, `resource/image/explore/pointer_unlock.png`;
 - the player's own face in a white ring, when the camera drifted off them: `resource/image/explore/player_pointer.png`; tapping it re-centres on the player. Ignore the match on the top-left HUD avatar.
-*observed* · `world_map_player_pointer.png` · R-022, R-025
+*observed* · `world/world_map_player_pointer.png` · R-022, R-025
 
 ## Reading the minimap
 
@@ -56,15 +56,15 @@ Connections can be far off the straight line (Verdantglade II to Moonveil Woods 
 2. Tap the destination; the camera centres there.
 3. Close the map and tap the ground: the player auto-paths, around walls and through land bridges and unseen gaps.
 Zoom differs each opening: pick places by OCR'd label, never fixed positions. Match labels exactly, trailing numerals included ("Verdantglade III" is not "Verdantglade I"). A label in fog can't be reached this way (`no_move`): travel from home (R-089). Code: `python -m sxs goto "Area Name"` or `python -m sxs goto X Y`.
-*told, observed* · `world_area_map.png`, `world_map_moonveil_entry.png`, `world_area_map_stone_ruins.png` · node `area_map` · R-067, R-076, R-089
+*told, observed* · `world/world_area_map.png`, `world/world_map_moonveil_entry.png`, `world/world_area_map_stone_ruins.png` · node `area_map` · R-067, R-076, R-089
 
 ### R-089 · Travel from home through the quest tracker
 At home, tapping the tracker for a quest elsewhere asks "Travel to <Area> now?"; OK is free. Use it for areas whose area-map label is in fog.
-*observed* · `confirm_dialog.png` · node `confirm_dialog` · R-044, R-068
+*observed* · `dialogs/confirm_dialog.png` · node `confirm_dialog` · R-044, R-068
 
 ### R-069 · The Voyage Obelisk travels to the next kingdom
 "Your pathway to the next kingdom." Tap the obelisk once to select it, again to open its card, then Activate (Originisle to Verdantglade).
-*observed* · `interact_obelisk.png` · R-030
+*observed* · `world/interact_obelisk.png` · R-030
 
 ## Reading the area map
 
@@ -74,7 +74,7 @@ At home, tapping the tracker for a quest elsewhere asks "Travel to <Area> now?";
 - Lost Statue icon: `resource/image/areamap/lost_statue.png` at 0.8.
 - Edge labels are clipped on the left ("tglade III"); `sxs/loops/roam.py` accepts a 6+ letter suffix with matching numerals.
 - A 100% area with a red "!" probably has its statue waiting ❓. Sunrise Isle is at the bottom right of the Verdantglade map; its % isn't read ❓.
-*observed* · `world_area_map.png`, `area_map_lv22.png` · node `area_map` · R-068, R-070, R-084, R-086
+*observed* · `world/world_area_map.png`, `world/area_map_lv22.png` · node `area_map` · R-068, R-070, R-084, R-086
 
 ## Power walls and gates
 
@@ -85,13 +85,13 @@ Where recommended power is well above yours and fights end in losses (R-031), st
 ### R-086 · Gate of Power: a wall until power meets it, then press Open
 A stone pillar card "Gate of Power": "Requires: Power reaches 15.5K (Current: 8.1K)". Short of power there's no button: dismiss (policy kind `power_gate`); the fog walk stops there. With enough power a free "Open" shows at about (0.5, 0.74): press it (kind `power_gate_open`) and the pillar sinks.
 - Damp Woods: an area-map walk to its label from Verdantglade II lands at about (184, 86), a fogged pocket with a stone mini-dungeon, ore baskets, a statue and the 15.5K gate. Behind it: ore baskets, a glowing crystal and a duck-shaped item, free to tap; they finish Damp Woods. The minimap barely shows them under shadow, so the bot can't find them from it yet ❓.
-*observed* · `gate_of_power.png`, `gate_of_power_open.png` · R-065, R-070, R-084
+*observed* · `world/gate_of_power.png`, `world/gate_of_power_open.png` · R-065, R-070, R-084
 
 ## Map objects and statues
 
 ### R-030 · Map objects open a card with one action
 Tapping a map object (e.g. a Portal) opens a card with one button at (0.5, 0.70), e.g. "Activate"; using it adds Explore progress. Press only safe verbs: Activate, Collect, Claim, Open, Interact, Bless, Pray, Gather, Harvest, Mine, Examine, Read. **This never covers the Prayer gacha's Pray (R-093) or any spend button (R-043).** Card choices: R-042.
-*observed* · `interact_portal.png` · node `interact` · R-042, R-043
+*observed* · `world/interact_portal.png` · node `interact` · R-042, R-043
 
 ### R-070 · Goddess Statues bless a fully explored area
 - **Goddess Statue**: needs "Reach 100% exploration in <area>"; Unlock gives Blessing Level +1 (level 2 raised Max Cart Level 1→2 and AFK EXP 50→500): bless every area. "The Goddess's Grace I/II" follows each Explore quest; reach it via the statue pointer (R-074).
@@ -99,21 +99,21 @@ Tapping a map object (e.g. a Portal) opens a card with one button at (0.5, 0.70)
 - Match both with `^(Lost )?Goddess Statue$`.
 - **Already blessed**: "A starlit statue silently guards this Blessed Land", Regional Relics, no button. Dismiss and walk around it (kind `blessed_statue`).
 - Goddess, Witch and Hero statues can each be used once a day; whether these are the blessing statues is unknown ❓.
-*observed, reported* · `interact_goddess_statue.png`, `interact_goddess_statue_blessed.png`, `blessing_level.png`, `lost_goddess_statue.png` · R-002, R-074
+*observed, reported* · `world/interact_goddess_statue.png`, `world/interact_goddess_statue_blessed.png`, `world/blessing_level.png`, `world/lost_goddess_statue.png` · R-002, R-074
 
 ### R-085 · Stone tile floor puzzle: step on every tile for chests
 Stone Ruins I: a 2x2 floor of stone tiles; each lights cyan when stepped on. All 4 lit spawns two chests (about 60 Dawnium each, plus Rolla, ore, gear, Abundance Leaf). Each chest pops a gear-swap prompt (swap button bottom right) that closes with the reward popup.
-*observed* · `world_map_tile_puzzle_chests.png`, `gear_swap_prompt.png` · node `gear_swap_prompt`
+*observed* · `world/world_map_tile_puzzle_chests.png`, `character/gear_swap_prompt.png` · node `gear_swap_prompt`
 
 ### R-072 · Energy Circuits puzzle: not automated
 Ancient Fortress, "Energy Circuits": 3 slabs in a row; tap two to swap until all nodes link (swapping the end slabs solved the one seen). Reset is top right. The bot doesn't solve these yet.
-*observed* · `puzzle_energy_circuits.png` · node `puzzle_energy_circuits`
+*observed* · `world/puzzle_energy_circuits.png` · node `puzzle_energy_circuits`
 
 ## Target unreachable or quest not moving
 
 ### R-062 · Talk to red "!" NPCs first; they gate what's around them
 An NPC with a red "!" overhead gives instructions, then disappears and unlocks the objects around it. If the tracker points at something unreachable, find a red "!" NPC nearby and tap it. Template `resource/image/explore/npc_alert.png`; skip the "!" over the player (R-080). Example: the loot row by the Chief at the Originisle V pillar sits on a ledge (taps only walk to the grass below) until you talk to the Chief.
-*told, observed* · `world_map_loot_ledge.png` · R-064, R-080, R-082
+*told, observed* · `world/world_map_loot_ledge.png` · R-064, R-080, R-082
 
 ### R-064 · If the marker leads nowhere, follow NPC instructions
 Some quests rely on NPC dialogue, not the marker ("Unlock Moonveil Woods" pointed into fog). If tapping does nothing, open the area map (tap the minimap) and look for a "!" NPC (R-062). Log NPC dialogue text so missed directions can be read later.

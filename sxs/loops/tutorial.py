@@ -2,7 +2,7 @@
 
     python -m sxs tutorial [--steps 40]
 
-The tutorial marks the next thing to tap with a bright yellow rounded rectangle (docs/screens/tutorial_highlight.png).
+The tutorial marks the next thing to tap with a bright yellow rounded rectangle (docs/screens/dialogs/tutorial_highlight.png).
 find_highlight() finds it by colour; no model calls. Stops when there is no dialogue, popup or highlight left.
 """
 

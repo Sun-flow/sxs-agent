@@ -361,7 +361,7 @@
         "post_delay": 0
     },
     "State.TowerResult": {
-        "doc": "Fantasia Ascent (tower) result screen: VICTORY (top, with '<Tower> Fn' and Clear Rewards) or DEFEAT (mid-screen); Auto Challenge checkbox at (476, 1158) and Continue / Retry at (552, 1212). After a win Continue goes straight to the next floor's battle prep. A loss turns Auto Challenge off. Images: docs/screens/fantasia_victory.png, docs/screens/fantasia_defeat.png.",
+        "doc": "Fantasia Ascent (tower) result screen: VICTORY (top, with '<Tower> Fn' and Clear Rewards) or DEFEAT (mid-screen); Auto Challenge checkbox at (476, 1158) and Continue / Retry at (552, 1212). After a win Continue goes straight to the next floor's battle prep. A loss turns Auto Challenge off. Images: docs/screens/dailies/fantasia_victory.png, docs/screens/dailies/fantasia_defeat.png.",
         "recognition": "OCR",
         "expected": "^(VICTORY|DEFEAT|DEFEATED|FAILED|FAILURE)$",
         "roi": [
@@ -374,7 +374,7 @@
         "post_delay": 0
     },
     "State.TowerList": {
-        "doc": "Fantasia Ascent tower list (reached by the quest's Go, which travels home first). Each tower card shows 'Current: Fn/110'; tap the card to open its floors. Image: docs/screens/fantasia_ascent.png.",
+        "doc": "Fantasia Ascent tower list (reached by the quest's Go, which travels home first). Each tower card shows 'Current: Fn/110'; tap the card to open its floors. Image: docs/screens/dailies/fantasia_ascent.png.",
         "recognition": "OCR",
         "expected": "^Current: ?F\\d+",
         "roi": [
@@ -387,7 +387,7 @@
         "post_delay": 0
     },
     "State.TowerFloors": {
-        "doc": "One tower's floors (F1 at the bottom), tabs 'Fantasia Ascent' (detected) and 'Goals' at the bottom; the current floor shows the recommended power and a Challenge button at (610, 1096). Image: docs/screens/fantasia_floors.png.",
+        "doc": "One tower's floors (F1 at the bottom), tabs 'Fantasia Ascent' (detected) and 'Goals' at the bottom; the current floor shows the recommended power and a Challenge button at (610, 1096). Image: docs/screens/dailies/fantasia_floors.png.",
         "recognition": "OCR",
         "expected": "^Fantasia Ascent$",
         "roi": [

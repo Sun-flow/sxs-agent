@@ -41,7 +41,7 @@ Before you finish or hand work back, update the memory bank as `memory-bank/READ
 | `resource/` | MaaFramework bundle: pipelines, templates, OCR models, decision policies. |
 | `tests/` | Offline checks and the live smoke test. |
 | `scripts/` | Dev helpers and repo checks. |
-| `docs/` | Design notes (one per plan step), shop tables, reference screenshots in `docs/screens/`. |
+| `docs/` | Design notes (one per plan step), shop tables, reference screenshots in folders under `docs/screens/` (index and the unlabelled bank: `docs/screens/README.md`). |
 | `memory-bank/` | Agent memory: context, status, log, notes, decisions; `game/` holds game knowledge. |
 | `.agents/prompts/memory-bank.md` | The project-agnostic prompt that builds and maintains `memory-bank/` (copied from mae's TrackFlow-Company-Overhaul repo). |
 | captures/, logs/, .maa/ | Runtime output, gitignored. `scripts/clean.py` empties captures/. |

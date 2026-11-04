@@ -55,7 +55,7 @@ Policy: `resource/policy/cards.json`, `sxs/policy/decide.py`; nav-graph edges mi
 - Standard banner, Stellatie only (x10 = 10). The script never presses "+", cancels purchase prompts, and stops if Dawnium changes. The Affection banner (red tokens, x10 = 250) is not used.
 - Screen: tabs Prayer / Exchange / Goals, banner selector, "Prayers Today n/10000", "200 Prayers Bonus" (Legendary of choice), pity counter.
 - Stellatie: Daily Sign-in, 10 a day (R-097). Goals tab "Total Standard Prayers" milestones (10, 20 ... 60) are free claims; 10 paid 3 Iron Hammers (R-095).
-*told, observed* · `prayer.png`, `prayer_result.png`, `prayer_tickets.png`, `prayer_affection.png`, `furniture_statue.png` · node `prayer`, `prayer_result` · R-043, R-095, R-097
+*told, observed* · `home/prayer.png`, `home/prayer_result.png`, `home/prayer_tickets.png`, `home/prayer_affection.png`, `home/furniture_statue.png` · node `prayer`, `prayer_result` · R-043, R-095, R-097
 
 ## Class choice
 
@@ -64,7 +64,7 @@ Policy: `resource/policy/cards.json`, `sxs/policy/decide.py`; nav-graph edges mi
 - **The bot never chooses a class.** It picks Leave and stops with `needs_decision`; `python -m sxs explore --choose "<regex>"` applies a human's choice. mae chose **Mage**.
 - The class screen shows trait stats and a class-skill grid, Ascend at (0.5, 0.86).
 - Boss loot (chests, an orb, an ore pile) lies around the pillar: collect it.
-*observed, told* · `class_choice.png`, `class_ascend.png` · node `class_choice`, `class_ascend` · R-117, R-062
+*observed, told* · `character/class_choice.png`, `character/class_ascend.png` · node `class_choice`, `class_ascend` · R-117, R-062
 
 ## Social
 
@@ -72,8 +72,8 @@ Policy: `resource/policy/cards.json`, `sxs/policy/decide.py`; nav-graph edges mi
 - **Never accept, decline or touch social requests: mae's call.**
 - The badged person icon on the map's left edge (0.06, 0.6) opens "Apply" (Friends / Team Up / Challenge / Room; Decline All, Agree All). Don't use it.
 - Ignore Friend Request toasts (X / check) on home near the tracker. Never tap other players in the world (R-123).
-*observed, told* · `apply_requests.png` · node `apply_requests` · R-077, R-027, R-102
+*observed, told* · `guild/apply_requests.png` · node `apply_requests` · R-077, R-027, R-102
 
 ### R-077 · Leave the Team panel alone
 The flag at the map's top left (0.08, 0.12) opens the Team panel (Players, Team Goal, World Call / Invite / Nearby). **Don't touch it.**
-*observed* · `team.png` · node `team` · R-057
+*observed* · `home/team.png` · node `team` · R-057

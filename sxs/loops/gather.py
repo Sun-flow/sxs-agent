@@ -38,6 +38,7 @@ from ..core.nav import Navigator
 from ..core.paths import POLICY
 from ..vision.hud import read_stamina
 from ..vision.ocr import read_fraction, read_line
+from ..core.loop import progress as report_progress
 from ..vision.pickups import LEFT_PANEL, blue_aura, find_rings
 from ..vision.player import player_on_screen
 
@@ -60,7 +61,7 @@ COST = 5
 SELF_RADIUS = 70  # px round the character where nothing is tapped (the tracker icon/ring floats there after a pick)
 AURA_MIN = 0.04  # share of light-blue pixels round an object that marks a rare (blue-aura) one
 STALE_ACTIONS = 6  # map taps without progress before the loop stops (stuck)
-MAX_MINUTES = 15
+MAX_MINUTES = 2  # mae, 2026-11-04: runs of 1-2 minutes; the next run carries on
 
 
 @dataclass(frozen=True)
@@ -290,6 +291,7 @@ class Gatherer:
                     stale = 0
             if now is not None:
                 last = now
+            report_progress((target.name, taken, now))
             if target.progress == "tracker":
                 c = self.tracked_count()
                 if c and c[0] >= c[1]:

@@ -5,18 +5,20 @@
 Checks: each module imports and exposes LOOP with the registered name, a title and a summary; its option parser
 builds and parses a minimal command line; `as_result` maps str / dict / None the same way for every loop; and the pray
 loop refuses (exit 2) without --pulls N --handler-approved or with a pull count that isn't a multiple of 10,
-before it touches the device.
+before it touches the device. Also checks the time budget and stall watchdog (`task`, `progress`) stop a block
+and let the code after it carry on (about 4 seconds).
 """
 
 from __future__ import annotations
 
 import argparse
 import sys
+import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from sxs.core.loop import REFUSED, Ctx, Result, as_result  # noqa: E402
+from sxs.core.loop import OVER_BUDGET, REFUSED, STALLED, Ctx, Result, as_result, progress, task  # noqa: E402
 from sxs.loops import REGISTRY, get  # noqa: E402
 
 
@@ -58,6 +60,23 @@ def main() -> int:
         status = as_result(pray.run(ctx, p.parse_args(argv)), pray.ok).status
         if not status.startswith(REFUSED):
             bad.append(f"pray {argv}: not refused ({status})")
+
+    with task("budget check", 1) as w:
+        while True:
+            time.sleep(0.1)
+    if w.status != OVER_BUDGET:
+        bad.append(f"task budget: {w.status}")
+    with task("stall check", 30, stall=1) as w:
+        progress(1)
+        while True:
+            progress(1)  # the same reading again is not progress
+            time.sleep(0.1)
+    if w.status != STALLED:
+        bad.append(f"task stall: {w.status}")
+    with task("quick", 5) as w:
+        progress("a")
+    if w.status is not None:
+        bad.append(f"task quick: {w.status}")
 
     for b in bad:
         print("FAIL", b)
