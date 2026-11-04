@@ -1,41 +1,50 @@
 # Status
 
 > **Last updated**: 2026-11-04
+> Where the work stands now. Past sessions: `log.md`. How a builder works: `playbook.md`.
 
-**Current step**: Upgrade systems (2026-11-04, branch `upgrade-systems`): `python -m sxs.upgrade` follows every "!" on the Character screen (banded gear, Gear Resonance, Quick Upgrade, technique ascension, class levels, rank goals; relic banding defined ahead), `python -m sxs.gather` spends stamina above 70 on ore via Map Exploration; both are steps in `sxs.daily`. Blocker: Lv 20/20 cap, Rank Advancement needs 20 Bellflowers (Verdantglade Flower Harvest). See `docs/step5-upgrades.md`. Before that: Guild mapped and in the dailies (2026-11-04, branch `guild-tutorial`): gromb2 joined karsa_1515 with mae's OK; `sxs/guild.py` (donate x2, Forge AFK, Conquest in the background, goal claims) and a once-a-day bed XP step are in `python -m sxs.daily`. Next: mae's upgrade-systems list (skills quick upgrade, relic banding, stamina material gathering via Map Exploration). Earlier: step 4 dailies (PR #14). Earlier: step 3. The bot plays the quest line by itself (`python -m sxs.explore --chain`). Verdantglade is done up to its power walls: 5 areas cleared (I, II, Moonveil Woods, Stone Ruins I, Highland Woods). The main quest "Explore Verdantglade III" needs ~12K power (have 13.1K at Lv 20, untested); Damp Woods needs 15.5K. Read `memory-bank/handoff.md` first.
+## Game state (2026-11-04 11:40, rif-love-su)
 
-## Works
+- gromb2 on server Forgehall: Mage, Apprentice II, Lv 23/30, power 17.4K. Dawnium ~1.17K (never spent by the bot), Rolla ~33.6K, stamina ~122, Stellatie 0, Guild Tokens 760. Guild karsa_1515, gathering at the Forge.
+- Explored and blessed: Originisle I–V; Verdantglade I, II; Moonveil Woods; Stone Ruins I; Highland Woods; Damp Woods. Verdantglade III (12K, 0%) has no entrance on foot from Moonveil Woods (R-084). Fantasia Ascent Moonveil Woods F1–5.
+- Next rank (Apprentice III) needs Lv 30, 5 green leaf (have 9), 30 of an unnamed flower item, 10.5K Rolla (R-118).
 
-- Step 1 design doc: emulator choice (MuMu Player 12), toolkit (MaaFramework + MaaMCP), game survey and daily-content catalogue with a suggested iteration 1 scope. `docs/step1-emulator-and-game.md`, merged in PR #1.
-- Agent setup: `AGENTS.md` entry point, `CLAUDE.md`, this memory bank and `scripts/check-memory.py` (2026-11-03, PR #2).
-- Hands-and-eyes layer: MaaFramework device control over MuMu IPC (~7 ms screenshots), the `python -m sxs` CLI, the state detector, `Navigator.go_home()` from a cold start, the offline detector check and a live smoke test. `docs/step2-hands-and-eyes.md`, merged in PR #5 (2026-11-03).
-- Quest following (2026-11-03): `sxs/explore.py` follows the tracker marker and edge pointers (boss, statue, unlock). It fights; opens cards through the decision rules (`sxs/decide.py`, `resource/policy/cards.json`); climbs mini-dungeons; heals and retries per mae's rule; claims quests via the tracker gift; and gets unstuck by talking to NPCs with a red "!", fighting path blockers and guards, and panning the camera. `sxs/tutorial.py` follows the tutorial (yellow highlight, Akane hints; never spend-looking buttons). `sxs/strengthen.py` claims the Cart, enhances gear and upgrades techniques. `sxs/minimap.py` reads minimap tiles and finds a path to unexplored ground; `sxs/fogwalk.py` uses it for side areas (experimental). Story text is logged to the gitignored `logs/dialogue.log`. `docs/step3-explore.md`.
-- maes2024 game state (2026-11-04): account gromb2 on Forgehall, Lv 13, Mage, Apprentice I, power ~10K, Dawnium ~1.03K untouched by the bot. Originisle done; Verdantglade I, II, Moonveil Woods, Stone Ruins I and Highland Woods explored, statues blessed (Moonveil, Highland). Fantasia Ascent Moonveil Woods F5 cleared (today's run used). 3 of 4 charm slots filled.
-- Step 3 additions (2026-11-04): `sxs/goto.py` (walk via the area map), `sxs/tower.py` (Fantasia Ascent daily), charm and gear equipping in `sxs/strengthen.py`, loop banners, heartbeats, watchdogs and unknown-screen saves in all loops.
+## Works (all on main, PRs #1–#27)
+
+- Hands and eyes: MaaFramework device layer, state detector, `python -m sxs` CLI, offline detector check, smoke test (`docs/step2-hands-and-eyes.md`).
+- Quest line and exploration: `sxs.explore --chain`, `sxs.tutorial`, `sxs.goto`, `sxs.fogwalk`, `sxs.minimap`, `sxs.roam` (Roam Loop), `sxs.tower` (`docs/step3-explore.md`).
+- Dailies: `sxs.daily` runs sign-in, Cart, Growth Trial, Fantasia Ascent, Material Realms, quest claims, bed EXP, Mall gifts, Vendor free stamina, guild donate / Forge AFK / Conquest, gather, strengthen + Upgrade Loop (`docs/step4-dailies.md`).
+- Upgrades and gathering: `sxs.upgrade` follows character-screen badges (banded gear, Resonance, Quick Upgrade, ascension, class levels, rank; relic banding defined ahead); `sxs.gather` `collect(target)` for ore, sand, essence, Rolla, Bellflower (`docs/step5-upgrades.md`).
+- Pulls: `sxs.pray` (handler-approved, x10 only). Shop survey: `scripts/shop_survey.py`, tables in `docs/shop-tables.md`.
+- Game knowledge: `game/rules/` (by topic) and `game/nav-graph.json`.
 
 ## In progress
 
-Format: `- what — branch, PR, environment (started date)`. Remove the line when it merges or is dropped.
+Format: `- what — branch, PR, environment (started)`. Remove the line when it merges or is dropped.
 
-- Guild dailies and bed XP step - branch `guild-tutorial`, needs a PR, maes2024 via Remote Control (2026-11-04). Conquest with attempts left and the bed step are untested live (done by hand that day).
-- Upgrade and gather loops - branch `upgrade-systems` (from `guild-tutorial`), needs a PR, maes2024 via Remote Control (2026-11-04). Both ran live once; the skills/class/rank passes were tested by hand, not yet by the loop (no badges left on the second run).
-- Game rules and menu navigation graph (`memory-bank/game/`), filled in from rule batches the builder sends — branch `claude/project-thread-npg43i`, PRs #3, #4 and #6 merged; R-068 to R-077 in PR #8, cloud (2026-11-03).
+- Rules and docs consolidation (rules split by topic, memory bank slimmed) — `claude/project-thread-qq78yt`, cloud (2026-11-04).
+- Repo structure audit (index READMEs, script cleanup) — `claude/project-thread-kb6hi9`, cloud (2026-11-04).
 
-## Next
+## Next (in order)
 
-See `memory-bank/handoff.md` → "Next steps". In short: get stronger toward 12K (rank up, cook, daily Fantasia Ascent, Cart) and retry Verdantglade III; count "badly wounded" respawns as losses; badge sweep; daily pipelines; model supervisor.
+1. Conquest with tries left: watch it live after the 13:00Z reset.
+2. Fog Walk pickup detection on screen (glowing items): the minimap barely shows pickups under the unexplored shadow (R-086).
+3. Verdantglade III entrance: probably a quest unlock (R-084).
+4. Grand Iron/Sand Mine special nodes: seen in chat, not located (R-109).
+5. Older: test HP logic when HP drops below 70% while alive; minimap classifier per area palette; model supervisor for `unknown_*` stops.
 
-## Open questions
+## Waiting on mae
 
-- Daily reset time. The server clock is UTC-5 (shown on the main menu) and weekly achievement quests refresh Monday 08:00 UTC-5, but the daily reset hour is unknown. (`memory-bank/game/rules.md`, R-024)
-- Is co-op content in iteration 1?
-- Should chat channels on home be hidden in Settings → Game → Social Settings? It would cut OCR noise and stray taps, but it's a settings change, so it's left for mae.
+- Fill the Buy? column in `docs/shop-tables.md`; buy nothing until then.
+- Show where the Home "collect all goals" control is (R-116).
+- A blue-aura pickup crop, and the name of the Apprentice III flower item.
+- Is co-op content in iteration 1? Hide chat channels in Settings → Game → Social Settings (cuts OCR noise; a settings change, so mae's call)?
 
 ## Known problems
 
-- The minimap classifier was tuned in Verdantglade II; in Highland Woods it labels walkable explored tiles as walls, so the fog walk plans poorly there.
-
-- Cloud sessions can't download the APK (network policy blocks APK mirrors); it has to come from the emulator on maes2024.
-- maes2024 has no `gh` CLI, so PRs are opened from the cloud by the coordinator. Git push works.
-- The island-map camera doesn't follow the player, so screen-relative planning (minimap walker, blocker taps) needs the player located first: by the "gromb2" label, or by tapping the player edge pointer.
-- Quick Heal from the "badly wounded" dialog didn't seem to heal; Quick Heal from the player profile works.
+- Minimap classifier was tuned in Verdantglade II; in Highland Woods it labels walkable explored tiles as walls.
+- The island-map camera doesn't follow the player: locate the player first (the "gromb2" label or the player edge pointer).
+- Quick Heal from the "badly wounded" dialog didn't seem to heal; Quick Heal from the portrait works.
+- `equip_charms` taps the locked 4th charm slot and logs "loadout editor did not open" (harmless; skip locked slots).
+- Untested live: Conquest with tries left; roam's statue walk (`bless_near`); the skills/class/rank passes inside the Upgrade Loop; the green-timer special-node detector.
+- Post-rank tutorial overlays read as unknown; `nav.go_home` failed on one (R-036).

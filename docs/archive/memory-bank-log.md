@@ -2,6 +2,60 @@
 
 Older entries moved from `memory-bank/log.md`, newest first.
 
+### 2026-11-04 (morning) · Game docs: bed EXP (Claude Code, cloud)
+- PR #13 merged. mae: collect bed EXP daily, not in every upgrade pass, and sooner near a level-up (R-101); the guild unlocked at Lv 20 (R-011). Next: rule batches from the guild-mapping thread.
+- Dailies builder's final batch: guild crest icon at Lv 20 (R-011), bed EXP took Lv 13 to 20 (R-101), "Path to Upgrade: Reach Lv. 20" after Verdant Wonders III (R-084). Opened PR #16 for `dailies-wrapup` (handoff for the guild thread).
+
+### 2026-11-04 (late) · Game docs: final step 3 batch (Claude Code, cloud)
+- PRs #10 and #11 merged. Opened PR #12 for the builder's `step3-wrapup` branch (banded gear enhancement, handoff).
+- Final step 3 batch: the Enhance Gear screen and the `enhance_gear` node (R-023), HP bar positions on the map and battle prep (R-078, R-091), both loss dialogs and where a loss puts you (R-090), and exact area-label matching (R-068).
+- mae: skill pulls get a dedicated script that only the handler starts (R-093; R-055 updated).
+- Opened PR #14 for the dailies builder (`dailies-upgrades`). Dailies batch 1: R-094 to R-099 (Journal route to the tower, Material Realms and hammers, Thrilling Events, Daily Sign-in, Growth Trial, Guidance quests for ore); daily reset 8:00 UTC-5 (R-024); more never-press buttons (R-043); Notice board badges are unread posts (R-063). New screens `material_realms`, `ironvein_pit`, `purchase_iron_hammer`, `featured`, `daily_signin`, `growth_trial`. Images are on `dailies-upgrades` until PR #14 merges.
+- Dailies addendum: free Iron Hammers from Prayer Goals, ~115 Raw Ore each (R-095); pulls cost Stellatie and `sxs.pray` needs `--handler-approved` (R-093); banded enhancement confirmed live (R-092).
+- Dailies batch 2: Prayer banners and costs, Goals milestones paying hammers (R-093, R-095), home stuck on sky means restart (R-100), Friend Request toasts left alone (R-057).
+- PRs #12 and #14 merged; merged main into this branch, so the dailies screenshots now resolve.
+
+### 2026-11-04 · Dailies and upgrades (Claude Code, maes2024 via Remote Control)
+- Wrap-up: PR #14 merged. Also built `sxs/pray.py` (handler-triggered Standard pulls; not run yet, waiting on mae) and the Ironvein Pit daily step (hammers from prayer goals, ~115 Raw Ore each). mae collected bed XP by hand: Lv 20, power 13.1K, Guild unlocked with a tutorial. Handoff rewritten for the guild-mapping thread (branch `dailies-wrapup`). Open: mae's answer on pulls and on Mall free items; bed XP step waits for mae's icon screenshot.
+- Branch `dailies-upgrades` from `step3-wrapup`: `python -m sxs.daily` runs sign-in, Cart, Growth Trial, Fantasia Ascent (Journal tab entry, heal on prep, server-day marks), guidance quest claims and two strengthen passes. Safe claim helper `sxs/claims.py`. New states: enhance_gear, featured, daily_signin, growth_trial, journal, material_realms, notice; main_menu ROI widened. Live: all steps ran; gear enhancement is ore-bound (7 Raw Ore).
+- Found: Journal tab (Fantasia Ascent, Map Exploration, Material Realms, Weekly Events); Ironvein Pit needs Iron Hammers (bought only with Dawnium: never). Notice badges mean unread posts.
+
+### 2026-11-04 · Game docs: Fantasia Ascent (Claude Code, cloud)
+- PR #9 merged (memory check fix, healing rules, gold buildings, loop design rules). Added R-079 (Auto Challenge in Fantasia Ascent) and the `fantasia_ascent` screen.
+- R-079 addendum from the builder: a tower floor loss turns Auto Challenge off; re-enable it next time. mae: tower losses are not retried; one challenge per day as a daily mission. Branch `claude/project-thread-npg43i` fast-forwarded to main.
+- mae's design rule in `memory-bank/notes.md`: loops flag the unknown state and recover or end early with a report, instead of spinning.
+- mae's reporting rule in `memory-bank/notes.md`: each loop prints `[Running XXX Loop]`, `[Goal: ...]` and `[End condition: ...]` when it starts.
+- mae's correction: a red "!" over the player is not a heal signal (it can mean charms to equip). R-061 amended; new R-080 (check the character panel; heal only from the HP bar; red panel badge = empty Charm slot, blue = gear upgrade; marker next to the player can cause mis-taps).
+- Builder batch 11: R-081 to R-085 (map coordinates, counterless unlock quests, tracker gift claim, power wall at Verdantglade III, stone tile puzzle); R-068, R-074, R-076, R-079 and R-080 extended with goto, the player pointer, the tower flow and the charm loadout steps. New screens `fantasia_floors`, `fantasia_result`, `charm_detail`, `rcmd_loadouts`, `gear_swap_prompt`. Images are on the step 3 branch. All in PR #10.
+- Builder batch 12: R-086 to R-090 (Gate of Power, Highland Woods, replacing gear, travel from home, "badly wounded" as a loss); R-022, R-068, R-070, R-083 and R-084 extended (ring hiding the area name, map zoom and OCR labels, Lost Goddess Statue, gift claims for counter quests). New screens `replace_gear`, `gear_compare`. Same PR #10.
+- mae: heal mid-run in mini-dungeons instead of leaving (R-091). Auto Challenge timing refined in R-079. Opened PR #11 for the builder's `step3-explore` work and merged main into it.
+- mae: Quick Heal from the portrait on any screen (R-078); a defeat in a mini-dungeon resets the run (R-091); enhance gear evenly in 5-level bands with a priority order (R-092).
+- PR #11 (builder's step 3b code) merged; merged main back into this branch.
+
+### 2026-11-04 · Moonveil Woods, Fantasia Ascent, side areas, loop robustness (Claude Code, maes2024 via Remote Control)
+- Got into Moonveil Woods with mae's area-map procedure (now `sxs/goto.py`), talked to Molly, won the gate fight, climbed the Moonveil tower to F5 (new `sxs/tower.py`; lost F6). Explored Stone Ruins I (tile puzzle, two chests) and Highland Woods, blessed the Highland and Moonveil statues. Damp Woods is behind a 15.5K Gate of Power; Verdantglade III (12K) fights are lost at 10K. 5 Verdantglade areas done. Lv 13, power 10K (new gear via `equip_better_gear`, charms via `equip_charms`).
+- Loop robustness per mae: heartbeat lines, rotating unstick rounds, counterless-quest progress, own-profile watchdog, unknown screens saved to `captures/unknown/` before stopping, loop banners, fog walk stays in its area and stops when no new tile is reached. Branch `step3-explore`, PR #11.
+- Later the same day, from mae's notes: "badly wounded" counts as a loss, HP read from the HUD bar and the battle-prep bar with healing below 70% via the top-left portrait, mini-dungeons heal mid-run, gold-building POIs on the minimap, banded gear enhancement (branch `step3-wrapup`). PR #11 merged step3-explore.
+- Open: Verdantglade III needs about 12K power; the low-HP paths and banded enhancement need live tests; the minimap classifier mislabels Highland Woods' darker walkable tiles. Next thread: dailies and upgrades.
+
+### 2026-11-03 (late) · Game docs after PR #6 (Claude Code, cloud)
+- PR #6 merged batches 4 to 9 and mae's rules up to R-067. Added R-068 (travel through the full area map) and the `area_map` screen; branch `claude/project-thread-npg43i` fast-forwarded to main.
+- Builder batch 10 (handoff): R-069 to R-077 (obelisk, Goddess Statue blessing, mines, puzzle, path blockers, edge pointers, home events, area map, team panel); minimap crops and HSV thresholds linked to R-066; `puzzle_energy_circuits`, `team` and `blessing_level` screens. Same PR #8.
+- Merged main after PR #7, so the images from batches 4 to 10 now resolve on main.
+
+### 2026-11-03 (late) · Verdantglade I–II, minimap reader, handoff (Claude Code, maes2024 via Remote Control)
+- Talked to the Chief to open the Originisle V loot (NPC "!" gating), activated the Voyage Obelisk, then cleared and blessed Verdantglade I and II (Lv 12, 7.7K power). Added: talk to NPC "!" when stuck, fight path blockers (wolf templates), edge pointers (boss, statue, unlock), the tracker gift claim, rules for the obelisk, goddess statue and mines, mae's heal-and-retry rule, dialogue logging, `sxs/minimap.py` and `sxs/fogwalk.py`. Branch `step3-explore`, PR #7.
+- Open: Moonveil Woods route (blocker); handed off in `memory-bank/handoff.md` at mae's request.
+
+### 2026-11-03 (evening) · Mage, prayer, strengthen routine (Claude Code, maes2024 via Remote Control)
+- mae chose Mage, and the character ascended. The tutorial unlocked the Statue and Prayer (10 free tickets used), and Cyclone and Flame Jet are equipped. Added `--choose` to `sxs.explore`, stall guards (vary tap offset, give up), unknown screens through the decider, a spend guard in the tutorial follower, and `sxs/strengthen.py`. Rule batch 9 went to the docs thread. Branch `step3-explore`, PR #7.
+- Open: the unreachable loot on Originisle V blocks Wild Isle Trek V.
+
+### 2026-11-03 (night) · Step 3 start: quest following (Claude Code, maes2024 via Remote Control)
+- mae asked me to keep playing the tutorial overnight and map screens. Built `sxs/explore.py` (tracker-marker loop with chaining), `sxs/tutorial.py` (highlight and hint follower), `sxs/decide.py` with `resource/policy/cards.json` (goal-based card decisions, per mae's design note), `scripts/enhance_all.py` and `docs/step3-explore.md`. Branch `step3-explore`.
+- Account went from Lv 2 to Lv 10: Originisle I–V, Temple Ruins floor 1, the Guardian Colossi boss, rank Apprentice I. Rule batches 4–7 went to the docs thread through the coordinator.
+- Open: class choice (mae), automating strengthening, a PR for `step3-explore`.
+
 ### 2026-11-03 · Game docs batch 4 (Claude Code, cloud)
 - Builder batch 4 (step 3 explore loop): added `interact` and `defeated` screens and their taps to `memory-bank/game/nav-graph.json`; rules R-029 to R-034 (Trek quest chain, map object cards, defeat, camera, stamina regen, exploration rewards) and the quest-ring offset in R-022. Branch `claude/project-thread-npg43i` fast-forwarded to main after PR #4.
 - Batch 5 added to the same PR: cart, house, bed, unlock result and skill/technique screens; rules R-035 to R-039; Cart income in R-020.

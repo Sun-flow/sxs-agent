@@ -1,38 +1,36 @@
 # Memory Bank
 
-> **Last updated**: 2026-11-03
+> **Last updated**: 2026-11-04
 > Built from the project-agnostic prompt in `.agents/prompts/memory-bank.md`. That file has the full rules and the reasoning behind them; this one is the short version for this repo.
 
 Agents forget everything between sessions, and the next session may be a different agent or tool in a different environment (a cloud session, or a session on mae's Windows PC). These files carry what would otherwise be lost. They are **memory, not standards**: the binding docs are listed below, and this folder points to them instead of copying them.
 
 ## Read at the start of every session
 
-1. Run `python3 scripts/check-memory.py`. Besides checking the bank, it lists any commits that changed the repo after the bank was last updated; skim those so you know which memory might be stale.
-2. `context.md`: what the project is, the plan's steps, how to run things, and where each kind of fact lives.
-3. `status.md`: what works, what's in progress, what's next, open questions.
-4. `log.md`: the top three or so entries, to see what the last sessions did and left open.
-5. `notes.md`: before anything that touches mae's preferences or the environment (emulator, PC, network).
-6. `decisions.md`: before changing the emulator, toolkit, OS or model strategy.
-
-Then read the docs and code your task needs.
+1. Run `python3 scripts/check-memory.py`. It also lists commits that changed the repo after the bank was last updated; skim them so you know which memory might be stale.
+2. `context.md`: what the project is, the plan, the stack, and where each kind of fact lives.
+3. `status.md`: game state, what works, what's next, what waits on mae.
+4. `log.md`: the top two or three entries.
+5. Then only what your task needs: `playbook.md` if you play the game; `game/rules/README.md` to find the rules for your situation (always `game/rules/policy.md` before pressing anything that might spend or is social); `notes.md` before anything touching mae's preferences or loop design; `environments.md` before touching a PC, the emulator or the network; `decisions.md` before changing the emulator, toolkit, OS or model strategy.
 
 ## The files
 
 | File | For | Update when | Budget |
 |---|---|---|---|
 | `README.md` | This map and the maintenance rules. | A memory file is added, removed or repurposed. | ~120 lines |
-| `context.md` | Orientation: purpose, plan, stack, commands, where facts live. | Scope, stack, commands or doc layout change. | ~100 lines |
-| `status.md` | Works / In progress / Next / Open questions / Known problems. Each "In progress" item names its branch, PR and environment. | Any session that changes the state of the work. | ~80 lines |
-| `log.md` | Session handoffs, newest first. | End of every session that changed something. | ~15 entries, then move the oldest to `docs/archive/memory-bank-log.md` (create it the first time) |
-| `notes.md` | mae's preferences, environment and tool gotchas, unwritten conventions. | As soon as you learn something the next session would rediscover. | ~100 lines |
-| `game/` | Game knowledge: rules of the world (`game/rules.md`) and the menu navigation graph (`game/nav-graph.json`). Its own README explains the format. | A session learns a rule or a route between screens. | One entry per rule; graph checked by `scripts/nav-graph.py` |
-| `decisions.md` | Decisions with lasting consequences, why, and what was rejected. The repo has no other decision log. | A decision is made or superseded. | Newest first; never delete an entry |
-| `handoff.md` | Briefing for the next game-playing session on maes2024: job, process, mae's rules, current state, next steps. | When a playing session hands off. | ~120 lines |
+| `context.md` | Orientation: purpose, plan, stack, where facts live. | Scope, stack or doc layout change. | ~100 lines |
+| `status.md` | Game state, Works / In progress / Next / Waiting on mae / Known problems. Each "In progress" item names its branch and environment. | Any session that changes the state of the work or the account. | ~80 lines |
+| `log.md` | Session handoffs, newest first. | End of every session that changed something. | ~15 entries, then move the oldest to `docs/archive/memory-bank-log.md` |
+| `playbook.md` | How a game-playing (builder) session works: the loop, commands, context resets. | The process changes. | ~60 lines |
+| `notes.md` | mae's preferences and the rules every loop follows. | As soon as mae states a preference or working rule. | ~100 lines |
+| `environments.md` | Machines (current game PC, retired ones, cloud), emulator and toolkit gotchas. | A machine, port or tool quirk changes. | ~60 lines |
+| `game/` | Game knowledge: rules by topic (`game/rules/`, index in `game/rules/README.md`) and the menu graph (`game/nav-graph.json`). Its own README explains the formats. | A session learns a rule or a route. | Rules checked by `scripts/check-rules.py`; graph by `scripts/nav-graph.py` |
+| `decisions.md` | Decisions with lasting consequences, why, and what was rejected. | A decision is made or superseded. | Newest first; never delete an entry |
 
 ## Sources of truth (higher wins)
 
 1. The code, as it is now.
-2. The design notes in `docs/` (step 1: emulator choice and the daily-content catalogue).
+2. The design notes in `docs/` (steps 1 to 5) and the policy files in `resource/policy/`.
 3. `decisions.md` in this folder: why each decision was made.
 4. The rest of this folder.
 5. Anything in an archive: history only, never instructions.
