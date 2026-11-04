@@ -18,7 +18,7 @@ Steps, in order (each starts from home and ends there):
   guild_conquest   Guild boss: claim beaten floors, use the 2 daily attempts in the background, claim goals.
   gather           Journal > Map Exploration: spend stamina above 70 on the priority material (sxs.loops.gather, R-107).
   gear_swap        Equip the better piece wherever a gear slot on the Character screen shows "!" (sxs.loops.gearswap).
-  strengthen       Better gear and charms from the profile, then the Upgrade Loop (sxs.loops.upgrade): every "!" on the
+  strengthen       Fill empty charm slots from the profile, then the Upgrade Loop (sxs.loops.upgrade): every "!" on the
                    Character screen (banded gear, resonance, Quick Upgrade, ascensions, class levels, rank, goals).
                    Repeated after quest claims, because enhancing finishes quests and quests pay ore.
 
@@ -42,7 +42,7 @@ from ..core.loop import OVER_BUDGET, Loop, banner, task
 from ..core.marks import done_today, mark_done
 from ..core.nav import Navigator
 from ..policy import claims
-from ..vision.ocr import read_int
+from ..vision.ocr import boxes_of, read_int
 from . import gather, guild, mall, tower, upgrade, vendor
 from .gearswap import GearSwap
 from .strengthen import Strengthener
@@ -56,6 +56,8 @@ DAILY_BUDGET_S = 20 * 60
 
 FEATURED_SIGNIN = (360, 720)  # Featured list: Daily Sign-in card
 FEATURED_GROWTH = (360, 470)  # Featured list: Growth Trial card
+SIGNIN_TILE_W = 128  # Daily Sign-in tiles: a spend word blocks only a Claim in its own tile
+FEATURED_LIST_ROI = [0, 100, 720, 1050]  # card titles on the Featured list
 MENU_QUEST = (200, 820)  # main menu: Quest
 GROWTH_DAY_TABS = [(100, 476), (176, 476), (266, 476), (356, 476), (446, 476), (536, 476), (626, 476)]
 JOURNAL_REALMS = (210, 1020)  # Journal: Material Realms card
@@ -82,12 +84,21 @@ class Dailies:
         self.nav.go_home()
         return self._open(ui.HOME_EVENTS_BUTTON, "featured")
 
+    def _featured_card(self, title: str, fallback, state: str) -> bool:
+        """Featured list: open the card whose title reads `title`. New events push the cards down (2026-11-04:
+        Dawnstar Prelude and Haunted Carnival on top moved Daily Sign-in to the 4th card), so find it by its text
+        and use the old position only if OCR misses it."""
+        hits = boxes_of(self.det, FEATURED_LIST_ROI, title, whole=False)
+        if not hits:
+            log.info("Featured: %r not read; trying its usual place %s", title, fallback)
+        return self._open(ui.centre(hits[0]) if hits else fallback, state)
+
     # --- steps: each returns "done", "nothing" (ran, nothing to do), or a failure reason ---
 
     def sign_in(self) -> str:
-        if not self._featured() or not self._open(FEATURED_SIGNIN, "daily_signin"):
+        if not self._featured() or not self._featured_card(r"Daily Sign", FEATURED_SIGNIN, "daily_signin"):
             return "unknown_screen"
-        n = claims.claim_all(self.dev, self.det, max_taps=2, home_state="daily_signin")
+        n = claims.claim_all(self.dev, self.det, max_taps=2, home_state="daily_signin", spend_dx=SIGNIN_TILE_W)
         return "done" if n else "nothing"
 
     def cart(self) -> str:
@@ -113,7 +124,7 @@ class Dailies:
         return "nothing"
 
     def growth_trial(self) -> str:
-        if not self._featured() or not self._open(FEATURED_GROWTH, "growth_trial"):
+        if not self._featured() or not self._featured_card(r"Growth Trial", FEATURED_GROWTH, "growth_trial"):
             return "unknown_screen"
         n = 0
         for tab in GROWTH_DAY_TABS:  # locked days show a padlock; tapping them does nothing
@@ -188,7 +199,11 @@ class Dailies:
 
     def mall_gifts(self) -> str:
         """Free gift boxes on the Mall pages (Daily Gift, Weekly Gift, event pages; mae, 2026-11-04, R-121)."""
-        return self.mall.claim_gifts()
+        return self.mall.claim_gifts(part=1)
+
+    def mall_gifts_2(self) -> str:
+        """The Mall pages below the first four (a second short task, so neither runs past 2 minutes)."""
+        return self.mall.claim_gifts(part=2)
 
     def gear_swap(self) -> str:
         """Put on the better piece wherever a gear slot shows "!" (mae, 2026-11-04; sxs.loops.gearswap)."""
@@ -197,18 +212,20 @@ class Dailies:
     def strengthen(self) -> str:
         self.st.claim_cart()
         self.nav.go_home()
+        # mae, 2026-11-04: a portrait "!" can mean many things, so nothing here assumes it means gear. Each upgrade
+        # type has its own function and its own need-check: better gear is the gear_swap step (a gear slot's "!"),
+        # empty charm slots are filled only when one is empty, and the Upgrade Loop runs one pass per badge it
+        # sees on the Character screen (goals, skills, gear, class, rank).
         self._tap(ui.HUD_PORTRAIT, 2.5)  # -> player profile
         if self.det.detect().state == "player_profile":
-            self.st.equip_better_gear()
-            self.st.equip_charms(from_profile=True)
-        # Every "!" on the Character screen (R-080): banded gear, Quick Upgrade, ascensions, class levels, goals.
+            self.st.equip_charms(from_profile=True)  # returns at once when every charm slot is filled
         self.upgrader.run()
         return "done"
 
     # --- the loop ---
 
     STEPS: list[tuple[str, bool]] = [  # (name, once a day)
-        ("sign_in", True), ("mall_gifts", True), ("vendor_stamina", True), ("cart", False), ("bed", True), ("growth_trial", False), ("fantasia_ascent", True),
+        ("sign_in", True), ("mall_gifts", True), ("mall_gifts_2", True), ("vendor_stamina", True), ("cart", False), ("bed", True), ("growth_trial", False), ("fantasia_ascent", True),
         ("material_realms", False), ("guild_donate", True), ("guild_afk", False), ("guild_conquest", True),
         ("quests", False), ("gather", False), ("gear_swap", False), ("strengthen", False), ("quests", False),
         ("strengthen", False),
@@ -242,9 +259,12 @@ class Dailies:
                 log.warning("[%s] %s after %.0f s; frame %s", name, watch.status, time.monotonic() - t0,
                             save_unknown(self.dev, f"daily_{name}_{watch.status}"))
                 result = watch.status
-            if result not in OK and result != OVER_BUDGET:  # a step cut for time isn't a failure to recover from
+            # A step that ends on an unknown screen or runs out of time is reported and the loop moves on; only a
+            # crash (error) or a failed trip home counts toward needs_help. Only a finished step is marked done, so a
+            # step cut for time runs again next time.
+            if result == "error":
                 failures += 1
-            elif once:
+            elif once and result in OK:
                 mark_done(name)
             if name == "quests" and name not in results:
                 repeat_ok = result == "done"
@@ -255,7 +275,7 @@ class Dailies:
             except Exception as e:  # noqa: BLE001
                 log.warning("could not get home after %s: %s; frame %s", name, e, save_unknown(self.dev, "daily_home"))
                 failures += 1
-            if failures >= 2 and result not in OK:
+            if failures >= 2:
                 results["end"] = "needs_help"
                 break
         log.info("dailies: %s", results)
