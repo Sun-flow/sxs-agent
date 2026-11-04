@@ -3,6 +3,9 @@
 > **Last updated**: 2026-11-04
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
 
+### 2026-11-04 (morning, later) · Game docs: guild (Claude Code, cloud)
+- PRs #15 and #16 merged. Guild thread: tutorial ends at Join / Create; mae chose to join a random open guild; never create (R-102).
+
 ### 2026-11-04 (morning) · Game docs: bed EXP (Claude Code, cloud)
 - PR #13 merged. mae: collect bed EXP daily, not in every upgrade pass, and sooner near a level-up (R-101); the guild unlocked at Lv 20 (R-011). Next: rule batches from the guild-mapping thread.
 - Dailies builder's final batch: guild crest icon at Lv 20 (R-011), bed EXP took Lv 13 to 20 (R-101), "Path to Upgrade: Reach Lv. 20" after Verdant Wonders III (R-084). Opened PR #16 for `dailies-wrapup` (handoff for the guild thread).

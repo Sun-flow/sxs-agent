@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/`; templates in `resource/image/`.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-102).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-103).
 
 Entry format:
 
@@ -672,3 +672,11 @@ Entry format:
 - **Confidence**: told. **Source**: mae, 2026-11-04; dailies builder's final batch.
 - **Images**: none yet (want: the bed EXP icon; mae will send a screenshot).
 - **Related**: R-011, R-020, R-035, nodes `home_house`, `bed`, `guild`.
+
+## Added from the guild thread (2026-11-04)
+
+### R-102 · Joining a guild: join a random open one
+- **Rule**: The Guild tutorial is a short dialogue with Akane that ends at a choice: Join Guild or Create Guild. Donations (R-016), the guild farm and the guild boss all need membership. The Join list shows mostly guilds with an instant "Join" button and some with "Apply" (needs approval). Creating a guild may cost Dawnium, so never create one (R-043). mae's decision for now: join a random open guild (an instant "Join"). Picking or leaving guilds beyond that is mae's call, like other social choices (R-057).
+- **Confidence**: observed (tutorial and list); told (the choice). **Source**: guild thread and mae, 2026-11-04.
+- **Images**: none yet (want: the Join / Create choice and the guild list).
+- **Related**: R-011, R-016, R-043, R-057, node `guild`.
