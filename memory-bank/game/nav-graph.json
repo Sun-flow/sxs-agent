@@ -547,7 +547,7 @@
    "images": [
     "docs/screens/dungeon_floor.png"
    ],
-   "notes": "Floor card e.g. 'Temple Ruins: Floor 1' with Next Floor at (0.5, 0.64) and a back arrow bottom left (R-040)."
+   "notes": "Floor card e.g. 'Temple Ruins: Floor 1' with Next Floor at (0.5, 0.64) and a back arrow bottom left (R-040). Low HP: heal from the portrait here and continue; don't leave (R-091)."
   },
   {
    "id": "wounded",

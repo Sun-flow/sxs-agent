@@ -189,7 +189,7 @@ flowchart TD
 | `skill_loadout` | Skill loadout | menu | observed |  | 4 technique slots left, 4 charm slots right, Loadout 1 selector; tabs Technique / Charm / Shard; bottom tabs Skill / Goals (R-037, R-038). |
 | `technique_card` | Technique card | popup | observed |  | Technique details (e.g. Ice Spike) with Remove / Enhance. |
 | `technique_upgrade` | Technique upgrade | menu | observed |  | Tabs Upgrade / Ascend. Costs Battle Essence; level capped by character level (R-037). Upgrade button at (0.5, 0.85) stays on this screen. |
-| `dungeon_floor` | Mini-dungeon floor | popup | observed |  | Floor card e.g. 'Temple Ruins: Floor 1' with Next Floor at (0.5, 0.64) and a back arrow bottom left (R-040). |
+| `dungeon_floor` | Mini-dungeon floor | popup | observed |  | Floor card e.g. 'Temple Ruins: Floor 1' with Next Floor at (0.5, 0.64) and a back arrow bottom left (R-040). Low HP: heal from the portrait here and continue; don't leave (R-091). |
 | `wounded` | Badly wounded dialog | popup | observed |  | Confirm 'The character is badly wounded. Use dishes to heal?' with Return to Home / Quick Heal (cost shown; dish count top right) (R-046). |
 | `alchemy_pot` | Alchemy Pot | menu | observed | Lv 7 | House furniture: melt down gear and cook dishes. Dish tab: recipes with ingredient costs at the top and a Cook button; shows a 'Cooked' banner (R-047). |
 | `rank_advancement` | Rank Advancement | menu | observed |  | Rank up for base stats; needs max level and materials (R-048). |

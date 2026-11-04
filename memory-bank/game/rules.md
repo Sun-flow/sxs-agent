@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/`; templates in `resource/image/`.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-091).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-092).
 
 Entry format:
 
@@ -598,3 +598,11 @@ Entry format:
 - **Confidence**: observed. **Source**: builder batch 12.
 - **Images**: `docs/screens/wounded.png`.
 - **Related**: R-031, R-046, R-061, R-084.
+
+## Added from mae (2026-11-04, night)
+
+### R-091 · Heal mid-run in mini-dungeons instead of leaving
+- **Rule**: In mini-dungeons (Temple Ruins, mines and other floor-by-floor dungeons), the player can heal between floors, so low HP is not a reason to leave. On the floor card, heal from the portrait (Quick Heal, or the profile's Recover, using healing food per R-061), then press Next Floor and carry on. The 70% HP check of R-061 still applies before each floor.
+- **Confidence**: told. **Source**: mae, 2026-11-04.
+- **Images**: `docs/screens/dungeon_floor.png`.
+- **Related**: R-040, R-061, R-071, R-078, node `dungeon_floor`.
