@@ -23,7 +23,7 @@
 Format: `- what — branch, PR, environment (started)`. Remove the line when it merges or is dropped.
 
 - Rules and docs consolidation (rules split by topic, memory bank slimmed) — `claude/project-thread-qq78yt`, cloud (2026-11-04).
-- Repo structure audit (index READMEs, script cleanup) — `claude/project-thread-kb6hi9`, cloud (2026-11-04).
+- Repo structure audit (folder README indexes, `tests/check_repo.py`, dead code, shared heal/marks helpers; structural proposals in its PR) — `claude/project-thread-kb6hi9`, stacked on qq78yt, cloud (2026-11-04).
 
 ## Next (in order)
 
