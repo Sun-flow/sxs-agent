@@ -33,6 +33,10 @@ Read before any fight, when HP is low, after a loss, or inside a mini-dungeon or
 - Fight a roaming monster standing between the player and a pickup first. Spear wolves (Verdantglade): `resource/image/monsters/wolf_spear*.png`.
 *observed* · R-001, R-041, R-066
 
+### R-127 · Take fights against up to 25% more CP than ours
+When weighing a fight or challenge, accept monsters with up to 25% more CP (power) than the character (mae). Monsters usually out-power us on CP, but skills and gear win when the character is well equipped. Above 25% treat it as a wall (R-084). HP rules still apply first (R-061).
+*told* · R-061, R-073, R-084
+
 ### R-112 · Background fights: start, minimise, move on
 - A fight with the "run in background" icon (square, arrow into its lower-left corner) needs no watching. On Conquest it's at (0.10, 0.95); tap to minimise, do other things, come back for the result. Template `resource/image/state/background_fight.png`.
 - Fantasia Ascent's Auto Challenge also runs in the background (R-079).
