@@ -7,7 +7,7 @@ over areas that strings them together:
 
 1. Read the area map (R-076): every area label, and under the ones not finished yet an "Exploration: N%" line and
    sometimes a power gate ("12K"). Labels without a percentage are taken as done.
-2. Pick the next area: under 100%, power gate at or under our power (HUD), not given up on this run. The
+2. Pick the next area: under 100%, recommended power at most 25% above ours (HUD, `policy.fights`), not given up on this run. The
    Verdantglade cap (handoff: 4 to 7 areas, or stop at a natural wall) is enforced by stopping at the first
    power wall, and by `--max-areas`.
 3. Walk there with the area map and explore it (`fogwalk.walk`: minimap dots and unexplored tiles, then fog edge;
@@ -39,6 +39,7 @@ from ..core.marks import server_day
 from ..core.nav import Navigator
 from ..core.paths import LOGS, RESOURCE
 from ..policy.decide import Context, Decider
+from ..policy import fights
 from ..vision.hud import read_power
 from ..vision.ocr import power_k
 from . import fogwalk
@@ -178,7 +179,7 @@ class Roamer:
     def pick(self, areas: list[Area], power: Optional[float]) -> tuple[Optional[Area], Optional[Area]]:
         """(next area to explore, first area behind a power wall)."""
         todo = [a for a in areas if a.pct is not None and a.pct < 100 and not self.skipped(a.name)]
-        walled = [a for a in todo if a.gate and (power is None or a.gate > power)]
+        walled = [a for a in todo if not fights.within_reach(a.gate, power)]  # up to 25% above us (mae)
         open_ = [a for a in todo if a not in walled]
         open_.sort(key=lambda a: -a.pct)  # nearly done first: finishing an area unlocks its statue
         return (open_[0] if open_ else None), (walled[0] if walled else None)

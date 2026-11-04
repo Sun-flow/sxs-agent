@@ -54,6 +54,7 @@ Every loop has the same inputs, outputs and readouts:
 | `goto` | `actions/goto.py` | Walk somewhere via the area map | `"Highland Woods"` or `X Y` |
 | `gather` | `loops/gather.py` | Generic `collect(Target)` for ore, sand, essence, rolla, bellflower | `--material sand`, `--check`, `--harvest` |
 | `upgrade` | `loops/upgrade.py` | Every "!" on the Character screen | `--only skills` |
+| `gearswap` | `loops/gearswap.py` | Equip the better piece wherever a gear slot shows "!" (separate from enhancing) | `--check`, `--all` |
 | `strengthen` | `loops/strengthen.py` | Cart, gear/charm equip, enhance, techniques | |
 | `tower` | `loops/tower.py` | Fantasia Ascent, one run a day | `--tower "Moonveil Woods"` |
 | `guild` | `loops/guild.py` | Donate x2, Forge AFK, Conquest | `--only donate,afk` |
@@ -62,7 +63,7 @@ Every loop has the same inputs, outputs and readouts:
 | `tutorial` | `loops/tutorial.py` | Follow tutorial highlights | `--steps 40` |
 | `pray` | `loops/pray.py` | Skill pulls. **Only when mae authorises a run**; no loop imports it | `--check` / `--pulls N --handler-approved` (x10 only) |
 
-Who calls whom: `daily` → `mall`, `vendor`, `tower`, `guild`, `gather`, `strengthen`, `upgrade`, `policy.claims`.
+Who calls whom: `daily` → `mall`, `vendor`, `gearswap`, `tower`, `guild`, `gather`, `strengthen`, `upgrade`, `policy.claims`.
 `roam` → `actions.goto`, `fogwalk`; `fogwalk` → `explore` (HP reader), `gather` (stamina cost), `actions.rewards`;
 `explore` → `tower`, `strengthen`. Everything → `core`.
 

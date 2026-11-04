@@ -1,0 +1,40 @@
+# Function check: what the bot can do (2026-11-04)
+
+Every loop runs as `python -m sxs <loop> [options]` from the repo root (`.venv\Scripts\python`). Each one logs
+mae's banner (`[Running X Loop]` / `[Goal]` / `[End condition]`), and ends with one JSON line such as
+`{"loop": "explore", "status": "complete", "ok": true, "seconds": 84}`. Exit code 0 = ok, 1 = needs a look,
+2 = refused. Every run is capped at `--budget` (default 120 s, status `over_budget`), and loops that report
+progress also stop as `stalled` after `--stall` seconds (default 60) with no change. No module calls a model.
+
+## Loops
+
+| Command | What it does | Ends when | Ran live before? |
+|---|---|---|---|
+| `upgrade` | Follows every red "!" on the Character screen: banded gear enhance, Resonance, skill Quick Upgrade, technique ascension, class levels, rank goals | no badge left | Yes, partly (skills/class/rank passes were done by hand) |
+| `gearswap` | New: equips the better piece wherever a gear slot shows "!"; power compare decides; separate from enhancing; also a daily step | no flagged slot left | Not yet (the old blind version inside `strengthen` has) |
+| `strengthen` | Cart loot, equip better gear and charms, enhance gear, upgrade techniques | materials short | Yes |
+| `daily` | Sign-in, Mall gifts, Vendor stamina, Cart, bed EXP, Growth Trial, Fantasia Ascent, quests, guild x3, gather, strengthen (120 s per step) | every step tried once | Yes, all steps |
+| `explore` | Follows the quest tracker marker; fights, cards, dialogue, healing, unsticking | tracker 100/100, no marker, unknown screen | Yes (`--chain` played the quest line) |
+| `fogwalk` | Walks to unexplored ground in one side area by minimap/fog edge | area done, stalled | Yes, experimental (minimap mislabels in Highland Woods) |
+| `roam` | Picks unexplored areas under our power on the area map, walks there, fog-walks, blesses statues | no eligible area left | Yes (Damp Woods) |
+| `goto` | Walks to an area via the area map | arrived / failed | Yes |
+| `gather` | Spends stamina above 70 on the priority material via Map Exploration; `--harvest` picks Bellflowers | stamina at 70 | Yes for ore; harvest detector weak |
+| `tower` | Fantasia Ascent daily climb, Auto Challenge, no retries | first loss | Yes |
+| `guild` | Donate (max 2, by the game's counter), Forge AFK slot, Conquest attempts | each step done | Donate/AFK yes; Conquest with attempts left not yet |
+| `mall` | Free gift box on each Mall page, never a price | pages checked | Yes |
+| `vendor` | Vault free x30 stamina only | claimed / not there | ❓ not sure |
+| `tutorial` | Taps the yellow tutorial highlight | nothing highlighted | Yes |
+| `pray` | x10 skill pulls, only with `--pulls N --handler-approved` (never called by other loops) | pulls done | Yes, by request |
+
+## Tools
+
+`python -m sxs state | screenshot | tap X Y | swipe | back | start | stop | capture NAME | watch`;
+`python -m sxs see badges|minimap|gift [FRAME]` runs one detector; `python -m sxs bank | label` manages
+unlabelled screenshots; `scripts/probe.py`. Offline checks: `tests/check_repo.py`, `tests/check_loops.py`,
+`tests/check_states_offline.py`, `tests/check_rewards_offline.py`, `tests/check_upgrade_logic.py`,
+`scripts/check-rules.py`.
+
+## Fight threshold
+
+`sxs/policy/fights.py`: a recommended power up to 1.25x ours is worth fighting (mae). `roam` uses it to pick areas.
+Gates of Power still open only once our power reaches their number.

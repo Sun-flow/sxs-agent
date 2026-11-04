@@ -17,6 +17,7 @@ Steps, in order (each starts from home and ends there):
   guild_afk        Keep the character on a guild gather slot (Forge first).
   guild_conquest   Guild boss: claim beaten floors, use the 2 daily attempts in the background, claim goals.
   gather           Journal > Map Exploration: spend stamina above 70 on the priority material (sxs.loops.gather, R-107).
+  gear_swap        Equip the better piece wherever a gear slot on the Character screen shows "!" (sxs.loops.gearswap).
   strengthen       Better gear and charms from the profile, then the Upgrade Loop (sxs.loops.upgrade): every "!" on the
                    Character screen (banded gear, resonance, Quick Upgrade, ascensions, class levels, rank, goals).
                    Repeated after quest claims, because enhancing finishes quests and quests pay ore.
@@ -43,6 +44,7 @@ from ..core.nav import Navigator
 from ..policy import claims
 from ..vision.ocr import read_int
 from . import gather, guild, mall, tower, upgrade, vendor
+from .gearswap import GearSwap
 from .strengthen import Strengthener
 
 log = logging.getLogger("sxs.loops.daily")
@@ -188,6 +190,10 @@ class Dailies:
         """Free gift boxes on the Mall pages (Daily Gift, Weekly Gift, event pages; mae, 2026-11-04, R-121)."""
         return self.mall.claim_gifts()
 
+    def gear_swap(self) -> str:
+        """Put on the better piece wherever a gear slot shows "!" (mae, 2026-11-04; sxs.loops.gearswap)."""
+        return GearSwap(self.dev, self.det).run()["end"]
+
     def strengthen(self) -> str:
         self.st.claim_cart()
         self.nav.go_home()
@@ -204,7 +210,8 @@ class Dailies:
     STEPS: list[tuple[str, bool]] = [  # (name, once a day)
         ("sign_in", True), ("mall_gifts", True), ("vendor_stamina", True), ("cart", False), ("bed", True), ("growth_trial", False), ("fantasia_ascent", True),
         ("material_realms", False), ("guild_donate", True), ("guild_afk", False), ("guild_conquest", True),
-        ("quests", False), ("gather", False), ("strengthen", False), ("quests", False), ("strengthen", False),
+        ("quests", False), ("gather", False), ("gear_swap", False), ("strengthen", False), ("quests", False),
+        ("strengthen", False),
     ]
 
     def run(self, only: set = None, force: bool = False, step_s: float = STEP_BUDGET_S) -> dict:
