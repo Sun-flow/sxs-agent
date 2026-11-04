@@ -20,7 +20,7 @@ from typing import Optional
 import cv2
 import numpy as np
 
-from . import goto, minimap, nav, tower
+from . import gather, goto, minimap, nav, tower
 from .decide import Context, Decider
 from .device import Device, banner, save_unknown
 from .explore import (FIGHT_MIN_HP, GUARD_DX, GUARD_DY, HUD_PORTRAIT, PLAYER_NAME, PREP_HP_BAR, QUICK_HEAL, REPEAT_LIMIT,
@@ -34,6 +34,7 @@ FOG_S_MAX, FOG_V_MIN = 40, 150  # fog is pale grey
 STEP_IN = 40  # px from the fog edge into clear ground
 STILL_LIMIT = 8  # walk taps with unchanged coordinates before giving up
 AREA_NAME_ROI = [500, 255, 220, 36]  # area name above the coordinates, under the minimap
+STAMINA_KEEP = 70  # R-107: stamina kept for the daily commissions
 HUD_AVATAR = (130, 130)  # matches of the player's face inside this top-left box are the HUD, not the pointer
 
 
@@ -92,12 +93,13 @@ def fog_edge_target(frame: np.ndarray) -> Optional[tuple[int, int]]:
 
 
 def minimap_target(det: StateDetector, frame: np.ndarray, lookahead: int = 4, player_xy=None,
-                   buildings_seen: Optional[set] = None) -> Optional[tuple[int, int]]:
+                   buildings_seen: Optional[set] = None, items_ok: bool = True) -> Optional[tuple[int, int]]:
     """Plan on the minimap: shortest walkable path to the nearest pickup or unexplored walkable tile, else to a gold
     building not visited yet this run (dungeons, mines: interactable; their cards go through the rules), then tap
     a few tiles along it (relative to the player, found by its name label). None if nothing is reachable."""
     mm = minimap.read(frame)
-    path = minimap.path_to_nearest(mm)
+    goals = minimap.GOALS if items_ok else tuple(g for g in minimap.GOALS if g != "item")
+    path = minimap.path_to_nearest(mm, goals=goals)
     if len(path) < 2 and player_xy is not None and buildings_seen is not None:
         skip = {tile for tile in mm.tiles("building") if minimap.world_tile(mm, tile, player_xy) in buildings_seen}
         path = minimap.path_to_nearest(mm, goals=("building",), skip=skip)
@@ -198,12 +200,15 @@ def walk(dev: Device, det: StateDetector, minutes: float = 10, area: Optional[st
                     return "stuck"
             if centre_player(dev, det, frame):
                 frame = dev.screenshot()
+            # Pickups cost 5 stamina; keep the 70 the daily commissions need (R-107).
+            stamina = gather.read_stamina(det, frame=frame)
+            items_ok = stamina is not None and stamina >= STAMINA_KEEP + gather.COST
             xy = goto.COORDS.search(d.text or "")
             xy = (int(xy.group(1)), int(xy.group(2))) if xy else None
-            target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen)
+            target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen, items_ok=items_ok)
             if target is None and recentre_on_player(dev, det, frame):
                 frame = dev.screenshot()
-                target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen)
+                target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen, items_ok=items_ok)
             if target and any(abs(target[0] - b[0]) < 70 and abs(target[1] - b[1]) < 70 for b in bumped):
                 # The path runs through something that opens a card (seen: a blessed Goddess Statue). Tapping it
                 # again just reopens the card, so step one tile to the side; the game paths around the rest.

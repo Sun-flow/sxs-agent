@@ -27,6 +27,12 @@
             "why": "The tracked quest's Go button wants to travel home to reach its content (e.g. the Fantasia Ascent tower). Travel only, nothing spent."
         },
         {
+            "kind": "power_gate_open",
+            "match": "^Gate of Power$",
+            "choose": "^Open$",
+            "why": "Once power reaches the gate's number the card shows 'Power reaches 15.5K (Current: 16.9K)' and a free Open button (seen 2026-11-04, docs/screens/gate_of_power_open.png). Without the button, the next rule treats it as a wall."
+        },
+        {
             "kind": "power_gate",
             "match": "^Gate of Power$|Power reaches",
             "choose": "dismiss",
