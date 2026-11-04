@@ -313,14 +313,13 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
                 dev.tap(*toggle)
             time.sleep(2)
         elif d.state in ("tower_list", "tower_floors", "tower_result"):
-            # The quest's Go brought us to Fantasia Ascent: climb to the floor it asks for ("Reach <Tower> Fn").
+            # The quest's Go brought us to Fantasia Ascent ("Reach <Tower> Fn"): hand over to the tower loop, which
+            # climbs with Auto Challenge until the first loss (no retries there), then carry on with the quest line.
             m = re.search(r"Reach (.+?) F ?(\d+)", last_progress or "")
-            result = tower.climb(dev, det, m.group(1).strip() if m else None, int(m.group(2)) if m else None,
+            result = tower.climb(dev, det, m.group(1).strip() if m else None,
                                  minutes=max(1.0, (deadline - time.monotonic()) / 60))
             log.info("tower climb: %s", result)
-            if result == "lost":
-                return "defeated"
-            if result not in ("reached", "floors_done"):
+            if result not in ("reached", "floors_done", "lost"):
                 return result
             nav.Navigator(dev, det).go_home()
             progress_at = time.monotonic()

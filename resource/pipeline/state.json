@@ -336,14 +336,14 @@
         "post_delay": 0
     },
     "State.TowerResult": {
-        "doc": "Fantasia Ascent (tower) result screen: VICTORY (or a loss banner) with '<Tower> Fn', Clear Rewards, a locked Auto Challenge and Continue at (552, 1212), which goes straight to the next floor's battle prep. Image: docs/screens/fantasia_victory.png.",
+        "doc": "Fantasia Ascent (tower) result screen: VICTORY (top, with '<Tower> Fn' and Clear Rewards) or DEFEAT (mid-screen); Auto Challenge checkbox at (476, 1158) and Continue / Retry at (552, 1212). After a win Continue goes straight to the next floor's battle prep. A loss turns Auto Challenge off. Images: docs/screens/fantasia_victory.png, docs/screens/fantasia_defeat.png.",
         "recognition": "OCR",
         "expected": "^(VICTORY|DEFEAT|DEFEATED|FAILED|FAILURE)$",
         "roi": [
             100,
             170,
             520,
-            130
+            380
         ],
         "pre_delay": 0,
         "post_delay": 0

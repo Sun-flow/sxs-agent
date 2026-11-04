@@ -62,6 +62,7 @@ EXPECTED = {
     "fantasia_ascent": "tower_list",
     "fantasia_floors": "tower_floors",
     "fantasia_victory": "tower_result",
+    "fantasia_defeat": "tower_result",
     "world_map_tracker_gift": "world_map",
     "world_map_explore": "world_map",
     "world_map_monsters": "world_map",
