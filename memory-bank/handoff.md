@@ -104,6 +104,17 @@ Code map: `docs/step2-hands-and-eyes.md` (device, detector, CLI) and `docs/step3
 - **Untested**: the skills, class_levels and rank passes inside the loop (I did them by hand first, so the loop's run found no badges there); special nodes (green timer circle detector is a guess; save a screenshot the first time one appears); the per-material daily cap; guarded pickups.
 - The boars with a "lightning 5" label near the ore mine: meaning unknown (hunt for a material?).
 
+## Update 2026-11-04 (morning, same thread, later)
+
+- **Pulls done** (mae approved 20): 20 Standard pulls, Stellatie now 0, no Dawnium. 10 of them were singles because a misread ticket count; mae: **pulls only in groups of ten**. `sxs.pray` now taps x10 only, refuses non-multiples of 10, stops under 10 tickets, double-reads the count. Power 13.6K to 14.8K.
+- **Rating popup** ("do you satisfy with your experience in Kanstein?"): press Later (mae). `State.RatingPopup`, handled in `nav.TOWARD_HOME`.
+- **Mall**: everything is USD except a free gift box at the top left of each page (Daily Gift, Weekly Gift, Welcome Benefit, event pages). mae: gift icons are free, click them. `python -m sxs.mall`, daily step `mall_gifts`; first run claimed 4. Rules R-121 (docs thread). Screens `docs/screens/mall_*`.
+- **Vendor Booth** (Molly's daily shop on home) unlocked by a tutorial; not mapped yet.
+- `nav.go_home` now also taps the back arrow on unknown full pages.
+- **Bellflower hunt (in progress, mae's priority before shops)**: Character > Apprentice badge > Bellflower icon > Source "Verdantglade Flower Harvest" > OK on "Enter Verdantglade to explore?" puts a Bellflower tracker ("0/20", left panel) on the map and an edge ring toward the field in **Moonveil Woods (~169,94)**. Picking a plant is **free (no stamina)**; two picks by hand gave 2/20. Plants with a **blue aura are rarer and give bonus ingredients** (mae): prefer them. `python -m sxs.gather --harvest` exists but got stuck: the tracking ring sits on the character after a pick, and the `Gather.Bellflower` template (`resource/image/explore/bellflower.png`, threshold 0.72) misses most plants (see `docs/screens/explore_bellflower_field_wide.png`: 5 plants visible, 0 matched; at 0.5 it matched trees and walked off to Highland Woods). Next: a better plant detector (colour: white bells over a green stem with a faint aura ring, or several templates), never tap other players (another player "Bellcranel" stood in the field), then gather to 20/20.
+- **Then Rank Advancement** (mae approved: "upgrade character tier"): Advance (360,1088) once the Advance button shows "!" and the cost is only Rolla, the grey stone item and Bellflowers. Then shop listing (Guild Shop, Vendor Booth, others) as a table for mae to mark buyable items; buy nothing.
+- mae paused at 2026-11-04 09:04Z to save account details and swap computers.
+
 ## Next steps, in order
 
 1. **Map the Guild** (unlocked at Lv 20). Follow its tutorial (`python -m sxs.tutorial --steps 40`, which follows the yellow highlight and never presses spend-looking buttons; step in by hand where it stalls). For every new screen: a `State.*` node, a reference screenshot in `docs/screens/` plus an `EXPECTED` entry, and a rule batch to the coordinator. Expected guild dailies (step 1 doc §4, R-016): 3 basic donations a day, Guild Farm (plant and harvest), guild boss. Joining or creating a guild, applying, or anything social (chat, requests) is mae's decision: ask before any of it. Donations that cost Dawnium are never made.

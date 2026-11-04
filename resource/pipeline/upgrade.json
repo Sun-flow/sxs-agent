@@ -7,5 +7,14 @@
         "threshold": 0.8,
         "pre_delay": 0,
         "post_delay": 0
+    },
+    "Gather.Bellflower": {
+        "doc": "A Bellflower plant on the Verdantglade map (white bells on a green stem; Moonveil Woods field). Harvesting one is free and adds 1 to the item tracker. Not a screen state; used by sxs.gather harvest.",
+        "recognition": "TemplateMatch",
+        "template": "explore/bellflower.png",
+        "roi": [0, 130, 720, 720],
+        "threshold": 0.72,
+        "pre_delay": 0,
+        "post_delay": 0
     }
 }
