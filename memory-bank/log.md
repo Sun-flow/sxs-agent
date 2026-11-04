@@ -12,6 +12,7 @@
 - Builder batch 11: R-081 to R-085 (map coordinates, counterless unlock quests, tracker gift claim, power wall at Verdantglade III, stone tile puzzle); R-068, R-074, R-076, R-079 and R-080 extended with goto, the player pointer, the tower flow and the charm loadout steps. New screens `fantasia_floors`, `fantasia_result`, `charm_detail`, `rcmd_loadouts`, `gear_swap_prompt`. Images are on the step 3 branch. All in PR #10.
 - Builder batch 12: R-086 to R-090 (Gate of Power, Highland Woods, replacing gear, travel from home, "badly wounded" as a loss); R-022, R-068, R-070, R-083 and R-084 extended (ring hiding the area name, map zoom and OCR labels, Lost Goddess Statue, gift claims for counter quests). New screens `replace_gear`, `gear_compare`. Same PR #10.
 - mae: heal mid-run in mini-dungeons instead of leaving (R-091). Auto Challenge timing refined in R-079. Opened PR #11 for the builder's `step3-explore` work and merged main into it.
+- mae: Quick Heal from the portrait on any screen (R-078); a defeat in a mini-dungeon resets the run (R-091); enhance gear evenly in 5-level bands with a priority order (R-092).
 
 ### 2026-11-03 (late) · Game docs after PR #6 (Claude Code, cloud)
 - PR #6 merged batches 4 to 9 and mae's rules up to R-067. Added R-068 (travel through the full area map) and the `area_map` screen; branch `claude/project-thread-npg43i` fast-forwarded to main.

@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/`; templates in `resource/image/`.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-092).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-093).
 
 Entry format:
 
@@ -606,3 +606,9 @@ Entry format:
 - **Confidence**: told. **Source**: mae, 2026-11-04 (three messages).
 - **Images**: `docs/screens/dungeon_floor.png`.
 - **Related**: R-040, R-061, R-071, R-078, node `dungeon_floor`.
+
+### R-092 · Enhance gear evenly, in 5-level bands
+- **Rule**: Don't pour enhancement into one piece. Raise gear in 5-level bands: bring every equipped piece to +5, then all to +10, then all to +15, and so on; a piece only goes past a band once every other piece has reached it. Within a band, a configurable priority order decides which piece reaches the threshold first. The default order is weapon, offhand (not unlocked yet), headpiece, chest, boots. Costs and limits are in R-023 (ore and Rolla). The current enhance script kept enhancing the same piece, which this rule replaces.
+- **Confidence**: told. **Source**: mae, 2026-11-04.
+- **Images**: none yet (want: the Enhance Gear screen).
+- **Related**: R-020, R-023, R-088.
