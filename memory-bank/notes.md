@@ -32,7 +32,7 @@
 - Seasons partly reset levels, so unlock-level assumptions need re-checking each season (step 1 doc, section 3).
 - Loop rules from mae (2026-11-04): every loop checks regularly whether it's stuck (heartbeat, watchdogs) and ends early with a reason rather than idling; if a loop gets stuck regularly, make it more robust rather than restarting it. Unfamiliar screens are flagged (frame saved to `captures/unknown/`) and end the loop. Loops call each other (explore hands Fantasia Ascent to `sxs.tower` and resumes). When starting a loop, post mae a banner: `[Running X Loop]` / `[Goal: ...]` / `[End condition: ...]` (the loops also log it).
 - Fantasia Ascent (mae, 2026-11-04): Auto Challenge always on, no retries, one run a day as a daily (`logs/daily.json`).
-- A red "!" over our own character doesn't only mean low HP: empty charm slots and better gear also raise it. Decide healing from the profile's HP bar.
+- A red "!" over our own character doesn't only mean low HP: empty charm slots and better gear also raise it. Decide healing from the profile's HP bar, and open the profile with the HUD portrait (70, 60): tapping the character opens a picker when several things share its tile. HP can be read without opening anything from the HUD bar under the name, x 116-268, y 52-64 (`explore.hud_hp`) (mae, 2026-11-04).
 - The area map's zoom changes between openings, so pick places on it by OCR'd area label (`sxs.goto`), not fixed points. An area whose label sits in fog can't be walked to; go home and travel via the tracker instead.
 - Map coordinates: y decreases going south, x increases going east.
 
