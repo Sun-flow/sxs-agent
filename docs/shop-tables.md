@@ -2,7 +2,7 @@
 
 mae: mark **yes** (and how often) in Buy? for anything the bot may buy. Blank = never buy.
 Badge = orange corner badge, likely a discount (70% = 70% off). Limit = per refresh.
-Screens: `docs/screens/vendor_booth_general.png`, `vendor_booth_vault.png`, `vendor_booth_goals.png`, `guild_shop_top.png`, `guild_shop_bottom.png`.
+Screens: `docs/screens/shops/vendor_booth_general.png`, `shops/vendor_booth_vault.png`, `shops/vendor_booth_goals.png`, `guild/guild_shop_top.png`, `guild/guild_shop_bottom.png`.
 
 ## Vendor Booth (Molly, home scene): General tab, pays Rolla
 
@@ -61,6 +61,6 @@ Only Stellatie and Lucky Ticket are buyable now; the rest wait on the guild's Sh
 
 ## Other shops
 
-- **Mall**: real money (USD) except the free gift box on each page, which the bot already claims (`sxs.mall`).
+- **Mall**: real money (USD) except the free gift box on each page, which the bot already claims (`sxs.loops.mall`).
 - **Starter Pack** and event packs on home: real money, never.
 - No other shop found yet; add new ones here.

@@ -24,9 +24,9 @@
     ]
    },
    "images": [
-    "docs/screens/home.png",
-    "docs/screens/home_cart.png",
-    "docs/screens/home_events.png"
+    "docs/screens/home/home.png",
+    "docs/screens/home/home_cart.png",
+    "docs/screens/home/home_events.png"
    ],
    "notes": "Scene scrolls horizontally; the Cart (AFK income) and cherry tree are on the left (R-020). The chat strip at y 0.82-0.90 opens server_chat: avoid it. After Originisle: top-right 'Thrilling Events' and 'Starter Pack' (shop; never buy) buttons (R-126). If home shows only sky (no Cart bubble, no Statue) and swipes do nothing, restart the game (R-100). Friend Request toasts near the tracker: leave alone (R-057)."
   },
@@ -47,8 +47,8 @@
     ]
    },
    "images": [
-    "docs/screens/main_menu.png",
-    "docs/screens/main_menu_lv10.png"
+    "docs/screens/home/main_menu.png",
+    "docs/screens/home/main_menu_lv10.png"
    ],
    "notes": "Also has Photo (0.14,0.85), Notice (0.30,0.85), User Center (0.47,0.85), Settings (0.64,0.85), a 'Coming soon' card (0.72,0.75). Shows the server clock (R-024). From Lv 10 a Friends button is added and the row shifts: Friends (0.14,0.85), Photo (0.32), Notice (0.49), User Center (0.67), Settings (0.85). Later a second row (Friends, Gallery, Photo, Notice, User Center, Settings) plus Quest and Mall cards; the event banner opens paid packs: never (R-053)."
   },
@@ -64,8 +64,8 @@
     "roi": "title, top left"
    },
    "images": [
-    "docs/screens/quest_list.png",
-    "docs/screens/achievement_quest.png"
+    "docs/screens/dailies/quest_list.png",
+    "docs/screens/dailies/achievement_quest.png"
    ],
    "notes": "Tabs Quest (0.40,0.95) and Achievement (0.78,0.95). Each row has 'Go >>' at x 0.83 that jumps to the relevant screen (R-022)."
   },
@@ -77,8 +77,8 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/quest_detail.png",
-    "docs/screens/quest_detail_go.png"
+    "docs/screens/dailies/quest_detail.png",
+    "docs/screens/dailies/quest_detail_go.png"
    ],
    "notes": "Quest detail card: Details, Goal, Rewards and a Go or Track button (R-044)."
   },
@@ -94,7 +94,7 @@
     "roi": "bottom-right nav label"
    },
    "images": [
-    "docs/screens/world_overview.png"
+    "docs/screens/world/world_overview.png"
    ],
    "notes": "Pick an island to walk on. Shows each island's exploration score and rank (e.g. 'Originisle 82, Ahead of 59.7% of Players'). Bottom-left button opens Exploration Goals."
   },
@@ -115,10 +115,10 @@
     ]
    },
    "images": [
-    "docs/screens/world_map.png",
-    "docs/screens/world_map_explore.png",
-    "docs/screens/world_map_monsters.png",
-    "docs/screens/world_map_quest_complete.png"
+    "docs/screens/world/world_map.png",
+    "docs/screens/world/world_map_explore.png",
+    "docs/screens/world/world_map_monsters.png",
+    "docs/screens/world/world_map_quest_complete.png"
    ],
    "notes": "Walkable island map with minimap, fog and pickups (R-002, R-004, R-021, R-022). Shows a fruit counter instead of Rolla in the top bar."
   },
@@ -130,8 +130,8 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/player_profile.png",
-    "docs/screens/player_profile_charm_badges.png"
+    "docs/screens/character/player_profile.png",
+    "docs/screens/character/player_profile_charm_badges.png"
    ],
    "notes": "Gear, techniques, Dish, Quick Heal. Not detected yet. Android back does nothing here. Red badges = empty Charm slots (row y≈0.71); blue badges on Equip = gear upgrades (R-080)."
   },
@@ -152,7 +152,7 @@
     ]
    },
    "images": [
-    "docs/screens/battle_prep.png"
+    "docs/screens/battle/battle_prep.png"
    ],
    "notes": "Enemy line-up, 'Round 0/15'. HP bar under the character model; read it to decide on healing before Start Battle. Can be backed out of (R-091)."
   },
@@ -168,7 +168,7 @@
     "roi": "top centre"
    },
    "images": [
-    "docs/screens/battle.png"
+    "docs/screens/battle/battle.png"
    ],
    "notes": "Plays itself (R-001); 15 rounds max. Loss leads to defeated. Mine battles run up to 25 rounds."
   },
@@ -194,7 +194,7 @@
     "roi": null
    },
    "images": [
-    "docs/screens/defeated.png"
+    "docs/screens/battle/defeated.png"
    ],
    "notes": "Confirm dialog 'Your character is incapacitated. Return to Home now?' after losing a map fight (R-031)."
   },
@@ -215,13 +215,13 @@
     ]
    },
    "images": [
-    "docs/screens/interact_portal.png",
-    "docs/screens/interact_temple.png",
-    "docs/screens/interact_obelisk.png",
-    "docs/screens/interact_goddess_statue.png",
-    "docs/screens/interact_ironvein_pit.png",
-    "docs/screens/lost_goddess_statue.png",
-    "docs/screens/gate_of_power.png"
+    "docs/screens/world/interact_portal.png",
+    "docs/screens/world/interact_temple.png",
+    "docs/screens/world/interact_obelisk.png",
+    "docs/screens/world/interact_goddess_statue.png",
+    "docs/screens/world/interact_ironvein_pit.png",
+    "docs/screens/world/lost_goddess_statue.png",
+    "docs/screens/world/gate_of_power.png"
    ],
    "notes": "Card for a map structure or object: picture, title, one-line description, one button at about (0.5, 0.70). Seen: Portal (Activate), Temple Ruins (Explore). Dismiss by tapping outside. What to press is decided by the card policy (R-042). Also Voyage Obelisk (Activate, kingdom travel), Goddess Statue (Unlock) and mines (Explore at 0.5, 0.80) (R-069 to R-071). Gate of Power cards have no button: dismiss (R-086). Lost Goddess Statue Unlock at (0.5, 0.81) (R-070)."
   },
@@ -237,7 +237,7 @@
     "roi": "banner at y 0.29"
    },
    "images": [
-    "docs/screens/reward_popup.png"
+    "docs/screens/dialogs/reward_popup.png"
    ],
    "notes": "Close by tapping anywhere."
   },
@@ -253,8 +253,8 @@
     "roi": "title"
    },
    "images": [
-    "docs/screens/confirm_dialog.png",
-    "docs/screens/confirm_fantasia_home.png"
+    "docs/screens/dialogs/confirm_dialog.png",
+    "docs/screens/dialogs/confirm_fantasia_home.png"
    ],
    "notes": "Cancel (0.32,0.57), OK (0.68,0.57). Returns to whatever the confirmed action leads to. Height varies: the 'Confirm' title sits between y 0.26 and 0.35, so buttons move with it (OK at y 0.57 for travel, 0.65 for defeat)."
   },
@@ -275,9 +275,9 @@
     ]
    },
    "images": [
-    "docs/screens/dialogue.png",
-    "docs/screens/dialogue_loadout.png",
-    "docs/screens/dialogue_choice.png"
+    "docs/screens/dialogs/dialogue.png",
+    "docs/screens/dialogs/dialogue_loadout.png",
+    "docs/screens/dialogs/dialogue_choice.png"
    ],
    "notes": "Tutorial/story overlay (Akane). Tap (0.5,0.9) to advance; can sit on top of any screen. Sometimes offers reply options (white pill with a black arrow)."
   },
@@ -289,8 +289,8 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/title.png",
-    "docs/screens/splash.png"
+    "docs/screens/system/title.png",
+    "docs/screens/system/splash.png"
    ],
    "notes": "Boot: Android splash, BOLTRAY logos (~10 s), title art with an 'Initializing' bar (~25 s), then 'Tap to Play' with side buttons (Servers, Settings, Notice, User Center, Repair Client...). Full boot sequence: docs/step2-hands-and-eyes.md, 'Interface catalogue'."
   },
@@ -306,9 +306,9 @@
     "roi": "bottom right, dark screen"
    },
    "images": [
-    "docs/screens/loading.png",
-    "docs/screens/logging_in.png",
-    "docs/screens/title_loading.png"
+    "docs/screens/system/loading.png",
+    "docs/screens/system/logging_in.png",
+    "docs/screens/system/title_loading.png"
    ],
    "notes": "Covers 'Loading...', 'Logging in...' and the title screen initialising. Wait it out. After login the game resumes on the last screen it was closed on (often world_map), not always home."
   },
@@ -338,7 +338,7 @@
     "roi": "bottom-left nav label"
    },
    "images": [
-    "docs/screens/character.png"
+    "docs/screens/character/character.png"
    ],
    "notes": "Gear slots; gear slot -> item card (Replace / Enhance) -> Enhance Gear (R-023). Red badges on gear slots, Skill, Class and the rank badge mean upgrades ready (R-080). Rank badge about (0.82, 0.72)."
   },
@@ -350,8 +350,8 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/loadout_edit.png",
-    "docs/screens/loadout_edit_charms.png"
+    "docs/screens/character/loadout_edit.png",
+    "docs/screens/character/loadout_edit_charms.png"
    ],
    "notes": "Not detected yet. Reached from the Combat Veteran quest's Go button. Techniques left, 4 charm slots right (x≈0.87, y≈0.21/0.30/0.39/0.48; 4th locked at Lv 13). Opens on Technique tab; Charm tab (0.56, 0.62)."
   },
@@ -373,7 +373,7 @@
    "unlock": "any mode unlocked (toast 'Unlock any mode to unlock Travel Journal')",
    "detect": null,
    "images": [
-    "docs/screens/journal.png"
+    "docs/screens/home/journal.png"
    ],
    "notes": "Cards: Fantasia Ascent (0.78, 0.23), Map Exploration, Material Realms, Weekly Events, two Unavailable (R-094). Map Exploration: pick a material and Go to track it (R-108)."
   },
@@ -385,8 +385,8 @@
    "unlock": "Character Lv. 15 (toast on the locked tab)",
    "detect": null,
    "images": [
-    "docs/screens/home_guild_tutorial.png",
-    "docs/screens/guild_island.png"
+    "docs/screens/home/home_guild_tutorial.png",
+    "docs/screens/guild/guild_island.png"
    ],
    "notes": "Bottom label 'Guild'; pans sideways. West: Guild Lobby, Gate of Expedition. East: Power Station, Forge, Warehouse (locked), Shop (not used yet). Bottom-right widget shows AFK status (R-110, R-113). Unlocked at Lv 20 with a tutorial; joined karsa_1515."
   },
@@ -457,7 +457,7 @@
     ]
    },
    "images": [
-    "docs/screens/cart.png"
+    "docs/screens/home/cart.png"
    ],
    "notes": "Hourly income per resource, each with a level and an upgrade arrow (R-020)."
   },
@@ -469,7 +469,7 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/home_house.png"
+    "docs/screens/home/home_house.png"
    ],
    "notes": "Two-storey house above the home scene (scroll the home scene up). Furniture slots, some locked by level (one 'Unlocks at Lv. 7')."
   },
@@ -481,8 +481,8 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/bed.png",
-    "docs/screens/furniture_unlock.png"
+    "docs/screens/home/bed.png",
+    "docs/screens/home/furniture_unlock.png"
    ],
    "notes": "AFK EXP and production panel with 'Today's Free Speedup' (R-035). An icon over the bed means AFK EXP to collect: a daily task, or sooner when close to levelling (R-101)."
   },
@@ -498,7 +498,7 @@
     "roi": "bottom"
    },
    "images": [
-    "docs/screens/unlocked.png"
+    "docs/screens/dialogs/unlocked.png"
    ],
    "notes": "Full-screen result such as 'UNLOCKED Bed, EXP/Hr 50'."
   },
@@ -510,7 +510,7 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/skill_loadout.png"
+    "docs/screens/character/skill_loadout.png"
    ],
    "notes": "4 technique slots left, 4 charm slots right, Loadout 1 selector; tabs Technique / Charm / Shard; bottom tabs Skill / Goals (R-037, R-080). Tap a skill, then Quick Upgrade beside the lower-right charm (R-104). Quick Upgrade icon about (0.73, 0.47) levels all skills at once (R-104)."
   },
@@ -522,7 +522,7 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/technique_card.png"
+    "docs/screens/character/technique_card.png"
    ],
    "notes": "Technique details (e.g. Ice Spike) with Remove / Enhance."
   },
@@ -534,7 +534,7 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/technique_upgrade.png"
+    "docs/screens/character/technique_upgrade.png"
    ],
    "notes": "Tabs Upgrade / Ascend. Costs Battle Essence; level capped by character level (R-037). Upgrade button at (0.5, 0.85) stays on this screen."
   },
@@ -550,7 +550,7 @@
     "roi": null
    },
    "images": [
-    "docs/screens/dungeon_floor.png"
+    "docs/screens/world/dungeon_floor.png"
    ],
    "notes": "Floor card e.g. 'Temple Ruins: Floor 1' with Next Floor at (0.5, 0.64) and a back arrow bottom left (R-040). Low HP: heal from the portrait here and continue; don't leave (R-091)."
   },
@@ -566,7 +566,7 @@
     "roi": null
    },
    "images": [
-    "docs/screens/wounded.png"
+    "docs/screens/battle/wounded.png"
    ],
    "notes": "Confirm 'The character is badly wounded. Use dishes to heal?' with Return to Home / Quick Heal (cost shown; dish count top right) (R-046)."
   },
@@ -578,9 +578,9 @@
    "unlock": "Lv 7",
    "detect": null,
    "images": [
-    "docs/screens/furniture_alchemy_pot.png",
-    "docs/screens/alchemy_pot.png",
-    "docs/screens/cooked.png"
+    "docs/screens/home/furniture_alchemy_pot.png",
+    "docs/screens/home/alchemy_pot.png",
+    "docs/screens/home/cooked.png"
    ],
    "notes": "House furniture: melt down gear and cook dishes. Dish tab: recipes with ingredient costs at the top and a Cook button; shows a 'Cooked' banner (R-047)."
   },
@@ -592,7 +592,7 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/rank_advancement.png"
+    "docs/screens/character/rank_advancement.png"
    ],
    "notes": "Rank up for base stats; needs max level and materials (R-118). Apprentice I→II raises max level 20→30; needs 20 Bellflowers (R-118)."
   },
@@ -604,8 +604,8 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/notice.png",
-    "docs/screens/notice_board.png"
+    "docs/screens/home/notice.png",
+    "docs/screens/home/notice_board.png"
    ],
    "notes": "Tabs Notice / System / News; lists events (R-051). Red tab badges = unread posts, not claims (R-063)."
   },
@@ -617,7 +617,7 @@
    "unlock": "Lv 10 (button appears on the menu)",
    "detect": null,
    "images": [
-    "docs/screens/friends.png"
+    "docs/screens/home/friends.png"
    ],
    "notes": "Friends 0/60; tabs Friends / Add Friends / Requests / Blocklist."
   },
@@ -639,8 +639,8 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/exploration_goals.png",
-    "docs/screens/destiny_exploration_goals.png"
+    "docs/screens/world/exploration_goals.png",
+    "docs/screens/world/destiny_exploration_goals.png"
    ],
    "notes": "Progress tab (per-region exploration milestones with rewards) and Explore tab (Destiny Exploration Goals) (R-052)."
   },
@@ -652,9 +652,9 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/class_choice.png"
+    "docs/screens/character/class_choice.png"
    ],
-   "notes": "Dialogue options Ascend to Mage / Change Class / Leave. The bot never chooses on its own (needs_decision); `python -m sxs.explore --choose \"<regex>\"` applies a human's choice (R-054)."
+   "notes": "Dialogue options Ascend to Mage / Change Class / Leave. The bot never chooses on its own (needs_decision); `python -m sxs explore --choose \"<regex>\"` applies a human's choice (R-054)."
   },
   {
    "id": "class_ascend",
@@ -664,7 +664,7 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/class_ascend.png"
+    "docs/screens/character/class_ascend.png"
    ],
    "notes": "Class trait stats and class skill grid; Ascend button at (0.5, 0.86) (R-054)."
   },
@@ -676,12 +676,12 @@
    "unlock": "Statue furniture on home",
    "detect": null,
    "images": [
-    "docs/screens/furniture_statue.png",
-    "docs/screens/prayer.png",
-    "docs/screens/prayer_tickets.png",
-    "docs/screens/prayer_affection.png"
+    "docs/screens/home/furniture_statue.png",
+    "docs/screens/home/prayer.png",
+    "docs/screens/home/prayer_tickets.png",
+    "docs/screens/home/prayer_affection.png"
    ],
-   "notes": "Pray x1 / x10 with prayer tickets; tabs Prayer / Exchange / Goals. The bot never taps Pray (R-093). Statue at about (0.07, 0.63) on the default home camera. Banners Standard (Stellatie) and Affection (tokens). Goals tab: Total Standard Prayers milestones pay Iron Hammers. Pulls only via mae's sxs.pray (R-093)."
+   "notes": "Pray x1 / x10 with prayer tickets; tabs Prayer / Exchange / Goals. The bot never taps Pray (R-093). Statue at about (0.07, 0.63) on the default home camera. Banners Standard (Stellatie) and Affection (tokens). Goals tab: Total Standard Prayers milestones pay Iron Hammers. Pulls only via mae's sxs.loops.pray (R-093)."
   },
   {
    "id": "prayer_result",
@@ -691,7 +691,7 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/prayer_result.png"
+    "docs/screens/home/prayer_result.png"
    ],
    "notes": "Skills and shards from a pull."
   },
@@ -703,7 +703,7 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/apply_requests.png"
+    "docs/screens/guild/apply_requests.png"
    ],
    "notes": "Tabs Friends / Team Up / Challenge / Room; incoming requests with x / check, Decline All / Agree All. Leave untouched (R-057)."
   },
@@ -715,11 +715,11 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/world_area_map.png",
-    "docs/screens/world_map_moonveil_entry.png",
-    "docs/screens/world_area_map_stone_ruins.png"
+    "docs/screens/world/world_area_map.png",
+    "docs/screens/world/world_map_moonveil_entry.png",
+    "docs/screens/world/world_area_map_stone_ruins.png"
    ],
-   "notes": "Full map of the current area, opened by tapping the minimap. Legend: Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone; areas show exploration % and power gates. Tapping a spot centres the camera there (R-068, R-076). The white box is the camera viewport. sxs/goto.py drives it."
+   "notes": "Full map of the current area, opened by tapping the minimap. Legend: Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone; areas show exploration % and power gates. Tapping a spot centres the camera there (R-068, R-076). The white box is the camera viewport. sxs/actions/goto.py drives it."
   },
   {
    "id": "puzzle_energy_circuits",
@@ -729,7 +729,7 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/puzzle_energy_circuits.png"
+    "docs/screens/world/puzzle_energy_circuits.png"
    ],
    "notes": "Ancient Fortress slab-swap puzzle; not automated (R-072)."
   },
@@ -741,7 +741,7 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/team.png"
+    "docs/screens/home/team.png"
    ],
    "notes": "Players 1/9, Team Goal, World Call / Invite / Nearby. Social; left alone (R-077)."
   },
@@ -753,7 +753,7 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/blessing_level.png"
+    "docs/screens/world/blessing_level.png"
    ],
    "notes": "Shown after unlocking a Goddess Statue (R-070)."
   },
@@ -765,9 +765,9 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/fantasia_ascent.png"
+    "docs/screens/dailies/fantasia_ascent.png"
    ],
-   "notes": "One card per tower, 'Current: Fn/110'. State `tower_list` in sxs/tower.py. Turn on Auto Challenge (unlocks after F3); a loss turns it off. Losses are not retried: one run per day, as a daily (R-079)."
+   "notes": "One card per tower, 'Current: Fn/110'. State `tower_list` in sxs/loops/tower.py. Turn on Auto Challenge (unlocks after F3); a loss turns it off. Losses are not retried: one run per day, as a daily (R-079)."
   },
   {
    "id": "fantasia_floors",
@@ -777,7 +777,7 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/fantasia_floors.png"
+    "docs/screens/dailies/fantasia_floors.png"
    ],
    "notes": "F1 at the bottom; tabs 'Fantasia Ascent' and 'Goals'. Current floor shows recommended power (F1 6.5K). State `tower_floors`."
   },
@@ -789,8 +789,8 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/fantasia_victory.png",
-    "docs/screens/fantasia_defeat.png"
+    "docs/screens/dailies/fantasia_victory.png",
+    "docs/screens/dailies/fantasia_defeat.png"
    ],
    "notes": "VICTORY with '<Tower> Fn' and Clear Rewards, or DEFEAT mid-screen. Continue/Retry at (0.77, 0.95). Auto Challenge checkbox (0.66, 0.90) after F3, with a one-time tutorial; Continue counts down '(3s)'. State `tower_result`."
   },
@@ -802,7 +802,7 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/charm_detail.png"
+    "docs/screens/character/charm_detail.png"
    ],
    "notes": "Name, rarity, affinity, source. Equip (0.5, 0.70), then tap an empty slot; reads Replace when the slot is filled."
   },
@@ -814,7 +814,7 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/rcmd_loadouts.png"
+    "docs/screens/character/rcmd_loadouts.png"
    ],
    "notes": "Beginner's Pick, AoE DMG, Apply. The bot doesn't use it (R-080)."
   },
@@ -826,7 +826,7 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/gear_swap_prompt.png"
+    "docs/screens/character/gear_swap_prompt.png"
    ],
    "notes": "Pops after chests with better gear (+power, swap button bottom right). Closed when the reward popup was dismissed (R-085)."
   },
@@ -838,7 +838,7 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/replace_gear.png"
+    "docs/screens/character/replace_gear.png"
    ],
    "notes": "Candidates best first; green up arrow = upgrade (R-088)."
   },
@@ -850,7 +850,7 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/gear_compare.png"
+    "docs/screens/character/gear_compare.png"
    ],
    "notes": "Equipped left, new right, with power. Replace under the new item; enhancement carries over (R-088)."
   },
@@ -872,7 +872,7 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/material_realms.png"
+    "docs/screens/dailies/material_realms.png"
    ],
    "notes": "Realm list; Ironvein Pit first, 3 locked (R-095)."
   },
@@ -884,7 +884,7 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/ironvein_pit.png"
+    "docs/screens/world/ironvein_pit.png"
    ],
    "notes": "Hammer (0.5, 0.72), Iron Mined counter, tabs Ironvein Pit / Rankings / Goals. Needs Iron Hammers (R-095)."
   },
@@ -896,7 +896,7 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/purchase_iron_hammer.png"
+    "docs/screens/shops/purchase_iron_hammer.png"
    ],
    "notes": "60 Dawnium each: never buy. Cancel (0.32, 0.65)."
   },
@@ -918,8 +918,8 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/daily_signin.png",
-    "docs/screens/daily_signin_received.png"
+    "docs/screens/dailies/daily_signin.png",
+    "docs/screens/dailies/daily_signin_received.png"
    ],
    "notes": "30-tile calendar; today's green Claim; never Catch Up (R-097)."
   },
@@ -931,7 +931,7 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/growth_trial.png"
+    "docs/screens/dailies/growth_trial.png"
    ],
    "notes": "Day 1-7 trial quests, points to a chest track; never Advanced Trial (R-098)."
   },
@@ -943,8 +943,8 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/guild_tutorial_intro.png",
-    "docs/screens/guild_no_guild.png"
+    "docs/screens/guild/guild_tutorial_intro.png",
+    "docs/screens/guild/guild_no_guild.png"
    ],
    "notes": "Join Guild Go>> (0.71, 0.38), Create Guild <<Go (0.29, 0.77): never create (R-102)."
   },
@@ -956,7 +956,7 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/guild_join_list.png"
+    "docs/screens/guild/guild_join_list.png"
    ],
    "notes": "Rows with Join (instant) or Apply; red '50K+ Power' = requirement; search field and Refresh (R-102)."
   },
@@ -968,9 +968,9 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/guild_lobby.png",
-    "docs/screens/guild_territory.png",
-    "docs/screens/guild_upgrade.png"
+    "docs/screens/guild/guild_lobby.png",
+    "docs/screens/guild/guild_territory.png",
+    "docs/screens/guild/guild_upgrade.png"
    ],
    "notes": "Donation (0.29, 0.82), Guildmates, More; tabs Guild / Territory / Upgrade (leader only) (R-113)."
   },
@@ -982,8 +982,8 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/guild_donation.png",
-    "docs/screens/guild_donation_confirm.png"
+    "docs/screens/guild/guild_donation.png",
+    "docs/screens/guild/guild_donation_confirm.png"
    ],
    "notes": "Daily Donations N/5; 1st free, 2nd 20 Dawnium (confirm), 3rd 50. Max 2 a day (R-103)."
   },
@@ -995,9 +995,9 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/guild_forge.png",
-    "docs/screens/guild_power_station.png",
-    "docs/screens/guild_afk_switch_confirm.png"
+    "docs/screens/guild/guild_forge.png",
+    "docs/screens/guild/guild_power_station.png",
+    "docs/screens/guild/guild_afk_switch_confirm.png"
    ],
    "notes": "Forge / Power Station / Mine, 10 slots. Empty '+' opens AFK Details, then Start. One slot per character; switching collects (R-110)."
   },
@@ -1009,7 +1009,7 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/guild_events.png"
+    "docs/screens/guild/guild_events.png"
    ],
    "notes": "Guild Clash (locked for now), Conquest (R-111)."
   },
@@ -1021,8 +1021,8 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/guild_conquest.png",
-    "docs/screens/guild_conquest_rankings.png"
+    "docs/screens/guild/guild_conquest.png",
+    "docs/screens/guild/guild_conquest_rankings.png"
    ],
    "notes": "Shared boss per floor; Daily Challenge Attempts N/2; floor chest (0.49, 0.57); Challenge (0.50, 0.77); tabs Rankings, Goals (R-111)."
   },
@@ -1034,7 +1034,7 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/guild_conquest_result.png"
+    "docs/screens/guild/guild_conquest_result.png"
    ],
    "notes": "Damage dealt, participation rewards; Tap to Continue."
   },
@@ -1050,11 +1050,11 @@
     "roi": null
    },
    "images": [
-    "docs/screens/mall_premium_picks.png",
-    "docs/screens/mall_premium_picks_2.png",
-    "docs/screens/mall_welcome_benefit.png"
+    "docs/screens/shops/mall_premium_picks.png",
+    "docs/screens/shops/mall_premium_picks_2.png",
+    "docs/screens/shops/mall_welcome_benefit.png"
    ],
-   "notes": "Shop. Every pack is USD: never tap one. Only the free gift box at the top left of each page (red \"!\" above right) may be tapped, once per refresh: Daily Gift 4 h, Weekly Gift 5 d, Welcome Benefit once, event boxes (R-121). Bottom tabs Event / Monthly Pass / Top Up (never Top Up). Code sxs/mall.py, state mall."
+   "notes": "Shop. Every pack is USD: never tap one. Only the free gift box at the top left of each page (red \"!\" above right) may be tapped, once per refresh: Daily Gift 4 h, Weekly Gift 5 d, Welcome Benefit once, event boxes (R-121). Bottom tabs Event / Monthly Pass / Top Up (never Top Up). Code sxs/loops/mall.py, state mall."
   }
  ],
  "edges": [
@@ -2183,7 +2183,7 @@
     ]
    },
    "confidence": "observed",
-   "notes": "When the dialog was the Fantasia Ascent prompt; travels home. How home leads on to the tower list is in sxs/tower.py.",
+   "notes": "When the dialog was the Fantasia Ascent prompt; travels home. How home leads on to the tower list is in sxs/loops/tower.py.",
    "when": "Fantasia Ascent prompt and tower not done today"
   },
   {

@@ -6,9 +6,9 @@ from pathlib import Path
 import cv2
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from sxs.badges import find_badges  # noqa: E402
-from sxs.gather import pickups_to_take  # noqa: E402
-from sxs.upgrade import relic_plan  # noqa: E402
+from sxs.vision.badges import find_badges  # noqa: E402
+from sxs.loops.gather import pickups_to_take  # noqa: E402
+from sxs.loops.upgrade import relic_plan  # noqa: E402
 
 SCREENS = Path(__file__).resolve().parent.parent / "docs" / "screens"
 fails = 0
@@ -36,9 +36,9 @@ check("stamina 74 -> 0 pickups", pickups_to_take(74, 70), 0)
 check("stamina 50 -> 0 pickups", pickups_to_take(50, 70), 0)
 
 # Badges ("!") on reference screens.
-check("badges skill_page", len(find_badges(cv2.imread(str(SCREENS / "skill_page.png")))), 4)
-check("badges rank_level_goals", len(find_badges(cv2.imread(str(SCREENS / "rank_level_goals.png")))), 8)
-check("badges class_hierarchy (not the red class icons)", len(find_badges(cv2.imread(str(SCREENS / "class_hierarchy.png")))), 3)
+check("badges skill_page", len(find_badges(cv2.imread(str(SCREENS / "character/skill_page.png")))), 4)
+check("badges rank_level_goals", len(find_badges(cv2.imread(str(SCREENS / "character/rank_level_goals.png")))), 8)
+check("badges class_hierarchy (not the red class icons)", len(find_badges(cv2.imread(str(SCREENS / "character/class_hierarchy.png")))), 3)
 
 print("all good" if not fails else f"{fails} failed")
 sys.exit(1 if fails else 0)

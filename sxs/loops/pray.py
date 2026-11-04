@@ -1,0 +1,185 @@
+"""Skill pulls at the Goddess Statue (Prayer), run only when the handler asks for it.
+
+    python -m sxs pray --pulls 20 --handler-approved
+    python -m sxs pray --check          # read the ticket count only, no pulls
+
+mae, 2026-11-04: pulls are how the character gets new skills, but they're the handler's call: this script is
+never called from an autonomous loop (the daily, explore and other loops don't import it), and it refuses to
+pull without --pulls and --handler-approved.
+
+Standard banner only. A pull costs Stellatie (the blue crystal prayer ticket; Pray x10 = 10). Pulls are only ever
+made in groups of ten with the x10 button, never Pray x1 (mae, 2026-11-04, R-093): --pulls must be a multiple of 10
+and the run stops when fewer than 10 tickets are left.
+Stellatie comes free from the Daily Sign-in and quests; the "+" next to it buys more and is never touched.
+Dawnium is never spent: the script reads the Dawnium counter before and after each pull and stops at once if it
+moved, and a purchase dialog is cancelled and ends the run. It stops when tickets run out rather than buying.
+After pulling it claims the Goals tab (Total Standard Prayers milestones pay Iron Hammers and other items).
+"""
+
+from __future__ import annotations
+
+import logging
+import re
+import time
+from typing import Optional
+
+from ..core import ui
+from ..core.device import Device, save_unknown
+from ..core.state import StateDetector
+from ..core.loop import REFUSED, Loop, banner
+from ..core.nav import Navigator
+from ..policy import claims
+from ..vision.ocr import read_line
+
+log = logging.getLogger("sxs.loops.pray")
+
+HOME_STATUE = (50, 810)  # Goddess Statue at the left of the home scene (default camera after a fresh start)
+BANNER_STANDARD = (190, 1124)
+PRAY_X1 = (250, 968)  # never tapped (mae, 2026-11-04: pulls only in groups of ten); kept to document the screen
+PRAY_X10 = (530, 968)
+PULL_GROUP = 10
+GOALS_TAB = (608, 1216)
+PRAYER_TAB = (246, 1216)
+TICKETS_ROI = [470, 30, 90, 45]  # Stellatie count, top right
+DAWNIUM_ROI = [560, 30, 160, 45]  # Dawnium count, right of the "+"
+BANNER_LINE_ROI = [0, 870, 720, 60]  # "Prayer xN away from a guaranteed Legendary" (Standard) vs "Affection Tokens"
+WOULD_SPEND = re.compile(r"Purchase|Dawnium|Recharge|Top ?up|Insufficient|Not enough", re.I)
+
+
+def _number(text: str) -> Optional[float]:
+    m = re.search(r"(\d+(?:\.\d+)?)\s*([KM]?)", text.replace(",", ""))
+    if not m:
+        return None
+    return float(m.group(1)) * {"": 1, "K": 1e3, "M": 1e6}[m.group(2)]
+
+
+class Prayer:
+    def __init__(self, dev: Device, det: StateDetector):
+        self.dev, self.det, self.nav = dev, det, Navigator(dev, det)
+
+    def _read(self, roi) -> Optional[float]:
+        for t, _ in self.det.read_text(roi):
+            n = _number(t)
+            if n is not None:
+                return n
+        return None
+
+    def tickets(self) -> Optional[int]:
+        n = self._read(TICKETS_ROI)
+        return int(n) if n is not None else None
+
+    def dawnium(self) -> Optional[float]:
+        return self._read(DAWNIUM_ROI)
+
+    def open(self) -> bool:
+        self.nav.go_home()
+        self.dev.tap(*HOME_STATUE)
+        if self.det.wait_for({"prayer"}, 8, interval=0.5).state != "prayer":
+            return False
+        self.dev.tap(*BANNER_STANDARD)
+        time.sleep(1.5)
+        line = read_line(self.det, BANNER_LINE_ROI)
+        return "Affection" not in line
+
+    def _spend_dialog(self) -> bool:
+        """A purchase or shortage dialog is showing: cancel it. True if one was there."""
+        texts = self.det.read_text([0, 200, 720, 900])
+        if not any(WOULD_SPEND.search(t) for t, _ in texts):
+            return False
+        cancel = [b for t, b in texts if re.fullmatch(r"Cancel", t.strip())]
+        x, y, w, h = cancel[0] if cancel else (*ui.CONFIRM_CANCEL, 0, 0)
+        self.dev.tap(x + w // 2, y + h // 2)
+        time.sleep(1.5)
+        return True
+
+    def _wait_result(self, timeout: float = 25) -> bool:
+        """Wait out the pull animation until the result screen shows; tap the top edge to skip animations."""
+        deadline = time.monotonic() + timeout
+        while time.monotonic() < deadline:
+            s = self.det.detect().state
+            if s == "prayer_result":
+                return True
+            if s in ("reward_popup", "tap_to_continue"):
+                self.dev.tap(*ui.REWARD_CLOSE)
+            elif s != "prayer":
+                self.dev.tap(360, 60)
+            time.sleep(1.5)
+        return False
+
+    def pull(self, pulls: int) -> str:
+        """Returns "done", "out_of_tickets", "would_spend", "dawnium_changed", "no_statue" or "unknown_screen"."""
+        banner(log, "Prayer", f"{pulls} Standard skill pulls with Stellatie tickets (handler-approved)",
+               "pulls done, tickets run out, any purchase prompt, the Dawnium counter moving, or an unfamiliar screen")
+        if not self.open():
+            log.warning("Prayer (Standard banner) did not open; frame %s", save_unknown(self.dev, "pray_open"))
+            return "no_statue"
+        left, result, got = pulls, "done", []
+        while left > 0:
+            # Read the count twice: one misread ("4" for 20) once caused a single pull.
+            tickets, again, gems = self.tickets(), self.tickets(), self.dawnium()
+            if tickets is None or tickets != again:
+                log.warning("can't read the ticket count reliably (%s, %s); stopping", tickets, again)
+                result = "unknown_screen"
+                break
+            if tickets < PULL_GROUP:
+                log.info("%d tickets left, %d pulls not done: stopping (x10 only, never buying tickets)", tickets, left)
+                result = "out_of_tickets"
+                break
+            cost = PULL_GROUP
+            log.info("Pray x%d (%d tickets, %d pulls to go)", cost, tickets, left)
+            self.dev.tap(*PRAY_X10)  # mae, 2026-11-04: only ever in groups of ten, never Pray x1
+            time.sleep(2.5)
+            if self._spend_dialog():
+                log.warning("a purchase prompt appeared; cancelled and stopping")
+                result = "would_spend"
+                break
+            if not self._wait_result():
+                log.warning("no prayer result screen; frame %s", save_unknown(self.dev, "pray_result"))
+                result = "unknown_screen"
+                break
+            names = [t for t, _ in self.det.read_text([0, 120, 720, 900]) if re.search(r"[A-Za-z]{3}", t)]
+            got.extend(names)
+            log.info("got: %s", ", ".join(names))
+            after = self.dawnium()
+            if gems is not None and after is not None and after < gems:
+                log.error("Dawnium went from %g to %g: stopping now", gems, after)
+                result = "dawnium_changed"
+                break
+            left -= cost
+            self.dev.tap(*ui.BACK_ARROW)  # result -> Prayer
+            if self.det.wait_for({"prayer"}, 8, interval=0.5).state != "prayer":
+                result = "unknown_screen"
+                break
+        self.dev.tap(*GOALS_TAB)
+        time.sleep(2)
+        claims.claim_all(self.dev, self.det)
+        log.info("prayer: %s after %d pulls; results: %s", result, pulls - left, "; ".join(got))
+        self.nav.go_home()
+        return result
+
+
+def _args(p) -> None:
+    p.add_argument("--pulls", type=int, help="number of pulls, a multiple of 10 (x10 button only)")
+    p.add_argument("--handler-approved", action="store_true", help="required: the handler asked for these pulls")
+    p.add_argument("--check", action="store_true", help="open Prayer and print the ticket count, no pulls")
+
+
+def _run(ctx, opts):
+    pr = Prayer(ctx.dev, ctx.det)
+    if opts.check:
+        ok = pr.open()
+        data = {"status": "checked" if ok else "no_statue", "tickets": pr.tickets(), "dawnium": pr.dawnium()}
+        pr.nav.go_home()
+        return data
+    if not opts.pulls or not opts.handler_approved:
+        log.warning("refusing: pulls are the handler's call; pass --pulls N --handler-approved")
+        return f"{REFUSED}: not handler-approved"
+    if opts.pulls % PULL_GROUP:
+        log.warning("refusing: pulls only in groups of %d (mae, 2026-11-04); --pulls must be a multiple of %d",
+                    PULL_GROUP, PULL_GROUP)
+        return f"{REFUSED}: pulls not a multiple of {PULL_GROUP}"
+    return pr.pull(opts.pulls)
+
+
+LOOP = Loop("pray", "Prayer", "Standard-banner skill pulls, x10 only; handler-triggered (--pulls N --handler-approved)",
+            _run, _args, ok={"done", "checked"})

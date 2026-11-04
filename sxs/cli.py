@@ -1,4 +1,9 @@
-"""Command line for the hands-and-eyes layer.
+"""Command line: run a loop, look at the screen, or drive the device by hand.
+
+    python -m sxs <loop> [options]           run a loop (list below; `python -m sxs <loop> --help` for its options)
+    python -m sxs see badges|minimap|gift [FRAME ...]   run one detector on frames (default: a live screenshot)
+    python -m sxs bank                       copy unfamiliar frames (captures/unknown/) into docs/screens/unlabeled/
+    python -m sxs label                      file the screens mae labelled in docs/screens/unlabeled/README.md
 
     python -m sxs screenshot [out.png]       save the current frame
     python -m sxs tap X Y
@@ -6,7 +11,7 @@
     python -m sxs back
     python -m sxs start | stop               launch or kill the game
     python -m sxs state [--save DIR]         print the detected screen state as JSON
-    python -m sxs capture NAME               save a reference screenshot to docs/screens/NAME.png
+    python -m sxs capture NAME               save a reference screenshot to docs/screens/<folder>/NAME.png
     python -m sxs watch [--interval 2]       print the state whenever it changes (Ctrl+C to stop)
 
 Coordinates are in the game's portrait frame, 720 wide by 1280 tall.
@@ -23,9 +28,12 @@ from pathlib import Path
 
 import cv2
 
-from .device import DEFAULT_ADDRESS, REPO_ROOT, Device
+from .core.device import DEFAULT_ADDRESS, Device
+from .core.paths import SCREENS as SCREENS_DIR
+from .loops import REGISTRY
 
-SCREENS_DIR = REPO_ROOT / "docs" / "screens"
+SEE = {"badges": "sxs.vision.badges", "minimap": "sxs.vision.minimap", "gift": "sxs.vision.gift"}
+DEVICE_COMMANDS = ("screenshot", "tap", "swipe", "back", "start", "stop", "state", "capture", "watch")
 
 
 def _save_png(img, path: Path) -> Path:
@@ -45,7 +53,54 @@ def _save_reference(img, path: Path) -> Path:
     return path
 
 
+def _loop_list() -> str:
+    from .loops import get
+
+    lines = []
+    for name in REGISTRY:
+        try:
+            lines.append(f"  {name:<11} {get(name).summary}")
+        except Exception as e:  # a loop that fails to import is listed, not fatal
+            lines.append(f"  {name:<11} (failed to load: {e})")
+    return "loops:\n" + "\n".join(lines)
+
+
 def main(argv: list[str] | None = None) -> int:
+    argv = list(sys.argv[1:] if argv is None else argv)
+    address = None
+    if len(argv) >= 2 and argv[0] == "--address":
+        address, argv = argv[1], argv[2:]
+    if argv and argv[0] in REGISTRY:
+        from .core.loop import run_cli
+        from .loops import get
+
+        return run_cli(get(argv[0]), argv[1:], address)
+    if argv and argv[0] == "see":
+        import importlib
+
+        if len(argv) < 2 or argv[1] not in SEE:
+            print(f"usage: python -m sxs see {{{','.join(SEE)}}} [FRAME ...]", file=sys.stderr)
+            return 2
+        return importlib.import_module(SEE[argv[1]]).main(argv[2:])
+    if argv and argv[0] in ("bank", "label"):
+        from .core import screens
+
+        if argv[0] == "bank":
+            new = screens.bank(_save_reference)
+            print(f"{len(new)} new screen(s) in docs/screens/unlabeled/: " + ", ".join(new) if new else
+                  "nothing new to bank")
+            return 0
+        filed, problems = screens.label()
+        for line in filed + problems:
+            print(line)
+        print(f"{len(filed)} filed, {len(problems)} left in the bank with a problem")
+        return 1 if problems else 0
+    if address:
+        argv = ["--address", address, *argv]
+    if not argv or argv[0] in ("-h", "--help") or argv[0] not in (*DEVICE_COMMANDS, "--address"):
+        print(__doc__)
+        print(_loop_list())
+        return 0 if argv and argv[0] in ("-h", "--help") else 2
     p = argparse.ArgumentParser(prog="sxs", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--address", default=DEFAULT_ADDRESS, help="adb address of the MuMu instance")
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -76,9 +131,12 @@ def main(argv: list[str] | None = None) -> int:
     elif args.cmd == "stop":
         dev.stop_game()
     elif args.cmd == "capture":
-        print(_save_reference(dev.screenshot(), SCREENS_DIR / f"{args.name}.png"))
+        from .core.screens import folder_for
+
+        folder = folder_for(args.name)  # by prefix; a name no folder takes goes to unlabeled/
+        print(_save_reference(dev.screenshot(), SCREENS_DIR / folder / f"{args.name}.png"))
     elif args.cmd in ("state", "watch"):
-        from .state import StateDetector
+        from .core.state import StateDetector
         det = StateDetector(dev)
         if args.cmd == "state":
             d = det.detect()

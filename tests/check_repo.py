@@ -3,7 +3,8 @@
 - every pipeline and policy JSON file parses
 - every template a pipeline names exists under resource/image/
 - every State.* node is in State.Detect's order list, and every name in the list is a node
-- every `python -m sxs.X` and `scripts/X.py` / `tests/X.py` named in docs, memory-bank and module docstrings exists
+- every `python -m sxs <loop>`, `sxs/.../X.py`, `scripts/X.py` and `tests/X.py` named in docs, memory-bank and module
+  docstrings exists (the retired `python -m sxs.X` form is flagged)
 - every Python file compiles
 
 Exits 1 and lists the problems if anything fails.
@@ -65,27 +66,50 @@ for path in sorted((ROOT / "resource" / "policy").glob("*.json")):
     except ValueError as e:
         problems.append(f"{path.relative_to(ROOT)}: does not parse ({e})")
 
-MODULE_REF = re.compile(r"python3? -m sxs\.([a-z_]+)")
+# Commands: `python -m sxs <name>` must be a registered loop (sxs/loops/__init__.py REGISTRY, read as text so this
+# check needs no MaaFramework), a device command in sxs/cli.py or `see`. The old `python -m sxs.<module>` form is gone.
+REGISTRY = set(re.findall(r'^\s+"([a-z_]+)": "sxs\.', (ROOT / "sxs" / "loops" / "__init__.py").read_text(), re.M))
+CLI_WORDS = {"see", "bank", "label", "--help", "-h", "--address", "<loop>", "<name>"}
+CLI_WORDS |= set(re.findall(r'"([a-z]+)"', re.search(r"DEVICE_COMMANDS = \(([^)]*)\)",
+                                                       (ROOT / "sxs" / "cli.py").read_text()).group(1)))
+OLD_REF = re.compile(r"python3? -m sxs\.([a-z_.]+)")
+CMD_REF = re.compile(r"python3? -m sxs ([a-z<>_-]+)")
+CODE_REF = re.compile(r"\b(sxs/[a-z_/]+\.py|docs/screens/[a-z_/0-9]+\.png)\b")
 SCRIPT_REF = re.compile(r"\b((?:scripts|tests)[/\\][a-z][\w-]*\.py)\b")
 texts = [p for p in ROOT.glob("*.md")] + list((ROOT / "docs").glob("*.md")) + list((ROOT / "memory-bank").rglob("*.md"))
-texts += list((ROOT / "sxs").glob("*.py")) + list((ROOT / "scripts").glob("*.py")) + list((ROOT / "tests").glob("*.py"))
+texts += list((ROOT / "sxs").rglob("*.py")) + list((ROOT / "scripts").glob("*.py")) + list((ROOT / "tests").glob("*.py"))
 texts += list((ROOT / "sxs").glob("README.md")) + list((ROOT / "scripts").glob("README.md")) + list((ROOT / "tests").glob("README.md"))
+texts += list((ROOT / "resource").rglob("*.md")) + [ROOT / "AGENTS.md"]
 for path in sorted(set(texts)):
-    if "archive" in path.parts or path.name == "log.md":
+    if "archive" in path.parts or path.name == "log.md" or path == Path(__file__).resolve():
         continue  # history may name things that are gone
     text = path.read_text(encoding="utf-8", errors="replace")
-    for m in sorted(set(MODULE_REF.findall(text))):
-        if not (ROOT / "sxs" / f"{m}.py").is_file():
-            problems.append(f"{path.relative_to(ROOT)}: names python -m sxs.{m}, which doesn't exist")
+    for m in sorted(set(OLD_REF.findall(text))):
+        problems.append(f"{path.relative_to(ROOT)}: names python -m sxs.{m}; loops now run as python -m sxs <name>")
+    for m in sorted(set(CMD_REF.findall(text))):
+        if m not in REGISTRY and m not in CLI_WORDS:
+            problems.append(f"{path.relative_to(ROOT)}: names python -m sxs {m}, which is not a loop or command")
+    for m in sorted(set(CODE_REF.findall(text))):
+        if not (ROOT / m).is_file():
+            problems.append(f"{path.relative_to(ROOT)}: names {m}, which doesn't exist")
     for m in sorted(set(SCRIPT_REF.findall(text))):
         if not (ROOT / m.replace("\\", "/")).is_file():
             problems.append(f"{path.relative_to(ROOT)}: names {m}, which doesn't exist")
 
-for path in sorted(list((ROOT / "sxs").glob("*.py")) + list((ROOT / "scripts").glob("*.py")) + list((ROOT / "tests").glob("*.py"))):
+for path in sorted(list((ROOT / "sxs").rglob("*.py")) + list((ROOT / "scripts").glob("*.py")) + list((ROOT / "tests").glob("*.py"))):
     try:
         py_compile.compile(str(path), doraise=True, cfile=str(ROOT / ".maa" / "pycheck.pyc"))
     except py_compile.PyCompileError as e:
         problems.append(f"{path.relative_to(ROOT)}: does not compile ({e.msg})")
+
+# Screens: every reference screen sits in a folder, and expected.json names only screens that exist.
+screens = ROOT / "docs" / "screens"
+for p in sorted(screens.glob("*.png")):
+    problems.append(f"docs/screens/{p.name}: put it in a folder (sxs/core/screens.py FOLDERS) or unlabeled/")
+names = {p.stem for p in screens.rglob("*.png")}
+for name in sorted(json.loads((screens / "expected.json").read_text(encoding="utf-8"))["states"]):
+    if name not in names:
+        problems.append(f"docs/screens/expected.json: {name} has no screenshot")
 
 if problems:
     print("\n".join(problems))
