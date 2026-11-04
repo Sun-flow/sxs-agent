@@ -340,7 +340,7 @@
    "images": [
     "docs/screens/character.png"
    ],
-   "notes": "Gear slots; gear slot -> item card (Replace / Enhance) -> Enhance Gear (R-023)."
+   "notes": "Gear slots; gear slot -> item card (Replace / Enhance) -> Enhance Gear (R-023). Red badges on gear slots, Skill, Class and the rank badge mean upgrades ready (R-080). Rank badge about (0.82, 0.72)."
   },
   {
    "id": "loadout_edit",
@@ -512,7 +512,7 @@
    "images": [
     "docs/screens/skill_loadout.png"
    ],
-   "notes": "4 technique slots left, 4 charm slots right, Loadout 1 selector; tabs Technique / Charm / Shard; bottom tabs Skill / Goals (R-037, R-038). Tap a skill, then Quick Upgrade beside the lower-right charm (R-104)."
+   "notes": "4 technique slots left, 4 charm slots right, Loadout 1 selector; tabs Technique / Charm / Shard; bottom tabs Skill / Goals (R-037, R-038). Tap a skill, then Quick Upgrade beside the lower-right charm (R-104). Quick Upgrade icon about (0.73, 0.47) levels all skills at once (R-104)."
   },
   {
    "id": "technique_card",
@@ -594,7 +594,7 @@
    "images": [
     "docs/screens/rank_advancement.png"
    ],
-   "notes": "Rank up for base stats; needs max level and materials (R-048)."
+   "notes": "Rank up for base stats; needs max level and materials (R-048). Apprentice I→II raises max level 20→30; needs 20 Bellflowers (R-118)."
   },
   {
    "id": "notice",
@@ -862,7 +862,7 @@
    "unlock": null,
    "detect": null,
    "images": [],
-   "notes": "Tabs per piece with +N; '+21 → +22' at y≈0.42, stat deltas, cost (Raw Ore, Rolla), Enhance (0.5, 0.85), Resonance, Goals tab. Not a detector state yet, so go_home gets stuck here. Level pieces evenly in 5-level bands (R-092)."
+   "notes": "Tabs per piece with +N; '+21 → +22' at y≈0.42, stat deltas, cost (Raw Ore, Rolla), Enhance (0.5, 0.85), Resonance, Goals tab. Not a detector state yet, so go_home gets stuck here. Level pieces evenly in 5-level bands (R-092). Resonance (0.86, 0.20): activate tiers as bands complete (R-119)."
   },
   {
    "id": "material_realms",

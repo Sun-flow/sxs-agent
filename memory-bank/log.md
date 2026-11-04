@@ -10,6 +10,7 @@
 - PR #17 merged. mae: fights with the background symbol run unattended, so start them and move on (R-112, icon crop in `docs/screens/icons/`); Conquest has 2 free tries a day (R-111).
 - Guild batch 1: tutorial and join list (R-102), donation screen (R-103), gathering facilities and mae's Forge choice (R-110), Conquest flow and the guild script (R-111), island and Lobby (R-113), Warehouse and Shop (R-114), bed EXP bubble (R-101). Eight guild screens in the nav graph. Images are on the builder's guild-tutorial branch until it merges.
 - Guild addendum: Conquest OCR quirk and the Done chip (R-111), the hidden Gate label and remembered camera pan (R-113). Opened PR #19 for `guild-tutorial`.
+- Upgrade-systems batch 1 (builder numbered from R-112; renumbered here): builder R-112 folded into R-080, R-113 into R-104, R-119 into R-108; new R-115 technique ascension, R-116 Goals tabs, R-117 class badges, R-118 rank cap and Bellflowers, R-119 gear resonance.
 
 ### 2026-11-04 (morning) · Game docs: bed EXP (Claude Code, cloud)
 - PR #13 merged. mae: collect bed EXP daily, not in every upgrade pass, and sooner near a level-up (R-101); the guild unlocked at Lv 20 (R-011). Next: rule batches from the guild-mapping thread.

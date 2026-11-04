@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/`; templates in `resource/image/`.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-115).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-120).
 
 Entry format:
 
@@ -223,7 +223,7 @@ Entry format:
 - **Related**: R-022, R-025.
 
 ### R-033 · Stamina regenerates slowly
-- **Rule**: Stamina went from 51 to 55 in about 40 minutes, roughly 1 every 10 minutes ❓ (one sample). How to spend it: R-107.
+- **Rule**: Stamina went from 51 to 55 in about 40 minutes, roughly 1 every 10 minutes ❓ (one sample). How to spend it: R-107. Later reading: about 1 per 11 to 12 minutes, cap 300 (R-108).
 - **Confidence**: observed once. **Source**: builder batch 4.
 - **Images**: none.
 - **Related**: R-017.
@@ -409,10 +409,10 @@ Entry format:
 - **Related**: R-031, R-043, R-046, R-047, R-078, nodes `player_profile`, `wounded`, `alchemy_pot`.
 
 ### R-080 · A red "!" over the player means check the character panel
-- **Rule**: A red "!" above the player character on the overworld is a general "something to do with your character" badge, not a heal signal. Causes include charms (or other gear) ready to equip, and possibly low HP among others. When it appears, open the character panel (HUD portrait), follow the badged tab and handle it (equip, upgrade or claim, within the spending rules); decide whether to heal only from the HP bar (R-061, R-078). On the character panel (tap your own character, or the HUD portrait), red badges mark empty Charm slots (row at y≈0.71) and blue badges on Equip mark available gear upgrades. To fill a charm slot: tap an empty charm slot, which opens the loadout editor "Edit" (techniques on the left, 4 charm slots on the right at x≈0.87, y≈0.21 / 0.30 / 0.39 / 0.48). It opens on the Technique tab; the Charm tab is at (0.56, 0.62). Tap a charm to open its card (for example "Heart of Flame", Rare, Fire Affinity 166, source Skill Prayer), press Equip (0.5, 0.70), then tap an empty slot. Once a slot is filled the button reads Replace. The 4th charm slot was still locked at Lv 13. The Rcmd button opens "Rcmd Loadouts" (Beginner's Pick, AoE DMG) with Apply; the bot doesn't use it. Filling the slots also completed "Combat Master: Equip 6 Skills 6/6". Any "!" on the character screen generally means an upgrade is available (skills, gear and so on): always check it and take the upgrade, within the spending rules (mae, 2026-11-04). Do not block fights on the "!" alone: the explore loop got stuck treating a charm "!" as a heal request. Also beware mis-taps: when the quest marker sits next to the player, a tap meant for the marker can land on the player sprite and open the character panel instead; aim off the sprite or move first.
+- **Rule**: A red "!" above the player character on the overworld is a general "something to do with your character" badge, not a heal signal. Causes include charms (or other gear) ready to equip, and possibly low HP among others. When it appears, open the character panel (HUD portrait), follow the badged tab and handle it (equip, upgrade or claim, within the spending rules); decide whether to heal only from the HP bar (R-061, R-078). On the character panel (tap your own character, or the HUD portrait), red badges mark empty Charm slots (row at y≈0.71) and blue badges on Equip mark available gear upgrades. To fill a charm slot: tap an empty charm slot, which opens the loadout editor "Edit" (techniques on the left, 4 charm slots on the right at x≈0.87, y≈0.21 / 0.30 / 0.39 / 0.48). It opens on the Technique tab; the Charm tab is at (0.56, 0.62). Tap a charm to open its card (for example "Heart of Flame", Rare, Fire Affinity 166, source Skill Prayer), press Equip (0.5, 0.70), then tap an empty slot. Once a slot is filled the button reads Replace. The 4th charm slot was still locked at Lv 13. The Rcmd button opens "Rcmd Loadouts" (Beginner's Pick, AoE DMG) with Apply; the bot doesn't use it. Filling the slots also completed "Combat Master: Equip 6 Skills 6/6". Any "!" on the character screen generally means an upgrade is available (skills, gear and so on): always check it and take the upgrade, within the spending rules (mae, 2026-11-04). Seen live: the badges sit on the gear slots, Skill, Class and the rank badge ("Apprentice I"), and inside the next screens they mark the exact tab or button to press. Badges pulse, so check 2 frames before deciding there's none. Code: `sxs/badges.py`, `sxs/upgrade.py`. Do not block fights on the "!" alone: the explore loop got stuck treating a charm "!" as a heal request. Also beware mis-taps: when the quest marker sits next to the player, a tap meant for the marker can land on the player sprite and open the character panel instead; aim off the sprite or move first.
 - **Confidence**: told (mae); badge colours and the mis-tap observed by the builder. **Source**: mae, 2026-11-04; builder thread, 2026-11-04.
 - **Images**: `docs/screens/player_profile_charm_badges.png`, `docs/screens/loadout_edit_charms.png`, `docs/screens/charm_detail.png`, `docs/screens/rcmd_loadouts.png` (step 3 branch).
-- **Related**: R-061, R-063, R-078, nodes `player_profile`, `loadout_edit`, `charm_detail`, `rcmd_loadouts`.
+- **Related**: R-061, R-063, R-078, nodes `player_profile`, `loadout_edit`, `charm_detail`, `rcmd_loadouts`, R-034, R-104, R-115 to R-119.
 
 ### R-062 · NPCs with a red "!" gate progress
 - **Rule**: Quests can be locked behind NPC interactions. An NPC with a red exclamation mark above its head on the world map or overworld (Originisle, Verdantglade...) must be talked to first; it gives instructions on how to progress and then disappears, unlocking the objects around it (for example the Chief at the Originisle V pillar guards the boss loot row). When the tracker points at something that can't be reached, look for a red "!" NPC nearby and tap it first.
@@ -690,9 +690,9 @@ Entry format:
 ## Added from mae (2026-11-04): upgrades and materials
 
 ### R-104 · Upgrade skills with Quick Upgrade
-- **Rule**: To upgrade a skill, tap the skill, then the "Quick Upgrade" button beside the lower-right charm. It spends Battle Essence (R-039) and is capped by character level (R-037).
-- **Confidence**: told. **Source**: mae, 2026-11-04.
-- **Images**: none yet (want: the Quick Upgrade button).
+- **Rule**: To upgrade a skill, tap the skill, then the "Quick Upgrade" button beside the lower-right charm. It spends Battle Essence (R-039) and is capped by character level (R-037). Seen live: on the Skill page (Character > Skill) the Quick Upgrade icon sits at about (0.73, 0.47), captioned "Upgrade", and no skill needs to be selected first: one tap levels every skill it can. It spent 1.6K of 1.6K Battle Essence, the 4 charms went from Lv 1 to Lv 8 and 9, and power went from 13.1K to 13.2K. The button disappears when nothing more is affordable.
+- **Confidence**: told (mae), then observed (upgrade-systems batch 1). **Source**: mae, 2026-11-04; upgrade builder.
+- **Images**: `docs/screens/skill_page.png`, `docs/screens/skill_page_after_quick_upgrade.png` (upgrade-systems branch).
 - **Related**: R-037, R-039, R-106, node `skill_loadout`.
 
 ### R-105 · Relics: enhance in bands of 1, element by element (not unlocked yet)
@@ -714,9 +714,9 @@ Entry format:
 - **Related**: R-033, R-076, R-106, R-108.
 
 ### R-108 · Track a material through Journal > Map Exploration
-- **Rule**: Open the second icon on the home bottom bar (the Journal, R-094), choose "Map Exploration", select the material to track and press Go. A tracking marker leads to the area that holds it, where the material lies scattered on the ground. Tap pickups (5 stamina each) until the budget of R-107 is reached, then stop.
-- **Confidence**: told. **Source**: mae, 2026-11-04.
-- **Images**: `docs/screens/journal.png`.
+- **Rule**: Open the second icon on the home bottom bar (the Journal, R-094), choose "Map Exploration", select the material to track and press Go. A tracking marker leads to the area that holds it, where the material lies scattered on the ground. Tap pickups (5 stamina each) until the budget of R-107 is reached, then stop. Seen live: Map Exploration is at (0.29, 0.47) on the Journal, then the Resource Hunt card. It shows stamina ("175/300") and the full-recovery time (about a day for 125, so roughly 1 stamina per 11 to 12 minutes). The material icons sit at y 0.24: Rolla x 0.08, ore 0.18, sand 0.29, Battle Essence 0.39. Go (0.84, 0.28) asks "Enter Verdantglade to explore?" with OK at (0.68, 0.57). Ore led to a mine in Verdantglade II around map (187, 97): grey rocks with blue crystals. The tracked rock sits in a yellow and white ring, also shown on the minimap and as an edge ring (tap it to pan there). Pickups near the character show a "lightning 5" label; one tap on a rock walks there and mines it for 5 stamina and about +178 Raw Ore. Boars with a "lightning 5" label also appear nearby; what they do isn't known yet ❓. Code: `sxs/gather.py` with `resource/policy/gather.json` (priority ["ore"], keep_stamina 70). First live run: 20 pickups in about 3 minutes, stamina 171 to 71.
+- **Confidence**: told (mae), then observed (upgrade-systems batch 1). **Source**: mae, 2026-11-04; upgrade builder.
+- **Images**: `docs/screens/journal.png`, `docs/screens/map_exploration.png`, `docs/screens/confirm_enter_explore.png`, `docs/screens/explore_ore_rocks.png`, `docs/screens/explore_ore_mined.png`, `docs/screens/explore_stamina_boar.png` (upgrade-systems branch).
 - **Related**: R-094, R-106, R-107, R-109, node `travel_journal`.
 
 ### R-109 · Special nodes with a green timer circle: always tap them
@@ -758,3 +758,35 @@ Entry format:
 - **Confidence**: observed. **Source**: guild batch 1.
 - **Images**: `docs/screens/guild_warehouse_locked.png` (guild-tutorial branch).
 - **Related**: R-043, R-113, node `guild`.
+
+## Added from upgrade-systems batch 1 (2026-11-04)
+
+### R-115 · Technique Ascension spends the technique's own shards
+- **Rule**: A "!" on a technique means it can ascend. Tap it, then Enhance (0.68, 0.74), then the Ascend tab (bottom right), then Ascend (0.50, 0.85). Ice Spike used 10 of 10 shards to go from Rare to Rare 1 star; the next step, to Epic, needs 10 more. No Dawnium is involved. The Upgrade tab next to it spends Battle Essence (R-037).
+- **Confidence**: observed. **Source**: upgrade-systems batch 1.
+- **Images**: `docs/screens/technique_upgrade.png`, `docs/screens/technique_ascend.png`.
+- **Related**: R-037, R-080, R-104, nodes `technique_card`, `technique_upgrade`.
+
+### R-116 · Claim the free rewards on upgrade screens' Goals tabs
+- **Rule**: Upgrade screens have Goals tabs with free rewards; claim them whenever they show "!". Several had been sitting unclaimed. Seen so far: Skill Goals (Level: Battle Essence used, pays Battle Essence; Quality: pays Iron Hammers and more), Enhance Gear Goals (Raw Ores Used, pays Rolla), Rank Goals (Level: character Lv 12 to 20, pays hammers, picks and more; Power), Class Goals (Total Class Level, 300 Battle Essence each).
+- **Confidence**: observed. **Source**: upgrade-systems batch 1.
+- **Images**: `docs/screens/skill_goals_quality.png`, `docs/screens/gear_goals.png`, `docs/screens/rank_level_goals.png`, `docs/screens/rank_power_goals.png`, `docs/screens/class_goals.png` (upgrade-systems branch).
+- **Related**: R-063, R-080, R-093, R-095.
+
+### R-117 · Class levels come from Class Badges; never Change Class
+- **Rule**: Class, then Class Hierarchy: tapping a class card that shows "!" pops "Class Badge Received" (+2 per owned skill of that class; OK (0.50, 0.72)). That class's Upgrade tab spends 10 badges per class level, each level adding HP, ATK, DEF and SPD. Levelling another class (Warrior) also raises Total Class Level without changing class (Mage 1 to 3, Warrior 1 to 2, Total 2 to 5). "Change Class" (locked until character Lv 100, and also a button on the Warrior page) is mae's decision and is never tapped (R-054).
+- **Confidence**: observed. **Source**: upgrade-systems batch 1.
+- **Images**: `docs/screens/class_page.png`, `docs/screens/class_hierarchy.png`, `docs/screens/class_badge_received.png`, `docs/screens/class_info.png`, `docs/screens/class_upgrade.png` (upgrade-systems branch).
+- **Related**: R-054, R-080, R-116, node `class_ascend`.
+
+### R-118 · Rank Advancement raises the level cap; Bellflowers block it now
+- **Rule**: Tapping the rank badge ("Apprentice I", about (0.82, 0.72)) on Character opens Rank Advancement (R-048). Apprentice I to II raises the max level from 20 to 30 and costs a grey stone item (18/5 owned), 20 Bellflowers (0 owned) and 5.5K Rolla. Bellflowers come from "Verdantglade Flower Harvest" (where that is isn't known yet ❓). gromb2 is at Lv 20/20, so Bellflowers block all further levelling. The bot advances only when the Advance button itself shows "!".
+- **Confidence**: observed. **Source**: upgrade-systems batch 1.
+- **Images**: `docs/screens/rank_advancement.png`, `docs/screens/item_bellflower.png`.
+- **Related**: R-048, R-049, R-101, node `rank_advancement`.
+
+### R-119 · Gear Resonance: free bonuses when all four pieces reach a band
+- **Rule**: Enhance Gear, then Resonance (0.86, 0.20): each tier reads "Enhance Gear x4 to +N" (N = 5, 10, 15 ... 35 and up, with bonuses like HP +2% or ATK +2%) and shows Activate once all 4 equipped pieces reach +N. The tiers match the 5-level bands of R-092, so activate each tier as soon as a band completes. Fix note: the Enhance Gear level reader once read "+9 → +10" as 10 because OCR doesn't return text left to right; it now takes the leftmost number.
+- **Confidence**: observed. **Source**: upgrade-systems batch 1.
+- **Images**: `docs/screens/gear_resonance.png` (upgrade-systems branch).
+- **Related**: R-023, R-092, node `enhance_gear`.
