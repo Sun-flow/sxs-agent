@@ -28,7 +28,7 @@
     "docs/screens/home_cart.png",
     "docs/screens/home_events.png"
    ],
-   "notes": "Scene scrolls horizontally; the Cart (AFK income) and cherry tree are on the left (R-020). The chat strip at y 0.82-0.90 opens server_chat: avoid it. After Originisle: top-right 'Thrilling Events' and 'Starter Pack' (shop; never buy) buttons (R-075)."
+   "notes": "Scene scrolls horizontally; the Cart (AFK income) and cherry tree are on the left (R-020). The chat strip at y 0.82-0.90 opens server_chat: avoid it. After Originisle: top-right 'Thrilling Events' and 'Starter Pack' (shop; never buy) buttons (R-075). If home shows only sky (no Cart bubble, no Statue) and swipes do nothing, restart the game (R-100). Friend Request toasts near the tracker: leave alone (R-057)."
   },
   {
    "id": "main_menu",
@@ -50,7 +50,7 @@
     "docs/screens/main_menu.png",
     "docs/screens/main_menu_lv10.png"
    ],
-   "notes": "Also has Photo (0.14,0.85), Notice (0.30,0.85), User Center (0.47,0.85), Settings (0.64,0.85), a 'Coming soon' card (0.72,0.75). Shows the server clock (R-024). From Lv 10 a Friends button is added and the row shifts: Friends (0.14,0.85), Photo (0.32), Notice (0.49), User Center (0.67), Settings (0.85)."
+   "notes": "Also has Photo (0.14,0.85), Notice (0.30,0.85), User Center (0.47,0.85), Settings (0.64,0.85), a 'Coming soon' card (0.72,0.75). Shows the server clock (R-024). From Lv 10 a Friends button is added and the row shifts: Friends (0.14,0.85), Photo (0.32), Notice (0.49), User Center (0.67), Settings (0.85). Later a second row (Friends, Gallery, Photo, Notice, User Center, Settings) plus Quest and Mall cards; the event banner opens paid packs: never (R-053)."
   },
   {
    "id": "quests",
@@ -367,13 +367,15 @@
   },
   {
    "id": "travel_journal",
-   "name": "Travel Journal",
+   "name": "Journal (Travel Journal)",
    "kind": "menu",
    "confidence": "observed",
    "unlock": "any mode unlocked (toast 'Unlock any mode to unlock Travel Journal')",
    "detect": null,
-   "images": [],
-   "notes": "Locked on our account."
+   "images": [
+    "docs/screens/journal.png"
+   ],
+   "notes": "Cards: Fantasia Ascent (0.78, 0.23), Map Exploration, Material Realms, Weekly Events, two Unavailable (R-094)."
   },
   {
    "id": "guild",
@@ -599,9 +601,10 @@
    "unlock": null,
    "detect": null,
    "images": [
-    "docs/screens/notice.png"
+    "docs/screens/notice.png",
+    "docs/screens/notice_board.png"
    ],
-   "notes": "Tabs Notice / System / News; lists events (R-051)."
+   "notes": "Tabs Notice / System / News; lists events (R-051). Red tab badges = unread posts, not claims (R-063)."
   },
   {
    "id": "friends",
@@ -671,9 +674,11 @@
    "detect": null,
    "images": [
     "docs/screens/furniture_statue.png",
-    "docs/screens/prayer.png"
+    "docs/screens/prayer.png",
+    "docs/screens/prayer_tickets.png",
+    "docs/screens/prayer_affection.png"
    ],
-   "notes": "Pray x1 / x10 with prayer tickets; tabs Prayer / Exchange / Goals. The bot never taps Pray (R-055)."
+   "notes": "Pray x1 / x10 with prayer tickets; tabs Prayer / Exchange / Goals. The bot never taps Pray (R-055). Statue at about (0.07, 0.63) on the default home camera. Banners Standard (Stellatie) and Affection (tokens). Goals tab: Total Standard Prayers milestones pay Iron Hammers. Pulls only via mae's sxs.pray (R-093)."
   },
   {
    "id": "prayer_result",
@@ -845,6 +850,87 @@
     "docs/screens/gear_compare.png"
    ],
    "notes": "Equipped left, new right, with power. Replace under the new item; enhancement carries over (R-088)."
+  },
+  {
+   "id": "enhance_gear",
+   "name": "Enhance Gear",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [],
+   "notes": "Tabs per piece with +N; '+21 → +22' at y≈0.42, stat deltas, cost (Raw Ore, Rolla), Enhance (0.5, 0.85), Resonance, Goals tab. Not a detector state yet, so go_home gets stuck here. Level pieces evenly in 5-level bands (R-092)."
+  },
+  {
+   "id": "material_realms",
+   "name": "Material Realms",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/material_realms.png"
+   ],
+   "notes": "Realm list; Ironvein Pit first, 3 locked (R-095)."
+  },
+  {
+   "id": "ironvein_pit",
+   "name": "Ironvein Pit (mining)",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/ironvein_pit.png"
+   ],
+   "notes": "Hammer (0.5, 0.72), Iron Mined counter, tabs Ironvein Pit / Rankings / Goals. Needs Iron Hammers (R-095)."
+  },
+  {
+   "id": "purchase_iron_hammer",
+   "name": "Purchase Iron Hammer",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/purchase_iron_hammer.png"
+   ],
+   "notes": "60 Dawnium each: never buy. Cancel (0.32, 0.65)."
+  },
+  {
+   "id": "featured",
+   "name": "Thrilling Events: Featured",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [],
+   "notes": "Dawnstar Prelude (never), Growth Trial, Daily Sign-in, Link Account (never) (R-096)."
+  },
+  {
+   "id": "daily_signin",
+   "name": "Daily Sign-in",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/daily_signin.png",
+    "docs/screens/daily_signin_received.png"
+   ],
+   "notes": "30-tile calendar; today's green Claim; never Catch Up (R-097)."
+  },
+  {
+   "id": "growth_trial",
+   "name": "Growth Trial",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/growth_trial.png"
+   ],
+   "notes": "Day 1-7 trial quests, points to a chest track; never Advanced Trial (R-098)."
   }
  ],
  "edges": [
@@ -2164,6 +2250,171 @@
    "confidence": "observed",
    "notes": "Returns to the profile, presumably; not confirmed.",
    "when": "new power > equipped power"
+  },
+  {
+   "from": "character",
+   "to": "enhance_gear",
+   "action": {
+    "type": "tap",
+    "target": "A gear slot, then Enhance on its item card",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Two taps; the item card isn't a node yet.",
+   "when": "goal=strengthen"
+  },
+  {
+   "from": "enhance_gear",
+   "to": "enhance_gear",
+   "action": {
+    "type": "tap",
+    "target": "Enhance",
+    "template": null,
+    "pos": [
+     0.5,
+     0.85
+    ]
+   },
+   "confidence": "observed",
+   "notes": "One level per tap; costs ore and Rolla (R-023).",
+   "when": "piece below the current band and materials enough"
+  },
+  {
+   "from": "enhance_gear",
+   "to": "previous",
+   "action": {
+    "type": "back",
+    "target": "Back arrow",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "reported",
+   "notes": "Exit not captured; go_home can't recognise this screen yet."
+  },
+  {
+   "from": "travel_journal",
+   "to": "fantasia_ascent",
+   "action": {
+    "type": "tap",
+    "target": "Fantasia Ascent card",
+    "template": null,
+    "pos": [
+     0.78,
+     0.23
+    ]
+   },
+   "confidence": "observed",
+   "notes": "Home route to the tower (R-094).",
+   "when": "goal=dailies and tower not done today"
+  },
+  {
+   "from": "travel_journal",
+   "to": "material_realms",
+   "action": {
+    "type": "tap",
+    "target": "Material Realms card",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "material_realms",
+   "to": "ironvein_pit",
+   "action": {
+    "type": "tap",
+    "target": "Ironvein Pit",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "ironvein_pit",
+   "to": "purchase_iron_hammer",
+   "action": {
+    "type": "tap",
+    "target": "Hammer button with 0 hammers",
+    "template": null,
+    "pos": [
+     0.5,
+     0.72
+    ]
+   },
+   "confidence": "observed",
+   "notes": "Avoid: check the hammer counter first.",
+   "when": "hammers > 0 only"
+  },
+  {
+   "from": "purchase_iron_hammer",
+   "to": "previous",
+   "action": {
+    "type": "tap",
+    "target": "Cancel",
+    "template": null,
+    "pos": [
+     0.32,
+     0.65
+    ]
+   },
+   "confidence": "observed",
+   "notes": "Never buy."
+  },
+  {
+   "from": "home",
+   "to": "featured",
+   "action": {
+    "type": "tap",
+    "target": "Thrilling Events",
+    "template": null,
+    "pos": [
+     0.91,
+     0.125
+    ]
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "featured",
+   "to": "daily_signin",
+   "action": {
+    "type": "tap",
+    "target": "Daily Sign-in",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "",
+   "when": "goal=dailies"
+  },
+  {
+   "from": "featured",
+   "to": "growth_trial",
+   "action": {
+    "type": "tap",
+    "target": "Growth Trial",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "",
+   "when": "goal=dailies"
+  },
+  {
+   "from": "daily_signin",
+   "to": "reward_popup",
+   "action": {
+    "type": "tap",
+    "target": "Today's tile (green Claim)",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "'YOU RECEIVED'."
   }
  ]
 }

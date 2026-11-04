@@ -28,7 +28,7 @@ flowchart TD
     character["Character"]
     loadout_edit["Loadout (Edit)"]
     server_chat["Server Chat"]
-    travel_journal["Travel Journal"]
+    travel_journal["Journal (Travel Journal)"]
     guild["Guild"]
     shop["Shop"]
     dungeons["Dungeons"]
@@ -67,6 +67,13 @@ flowchart TD
     gear_swap_prompt["Gear swap prompt"]
     replace_gear["Replace Gear list"]
     gear_compare["Gear compare"]
+    enhance_gear["Enhance Gear"]
+    material_realms["Material Realms"]
+    ironvein_pit["Ironvein Pit (mining)"]
+    purchase_iron_hammer["Purchase Iron Hammer"]
+    featured["Thrilling Events: Featured"]
+    daily_signin["Daily Sign-in"]
+    growth_trial["Growth Trial"]
     home -->|"tap: Bottom nav bar (y 0.97): Character"| character
     world_map -.->|"tap: Bottom nav bar (y 0.97): Character"| character
     home -->|"tap: Bottom nav bar (y 0.97): Travel Journal"| travel_journal
@@ -148,14 +155,24 @@ flowchart TD
     player_profile -->|"tap: An Equip slot, then Replace on its card [goal=strengthen]"| replace_gear
     replace_gear -->|"tap: A candidate (green up arrow)"| gear_compare
     gear_compare -->|"tap: Replace under the new item [new power > equipped power]"| player_profile
+    character -->|"tap: A gear slot, then Enhance on its item card [goal=strengthen]"| enhance_gear
+    enhance_gear -->|"tap: Enhance [piece below the current band and materials enough]"| enhance_gear
+    travel_journal -->|"tap: Fantasia Ascent card [goal=dailies and tower not done today]"| fantasia_ascent
+    travel_journal -->|"tap: Material Realms card"| material_realms
+    material_realms -->|"tap: Ironvein Pit"| ironvein_pit
+    ironvein_pit -->|"tap: Hammer button with 0 hammers [hammers > 0 only]"| purchase_iron_hammer
+    home -->|"tap: Thrilling Events"| featured
+    featured -->|"tap: Daily Sign-in [goal=dailies]"| daily_signin
+    featured -->|"tap: Growth Trial [goal=dailies]"| growth_trial
+    daily_signin -->|"tap: Today's tile (green Claim)"| reward_popup
 ```
 
 ## Screens
 
 | id | Name | Kind | Confidence | Unlock | Notes |
 |---|---|---|---|---|---|
-| `home` | Home | hub | observed |  | Scene scrolls horizontally; the Cart (AFK income) and cherry tree are on the left (R-020). The chat strip at y 0.82-0.90 opens server_chat: avoid it. After Originisle: top-right 'Thrilling Events' and 'Starter Pack' (shop; never buy) buttons (R-075). |
-| `main_menu` | Menu | menu | observed |  | Also has Photo (0.14,0.85), Notice (0.30,0.85), User Center (0.47,0.85), Settings (0.64,0.85), a 'Coming soon' card (0.72,0.75). Shows the server clock (R-024). From Lv 10 a Friends button is added and the row shifts: Friends (0.14,0.85), Photo (0.32), Notice (0.49), User Center (0.67), Settings (0.85). |
+| `home` | Home | hub | observed |  | Scene scrolls horizontally; the Cart (AFK income) and cherry tree are on the left (R-020). The chat strip at y 0.82-0.90 opens server_chat: avoid it. After Originisle: top-right 'Thrilling Events' and 'Starter Pack' (shop; never buy) buttons (R-075). If home shows only sky (no Cart bubble, no Statue) and swipes do nothing, restart the game (R-100). Friend Request toasts near the tracker: leave alone (R-057). |
+| `main_menu` | Menu | menu | observed |  | Also has Photo (0.14,0.85), Notice (0.30,0.85), User Center (0.47,0.85), Settings (0.64,0.85), a 'Coming soon' card (0.72,0.75). Shows the server clock (R-024). From Lv 10 a Friends button is added and the row shifts: Friends (0.14,0.85), Photo (0.32), Notice (0.49), User Center (0.67), Settings (0.85). Later a second row (Friends, Gallery, Photo, Notice, User Center, Settings) plus Quest and Mall cards; the event banner opens paid packs: never (R-053). |
 | `quests` | Quests | menu | observed |  | Tabs Quest (0.40,0.95) and Achievement (0.78,0.95). Each row has 'Go >>' at x 0.83 that jumps to the relevant screen (R-009). |
 | `quest_detail` | Quest detail | popup | observed |  | Quest detail card: Details, Goal, Rewards and a Go or Track button (R-044). |
 | `world_overview` | World (island picker) | world | observed |  | Pick an island to walk on. Shows each island's exploration score and rank (e.g. 'Originisle 82, Ahead of 59.7% of Players'). Bottom-left button opens Exploration Goals. |
@@ -175,7 +192,7 @@ flowchart TD
 | `character` | Character | menu | observed |  | Gear slots; gear slot -> item card (Replace / Enhance) -> Enhance Gear (R-023). |
 | `loadout_edit` | Loadout (Edit) | menu | observed |  | Not detected yet. Reached from the Combat Veteran quest's Go button. Techniques left, 4 charm slots right (x≈0.87, y≈0.21/0.30/0.39/0.48; 4th locked at Lv 13). Opens on Technique tab; Charm tab (0.56, 0.62). |
 | `server_chat` | Server Chat | overlay | observed |  | Close with the down arrow (0.06,0.96). Never type here. |
-| `travel_journal` | Travel Journal | menu | observed | any mode unlocked (toast 'Unlock any mode to unlock Travel Journal') | Locked on our account. |
+| `travel_journal` | Journal (Travel Journal) | menu | observed | any mode unlocked (toast 'Unlock any mode to unlock Travel Journal') | Cards: Fantasia Ascent (0.78, 0.23), Map Exploration, Material Realms, Weekly Events, two Unavailable (R-094). |
 | `guild` | Guild | menu | observed | Character Lv. 15 (toast on the locked tab) | Donations, Farm, Boss, floating-island AFK farm (R-016, reported). |
 | `shop` | Shop | menu | reported |  | Free daily stamina, Daily Shop, Vault (Dawnium) (R-017, R-018). Entry point unknown. |
 | `dungeons` | Dungeons | menu | reported |  | Material, Daily and Co-op dungeons (R-015). Entry point unknown. |
@@ -193,13 +210,13 @@ flowchart TD
 | `wounded` | Badly wounded dialog | popup | observed |  | Confirm 'The character is badly wounded. Use dishes to heal?' with Return to Home / Quick Heal (cost shown; dish count top right) (R-046). |
 | `alchemy_pot` | Alchemy Pot | menu | observed | Lv 7 | House furniture: melt down gear and cook dishes. Dish tab: recipes with ingredient costs at the top and a Cook button; shows a 'Cooked' banner (R-047). |
 | `rank_advancement` | Rank Advancement | menu | observed |  | Rank up for base stats; needs max level and materials (R-048). |
-| `notice` | Notice board | menu | observed |  | Tabs Notice / System / News; lists events (R-051). |
+| `notice` | Notice board | menu | observed |  | Tabs Notice / System / News; lists events (R-051). Red tab badges = unread posts, not claims (R-063). |
 | `friends` | Friends | menu | observed | Lv 10 (button appears on the menu) | Friends 0/60; tabs Friends / Add Friends / Requests / Blocklist. |
 | `settings` | Settings | menu | observed |  | Tabs Game (language, chat channel visibility on home), Graphics (quality, frame rate 30/60, visible players, bloom), Sound, Alerts, Other (vibration, network boost, auto-download). Captures settings_*.png. |
 | `exploration_goals` | Exploration Goals | menu | observed |  | Progress tab (per-region exploration milestones with rewards) and Explore tab (Destiny Exploration Goals) (R-052). |
 | `class_choice` | Class choice dialogue | popup | observed |  | Dialogue options Ascend to Mage / Change Class / Leave. The bot never chooses on its own (needs_decision); `python -m sxs.explore --choose "<regex>"` applies a human's choice (R-050, R-054). |
 | `class_ascend` | Class ascend | menu | observed |  | Class trait stats and class skill grid; Ascend button at (0.5, 0.86) (R-054). |
-| `prayer` | Prayer (skill gacha) | menu | observed | Statue furniture on home | Pray x1 / x10 with prayer tickets; tabs Prayer / Exchange / Goals. The bot never taps Pray (R-055). |
+| `prayer` | Prayer (skill gacha) | menu | observed | Statue furniture on home | Pray x1 / x10 with prayer tickets; tabs Prayer / Exchange / Goals. The bot never taps Pray (R-055). Statue at about (0.07, 0.63) on the default home camera. Banners Standard (Stellatie) and Affection (tokens). Goals tab: Total Standard Prayers milestones pay Iron Hammers. Pulls only via mae's sxs.pray (R-093). |
 | `prayer_result` | Prayer result | popup | observed |  | Skills and shards from a pull. |
 | `apply_requests` | Apply (social requests) | popup | observed |  | Tabs Friends / Team Up / Challenge / Room; incoming requests with x / check, Decline All / Agree All. Leave untouched (R-057). |
 | `area_map` | Area map (full map) | overlay | observed |  | Full map of the current area, opened by tapping the minimap. Legend: Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone; areas show exploration % and power gates. Tapping a spot centres the camera there (R-068, R-076). The white box is the camera viewport. sxs/goto.py drives it. |
@@ -214,6 +231,13 @@ flowchart TD
 | `gear_swap_prompt` | Gear swap prompt | overlay | observed |  | Pops after chests with better gear (+power, swap button bottom right). Closed when the reward popup was dismissed (R-085). |
 | `replace_gear` | Replace Gear list | menu | observed |  | Candidates best first; green up arrow = upgrade (R-088). |
 | `gear_compare` | Gear compare | popup | observed |  | Equipped left, new right, with power. Replace under the new item; enhancement carries over (R-088). |
+| `enhance_gear` | Enhance Gear | menu | observed |  | Tabs per piece with +N; '+21 → +22' at y≈0.42, stat deltas, cost (Raw Ore, Rolla), Enhance (0.5, 0.85), Resonance, Goals tab. Not a detector state yet, so go_home gets stuck here. Level pieces evenly in 5-level bands (R-092). |
+| `material_realms` | Material Realms | menu | observed |  | Realm list; Ironvein Pit first, 3 locked (R-095). |
+| `ironvein_pit` | Ironvein Pit (mining) | menu | observed |  | Hammer (0.5, 0.72), Iron Mined counter, tabs Ironvein Pit / Rankings / Goals. Needs Iron Hammers (R-095). |
+| `purchase_iron_hammer` | Purchase Iron Hammer | popup | observed |  | 60 Dawnium each: never buy. Cancel (0.32, 0.65). |
+| `featured` | Thrilling Events: Featured | menu | observed |  | Dawnstar Prelude (never), Growth Trial, Daily Sign-in, Link Account (never) (R-096). |
+| `daily_signin` | Daily Sign-in | menu | observed |  | 30-tile calendar; today's green Claim; never Catch Up (R-097). |
+| `growth_trial` | Growth Trial | menu | observed |  | Day 1-7 trial quests, points to a chest track; never Advanced Trial (R-098). |
 
 ## Actions
 
@@ -225,7 +249,7 @@ flowchart TD
 | Loading | previous screen | wait Until the loading screen ends | observed |  |
 | Home | Character | tap Bottom nav bar (y 0.97): Character at [0.11, 0.97] | observed |  |
 | World map (island) | Character | tap Bottom nav bar (y 0.97): Character at [0.11, 0.97] | reported | Assumes the nav bar is visible on the map too. |
-| Home | Travel Journal | tap Bottom nav bar (y 0.97): Travel Journal at [0.29, 0.97] | observed | Locked: shows a toast and stays on home. |
+| Home | Journal (Travel Journal) | tap Bottom nav bar (y 0.97): Travel Journal at [0.29, 0.97] | observed | Locked: shows a toast and stays on home. |
 | Home | Guild | tap Bottom nav bar (y 0.97): Guild at [0.69, 0.97] | observed | Locked below Character Lv. 15: shows a toast and stays on home. |
 | Home | World (island picker) | tap Bottom nav bar (y 0.97): World at [0.89, 0.97] | observed |  |
 | Character | Home | tap Bottom nav bar (y 0.97): Home at [0.5, 0.97] | observed |  |
@@ -313,3 +337,15 @@ flowchart TD
 | Player profile | Replace Gear list | tap An Equip slot, then Replace on its card (when goal=strengthen) | observed | Two taps; the item card in between isn't a node yet. |
 | Replace Gear list | Gear compare | tap A candidate (green up arrow) | observed |  |
 | Gear compare | Player profile | tap Replace under the new item (when new power > equipped power) | observed | Returns to the profile, presumably; not confirmed. |
+| Character | Enhance Gear | tap A gear slot, then Enhance on its item card (when goal=strengthen) | observed | Two taps; the item card isn't a node yet. |
+| Enhance Gear | Enhance Gear | tap Enhance at [0.5, 0.85] (when piece below the current band and materials enough) | observed | One level per tap; costs ore and Rolla (R-023). |
+| Enhance Gear | previous screen | back Back arrow | reported | Exit not captured; go_home can't recognise this screen yet. |
+| Journal (Travel Journal) | Fantasia Ascent: tower list | tap Fantasia Ascent card at [0.78, 0.23] (when goal=dailies and tower not done today) | observed | Home route to the tower (R-094). |
+| Journal (Travel Journal) | Material Realms | tap Material Realms card | observed |  |
+| Material Realms | Ironvein Pit (mining) | tap Ironvein Pit | observed |  |
+| Ironvein Pit (mining) | Purchase Iron Hammer | tap Hammer button with 0 hammers at [0.5, 0.72] (when hammers > 0 only) | observed | Avoid: check the hammer counter first. |
+| Purchase Iron Hammer | previous screen | tap Cancel at [0.32, 0.65] | observed | Never buy. |
+| Home | Thrilling Events: Featured | tap Thrilling Events at [0.91, 0.125] | observed |  |
+| Thrilling Events: Featured | Daily Sign-in | tap Daily Sign-in (when goal=dailies) | observed |  |
+| Thrilling Events: Featured | Growth Trial | tap Growth Trial (when goal=dailies) | observed |  |
+| Daily Sign-in | Reward popup | tap Today's tile (green Claim) | observed | 'YOU RECEIVED'. |

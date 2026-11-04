@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/`; templates in `resource/image/`.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-093).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-101).
 
 Entry format:
 
@@ -161,15 +161,15 @@ Entry format:
 - **Related**: R-009.
 
 ### R-023 · Gear enhancement costs ore and Rolla
-- **Rule**: Character, then a gear slot, then the item card (Replace / Enhance), then Enhance Gear. Enhancing costs Raw Ore (blue crystal), Refined Ore (red crystal) and Rolla. Without enough, a toast says "Insufficient materials to enhance."
-- **Confidence**: observed. **Source**: builder batch 1.
+- **Rule**: Character, then a gear slot, then the item card (Replace / Enhance), then Enhance Gear. Enhancing costs Raw Ore (blue crystal), Refined Ore (red crystal) and Rolla. Without enough, a toast says "Insufficient materials to enhance." The Enhance Gear screen has 4 tabs along the top, one per piece (weapon, head, chest, boots so far; no offhand yet), each showing "+N". The selected piece shows a big "+21 → +22" line at y≈0.42, the stat deltas, the cost (for example Raw Ore 7/720 and Rolla 43K/1.44K) and Enhance at (0.5, 0.85), plus a Resonance button and a Goals tab. On 2026-11-04 the levels were staff +21, hat +12, armour +9, boots +2, and ore was the bottleneck. How to spread levels: R-092. The screen isn't a detector state yet, so `go_home` gets stuck on it.
+- **Confidence**: observed. **Source**: builder batch 1 and the final step 3 batch.
 - **Images**: none yet (want: ore icon crops, Enhance Gear screen).
-- **Related**: R-019, node `character`.
+- **Related**: R-019, R-092, nodes `character`, `enhance_gear`.
 
 ### R-024 · Server time is UTC-5; achievements refresh Mondays
-- **Rule**: The server clock is UTC-5 and is shown on the menu screen. Achievement quests refresh on Mondays at 8:00 server time. Daily reset time is still unknown ❓.
-- **Confidence**: observed. **Source**: builder batch 1.
-- **Images**: `docs/screens/main_menu.png`.
+- **Rule**: The server clock is UTC-5 and is shown on the menu screen. Achievement quests refresh on Mondays at 8:00 server time. Dailies reset at 8:00 server time (UTC-5), going by the Daily Sign-in calendar (R-097).
+- **Confidence**: observed. **Source**: builder batch 1; dailies batch 1.
+- **Images**: `docs/screens/main_menu.png`, `docs/screens/daily_signin.png`.
 - **Related**: node `main_menu`.
 
 ### R-025 · Moving on the island map
@@ -287,10 +287,10 @@ Entry format:
 - **Related**: R-018, R-043, `memory-bank/game/README.md` (the `when` field).
 
 ### R-043 · Never press spending buttons
-- **Rule**: The bot never presses Buy, Purchase, Refresh, Spend, Pray, Recharge or Top up, or any button mentioning Dawnium, unless a later policy rule explicitly allows it. Exception (R-061): buying or cooking healing food with Rolla or ingredients is allowed.
+- **Rule**: The bot never presses Buy, Purchase, Refresh, Spend, Pray, Recharge or Top up, or any button mentioning Dawnium, unless a later policy rule explicitly allows it. Exception (R-061): buying or cooking healing food with Rolla or ingredients is allowed; skill pulls only through mae's own script (R-093). Also never: "Catch Up" on the sign-in calendar, "Advanced Trial", Dawnstar Prelude draws, Iron Hammer purchases, the main menu's event-banner packs (e.g. "Halloween Charmer", USD 2.99), and Link Account or anything else account-related.
 - **Confidence**: told (policy). **Source**: builder batch 6, following mae's budget rules.
 - **Images**: none.
-- **Related**: R-018, R-042.
+- **Related**: R-018, R-042, R-093, R-095 to R-098.
 
 ## Added from builder batch 7 (2026-11-03)
 
@@ -351,7 +351,7 @@ Entry format:
 - **Related**: R-002, R-005, node `exploration_goals`.
 
 ### R-053 · Menu buttons move as features unlock
-- **Rule**: At Lv 10 the menu gains Friends and the bottom row shifts (Friends 0.14, Photo 0.32, Notice 0.49, User Center 0.67, Settings 0.85, all at y 0.85). Find menu buttons by their label, not a fixed position. Friends holds 60; tabs Friends / Add Friends / Requests / Blocklist. Settings has Game, Graphics, Sound, Alerts and Other tabs.
+- **Rule**: At Lv 10 the menu gains Friends and the bottom row shifts (Friends 0.14, Photo 0.32, Notice 0.49, User Center 0.67, Settings 0.85, all at y 0.85). Find menu buttons by their label, not a fixed position. Friends holds 60; tabs Friends / Add Friends / Requests / Blocklist. Settings has Game, Graphics, Sound, Alerts and Other tabs. Later the menu has a second row (Friends, Gallery, Photo, Notice, User Center, Settings) and Quest and Mall cards; its event banner opens paid packs, never tap it (R-043).
 - **Confidence**: observed. **Source**: builder batch 8.
 - **Images**: `docs/screens/main_menu_lv10.png`, `docs/screens/friends.png`.
 - **Related**: R-010, nodes `main_menu`, `friends`, `settings`.
@@ -365,10 +365,10 @@ Entry format:
 - **Related**: R-050, node `class_ascend`.
 
 ### R-055 · Prayer is the skill gacha; the bot never prays
-- **Rule**: The Statue furniture ("Pray to the goddess and embrace her divine power") on home, next to the "Class to Unlock" stone, opens Prayer: Pray x1 / Pray x10 cost blue prayer tickets (counter top right, with "+" to buy more), Prayers Today n/10000, "200 Prayers Bonus: a Legendary skill of your choice", a pity counter ("Prayer x70 away from a guaranteed Legendary skill"), a banner selector (Mage) and tabs Prayer / Exchange / Goals. The tutorial gives 10 free tickets; one x10 pull gave Cyclone (Epic wind: pick a grid within 6, knock up and pull), Flame Jet (Rare fire, 3 hits in a 1x3 area), Heart of Flame, Dew's Blessing and shards (Tough Soul, Flame Jet, Insight); power rose to 6.79K once equipped. **The bot never taps Pray or any spend-looking button (Pray, Buy, Purchase, Refresh, Spend, Dawnium, Recharge, Top up) on its own.**
+- **Rule**: The Statue furniture ("Pray to the goddess and embrace her divine power") on home, next to the "Class to Unlock" stone, opens Prayer: Pray x1 / Pray x10 cost blue prayer tickets (counter top right, with "+" to buy more), Prayers Today n/10000, "200 Prayers Bonus: a Legendary skill of your choice", a pity counter ("Prayer x70 away from a guaranteed Legendary skill"), a banner selector (Mage) and tabs Prayer / Exchange / Goals. The tutorial gives 10 free tickets; one x10 pull gave Cyclone (Epic wind: pick a grid within 6, knock up and pull), Flame Jet (Rare fire, 3 hits in a 1x3 area), Heart of Flame, Dew's Blessing and shards (Tough Soul, Flame Jet, Insight); power rose to 6.79K once equipped. **The bot never taps Pray or any spend-looking button (Pray, Buy, Purchase, Refresh, Spend, Dawnium, Recharge, Top up) on its own.** The one exception is a dedicated pull script that mae (the handler) starts by hand (R-093).
 - **Confidence**: observed. **Source**: builder batch 9.
 - **Images**: `docs/screens/furniture_statue.png`, `docs/screens/prayer.png`, `docs/screens/prayer_result.png`.
-- **Related**: R-043 (now with Pray, Recharge and Top up added), nodes `prayer`, `prayer_result`.
+- **Related**: R-043 (now with Pray, Recharge and Top up added), R-093, nodes `prayer`, `prayer_result`.
 
 ### R-056 · Equipping and levelling techniques
 - **Rule**: Each loadout has 4 technique slots on the left. Equip from the Technique tab: card, Equip, then tap an empty slot. New techniques start at Lv 1; levelling Cyclone from 1 to 10 cost about 490 Battle Essence.
@@ -377,7 +377,7 @@ Entry format:
 - **Related**: R-037, R-039.
 
 ### R-057 · Social requests are left alone
-- **Rule**: A person icon with a badge on the map's left edge (0.06, 0.6) opens "Apply": tabs Friends / Team Up / Challenge / Room, incoming friend requests with x and check, Decline All and Agree All. The bot doesn't touch these; accepting or declining is mae's call.
+- **Rule**: A person icon with a badge on the map's left edge (0.06, 0.6) opens "Apply": tabs Friends / Team Up / Challenge / Room, incoming friend requests with x and check, Decline All and Agree All. The bot doesn't touch these; accepting or declining is mae's call. Friend Request toasts (X / check) that pop up on home near the tracker are left alone too (dailies batch 2).
 - **Confidence**: observed. **Source**: builder batch 9.
 - **Images**: `docs/screens/apply_requests.png`.
 - **Related**: R-053, node `apply_requests`.
@@ -421,10 +421,10 @@ Entry format:
 - **Related**: R-041, R-058, R-063 (the other kind of "!").
 
 ### R-063 · A red "!" in a UI menu means something to claim
-- **Rule**: A red "!" badge on a menu button or tab (not above an NPC in the world) means there is something to claim inside. Follow the badges down to the claim button. Treat it differently from the NPC "!" of R-062, which means talk to them. Which menus carry badges changes over time as event banners roll over, so a claim sweep must find badges on screen each run (template or colour), not walk a fixed list of menus.
+- **Rule**: A red "!" badge on a menu button or tab (not above an NPC in the world) means there is something to claim inside. Follow the badges down to the claim button. Treat it differently from the NPC "!" of R-062, which means talk to them. Which menus carry badges changes over time as event banners roll over, so a claim sweep must find badges on screen each run (template or colour), not walk a fixed list of menus. Exception: on the Notice board (Menu, then Notice) red badges on the tabs mean unread posts, not claims (dailies batch 1).
 - **Confidence**: told. **Source**: mae, 2026-11-03.
-- **Images**: none yet (want: a menu badge).
-- **Related**: R-062, R-044 (claiming quests).
+- **Images**: `docs/screens/notice_board.png` (unread badges).
+- **Related**: R-062, R-044 (claiming quests), R-051.
 
 ### R-064 · Some quests progress by NPC instructions, not the marker
 - **Rule**: Some quests aren't tracked well by their objective marker and rely on narrative instructions from NPC dialogue. When the tracker points somewhere unreachable or tapping does nothing (for example "Unlock Moonveil Woods" pointing into fog), open the full map by tapping the minimap and look for any "!" NPC to speak to; an NPC probably gave directions that were missed. So the bot should capture and log NPC dialogue text, so instructions aren't lost and a later step (or a model) can read them.
@@ -461,7 +461,7 @@ Entry format:
 - **Related**: R-025, R-064, R-066.
 
 ### R-068 · Travel to a far or unexplored area through the full map
-- **Rule**: To move somewhere distant or unexplored: tap the minimap to open the full area map; look for unexplored areas on it; tap the spot you want the camera over (this centres the camera there); close the map, and the camera now shows that spot; then tap the ground where you want to go and the player auto-paths there, around walls and through land bridges (R-067). This is the intended way to reach unexplored areas found on the map. The white box on the area map is the camera viewport. The map's zoom differs between openings, so labels land at different screen spots each time: pick places by their OCR'd label, never by fixed position. An area whose label sits in fog can't be reached this way (walking there fails with `no_move`); travel from home instead (R-089). Auto-pathing works even through gaps you can't see on screen. Code: `sxs/goto.py` (`python -m sxs.goto "Area Name"` or `X Y`); this route got the bot into Moonveil Woods.
+- **Rule**: To move somewhere distant or unexplored: tap the minimap to open the full area map; look for unexplored areas on it; tap the spot you want the camera over (this centres the camera there); close the map, and the camera now shows that spot; then tap the ground where you want to go and the player auto-paths there, around walls and through land bridges (R-067). This is the intended way to reach unexplored areas found on the map. The white box on the area map is the camera viewport. The map's zoom differs between openings, so labels land at different screen spots each time: pick places by their OCR'd label, never by fixed position. Match labels exactly, including trailing numerals: when OCR misses "Verdantglade III", a loose match picks "Verdantglade I" instead, so a different numeral means a different area. An area whose label sits in fog can't be reached this way (walking there fails with `no_move`); travel from home instead (R-089). Auto-pathing works even through gaps you can't see on screen. Code: `sxs/goto.py` (`python -m sxs.goto "Area Name"` or `X Y`); this route got the bot into Moonveil Woods.
 - **Confidence**: told, then observed (builder batches 11 and 12). **Source**: mae, 2026-11-03; builder batches 11 and 12, 2026-11-04.
 - **Images**: `docs/screens/world_area_map.png`, `docs/screens/world_map_moonveil_entry.png`, `docs/screens/world_area_map_stone_ruins.png` (step 3 branch).
 - **Related**: R-025, R-032, R-065, R-066, R-067, node `area_map`.
@@ -523,7 +523,7 @@ Entry format:
 - **Related**: R-057, node `team`.
 
 ### R-078 · Heal from the HUD portrait when the player's tile is crowded
-- **Rule**: If the player sprite has a red bubble and other interactables share its tile, tapping the player opens a pick-one menu on the right instead of the heal menu, and tapping again just loops. To heal, either pick the entry with the character's name in that menu, or tap the character portrait in the top-left HUD, which opens the healing menu directly. The HUD portrait avoids the menu entirely, so it is the simpler path for a script. Current HP shows as the bar under the name at the top-left of the map HUD, so read it there to decide whether to heal, without opening any menu. Quick Heal works from any screen that shows the character portrait in the upper left (map, battle prep, dungeon floor cards and others): tap the portrait. There's no need to back out of a menu to heal (mae, 2026-11-04).
+- **Rule**: If the player sprite has a red bubble and other interactables share its tile, tapping the player opens a pick-one menu on the right instead of the heal menu, and tapping again just loops. To heal, either pick the entry with the character's name in that menu, or tap the character portrait in the top-left HUD, which opens the healing menu directly. The HUD portrait avoids the menu entirely, so it is the simpler path for a script. Current HP shows as the bar under the name at the top-left of the map HUD, so read it there to decide whether to heal, without opening any menu. Quick Heal works from any screen that shows the character portrait in the upper left (map, battle prep, dungeon floor cards and others): tap the portrait. There's no need to back out of a menu to heal (mae, 2026-11-04). On the map, the HUD HP bar sits at x 116-268, y 52-64 (in 720x1280 pixels).
 - **Confidence**: told. **Source**: mae, 2026-11-03 and 2026-11-04.
 - **Images**: none yet (want: the pick-one menu).
 - **Related**: R-061, node `player_profile`.
@@ -593,8 +593,8 @@ Entry format:
 - **Images**: `docs/screens/confirm_dialog.png`.
 - **Related**: R-068, node `confirm_dialog`.
 
-### R-090 · "Badly wounded" after a map fight is a loss
-- **Rule**: A map fight lost in Verdantglade III (recommended 12K, at 10K) ended with the "badly wounded" dialog (R-046) and the character back in Verdantglade II, not the "incapacitated" dialog (R-031). Treat either as a loss for the heal-and-retry count (R-061) and the power-wall check (R-084).
+### R-090 · "Badly wounded" and "incapacitated" are both losses
+- **Rule**: A map fight lost in Verdantglade III (recommended 12K, at 10K) ended with the "badly wounded" dialog (R-046) and the character back in Verdantglade II, not the "incapacitated" dialog (R-031). Treat either as a loss for the heal-and-retry count (R-061) and the power-wall check (R-084). In Verdantglade III a loss puts the character back at the area entrance (178, 88) or in Verdantglade II.
 - **Confidence**: observed. **Source**: builder batch 12.
 - **Images**: `docs/screens/wounded.png`.
 - **Related**: R-031, R-046, R-061, R-084.
@@ -602,13 +602,65 @@ Entry format:
 ## Added from mae (2026-11-04, night)
 
 ### R-091 · Heal mid-run in mini-dungeons instead of leaving
-- **Rule**: In mini-dungeons (Temple Ruins, mines and other floor-by-floor dungeons), the player can heal between floors, so low HP is not a reason to leave. Heal in place from the top-left portrait on the floor card or the battle prep screen, no backing out needed (R-078; Quick Heal or Recover, using healing food per R-061), then press Next Floor and carry on. After Next Floor, the battle prep screen shows an HP bar under the character model: read HP there to decide whether to heal before starting (the 70% check of R-061 still applies), and that screen can also be backed out of. Mid-run healing only applies while the player is still alive and merely low (the HP bar, or a low-health "!" over the player, R-080). A defeat inside the dungeon (the fight lost, then the "badly wounded" or forced-heal dialog) resets the dungeon's progress: that run is dead, so count it as a loss (R-090) and don't try to continue it.
+- **Rule**: In mini-dungeons (Temple Ruins, mines and other floor-by-floor dungeons), the player can heal between floors, so low HP is not a reason to leave. Heal in place from the top-left portrait on the floor card or the battle prep screen, no backing out needed (R-078; Quick Heal or Recover, using healing food per R-061), then press Next Floor and carry on. After Next Floor, the battle prep screen shows an HP bar under the character model (x 314-406, y 866-876 in 720x1280 pixels, yellow-green when full): read HP there to decide whether to heal before starting (the 70% check of R-061 still applies), and that screen can also be backed out of. Mid-run healing only applies while the player is still alive and merely low (the HP bar, or a low-health "!" over the player, R-080). A defeat inside the dungeon (the fight lost, then the "badly wounded" or forced-heal dialog) resets the dungeon's progress: that run is dead, so count it as a loss (R-090) and don't try to continue it.
 - **Confidence**: told. **Source**: mae, 2026-11-04 (three messages).
 - **Images**: `docs/screens/dungeon_floor.png`.
 - **Related**: R-040, R-061, R-071, R-078, node `dungeon_floor`.
 
 ### R-092 · Enhance gear evenly, in 5-level bands
-- **Rule**: Don't pour enhancement into one piece. Raise gear in 5-level bands: bring every equipped piece to +5, then all to +10, then all to +15, and so on; a piece only goes past a band once every other piece has reached it. Within a band, a configurable priority order decides which piece reaches the threshold first. The default order is weapon, offhand (not unlocked yet), headpiece, chest, boots. Costs and limits are in R-023 (ore and Rolla). The current enhance script kept enhancing the same piece, which this rule replaces.
+- **Rule**: Don't pour enhancement into one piece. Raise gear in 5-level bands: bring every equipped piece to +5, then all to +10, then all to +15, and so on; a piece only goes past a band once every other piece has reached it. Within a band, a configurable priority order decides which piece reaches the threshold first. The default order is weapon, offhand (not unlocked yet), headpiece, chest, boots. Costs and limits are in R-023 (ore and Rolla). The current enhance script kept enhancing the same piece, which this rule replaces. Enhancement is now limited by ore (7/720 Raw Ore at staff +21; boots +2 to +3 was short too); Guidance quests (R-099) and Ironvein Pit (R-095) are ore sources. Confirmed live with the banded script: boots +2 to +5, chest +9 to +10, then boots to +7.
 - **Confidence**: told. **Source**: mae, 2026-11-04.
 - **Images**: none yet (want: the Enhance Gear screen).
 - **Related**: R-020, R-023, R-088.
+
+### R-093 · Skill pulls run only when the handler starts them
+- **Rule**: This means the skill pulls (Pray x1 / x10) at the goddess Statue at home, the furniture that reads "Pray to the goddess" and opens Prayer (R-055), not the Goddess Statues on the map that bless areas (R-070). Pulling skills is needed to keep growing in strength, so the bot gets a dedicated pull script. That script runs only when the agent's handler (mae) starts it at a time they judge right. It is never part of a loop, and no loop or decision function may call it on its own. Everything else stays under the spend rules (R-043, R-055): no Dawnium, no other spend-looking buttons. Prayer is the goddess Statue on the left of the home scene, about (0.07, 0.63) on the default camera. Two banners: Standard uses Stellatie (blue crystal tickets; Pray x1 = 1, x10 = 10; pity "Prayer x60 away from a guaranteed Legendary"; "200 Prayers Bonus"), and Affection uses Affection Tokens (red; x1 = 25, x10 = 250; "Affection Tokens Earned This Week 0/1000"). Stellatie comes from the Daily Sign-in, 10 a day (R-097); the account had 20. The script pulls on the Standard banner with Stellatie only. The script is `python -m sxs.pray --pulls N --handler-approved`: it never presses "+" to buy tickets, cancels any purchase prompt and stops if the Dawnium counter changes. The Goals tab has "Total Standard Prayers" milestones at 10/20/30/40/50/60 with Claim buttons: the 10 milestone paid 3 Iron Hammers (R-095); later ones show a pickaxe, a helmet item and blue and purple scrolls.
+- **Confidence**: told (mae); script and costs observed (dailies builder). **Source**: mae, 2026-11-04; dailies batch 1 addendum.
+- **Images**: `docs/screens/prayer.png`, `docs/screens/prayer_result.png`, `docs/screens/prayer_tickets.png`, `docs/screens/prayer_affection.png`.
+- **Related**: R-043, R-055, R-095, R-097, nodes `prayer`, `prayer_result`.
+
+## Added from dailies batch 1 (2026-11-04)
+
+### R-094 · The Journal tab is the home route into Fantasia Ascent
+- **Rule**: The Journal (Travel Journal) is the second icon on the bottom bar (0.31, 0.97). Its cards: Fantasia Ascent (top right, tap (0.78, 0.23) for the tower list), Map Exploration, Material Realms (marked NEW), Weekly Events ("Void Rift starts in 4d"), and two Unavailable cards. This is how to reach the tower from home (R-079).
+- **Confidence**: observed. **Source**: dailies batch 1.
+- **Images**: `docs/screens/journal.png`.
+- **Related**: R-079, R-095, nodes `travel_journal`, `fantasia_ascent`.
+
+### R-095 · Material Realms: mining needs Iron Hammers; never buy them
+- **Rule**: Material Realms lists realms; the first is Ironvein Pit (Raw and Refined Ore), three more are locked. Inside is a mining screen with a hammer button (0.5, 0.72), an "Iron Mined" counter and tabs Ironvein Pit / Rankings / Goals (Iron Mined 5/10/15/20/25 goals each pay a fruit item). Mining uses Iron Hammers (counter top right). With 0 hammers the button opens "Purchase Iron Hammer" (60 Dawnium each, daily limit 20): never buy, tap Cancel (0.32, 0.65). Free hammers come from the Prayer Goals milestones (R-093; the 10-prayer milestone paid 3). Owned hammers show on the hammer button and the top-right counter. One hammer gave about +115 Raw Ore (7 to 122), so hammers, and through them prayers, are an ore source. Mining Ironvein Pit with free hammers is a step in the daily loop.
+- **Confidence**: observed. **Source**: dailies batch 1 and its addendum.
+- **Images**: `docs/screens/material_realms.png`, `docs/screens/ironvein_pit.png`, `docs/screens/purchase_iron_hammer.png`.
+- **Related**: R-043, R-071, nodes `material_realms`, `ironvein_pit`.
+
+### R-096 · Thrilling Events: only Sign-in and Growth Trial are for the bot
+- **Rule**: Thrilling Events (home, top right, (0.91, 0.125)) opens "Featured" with Dawnstar Prelude (10 draws a day; a gacha, never), Growth Trial (R-098), Daily Sign-in (R-097) and Link Account (account-related, never).
+- **Confidence**: observed. **Source**: dailies batch 1.
+- **Images**: none.
+- **Related**: R-043, R-075, node `featured`.
+
+### R-097 · Daily Sign-in: claim today's tile, never Catch Up
+- **Rule**: A 30-tile calendar that refreshes at 8:00 UTC-5. Today's tile shows a green "Claim" label; tapping it gives "YOU RECEIVED" (e.g. 10 Stellatie). Missed days show "Catch Up": treat as spending, never. Days 5 and 20 give a gold card item x50, days 10 and 25 a red item, days 15 and 30 a purple crystal. A daily task (`python -m sxs.daily`).
+- **Confidence**: observed. **Source**: dailies batch 1.
+- **Images**: `docs/screens/daily_signin.png`, `docs/screens/daily_signin_received.png`.
+- **Related**: R-024, R-043, R-096, node `daily_signin`.
+
+### R-098 · Growth Trial: free trial quests, never the Advanced Trial
+- **Rule**: A 19-day event with Day 1-7 tabs of trial quests (Reach Lv. 20, Arrive at Drasilgard, Total Resource Level 30, Enhance Gear x4 to +15) that pay trial points toward a 100-700 chest track. "Advanced Trial" (top right) is paid: never.
+- **Confidence**: observed. **Source**: dailies batch 1.
+- **Images**: `docs/screens/growth_trial.png`.
+- **Related**: R-043, R-096, node `growth_trial`.
+
+### R-099 · Guidance quests are an ore source
+- **Rule**: The Guidance Quest list (Menu, then Quest) includes Helmet / Armor / Boots Enhancement I ("Enhance a helmet to +15", paying 80 Raw Ore and 50 Refined Ore), Cart Upgrade I (1K Rolla) and Skill Mastery. Their ore rewards feed gear enhancement (R-092), so they're worth steering toward. The Achievement tab holds weekly carry achievements (Daily Dungeon, Crucible of Hieromon, Split Mirage), refreshing Mondays 8:00 UTC-5 (R-024).
+- **Confidence**: observed. **Source**: dailies batch 1.
+- **Images**: none.
+- **Related**: R-009, R-024, R-092, node `quests`.
+
+## Added from dailies batch 2 (2026-11-04)
+
+### R-100 · Home stuck on sky: restart the game
+- **Rule**: After a long session the home scene can get stuck showing only sky: no swipe moves it, and neither the Cart bubble nor the goddess Statue can be found. Restarting the game fixes it. Treat "home, but no Cart bubble and no Statue" as a reason to restart rather than keep swiping.
+- **Confidence**: observed. **Source**: dailies batch 2.
+- **Images**: none.
+- **Related**: R-020, R-075, R-093, node `home`.
