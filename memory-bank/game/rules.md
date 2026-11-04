@@ -397,7 +397,7 @@ Entry format:
 ### R-060 · Close popups by tapping above them
 - **Rule**: Popups close on a tap above them, at (0.5, 0.05), not below. Rating and feedback popups are fine to dismiss with their "Later" button (mae, 2026-11-04 08:27); never rate or open the store. The one seen so far: Akane asks "Dear adventurer, do you satisfy with your experience in Kanstein?" with Very Satisfied (0.50, 0.55), Dissatisfied (0.50, 0.62) and Later (0.50, 0.69); it appeared after skill pulls. Always press Later. The detector knows it as `RatingPopup`, and the navigator's toward-home step taps Later.
 - **Confidence**: observed; rating popups told (mae). **Source**: builder batch 9; mae 2026-11-04 08:27; upgrade-systems builder. Earlier, (0.5, 0.95) closed the player profile, so either may work there.
-- **Images**: `docs/screens/rating_popup.png` (upgrade-systems branch).
+- **Images**: `docs/screens/rating_popup.png`.
 - **Related**: nodes `cart`, `player_profile`, `apply_requests`.
 
 ## Added from mae (2026-11-03, evening)
@@ -670,7 +670,7 @@ Entry format:
 ### R-101 · Collect bed EXP daily, not every upgrade pass
 - **Rule**: An icon appears over the bed in the house when AFK EXP is ready to collect: a blue orb in a yellow frame. The daily step `bed` in `sxs.daily` taps it once a day; tap the bed to collect it. EXP builds up slowly, so collecting it is a daily task (alongside the free speed-up of R-035), not a standard step of the upgrade loop. Exception: check it whenever the character is close to levelling up. Collecting it took the account from Lv 13 to Lv 20 (power 10.1K to 13.1K), which unlocked the Guild and its tutorial (R-011).
 - **Confidence**: told. **Source**: mae, 2026-11-04; dailies builder's final batch.
-- **Images**: `docs/screens/home_bed_xp.png` (guild-tutorial branch; template `resource/image/home/bed_xp_bubble.png`).
+- **Images**: `docs/screens/home_bed_xp.png` (template `resource/image/home/bed_xp_bubble.png`).
 - **Related**: R-011, R-020, R-035, nodes `home_house`, `bed`, `guild`.
 
 ## Added from the guild thread (2026-11-04)
@@ -678,13 +678,13 @@ Entry format:
 ### R-102 · Joining a guild: join a random open one
 - **Rule**: The Guild tutorial starts from the bottom bar's 4th icon (0.68, 0.97), then a short dialogue with Akane, then the no-guild screen with "Join Guild Go>>" (0.71, 0.38) and "Create Guild <<Go" (0.29, 0.77). The Join list has a search field at the top (a name or ID works) and Refresh; a red "50K+ Power" label on a row is a power requirement. Donations (R-016), the guild farm and the guild boss all need membership. The Join list shows mostly guilds with an instant "Join" button and some with "Apply" (needs approval). Creating a guild may cost Dawnium, so never create one (R-043). mae's decision for now: join a random open guild (an instant "Join"). Picking or leaving guilds beyond that is mae's call, like other social choices (R-057).
 - **Confidence**: observed (tutorial and list); told (the choice). **Source**: guild thread and mae, 2026-11-04.
-- **Images**: `docs/screens/guild_tutorial_intro.png`, `docs/screens/guild_no_guild.png`, `docs/screens/guild_join_list.png` (guild-tutorial branch).
+- **Images**: `docs/screens/guild_tutorial_intro.png`, `docs/screens/guild_no_guild.png`, `docs/screens/guild_join_list.png`.
 - **Related**: R-011, R-016, R-043, R-057, nodes `guild_no_guild`, `guild_join_list`.
 
 ### R-103 · Donate to the guild twice a day, never more
 - **Rule**: Donate to the guild up to twice per day and never more. These first two donations are an approved use of Dawnium, an exception to R-043: the Donation screen (Lobby, Donation (0.29, 0.82)) reads "Daily Donations: N/5"; the first is free, the second costs 20 Dawnium behind a confirm dialog, and the third 50, so stop after two. Each donation pays 300 Guild Tokens personally and 500 of each guild resource to the guild. Facility upgrades are for the guild leader only. The account joined guild karsa_1515 (ID 700460600036; 28/30 members, about 607K power, guild Lv 1) on 2026-11-04 (R-102). Buildings on the guild island: Lobby, Power Station (AFK gathering), Forge, Mine, Shop, Gate of Expedition and Donation.
 - **Confidence**: told (the limit); observed (costs, buildings). **Source**: mae and the guild thread, 2026-11-04.
-- **Images**: `docs/screens/guild_donation.png`, `docs/screens/guild_donation_confirm.png`, `docs/screens/guild_lobby.png` (guild-tutorial branch).
+- **Images**: `docs/screens/guild_donation.png`, `docs/screens/guild_donation_confirm.png`, `docs/screens/guild_lobby.png`.
 - **Related**: R-016, R-043, R-102, node `guild`.
 
 ## Added from mae (2026-11-04): upgrades and materials
@@ -692,7 +692,7 @@ Entry format:
 ### R-104 · Upgrade skills with Quick Upgrade
 - **Rule**: To upgrade a skill, tap the skill, then the "Quick Upgrade" button beside the lower-right charm. It spends Battle Essence (R-039) and is capped by character level (R-037). Seen live: on the Skill page (Character > Skill) the Quick Upgrade icon sits at about (0.73, 0.47), captioned "Upgrade", and no skill needs to be selected first: one tap levels every skill it can. It spent 1.6K of 1.6K Battle Essence, the 4 charms went from Lv 1 to Lv 8 and 9, and power went from 13.1K to 13.2K. The button disappears when nothing more is affordable.
 - **Confidence**: told (mae), then observed (upgrade-systems batch 1). **Source**: mae, 2026-11-04; upgrade builder.
-- **Images**: `docs/screens/skill_page.png`, `docs/screens/skill_page_after_quick_upgrade.png` (upgrade-systems branch).
+- **Images**: `docs/screens/skill_page.png`, `docs/screens/skill_page_after_quick_upgrade.png`.
 - **Related**: R-037, R-039, R-106, node `skill_loadout`.
 
 ### R-105 · Relics: enhance in bands of 1, element by element (not unlocked yet)
@@ -716,7 +716,7 @@ Entry format:
 ### R-108 · Track a material through Journal > Map Exploration
 - **Rule**: Open the second icon on the home bottom bar (the Journal, R-094), choose "Map Exploration", select the material to track and press Go. A tracking marker leads to the area that holds it, where the material lies scattered on the ground. Tap pickups (5 stamina each) until the budget of R-107 is reached, then stop. Seen live: Map Exploration is at (0.29, 0.47) on the Journal, then the Resource Hunt card. It shows stamina ("175/300") and the full-recovery time (about a day for 125, so roughly 1 stamina per 11 to 12 minutes). The material icons sit at y 0.24: Rolla x 0.08, ore 0.18, sand 0.29, Battle Essence 0.39. Go (0.84, 0.28) asks "Enter Verdantglade to explore?" with OK at (0.68, 0.57). Ore led to a mine in Verdantglade II around map (187, 97): grey rocks with blue crystals. The tracked rock sits in a yellow and white ring, also shown on the minimap and as an edge ring (tap it to pan there). Pickups near the character show a "lightning 5" label; one tap on a rock walks there and mines it for 5 stamina and about +178 Raw Ore. Boars with a "lightning 5" label also appear nearby; what they do isn't known yet ❓. Code: `sxs/gather.py` with `resource/policy/gather.json` (priority ["ore"], keep_stamina 70). First live run: 20 pickups in about 3 minutes, stamina 171 to 71.
 - **Confidence**: told (mae), then observed (upgrade-systems batch 1). **Source**: mae, 2026-11-04; upgrade builder.
-- **Images**: `docs/screens/journal.png`, `docs/screens/map_exploration.png`, `docs/screens/confirm_enter_explore.png`, `docs/screens/explore_ore_rocks.png`, `docs/screens/explore_ore_mined.png`, `docs/screens/explore_stamina_boar.png` (upgrade-systems branch).
+- **Images**: `docs/screens/journal.png`, `docs/screens/map_exploration.png`, `docs/screens/confirm_enter_explore.png`, `docs/screens/explore_ore_rocks.png`, `docs/screens/explore_ore_mined.png`, `docs/screens/explore_stamina_boar.png`.
 - **Related**: R-094, R-106, R-107, R-109, node `travel_journal`.
 
 ### R-109 · Special nodes with a green timer circle: always tap them
@@ -730,13 +730,13 @@ Entry format:
 ### R-110 · Guild gathering: one slot per character
 - **Rule**: The gathering facilities are the Forge (7800/h), the Power Station (5400/h) and the Mine (5400/h), with 10 slots each. Tap an empty "+" slot to open AFK Details (+600/h to the guild, AFK rewards capped at 36 h, personally 120 Guild Tokens/h plus a random item), then Start. A character holds only one slot at a time: switching asks "Currently AFK: ... Switch anyway?" and collects the old slot's rewards automatically. mae: gather at the **Forge** (gromb2 is there now). The island's bottom-right widget shows a sleeping figure when not gathering, or the character at a facility with a timer when gathering.
 - **Confidence**: observed; Forge choice told by mae. **Source**: guild batch 1.
-- **Images**: `docs/screens/guild_forge.png`, `docs/screens/guild_power_station.png`, `docs/screens/guild_afk_switch_confirm.png` (guild-tutorial branch).
+- **Images**: `docs/screens/guild_forge.png`, `docs/screens/guild_power_station.png`, `docs/screens/guild_afk_switch_confirm.png`.
 - **Related**: R-103, R-113, node `guild_facility`.
 
 ### R-111 · Gate of Expedition: Conquest and Guild Clash
 - **Rule**: The guild's Gate of Expedition opens Guild Events, with Conquest (the guild boss) and Guild Clash, which unlocks 8 days after 2026-11-04. Conquest is a shared boss per floor with "Daily Challenge Attempts: N/2" (OCR reads it as "Dailly Challenge Attempts:O/2", so match "Challenge Attempts" and read O as 0). A beaten floor has a reward chest (0.49, 0.57) (gave 1 Stellatie). Flow: Challenge (0.50, 0.77), battle prep Start Battle (0.50, 0.75), then a 50-round fight that can be sent to the background (R-112). The result screen shows damage dealt and participation rewards (10 Dawnium, 150 Guild Tokens), then Tap to Continue; a "Done Conquest F2" chip shows on home and on the guild island afterwards (left side, y≈0.75). Tabs: Rankings (karsa_1515 was 18th at F2, 85%) and Goals, with Serverwide goals (claim per server floor; 4 claimed) and Personal goals (total challenges 10/20/...). Code: `sxs/guild.py` (donate, afk, conquest) and the daily steps `guild_donate`, `guild_afk`, `guild_conquest`. Gotcha: the detector once read the Challenge button as a map object and wandered into Rankings; guild screens are now checked first and Rankings is a known state.
 - **Confidence**: observed. **Source**: guild thread and guild batch 1.
-- **Images**: `docs/screens/guild_events.png`, `docs/screens/guild_conquest.png`, `docs/screens/guild_conquest_battle.png`, `docs/screens/guild_conquest_result.png`, `docs/screens/guild_conquest_rankings.png` (guild-tutorial branch).
+- **Images**: `docs/screens/guild_events.png`, `docs/screens/guild_conquest.png`, `docs/screens/guild_conquest_battle.png`, `docs/screens/guild_conquest_result.png`, `docs/screens/guild_conquest_rankings.png`.
 - **Related**: R-103, R-112, nodes `guild_events`, `guild_conquest`, `guild_conquest_result`.
 
 ### R-112 · Background fights: start them and move on
@@ -750,13 +750,13 @@ Entry format:
 ### R-113 · Guild island layout and the Lobby
 - **Rule**: The guild island (state `guild`, bottom label "Guild") pans sideways, and its camera remembers the last pan. The Gate of Expedition label is often hidden behind the bottom-right AFK widget, so find the Gate from the Guild Lobby label instead: in the west view the Lobby label is at (0.44, 0.49) and the Gate is about (+0.38, +0.15) from it (274, 196 px). Buildings by label: Guild Lobby and Gate of Expedition on the west; Power Station, Forge, Warehouse and Shop on the east. The Lobby shows guild info and Activeness, with Donation (0.29, 0.82) (R-103), Guildmates and More. Its tabs are Guild, Territory (guild resources, facility levels, gathering speeds, AFK member counts) and Upgrade (leader and deputies only).
 - **Confidence**: observed. **Source**: guild batch 1 and its addendum.
-- **Images**: `docs/screens/guild_island.png`, `docs/screens/guild_lobby.png`, `docs/screens/guild_territory.png`, `docs/screens/guild_upgrade.png` (guild-tutorial branch).
+- **Images**: `docs/screens/guild_island.png`, `docs/screens/guild_lobby.png`, `docs/screens/guild_territory.png`, `docs/screens/guild_upgrade.png`.
 - **Related**: R-103, R-110, R-111, nodes `guild`, `guild_lobby`.
 
 ### R-114 · Warehouse is leader-only; the Guild Shop is untouched for now
 - **Rule**: The Warehouse is locked and only the leader or deputies can build it. The Shop (NEW badge) spends Guild Tokens; the bot buys nothing there until mae has marked items on the mapped stock table and a buy list exists (mae's shop policy, R-120).
 - **Confidence**: observed. **Source**: guild batch 1.
-- **Images**: `docs/screens/guild_warehouse_locked.png` (guild-tutorial branch).
+- **Images**: `docs/screens/guild_warehouse_locked.png`.
 - **Related**: R-043, R-113, R-120, node `guild`.
 
 ## Added from upgrade-systems batch 1 (2026-11-04)
@@ -770,13 +770,13 @@ Entry format:
 ### R-116 · Claim the free rewards on upgrade screens' Goals tabs
 - **Rule**: Upgrade screens have Goals tabs with free rewards; claim them whenever they show "!". Several had been sitting unclaimed. Seen so far: Skill Goals (Level: Battle Essence used, pays Battle Essence; Quality: pays Iron Hammers and more), Enhance Gear Goals (Raw Ores Used, pays Rolla), Rank Goals (Level: character Lv 12 to 20, pays hammers, picks and more; Power), Class Goals (Total Class Level, 300 Battle Essence each).
 - **Confidence**: observed. **Source**: upgrade-systems batch 1.
-- **Images**: `docs/screens/skill_goals_quality.png`, `docs/screens/gear_goals.png`, `docs/screens/rank_level_goals.png`, `docs/screens/rank_power_goals.png`, `docs/screens/class_goals.png` (upgrade-systems branch).
+- **Images**: `docs/screens/skill_goals_quality.png`, `docs/screens/gear_goals.png`, `docs/screens/rank_level_goals.png`, `docs/screens/rank_power_goals.png`, `docs/screens/class_goals.png`.
 - **Related**: R-063, R-080, R-093, R-095.
 
 ### R-117 · Class levels come from Class Badges; never Change Class
 - **Rule**: Class, then Class Hierarchy: tapping a class card that shows "!" pops "Class Badge Received" (+2 per owned skill of that class; OK (0.50, 0.72)). That class's Upgrade tab spends 10 badges per class level, each level adding HP, ATK, DEF and SPD. Levelling another class (Warrior) also raises Total Class Level without changing class (Mage 1 to 3, Warrior 1 to 2, Total 2 to 5). "Change Class" (locked until character Lv 100, and also a button on the Warrior page) is mae's decision and is never tapped (R-054).
 - **Confidence**: observed. **Source**: upgrade-systems batch 1.
-- **Images**: `docs/screens/class_page.png`, `docs/screens/class_hierarchy.png`, `docs/screens/class_badge_received.png`, `docs/screens/class_info.png`, `docs/screens/class_upgrade.png` (upgrade-systems branch).
+- **Images**: `docs/screens/class_page.png`, `docs/screens/class_hierarchy.png`, `docs/screens/class_badge_received.png`, `docs/screens/class_info.png`, `docs/screens/class_upgrade.png`.
 - **Related**: R-054, R-080, R-116, node `class_ascend`.
 
 ### R-118 · Rank Advancement raises the level cap; Bellflowers block it now
@@ -788,13 +788,13 @@ Entry format:
 ### R-119 · Gear Resonance: free bonuses when all four pieces reach a band
 - **Rule**: Enhance Gear, then Resonance (0.86, 0.20): each tier reads "Enhance Gear x4 to +N" (N = 5, 10, 15 ... 35 and up, with bonuses like HP +2% or ATK +2%) and shows Activate once all 4 equipped pieces reach +N. The tiers match the 5-level bands of R-092, so activate each tier as soon as a band completes. Fix note: the Enhance Gear level reader once read "+9 → +10" as 10 because OCR doesn't return text left to right; it now takes the leftmost number.
 - **Confidence**: observed. **Source**: upgrade-systems batch 1.
-- **Images**: `docs/screens/gear_resonance.png` (upgrade-systems branch).
+- **Images**: `docs/screens/gear_resonance.png`.
 - **Related**: R-023, R-092, node `enhance_gear`.
 
 ### R-120 · Molly's Vendor Booth: a daily-refresh shop on home
 - **Rule**: Following the Bellflower item's source link (R-118) started a home tutorial with Akane and Molly that ends with "Vendor Booth (Furniture): Unlock", which is free. The booth is Molly's shop on the home scene, and its stock refreshes daily. What it sells and what it costs aren't known yet ❓. Shop policy (mae, 2026-11-04 08:17), for the Vendor Booth, the Guild Shop and every other shop: map every item (name, cost, currency, limits) into a table, mae marks which are buyable, and those become a per-shop buy list in the repo. The bot buys nothing in a shop until its buy list exists (R-043).
 - **Confidence**: observed; shop policy told (mae). **Source**: upgrade-systems builder, 2026-11-04 08:18; mae 08:17.
-- **Images**: `docs/screens/home_white_sheet_tutorial.png`, `docs/screens/vendor_booth_unlock.png` (upgrade-systems branch).
+- **Images**: `docs/screens/home_white_sheet_tutorial.png`, `docs/screens/vendor_booth_unlock.png`.
 - **Related**: R-043, R-118, node `home`.
 
 ### R-121 · Mall: claim the free gift boxes, never the packs
