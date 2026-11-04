@@ -375,7 +375,7 @@
    "images": [
     "docs/screens/journal.png"
    ],
-   "notes": "Cards: Fantasia Ascent (0.78, 0.23), Map Exploration, Material Realms, Weekly Events, two Unavailable (R-094)."
+   "notes": "Cards: Fantasia Ascent (0.78, 0.23), Map Exploration, Material Realms, Weekly Events, two Unavailable (R-094). Map Exploration: pick a material and Go to track it (R-108)."
   },
   {
    "id": "guild",
@@ -384,8 +384,10 @@
    "confidence": "observed",
    "unlock": "Character Lv. 15 (toast on the locked tab)",
    "detect": null,
-   "images": [],
-   "notes": "Donations, Farm, Boss, floating-island AFK farm (R-016, reported)."
+   "images": [
+    "docs/screens/home_guild_tutorial.png"
+   ],
+   "notes": "Donations, Farm, Boss, floating-island AFK farm (R-016, reported). Unlocked at Lv 20 with a guild tutorial (mae, 2026-11-04; R-011, R-101). Joined karsa_1515. Island buildings: Lobby, Power Station, Forge, Mine, Shop, Gate of Expedition, Donation. Donate at most twice a day (R-103)."
   },
   {
    "id": "shop",
@@ -481,7 +483,7 @@
     "docs/screens/bed.png",
     "docs/screens/furniture_unlock.png"
    ],
-   "notes": "AFK EXP and production panel with 'Today's Free Speedup' (R-035)."
+   "notes": "AFK EXP and production panel with 'Today's Free Speedup' (R-035). An icon over the bed means AFK EXP to collect: a daily task, or sooner when close to levelling (R-101)."
   },
   {
    "id": "tap_to_continue",
@@ -509,7 +511,7 @@
    "images": [
     "docs/screens/skill_loadout.png"
    ],
-   "notes": "4 technique slots left, 4 charm slots right, Loadout 1 selector; tabs Technique / Charm / Shard; bottom tabs Skill / Goals (R-037, R-038)."
+   "notes": "4 technique slots left, 4 charm slots right, Loadout 1 selector; tabs Technique / Charm / Shard; bottom tabs Skill / Goals (R-037, R-038). Tap a skill, then Quick Upgrade beside the lower-right charm (R-104)."
   },
   {
    "id": "technique_card",
