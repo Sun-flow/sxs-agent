@@ -20,8 +20,8 @@ from typing import Optional
 import cv2
 import numpy as np
 
-from . import nav
-from .device import REPO_ROOT, Device
+from . import nav, tower
+from .device import REPO_ROOT, Device, banner, save_unknown
 from .decide import Context, Decider
 from .state import StateDetector
 from .strengthen import Strengthener
@@ -37,14 +37,20 @@ MARKER_TARGET_DYS = [100, 60, 140, 30]  # how far below the tracker ring its tar
 STALE_STEP_S = 15  # seconds of no progress per "stale" step (drives the tap-offset cycle)
 STALE_LIMIT = 4  # stale steps (~1 min) before trying NPCs and guards
 STALE_GIVE_UP_S = 300  # no progress for this long ends the run
+SELF_TAP_LIMIT = 6  # own-profile opens without progress before the loop gives up
+HEARTBEAT_S = 30  # liveness log line and stuck check interval
 DECISION_OPTIONS = r"^(Ascend to|Change Class)"  # dialogue options a human decides
 PLAYER_NAME = "gromb2"  # our character's name label, to tell our own "!" from an NPC's
 NPC_DX, NPC_DY = 30, 50  # from the "!" bubble to the NPC's body
 DIALOGUE_ROI = [0, 1020, 720, 230]  # speaker name and text in the story box
 DIALOGUE_LOG = REPO_ROOT / "logs" / "dialogue.log"
 RETRIES = 2  # retries of a lost fight before strengthening (mae, 2026-11-03)
+FIGHT_MIN_HP = 70  # mae, 2026-11-04: at least 70% HP before any fight
 HEAL_BELOW = 80  # HP % under which the profile's Quick Heal (1 cooked dish) is used
 QUICK_HEAL = (510, 1064)
+HUD_PORTRAIT = (70, 60)  # top-left avatar: opens the player profile (HP, Quick Heal, charms)
+PREP_HP_BAR = (314, 406, 866, 876)  # x0, x1, y0, y1 of the bar under our character on battle prep
+HUD_HP_BAR = (116, 268, 52, 64)  # x0, x1, y0, y1 of the HP bar under the name, top left (mae, 2026-11-04)
 REPEAT_LIMIT = 4  # same card title this many times in a row means the choice isn't working
 GUARD_DX, GUARD_DY = -35, 50  # from the top-right guard bracket to the monster
 
@@ -83,6 +89,47 @@ def read_tracker(det: StateDetector) -> Optional[dict]:
     return {"title": title, "progress": f"{a}/{b}", "done": a >= b, "tap": (box[0] + box[2] // 2, box[1] + box[3] // 2)}
 
 
+def hud_hp(frame: np.ndarray, bar=None) -> float:
+    """HP as a fraction, from the HUD bar under our name (or another HP bar, e.g. PREP_HP_BAR): the filled part is
+    bright and saturated (yellow-green at full HP), the empty track dull (V ~110-120)."""
+    x0, x1, y0, y1 = bar or HUD_HP_BAR
+    hsv = cv2.cvtColor(frame[y0:y1, x0:x1], cv2.COLOR_BGR2HSV)
+    filled = (hsv[..., 1] > 100) & (hsv[..., 2] > 150)
+    return float(filled.any(axis=0).mean())
+
+
+def progress_signal(text: Optional[str]) -> Optional[str]:
+    """What counts as quest progress on the map tracker: its n/m counter, or else its goal text with OCR noise
+    (spaces, I/l/1 confusions) squeezed out, so a counterless quest still shows progress when its goal changes."""
+    if not text:
+        return None
+    m = re.search(r"\d+/\d+", text)
+    if m:
+        return m.group(0)
+    return re.sub(r"[\sIl1|]", "", text).lower()
+
+
+class Heartbeat:
+    """Regular liveness check for long runs (mae, 2026-11-04: loops check for being stuck even when automated).
+    Logs a line every HEARTBEAT_S with screen, map coordinates and time since progress, and warns when the screen
+    and coordinates haven't changed at all for several beats, so a log shows at a glance where a loop idles."""
+
+    def __init__(self) -> None:
+        self.next_at = time.monotonic() + HEARTBEAT_S
+        self.last = None
+        self.same = 0
+
+    def check(self, d, progress: Optional[str], progress_at: float) -> None:
+        if time.monotonic() < self.next_at:
+            return
+        self.next_at = time.monotonic() + HEARTBEAT_S
+        snap = (d.state, d.text)
+        self.same = self.same + 1 if snap == self.last else 0
+        self.last = snap
+        log.info("heartbeat: %s %s | tracker %r | %ds since progress%s", d.state, d.text or "", progress,
+                 time.monotonic() - progress_at, f" | unchanged x{self.same}" if self.same >= 2 else "")
+
+
 def npc_to_talk_to(det: StateDetector) -> Optional[tuple[int, int]]:
     """Tap point for an NPC showing a red "!" bubble, skipping the one over our own character (name label below)."""
     frame = det.device.screenshot()
@@ -113,6 +160,53 @@ def blocker_point(det: StateDetector) -> Optional[tuple[int, int]]:
     return (px + tx) // 2, (py + ty) // 2
 
 
+def unstick(dev: Device, det: StateDetector, round_no: int) -> bool:
+    """One unstick attempt when quest progress has stalled. Each round starts from a different strategy, so a
+    strategy that acted but didn't help isn't simply repeated. Returns True if something was tapped."""
+
+    def talk() -> bool:
+        # The target may be gated behind an NPC or map object with a red "!" (Molly, then the Moonveil gate).
+        npc = npc_to_talk_to(det)
+        if not npc:
+            return False
+        log.info("unstick: tapping a red '!' at %s", npc)
+        dev.tap(*npc)
+        time.sleep(4)
+        if det.detect().state == "world_map":
+            dev.tap(*npc)  # the first tap may only walk there; the second opens it
+            time.sleep(3)
+        return True
+
+    def blocker() -> bool:
+        # A monster stands in the way between us and the target: tap the spot halfway there.
+        point = blocker_point(det)
+        if point:
+            log.info("unstick: tapping between player and target at %s", point)
+            dev.tap(*point)
+            time.sleep(3)
+        return bool(point)
+
+    def guard() -> bool:
+        box = det.find("Explore.GuardBracket")
+        if box:
+            log.info("unstick: attacking a guard at %s", box.box)
+            dev.tap(box.box[0] + GUARD_DX, box.box[1] + GUARD_DY)
+            time.sleep(3)
+        return bool(box)
+
+    def look_around() -> bool:
+        # Something to talk to may be just off screen (or behind the chat panel): pan a step, look for a "!".
+        sx, sy, ex, ey = PAN_STEPS[(round_no // len(strategies)) % len(PAN_STEPS)]
+        log.info("unstick: panning to look for a red '!'")
+        dev.swipe(sx, sy, ex, ey, 500)
+        time.sleep(1.5)
+        return talk() or True
+
+    strategies = [talk, blocker, guard, look_around]
+    first = (round_no - 1) % len(strategies)
+    return any(f() for f in strategies[first:] + strategies[:first])
+
+
 def log_dialogue(det: StateDetector) -> None:
     """Keep the story text: some quests are only explained in dialogue ("go see X in Y"), not in the tracker.
     Lines go to logs/dialogue.log (gitignored) for whoever gets stuck next: mae, or the model supervisor."""
@@ -125,17 +219,22 @@ def log_dialogue(det: StateDetector) -> None:
 
 def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_misses: int = 10,
                    choose: Optional[str] = None) -> str:
-    """Returns "complete", "defeated", "no_marker", "no_tracker", "unknown_card", "repeating_card", "needs_decision", "stuck_home", "stuck_progress", "unknown_screen" or
+    """Returns "complete", "defeated", "no_marker", "no_tracker", "unknown_card", "repeating_card", "needs_decision", "stuck_home", "stuck_progress", "stuck_self", "low_hp", "unknown_screen" or
     "timeout"."""
     decider, ctx = Decider(det), Context(goal="explore")
     deadline = time.monotonic() + minutes * 60
     misses = unknowns = unknown_total = unknown_cards = repeats = home_taps = 0
     last_kind = None
     last_progress = last_state = last_progress_seen = None
-    stale, progress_at, tried_unstick = 0, time.monotonic(), False
+    stale, progress_at, unstick_round = 0, time.monotonic(), 0
+    beat = Heartbeat()
     hit_self = False  # the last marker tap landed on our own character
+    self_taps, charms_tried = 0, False
+    after_fight = via_portrait = False
+    heal_tries = prep_backouts = 0
     while time.monotonic() < deadline:
         d = det.detect()
+        beat.check(d, last_progress, progress_at)
         if d.state != last_state:
             log.info("state %s", d.state)
             last_state = d.state
@@ -143,14 +242,39 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
             unknowns = 0
         if d.state not in ("home", "unknown", "loading"):
             home_taps = 0
+        if d.state == "world_map" and not via_portrait and hud_hp(dev.screenshot()) * 100 < FIGHT_MIN_HP:
+            # mae, 2026-11-04: never start a fight under 70% HP. Every map tap can start one, so check here.
+            heal_tries += 1
+            if heal_tries > 3:
+                # Quick Heal isn't raising HP (out of cooked dishes?): don't fight hurt; stop and say why.
+                log.warning("HP still under %d%% after %d heals; stopping before any fight", FIGHT_MIN_HP, heal_tries - 1)
+                return "low_hp"
+            log.info("HP under %d%% on the HUD bar; healing before any fight", FIGHT_MIN_HP)
+            after_fight, via_portrait = False, True
+            dev.tap(*HUD_PORTRAIT)
+            time.sleep(2)
+            continue
+        if d.state == "world_map" and heal_tries and not via_portrait and hud_hp(dev.screenshot()) * 100 >= FIGHT_MIN_HP:
+            heal_tries = 0
+        if d.state == "world_map" and after_fight:
+            # mae, 2026-11-04: read HP from the HUD bar; open the profile through the HUD portrait (tapping the
+            # character opens a picker when several things share its tile) only to heal, or once to fill charms.
+            after_fight = False
+            hp = hud_hp(dev.screenshot())
+            if hp * 100 < HEAL_BELOW or not charms_tried:
+                log.info("after the fight: HP %d%% from the HUD bar; opening the profile", hp * 100)
+                via_portrait = True
+                dev.tap(*HUD_PORTRAIT)
+                time.sleep(2)
+                continue
         if d.state == "world_map":
             prog = det.find("Explore.Progress")
             if prog and prog.text != last_progress:
                 last_progress = prog.text
                 log.info("progress: %s", prog.text)
-            done = det.find("Explore.Complete")
+            done = det.find("Explore.Complete") or det.find("Explore.TrackerGiftMap")
             if done:
-                gift = det.find("Explore.TrackerGift")
+                gift = det.find("Explore.TrackerGift") or det.find("Explore.TrackerGiftMap")
                 x, y, w, h = (gift or done).box
                 dev.tap(x + w // 2, y + h // 2)
                 time.sleep(2)
@@ -158,36 +282,39 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
                 return "complete"
             # "Stale" is time since progress last changed (walking to a far target takes many marker taps).
             # Compare only the counter: OCR flips "II" and "ll" in the area name from frame to frame.
-            counter = re.search(r"\d+/\d+", prog.text).group(0) if prog and re.search(r"\d+/\d+", prog.text) else None
-            if counter != last_progress_seen:
-                last_progress_seen, progress_at = counter, time.monotonic()
-                tried_unstick = False
+            # Quests without a counter ("Unlock Moonveil Woods") still change their goal text when they advance.
+            signal = progress_signal(prog.text if prog else None)
+            if signal != last_progress_seen:
+                last_progress_seen, progress_at = signal, time.monotonic()
+                unstick_round = self_taps = 0
             stale_s = time.monotonic() - progress_at
             stale = int(stale_s // STALE_STEP_S)
             if stale_s >= STALE_GIVE_UP_S:
+                log.warning("no progress for %ds after %d unstick rounds; stopping", stale_s, unstick_round)
                 return "stuck_progress"
-            if stale >= STALE_LIMIT and not tried_unstick:
-                tried_unstick = True
-                # Progress stuck: the target may be gated behind an NPC with a red "!" (talk to them first)...
-                npc = npc_to_talk_to(det)
-                if npc:
-                    log.info("progress stuck; talking to an NPC at %s", npc)
-                    dev.tap(*npc)
-                    time.sleep(3)
-                    continue
-                # ...or a monster stands in the way between us and the target: tap the spot halfway there.
-                blocker = blocker_point(det)
-                if blocker:
-                    log.info("progress stuck; tapping between player and target at %s", blocker)
-                    dev.tap(*blocker)
-                    time.sleep(3)
-                    continue
-                # ...or guarded by monsters. Fight a bracketed one.
-                guard = det.find("Explore.GuardBracket")
-                if guard:
-                    log.info("progress stuck; attacking a guard at %s", guard.box)
-                    dev.tap(guard.box[0] + GUARD_DX, guard.box[1] + GUARD_DY)
-                    time.sleep(3)
+            # Watchdog (mae, 2026-11-04): each ~minute without progress, try the next unstick strategy rather
+            # than repeating the same marker tap until the give-up timer runs out.
+            if stale >= STALE_LIMIT * (unstick_round + 1):
+                unstick_round += 1
+                log.info("no progress for %ds: unstick round %d", stale_s, unstick_round)
+                # The quest's area may be out of walking reach of the marker taps (a cliff or fog in between):
+                # walk there with the area map first (mae's procedure), once per stall.
+                area = re.search(r"Explore (.+?) \d+/\d+", last_progress or "")
+                from . import goto
+                here = goto.area_name_here(det)
+                if area and unstick_round == 1 and not goto.same_area(here, area.group(1)):
+                    log.info("unstick: walking to the quest's area %r with the area map", area.group(1))
+                    if goto.go_to(dev, det, area.group(1).strip()) == "arrived":
+                        continue
+                    # Unreachable on foot (its label sits in fog): go home, where the tracker offers to travel there.
+                    log.info("unstick: can't walk there; going home to travel via the tracker")
+                    try:
+                        nav.Navigator(dev, det).go_home()
+                        continue
+                    except (RuntimeError, TimeoutError) as e:
+                        log.warning("%s; frame saved to %s", e, save_unknown(dev, "explore_home"))
+                        return "unknown_screen"
+                if unstick(dev, det, unstick_round):
                     continue
             pointer = det.find("Explore.EdgePointer")
             if pointer:
@@ -244,10 +371,50 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
                 time.sleep(1.5)
                 dev.tap(*toggle)
             time.sleep(2)
+        elif d.state in ("tower_list", "tower_floors", "tower_result"):
+            # The quest's Go brought us to Fantasia Ascent ("Reach <Tower> Fn"): hand over to the tower loop, which
+            # climbs with Auto Challenge until the first loss (no retries there), then carry on with the quest line.
+            m = re.search(r"Reach (.+?) F ?(\d+)", last_progress or "")
+            result = tower.climb(dev, det, m.group(1).strip() if m else None,
+                                 minutes=max(1.0, (deadline - time.monotonic()) / 60))
+            log.info("tower climb: %s", result)
+            if result not in ("reached", "floors_done", "lost"):
+                return result
+            try:
+                nav.Navigator(dev, det).go_home()
+            except (RuntimeError, TimeoutError) as e:
+                log.warning("%s; frame saved to %s", e, save_unknown(dev, "explore_home"))
+                return "unknown_screen"
+            progress_at = time.monotonic()
         elif d.state == "battle_prep":
+            hp = hud_hp(dev.screenshot(), PREP_HP_BAR)
+            if hp * 100 < FIGHT_MIN_HP and prep_backouts < 2:
+                # mae, 2026-11-04: the bar under our character shows HP before the fight; back out and heal first
+                # (also mid-way through a mini-dungeon: after "Next Floor", back out, heal, carry on).
+                prep_backouts += 1
+                # mae: Quick Heal opens from the top-left portrait on any screen that shows it, so try that first;
+                # back out only if this screen has no portrait.
+                log.info("battle prep: HP %d%% < %d%%; healing first", hp * 100, FIGHT_MIN_HP)
+                via_portrait = True
+                dev.tap(*HUD_PORTRAIT)
+                time.sleep(2)
+                if det.detect().state != "player_profile":
+                    dev.tap(*nav.BACK_ARROW)
+                    time.sleep(2)
+                    dev.tap(*HUD_PORTRAIT)
+                    time.sleep(2)
+                if det.detect().state == "player_profile":
+                    dev.tap(*QUICK_HEAL)
+                    time.sleep(2)
+                    dev.tap(360, 60)
+                    time.sleep(1.5)
+                via_portrait = False
+                continue
+            prep_backouts = 0
             dev.tap(*START_BATTLE)
             time.sleep(3)
         elif d.state in ("battle", "loading"):
+            after_fight = after_fight or d.state == "battle"
             time.sleep(2)
         elif d.state in ("defeated", "interact", "dungeon_floor", "confirm_dialog", "quest_detail"):
             # Cards and dialogs: pick the option that fits the goal (resource/policy/cards.json).
@@ -260,6 +427,10 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
                 return "repeating_card"
             dev.tap(*choice.point)
             time.sleep(4)
+            if choice.kind == "wounded":
+                # "Badly wounded" comes after a lost fight (mae, 2026-11-04): a dead run, not a reason to carry on.
+                log.info("lost the fight (badly wounded); healed, counting it as a loss")
+                return "defeated"
             if choice.kind == "defeated":
                 return "defeated"
             if choice.kind == "unknown":
@@ -268,13 +439,27 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
                     log.warning("no rule for card %r; stopping so a rule can be added", card.title)
                     return "unknown_card"
         elif d.state == "player_profile":
-            hit_self = True
-            # Opened by tapping our own character. Top up HP here if it's low, then close.
+            if via_portrait:
+                via_portrait = False  # opened on purpose: not a marker tap landing on us
+            else:
+                hit_self = True
+                self_taps += 1
+            if self_taps >= SELF_TAP_LIMIT:
+                # Watchdog: the marker keeps landing on our own character and nothing moves. Stop and say so.
+                log.warning("opened our own profile %d times without progress; stopping", self_taps)
+                dev.tap(360, 60)
+                return "stuck_self"
+            # Opened by tapping our own character. A red "!" over the character is not only low HP: it also means
+            # empty charm slots or gear to equip (mae, 2026-11-04). Heal by the HP bar; fill charm slots once.
             hp = int(re.search(r"(\d+)%", d.text).group(1)) if d.text else 100
             if hp < HEAL_BELOW:
                 log.info("HP %d%%: quick heal", hp)
                 dev.tap(*QUICK_HEAL)
                 time.sleep(2)
+            elif not charms_tried:
+                charms_tried = True
+                n = Strengthener(dev, det).equip_charms(from_profile=True)
+                log.info("profile: HP %d%%, equipped %d charm(s)", hp, n)
             else:
                 dev.tap(360, 60)  # above the popup; a tap below it doesn't close it
                 time.sleep(1.5)
@@ -325,11 +510,17 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
             unknowns += 1
             unknown_total += 1
             if unknowns >= 5 or unknown_total >= 20:  # the second catches unknown <-> map loops
+                log.warning("unfamiliar screen; frame saved to %s", save_unknown(dev, "explore"))
                 return "unknown_screen"
             if unknowns >= 2:
                 # Maybe a popup the detector doesn't know: a rule may still cover it, otherwise it's dismissed.
                 card, choice = decider.decide(ctx)
                 dev.tap(*choice.point)
+                if choice.kind in ("wounded", "defeated"):
+                    # The loss dialog can show while the detector still reads "unknown": still a lost fight.
+                    time.sleep(3)
+                    log.info("lost the fight (%s); counting it as a loss", choice.kind)
+                    return "defeated"
                 if choice.kind == "unknown" and card.buttons:  # a real card has buttons; battle damage numbers do not
                     unknown_cards += 1
                     if unknown_cards >= 3:
@@ -350,6 +541,12 @@ def main() -> int:
     det = StateDetector(dev)
     deadline = time.monotonic() + args.minutes * 60
     losses, strengthened = 0, False
+    banner(log, "Explore", "follow the tracked quest line: walk to its marker, fight, open cards by the rules, "
+           "hand tower and dungeon screens to their loops, claim finished quests"
+           + (" and chain to the next" if args.chain else ""),
+           f"{args.minutes:g} minutes, or a stop reason: unknown screen or card, no progress for "
+           f"{STALE_GIVE_UP_S // 60} min after rotating unstick tries, a human decision, or still losing after "
+           f"{RETRIES} retries and strengthening")
     while True:
         # Quests chain: after claiming one the tracker shows the next, so keep going until something else stops us.
         left = (deadline - time.monotonic()) / 60

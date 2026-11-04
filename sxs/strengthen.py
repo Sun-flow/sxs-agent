@@ -9,6 +9,9 @@ an upgrade as soon as the game says materials are short. Never touches Dawnium, 
 from __future__ import annotations
 
 import logging
+import re
+
+import cv2
 import sys
 import time
 
@@ -29,6 +32,17 @@ TECHNIQUE_CARD_ENHANCE = (490, 946)
 TECHNIQUE_TABS = [(160, 190), (318, 190), (424, 190), (552, 190)]
 TECHNIQUE_UPGRADE = (360, 1086)
 SHORT = r"Insufficient|Unlocks at Character"
+PROFILE_CHARM_SLOTS = [(406, 910), (480, 910), (554, 910), (628, 910)]  # player profile: Charm row; an empty one opens the loadout editor
+CHARM_SLOTS = [(626, 268), (626, 384), (626, 500), (626, 616)]  # loadout editor, right column
+CHARM_LIST = [(100, 930), (230, 930), (360, 930), (490, 930), (620, 930)]  # Charm tab, owned and unequipped
+CHARM_EQUIP = (360, 898)  # charm card's Equip button
+CHARM_TAB = (400, 800)  # loadout editor opens on the Technique tab
+PROFILE_GEAR_SLOTS = [(110, 754), (234, 754), (360, 754), (484, 754)]  # player profile: Equip row
+GEAR_CARD_BUTTON = (360, 880)  # single gear card: Replace (or Equip)
+GEAR_LIST_FIRST = (150, 345)  # Replace Gear list, sorted best first (green up arrow = upgrade)
+GEAR_COMPARE_REPLACE = (536, 896)  # side-by-side compare: Replace under the new item
+GEAR_POWER_ROIS = ([20, 520, 200, 100], [370, 520, 200, 100])  # power under each compared item: equipped, new
+FILLED_SAT = 60  # mean HSV saturation over a slot/list icon: coloured icon above, empty grey disc below
 
 
 class Strengthener:
@@ -95,6 +109,85 @@ class Strengthener:
         self._tap(nav.BACK_ARROW, 2)
         self._tap(nav.BACK_ARROW, 2)
         log.info("techniques upgraded")
+
+    @staticmethod
+    def _filled(frame, xy) -> bool:
+        x, y = xy
+        hsv = cv2.cvtColor(frame[y - 15:y + 15, x - 15:x + 15], cv2.COLOR_BGR2HSV)
+        return float(hsv[..., 1].mean()) > FILLED_SAT
+
+    def equip_charms(self, from_profile: bool = False) -> int:
+        """Put owned, unequipped charms into empty charm slots (a red "!" on the character, its Charm slots and
+        the Charm tab). Only fills empty slots, never swaps an equipped charm, never touches techniques or the
+        Rcmd loadouts. Starts from the player profile (tap own character) or goes there via the map. Returns the
+        number equipped."""
+        if not from_profile:
+            return 0  # TODO: reach the loadout editor from home (Character -> Skill) when needed
+        frame = self.dev.screenshot()
+        empty = [xy for xy in PROFILE_CHARM_SLOTS if not self._filled(frame, xy)]
+        if not empty:
+            return 0
+        self._tap(empty[0], 2.5)  # an equipped one would open that charm's card instead
+        if not any(re.fullmatch(r"Edit", t) for t, _ in self.det.read_text([20, 20, 200, 70])):
+            log.warning("loadout editor did not open")
+            return 0
+        self._tap(CHARM_TAB, 1.5)
+        equipped = 0
+        for _ in range(len(CHARM_SLOTS)):
+            frame = self.dev.screenshot()
+            empty = [xy for xy in CHARM_SLOTS if not self._filled(frame, xy)]
+            owned = [xy for xy in CHARM_LIST if self._filled(frame, xy)]
+            if not empty or not owned:
+                break
+            self._tap(owned[0], 2)
+            if not any(re.fullmatch(r"Equip", t) for t, _ in self.det.read_text([200, 850, 320, 100])):
+                log.warning("charm card has no Equip button; stopping")
+                self._tap((360, 1230), 1.5)
+                break
+            self._tap(CHARM_EQUIP, 2)
+            self._tap(empty[0], 2)  # equip mode highlights the slots: pick an empty one
+            equipped += 1
+            log.info("charm equipped into slot %s", empty[0])
+        self._tap(nav.BACK_ARROW, 2)
+        return equipped
+
+    def _power(self, roi) -> float:
+        for t, _ in self.det.read_text(roi):
+            m = re.search(r"(\d+(?:\.\d+)?)(K?)$", t.replace(",", ""))  # the swords icon OCRs as a stray char
+            if m:
+                return float(m.group(1)) * (1000 if m.group(2) else 1)
+        return 0.0
+
+    def equip_better_gear(self) -> int:
+        """From the player profile: for each Equip slot, open Replace Gear, take the top candidate (the list is sorted
+        best first) and replace only if the comparison shows a higher power number for it. Enhancement levels carry
+        over to the new item (Beginner's Cap +10 -> Adventurer's Leather Hat +10). Returns the number replaced."""
+        replaced = 0
+        for slot in PROFILE_GEAR_SLOTS:
+            self._tap(slot, 2)
+            if not any(re.fullmatch(r"Replace|Equip", t) for t, _ in self.det.read_text([200, 840, 320, 90])):
+                self._tap((360, 1230), 1.5)  # nothing to change here: close the card
+                continue
+            self._tap(GEAR_CARD_BUTTON, 2.5)
+            if not any("Replace Gear" in t for t, _ in self.det.read_text([150, 190, 420, 60])):
+                self._tap((360, 1230), 1.5)
+                continue
+            self._tap(GEAR_LIST_FIRST, 2)
+            old, new = (self._power(r) for r in GEAR_POWER_ROIS)
+            if new > old > 0 or (new > 0 and old == 0):
+                # The cards' height depends on the item's stat lines: find the new item's Replace button.
+                button = [b for t, b in self.det.read_text([370, 700, 350, 400]) if re.fullmatch(r"Replace", t)]
+                x, y, w, h = button[0] if button else (*GEAR_COMPARE_REPLACE, 0, 0)
+                self._tap((x + w // 2, y + h // 2), 2.5)
+                replaced += 1
+                log.info("gear slot %s: replaced (%g -> %g power)", slot, old, new)
+            else:
+                log.info("gear slot %s: kept (%g vs %g)", slot, old, new)
+                self._tap((360, 1250), 1.5)
+                self._tap((360, 1250), 1.5)
+            if self.det.detect().state != "player_profile":
+                self._tap((360, 1250), 1.5)
+        return replaced
 
     def run(self) -> None:
         self.claim_cart()

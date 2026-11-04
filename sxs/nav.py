@@ -41,6 +41,9 @@ TOWARD_HOME = {
     "main_menu": BACK_ARROW,
     "cart": (360, 1220),  # tap outside the panel
     "quests": BACK_ARROW,
+    "tower_result": BACK_ARROW,
+    "tower_floors": BACK_ARROW,
+    "tower_list": BACK_ARROW,
 }
 
 

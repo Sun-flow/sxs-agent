@@ -1,11 +1,17 @@
 # Decision Log
 
-> **Last updated**: 2026-11-03
+> **Last updated**: 2026-11-04
 > Decisions with lasting consequences (tech choices, structure, conventions, scope calls) and why they were made, so later sessions don't undo them by accident. One entry per decision, newest first; update `Status` when superseded; never delete an entry. Details and sources for the 2026-11-02 entries are in `docs/step1-emulator-and-game.md`.
 
 Entry format:
 
 ```
+### [2026-11-04] Loops are watched and hand off to each other
+- **Decision**: Each loop (`sxs.explore`, `sxs.tower`, `sxs.fogwalk`, `sxs.goto`) logs a banner at start, a heartbeat every 30 s, and ends early with a named reason (stuck_progress, stuck_self, stuck, unknown_screen with a saved frame, power_gate, repeating_card) instead of idling. Stalls rotate through unstick strategies (walk to the quest's area, talk to a red "!", fight a blocker or guard, pan). The explore loop calls the tower loop on Fantasia Ascent screens and resumes after.
+- **Rationale**: mae (2026-11-04): loops must notice being stuck, report unfamiliar screens, and call each other; a stuck loop is a robustness bug to fix, not a restart.
+- **Alternatives considered**: one 5-minute give-up timer (what we had; it idled silently on a counterless quest).
+- **Status**: Accepted
+
 ### [YYYY-MM-DD] Title
 - **Decision**: one line
 - **Rationale**: why

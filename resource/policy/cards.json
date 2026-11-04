@@ -1,6 +1,6 @@
 {
     "doc": "How sxs/decide.py chooses on popups and cards. Rules are tried in order; the first whose 'when' holds and whose 'match' regex finds the card's title or body wins. 'choose' is a regex for the button to press, or 'dismiss' (back arrow or tap outside), or 'cancel' (the dialog's Cancel button). Goals: explore (finish the current Explore quest), daily (daily loop), idle (just get home). Add a rule whenever a new card shows up; anything no rule covers is dismissed and logged as unknown. A dismiss taps outside the card unless the rule says \"dismiss_by\": \"back\" (the bottom-left back arrow).",
-    "buttons": "^(OK|Cancel|Confirm|Explore|Enter|Activate|Collect|Claim|Claim All|Open|Interact|Bless|Pray|Gather|Harvest|Mine|Examine|Read|Next Floor|Leave|Retreat|Exit|Continue|Start Battle|Buy|Purchase|Refresh|Spend|Unlock|Upgrade|Enhance|Equip|Replace|Remove|Go|Return to Home|Quick Heal.*|Track|Stop Tracking)$",
+    "buttons": "^(OK|Cancel|Confirm|Explore|Enter|Challenge|Activate|Collect|Claim|Claim All|Open|Interact|Bless|Pray|Gather|Harvest|Mine|Examine|Read|Next Floor|Leave|Retreat|Exit|Continue|Start Battle|Buy|Purchase|Refresh|Spend|Unlock|Upgrade|Enhance|Equip|Replace|Remove|Go|Return to Home|Quick Heal.*|Track|Stop Tracking)$",
     "never": "^(Buy|Purchase|Refresh|Spend)$|Dawnium",
     "rules": [
         {
@@ -16,6 +16,23 @@
             "why": "Lost a fight. OK goes home; Cancel would leave the character stranded at 0 HP."
         },
         {
+            "kind": "travel_home_for_quest",
+            "match": "^Return to Home to (challenge|enter|go)",
+            "choose": "^OK$",
+            "when": {
+                "goal": [
+                    "explore"
+                ]
+            },
+            "why": "The tracked quest's Go button wants to travel home to reach its content (e.g. the Fantasia Ascent tower). Travel only, nothing spent."
+        },
+        {
+            "kind": "power_gate",
+            "match": "^Gate of Power$|Power reaches",
+            "choose": "dismiss",
+            "why": "A stone pillar that only moves once power reaches the number on the card (Damp Woods: 15.5K). Nothing to press; it's a wall until we're stronger."
+        },
+        {
             "kind": "wounded",
             "match": "badly wounded",
             "choose": "^Quick Heal",
@@ -25,7 +42,7 @@
                     "daily"
                 ]
             },
-            "why": "Low HP after a fight. Quick Heal eats cooked dishes (Green Riceball, made in the Alchemy Pot), not premium currency, and keeps the run going."
+            "why": "Shown after a LOST fight (mae, 2026-11-04: a dead run; in a mini-dungeon progress resets). Quick Heal eats cooked dishes (Green Riceball), not premium currency, so the character can try again; the loop counts it as a loss for the retry rule."
         },
         {
             "kind": "wounded",
@@ -84,18 +101,18 @@
                     "explore"
                 ]
             },
-            "why": "The Voyage Obelisk is the gate to the next kingdom (Originisle V \u2192 Verdantglade); the quest marker points at it, and activating it is free."
+            "why": "The Voyage Obelisk is the gate to the next kingdom (Originisle V → Verdantglade); the quest marker points at it, and activating it is free."
         },
         {
             "kind": "goddess_statue",
-            "match": "^Goddess Statue$",
+            "match": "^(Lost )?Goddess Statue$",
             "choose": "^Unlock$",
             "why": "Unlocking a Goddess Statue once the area is 100% explored blesses the land (+1 Blessing Level, which feeds the Bed's AFK EXP). Free; it's the follow-up quest 'The Goddess's Grace'."
         },
         {
             "kind": "mini_dungeon",
             "match": "(Ruins|Cave|Tower|Dungeon|Pit|Mine|Lair|Den|Fortress)$|First Clear Rewards",
-            "choose": "^(Explore|Enter)$",
+            "choose": "^(Explore|Enter|Challenge)$",
             "when": {
                 "goal": [
                     "explore"
@@ -114,17 +131,7 @@
             "kind": "dungeon_floor",
             "match": ": Floor \\d+",
             "choose": "^Next Floor$",
-            "when": {
-                "hp_ok": true
-            },
-            "why": "Floor cleared; keep climbing while healthy."
-        },
-        {
-            "kind": "dungeon_floor",
-            "match": ": Floor \\d+",
-            "choose": "dismiss",
-            "why": "Leave the dungeon (back arrow) when HP is low.",
-            "dismiss_by": "back"
+            "why": "Floor cleared; keep climbing. Low HP isn't a reason to leave a mini-dungeon (mae, 2026-11-04): heal mid-run (the wounded dialog's Quick Heal, or the profile) and go on."
         }
     ]
 }
