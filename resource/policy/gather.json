@@ -1,0 +1,5 @@
+{
+    "doc": "Stamina spending for sxs.gather (R-107). priority: materials in order, first is gathered (rolla, ore, sand, essence); mae switches ore to sand later. keep_stamina: always left for the daily commissions.",
+    "priority": ["ore"],
+    "keep_stamina": 70
+}
