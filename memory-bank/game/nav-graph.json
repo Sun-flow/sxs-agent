@@ -384,8 +384,10 @@
    "confidence": "observed",
    "unlock": "Character Lv. 15 (toast on the locked tab)",
    "detect": null,
-   "images": [],
-   "notes": "Donations, Farm, Boss, floating-island AFK farm (R-016, reported)."
+   "images": [
+    "docs/screens/home_guild_tutorial.png"
+   ],
+   "notes": "Donations, Farm, Boss, floating-island AFK farm (R-016, reported). Unlocked at Lv 20 with a guild tutorial (mae, 2026-11-04; R-011, R-101)."
   },
   {
    "id": "shop",
@@ -481,7 +483,7 @@
     "docs/screens/bed.png",
     "docs/screens/furniture_unlock.png"
    ],
-   "notes": "AFK EXP and production panel with 'Today's Free Speedup' (R-035)."
+   "notes": "AFK EXP and production panel with 'Today's Free Speedup' (R-035). An icon over the bed means AFK EXP to collect: a daily task, or sooner when close to levelling (R-101)."
   },
   {
    "id": "tap_to_continue",
