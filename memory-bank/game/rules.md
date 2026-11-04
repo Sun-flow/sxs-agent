@@ -161,10 +161,10 @@ Entry format:
 - **Related**: R-009.
 
 ### R-023 · Gear enhancement costs ore and Rolla
-- **Rule**: Character, then a gear slot, then the item card (Replace / Enhance), then Enhance Gear. Enhancing costs Raw Ore (blue crystal), Refined Ore (red crystal) and Rolla. Without enough, a toast says "Insufficient materials to enhance."
-- **Confidence**: observed. **Source**: builder batch 1.
+- **Rule**: Character, then a gear slot, then the item card (Replace / Enhance), then Enhance Gear. Enhancing costs Raw Ore (blue crystal), Refined Ore (red crystal) and Rolla. Without enough, a toast says "Insufficient materials to enhance." The Enhance Gear screen has 4 tabs along the top, one per piece (weapon, head, chest, boots so far; no offhand yet), each showing "+N". The selected piece shows a big "+21 → +22" line at y≈0.42, the stat deltas, the cost (for example Raw Ore 7/720 and Rolla 43K/1.44K) and Enhance at (0.5, 0.85), plus a Resonance button and a Goals tab. On 2026-11-04 the levels were staff +21, hat +12, armour +9, boots +2, and ore was the bottleneck. How to spread levels: R-092. The screen isn't a detector state yet, so `go_home` gets stuck on it.
+- **Confidence**: observed. **Source**: builder batch 1 and the final step 3 batch.
 - **Images**: none yet (want: ore icon crops, Enhance Gear screen).
-- **Related**: R-019, node `character`.
+- **Related**: R-019, R-092, nodes `character`, `enhance_gear`.
 
 ### R-024 · Server time is UTC-5; achievements refresh Mondays
 - **Rule**: The server clock is UTC-5 and is shown on the menu screen. Achievement quests refresh on Mondays at 8:00 server time. Daily reset time is still unknown ❓.
@@ -461,7 +461,7 @@ Entry format:
 - **Related**: R-025, R-064, R-066.
 
 ### R-068 · Travel to a far or unexplored area through the full map
-- **Rule**: To move somewhere distant or unexplored: tap the minimap to open the full area map; look for unexplored areas on it; tap the spot you want the camera over (this centres the camera there); close the map, and the camera now shows that spot; then tap the ground where you want to go and the player auto-paths there, around walls and through land bridges (R-067). This is the intended way to reach unexplored areas found on the map. The white box on the area map is the camera viewport. The map's zoom differs between openings, so labels land at different screen spots each time: pick places by their OCR'd label, never by fixed position. An area whose label sits in fog can't be reached this way (walking there fails with `no_move`); travel from home instead (R-089). Auto-pathing works even through gaps you can't see on screen. Code: `sxs/goto.py` (`python -m sxs.goto "Area Name"` or `X Y`); this route got the bot into Moonveil Woods.
+- **Rule**: To move somewhere distant or unexplored: tap the minimap to open the full area map; look for unexplored areas on it; tap the spot you want the camera over (this centres the camera there); close the map, and the camera now shows that spot; then tap the ground where you want to go and the player auto-paths there, around walls and through land bridges (R-067). This is the intended way to reach unexplored areas found on the map. The white box on the area map is the camera viewport. The map's zoom differs between openings, so labels land at different screen spots each time: pick places by their OCR'd label, never by fixed position. Match labels exactly, including trailing numerals: when OCR misses "Verdantglade III", a loose match picks "Verdantglade I" instead, so a different numeral means a different area. An area whose label sits in fog can't be reached this way (walking there fails with `no_move`); travel from home instead (R-089). Auto-pathing works even through gaps you can't see on screen. Code: `sxs/goto.py` (`python -m sxs.goto "Area Name"` or `X Y`); this route got the bot into Moonveil Woods.
 - **Confidence**: told, then observed (builder batches 11 and 12). **Source**: mae, 2026-11-03; builder batches 11 and 12, 2026-11-04.
 - **Images**: `docs/screens/world_area_map.png`, `docs/screens/world_map_moonveil_entry.png`, `docs/screens/world_area_map_stone_ruins.png` (step 3 branch).
 - **Related**: R-025, R-032, R-065, R-066, R-067, node `area_map`.
@@ -523,7 +523,7 @@ Entry format:
 - **Related**: R-057, node `team`.
 
 ### R-078 · Heal from the HUD portrait when the player's tile is crowded
-- **Rule**: If the player sprite has a red bubble and other interactables share its tile, tapping the player opens a pick-one menu on the right instead of the heal menu, and tapping again just loops. To heal, either pick the entry with the character's name in that menu, or tap the character portrait in the top-left HUD, which opens the healing menu directly. The HUD portrait avoids the menu entirely, so it is the simpler path for a script. Current HP shows as the bar under the name at the top-left of the map HUD, so read it there to decide whether to heal, without opening any menu. Quick Heal works from any screen that shows the character portrait in the upper left (map, battle prep, dungeon floor cards and others): tap the portrait. There's no need to back out of a menu to heal (mae, 2026-11-04).
+- **Rule**: If the player sprite has a red bubble and other interactables share its tile, tapping the player opens a pick-one menu on the right instead of the heal menu, and tapping again just loops. To heal, either pick the entry with the character's name in that menu, or tap the character portrait in the top-left HUD, which opens the healing menu directly. The HUD portrait avoids the menu entirely, so it is the simpler path for a script. Current HP shows as the bar under the name at the top-left of the map HUD, so read it there to decide whether to heal, without opening any menu. Quick Heal works from any screen that shows the character portrait in the upper left (map, battle prep, dungeon floor cards and others): tap the portrait. There's no need to back out of a menu to heal (mae, 2026-11-04). On the map, the HUD HP bar sits at x 116-268, y 52-64 (in 720x1280 pixels).
 - **Confidence**: told. **Source**: mae, 2026-11-03 and 2026-11-04.
 - **Images**: none yet (want: the pick-one menu).
 - **Related**: R-061, node `player_profile`.
@@ -593,8 +593,8 @@ Entry format:
 - **Images**: `docs/screens/confirm_dialog.png`.
 - **Related**: R-068, node `confirm_dialog`.
 
-### R-090 · "Badly wounded" after a map fight is a loss
-- **Rule**: A map fight lost in Verdantglade III (recommended 12K, at 10K) ended with the "badly wounded" dialog (R-046) and the character back in Verdantglade II, not the "incapacitated" dialog (R-031). Treat either as a loss for the heal-and-retry count (R-061) and the power-wall check (R-084).
+### R-090 · "Badly wounded" and "incapacitated" are both losses
+- **Rule**: A map fight lost in Verdantglade III (recommended 12K, at 10K) ended with the "badly wounded" dialog (R-046) and the character back in Verdantglade II, not the "incapacitated" dialog (R-031). Treat either as a loss for the heal-and-retry count (R-061) and the power-wall check (R-084). In Verdantglade III a loss puts the character back at the area entrance (178, 88) or in Verdantglade II.
 - **Confidence**: observed. **Source**: builder batch 12.
 - **Images**: `docs/screens/wounded.png`.
 - **Related**: R-031, R-046, R-061, R-084.
@@ -602,7 +602,7 @@ Entry format:
 ## Added from mae (2026-11-04, night)
 
 ### R-091 · Heal mid-run in mini-dungeons instead of leaving
-- **Rule**: In mini-dungeons (Temple Ruins, mines and other floor-by-floor dungeons), the player can heal between floors, so low HP is not a reason to leave. Heal in place from the top-left portrait on the floor card or the battle prep screen, no backing out needed (R-078; Quick Heal or Recover, using healing food per R-061), then press Next Floor and carry on. After Next Floor, the battle prep screen shows an HP bar under the character model: read HP there to decide whether to heal before starting (the 70% check of R-061 still applies), and that screen can also be backed out of. Mid-run healing only applies while the player is still alive and merely low (the HP bar, or a low-health "!" over the player, R-080). A defeat inside the dungeon (the fight lost, then the "badly wounded" or forced-heal dialog) resets the dungeon's progress: that run is dead, so count it as a loss (R-090) and don't try to continue it.
+- **Rule**: In mini-dungeons (Temple Ruins, mines and other floor-by-floor dungeons), the player can heal between floors, so low HP is not a reason to leave. Heal in place from the top-left portrait on the floor card or the battle prep screen, no backing out needed (R-078; Quick Heal or Recover, using healing food per R-061), then press Next Floor and carry on. After Next Floor, the battle prep screen shows an HP bar under the character model (x 314-406, y 866-876 in 720x1280 pixels, yellow-green when full): read HP there to decide whether to heal before starting (the 70% check of R-061 still applies), and that screen can also be backed out of. Mid-run healing only applies while the player is still alive and merely low (the HP bar, or a low-health "!" over the player, R-080). A defeat inside the dungeon (the fight lost, then the "badly wounded" or forced-heal dialog) resets the dungeon's progress: that run is dead, so count it as a loss (R-090) and don't try to continue it.
 - **Confidence**: told. **Source**: mae, 2026-11-04 (three messages).
 - **Images**: `docs/screens/dungeon_floor.png`.
 - **Related**: R-040, R-061, R-071, R-078, node `dungeon_floor`.

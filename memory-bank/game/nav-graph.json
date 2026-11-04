@@ -845,6 +845,16 @@
     "docs/screens/gear_compare.png"
    ],
    "notes": "Equipped left, new right, with power. Replace under the new item; enhancement carries over (R-088)."
+  },
+  {
+   "id": "enhance_gear",
+   "name": "Enhance Gear",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [],
+   "notes": "Tabs per piece with +N; '+21 → +22' at y≈0.42, stat deltas, cost (Raw Ore, Rolla), Enhance (0.5, 0.85), Resonance, Goals tab. Not a detector state yet, so go_home gets stuck here. Level pieces evenly in 5-level bands (R-092)."
   }
  ],
  "edges": [
@@ -2164,6 +2174,47 @@
    "confidence": "observed",
    "notes": "Returns to the profile, presumably; not confirmed.",
    "when": "new power > equipped power"
+  },
+  {
+   "from": "character",
+   "to": "enhance_gear",
+   "action": {
+    "type": "tap",
+    "target": "A gear slot, then Enhance on its item card",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Two taps; the item card isn't a node yet.",
+   "when": "goal=strengthen"
+  },
+  {
+   "from": "enhance_gear",
+   "to": "enhance_gear",
+   "action": {
+    "type": "tap",
+    "target": "Enhance",
+    "template": null,
+    "pos": [
+     0.5,
+     0.85
+    ]
+   },
+   "confidence": "observed",
+   "notes": "One level per tap; costs ore and Rolla (R-023).",
+   "when": "piece below the current band and materials enough"
+  },
+  {
+   "from": "enhance_gear",
+   "to": "previous",
+   "action": {
+    "type": "back",
+    "target": "Back arrow",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "reported",
+   "notes": "Exit not captured; go_home can't recognise this screen yet."
   }
  ]
 }

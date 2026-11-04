@@ -67,6 +67,7 @@ flowchart TD
     gear_swap_prompt["Gear swap prompt"]
     replace_gear["Replace Gear list"]
     gear_compare["Gear compare"]
+    enhance_gear["Enhance Gear"]
     home -->|"tap: Bottom nav bar (y 0.97): Character"| character
     world_map -.->|"tap: Bottom nav bar (y 0.97): Character"| character
     home -->|"tap: Bottom nav bar (y 0.97): Travel Journal"| travel_journal
@@ -148,6 +149,8 @@ flowchart TD
     player_profile -->|"tap: An Equip slot, then Replace on its card [goal=strengthen]"| replace_gear
     replace_gear -->|"tap: A candidate (green up arrow)"| gear_compare
     gear_compare -->|"tap: Replace under the new item [new power > equipped power]"| player_profile
+    character -->|"tap: A gear slot, then Enhance on its item card [goal=strengthen]"| enhance_gear
+    enhance_gear -->|"tap: Enhance [piece below the current band and materials enough]"| enhance_gear
 ```
 
 ## Screens
@@ -214,6 +217,7 @@ flowchart TD
 | `gear_swap_prompt` | Gear swap prompt | overlay | observed |  | Pops after chests with better gear (+power, swap button bottom right). Closed when the reward popup was dismissed (R-085). |
 | `replace_gear` | Replace Gear list | menu | observed |  | Candidates best first; green up arrow = upgrade (R-088). |
 | `gear_compare` | Gear compare | popup | observed |  | Equipped left, new right, with power. Replace under the new item; enhancement carries over (R-088). |
+| `enhance_gear` | Enhance Gear | menu | observed |  | Tabs per piece with +N; '+21 → +22' at y≈0.42, stat deltas, cost (Raw Ore, Rolla), Enhance (0.5, 0.85), Resonance, Goals tab. Not a detector state yet, so go_home gets stuck here. Level pieces evenly in 5-level bands (R-092). |
 
 ## Actions
 
@@ -313,3 +317,6 @@ flowchart TD
 | Player profile | Replace Gear list | tap An Equip slot, then Replace on its card (when goal=strengthen) | observed | Two taps; the item card in between isn't a node yet. |
 | Replace Gear list | Gear compare | tap A candidate (green up arrow) | observed |  |
 | Gear compare | Player profile | tap Replace under the new item (when new power > equipped power) | observed | Returns to the profile, presumably; not confirmed. |
+| Character | Enhance Gear | tap A gear slot, then Enhance on its item card (when goal=strengthen) | observed | Two taps; the item card isn't a node yet. |
+| Enhance Gear | Enhance Gear | tap Enhance at [0.5, 0.85] (when piece below the current band and materials enough) | observed | One level per tap; costs ore and Rolla (R-023). |
+| Enhance Gear | previous screen | back Back arrow | reported | Exit not captured; go_home can't recognise this screen yet. |
