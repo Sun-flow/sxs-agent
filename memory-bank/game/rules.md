@@ -668,9 +668,9 @@ Entry format:
 ## Added from mae (2026-11-04, morning)
 
 ### R-101 · Collect bed EXP daily, not every upgrade pass
-- **Rule**: An icon appears over the bed in the house when AFK EXP is ready to collect: a blue orb in a yellow frame. The daily step `bed` in `sxs.daily` taps it once a day; tap the bed to collect it. EXP builds up slowly, so collecting it is a daily task (alongside the free speed-up of R-035), not a standard step of the upgrade loop. Exception: check it whenever the character is close to levelling up. Collecting it took the account from Lv 13 to Lv 20 (power 10.1K to 13.1K), which unlocked the Guild and its tutorial (R-011).
-- **Confidence**: told. **Source**: mae, 2026-11-04; dailies builder's final batch.
-- **Images**: `docs/screens/home_bed_xp.png` (template `resource/image/home/bed_xp_bubble.png`).
+- **Rule**: An icon appears over the bed in the house when AFK EXP is ready to collect: a cluster of blue orbs above the bed, the top one in a yellow speech bubble with a red "!", and a second red "!" on the bed (mae's crop, `docs/screens/bed_xp_ready.png`). The daily step `bed` in `sxs.daily` taps it once a day; tap the bed to collect it. EXP builds up slowly, so collecting it is a daily task (alongside the free speed-up of R-035), not a standard step of the upgrade loop. Exception: check it whenever the character is close to levelling up. Collecting it took the account from Lv 13 to Lv 20 (power 10.1K to 13.1K), which unlocked the Guild and its tutorial (R-011).
+- **Confidence**: told. **Source**: mae, 2026-11-04 (screenshot 09:35); dailies builder's final batch.
+- **Images**: `docs/screens/bed_xp_ready.png` (mae's crop, 144x161), `docs/screens/home_bed_xp.png` (template `resource/image/home/bed_xp_bubble.png`).
 - **Related**: R-011, R-020, R-035, nodes `home_house`, `bed`, `guild`.
 
 ## Added from the guild thread (2026-11-04)
