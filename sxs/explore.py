@@ -300,8 +300,9 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
                 # The quest's area may be out of walking reach of the marker taps (a cliff or fog in between):
                 # walk there with the area map first (mae's procedure), once per stall.
                 area = re.search(r"Explore (.+?) \d+/\d+", last_progress or "")
-                if area and unstick_round == 1:
-                    from . import goto
+                from . import goto
+                here = goto.area_name_here(det)
+                if area and unstick_round == 1 and not goto.same_area(here, area.group(1)):
                     log.info("unstick: walking to the quest's area %r with the area map", area.group(1))
                     if goto.go_to(dev, det, area.group(1).strip()) == "arrived":
                         continue
@@ -515,6 +516,11 @@ def follow_tracker(dev: Device, det: StateDetector, minutes: float = 20, max_mis
                 # Maybe a popup the detector doesn't know: a rule may still cover it, otherwise it's dismissed.
                 card, choice = decider.decide(ctx)
                 dev.tap(*choice.point)
+                if choice.kind in ("wounded", "defeated"):
+                    # The loss dialog can show while the detector still reads "unknown": still a lost fight.
+                    time.sleep(3)
+                    log.info("lost the fight (%s); counting it as a loss", choice.kind)
+                    return "defeated"
                 if choice.kind == "unknown" and card.buttons:  # a real card has buttons; battle damage numbers do not
                     unknown_cards += 1
                     if unknown_cards >= 3:

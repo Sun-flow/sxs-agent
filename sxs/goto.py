@@ -38,6 +38,13 @@ def squeeze(t: str) -> str:
     return re.sub(r"[\s\-]", "", t).lower()
 
 
+AREA_NAME_ROI = [500, 255, 220, 36]  # area name above the coordinates, under the minimap
+
+
+def area_name_here(det: StateDetector, frame=None) -> str:
+    return " ".join(t for t, _ in det.read_text(AREA_NAME_ROI, frame)).strip()
+
+
 def same_area(a: str, b: str) -> bool:
     """Loose name match for OCR'd area names: equal after squeeze(), or one is the other missing up to two end
     characters (OCR drops or adds a trailing "I": "Highland Woods" / "Highland Woods I")."""
@@ -45,7 +52,10 @@ def same_area(a: str, b: str) -> bool:
     if not x or not y:
         return False
     short, long_ = sorted((x, y), key=len)
-    return x == y or (long_.startswith(short) and len(long_) - len(short) <= 2)
+    # OCR drops or adds a trailing letter, including a stray "I" after a name without a numeral ("Highland Woods I"),
+    # but a name that already ends in a numeral differs from the next one (Verdantglade I vs II vs III).
+    return x == y or (long_.startswith(short) and len(long_) - len(short) <= 2
+                      and not (short.endswith("i") and "i" in long_[len(short):]))
 
 
 def area_labels(det: StateDetector) -> dict[str, list[int]]:
@@ -91,7 +101,7 @@ def go_to(dev: Device, det: StateDetector, target) -> str:
                or [b for t, b in labels.items() if squeeze(t) == squeeze(target)]
                or [b for t, b in labels.items() if squeeze(target) in squeeze(t)]
                or [b for t, b in labels.items() if squeeze(t) and squeeze(target).startswith(squeeze(t))
-                   and len(squeeze(target)) - len(squeeze(t)) <= 2])
+                   and same_area(t, target)])
         if not hit:
             log.warning("no %r on the area map (saw %s); frame %s", target, list(labels), save_unknown(dev, "goto"))
             dev.tap(*nav.BACK_ARROW)
