@@ -7,6 +7,7 @@
 - PRs #10 and #11 merged. Opened PR #12 for the builder's `step3-wrapup` branch (banded gear enhancement, handoff).
 - Final step 3 batch: the Enhance Gear screen and the `enhance_gear` node (R-023), HP bar positions on the map and battle prep (R-078, R-091), both loss dialogs and where a loss puts you (R-090), and exact area-label matching (R-068).
 - mae: skill pulls get a dedicated script that only the handler starts (R-093; R-055 updated).
+- Opened PR #14 for the dailies builder (`dailies-upgrades`). Dailies batch 1: R-094 to R-099 (Journal route to the tower, Material Realms and hammers, Thrilling Events, Daily Sign-in, Growth Trial, Guidance quests for ore); daily reset 8:00 UTC-5 (R-024); more never-press buttons (R-043); Notice board badges are unread posts (R-063). New screens `material_realms`, `ironvein_pit`, `purchase_iron_hammer`, `featured`, `daily_signin`, `growth_trial`. Images are on `dailies-upgrades` until PR #14 merges.
 
 ### 2026-11-04 · Game docs: Fantasia Ascent (Claude Code, cloud)
 - PR #9 merged (memory check fix, healing rules, gold buildings, loop design rules). Added R-079 (Auto Challenge in Fantasia Ascent) and the `fantasia_ascent` screen.

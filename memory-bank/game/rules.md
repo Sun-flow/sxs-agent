@@ -2,7 +2,7 @@
 
 > **Last updated**: 2026-11-03
 > Screen captures named below are in `docs/screens/`; templates in `resource/image/`.
-> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-094).
+> One entry per rule of the world that an agent acting in the game needs. Format and confidence levels: `memory-bank/game/README.md`. IDs are permanent; add new ones at the end of their topic with the next free number (next free: R-100).
 
 Entry format:
 
@@ -167,9 +167,9 @@ Entry format:
 - **Related**: R-019, R-092, nodes `character`, `enhance_gear`.
 
 ### R-024 · Server time is UTC-5; achievements refresh Mondays
-- **Rule**: The server clock is UTC-5 and is shown on the menu screen. Achievement quests refresh on Mondays at 8:00 server time. Daily reset time is still unknown ❓.
-- **Confidence**: observed. **Source**: builder batch 1.
-- **Images**: `docs/screens/main_menu.png`.
+- **Rule**: The server clock is UTC-5 and is shown on the menu screen. Achievement quests refresh on Mondays at 8:00 server time. Dailies reset at 8:00 server time (UTC-5), going by the Daily Sign-in calendar (R-097).
+- **Confidence**: observed. **Source**: builder batch 1; dailies batch 1.
+- **Images**: `docs/screens/main_menu.png`, `docs/screens/daily_signin.png`.
 - **Related**: node `main_menu`.
 
 ### R-025 · Moving on the island map
@@ -287,10 +287,10 @@ Entry format:
 - **Related**: R-018, R-043, `memory-bank/game/README.md` (the `when` field).
 
 ### R-043 · Never press spending buttons
-- **Rule**: The bot never presses Buy, Purchase, Refresh, Spend, Pray, Recharge or Top up, or any button mentioning Dawnium, unless a later policy rule explicitly allows it. Exception (R-061): buying or cooking healing food with Rolla or ingredients is allowed.
+- **Rule**: The bot never presses Buy, Purchase, Refresh, Spend, Pray, Recharge or Top up, or any button mentioning Dawnium, unless a later policy rule explicitly allows it. Exception (R-061): buying or cooking healing food with Rolla or ingredients is allowed; skill pulls only through mae's own script (R-093). Also never: "Catch Up" on the sign-in calendar, "Advanced Trial", Dawnstar Prelude draws, Iron Hammer purchases, the main menu's event-banner packs (e.g. "Halloween Charmer", USD 2.99), and Link Account or anything else account-related.
 - **Confidence**: told (policy). **Source**: builder batch 6, following mae's budget rules.
 - **Images**: none.
-- **Related**: R-018, R-042.
+- **Related**: R-018, R-042, R-093, R-095 to R-098.
 
 ## Added from builder batch 7 (2026-11-03)
 
@@ -351,7 +351,7 @@ Entry format:
 - **Related**: R-002, R-005, node `exploration_goals`.
 
 ### R-053 · Menu buttons move as features unlock
-- **Rule**: At Lv 10 the menu gains Friends and the bottom row shifts (Friends 0.14, Photo 0.32, Notice 0.49, User Center 0.67, Settings 0.85, all at y 0.85). Find menu buttons by their label, not a fixed position. Friends holds 60; tabs Friends / Add Friends / Requests / Blocklist. Settings has Game, Graphics, Sound, Alerts and Other tabs.
+- **Rule**: At Lv 10 the menu gains Friends and the bottom row shifts (Friends 0.14, Photo 0.32, Notice 0.49, User Center 0.67, Settings 0.85, all at y 0.85). Find menu buttons by their label, not a fixed position. Friends holds 60; tabs Friends / Add Friends / Requests / Blocklist. Settings has Game, Graphics, Sound, Alerts and Other tabs. Later the menu has a second row (Friends, Gallery, Photo, Notice, User Center, Settings) and Quest and Mall cards; its event banner opens paid packs, never tap it (R-043).
 - **Confidence**: observed. **Source**: builder batch 8.
 - **Images**: `docs/screens/main_menu_lv10.png`, `docs/screens/friends.png`.
 - **Related**: R-010, nodes `main_menu`, `friends`, `settings`.
@@ -421,10 +421,10 @@ Entry format:
 - **Related**: R-041, R-058, R-063 (the other kind of "!").
 
 ### R-063 · A red "!" in a UI menu means something to claim
-- **Rule**: A red "!" badge on a menu button or tab (not above an NPC in the world) means there is something to claim inside. Follow the badges down to the claim button. Treat it differently from the NPC "!" of R-062, which means talk to them. Which menus carry badges changes over time as event banners roll over, so a claim sweep must find badges on screen each run (template or colour), not walk a fixed list of menus.
+- **Rule**: A red "!" badge on a menu button or tab (not above an NPC in the world) means there is something to claim inside. Follow the badges down to the claim button. Treat it differently from the NPC "!" of R-062, which means talk to them. Which menus carry badges changes over time as event banners roll over, so a claim sweep must find badges on screen each run (template or colour), not walk a fixed list of menus. Exception: on the Notice board (Menu, then Notice) red badges on the tabs mean unread posts, not claims (dailies batch 1).
 - **Confidence**: told. **Source**: mae, 2026-11-03.
-- **Images**: none yet (want: a menu badge).
-- **Related**: R-062, R-044 (claiming quests).
+- **Images**: `docs/screens/notice_board.png` (unread badges).
+- **Related**: R-062, R-044 (claiming quests), R-051.
 
 ### R-064 · Some quests progress by NPC instructions, not the marker
 - **Rule**: Some quests aren't tracked well by their objective marker and rely on narrative instructions from NPC dialogue. When the tracker points somewhere unreachable or tapping does nothing (for example "Unlock Moonveil Woods" pointing into fog), open the full map by tapping the minimap and look for any "!" NPC to speak to; an NPC probably gave directions that were missed. So the bot should capture and log NPC dialogue text, so instructions aren't lost and a later step (or a model) can read them.
@@ -608,7 +608,7 @@ Entry format:
 - **Related**: R-040, R-061, R-071, R-078, node `dungeon_floor`.
 
 ### R-092 · Enhance gear evenly, in 5-level bands
-- **Rule**: Don't pour enhancement into one piece. Raise gear in 5-level bands: bring every equipped piece to +5, then all to +10, then all to +15, and so on; a piece only goes past a band once every other piece has reached it. Within a band, a configurable priority order decides which piece reaches the threshold first. The default order is weapon, offhand (not unlocked yet), headpiece, chest, boots. Costs and limits are in R-023 (ore and Rolla). The current enhance script kept enhancing the same piece, which this rule replaces.
+- **Rule**: Don't pour enhancement into one piece. Raise gear in 5-level bands: bring every equipped piece to +5, then all to +10, then all to +15, and so on; a piece only goes past a band once every other piece has reached it. Within a band, a configurable priority order decides which piece reaches the threshold first. The default order is weapon, offhand (not unlocked yet), headpiece, chest, boots. Costs and limits are in R-023 (ore and Rolla). The current enhance script kept enhancing the same piece, which this rule replaces. Enhancement is now limited by ore (7/720 Raw Ore at staff +21; boots +2 to +3 was short too); Guidance quests are an ore source (R-099).
 - **Confidence**: told. **Source**: mae, 2026-11-04.
 - **Images**: none yet (want: the Enhance Gear screen).
 - **Related**: R-020, R-023, R-088.
@@ -618,3 +618,41 @@ Entry format:
 - **Confidence**: told. **Source**: mae, 2026-11-04.
 - **Images**: `docs/screens/prayer.png`, `docs/screens/prayer_result.png`.
 - **Related**: R-043, R-055, nodes `prayer`, `prayer_result`.
+
+## Added from dailies batch 1 (2026-11-04)
+
+### R-094 · The Journal tab is the home route into Fantasia Ascent
+- **Rule**: The Journal (Travel Journal) is the second icon on the bottom bar (0.31, 0.97). Its cards: Fantasia Ascent (top right, tap (0.78, 0.23) for the tower list), Map Exploration, Material Realms (marked NEW), Weekly Events ("Void Rift starts in 4d"), and two Unavailable cards. This is how to reach the tower from home (R-079).
+- **Confidence**: observed. **Source**: dailies batch 1.
+- **Images**: `docs/screens/journal.png`.
+- **Related**: R-079, R-095, nodes `travel_journal`, `fantasia_ascent`.
+
+### R-095 · Material Realms: mining needs Iron Hammers; never buy them
+- **Rule**: Material Realms lists realms; the first is Ironvein Pit (Raw and Refined Ore), three more are locked. Inside is a mining screen with a hammer button (0.5, 0.72), an "Iron Mined" counter and tabs Ironvein Pit / Rankings / Goals (Iron Mined 5/10/15/20/25 goals each pay a fruit item). Mining uses Iron Hammers (counter top right). With 0 hammers the button opens "Purchase Iron Hammer" (60 Dawnium each, daily limit 20): never buy, tap Cancel (0.32, 0.65). Where free hammers come from is unknown ❓.
+- **Confidence**: observed. **Source**: dailies batch 1.
+- **Images**: `docs/screens/material_realms.png`, `docs/screens/ironvein_pit.png`, `docs/screens/purchase_iron_hammer.png`.
+- **Related**: R-043, R-071, nodes `material_realms`, `ironvein_pit`.
+
+### R-096 · Thrilling Events: only Sign-in and Growth Trial are for the bot
+- **Rule**: Thrilling Events (home, top right, (0.91, 0.125)) opens "Featured" with Dawnstar Prelude (10 draws a day; a gacha, never), Growth Trial (R-098), Daily Sign-in (R-097) and Link Account (account-related, never).
+- **Confidence**: observed. **Source**: dailies batch 1.
+- **Images**: none.
+- **Related**: R-043, R-075, node `featured`.
+
+### R-097 · Daily Sign-in: claim today's tile, never Catch Up
+- **Rule**: A 30-tile calendar that refreshes at 8:00 UTC-5. Today's tile shows a green "Claim" label; tapping it gives "YOU RECEIVED" (e.g. 10 Stellatie). Missed days show "Catch Up": treat as spending, never. Days 5 and 20 give a gold card item x50, days 10 and 25 a red item, days 15 and 30 a purple crystal. A daily task (`python -m sxs.daily`).
+- **Confidence**: observed. **Source**: dailies batch 1.
+- **Images**: `docs/screens/daily_signin.png`, `docs/screens/daily_signin_received.png`.
+- **Related**: R-024, R-043, R-096, node `daily_signin`.
+
+### R-098 · Growth Trial: free trial quests, never the Advanced Trial
+- **Rule**: A 19-day event with Day 1-7 tabs of trial quests (Reach Lv. 20, Arrive at Drasilgard, Total Resource Level 30, Enhance Gear x4 to +15) that pay trial points toward a 100-700 chest track. "Advanced Trial" (top right) is paid: never.
+- **Confidence**: observed. **Source**: dailies batch 1.
+- **Images**: `docs/screens/growth_trial.png`.
+- **Related**: R-043, R-096, node `growth_trial`.
+
+### R-099 · Guidance quests are an ore source
+- **Rule**: The Guidance Quest list (Menu, then Quest) includes Helmet / Armor / Boots Enhancement I ("Enhance a helmet to +15", paying 80 Raw Ore and 50 Refined Ore), Cart Upgrade I (1K Rolla) and Skill Mastery. Their ore rewards feed gear enhancement (R-092), so they're worth steering toward. The Achievement tab holds weekly carry achievements (Daily Dungeon, Crucible of Hieromon, Split Mirage), refreshing Mondays 8:00 UTC-5 (R-024).
+- **Confidence**: observed. **Source**: dailies batch 1.
+- **Images**: none.
+- **Related**: R-009, R-024, R-092, node `quests`.
