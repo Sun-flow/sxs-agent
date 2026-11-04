@@ -15,6 +15,9 @@
                 "State.Defeated",
                 "State.ConfirmDialog",
                 "State.DungeonFloor",
+                "State.TowerResult",
+                "State.TowerList",
+                "State.TowerFloors",
                 "State.QuestDetail",
                 "State.PlayerProfile",
                 "State.Interact",
@@ -252,14 +255,14 @@
         "post_delay": 0
     },
     "State.Interact": {
-        "doc": "Card popup for a map object (portal, statue, node...) with one action button at (360, 895). Only whitelisted verbs count, so a 'Purchase' or 'Spend' card stays unknown.",
+        "doc": "Card popup for a map object (portal, statue, node...) with one action button at (360, 895). Only whitelisted verbs count, so a 'Purchase' or 'Spend' card stays unknown. Card heights vary (statue cards put Unlock at y≈1040), so the region runs to y=1080.",
         "recognition": "OCR",
-        "expected": "^(Activate|Collect|Claim|Open|Interact|Bless|Pray|Gather|Harvest|Mine|Examine|Read|Explore|Enter)$",
+        "expected": "^(Activate|Collect|Claim|Open|Interact|Bless|Pray|Gather|Harvest|Mine|Examine|Read|Explore|Enter|Challenge)$",
         "roi": [
             150,
             850,
             420,
-            200
+            230
         ],
         "pre_delay": 0,
         "post_delay": 0
@@ -328,6 +331,45 @@
             360,
             560,
             90
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.TowerResult": {
+        "doc": "Fantasia Ascent (tower) result screen: VICTORY (top, with '<Tower> Fn' and Clear Rewards) or DEFEAT (mid-screen); Auto Challenge checkbox at (476, 1158) and Continue / Retry at (552, 1212). After a win Continue goes straight to the next floor's battle prep. A loss turns Auto Challenge off. Images: docs/screens/fantasia_victory.png, docs/screens/fantasia_defeat.png.",
+        "recognition": "OCR",
+        "expected": "^(VICTORY|DEFEAT|DEFEATED|FAILED|FAILURE)$",
+        "roi": [
+            100,
+            170,
+            520,
+            380
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.TowerList": {
+        "doc": "Fantasia Ascent tower list (reached by the quest's Go, which travels home first). Each tower card shows 'Current: Fn/110'; tap the card to open its floors. Image: docs/screens/fantasia_ascent.png.",
+        "recognition": "OCR",
+        "expected": "^Current: ?F\\d+",
+        "roi": [
+            100,
+            380,
+            520,
+            80
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.TowerFloors": {
+        "doc": "One tower's floors (F1 at the bottom), tabs 'Fantasia Ascent' (detected) and 'Goals' at the bottom; the current floor shows the recommended power and a Challenge button at (610, 1096). Image: docs/screens/fantasia_floors.png.",
+        "recognition": "OCR",
+        "expected": "^Fantasia Ascent$",
+        "roi": [
+            150,
+            1180,
+            260,
+            70
         ],
         "pre_delay": 0,
         "post_delay": 0

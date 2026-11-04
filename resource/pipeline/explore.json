@@ -104,6 +104,20 @@
         "pre_delay": 0,
         "post_delay": 0
     },
+    "Explore.TrackerGiftMap": {
+        "doc": "Smaller gift icon on the olive map tracker panel when a quest without a counter is finished (e.g. 'Unlock Moonveil Woods' after the gate fight); tap it to claim. Image: docs/screens/world_map_tracker_gift.png.",
+        "recognition": "TemplateMatch",
+        "template": "explore/tracker_gift_map.png",
+        "roi": [
+            0,
+            860,
+            520,
+            200
+        ],
+        "threshold": 0.8,
+        "pre_delay": 0,
+        "post_delay": 0
+    },
     "Explore.TrackerGift": {
         "doc": "Gift icon at the right end of the quest tracker panel when a quest is finished; tapping it claims the reward (tapping the text does not always). Same on home and on the map.",
         "recognition": "TemplateMatch",
@@ -148,6 +162,20 @@
             90,
             720,
             900
+        ],
+        "threshold": 0.75,
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "Explore.PlayerPointer": {
+        "doc": "Our own character's off-screen pointer: a white ring with the player's face, at the screen edge in the player's direction (the camera doesn't follow the player). Tapping it re-centres the camera on the player. The same face is the HUD avatar top-left, so callers drop matches there. Image: docs/screens/world_map_player_pointer.png.",
+        "recognition": "TemplateMatch",
+        "template": "explore/player_pointer.png",
+        "roi": [
+            0,
+            0,
+            720,
+            1100
         ],
         "threshold": 0.75,
         "pre_delay": 0,
