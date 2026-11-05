@@ -12,6 +12,7 @@ character walks there, around cliffs and through gaps the player can't see.
 from __future__ import annotations
 
 import logging
+import difflib
 import re
 import time
 from typing import Optional
@@ -46,6 +47,14 @@ def area_name_here(det, frame=None) -> str:
     short token ("OA Verdantglade III", "R Verdantglade III", seen 2026-11-05), which made the fog walk think it had
     strayed: drop a leading token of one or two characters."""
     return re.sub(r"^\W*\w{1,2}\s+(?=[A-Z][a-z])", "", read_line(det, AREA_NAME_ROI, frame))
+
+
+def close_name(a: str, b: str) -> bool:
+    """OCR dropped or swapped a letter inside the name ("Drasi gard" for "Drasilgard", 2026-11-05), numerals equal."""
+    x, y = squeeze(a), squeeze(b)
+    if len(x) < 6 or len(y) < 6 or re.sub(r"[^i]+", "", x[-3:]) != re.sub(r"[^i]+", "", y[-3:]):
+        return False
+    return difflib.SequenceMatcher(None, x, y).ratio() >= 0.88
 
 
 def same_area(a: str, b: str) -> bool:
@@ -138,7 +147,8 @@ def go_to(dev, det, target) -> str:
                             or [b for t, b in labels.items() if squeeze(t) == squeeze(target)]
                             or [b for t, b in labels.items() if squeeze(target) in squeeze(t)]
                             or [b for t, b in labels.items() if squeeze(t) and squeeze(target).startswith(squeeze(t))
-                                and same_area(t, target)])
+                                and same_area(t, target)]
+                            or [b for t, b in labels.items() if close_name(t, target)])
         labels, hit = find()
         if not hit and _widen(dev):
             labels, hit = find()
