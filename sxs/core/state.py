@@ -72,6 +72,7 @@ class StateDetector:
         self.resource.register_custom_action("DetectState", self._action)
         if not self.resource.post_bundle(RESOURCE_DIR).wait().succeeded:
             raise RuntimeError(f"Failed to load MaaFramework resource bundle at {RESOURCE_DIR}")
+        self.last_frame = None  # the frame the last detect() used, for overlay checks (sxs/core/interrupts.py)
         self.tasker = Tasker()
         if not self.tasker.bind(self.resource, device.controller):
             raise RuntimeError("Failed to bind tasker")
@@ -84,9 +85,10 @@ class StateDetector:
         start = time.perf_counter()
         foreground = self.device.foreground_package()
         if foreground != PACKAGE:
+            self.last_frame = None
             return Detection(NOT_RUNNING, "", foreground=foreground,
                              elapsed_ms=int((time.perf_counter() - start) * 1000))
-        self._action.frame = self.device.screenshot()
+        self._action.frame = self.last_frame = self.device.screenshot()
         self.tasker.post_task(ENTRY).wait()
         elapsed = int((time.perf_counter() - start) * 1000)
         if self._action.hit is None:

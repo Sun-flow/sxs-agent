@@ -25,6 +25,7 @@ from ..actions.unstick import attack_guard
 from ..actions.watchdog import Heartbeat, UnknownScreens
 from ..core import ui
 from ..core.device import save_unknown
+from ..core.interrupts import resume_with
 from ..core.loop import progress, Loop, banner
 from ..core.nav import Navigator
 from ..policy.decide import Context, Decider
@@ -197,210 +198,221 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
     # coordinates: centre_player and the edge pointer move the camera, so screen points don't stay put.
     bumped: list[tuple[int, int]] = []
     beat = Heartbeat()
-    while time.monotonic() < deadline:
-        d = det.detect()
-        beat.check(d, last_xy, progress_at)
-        if unknown.seen(d.state):
-            log.warning("unfamiliar screen; frame saved to %s", save_unknown(dev, "fogwalk"))
-            return "unknown_screen"
-        if d.state == "world_map":
-            frame = dev.screenshot()
-            if hud_hp(frame) * 100 < heal.FIGHT_MIN_HP and heal_tries < 2:
-                # mae, 2026-11-04: heal before any fight; walking can bump into one. The profile opens from the HUD.
-                heal_tries += 1
-                log.info("HP under %d%%; healing from the profile", heal.FIGHT_MIN_HP)
-                heal.quick_heal(dev, det, heal.NOTHING)
-                continue
-            heal_tries = 0 if hud_hp(frame) * 100 >= heal.FIGHT_MIN_HP else heal_tries
-            # mae, 2026-11-04: a gift box with a red "!" on the tracker is a finished quest's reward: claim it.
-            if reward_taps < REWARD_TAPS_MAX and rewards.claim_tracker_reward(dev, det, frame):
-                reward_taps += 1
-                continue
-            name = goto.area_name_here(det, frame)
-            if home_area is None and name:
-                home_area = name
-            elif (name and not goto.same_area(name, home_area) and not strayed
-                  and not any(goto.same_area(name, a) or goto.squeeze(name)[:7] == goto.squeeze(a)[:7] for a in allowed)):
-                # Wandered into a neighbouring area: walk back with the area map rather than exploring the wrong one.
-                strayed = True
-                # mae, 2026-11-05 (R-132): the dotted line is a zone edge; finish this zone before crossing. The
-                # walk that crossed it ended past the edge, so ground around where we stand now is off limits
-                # as a goal for the rest of the run.
-                here = goto.COORDS.search(d.text or "")
-                if here:
-                    outside.add((int(here.group(1)), int(here.group(2))))
-                log.info("left %s for %s; going back (no goals near %s from now on)", home_area, name,
-                         sorted(outside)[-1] if outside else "?")
-                goto.go_to(dev, det, home_area)
-                continue
-            elif name and goto.same_area(name, home_area):
-                strayed = False
-            # Watchdog: progress means standing on a tile we haven't stood on this run. Taps that don't move us,
-            # or that bounce between the same few tiles, mean we're blocked: stop instead of idling.
-            if d.text and d.text not in visited:
-                visited.add(d.text)
-                m_ = goto.COORDS.search(d.text)
-                if m_:
-                    stood_on.add((int(m_.group(1)), int(m_.group(2))))
-                last_xy, still, progress_at = d.text, 0, time.monotonic()
-            else:
-                still += 1
-                if last_tap:
-                    stood_on.add(last_tap)  # a tap that didn't move us: plan somewhere else next time
-                # Monsters in brackets guard the way into the area: fight one, then walk on.
-                if fight and still in (2, 3) and attack_guard(dev, det, frame):
+    def back_to_area(bare_det) -> None:
+        # Runs after an interrupt handler (a tutorial, a reward choice; sxs/actions/interrupts.py): if it left us at
+        # home (where this loop would end "left_area"), walk back to this area so the walk resumes where its goal is.
+        # Fights, dialogue and cards it led into are this loop's normal work; the wrong area is the stray check's job.
+        if not home_area or bare_det.detect().state != "home":
+            return
+        log.info("an interrupt left us at home; walking back to %s", home_area)
+        ui.tap(dev, ui.NAV_WORLD, 4)
+        goto.go_to(dev, bare_det, home_area)
+
+    with resume_with(det, back_to_area):
+        while time.monotonic() < deadline:
+            d = det.detect()
+            beat.check(d, last_xy, progress_at)
+            if unknown.seen(d.state):
+                log.warning("unfamiliar screen; frame saved to %s", save_unknown(dev, "fogwalk"))
+                return "unknown_screen"
+            if d.state == "world_map":
+                frame = dev.screenshot()
+                if hud_hp(frame) * 100 < heal.FIGHT_MIN_HP and heal_tries < 2:
+                    # mae, 2026-11-04: heal before any fight; walking can bump into one. The profile opens from the HUD.
+                    heal_tries += 1
+                    log.info("HP under %d%%; healing from the profile", heal.FIGHT_MIN_HP)
+                    heal.quick_heal(dev, det, heal.NOTHING)
                     continue
-                if still >= STILL_LIMIT and map_tries < AREA_MAP_TRIES:
-                    # Blocked on the minimap plan: try mae's big-map walk to the nearest dot before giving up.
-                    map_tries += 1
-                    kinds = tuple(k for k in ("item", "monster", "building")
-                                  if (free or k != "item") and (fight or k != "monster"))
-                    why = goto.go_to(dev, det, lambda f: (area_map.nearest(f, kinds) or (None, None))[1])
-                    log.info("blocked; area-map walk to the nearest %s: %s", "/".join(kinds), why)
-                    if why == "arrived":
-                        still = 0
+                heal_tries = 0 if hud_hp(frame) * 100 >= heal.FIGHT_MIN_HP else heal_tries
+                # mae, 2026-11-04: a gift box with a red "!" on the tracker is a finished quest's reward: claim it.
+                if reward_taps < REWARD_TAPS_MAX and rewards.claim_tracker_reward(dev, det, frame):
+                    reward_taps += 1
+                    continue
+                name = goto.area_name_here(det, frame)
+                if home_area is None and name:
+                    home_area = name
+                elif (name and not goto.same_area(name, home_area) and not strayed
+                      and not any(goto.same_area(name, a) or goto.squeeze(name)[:7] == goto.squeeze(a)[:7] for a in allowed)):
+                    # Wandered into a neighbouring area: walk back with the area map rather than exploring the wrong one.
+                    strayed = True
+                    # mae, 2026-11-05 (R-132): the dotted line is a zone edge; finish this zone before crossing. The
+                    # walk that crossed it ended past the edge, so ground around where we stand now is off limits
+                    # as a goal for the rest of the run.
+                    here = goto.COORDS.search(d.text or "")
+                    if here:
+                        outside.add((int(here.group(1)), int(here.group(2))))
+                    log.info("left %s for %s; going back (no goals near %s from now on)", home_area, name,
+                             sorted(outside)[-1] if outside else "?")
+                    goto.go_to(dev, det, home_area)
+                    continue
+                elif name and goto.same_area(name, home_area):
+                    strayed = False
+                # Watchdog: progress means standing on a tile we haven't stood on this run. Taps that don't move us,
+                # or that bounce between the same few tiles, mean we're blocked: stop instead of idling.
+                if d.text and d.text not in visited:
+                    visited.add(d.text)
+                    m_ = goto.COORDS.search(d.text)
+                    if m_:
+                        stood_on.add((int(m_.group(1)), int(m_.group(2))))
+                    last_xy, still, progress_at = d.text, 0, time.monotonic()
+                else:
+                    still += 1
+                    if last_tap:
+                        stood_on.add(last_tap)  # a tap that didn't move us: plan somewhere else next time
+                    # Monsters in brackets guard the way into the area: fight one, then walk on.
+                    if fight and still in (2, 3) and attack_guard(dev, det, frame):
                         continue
-                if still >= STILL_LIMIT:
-                    log.warning("no new tile for %d taps (at %s, %d tiles visited); stopping", still, d.text,
-                                len(visited))
-                    return "stuck"
-            if centre_player(dev, det, frame):
-                frame = dev.screenshot()
-            # Pickups cost 5 stamina; only a loop that opted in takes them, and it keeps the 70 reserve (R-107).
-            items_ok = free
-            if not free and farm:
-                stamina = read_stamina(det, frame=frame)
-                items_ok = stamina is not None and stamina >= STAMINA_KEEP + COST
-            xy = goto.COORDS.search(d.text or "")
-            xy = (int(xy.group(1)), int(xy.group(2))) if xy else None
-            player = player_on_screen(det, frame)
-            target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen, items_ok=items_ok,
-                                    player=player, monsters_ok=fight,
-                                    visited_xy=stood_on, outside_xy=outside)
-            if target is None and recentre_on_player(dev, det, frame):
-                frame = dev.screenshot()
+                    if still >= STILL_LIMIT and map_tries < AREA_MAP_TRIES:
+                        # Blocked on the minimap plan: try mae's big-map walk to the nearest dot before giving up.
+                        map_tries += 1
+                        kinds = tuple(k for k in ("item", "monster", "building")
+                                      if (free or k != "item") and (fight or k != "monster"))
+                        why = goto.go_to(dev, det, lambda f: (area_map.nearest(f, kinds) or (None, None))[1])
+                        log.info("blocked; area-map walk to the nearest %s: %s", "/".join(kinds), why)
+                        if why == "arrived":
+                            still = 0
+                            continue
+                    if still >= STILL_LIMIT:
+                        log.warning("no new tile for %d taps (at %s, %d tiles visited); stopping", still, d.text,
+                                    len(visited))
+                        return "stuck"
+                if centre_player(dev, det, frame):
+                    frame = dev.screenshot()
+                # Pickups cost 5 stamina; only a loop that opted in takes them, and it keeps the 70 reserve (R-107).
+                items_ok = free
+                if not free and farm:
+                    stamina = read_stamina(det, frame=frame)
+                    items_ok = stamina is not None and stamina >= STAMINA_KEEP + COST
+                xy = goto.COORDS.search(d.text or "")
+                xy = (int(xy.group(1)), int(xy.group(2))) if xy else None
                 player = player_on_screen(det, frame)
                 target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen, items_ok=items_ok,
                                         player=player, monsters_ok=fight,
-                                    visited_xy=stood_on, outside_xy=outside)
-            spot = to_world(xy, player, target) if target else None
-            if spot and any(max(abs(spot[0] - b[0]), abs(spot[1] - b[1])) <= 1 for b in bumped):
-                # The path runs through something that opens a card (seen: a blessed Goddess Statue). Tapping it
-                # again just reopens the card, so step one tile to the side; the game paths around the rest.
-                side = minimap.SCREEN_TILE if len(bumped) % 2 else -minimap.SCREEN_TILE
-                target = (min(690, max(30, target[0] + side)), target[1] + minimap.SCREEN_TILE // 2)
-                spot = to_world(xy, player, target)
-                log.info("map %s opened a card before; stepping aside to %s", spot, target)
-            goal = LAST_GOAL  # what minimap_target headed for (None for a known reference: already stored)
-            # mae, 2026-11-05: reaching an object needs only the camera, not a path from the player. A known
-            # reference on screen is tapped directly; any other object the minimap shows is reached the big-map
-            # way (tap it on the area map, close, tap the middle). Player-relative steps are only for fog.
-            known = collectibles.find(frame, explored=not free, farm=farm, area=home_area or "")
-            if known:
-                name, kind, target, score = known[0]
-                goal = None
-                log.info("known %s %r on screen at %s (%.2f): tapping it", kind, name, target, score)
-            elif goal in ("item", "monster", "building") and map_tries < AREA_MAP_TRIES:
-                map_tries += 1
-                kinds = tuple(k for k in ("item", "monster", "building")
-                              if (items_ok or k != "item") and (fight or k != "monster"))
-                why = goto.go_to(dev, det, lambda f: (area_map.nearest(f, kinds) or (None, None))[1])
-                log.info("big-map walk to the nearest %s: %s", "/".join(kinds), why)
-                if why == "arrived":
-                    progress(("map_walk", map_tries))
-                    continue
-                # Not on the big map (or blocked): fall back to the minimap step toward it.
-            if target is None:
-                # Nothing on the minimap: anything we've met before and can see on screen (R-131; the store's
-                # explored gate decides whether it's worth tapping here).
-                if map_tries < AREA_MAP_TRIES:
-                    # mae, 2026-11-05: open the big map, tap the nearest dot or structure (the camera centres on
-                    # it), close the map and tap the middle of the screen, where the element now is.
+                                        visited_xy=stood_on, outside_xy=outside)
+                if target is None and recentre_on_player(dev, det, frame):
+                    frame = dev.screenshot()
+                    player = player_on_screen(det, frame)
+                    target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen, items_ok=items_ok,
+                                            player=player, monsters_ok=fight,
+                                        visited_xy=stood_on, outside_xy=outside)
+                spot = to_world(xy, player, target) if target else None
+                if spot and any(max(abs(spot[0] - b[0]), abs(spot[1] - b[1])) <= 1 for b in bumped):
+                    # The path runs through something that opens a card (seen: a blessed Goddess Statue). Tapping it
+                    # again just reopens the card, so step one tile to the side; the game paths around the rest.
+                    side = minimap.SCREEN_TILE if len(bumped) % 2 else -minimap.SCREEN_TILE
+                    target = (min(690, max(30, target[0] + side)), target[1] + minimap.SCREEN_TILE // 2)
+                    spot = to_world(xy, player, target)
+                    log.info("map %s opened a card before; stepping aside to %s", spot, target)
+                goal = LAST_GOAL  # what minimap_target headed for (None for a known reference: already stored)
+                # mae, 2026-11-05: reaching an object needs only the camera, not a path from the player. A known
+                # reference on screen is tapped directly; any other object the minimap shows is reached the big-map
+                # way (tap it on the area map, close, tap the middle). Player-relative steps are only for fog.
+                known = collectibles.find(frame, explored=not free, farm=farm, area=home_area or "")
+                if known:
+                    name, kind, target, score = known[0]
+                    goal = None
+                    log.info("known %s %r on screen at %s (%.2f): tapping it", kind, name, target, score)
+                elif goal in ("item", "monster", "building") and map_tries < AREA_MAP_TRIES:
                     map_tries += 1
                     kinds = tuple(k for k in ("item", "monster", "building")
                                   if (items_ok or k != "item") and (fight or k != "monster"))
-                    pick = lambda f: (area_map.nearest(f, kinds) or (None, None))[1]  # noqa: E731
-                    why = goto.go_to(dev, det, pick)
-                    log.info("area-map walk to the nearest %s: %s", "/".join(kinds), why)
+                    why = goto.go_to(dev, det, lambda f: (area_map.nearest(f, kinds) or (None, None))[1])
+                    log.info("big-map walk to the nearest %s: %s", "/".join(kinds), why)
                     if why == "arrived":
+                        progress(("map_walk", map_tries))
                         continue
-            if target:
-                log.info("walking toward unexplored ground at %s (map %s)", target, spot)
-                last_tap = spot
-                # Only taps aimed at an object feed the store (a walk can be interrupted by anything).
-                tapped = (frame, target, goal) if goal and target else None
+                    # Not on the big map (or blocked): fall back to the minimap step toward it.
+                if target is None:
+                    # Nothing on the minimap: anything we've met before and can see on screen (R-131; the store's
+                    # explored gate decides whether it's worth tapping here).
+                    if map_tries < AREA_MAP_TRIES:
+                        # mae, 2026-11-05: open the big map, tap the nearest dot or structure (the camera centres on
+                        # it), close the map and tap the middle of the screen, where the element now is.
+                        map_tries += 1
+                        kinds = tuple(k for k in ("item", "monster", "building")
+                                      if (items_ok or k != "item") and (fight or k != "monster"))
+                        pick = lambda f: (area_map.nearest(f, kinds) or (None, None))[1]  # noqa: E731
+                        why = goto.go_to(dev, det, pick)
+                        log.info("area-map walk to the nearest %s: %s", "/".join(kinds), why)
+                        if why == "arrived":
+                            continue
+                if target:
+                    log.info("walking toward unexplored ground at %s (map %s)", target, spot)
+                    last_tap = spot
+                    # Only taps aimed at an object feed the store (a walk can be interrupted by anything).
+                    tapped = (frame, target, goal) if goal and target else None
+                    dev.tap(*target)
+                    time.sleep(3)
+                    continue
+                target = fog_edge_target(frame)
+                if target is None:
+                    no_fog += 1
+                    if no_fog >= 4:
+                        return "no_fog"
+                    dev.swipe(*random.choice([(360, 800, 360, 450), (360, 400, 360, 750),
+                                              (550, 600, 200, 600), (200, 600, 550, 600)]), 500)
+                    time.sleep(1.5)
+                    continue
+                no_fog = 0
+                log.info("walking to fog edge at %s", target)
+                last_tap = to_world(xy, player_on_screen(det, frame), target)
                 dev.tap(*target)
                 time.sleep(3)
-                continue
-            target = fog_edge_target(frame)
-            if target is None:
-                no_fog += 1
-                if no_fog >= 4:
-                    return "no_fog"
-                dev.swipe(*random.choice([(360, 800, 360, 450), (360, 400, 360, 750),
-                                          (550, 600, 200, 600), (200, 600, 550, 600)]), 500)
-                time.sleep(1.5)
-                continue
-            no_fog = 0
-            log.info("walking to fog edge at %s", target)
-            last_tap = to_world(xy, player_on_screen(det, frame), target)
-            dev.tap(*target)
-            time.sleep(3)
-        elif d.state == "battle_prep" and tapped and tapped[2] == "monster" and not saved_fight:
-            collectibles.save(tapped[0], tapped[1], "monster", "monster", home_area or "")
-            saved_fight = True  # once per fight; the next branch handles the prep screen itself
-        elif d.state == "battle_prep" and not fight:
-            log.info("battle prep in an explored area: backing out (monsters there respawn; R-065)")
-            ui.tap(dev, ui.BACK_ARROW, 2)
-        elif d.state == "battle_prep":
-            if hud_hp(dev.screenshot(), PREP_HP_BAR) * 100 < heal.FIGHT_MIN_HP and heal_tries < 2:
-                heal_tries += 1
-                log.info("battle prep: HP under %d%%; healing from the portrait", heal.FIGHT_MIN_HP)
-                # Quick Heal opens from the portrait on any screen that shows it (mae); without one, back out and
-                # let the map branch heal.
-                heal.quick_heal(dev, det, heal.BACK_OUT)
-                continue
-            ui.tap(dev, ui.START_BATTLE, 3)
-            tapped, saved_fight = None, False
-        elif pass_through(dev, d):
-            pass  # fights, loading, dialogue, reward popups
-        elif d.state == "defeated":
-            card, choice = decider.decide(ctx)
-            dev.tap(*choice.point)
-            return "defeated"
-        elif d.state == "player_profile":
-            ui.tap(dev, ui.ABOVE_POPUP, 1.5)
-        elif d.state in TOWER_STATES:
-            # A tower opened from here: hand over to the tower loop, then come back to this area (mae: loops call
-            # each other). Mini-dungeon floors need no hand-over: their cards and fights are handled below.
-            log.info("tower climb: %s", tower.climb(dev, det, minutes=max(1.0, (deadline - time.monotonic()) / 60)))
-            Navigator(dev, det).go_home()
-            if home_area:
-                ui.tap(dev, ui.NAV_WORLD, 4)
-                goto.go_to(dev, det, home_area)
-        elif d.state == "home":
-            return f"left_area:{d.state}"
-        else:
-            # Cards, dialogs and unknown popups: the same rules as the quest loop.
-            card, choice = decider.decide(ctx)
-            if (tapped and tapped[2] == "building" and card.title and card.title != last_card
-                    and choice.action != "dismiss"):  # a card we act on: not a social popup or an unknown one
-                collectibles.save(tapped[0], tapped[1], card.title, "interactable", home_area or "")
-            tapped = None
-            repeats = repeats + 1 if card.title == last_card else 0
-            last_card = card.title
-            if choice.action == "dismiss" and last_tap and last_tap not in bumped:
-                bumped.append(last_tap)
-                log.info("card %r opened from the tap at map %s: walking around that spot from now on",
-                         card.title, last_tap)
-            ui.tap(dev, choice.point, 3)
-            if choice.kind == "power_gate":
-                log.info("blocked by %r (needs more power): this area's wall", card.title)
-                return "power_gate"
-            if repeats >= REPEAT_LIMIT:
-                log.warning("card %r keeps coming back; stopping", card.title)
-                return "repeating_card"
-    return "timeout"
+            elif d.state == "battle_prep" and tapped and tapped[2] == "monster" and not saved_fight:
+                collectibles.save(tapped[0], tapped[1], "monster", "monster", home_area or "")
+                saved_fight = True  # once per fight; the next branch handles the prep screen itself
+            elif d.state == "battle_prep" and not fight:
+                log.info("battle prep in an explored area: backing out (monsters there respawn; R-065)")
+                ui.tap(dev, ui.BACK_ARROW, 2)
+            elif d.state == "battle_prep":
+                if hud_hp(dev.screenshot(), PREP_HP_BAR) * 100 < heal.FIGHT_MIN_HP and heal_tries < 2:
+                    heal_tries += 1
+                    log.info("battle prep: HP under %d%%; healing from the portrait", heal.FIGHT_MIN_HP)
+                    # Quick Heal opens from the portrait on any screen that shows it (mae); without one, back out and
+                    # let the map branch heal.
+                    heal.quick_heal(dev, det, heal.BACK_OUT)
+                    continue
+                ui.tap(dev, ui.START_BATTLE, 3)
+                tapped, saved_fight = None, False
+            elif pass_through(dev, d):
+                pass  # fights, loading, dialogue, reward popups
+            elif d.state == "defeated":
+                card, choice = decider.decide(ctx)
+                dev.tap(*choice.point)
+                return "defeated"
+            elif d.state == "player_profile":
+                ui.tap(dev, ui.ABOVE_POPUP, 1.5)
+            elif d.state in TOWER_STATES:
+                # A tower opened from here: hand over to the tower loop, then come back to this area (mae: loops call
+                # each other). Mini-dungeon floors need no hand-over: their cards and fights are handled below.
+                log.info("tower climb: %s", tower.climb(dev, det, minutes=max(1.0, (deadline - time.monotonic()) / 60)))
+                Navigator(dev, det).go_home()
+                if home_area:
+                    ui.tap(dev, ui.NAV_WORLD, 4)
+                    goto.go_to(dev, det, home_area)
+            elif d.state == "home":
+                return f"left_area:{d.state}"
+            else:
+                # Cards, dialogs and unknown popups: the same rules as the quest loop.
+                card, choice = decider.decide(ctx)
+                if (tapped and tapped[2] == "building" and card.title and card.title != last_card
+                        and choice.action != "dismiss"):  # a card we act on: not a social popup or an unknown one
+                    collectibles.save(tapped[0], tapped[1], card.title, "interactable", home_area or "")
+                tapped = None
+                repeats = repeats + 1 if card.title == last_card else 0
+                last_card = card.title
+                if choice.action == "dismiss" and last_tap and last_tap not in bumped:
+                    bumped.append(last_tap)
+                    log.info("card %r opened from the tap at map %s: walking around that spot from now on",
+                             card.title, last_tap)
+                ui.tap(dev, choice.point, 3)
+                if choice.kind == "power_gate":
+                    log.info("blocked by %r (needs more power): this area's wall", card.title)
+                    return "power_gate"
+                if repeats >= REPEAT_LIMIT:
+                    log.warning("card %r keeps coming back; stopping", card.title)
+                    return "repeating_card"
+        return "timeout"
 
 
 def _args(p) -> None:
