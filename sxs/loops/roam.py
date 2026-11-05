@@ -52,6 +52,7 @@ STATUE_THRESHOLD = 0.8
 STATUE_NEAR_LABEL = 260  # px on the area map: statues this close to an area's label belong to it
 MAP_ROI = [0, 120, 720, 1100]  # labels below y 1185 are the kingdom buttons
 STOP_REASONS = {"defeated", "unknown_screen", "left_area:home"}
+SURVEY_ZOOM_OUT = 1  # zoom-out taps before reading the area map (3 merged neighbouring labels in OCR)
 MAX_ENTRY_TRIES = 3  # connected areas to try walking in from before giving up on an area for the day
 STATE_FILE = LOGS / "roam.json"  # statues opened and areas given up on, kept across runs
 VERDANTGLADE_ISLAND = (300, 640)  # world overview (kingdom picker): Verdantglade's island
@@ -203,6 +204,10 @@ class Roamer:
         self.power = power or self.power
         self.dev.tap(*goto.MINIMAP)
         time.sleep(2.5)
+        for _ in range(SURVEY_ZOOM_OUT):  # the whole kingdom on one screen: zones off screen were taken as done
+            self.dev.tap(*goto.AREA_MAP_ZOOM_OUT)
+            time.sleep(0.6)
+        time.sleep(1)
         frame = self.dev.screenshot()
         areas = read_areas(self.det, frame)
         statues = statue_badges(frame)  # statues ready to bless (red "!"), as area-map points
@@ -238,9 +243,9 @@ class Roamer:
         todo = [a for a in areas if a.pct is not None and a.pct < 100 and not self.skipped(a.name)]
         walled = [a for a in todo if not fights.within_reach(a.gate, power)]  # up to 25% above us (mae)
         open_ = [a for a in todo if a not in walled]
-        # mae, 2026-11-05: the lowest-CP zone not yet blessed first (no power line counts as the lowest), then the one
+        # mae, 2026-11-05: the lowest-CP zone not yet blessed first, then the one
         # nearest done; explore it until its statue is blessed, then the next.
-        open_.sort(key=lambda a: (a.gate or 0, -a.pct))
+        open_.sort(key=lambda a: (a.gate is None, a.gate or 0, -a.pct))  # a zone with no power line read goes last
         return (open_[0] if open_ else None), (walled[0] if walled else None)
 
     def approach(self, areas: list[Area], target: Area) -> Optional[Area]:
