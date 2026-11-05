@@ -3,6 +3,9 @@
 > **Last updated**: 2026-11-05
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
 
+### 2026-11-05 (early morning) · Game docs: Cart upgrade priority (Claude Code, cloud)
+- PRs #40 and #41 merged; nothing open. mae (04:29): on the Cart, upgrade only Stone and Wood, keeping their levels even; the other rows stay as they are. The arrows show after claiming (new R-136). Costs still unknown; the strengthening builder will report them.
+
 ### 2026-11-05 (late night) · Game docs: social features allowed (Claude Code, cloud)
 - mae (02:23): the bot may use social features, invite anyone to parties and team up (R-057, R-077 rewritten; policy never-do narrowed to guild choice). Chat typing, guild create/leave and spending stay off-limits. Merged the builder's branch (cards accept team-up and friend requests, Auroradrasil screens). New R-133 Auroradrasil team dungeon; R-088 gear swap seen working live. Drasilgard town rule R-134 (Carol's Reshape is mae's choice: new never-do), menu map nodes for Carol and Reshape. mae (03:10): Auroradrasil is its own zone (R-132); statues: two sizes, red "!" = blessable now, side areas often hold a Lost Goddess Statue (R-070). mae (03:21): non-quest exploration order, lowest-CP unblessed zone first, then leftover fog (R-135); merged the builder's Roam rewrite for it (numerals must match in area names, one-step zoom-out). Builder's handoff merged (status: strengthening and Cart notes); final rules batch: coordinate periods (R-004), statue badge size (R-070), Jungle Camp next (R-135), Limpid Legion card unknown (R-134).
 
@@ -57,7 +60,3 @@
 
 ### 2026-11-04 · Setup on rif-love-su (Claude Code, rif-love-su via Remote Control)
 - Branch `claude/project-thread-5s0w12` = `upgrade-systems` (4 commits not yet in main) + main. venv, requirements, OCR models; offline detector check all good. MuMu found at 127.0.0.1:16416; `sxs.device` now falls back to the single adb device. Live screenshot: home, gromb2 Lv 21, power 16.3K. Game not touched beyond the screenshot.
-
-### 2026-11-04 (morning) · Pulls, Mall gifts, Bellflower hunt start (Claude Code, maes2024 via Remote Control)
-- Same branch `upgrade-systems`, main merged in. 20 handler-approved pulls (10 singles by mistake; `sxs.pray` now x10 only). Rating popup: Later. `sxs/mall.py` + daily step `mall_gifts` (4 free gift boxes). Vendor Booth unlocked by tutorial.
-- Bellflower Flower Harvest found (free picks in Moonveil Woods, 2/20); `gather --harvest` needs a better plant detector. Paused by mae to swap computers. Details in handoff.md.

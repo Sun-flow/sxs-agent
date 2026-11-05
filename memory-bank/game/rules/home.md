@@ -26,6 +26,13 @@ Scene labels (e.g. "Class to Unlock") overlap the quest tracker region; filter t
 - Tapping the cart opens hourly income (Rolla, Wood, Stone, Raw Ore, Battle Essence; Gear unlocks at Lv 15), each with a level and upgrade arrow. "Claim All" (0.5, 0.86); close with (0.5, 0.95).
 *observed* · `home/home_cart.png`, `home/cart.png`, `dialogs/reward_popup.png` · node `home` · R-126
 
+### R-136 · Upgrade only Stone and Wood on the Cart, keeping their levels even
+- Upgrade the Stone and Wood income rows only. Keep the two rows at the same level: upgrade whichever is lower (tie order not set).
+- Never upgrade Rolla, Raw Ore or Battle Essence (or Gear when it unlocks), even when their arrows are lit.
+- The upgrade arrows show only after the Cart has been claimed, so claim first (R-020), then upgrade.
+- Costs ❓: not recorded yet.
+*told* · node `home` · R-020, R-099
+
 ## The house
 
 ### R-035 · Use the bed's free speed-up once a day
