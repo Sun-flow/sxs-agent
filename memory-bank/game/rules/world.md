@@ -30,6 +30,7 @@ The server clock (UTC-5) is on the menu screen. Dailies reset at 8:00 (Daily Sig
 - **Village Chief** (big house, north): story only; points to Auroradrasil (R-133).
 - **Hermes**, "Smiling Merchant" (mushroom-roof shop, east): Kingdom Shop for Abundance Leaves; buy nothing until mae fills Buy? (`docs/shop-tables.md`, R-114).
 - **Carol the Black Cat** (wizard hat, by the dome house, west), Verdantglade's shapeshifting witch: the first meeting gives a free Shapeshifting Mirror. Menu Transform! / Chat / "Let me think about it". Transform opens Reshape (General, Hair, Face, Trait); **Complete costs 1 Mirror and changes the look: mae's choice, never press it** (policy).
+- A card titled **"Limpid Legion"** opened from a tap somewhere in town; unknown, dismissed ❓ (ask mae).
 - **Portal** east of the stone ring: already activated; its card shows Teleport. The notice board stall and the "G" dome house are decoration; the stone ring gives no card.
 - The Bellflower-like plants in town (south of centre, near the dome house) are decoration: walking onto one removed it, but the rank count stayed at 4/30. Bellflowers come only from the Flower Harvest field (R-123).
 - Zoomed-out area map from here: Wildbloom Coast 20.4K, Hidden Camp, Verdantglade V 14.8K (78%), Monolith Ruins I, Zephyr Vale, Troll Lair 17K, Verdantglade IV, Jungle Camp 12.6K; all others 0%. Yellow-star markers north-east on the minimap are unmapped ❓.
