@@ -10,7 +10,7 @@ Walk to each green minimap dot and interact with what it marks, beat roaming mon
 
 ### R-065 · When stuck or between quests, walk the fog edge
 Exploration comes in two kinds (mae), and loops should handle both: **quest-progression** (follow the tracker's Explore and unlock quests, R-044) and **fog-walking** (clear side areas that aren't tied to progression but are within our CP range, e.g. Damp Woods). Side areas have no quest but give resources and levels; walking into the fog edge reveals new areas. **Explore outward from the connected area the character is in; never jump back across the map** (mae). Code: `python -m sxs roam` (`--area`, `--minutes`, `--max-areas`). It picks an unexplored area with recommended power up to 1.25x ours (R-127, R-084), enters from a connected explored neighbour (R-067), explores it with the Fog Walk (`sxs/loops/fogwalk.py`; stays in its current area when that borders the target) and blesses the statue (R-070). It takes 5-stamina pickups only while stamina stays ≥70 (R-107).
-*told, observed* · R-044, R-066, R-067, R-070, R-084, R-127
+*told, observed* · R-044, R-066, R-067, R-070, R-084, R-127, R-130
 
 ## Walking and the camera
 

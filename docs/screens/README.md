@@ -16,7 +16,7 @@ into a folder by situation. The name's prefix picks the folder (`sxs/core/screen
 | `dialogs/` | Confirm dialogs, dialogue, reward popups, tutorial highlights, rating popup |
 | `system/` | Title, loading, settings, photo mode |
 | `icons/` | Crops and pictures mae sent (not full frames); not run by the detector test |
-| `minimap/` | Minimap crops and tile samples for the minimap classifier |
+| `minimap/` | Minimap crops and tile samples for the minimap classifier; `legend_*` are mae's legend screenshots and crops (R-066, R-130) |
 | `unlabeled/` | **The bank:** screens nobody has named yet, with a table for mae to fill in (`unlabeled/README.md`) |
 
 `expected.json` holds what the state detector must report on each screen (`states`) and mae's notes on labelled
