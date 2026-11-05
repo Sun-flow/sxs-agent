@@ -44,6 +44,14 @@ Every loop has the same inputs, outputs and readouts:
   `--minutes` is only its outer ceiling. `with task(name, seconds) as t:` gives one step its own check: daily runs
   each step that way (120 s each), so a stuck step is cut and the next one starts.
 
+- **Interrupts** (mae, 2026-11-05). The runner wraps the detector so that after every screen check one table,
+  `actions/interrupts.py`, can pause the loop for a tutorial highlight, Choose Your Reward, the rating popup or chat,
+  run that row's short handler, and hand the loop the screen after it (`[Interrupt] ...` / `[Resume X] ...`). A
+  handler that needs mae raises `LoopStop(status)` and the run ends with that status. `Loop.owns` names rows a loop
+  handles itself; `resume_with(det, fn)` registers a step that puts the loop back where its goal is. Mechanism in
+  `core/interrupts.py`, design in `docs/interrupts.md`. Add a screen every loop should handle the same way as a row
+  there, not as a special case in a loop.
+
 `tests/check_loops.py` checks every registered loop against this offline, including the budget and stall stops.
 
 ## Loops
@@ -81,6 +89,7 @@ Who calls whom: `daily` → `mall`, `vendor`, `gearswap`, `tower`, `guild`, `gat
 | Read a line, number, amount, a/b | `vision/ocr.py`: `read_line`, `read_int`, `read_amount`, `read_fraction`, `boxes_of` |
 | Fight / loading / dialogue / reward screens in a loop | `actions/common.py`: `pass_through(dev, d)`, `close_rewards(dev, det)` |
 | HP before a fight | `actions/heal.py`: `hp_ok`, `quick_heal`, `heal_via_portrait` (70% rule) |
+| A screen any loop may meet (tutorial, reward choice, popup) | a row in `actions/interrupts.py` (`docs/interrupts.md`) |
 | Stuck or unfamiliar screens | `actions/watchdog.py` (`Heartbeat`, `UnknownScreens`), `actions/unstick.py`, `device.save_unknown` → `captures/unknown/` |
 | Account numbers off a screen (top bar, profile, Journal, Cart, guild) | `vision/stats.py`; small badge labels: `ocr.zoomed_lines` |
 | Per-day records (`logs/runs.jsonl`, `logs/progress/`) | `core/records.py`: `note(source, values)` from any loop that sees a stat on the way |

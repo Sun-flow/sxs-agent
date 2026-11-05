@@ -19,7 +19,7 @@ import numpy as np
 from ..core import ui
 from ..core.device import Device
 from ..core.state import StateDetector
-from ..core.loop import Loop
+from ..core.loop import Loop, progress
 from ..vision.ocr import read_line
 
 log = logging.getLogger("sxs.loops.tutorial")
@@ -105,6 +105,7 @@ def follow(dev: Device, det: StateDetector, steps: int = 40) -> str:
                 log.warning("highlight on %r looks like a spend; not tapping", words)
                 return "spend_prompt"
             log.info("highlight at %s on %s", box, d.state)
+            progress(("tutorial", box))  # keeps a paused loop's stall check quiet while this runs as an interrupt
             dev.tap(x + w // 2, y + h // 2)
         idle = 0
         time.sleep(1.5)
@@ -119,4 +120,7 @@ def _run(ctx, opts):
     return follow(ctx.dev, ctx.det, opts.steps)
 
 
-LOOP = Loop("tutorial", "Tutorial", "tap through the game's own tutorial highlights and dialogue", _run, _args)
+# The tutorial row of the interrupt table (sxs/actions/interrupts.py) runs follow() inside other loops; this loop
+# follows highlights itself, so it owns that row.
+LOOP = Loop("tutorial", "Tutorial", "tap through the game's own tutorial highlights and dialogue", _run, _args,
+            owns=frozenset({"tutorial"}))

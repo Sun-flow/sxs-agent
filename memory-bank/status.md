@@ -1,6 +1,6 @@
 # Status
 
-> **Last updated**: 2026-11-04
+> **Last updated**: 2026-11-05
 > Where the work stands now. Past sessions: `log.md`. How a builder works: `playbook.md`.
 
 ## Game state (2026-11-04 15:25 server time, rif-love-su)
@@ -25,6 +25,8 @@ Format: `- what — branch, PR, environment (started)`. Remove the line when it 
 - Live shakedown of the restructure (merged in PR #30): fixes from live runs, `gearswap` loop, 25% CP rule (`sxs/policy/fights.py`), Upgrade goals pass and bag ascensions, dailies fixes (Featured by title, sign-in, quests, Conquest, tower, Mall halves), `docs/function-check.md` — `claude/project-thread-ieaqnz`, needs a PR, rif-love-su (2026-11-04). Open: roam can't enter Verdantglade III on foot (OCR confuses II/III; goto zooms out but the (via, target) walk still misses); gather stops "stuck" after 2 ore pickups when panning finds nothing; state detection takes 2-5 s a frame, which is most of every loop's time.
 
 ## Next (in order)
+
+- Interrupt layer (`docs/interrupts.md`): live check that a tutorial highlight on the island map pauses Fog Walk and resumes it; capture frames of tutorials the row can't see yet (unknown overlays, the Companions "Invite" glow) so the finder can learn them.
 
 0. Progress tracker live check: run `python -m sxs progress` on rif-love-su, confirm the profile/Journal/guild/area readings, then the daily run's report. Routes still missing: the bag (Lumium, Material Realm tools), relics (not unlocked).
 
