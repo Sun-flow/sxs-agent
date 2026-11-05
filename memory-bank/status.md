@@ -3,11 +3,18 @@
 > **Last updated**: 2026-11-05
 > Where the work stands now. Past sessions: `log.md`. How a builder works: `playbook.md`.
 
-## Game state (2026-11-04 15:25 server time, rif-love-su)
+## Game state (2026-11-05 04:00Z, mae's PC)
 
-- Live shakedown 2026-11-04 evening: power 18.8K, Lv 23, Ice Spike and Elemental Mystery ascended, Fantasia Ascent auto-climbed F6 to F24+ in the background, Verdantglade III 73/100 through the quest's Go travel (roam on foot still finds no way in). Earlier: Mage, Apprentice II, Lv 23/30, power 17.4K. Dawnium ~1.17K (never spent by the bot), Rolla ~33.6K, stamina ~122, Stellatie 0, Guild Tokens 760. Guild karsa_1515, gathering at the Forge.
-- Explored and blessed: Originisle I–V; Verdantglade I, II; Moonveil Woods; Stone Ruins I; Highland Woods; Damp Woods. Verdantglade III (12K, 0%) has no entrance on foot from Moonveil Woods (R-084). Fantasia Ascent Moonveil Woods F1–5.
-- Next rank (Apprentice III) needs Lv 30, 5 green leaf (have 9), 30 of an unnamed flower item, 10.5K Rolla (R-118).
+- gromb2: Mage, Apprentice II, Lv 24/30, power 22.2K (gear swap put on Beastclaw Boots, Beasthide Armor and a better hat from Auroradrasil). Rolla ~72.7K, Dawnium ~1.85K (never spent by the bot), stamina ~234/300, Abundance Leaves 450, 1 Shapeshifting Mirror (unused).
+- Explored and blessed: Originisle; Verdantglade I-IV area quests done; Verdantglade III 100%; Auroradrasil 100% and blessed (Lost Goddess Statue, 2026-11-05). Drasilgard town visited (Chief, Hermes, Carol). Verdantglade V 78% (quest "Explore Verdantglade V"). Unexplored: Jungle Camp 12.6K, Zephyr Vale, Monolith Ruins I, Troll Lair 17K, Verdantglade VI, Wildbloom Coast 20.4K.
+- Rank: Apprentice III needs Lv 30, leaves 16/5, Bellflower 4/30 (source: Verdantglade Flower Harvest in Moonveil Woods; the plants in Drasilgard are decoration), Rolla 10.5K. Blocked on Lv 30.
+- Fantasia Ascent Moonveil Woods: Auto Challenge climbed to F24+ in the background (2026-11-04).
+- Social features open (R-057): NPC companions Akane, Qin, Killian were invited for Auroradrasil (rank B).
+
+## For the next thread: strengthening and the Cart
+
+- Strengthening: `python -m sxs upgrade` (goals pass, then skills, gear, class, rank, one pass per lit badge, 90 s each), `python -m sxs gearswap` (works live: 3 swaps on 2026-11-05), `python -m sxs strengthen` (Cart claim, banded gear enhance, techniques). Last upgrade run left no badges on the Character screen (2026-11-04); new gear since then may light gear badges for enhancing.
+- AFK Cart: `Strengthener.claim_cart` claims its loot from home (daily step `cart`). Tracker side quests "Cart Upgrade I" and "Cart Upgrade II" ("Upgrade N Resources to Lv. 2") appeared and were claimed from the tracker gift on 2026-11-04, so the Cart has upgradeable resource lines; the upgrade screen itself hasn't been mapped and no code upgrades the Cart yet. ❓ Which currency the Cart upgrades cost (check before tapping; R-043 never-press list applies).
 
 ## Works (all on main, PRs #1–#30)
 
@@ -22,7 +29,7 @@
 
 Format: `- what — branch, PR, environment (started)`. Remove the line when it merges or is dropped.
 
-- Live shakedown of the restructure (merged in PR #30): fixes from live runs, `gearswap` loop, 25% CP rule (`sxs/policy/fights.py`), Upgrade goals pass and bag ascensions, dailies fixes (Featured by title, sign-in, quests, Conquest, tower, Mall halves), `docs/function-check.md` — `claude/project-thread-ieaqnz`, needs a PR, rif-love-su (2026-11-04). Open: roam can't enter Verdantglade III on foot (OCR confuses II/III; goto zooms out but the (via, target) walk still misses); gather stops "stuck" after 2 ore pickups when panning finds nothing; state detection takes 2-5 s a frame, which is most of every loop's time.
+- Exploration drivers per mae (2026-11-05): roam picks the lowest-CP unblessed zone, blesses statues whose area-map "!" is lit, ends with a fog walk; fog walk reaches objects through the big map, follows passable ground into fog, keeps to its zone (R-132), free pickups and fights only in unexplored areas (R-065), collectibles store (R-131) — `claude/project-thread-ieaqnz` (latest commits beyond #41), mae's PC. Open: (1) at the zoomed-out area map OCR merges neighbouring labels and loses percentages (read at a closer zoom with pans instead); (2) Jungle Camp run (2026-11-05): approach from Drasilgard, big-map walks mostly "no_move", no % gained; the walk into Jungle Camp needs a better entry point; (3) progress readings with OCR noise in coordinates count as movement, so a stuck run can be extended; (4) the tutorial glow on the Companions "Invite" isn't found by the highlight finder (interrupt layer PR #40).
 
 ## Next (in order)
 
