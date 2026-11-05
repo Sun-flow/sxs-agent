@@ -13,6 +13,7 @@ import re
 from dataclasses import dataclass, field
 
 from ..core.device import REPO_ROOT
+from ..core.loop import seconds_left
 from ..core.state import StateDetector
 
 log = logging.getLogger("sxs.policy.decide")
@@ -23,10 +24,20 @@ BACK_ARROW = (60, 1216)
 OUTSIDE = (360, 60)  # above the card; taps at the bottom edge sometimes land on nothing and do not close it
 
 
+DUNGEON_MIN_S = 90  # budget a mini-dungeon needs: a few floors of fights
+
+
 @dataclass
 class Context:
     goal: str = "idle"  # explore | daily | idle
     hp_ok: bool = True
+
+    @property
+    def time_ok(self) -> bool:
+        """Enough of the run's budget left to finish a mini-dungeon (mae, 2026-11-04: a run cut by its budget left
+        the character on Temple Ruins' "Next Floor" card). No budget running counts as enough."""
+        left = seconds_left()
+        return left is None or left >= DUNGEON_MIN_S
 
 
 @dataclass
@@ -68,6 +79,8 @@ class Decider:
             if "goal" in when and ctx.goal not in when["goal"]:
                 continue
             if "hp_ok" in when and ctx.hp_ok != when["hp_ok"]:
+                continue
+            if "time_ok" in when and ctx.time_ok != when["time_ok"]:
                 continue
             if not (re.search(rule["match"], card.title) or re.search(rule["match"], card.body)):
                 continue

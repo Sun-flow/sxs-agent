@@ -26,6 +26,8 @@ Format: `- what — branch, PR, environment (started)`. Remove the line when it 
 
 ## Next (in order)
 
+0. Progress tracker live check: run `python -m sxs progress` on rif-love-su, confirm the profile/Journal/guild/area readings, then the daily run's report. Routes still missing: the bag (Lumium, Material Realm tools), relics (not unlocked).
+
 1. Conquest with tries left: watch it live after the 13:00Z reset.
 2. Fog Walk pickup detection on screen (glowing items): the minimap barely shows pickups under the unexplored shadow (R-086).
 3. Verdantglade III entrance: probably a quest unlock (R-084).

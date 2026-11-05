@@ -26,6 +26,7 @@
 
 - The game is **portrait**: frames are 720 wide × 1280 tall even though MuMu's setting reads landscape. All coordinates use the portrait frame.
 - MaaFramework batches OCR across a node's `next` list and misreads screens, so the detector runs nodes one by one (`sxs/core/state.py`). It has `And`/`Or` recognitions but no `Not`.
+- OCR misses or misreads small white labels on dark badges ("+15" gear, "Lv. 10" skills, top-bar amounts) at real size; enlarged 3x onto a black canvas they read cleanly (`vision.ocr.zoomed_lines`, 2026-11-04). Cloud sessions can run the OCR checks: `pip install maafw==5.15.0 opencv-python-headless`, then `python3 scripts/fetch-ocr-models.py`.
 - MaaFramework's MuMu plug-in prints `nemu_connect`/`product:` lines to stdout: take the last line for JSON. Its log is in the gitignored `.maa/debug` folder.
 - After a restart the game resumes on the last screen, so a cold start can land on the world map instead of home.
 - Typing into a game search field works with `adb shell input text` (MuMu's adb: `C:\Program Files\Netease\MuMuPlayer\nx_device\15.0\shell\adb.exe -s 127.0.0.1:<port>`). Never type in chat.
