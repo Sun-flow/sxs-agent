@@ -40,5 +40,13 @@ check("badges skill_page", len(find_badges(cv2.imread(str(SCREENS / "character/s
 check("badges rank_level_goals", len(find_badges(cv2.imread(str(SCREENS / "character/rank_level_goals.png")))), 8)
 check("badges class_hierarchy (not the red class icons)", len(find_badges(cv2.imread(str(SCREENS / "character/class_hierarchy.png")))), 3)
 
+# Cart (R-136): Stone and Wood only, lower first, Stone on ties; cost icons read off the reference screen.
+from sxs.loops.cart import CartUpgrader, cost_icons  # noqa: E402
+check("cart tie -> stone", CartUpgrader.pick({"stone": 3, "wood": 3}), "stone")
+check("cart wood lower", CartUpgrader.pick({"stone": 4, "wood": 3}), "wood")
+check("cart stone lower", CartUpgrader.pick({"stone": 4, "wood": 5}), "stone")
+check("cart cost icons (Furniture Upgrade)", [n for n, _ in cost_icons(cv2.imread(str(SCREENS / "home/cart_furniture_upgrade.png")))],
+      ["wood", "stone", "rolla"])
+
 print("all good" if not fails else f"{fails} failed")
 sys.exit(1 if fails else 0)

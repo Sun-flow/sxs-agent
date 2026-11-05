@@ -344,7 +344,10 @@ class Upgrader:
             frame_badges = self._badges()
             log.info("character screen badges: %s", frame_badges)
             return {
-                "skills": near_any(frame_badges, (SKILL_BUTTON[0] + 30, SKILL_BUTTON[1] - 30), 50),
+                # Always open the Skill page: affordable skill levels show only blue arrows (no red "!" on the
+                # Character screen), and the Quick Upgrade caption there is the real need check (2026-11-05: the
+                # pass was skipped while Quick Upgrade raised every skill 2-4 levels by hand).
+                "skills": True,
                 "gear": any(near_any(frame_badges, (x + 40, y - 40), 50) for x, y in GEAR_SLOTS),
                 "class_levels": near_any(frame_badges, (CLASS_BUTTON[0] + 30, CLASS_BUTTON[1] - 30), 50),
                 "rank": near_any(frame_badges, (RANK_BADGE[0] + 90, RANK_BADGE[1] - 30), 70),

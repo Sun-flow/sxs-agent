@@ -53,6 +53,13 @@ GEAR_CARD_BUTTON = (360, 880)  # single gear card: Replace (or Equip)
 GEAR_LIST_FIRST = (150, 345)  # Replace Gear list, sorted best first (green up arrow = upgrade)
 GEAR_COMPARE_REPLACE = (536, 896)  # side-by-side compare: Replace under the new item
 GEAR_POWER_ROIS = ([20, 520, 200, 100], [370, 520, 200, 100])  # power under each compared item: equipped, new
+# Home pans sideways. Fast swipes at mid-height (y 600, 400 ms) often don't register, and once the camera sits at
+# the scene's left end (sky and floating islands, "stuck on sky", R-100) they never bring it back; slow drags over
+# the ground do (2026-11-05). A 120 px slow drag pans the scene about 150 px, so a 150 px drag steps ~190 px:
+# small enough that the Cart can't be skipped between two frames. Default home camera is ~900 px right of the Cart.
+HOME_SWIPE_RIGHT, HOME_SWIPE_LEFT = (240, 820, 390, 820), (390, 820, 240, 820)  # view moves left / right
+HOME_SWIPE_MS = 1000
+HOME_SWEEP_RIGHT, HOME_SWEEP_LEFT = 10, 18  # steps each way: left end first, then back across
 FILLED_SAT = 60  # mean HSV saturation over a slot/list icon: coloured icon above, empty grey disc below
 
 
@@ -71,10 +78,10 @@ class Strengthener:
     def claim_cart(self) -> bool:
         """Find the Cart's loot bubble on the sideways-scrolling home scene and claim it. False if not found."""
         self.nav.go_home()
-        right, left = (150, 600, 650, 600), (650, 600, 150, 600)
-        for swipe in [None, right, right, right, left, left, left, left, left, left]:  # sweep the whole scene
+        right, left = HOME_SWIPE_RIGHT, HOME_SWIPE_LEFT
+        for swipe in [None] + [right] * HOME_SWEEP_RIGHT + [left] * HOME_SWEEP_LEFT:  # the whole scene
             if swipe:
-                self.dev.swipe(*swipe, 400)
+                self.dev.swipe(*swipe, HOME_SWIPE_MS)
                 time.sleep(1.5)
             bubble = self.det.find("Home.CartBubble")
             if bubble:

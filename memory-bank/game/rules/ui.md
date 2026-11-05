@@ -51,7 +51,7 @@ Menus unlock with tutorial progress and the game announces it. Each node's `unlo
 
 ### R-116 · Claim every lit Goals tab with the claim-goals task
 - Menus have milestone Goals tabs at the bottom. Whenever a Goals tab shows "!", claim it with the dedicated claim-goals task (mae). It's free, and an unclaimed "!" confuses the screen-state and upgrade readers (R-080), so clear it before reading the menu. It runs as its own pass, first in the upgrade loop (`goals`, R-080).
-- Known tabs (free, shown with "!"): Skill, Enhance Gear, Rank, Class, Prayer (R-093), Vendor Booth Pts (R-120). Quest-like goals (tasks, not milestone rewards) follow their own rules.
+- Known tabs (free, shown with "!"): Skill (incl. "Battle Essence Used" milestones 8.8K, 13.1K, …), Enhance Gear, Rank, Class, Prayer (R-093), Vendor Booth Pts (R-120). Quest-like goals (tasks, not milestone rewards) follow their own rules.
 *observed, told* · `character/skill_goals_quality.png`, `character/gear_goals.png`, `character/rank_level_goals.png`, `character/rank_power_goals.png`, `character/class_goals.png` · R-063
 
 ### R-129 · "Choose Your Reward": take the class match, else ask mae

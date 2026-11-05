@@ -9,6 +9,7 @@ Steps, in order (each starts from home and ends there):
   mall_gifts       Mall: tap the free gift box on each page (Daily Gift, Weekly Gift, ...); never a price (sxs.loops.mall).
   vendor_stamina   Vendor Booth > Vault: claim the free x30 Stamina once a day (mae, 2026-11-04); nothing else (sxs.loops.vendor).
   cart             Claim the Cart's AFK loot.
+  cart_upgrade     Raise the Cart's Stone and Wood rows evenly with ordinary materials (R-136, sxs.loops.cart).
   bed              Collect the bed's AFK EXP once a day (mae, 2026-11-04): tap the blue-orb bubble over the bed.
   growth_trial     Thrilling Events -> Growth Trial: claim finished trial quests.
   fantasia_ascent  Journal -> Fantasia Ascent: one climb, Auto Challenge on, no retries (mae, 2026-11-04).
@@ -104,6 +105,15 @@ class Dailies:
 
     def cart(self) -> str:
         return "done" if self.st.claim_cart() else "nothing"
+
+    def cart_upgrade(self) -> str:
+        """Cart Stone/Wood upgrades (mae, 2026-11-05): ends at once when capped by the Blessing Level."""
+        from .cart import CartUpgrader
+
+        r = CartUpgrader(self.dev, self.det).run()
+        if r.get("upgrades"):
+            return "done"
+        return "nothing" if r.get("end") in ("short", "capped", "max_upgrades") else r.get("end", "unknown_screen")
 
     def bed(self) -> str:
         """Bed AFK EXP: once a day (XP builds slowly; mae collects by hand when close to a level-up). The bubble
@@ -237,7 +247,7 @@ class Dailies:
     # --- the loop ---
 
     STEPS: list[tuple[str, bool]] = [  # (name, once a day)
-        ("sign_in", True), ("mall_gifts", True), ("mall_gifts_2", True), ("vendor_stamina", True), ("cart", False), ("bed", True), ("growth_trial", False), ("fantasia_ascent", True),
+        ("sign_in", True), ("mall_gifts", True), ("mall_gifts_2", True), ("vendor_stamina", True), ("cart", False), ("cart_upgrade", False), ("bed", True), ("growth_trial", False), ("fantasia_ascent", True),
         ("material_realms", False), ("guild_donate", True), ("guild_afk", False), ("guild_conquest", True),
         ("quests", False), ("gather", False), ("gear_swap", False), ("strengthen", False), ("quests", False),
         ("strengthen", False), ("progress", False),
