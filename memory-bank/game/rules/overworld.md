@@ -18,6 +18,7 @@ Walk to each green minimap dot and interact with what it marks, beat roaming mon
 - A dotted line is the border between two zones such as Verdantglade III and IV (mae). On the minimap it shows as light dashes. In the world it shows as dark dashes, usually labelled with the zone name: "Troll Lair" with its power "17K" in a horizontal label at a corner of a line, or "Zephyr Vale" written sideways along a vertical line with no power shown.
 - Use it to tell which zone the character is in, and finish that zone to 100% (R-065) before crossing into the next. Seen: the fog walk crossed into Verdantglade IV with III at about 91%.
 - A zone across the line still needs the 1.25x power check (R-127).
+- Sub-zones (Auroradrasil, Monolith Ruins, mini-dungeons) sit inside a parent zone on the map, and the zone check can bounce the bot out of them. Open decision for mae ❓: count sub-zones as part of their parent zone, or walk to the parent zone's own percentage label on the area map.
 *told, observed* · `world/zone_boundary_troll_lair_mae.png`, `world/zone_boundary_zephyr_vale_mae.png`, `minimap/legend_zone_boundary_mae.png` · R-065, R-066, R-127, R-130
 
 ### R-065 · When stuck or between quests, walk the fog edge
