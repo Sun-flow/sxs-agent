@@ -1,6 +1,6 @@
 # Combat rules
 
-Read before any fight, when HP is low, after a loss, or inside a mini-dungeon or Fantasia Ascent.
+Read before any fight, when HP is low, after a loss, or inside a mini-dungeon, team dungeon or Fantasia Ascent.
 
 ## Before a fight: HP and healing
 
@@ -68,6 +68,14 @@ When weighing a fight or challenge, accept monsters with up to 25% more CP (powe
 - Prep HP bar under the character model: x 314-406, y 866-876 (720x1280 px), yellow-green when full. Apply the 70% check; prep can be backed out of.
 - A lost fight inside (then "badly wounded" or forced heal) resets the dungeon: count a loss (R-031), don't continue.
 *told* · `world/dungeon_floor.png` · node `dungeon_floor` · R-061, R-078, R-031
+
+## Team dungeons
+
+### R-133 · Auroradrasil: a free 4-player story dungeon with NPC companions
+- Story dungeon for 4 players. The Team panel fills the party with NPC companions (Akane, Qin, Killian; inviting players is allowed too, R-057). **Enter Dungeon** is free.
+- Inside, cards "1 More Floor(s)", "Dungeon Room Map" and "Highest tier" have no rule yet ❓; dismissing them still cleared the run.
+- Result: rating D to S (rank B on the first clear), drop level 18-30, a chest per player, then **Claim Rewards**. First clear dropped 96 Raw Ore, Beastclaw Boots and Beasthide Armor (swap them in, R-088).
+*observed* · `unlabeled/auroradrasil_entry.png`, `unlabeled/team_panel_companions.png`, `unlabeled/auroradrasil_result.png`, `unlabeled/auroradrasil_claimed.png`, `unlabeled/companions_invite_tutorial.png` · R-057, R-077, R-088, R-091
 
 ## Fantasia Ascent (tower)
 

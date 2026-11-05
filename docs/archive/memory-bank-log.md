@@ -2,6 +2,12 @@
 
 Older entries moved from `memory-bank/log.md`, newest first.
 
+### 2026-11-04 (night) · Guild mapping (Claude Code, maes2024 via Remote Control)
+- Branch `guild-tutorial` from main. Guild tutorial is only dialogue, then Join/Create. mae: join a big, high-power guild; joined karsa_1515 (ID 700460600036) by searching its name.
+- Mapped: island (Lobby, Gate of Expedition, Power Station, Forge, Warehouse, Shop), Lobby tabs, Donation (1 free, then 20, 50 Dawnium; mae: 2 a day max, Dawnium approved for those), gather slots (one slot per character, Forge per mae), Guild Events / Conquest (2 attempts a day, background fights per mae), Conquest goals and rankings. ~30 screens in `docs/screens/guild_*`; states guild, guild_panel, guild_donation, guild_conquest, guild_no_guild, guild_join_list, background_fight; guild nodes run before Interact (Conquest's "Challenge" fooled it).
+- New `sxs/guild.py`, steps guild_donate / guild_afk / guild_conquest and bed (template `resource/image/home/bed_xp_bubble.png`) in `sxs.daily`. Live: donate and afk "nothing" correctly; conquest navigates (0 attempts left). Today's bed, donations and conquest marked done in `logs/daily.json`.
+- Open: may the bot buy in the guild Shop (Guild Tokens)? Pulls and Mall questions still open. Next job: mae's upgrade-systems list (R-104 to R-109).
+
 ### 2026-11-04 (morning, later) · Game docs: guild, upgrades, shops, exploration (Claude Code, cloud)
 - Docs thread folded the builders' batches into rules R-102 to R-126 (guild, upgrades and materials, background fights, pull x10-only, rating popup Later, Vendor Booth and free Vault stamina, Mall gift boxes, shop policy, Bellflowers and Rank II, collector order, home layout, Roam Loop, Gates of Power, orange minimap monsters). PRs #15 to #24 and #27. Full entry: `git show cc7de5a:memory-bank/log.md`.
 
