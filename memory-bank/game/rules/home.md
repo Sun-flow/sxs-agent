@@ -27,7 +27,7 @@ Scene labels (e.g. "Class to Unlock") overlap the quest tracker region; filter t
 *observed* · `home/home_cart.png`, `home/cart.png`, `dialogs/reward_popup.png` · node `home` · R-126
 
 ### R-136 · Upgrade only Stone and Wood on the Cart, keeping their levels even
-- Upgrade the Stone and Wood income rows only. Keep the two rows at the same level: upgrade whichever is lower, Stone first on a tie (the builder's default; mae set no order).
+- Upgrade the Stone and Wood income rows only. Keep the two rows at the same level: upgrade whichever is lower, Stone first on a tie (default until mae picks an order ❓).
 - Never upgrade Rolla, Raw Ore or Battle Essence (or Gear when it unlocks), even when their arrows are lit.
 - The upgrade arrows show only after the Cart has been claimed, so claim first (R-020), then upgrade.
 - Each row's upgrade opens "Furniture Upgrade": one tab per resource and an "Upgrade x1" button.
