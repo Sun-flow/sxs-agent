@@ -34,6 +34,7 @@ import numpy as np
 from ..actions import goto
 from ..actions.common import close_rewards
 from ..core import ui
+from ..core.device import save_unknown
 from ..core.loop import Loop, banner, progress
 from ..core.marks import server_day
 from ..core.nav import Navigator
@@ -202,8 +203,14 @@ class Roamer:
         """Open the area map, read it, close it. Returns areas, statue icons (area-map points) and power."""
         power = read_power(self.det)
         self.power = power or self.power
-        self.dev.tap(*goto.MINIMAP)
-        time.sleep(2.5)
+        for _ in range(2):  # the first tap can land while the map is still settling: check the area map opened
+            self.dev.tap(*goto.MINIMAP)
+            time.sleep(2.5)
+            if self.det.detect().state == "area_map":
+                break
+        else:
+            log.warning("the area map did not open; frame %s", save_unknown(self.dev, "roam_survey"))
+            return [], [], power
         for _ in range(SURVEY_ZOOM_OUT):  # the whole kingdom on one screen: zones off screen were taken as done
             self.dev.tap(*goto.AREA_MAP_ZOOM_OUT)
             time.sleep(0.6)
@@ -320,6 +327,8 @@ class Roamer:
             return "not_on_map"
         while time.monotonic() < deadline and done < max_areas:
             areas, statues, power = self.survey()
+            if not areas:
+                return "no_area_map"  # nothing read: not evidence that anything is finished
             if statues and self.bless_ready(statues):
                 continue  # blessed something: read the map again
             if area:

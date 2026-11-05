@@ -27,7 +27,7 @@ log = logging.getLogger("sxs.actions.goto")
 MINIMAP = ui.MINIMAP  # tapping the minimap opens the area map
 AREA_MAP_ZOOM_OUT = (682, 1113)  # the "-" under the area map's zoom slider
 SCREEN_CENTRE = ui.SCREEN_CENTRE  # where the area-map point lands after the camera re-centres
-COORDS = re.compile(r"\(?(\d+), ?(\d+)\)?")
+COORDS = re.compile(r"\(?(\d+) ?[,.] ?(\d+)\)?")  # OCR reads the comma as "." sometimes
 WALK_TIMEOUT_S = 60
 LABEL_DY = 0  # tap the label itself: area labels sit on the area they name
 
@@ -190,7 +190,11 @@ def go_to(dev, det, target) -> str:
         time.sleep(2)
         c = coords(det)
         if c is None:
-            log.info("left the map while walking (%s)", det.detect().state)
+            st = det.detect().state
+            log.info("left the map while walking (%s)", st)
+            if st == "area_map":  # the map reopened (a tap on the minimap): close it again
+                dev.tap(*ui.BACK_ARROW)
+                time.sleep(1.5)
             return "arrived" if moved else "no_move"
         if c != last:
             moved, still, last = True, 0, c
