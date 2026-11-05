@@ -25,9 +25,6 @@ Walk to each green minimap dot and interact with what it marks, beat roaming mon
 Exploration comes in two kinds (mae), and loops should handle both: **quest-progression** (follow the tracker's Explore and unlock quests, R-044) and **fog-walking** (clear side areas that aren't tied to progression but are within our CP range, e.g. Damp Woods). Side areas have no quest but give resources and levels; walking into the fog edge reveals new areas. **Explore outward from the connected area the character is in; never jump back across the map** (mae). Code: `python -m sxs roam` (`--area`, `--minutes`, `--max-areas`). It picks an unexplored area with recommended power up to 1.25x ours (R-127, R-084), enters from a connected explored neighbour (R-067), explores it with the Fog Walk (`sxs/loops/fogwalk.py`; stays in its current area when that borders the target) and blesses the statue (R-070). **Fog-walk goal** (mae): at all times aim for 100% exploration of the unexplored area: collect every green dot, fight or interact with every orange dot, complete every yellow structure or mini-dungeon (R-071). Only then does the Goddess Statue or Lost Goddess Statue become available to bless the area (R-070). Exploring itself never spends stamina (mae). In unexplored areas, monsters and interactables are free: fight and collect them. In explored, blessed areas, monsters respawn and they and most interactables cost stamina: skip them unless a loop is deliberately farming (battle essence for skills, gathering, R-107).
 *told, observed* · R-044, R-066, R-067, R-070, R-071, R-084, R-127, R-130, R-131
 
-## Walking and the camera
-
-
 ### R-135 · Non-quest exploration order: lowest-CP unblessed zone first
 The non-quest exploration loop (mae; the quest-progression loop is settled):
 1. Pick the lowest-CP zone not yet blessed (within the fight limit, R-127).
@@ -35,6 +32,9 @@ The non-quest exploration loop (mae; the quest-progression loop is settled):
 3. Repeat until no unblessed zone remains.
 4. Then look for any fog-walk ground not yet explored (R-130). Explore it if there is some; otherwise exploration is concluded for now.
 *told* · R-065, R-070, R-076, R-127, R-130, R-132
+
+## Walking and the camera
+
 ### R-025 · Tap to walk, swipe to pan; the camera doesn't follow
 Tap a spot to walk; swipe to pan. A tap inside fog doesn't move the character: tap tiles at its edge. The camera stays put after walking, so re-centre (drag the map or tap an edge pointer, R-074) before the next tap.
 *observed* · `world/world_map.png` · R-067, R-074
