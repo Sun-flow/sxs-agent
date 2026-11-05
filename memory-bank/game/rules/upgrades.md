@@ -50,7 +50,7 @@ A "!" over a gear piece's picture means a better piece is available for that slo
 
 ### R-104 · Level everything at once with Quick Upgrade
 Skill page, Quick Upgrade icon at about (0.73, 0.47), captioned "Upgrade". No selection needed: one tap levels everything Battle Essence can afford, charms included. It disappears when nothing is affordable.
-- Upgradable skill icons show a **blue arrow**, not a red "!" (the "!" means ascend, R-115). Press Quick Upgrade whenever any skill icon carries a blue arrow, even with no "!" anywhere.
+- Upgradable skill icons show a **blue arrow**, not a red "!" (the "!" means ascend, R-115), and the Character screen's Skill button shows no "!" for them. Quick Upgrade appears anyway: always open the Skill page and press it whenever any skill icon carries a blue arrow. The `upgrade` loop now always opens the Skill page.
 - Live 04:37: one press raised every skill 2–4 levels for about 3K Battle Essence; power 22.2K to 22.4K.
 *told, observed* · `character/skill_page.png`, `character/skill_page_after_quick_upgrade.png` · node `skill_loadout` · R-037, R-106
 

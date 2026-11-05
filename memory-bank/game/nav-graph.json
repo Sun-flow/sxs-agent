@@ -464,9 +464,26 @@
     ]
    },
    "images": [
-    "docs/screens/home/cart.png"
+    "docs/screens/home/cart.png",
+    "docs/screens/home/cart_lv3.png"
    ],
-   "notes": "Hourly income per resource, each with a level and an upgrade arrow (R-020)."
+   "notes": "Hourly income per resource, each with a level and an upgrade arrow (R-020). Upgrade only Stone and Wood (R-136)."
+  },
+  {
+   "id": "furniture_upgrade",
+   "name": "Furniture Upgrade",
+   "kind": "popup",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": {
+    "type": "ocr",
+    "text": "Furniture Upgrade",
+    "roi": null
+   },
+   "images": [
+    "docs/screens/home/cart_furniture_upgrade.png"
+   ],
+   "notes": "One Cart row's upgrade: tabs per row at y≈0.12, level line at y≈0.34, costs at y≈0.77–0.80, 'Upgrade ×1' at (0.5, 0.865). Capped by Blessing Level (R-136)."
   },
   {
    "id": "home_house",
@@ -1718,6 +1735,33 @@
    },
    "confidence": "observed",
    "notes": "Popups close on a tap above them, not below (R-060)."
+  },
+  {
+   "from": "cart",
+   "to": "furniture_upgrade",
+   "action": {
+    "type": "tap",
+    "target": "A row's upgrade arrow (only after claiming)",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "R-136"
+  },
+  {
+   "from": "furniture_upgrade",
+   "to": "cart",
+   "action": {
+    "type": "tap",
+    "target": "Above the panel",
+    "template": null,
+    "pos": [
+     0.5,
+     0.05
+    ]
+   },
+   "confidence": "observed",
+   "notes": "Assumed to close like other popups (R-060) ❓"
   },
   {
    "from": "home",

@@ -1,6 +1,6 @@
 # Environments
 
-> **Last updated**: 2026-11-04
+> **Last updated**: 2026-11-05
 > Where sessions run and the gotchas of each. Read before touching the emulator, a PC or the network.
 
 ## rif-love-su (current game PC, from 2026-11-04)
@@ -29,6 +29,7 @@
 - OCR misses or misreads small white labels on dark badges ("+15" gear, "Lv. 10" skills, top-bar amounts) at real size; enlarged 3x onto a black canvas they read cleanly (`vision.ocr.zoomed_lines`, 2026-11-04). Cloud sessions can run the OCR checks: `pip install maafw==5.15.0 opencv-python-headless`, then `python3 scripts/fetch-ocr-models.py`.
 - MaaFramework's MuMu plug-in prints `nemu_connect`/`product:` lines to stdout: take the last line for JSON. Its log is in the gitignored `.maa/debug` folder.
 - After a restart the game resumes on the last screen, so a cold start can land on the world map instead of home.
+- Home scene panning: fast swipes at mid-height often don't register; use slow (1 s) drags over the ground at y≈820 (`HOME_SWIPE_*` in `sxs/loops/strengthen.py`). Restart the game with `Device.stop_game()` / `start_game()` (about 40 s to the title).
 - Typing into a game search field works with `adb shell input text` (MuMu's adb: `C:\Program Files\Netease\MuMuPlayer\nx_device\15.0\shell\adb.exe -s 127.0.0.1:<port>`). Never type in chat.
 - The auto-mode classifier refuses helper scripts run from the session scratchpad; keep them in `scripts/`.
 - mae doesn't want temp files piling up: `python scripts/clean.py` at the end of every session on the game PC (clears the gitignored captures and `.maa/debug`; it leaves the logs folder).

@@ -21,6 +21,7 @@ REGISTRY = {
     "upgrade": "sxs.loops.upgrade",
     "strengthen": "sxs.loops.strengthen",
     "gearswap": "sxs.loops.gearswap",
+    "cart": "sxs.loops.cart",
     "tower": "sxs.loops.tower",
     "guild": "sxs.loops.guild",
     "mall": "sxs.loops.mall",
