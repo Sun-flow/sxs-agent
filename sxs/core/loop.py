@@ -87,6 +87,7 @@ class Loop:
     ok: set[str] = field(default_factory=lambda: {"done", "nothing"})
     needs_detector: bool = True
     budget: float = DEFAULT_BUDGET_S  # seconds; override per run with --budget
+    owns: frozenset = frozenset()  # interrupts this loop handles itself (sxs/actions/interrupts.py), e.g. "tutorial"
 
 
 # --- time budget and progress watchdog -----------------------------------------------------------------------------
@@ -221,13 +222,18 @@ def banner(logger, name: str, goal: str, end: str) -> None:
         logger.info(line)
 
 
-def connect(address: Optional[str] = None, detector: bool = True) -> Ctx:
+def connect(address: Optional[str] = None, detector: bool = True, loop: Optional[Loop] = None) -> Ctx:
+    """Device, detector and navigator for one run. With `loop`, the detector is wrapped with the interrupt table
+    (sxs/core/interrupts.py), so every loop gets tutorials, reward choices and popups handled the same way."""
     from .device import DEFAULT_ADDRESS, Device
     from .nav import Navigator
     from .state import StateDetector
 
     dev = Device(address or DEFAULT_ADDRESS)
     det = StateDetector(dev) if detector else None
+    if det is not None and loop is not None:
+        from .interrupts import wrap
+        det = wrap(det, dev, loop.title, loop.owns)
     return Ctx(dev, det, Navigator(dev, det) if det else None)
 
 
@@ -259,14 +265,27 @@ def run_cli(loop: Loop, argv: Optional[list[str]] = None, address: Optional[str]
     # ceiling and doesn't stretch the interval.
     budget = opts.budget if opts.budget is not None else loop.budget
     t0 = time.monotonic()
-    ctx = connect(address, loop.needs_detector)
+    ctx = connect(address, loop.needs_detector, loop)
+    return finish(loop, ctx, opts, budget, t0)
+
+
+def finish(loop: Loop, ctx: Ctx, opts: argparse.Namespace, budget: float, t0: float) -> int:
+    """Run the loop under its budget, then log, print and record the readout. Returns the exit code."""
+    from .interrupts import LoopStop
     with task(loop.title, budget, opts.stall) as watch:
-        raw = loop.run(ctx, opts)
+        try:
+            raw = loop.run(ctx, opts)
+        except LoopStop as stop:  # an interrupt handler needs mae (sxs/core/interrupts.py)
+            log.warning("[%s] stopped by an interrupt: %s", loop.title, stop.status)
+            raw = Result(stop.status, False, dict(stop.data))
     if watch.status:
         result = Result(watch.status, False, {"budget_s": round(budget), "last_progress": watch.progress_what})
         _go_home(ctx)
     else:
         result = as_result(raw, loop.ok)
+    handled = getattr(ctx.det, "handled", None)
+    if handled:
+        result.data.setdefault("interrupts", handled)
     readout = result.readout(loop.name, time.monotonic() - t0)
     log.info("[Result %s] %s%s", loop.title, result.status, "" if result.ok else " (needs a look)")
     print(json.dumps(readout, default=str), flush=True)

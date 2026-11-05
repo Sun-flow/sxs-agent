@@ -1,6 +1,6 @@
 # Decision Log
 
-> **Last updated**: 2026-11-04
+> **Last updated**: 2026-11-05
 > Decisions with lasting consequences (tech choices, structure, conventions, scope calls) and why they were made, so later sessions don't undo them by accident. One entry per decision, newest first; update `Status` when superseded; never delete an entry. Details and sources for the 2026-11-02 entries are in `docs/step1-emulator-and-game.md`.
 
 Entry format:
@@ -14,6 +14,12 @@ Entry format:
 ```
 
 ---
+
+### [2026-11-05] Interrupts: one table pauses any loop for tutorials, reward choices and popups
+- **Decision**: the runner wraps the state detector (`sxs/core/interrupts.py`); after every screen check one priority table (`sxs/actions/interrupts.py`) can pause the running loop, run a short handler (tutorial highlight on the island map or home, Choose Your Reward, rating popup, chat), and hand the loop the fresh detection. Handlers have their own budget, can mute themselves, and end the run with a named status (`LoopStop`) when mae must decide. Loops opt out per row (`Loop.owns`) and can register a resume step (`resume_with`). Unknown stays explicit.
+- **Rationale**: mae (2026-11-05 01:56): move between tasks such as explore and tutorial when the detector sees the state change. Fog Walk kept tapping under a tutorial highlight and had to be stopped by hand. One place for these screens instead of a branch per loop; pausing inside `detect()` keeps the loop's goal intact without serialising it.
+- **Alternatives considered**: a scheduler that stops a loop and starts another (loses the loop's in-memory goal, needs every loop to be resumable from saved state); per-loop branches (what we had: explore handled the reward choice, Fog Walk didn't); firing the tutorial row on every state (the highlight finder matches 18 ordinary reference screens).
+- **Status**: Accepted (proposed to mae 2026-11-05; live check pending)
 
 ### [2026-11-04] Progress is recorded as per-day snapshots plus a run log, read only
 - **Decision**: `python -m sxs progress` reads stats off a few screens into `logs/progress/<server day>.json` and writes a Markdown report beside it; the loop runner appends every run's readout to `logs/runs.jsonl`; other loops add readings they make anyway with `records.note`. Deltas compare the day's newest reading with the previous day's last; a failed read is "not read", never a change. Skills and gear are reported as 5-level bands, not per-skill levels (mae).

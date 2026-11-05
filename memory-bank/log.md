@@ -1,6 +1,6 @@
 # Session Log
 
-> **Last updated**: 2026-11-04
+> **Last updated**: 2026-11-05
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
 
 ### 2026-11-05 (late night) · Game docs: social features allowed (Claude Code, cloud)
@@ -10,6 +10,11 @@
 - PRs #35, #37, #39 merged from `claude/project-thread-ieaqnz`: budget is a stuck check (extends while progressing), Choose Your Reward (R-129), fog walk per mae's minimap notes (objects first, fog leads, big-map walk to dots, zone edges R-132, free pickups and fights only in unexplored areas R-065, collectibles store R-131, player found by its head), area map state.
 - Live: Verdantglade III explored and its quests claimed; Temple Ruins cleared (Iron Thorn); Verdantglade V 42 to 71%; Drasilgard Chief and Hermes (Kingdom Shop, Abundance Leaves) mapped; Auroradrasil cleared with the NPC companions (B rank); gearswap swapped head, chest and boots (boots 143 to 1860 power).
 - Open: OCR noise in coordinates counts as progress (budget extends while stuck); tutorial glow on the Companions Invite isn't found by the highlight finder; more Drasilgard NPCs unmapped; social cards now accept team-up requests (needs a live check).
+
+### 2026-11-05 (night) · Interrupts: task switching on state change (Claude Code, cloud)
+- mae (01:56) asked for a detector that moves between tasks (explore and tutorial) when the screen changes. New `sxs/core/interrupts.py` (InterruptingDetector, Interrupt, LoopStop, resume_with) and `sxs/actions/interrupts.py` (table: choose_reward, rating_popup, chat, tutorial on world_map/home). The runner wraps every loop's detector; readouts gain `[Interrupt]` / `[Resume X]` lines and an `interrupts` list. Explore's own reward-choice branch removed; the tutorial loop owns its row; Fog Walk walks back to its area after a handler. `StateDetector.last_frame` added. `tests/check_interrupts.py`; design `docs/interrupts.md`.
+- Builder captures (cherry-picked): the Auroradrasil outline (caught) and the Companions "Invite" filled glow. New `companions` state; `find_highlight(glow=True)` for the filled style on that screen only (furniture popups and the main menu look the same); inviting followed (mae 02:23: social features and invites are fine; `INVITE_COMPANIONS = True`).
+- Open: live check; the finder matches 18 ordinary reference screens, so tutorials on unknown overlays still need `python -m sxs tutorial`.
 
 ### 2026-11-05 (night) · Game docs: minimap legend, reward choice on by default (Claude Code, cloud)
 - mae (00:17): minimap stripes mean unexplored; walk where light green meets striped dark green; unlined and very dark striped green are walls; blessed areas brighten; orange dots are monsters or interactables to clear, green dots collectibles (auto once Fantomon unlock), black is fog to follow passable ground into. R-066 extended with her screenshots and colour crops (`docs/screens/minimap/legend_*`), new R-130. mae (00:18): the class-mismatch pick is on by default (R-129). mae (00:24): save a reference crop of each collectible and monster met while exploring (R-131, `resource/image/explore/collectibles/` + manifest); exploring never spends stamina: free fights and pickups in unexplored areas, while blessed areas' respawned monsters cost stamina and are only for deliberate farming (R-065, policy). mae (00:29): the fog-walk goal is 100% exploration: every green dot, orange dot and yellow structure or mini-dungeon, then the statue (R-065). Notes: loops print live readouts while they run (mae, 00:40). mae (00:47): dotted lines are zone borders; finish the current zone first (R-132). mae (00:50): reach any target by centring the camera on it from the area map, then tapping it on screen; no player-relative pathfinding (R-068).
@@ -56,9 +61,3 @@
 ### 2026-11-04 (morning) · Pulls, Mall gifts, Bellflower hunt start (Claude Code, maes2024 via Remote Control)
 - Same branch `upgrade-systems`, main merged in. 20 handler-approved pulls (10 singles by mistake; `sxs.pray` now x10 only). Rating popup: Later. `sxs/mall.py` + daily step `mall_gifts` (4 free gift boxes). Vendor Booth unlocked by tutorial.
 - Bellflower Flower Harvest found (free picks in Moonveil Woods, 2/20); `gather --harvest` needs a better plant detector. Paused by mae to swap computers. Details in handoff.md.
-
-### 2026-11-04 (late night) · Upgrade systems and gathering (Claude Code, maes2024 via Remote Control)
-- Branch `upgrade-systems` from `guild-tutorial`. New `sxs/badges.py` (red "!" finder), `sxs/upgrade.py` (Upgrade Loop: gear, skills, class_levels, rank, relics), `sxs/gather.py` (Gather Loop, policy `resource/policy/gather.json`), 7 new states, `docs/step5-upgrades.md`, `tests/check_upgrade_logic.py`; `gather` step and the Upgrade Loop inside `strengthen` in `sxs.daily`.
-- Live: Quick Upgrade (1.6K essence, charms Lv 1 to 8/9), Ice Spike ascended, a charm equipped, class Mage 1 to 3 and Warrior 1 to 2 (Total 5), many unclaimed Goals tabs claimed; gather 20 ore pickups (stamina 171 to 71, ~+178 ore each); upgrade loop took gear to staff +21, hat +15, chest +15, boots +14, two Resonance tiers. Power 13.1K to ~13.6K+.
-- Fixed: the Enhance Gear level reader took "+10" from "+9 -> +10" (OCR order); chest was stuck at +9.
-- Rules batch sent (docs PR #18: R-080, R-104, R-108 updated, R-115 to R-119 new). Open: Bellflowers for Rank Advancement (Lv cap 20); special nodes not seen yet.

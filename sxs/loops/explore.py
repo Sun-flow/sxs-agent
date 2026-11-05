@@ -20,7 +20,7 @@ import re
 import time
 from typing import Optional
 
-from ..actions import choose_reward, goto, heal
+from ..actions import goto, heal
 from ..actions.common import FIGHT_STATES, TOWER_STATES, pass_through
 from ..actions.unstick import MARKER_TARGET_DYS, PAN_STEPS, npc_to_talk_to, unstick
 from ..actions.watchdog import Heartbeat
@@ -120,8 +120,6 @@ class Explorer:
             return self._on_profile(d)
         if d.state == "dialogue_choice":
             return self._on_dialogue_choice(d)
-        if d.state == "choose_reward":
-            return None if choose_reward.choose(self.dev, self.det) == "chosen" else "needs_decision"
         if d.state == "home":
             return self._on_home()
         return self._on_unfamiliar()
