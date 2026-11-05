@@ -93,8 +93,12 @@ def area_blessed(dev, det, area: Optional[str]) -> bool:
     areas = read_areas(det, dev.screenshot())
     dev.tap(*ui.BACK_ARROW)
     time.sleep(2)
-    hit = next((a for a in areas if goto.same_area(a.name, here)), None)
-    return bool(hit and hit.pct is None)
+    # Exact name first: the loose match also takes the kingdom's title "Verdantglade" for "Verdantglade V" (seen
+    # 2026-11-05: Verdantglade V at 71% was called explored and the walk took no pickups or fights).
+    hits = [a for a in areas if goto.squeeze(a.name) == goto.squeeze(here)] or            [a for a in areas if goto.same_area(a.name, here)]
+    if any(a.pct is not None for a in hits):
+        return False
+    return bool(hits) and any(goto.squeeze(a.name) == goto.squeeze(here) for a in hits)
 
 
 def minimap_target(det, frame: np.ndarray, lookahead: int = 4, player_xy=None,
@@ -175,6 +179,10 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
     heal_tries = 0
     last_tap = None  # map coordinates of the last walk tap (None when the player wasn't found on screen)
     reward_taps = 0
+    if det.detect().state != "world_map":
+        from .roam import Roamer  # roam imports this module
+        if not Roamer(dev, det)._to_world():  # started from home or a menu: open the island map first
+            return "not_on_map"
     if area and walk_there:
         goto.go_to(dev, det, area)
     stood_on: set = set()  # map coordinates the character has stood on this run
