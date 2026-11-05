@@ -37,13 +37,19 @@ The minimap shows items, interactables and enemies around the character; use it 
 Code: `sxs/vision/minimap.py`. About 8 px per tile; player at the centre (0.856, 0.138); usable radius about 86 px. Tiles (OpenCV HSV):
 - **green dots**: pickups/POIs. Under shadow they look pale (about 39/81/213). Highland Woods dots are paler (S about 128 vs 150+).
 - **light green**: explored walkable, S<95, V>=115.
-- **light green, shaded about 0.55x**: unexplored walkable. If connected to explored ground, it's an exploration target (R-065).
-- **dark green**: wall; explored S>=95, V>=85; unexplored V<85.
+- **Stripes mean unexplored** (mae); the colour under them still shows the terrain as fog clears.
+- **light green, shaded about 0.55x, striped** (about 42/79/81): unexplored walkable. If connected to explored ground, it's an exploration target (R-065).
+- **dark green**: wall. Explored: unlined (about 54/117/109, S>=95, V>=85). Unexplored: very dark, striped (about 54/130/58, V<85).
+- Explored walkable light green is about 41/72/148. Once an area is blessed (100% plus statue, R-070) its colours brighten.
 - **cross-hatch, no colour**: unspotted (grey, S<35, V about 35); resolves when the player gets close.
 - **gold buildings**: interactables; the biggest are dungeons (daily challenges after the first clear), smaller ones mini-dungeons such as mines (R-071).
 - **orange** (about 18/116/187): monsters, and gold buildings under shadow. Fight monsters (mae), within the HP rules (R-061, R-078).
 Other types aren't catalogued ❓. Highland Woods (9.6K): entered past a bracketed wolf-boss pack (R-041, beaten at 10K); its ground pickups by a cooking pot alone finish it.
-*told, observed* · `minimap/minimap_verdantglade2.png`, `minimap/minimap_classified.png`, `minimap/tile_walk_explored.png`, `minimap/tile_walk_unexplored.png`, `minimap/tile_wall_explored.png`, `minimap/tile_wall_unexplored.png`, `minimap/tile_unspotted.png`, `minimap/minimap_highland_items.png` · R-004, R-065, R-071
+*told, observed* · `minimap/minimap_verdantglade2.png`, `minimap/minimap_classified.png`, `minimap/tile_walk_explored.png`, `minimap/tile_walk_unexplored.png`, `minimap/tile_wall_explored.png`, `minimap/tile_wall_unexplored.png`, `minimap/tile_unspotted.png`, `minimap/minimap_highland_items.png`, `minimap/legend_boundary_mae.png`, `minimap/legend_fog_edge_mae.png`, `minimap/legend_walk_explored.png`, `minimap/legend_walk_unexplored_striped.png`, `minimap/legend_wall_explored.png`, `minimap/legend_wall_unexplored_striped.png` · R-004, R-065, R-070, R-071, R-130
+
+### R-130 · Fog-walk and pathfind toward the light-green to striped-green edge
+When fog-walking (R-065) or finding a way to an out-of-the-way spot, look on the minimap for where explored light green meets striped dark green (unexplored walkable). That edge is where to walk: it is open ground into the fog. Unlined darker green and very dark striped green are walls or impassable terrain; don't path into them (mae). Colours and crops: R-066.
+*told* · `minimap/legend_boundary_mae.png`, `minimap/legend_fog_edge_mae.png` · R-065, R-066, R-067
 
 ## Getting somewhere
 

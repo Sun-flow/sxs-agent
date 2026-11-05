@@ -54,11 +54,11 @@ Menus unlock with tutorial progress and the game announces it. Each node's `unlo
 - Known tabs (free, shown with "!"): Skill, Enhance Gear, Rank, Class, Prayer (R-093), Vendor Booth Pts (R-120). Quest-like goals (tasks, not milestone rewards) follow their own rules.
 *observed, told* · `character/skill_goals_quality.png`, `character/gear_goals.png`, `character/rank_level_goals.png`, `character/rank_power_goals.png`, `character/class_goals.png` · R-063
 
-### R-129 · "Choose Your Reward": ask mae, or take the class match
+### R-129 · "Choose Your Reward": take the class match, else ask mae
 - Some clears offer a choice of rewards ("Choose Your Reward", seen after clearing the Temple Ruins mini-dungeon, R-040). The detector can misread it as the Class page.
-- For now, always stop and ask mae which to take (mae).
-- Later: if exactly one choice is marked "Class Mismatch", take the other, class-matched one. If both are valid, ask mae.
-- Code: detector state `choose_reward`, `sxs/actions/choose_reward.py` (class-match pick behind `AUTO_PICK`, off for now), called from explore.
+- If exactly one choice is marked "Class Mismatch", take the other, class-matched one (on by default, mae).
+- If both choices are valid (or both mismatch), stop and ask mae.
+- Code: detector state `choose_reward`, `sxs/actions/choose_reward.py` (class-match pick, `AUTO_PICK` on), called from explore.
 *told, observed* · `dialogs/choose_reward_skill.png` · R-040, R-054
 
 ## Reading shops and items
