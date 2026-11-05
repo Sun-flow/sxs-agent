@@ -3,6 +3,11 @@
 > **Last updated**: 2026-11-04
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
 
+### 2026-11-04 (night) · Progress tracker (Claude Code, cloud)
+- mae asked for a daily progress record (CP, gear, relics, resource pools with deltas, zones cleared, tower, Cart, skill bands, other stats). Branch `claude/project-thread-8prvsn`: new `sxs/loops/progress.py` (`python -m sxs progress`: home HUD/top bar, player profile, Journal, guild lobby, area map, read only; `python -m sxs report` rebuilds the report with no emulator), `sxs/vision/stats.py` (readers; small badge labels read enlarged with `ocr.zoomed_lines`), `sxs/core/records.py` (`logs/progress/<day>.json`, `.md`, `logs/runs.jsonl`). The loop runner logs every run; daily notes Cart levels and hammers, the tower notes floors, daily ends with a `progress` step. `docs/progress-tracker.md` maps each stat to its screen and lists recommended extra stats. `tests/check_progress.py`: 15 reference-screen reads, report, replayed route.
+- Fixed: `vision.ocr.read_line` called itself since #30 (RecursionError in power, goto area names, guild, tower, upgrade, vendor, gather); builder told via the coordinator.
+- Open: live check; bag and relic routes.
+
 ### 2026-11-04 (evening) · Game docs: fight odds, exploration kinds, gear replace, short loops (Claude Code, cloud)
 - mae: take fights against up to 25% more CP (new R-127); two exploration kinds, quest-progression and fog-walking (R-065); a gear "!" means replace, as its own task (R-088); loops run 1-2 min with progress-based exits (`memory-bank/notes.md`). Merged main after the restructure (#30).
 

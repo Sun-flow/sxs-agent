@@ -9,6 +9,7 @@ Design notes, one per plan step. The code is the source of truth; these explain 
 | `step3-explore.md` | Explore loop, card decisions, tutorial follower, minimap, fog walk |
 | `step4-dailies.md` | `sxs.loops.daily` steps and routes |
 | `step5-upgrades.md` | Upgrade Loop and Gather Loop |
+| `progress-tracker.md` | `python -m sxs progress` / `report`: what each stat is read from, what still needs a route, stats worth adding |
 | `shop-tables.md` | Shop stock and mae's Buy? marks |
 | `screens/` | Reference screenshots in folders by situation, `expected.json`, the `unlabeled/` bank; index in `screens/README.md` |
 | `archive/` | History only (old log entries), never instructions |

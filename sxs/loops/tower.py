@@ -22,7 +22,7 @@ import cv2
 
 from ..actions import heal
 from ..actions.common import pass_through
-from ..core import marks, ui
+from ..core import marks, records, ui
 from ..core.device import save_unknown
 from ..core.loop import Loop, banner
 from ..core.nav import Navigator
@@ -132,6 +132,9 @@ def climb(dev, det, tower: Optional[str] = None, to_floor: Optional[int] = None,
                 cleared += 1
                 ensure_auto_challenge(dev)  # not after a loss: ticking it there would start a retry
                 log.info("cleared %s (%d this run)", line or "a floor", cleared)
+                if floor:
+                    records.note("tower", {"tower": tower or line.rsplit(" F", 1)[0].strip() or None,
+                                           "floor_cleared": floor})  # progress tracker
                 if to_floor and floor and floor >= to_floor:
                     dev.tap(*ui.BACK_ARROW)  # back to the floors, not on to the next fight
                     time.sleep(2.5)

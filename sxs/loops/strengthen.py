@@ -15,11 +15,12 @@ import cv2
 import time
 from typing import Optional
 
-from ..core import ui
+from ..core import records, ui
 from ..core.device import Device
 from ..core.state import StateDetector
 from ..core.loop import Loop
 from ..core.nav import Navigator
+from ..vision.stats import read_cart
 
 log = logging.getLogger("sxs.loops.strengthen")
 
@@ -80,6 +81,10 @@ class Strengthener:
                 if state in ("cart", "reward_popup"):
                     # The bubble claims straight away (reward popup); the cart itself opens the panel.
                     if state == "cart":
+                        try:  # progress tracker: Cart row levels, read while the panel is open anyway
+                            records.note("cart", read_cart(self.det, self.dev.screenshot()))
+                        except Exception as e:  # noqa: BLE001 - never let a reading stop the claim
+                            log.warning("could not read the Cart levels: %s", e)
                         self._tap(CLAIM_ALL, 2)
                     self.nav.go_home()
                     log.info("cart claimed")
