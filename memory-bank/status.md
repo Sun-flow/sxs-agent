@@ -3,9 +3,9 @@
 > **Last updated**: 2026-11-04
 > Where the work stands now. Past sessions: `log.md`. How a builder works: `playbook.md`.
 
-## Game state (2026-11-04 11:40, rif-love-su)
+## Game state (2026-11-04 15:25 server time, rif-love-su)
 
-- gromb2 on server Forgehall: Mage, Apprentice II, Lv 23/30, power 17.4K. Dawnium ~1.17K (never spent by the bot), Rolla ~33.6K, stamina ~122, Stellatie 0, Guild Tokens 760. Guild karsa_1515, gathering at the Forge.
+- Live shakedown 2026-11-04 evening: power 18.8K, Lv 23, Ice Spike and Elemental Mystery ascended, Fantasia Ascent auto-climbed F6 to F24+ in the background, Verdantglade III 73/100 through the quest's Go travel (roam on foot still finds no way in). Earlier: Mage, Apprentice II, Lv 23/30, power 17.4K. Dawnium ~1.17K (never spent by the bot), Rolla ~33.6K, stamina ~122, Stellatie 0, Guild Tokens 760. Guild karsa_1515, gathering at the Forge.
 - Explored and blessed: Originisle I–V; Verdantglade I, II; Moonveil Woods; Stone Ruins I; Highland Woods; Damp Woods. Verdantglade III (12K, 0%) has no entrance on foot from Moonveil Woods (R-084). Fantasia Ascent Moonveil Woods F1–5.
 - Next rank (Apprentice III) needs Lv 30, 5 green leaf (have 9), 30 of an unnamed flower item, 10.5K Rolla (R-118).
 
@@ -22,10 +22,7 @@
 
 Format: `- what — branch, PR, environment (started)`. Remove the line when it merges or is dropped.
 
-- Progress tracker (mae 22:07): `python -m sxs progress` / `python -m sxs report`, daily `progress` step, `logs/runs.jsonl` for every run, `docs/progress-tracker.md`; also fixes `vision.ocr.read_line` calling itself (broke every caller on main after #30) — `claude/project-thread-8prvsn`, cloud (2026-11-04). Offline checks pass; untested live.
-
-- Package restructure (mae's proposals 1–5): `sxs/` split into `core/ vision/ policy/ actions/ loops/`, shared helpers (screen coordinates, OCR, heal, reward/dialogue pass-through, watchdog, unstick), explore split, one loop contract and `python -m sxs <loop>` — `claude/project-thread-kb6hi9`, cloud (2026-11-04). Offline checks pass; untested live.
-- Screenshot folders (folders under `docs/screens/`, `docs/screens/expected.json`) and the unlabelled-screens bank (`python -m sxs bank` / `label`) — same branch and PR (2026-11-04).
+- Live shakedown of the restructure (merged in PR #30): fixes from live runs, `gearswap` loop, 25% CP rule (`sxs/policy/fights.py`), Upgrade goals pass and bag ascensions, dailies fixes (Featured by title, sign-in, quests, Conquest, tower, Mall halves), `docs/function-check.md` — `claude/project-thread-ieaqnz`, needs a PR, rif-love-su (2026-11-04). Open: roam can't enter Verdantglade III on foot (OCR confuses II/III; goto zooms out but the (via, target) walk still misses); gather stops "stuck" after 2 ore pickups when panning finds nothing; state detection takes 2-5 s a frame, which is most of every loop's time.
 
 ## Next (in order)
 

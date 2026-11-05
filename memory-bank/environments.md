@@ -6,7 +6,7 @@
 ## rif-love-su (current game PC, from 2026-11-04)
 
 - mae's Windows PC. Repo at `C:\Users\jcmon\Github\sxs-agent`; venv `.venv\Scripts\python`.
-- MuMu Player 12, instance 1, adb at **127.0.0.1:16416**. `sxs.core.device` falls back to the only adb device when the default is missing and `SXS_ADB_ADDRESS` is unset.
+- MuMu Player 12, instance 1, adb at **127.0.0.1:16416**. `sxs.core.device` falls back to the only adb device when the default is missing and `SXS_ADB_ADDRESS` is unset. On 2026-11-04 evening the fallback hung for over 2 minutes (more than one adb device listed?); `export SXS_ADB_ADDRESS=127.0.0.1:16416` before running fixed it. State detection takes 2-5 s per frame here.
 - Display 1080×1920 @ 480 DPI: same 9:16 portrait, so the 720×1280 coordinates and templates still work. A state check takes ~4-7 s. If image matching misbehaves, switch MuMu to 720×1280 @ 240 first.
 - No `gh` CLI: PRs are opened from the cloud. Git push works.
 - Offline detector check (`tests/check_states_offline.py`, ~186 screens) takes ~10 min.

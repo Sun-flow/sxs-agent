@@ -11,7 +11,9 @@ Readouts  when it starts, the loop prints mae's banner ([Running X Loop] / [Goal
           Exit code: 0 ok, 1 stopped for a reason that needs a look, 2 refused (bad or unauthorised input).
           The readout and exit code are also appended to logs/runs.jsonl (`core/records.py`).
 Time      loops run briefly (mae, 2026-11-04: 1-2 minutes, never 10+). Every run has a budget (`Loop.budget`,
-          `--budget SECONDS`) and ends "over_budget" when it passes it. A loop that reports progress with
+          `--budget SECONDS`). The budget is a stuck check, not a hard stop (mae): when it runs out, a loop that
+          reported progress in the last --stall seconds gets another budget (up to MAX_EXTENSIONS times); one
+          that didn't, or never reports progress, ends "over_budget". A loop that reports progress with
           `progress(what)` also ends "stalled" when nothing has moved for `--stall` seconds, instead of bashing
           into the same obstacle. Inside a loop, `with task(name, seconds) as t:` gives one step its own budget
           and stall limit: the step stops, `t.status` says why, and the loop carries on with the next step.
@@ -38,7 +40,7 @@ REFUSED = "refused"
 OVER_BUDGET, STALLED, INTERRUPTED = "over_budget", "stalled", "interrupted"
 DEFAULT_BUDGET_S = 120  # mae, 2026-11-04: 1-2 minutes per loop
 DEFAULT_STALL_S = 60  # no progress for this long = stuck: stop and report instead of retrying
-GRACE_S = 15  # a loop with its own timer gets this long to stop cleanly before the runner stops it
+MAX_EXTENSIONS = 10  # safety ceiling: a loop that keeps reporting progress gets at most 11 budgets in all
 
 
 @dataclass
@@ -94,13 +96,25 @@ class _Watch:
 
     def __init__(self, name: str, budget: float, stall: float):
         now = time.monotonic()
-        self.name, self.deadline, self.stall = name, now + budget, stall
+        self.name, self.budget, self.deadline, self.stall = name, budget, now + budget, stall
         self.progress_at: Optional[float] = None  # None until the code reports progress at least once
         self.progress_what: Optional[str] = None
+        self.moved_at: Optional[float] = None  # last progress anywhere inside this budget (inner tasks included)
+        self.extensions = 0
         self.status: Optional[str] = None  # OVER_BUDGET / STALLED once fired
 
     def due(self, now: float) -> Optional[str]:
         if now >= self.deadline:
+            # mae, 2026-11-04: the budget is a stuck check, not a hard stop. When it runs out, look at whether the
+            # loop is still getting somewhere: progress within the last --stall seconds earns another budget's
+            # worth of time; none (or a loop that never reports progress) means it hit a wall, so stop it.
+            moving = self.moved_at is not None and now - self.moved_at < self.stall
+            if moving and self.extensions < MAX_EXTENSIONS:
+                self.extensions += 1
+                self.deadline = now + self.budget
+                log.info("[%s] budget reached, still making progress (last: %s): carrying on for %g s more (%d/%d)",
+                         self.name, self.progress_what, self.budget, self.extensions, MAX_EXTENSIONS)
+                return None
             return OVER_BUDGET
         if self.progress_at is not None and now - self.progress_at >= self.stall:
             return STALLED
@@ -181,9 +195,15 @@ def progress(what: Any = None) -> None:
     the task) as "stalled". Loops that never call it are only bound by their time budget."""
     now = time.monotonic()
     with _lock:
-        for w in _watches:
+        # Only the innermost budget: a step's progress must not arm the stall check of the run around it (seen
+        # 2026-11-04: gather's pickups armed the daily run's check, which then cut the next step, strengthen).
+        for w in _watches[-1:]:
             if w.progress_what != what or w.progress_at is None:
                 w.progress_at, w.progress_what = now, what
+                for outer in _watches:  # every budget around it may extend on this, and an armed outer stall
+                    outer.moved_at = now   # check counts it as movement too
+                    if outer.progress_at is not None:
+                        outer.progress_at = now
 
 
 def seconds_left() -> Optional[float]:
@@ -230,15 +250,14 @@ def run_cli(loop: Loop, argv: Optional[list[str]] = None, address: Optional[str]
     if loop.args:
         loop.args(p)
     p.add_argument("--budget", type=float, default=None,
-                   help=f"stop after this many seconds (default {loop.budget:g}; a --minutes option adds to it)")
+                   help=f"check progress every this many seconds; stop when there was none (default {loop.budget:g})")
     p.add_argument("--stall", type=float, default=DEFAULT_STALL_S,
                    help="stop when the loop reports no progress for this many seconds")
     opts = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format=LOG_FORMAT, datefmt="%H:%M:%S")
-    budget = opts.budget
-    if budget is None:
-        own = getattr(opts, "minutes", None)  # a loop with its own timer stops itself; the runner is the backstop
-        budget = max(loop.budget, own * 60 + GRACE_S) if own else loop.budget
+    # The budget is the progress-check interval (mae, 2026-11-04), not a cap: a loop's own --minutes is its outer
+    # ceiling and doesn't stretch the interval.
+    budget = opts.budget if opts.budget is not None else loop.budget
     t0 = time.monotonic()
     ctx = connect(address, loop.needs_detector)
     with task(loop.title, budget, opts.stall) as watch:

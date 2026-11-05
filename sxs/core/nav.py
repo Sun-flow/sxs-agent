@@ -27,6 +27,7 @@ TOWARD_HOME = {
     "confirm_dialog": CONFIRM_CANCEL,
     "defeated": DEFEATED_OK,
     "battle": None,  # auto battle, ends by itself
+    "chat": (42, 1226),  # chat panel: the down chevron closes it
     "battle_prep": BACK_ARROW,
     "world_map": BACK_ARROW,
     "world_overview": NAV_HOME,

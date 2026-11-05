@@ -176,8 +176,10 @@ class Guild:
 
     def conquest(self) -> str:
         if not self.open_island() or not self.open_building("Gate of Expedition"):
+            log.warning("Gate of Expedition not reached; frame %s", save_unknown(self.dev, "guild_gate"))
             return "unknown_screen"
         if not self._expect(EVENTS_CONQUEST, "guild_conquest", 10):
+            log.warning("Conquest did not open; frame %s", save_unknown(self.dev, "guild_conquest"))
             return "unknown_screen"
         for _ in range(6):  # beaten floors: claim the chest, then step right to the live floor
             status = read_line(self.det, CONQUEST_STATUS_ROI)
@@ -192,15 +194,24 @@ class Guild:
             left = read_int(self.det, CONQUEST_ATTEMPTS_ROI, r"Attempts:(\d+)/", ocr_fixes=True)
             if not left:
                 break
-            if not self._expect(CONQUEST_CHALLENGE, "battle_prep", 10):
-                log.warning("Challenge did not open battle prep; frame %s", save_unknown(self.dev, "guild_conquest"))
+            self._tap(CONQUEST_CHALLENGE, 1)
+            # Challenge opens battle prep, or (seen 2026-11-04, second attempt) goes straight into the fight.
+            d = self.det.wait_for({"battle_prep", "background_fight"}, 10, interval=0.5)
+            if d.state == "battle_prep":
+                self._tap(ui.START_BATTLE, 3)
+            elif d.state != "background_fight":
+                log.warning("Challenge opened neither battle prep nor the fight; frame %s",
+                            save_unknown(self.dev, "guild_conquest"))
                 break
-            self._tap(ui.START_BATTLE, 3)
             if self.det.wait_for({"background_fight"}, 15, interval=1).state == "background_fight":
                 self._tap(ui.BACKGROUND_FIGHT, 3)
             fights += 1
             self.det.wait_for({"guild_conquest"}, 15, interval=1)
         n = 0
+        if self.det.detect().state != "guild_conquest":
+            log.warning("not back on Conquest after the fights; skipping its goals (frame %s)",
+                        save_unknown(self.dev, "guild_conquest_after"))
+            return "done" if fights else "unknown_screen"
         self._tap(TAB_GOALS, 2.5)
         for tab in (GOALS_SERVER, GOALS_PERSONAL):
             self._tap(tab, 2)

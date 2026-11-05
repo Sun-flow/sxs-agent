@@ -35,12 +35,14 @@ Every loop has the same inputs, outputs and readouts:
   `{"loop": "explore", "status": "complete", "ok": true, "seconds": 812, ...}`.
   Exit code 0 ok, 1 needs a look, 2 refused (a `refused: ...` status, e.g. pray without approval).
 
-- **Time.** Runs are short (mae, 2026-11-04: 1-2 minutes, never 10+). Every run has a budget (`Loop.budget`,
-  default 120 s; `--budget SECONDS`; a loop's own `--minutes` plus 15 s grace) and ends `over_budget` when it
-  passes it, then goes home. Code that calls `progress(reading)` (the Heartbeat in explore and fogwalk, the
-  collector in gather) also ends `stalled` when the reading hasn't changed for `--stall` seconds (default 60;
-  fights and loading screens count as moving). `with task(name, seconds) as t:` gives one step its own budget:
-  daily runs each step that way (120 s each, 20 min in all), so a stuck step is cut and the next one starts.
+- **Time.** Runs are short (mae, 2026-11-04: 1-2 minutes), but the budget is a stuck check, not a hard stop
+  (mae, 2026-11-05). Every `--budget` seconds (default 120) the runner asks whether the loop reported progress in
+  the last `--stall` seconds (default 60): if yes it carries on for another budget (up to 10 times), if not it ends
+  `over_budget` and goes home. Code that calls `progress(reading)` (Heartbeat in explore and fogwalk, the collector
+  in gather, claims, upgrade presses, tower floors, mall pages, gear swaps) also ends `stalled` when the reading
+  hasn't changed for `--stall` seconds; a loop that never reports progress stops at its first budget. A loop's own
+  `--minutes` is only its outer ceiling. `with task(name, seconds) as t:` gives one step its own check: daily runs
+  each step that way (120 s each), so a stuck step is cut and the next one starts.
 
 `tests/check_loops.py` checks every registered loop against this offline, including the budget and stall stops.
 
@@ -55,6 +57,7 @@ Every loop has the same inputs, outputs and readouts:
 | `goto` | `actions/goto.py` | Walk somewhere via the area map | `"Highland Woods"` or `X Y` |
 | `gather` | `loops/gather.py` | Generic `collect(Target)` for ore, sand, essence, rolla, bellflower | `--material sand`, `--check`, `--harvest` |
 | `upgrade` | `loops/upgrade.py` | Every "!" on the Character screen | `--only skills` |
+| `gearswap` | `loops/gearswap.py` | Equip the better piece wherever a gear slot shows "!" (separate from enhancing) | `--check`, `--all` |
 | `strengthen` | `loops/strengthen.py` | Cart, gear/charm equip, enhance, techniques | |
 | `tower` | `loops/tower.py` | Fantasia Ascent, one run a day | `--tower "Moonveil Woods"` |
 | `guild` | `loops/guild.py` | Donate x2, Forge AFK, Conquest | `--only donate,afk` |
@@ -64,7 +67,7 @@ Every loop has the same inputs, outputs and readouts:
 | `progress` | `loops/progress.py` | Read the account's numbers (read only), keep them per day, report the changes | `--only hud,profile`, `--guild-shop` |
 | `pray` | `loops/pray.py` | Skill pulls. **Only when mae authorises a run**; no loop imports it | `--check` / `--pulls N --handler-approved` (x10 only) |
 
-Who calls whom: `daily` → `mall`, `vendor`, `tower`, `guild`, `gather`, `strengthen`, `upgrade`, `policy.claims`, `progress`.
+Who calls whom: `daily` → `mall`, `vendor`, `gearswap`, `tower`, `guild`, `gather`, `strengthen`, `upgrade`, `policy.claims`, `progress`.
 `progress` → `guild` (island and building taps), `roam` (area map reader).
 `roam` → `actions.goto`, `fogwalk`; `fogwalk` → `explore` (HP reader), `gather` (stamina cost), `actions.rewards`;
 `explore` → `tower`, `strengthen`. Everything → `core`.

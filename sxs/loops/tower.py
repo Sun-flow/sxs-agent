@@ -24,14 +24,18 @@ from ..actions import heal
 from ..actions.common import pass_through
 from ..core import marks, records, ui
 from ..core.device import save_unknown
-from ..core.loop import Loop, banner
+from ..core.loop import Loop, banner, progress
 from ..core.nav import Navigator
+from ..policy import fights
+from ..vision.hud import read_power
+from ..vision.ocr import power_k
 from ..vision.ocr import read_line
 
 log = logging.getLogger("sxs.loops.tower")
 
 CONTINUE = (552, 1212)  # Continue (next floor) after a win, Retry after a loss
-FLOORS_CHALLENGE_ROI = [380, 1040, 320, 120]  # the current floor's Challenge button on the floors screen
+FLOORS_CHALLENGE_ROI = [300, 660, 420, 500]  # the current floor's card: recommended power and Challenge (its height
+# on screen depends on how far up the tower we are: F6 put it at y 913, 2026-11-04)
 RESULT_FLOOR_ROI = [100, 280, 520, 50]  # "<Tower> Fn" under VICTORY
 AUTO_TOGGLE = (476, 1158)  # Auto Challenge checkbox on the result screen (unlocked after F3)
 AUTO_INNER = (469, 1151, 14, 14)  # inside the checkbox: flat when off, a check mark (or lock icon) otherwise
@@ -107,10 +111,22 @@ def climb(dev, det, tower: Optional[str] = None, to_floor: Optional[int] = None,
                 return "unknown_screen"
             ui.tap_box(dev, pick[0], 2.5)  # the name and the "Current" line are both on the card
         elif d.state == "tower_floors":
-            button = [b for t, b in det.read_text(FLOORS_CHALLENGE_ROI) if re.fullmatch(r"Challenge", t)]
+            texts = det.read_text(FLOORS_CHALLENGE_ROI)
+            button = [b for t, b in texts if re.fullmatch(r"Challenge", t)]
+            if any(re.search(r"Auto-?Challenging", t) for t, _ in texts):
+                # Seen 2026-11-04: with Auto Challenge on, the climb carries on in the background (F6 to F12 while
+                # the bot was elsewhere) and the floor shows "Auto-Challenging" with Resume. Leave it running.
+                log.info("Auto Challenge is climbing in the background; leaving it")
+                return "auto_running"
             if not button:
                 log.info("no Challenge button on the floors screen: tower finished or locked")
                 return "floors_done"
+            need = next((power_k(t) for t, _ in texts if power_k(t)), None)
+            power = read_power(det)
+            if power and not fights.within_reach(need, power):  # mae: up to 25% more power than ours
+                log.info("floor needs %sK, power %sK: more than 25%% above us; stopping", need, power)
+                return "too_strong"
+            log.info("floor needs %sK, power %sK: within reach", need, power)
             ui.tap_box(dev, button[0], 3)
         elif d.state == "battle_prep":
             # mae: at least 70% HP before any fight. Heal from the portrait; never start a floor hurt.
@@ -132,6 +148,7 @@ def climb(dev, det, tower: Optional[str] = None, to_floor: Optional[int] = None,
                 cleared += 1
                 ensure_auto_challenge(dev)  # not after a loss: ticking it there would start a retry
                 log.info("cleared %s (%d this run)", line or "a floor", cleared)
+                progress(("floor", floor))
                 if floor:
                     records.note("tower", {"tower": tower or line.rsplit(" F", 1)[0].strip() or None,
                                            "floor_cleared": floor})  # progress tracker
@@ -152,6 +169,8 @@ def climb(dev, det, tower: Optional[str] = None, to_floor: Optional[int] = None,
                 return "lost"
             dev.tap(*CONTINUE)  # Continue to the next floor (Auto Challenge also moves on by itself)
             time.sleep(3)
+        elif d.state == "background_fight":
+            time.sleep(2)  # Auto Challenge's next floor shows the minimise icon; it is still our fight, so watch it
         elif pass_through(dev, d):
             pass  # fights, loading, dialogue, reward popups
         elif d.state == "unknown":
@@ -168,12 +187,15 @@ def _args(p) -> None:
     p.add_argument("--tower", help="tower name on the Fantasia Ascent list, e.g. 'Moonveil Woods'")
     p.add_argument("--to", type=int, help="stop after clearing this floor (a quest's 'Reach <Tower> Fn')")
     p.add_argument("--floors", type=int, default=110, help="most floors to clear in one run")
-    p.add_argument("--minutes", type=float, default=2)  # mae, 2026-11-04: runs of 1-2 minutes
+    p.add_argument("--minutes", type=float, default=20,  # an outer ceiling only: the runner's progress check ends
+                   help="upper limit; normally the 2-minute progress check ends the run")  # a stuck run (mae)
 
 
 def _run(ctx, opts):
+    if ctx.det.detect().state not in ("tower_list", "tower_floors", "battle_prep") and             not open_from_home(ctx.dev, ctx.det):  # started from anywhere else: walk there first
+        return "unknown_screen"
     return climb(ctx.dev, ctx.det, opts.tower, opts.to, opts.floors, opts.minutes)
 
 
-OK = {"reached", "floors_done", "lost"}
+OK = {"reached", "floors_done", "lost", "too_strong", "auto_running"}
 LOOP = Loop("tower", "Fantasia Ascent", "daily tower climb, Auto Challenge on, no retries", _run, _args, ok=OK)

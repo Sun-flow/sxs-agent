@@ -31,7 +31,7 @@ from typing import Optional
 
 from ..core import ui
 from ..core.device import save_unknown
-from ..core.loop import Loop, banner
+from ..core.loop import Loop, banner, progress, task
 from ..core.nav import Navigator
 from ..core.ui import CLASS_BUTTON, RANK_BADGE, SKILL_BUTTON, TECHNIQUE_CARD_ENHANCE
 from ..policy import claims
@@ -45,6 +45,10 @@ log = logging.getLogger("sxs.loops.upgrade")
 # Skill page
 QUICK_UPGRADE_ROI = [440, 600, 170, 70]  # the "Upgrade" caption under the Quick Upgrade icon
 TECHNIQUE_COLUMN = [(92, 270), (92, 386), (92, 502), (92, 618)]
+SKILL_ICON_ROIS = [[0, 180, 220, 500], [520, 180, 200, 500]]  # equipped techniques (left), charms (right)
+BAG_ROW_ROI = [0, 830, 720, 140]  # owned items under the Technique / Charm tabs
+ICON_FROM_BADGE = (-40, 40)  # icon centre relative to its "!"
+CARD_BUTTONS_ROI = [80, 860, 560, 120]  # technique / charm card: Replace|Remove, Enhance
 TAB_TECHNIQUE, TAB_CHARM, TAB_SHARD = (110, 800), (276, 800), (442, 800)
 BOTTOM_LEFT_TAB, BOTTOM_RIGHT_TAB = (280, 1216), (560, 1216)  # Skill | Goals, Upgrade | Ascend, Rank | Goals ...
 GOALS_SUBTABS = [(260, 1120), (450, 1120)]  # Level | Quality (skills), Level | Power (rank)
@@ -59,6 +63,7 @@ RANK_ADVANCE = (360, 1088)
 # Enhance Gear
 RESONANCE = (620, 256)
 
+PASS_BUDGET_S = 90  # one pass (skills, gear, class, rank, relics)
 TAP_BUDGET = 25  # per button: far above any real need, so a dead button can't loop forever
 RELIC_BAND = 1
 
@@ -128,6 +133,7 @@ class Upgrader:
                 break
             self._tap(button, wait)
             n += 1
+            progress(("pressed", button, n))
         return n
 
     # --- passes ---
@@ -147,18 +153,13 @@ class Upgrader:
             x, y, w, h = caption[0]
             self._tap((x + w // 2, y - 30), 3)
             out["quick_upgrades"] += 1
-        for slot in TECHNIQUE_COLUMN:
-            if not near_any(self._badges([0, 180, 220, 500]), (slot[0] + 40, slot[1] - 40), 40):
-                continue
-            self._tap(slot, 2)
-            self._tap(TECHNIQUE_CARD_ENHANCE, 2.5)
-            if self.det.detect().state != "technique_upgrade":
-                log.warning("technique card did not open Upgrade; frame %s", save_unknown(self.dev, "upgrade_tech"))
-                self.nav.go_home()
-                return out
-            self._tap(BOTTOM_RIGHT_TAB, 2)  # Ascend tab
-            out["ascended"] += self._press_while_badged(ASCEND_BUTTON, wait=3.5)
-            self._tap(ui.BACK_ARROW, 2.5)
+        # Every badged skill icon, equipped (both columns) or in the bag rows of the Technique and Charm tabs, is
+        # an ascension with its own shards (seen 2026-11-04: Ice Spike and Elemental Mystery, 10/10 shards each).
+        out["ascended"] += self._ascend_badged(SKILL_ICON_ROIS)
+        for tab, badge in ((TAB_TECHNIQUE, (165, 780)), (TAB_CHARM, (313, 780))):
+            if near_any(self._badges([0, 740, 720, 80]), badge, 30):
+                self._tap(tab, 1.5)
+                out["ascended"] += self._ascend_badged([BAG_ROW_ROI])
         if near_any(self._badges([200, 740, 160, 80]), (313, 780), 30):
             self._tap(TAB_CHARM, 1.5)
             out["charms"] = self._fill_charms()
@@ -166,6 +167,43 @@ class Upgrader:
             out["goals"] = self.claim_goals(BOTTOM_RIGHT_TAB, GOALS_SUBTABS)
         log.info("skills: %s", out)
         return out
+
+    def _ascend_badged(self, rois, limit: int = 8) -> int:
+        """Skill page: open each badged icon in `rois`, Enhance, and Ascend while the Ascend button keeps its "!".
+        Icons already tried this pass are skipped, so a badge that stays (say, a level-up that needs more Essence)
+        can't loop. Returns the number of ascensions."""
+        tried: list[tuple[int, int]] = []
+        n = 0
+        for _ in range(limit):
+            badges = [b for roi in rois for b in self._badges(roi) if not near_any(tried, b, 20)]
+            if not badges:
+                break
+            bx, by = badges[0]
+            tried.append((bx, by))
+            self._tap((bx + ICON_FROM_BADGE[0], by + ICON_FROM_BADGE[1]), 2)
+            enhance = boxes_of(self.det, CARD_BUTTONS_ROI, r"Enhance")
+            if not enhance:
+                log.info("icon at %s: no Enhance on its card; closing", (bx, by))
+                self._tap(ui.BELOW_POPUP, 1.5)
+                continue
+            self._tap(ui.centre(enhance[0]), 2.5)
+            if self.det.detect().state != "technique_upgrade":
+                log.warning("Enhance did not open Upgrade/Ascension; frame %s", save_unknown(self.dev, "upgrade_ascend"))
+                self.nav.go_home()
+                return n
+            if not re.search(r"Ascension", read_line(self.det, [20, 20, 300, 60])):
+                self._tap(BOTTOM_RIGHT_TAB, 2)  # Upgrade page: go to the Ascend tab
+            done = self._press_while_badged(ASCEND_BUTTON, wait=3.5)
+            if done:
+                self._tap(ui.BELOW_POPUP, 2)  # "TIER UP ... Tap to Continue"
+            log.info("icon at %s: ascended %d time(s)", (bx, by), done)
+            progress(("icon", bx, by))
+            n += done
+            self._tap(ui.BACK_ARROW, 2.5)
+            if self.det.detect().state != "skill_page":
+                log.warning("not back on the Skill page; frame %s", save_unknown(self.dev, "upgrade_ascend_back"))
+                return n
+        return n
 
     def _fill_charms(self) -> int:
         """Charm tab open on the Skill page: put owned charms into empty slots (the right column)."""
@@ -256,6 +294,35 @@ class Upgrader:
         log.info("rank: %s", out)
         return out
 
+    def goals(self, pages=("skills", "gear", "class_levels", "rank")) -> dict:
+        """Claim every lit Goals tab first (mae, 2026-11-04, reversing R-116): a Goals "!" lights the Skill / Class /
+        rank / gear badge on the Character screen too, so clearing them leaves only badges that mean a real
+        upgrade. Each page is opened only when its Character-screen badge is lit; its Goals tab only when that tab
+        carries "!". Free claims only (policy.claims)."""
+        out = {}
+        for page in pages:
+            if not self._character():
+                return {**out, "end": "unknown_screen"}
+            if page == "skills":
+                self._tap(SKILL_BUTTON, 2.5)
+                want, tab, subs, badge = "skill_page", BOTTOM_RIGHT_TAB, GOALS_SUBTABS, (688, 1193)
+            elif page == "class_levels":
+                self._tap(CLASS_BUTTON, 2.5)
+                want, tab, subs, badge = "class_page", CLASS_TABS["goals"], (), (688, 1193)
+            elif page == "rank":
+                self._tap(RANK_BADGE, 2.5)
+                want, tab, subs, badge = "rank_advancement", BOTTOM_RIGHT_TAB, GOALS_SUBTABS, (688, 1193)
+            else:  # gear: Enhance Gear page, Enhancement Goals tab
+                self._tap(GEAR_SLOTS[0], 2)
+                self._tap(ITEM_CARD_ENHANCE, 2.5)
+                want, tab, subs, badge = "enhance_gear", BOTTOM_RIGHT_TAB, (), (688, 1193)
+            if self.det.detect().state != want:
+                out[page] = f"unknown_screen ({save_unknown(self.dev, f'upgrade_goals_{page}')})"
+                continue
+            out[page] = self.claim_goals(tab, subs) if near_any(self._badges([560, 1150, 160, 80]), badge, 40) else 0
+        log.info("goals: %s", out)
+        return out
+
     def relics(self) -> dict:
         """Relics aren't unlocked on the account yet (2026-11-04). When they are: map the screen, read each
         element's 4 relic levels and the affinities, and enhance one level at a time with relic_plan()."""
@@ -264,7 +331,7 @@ class Upgrader:
 
     # --- the loop ---
 
-    PASSES = ["skills", "gear", "class_levels", "rank", "relics"]
+    PASSES = ["goals", "skills", "gear", "class_levels", "rank", "relics"]
 
     def run(self, only: Optional[set] = None) -> dict:
         passes = [p for p in self.PASSES if not only or p in only]
@@ -273,24 +340,37 @@ class Upgrader:
         results: dict = {}
         if not self._character():
             return {"end": "unknown_screen"}
-        frame_badges = self._badges()
-        log.info("character screen badges: %s", frame_badges)
-        wanted = {
-            "skills": near_any(frame_badges, (SKILL_BUTTON[0] + 30, SKILL_BUTTON[1] - 30), 50),
-            "gear": any(near_any(frame_badges, (x + 40, y - 40), 50) for x, y in GEAR_SLOTS),
-            "class_levels": near_any(frame_badges, (CLASS_BUTTON[0] + 30, CLASS_BUTTON[1] - 30), 50),
-            "rank": near_any(frame_badges, (RANK_BADGE[0] + 90, RANK_BADGE[1] - 30), 70),
-            "relics": False,
-        }
+        def lit() -> dict:
+            frame_badges = self._badges()
+            log.info("character screen badges: %s", frame_badges)
+            return {
+                "skills": near_any(frame_badges, (SKILL_BUTTON[0] + 30, SKILL_BUTTON[1] - 30), 50),
+                "gear": any(near_any(frame_badges, (x + 40, y - 40), 50) for x, y in GEAR_SLOTS),
+                "class_levels": near_any(frame_badges, (CLASS_BUTTON[0] + 30, CLASS_BUTTON[1] - 30), 50),
+                "rank": near_any(frame_badges, (RANK_BADGE[0] + 90, RANK_BADGE[1] - 30), 70),
+                "relics": False,
+            }
+        wanted = lit()
+        lit_pages = [k for k, v in wanted.items() if v]
+        wanted["goals"] = bool(lit_pages)
         for p in passes:
+            if p == "skills" and isinstance(results.get("goals"), dict) and any(results["goals"].values()):
+                # Goals claimed: re-read, so a badge that only meant "Goals" no longer starts an upgrade pass.
+                if self._character():
+                    wanted.update(lit())
             if not wanted[p] and not only:
                 results[p] = "no_badge"
                 continue
-            try:
-                results[p] = getattr(self, p)()
-            except Exception as e:  # noqa: BLE001  one pass must not take the loop down
-                log.warning("[%s] failed: %s; frame %s", p, e, save_unknown(self.dev, f"upgrade_{p}"))
-                results[p] = "error"
+            # Each pass is its own short task (mae, 2026-11-04: 1-2 minutes, cut it rather than bash on).
+            with task(p, PASS_BUDGET_S) as t:
+                try:
+                    results[p] = self.goals(lit_pages or ()) if p == "goals" and not only else getattr(self, p)()
+                except Exception as e:  # noqa: BLE001  one pass must not take the loop down
+                    log.warning("[%s] failed: %s; frame %s", p, e, save_unknown(self.dev, f"upgrade_{p}"))
+                    results[p] = "error"
+            if t.status:
+                log.warning("[%s] %s after %g s; next pass", p, t.status, PASS_BUDGET_S)
+                results[p] = t.status
             self.nav.go_home()
         log.info("upgrade: %s", results)
         return results
@@ -306,4 +386,5 @@ def _run(ctx, opts):
     return {"end": results.pop("end", "done"), "passes": results}
 
 
-LOOP = Loop("upgrade", "Upgrade", "apply every upgrade a red \"!\" on the Character screen offers", _run, _args)
+LOOP = Loop("upgrade", "Upgrade", "apply every upgrade a red \"!\" on the Character screen offers", _run, _args,
+            budget=len(Upgrader.PASSES) * PASS_BUDGET_S)  # only badged passes run; each is capped at PASS_BUDGET_S

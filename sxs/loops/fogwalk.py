@@ -40,7 +40,7 @@ log = logging.getLogger("sxs.loops.fogwalk")
 
 FOG_S_MAX, FOG_V_MIN = 40, 150  # fog is pale grey
 STEP_IN = 40  # px from the fog edge into clear ground
-STILL_LIMIT = 8  # walk taps with unchanged coordinates before giving up
+STILL_LIMIT = 4  # walk taps with unchanged coordinates before giving up (a tap takes 5-7 s; runs are 1-2 min)
 STAMINA_KEEP = 70  # R-107: stamina kept for the daily commissions
 REWARD_TAPS_MAX = 3  # tracker gift taps per walk: a gift that stays after this many taps isn't claimable from here
 
@@ -174,7 +174,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
             else:
                 still += 1
                 # Monsters in brackets guard the way into the area: fight one, then walk on.
-                if still in (3, 6) and attack_guard(dev, det, frame):
+                if still in (2, 3) and attack_guard(dev, det, frame):
                     continue
                 if still >= STILL_LIMIT:
                     log.warning("no new tile for %d taps (at %s, %d tiles visited); stopping", still, d.text,
@@ -275,7 +275,8 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
 
 
 def _args(p) -> None:
-    p.add_argument("--minutes", type=float, default=2)  # mae, 2026-11-04: runs of 1-2 minutes
+    p.add_argument("--minutes", type=float, default=20,  # an outer ceiling only: the runner's progress check ends
+                   help="upper limit; normally the 2-minute progress check ends the run")  # a stuck run (mae)
     p.add_argument("--area", help="area to explore, as named on the area map (walks there first)")
 
 

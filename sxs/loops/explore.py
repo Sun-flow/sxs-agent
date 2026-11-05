@@ -445,12 +445,13 @@ def explore(dev, det, minutes: float = 20, chain: bool = False, choose: Optional
             time.sleep(3)
             continue
         if result != "complete" or not chain:
-            return Result(result, result == "complete", {"completed": completed})
+            return Result(result, result in ("complete", "timeout"), {"completed": completed})
         time.sleep(3)
 
 
 def _args(p) -> None:
-    p.add_argument("--minutes", type=float, default=2)  # mae, 2026-11-04: runs of 1-2 minutes
+    p.add_argument("--minutes", type=float, default=20,  # an outer ceiling only: the runner's progress check ends
+                   help="upper limit; normally the 2-minute progress check ends the run")  # a stuck run (mae)
     p.add_argument("--chain", action="store_true", help="after a quest completes, carry on with the next one")
     p.add_argument("--choose", help="regex for a decision a human has made, e.g. '^Ascend to Mage$'")
 
@@ -460,4 +461,5 @@ def _run(ctx, opts) -> Result:
 
 
 LOOP = Loop("explore", "Explore", "follow the tracked quest line (fights, cards, unstick, claims)", _run, _args,
-            ok={"complete"})
+            ok={"complete", "timeout"})  # runs are 2 minutes: a timeout with progress is the normal end; no progress
+# for --stall seconds ends it as "stalled" instead

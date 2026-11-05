@@ -73,6 +73,20 @@ def main() -> int:
             time.sleep(0.1)
     if w.status != STALLED:
         bad.append(f"task stall: {w.status}")
+    # The budget is a stuck check (mae): progress keeps a run going past it; once progress stops, it ends.
+    t0 = time.monotonic()
+    with task("extension check", 1, stall=2) as w:
+        i = 0
+        while True:
+            i += 1
+            progress(i)
+            time.sleep(0.2)
+            if time.monotonic() - t0 > 2.5:
+                break  # still moving after 2.5 budgets' worth: the budget extended
+        while True:
+            time.sleep(0.1)  # now no progress: the next budget check (or the stall check) ends it
+    if w.status not in (OVER_BUDGET, STALLED) or w.extensions < 2:
+        bad.append(f"task extension: {w.status}, {w.extensions} extensions")
     with task("quick", 5) as w:
         progress("a")
     if w.status is not None:
