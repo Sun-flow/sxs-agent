@@ -30,3 +30,9 @@ Then run `python -m sxs label`. Each row that has a State moves into its folder 
 | `team_panel_companions.png` | | | | Team panel after inviting the NPC companions (Players 4/4, Allow Teammate Invites) |
 | `auroradrasil_result.png` | | | | Auroradrasil result: rank B, team chests, Drops, Claim Rewards |
 | `auroradrasil_claimed.png` | | | | Same after Claim Rewards: Beastclaw Boots, Beasthide Armor, Raw Ore |
+| `drasilgard_portal_teleport.png` | | | | Drasilgard portal card: already activated, button Teleport |
+| `area_map_verdantglade_zoomed_out.png` | | | | Verdantglade area map zoomed all the way out: every zone with power and Exploration % |
+| `drasilgard_carol_dialogue.png` | | | | Carol the Black Cat (shapeshifting witch), first-meeting dialogue |
+| `drasilgard_carol_gift.png` | | | | Carol's free Shapeshifting Mirror (reward popup) |
+| `drasilgard_carol_menu.png` | | | | Carol menu: Transform! / Chat / Let me think about it |
+| `drasilgard_carol_reshape.png` | | | | Reshape screen (appearance: General, Hair, Face, Trait); Complete costs 1 Shapeshifting Mirror; not pressed |
