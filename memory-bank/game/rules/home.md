@@ -27,11 +27,12 @@ Scene labels (e.g. "Class to Unlock") overlap the quest tracker region; filter t
 *observed* · `home/home_cart.png`, `home/cart.png`, `dialogs/reward_popup.png` · node `home` · R-126
 
 ### R-136 · Upgrade only Stone and Wood on the Cart, keeping their levels even
-- Upgrade the Stone and Wood income rows only. Keep the two rows at the same level: upgrade whichever is lower (tie order not set).
+- Upgrade the Stone and Wood income rows only. Keep the two rows at the same level: upgrade whichever is lower, Stone first on a tie (the builder's default; mae set no order).
 - Never upgrade Rolla, Raw Ore or Battle Essence (or Gear when it unlocks), even when their arrows are lit.
 - The upgrade arrows show only after the Cart has been claimed, so claim first (R-020), then upgrade.
-- Costs ❓: not recorded yet.
-*told* · node `home` · R-020, R-099
+- Each row's upgrade opens "Furniture Upgrade": one tab per resource and an "Upgrade x1" button.
+- Costs are ordinary resources only, no Dawnium. Stone Lv 3 → 4: 65 Wood, 25 Stone, 190 Rolla. Check the cost icons before every press and stop on any Dawnium icon (policy).
+*told, observed* · node `home` · R-020, R-099
 
 ## The house
 
