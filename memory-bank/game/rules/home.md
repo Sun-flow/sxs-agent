@@ -11,7 +11,7 @@ Read when acting on the Home scene (Cart, Statue, Vendor Booth, house) or when h
 *observed* · `home/home.png`, `home/home_events.png` · node `home` · R-100, R-059
 
 ### R-100 · Home stuck on sky: restart the game
-After long sessions home can show only sky; swipes don't move it. "Home, but no Cart bubble and no Statue" means restart the game, not keep swiping.
+After long sessions home can show only sky; swipes don't move it. "Home, but no Cart bubble and no Statue" means restart the game, not keep swiping. Seen again in the Cart run (04:54); the Cart script restarts the game itself.
 *observed* · node `home` · R-126
 
 ### R-059 · Filter home labels out of tracker OCR
@@ -23,6 +23,7 @@ Scene labels (e.g. "Class to Unlock") overlap the quest tracker region; filter t
 ### R-020 · Collect the Cart's AFK rewards from its bubble
 - The Cart fills offline up to a cap (reported); collect at least once per cap period.
 - Tap the loot bubble (`resource/image/home/cart_bubble.png`): reward popup (Rolla, Stone, Wood).
+- Find the Cart by its wheel: the sprite changes when it is loaded with goods.
 - Tapping the cart opens hourly income (Rolla, Wood, Stone, Raw Ore, Battle Essence; Gear unlocks at Lv 15), each with a level and upgrade arrow. "Claim All" (0.5, 0.86); close with (0.5, 0.95).
 *observed* · `home/home_cart.png`, `home/cart.png`, `dialogs/reward_popup.png` · node `home` · R-126
 
@@ -31,7 +32,9 @@ Scene labels (e.g. "Class to Unlock") overlap the quest tracker region; filter t
 - Never upgrade Rolla, Raw Ore or Battle Essence (or Gear when it unlocks), even when their arrows are lit.
 - The upgrade arrows show only after the Cart has been claimed, so claim first (R-020), then upgrade.
 - Each row's upgrade opens "Furniture Upgrade": one tab per resource and an "Upgrade x1" button.
-- Costs are ordinary resources only, no Dawnium. Stone Lv 3 → 4: 65 Wood, 25 Stone, 190 Rolla. Check the cost icons before every press and stop on any Dawnium icon (policy).
+- Costs are ordinary resources only, no Dawnium: Wood, Stone and Rolla (Lv 3 → 5: 190–215 Rolla and 25–75 of each material per step; Stone Lv 3 → 4 was 65 Wood, 25 Stone, 190 Rolla). Check the cost icons before every press and stop on any Dawnium icon (policy).
+- Cap: a row's level is capped by the home Blessing Level (the bed, R-101). At the cap the button reads "Unlocks at Blessing Lv. N" (Stone Lv 5 → 6 needs Blessing Lv 6): stop there, not an error.
+- Live 04:54: Stone and Wood both Lv 3 → 5, alternating Stone first.
 *told, observed* · node `home` · R-020, R-099
 
 ## The house
