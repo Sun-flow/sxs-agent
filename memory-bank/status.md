@@ -31,7 +31,7 @@ Format: `- what — branch, PR, environment (started)`. Remove the line when it 
 1. Conquest with tries left: watch it live after the 13:00Z reset.
 2. Fog Walk pickup detection on screen (glowing items): the minimap barely shows pickups under the unexplored shadow (R-086).
 3. Verdantglade III entrance: probably a quest unlock (R-084).
-4. Grand Iron/Sand Mine special nodes: seen in chat, not located (R-109).
+4. Grand Iron/Sand Mine special nodes: seen in chat, not located (R-109). Lead: a gold-ore icon with a red "!" on the area map in Verdantglade V, possibly a mine.
 5. Older: test HP logic when HP drops below 70% while alive; minimap classifier per area palette; model supervisor for `unknown_*` stops.
 
 ## Waiting on mae
