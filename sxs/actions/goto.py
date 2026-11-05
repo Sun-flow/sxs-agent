@@ -27,7 +27,7 @@ log = logging.getLogger("sxs.actions.goto")
 MINIMAP = ui.MINIMAP  # tapping the minimap opens the area map
 AREA_MAP_ZOOM_OUT = (682, 1113)  # the "-" under the area map's zoom slider
 SCREEN_CENTRE = ui.SCREEN_CENTRE  # where the area-map point lands after the camera re-centres
-COORDS = re.compile(r"\(?(\d+), ?(\d+)\)?")
+COORDS = re.compile(r"\(?(\d+) ?[,.] ?(\d+)\)?")  # OCR reads the comma as "." sometimes
 WALK_TIMEOUT_S = 60
 LABEL_DY = 0  # tap the label itself: area labels sit on the area they name
 
