@@ -1064,6 +1064,43 @@
     "docs/screens/shops/mall_welcome_benefit.png"
    ],
    "notes": "Shop. Every pack is USD: never tap one. Only the free gift box at the top left of each page (red \"!\" above right) may be tapped, once per refresh: Daily Gift 4 h, Weekly Gift 5 d, Welcome Benefit once, event boxes (R-121). Bottom tabs Event / Monthly Pass / Top Up (never Top Up). Code sxs/loops/mall.py, state mall."
+  },
+  {
+   "id": "drasilgard",
+   "name": "Drasilgard (town)",
+   "kind": "area",
+   "confidence": "observed",
+   "unlock": "story",
+   "detect": null,
+   "images": [],
+   "notes": "Story town with several NPCs. Village Chief (big house, north): story only, points to Auroradrasil (cleanse the Chaotic Blight; Killian and Qin went ahead). Hermes (mushroom-roof shop, east): Kingdom Shop. Not yet visited: notice board stall (west), house with a 'G' sign (south), stone ring with a green rune (centre), portal (east of centre), several yellow-star NPC markers."
+  },
+  {
+   "id": "hermes_menu",
+   "name": "Hermes, Smiling Merchant",
+   "kind": "dialog",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/world/drasilgard_hermes_dialogue.png",
+    "docs/screens/world/drasilgard_hermes_menu.png",
+    "docs/screens/world/drasilgard_hermes_welcome_gift.png"
+   ],
+   "notes": "First talk: intro plus a free welcome gift popup. Then 'Show me your wares.' / Chat / Leave."
+  },
+  {
+   "id": "kingdom_shop",
+   "name": "Kingdom Shop (Drasilgard)",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/shops/kingdom_shop_drasilgard_lv1.png",
+    "docs/screens/shops/kingdom_shop_drasilgard_lv1_2.png"
+   ],
+   "notes": "Pays Abundance Leaves. Shop Level 1/4, tabs Lv.1-Lv.4. Stock in docs/shop-tables.md. Buy nothing until mae fills Buy? (R-043, R-114)."
   }
  ],
  "edges": [
@@ -2727,6 +2764,30 @@
    },
    "confidence": "reported",
    "notes": "Assumed, like other menu pages."
+  },
+  {
+   "from": "drasilgard",
+   "to": "hermes_menu",
+   "action": {
+    "type": "tap",
+    "target": "Hermes (cat-eared NPC, mushroom-roof shop, east)",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Walk up to him and tap to talk."
+  },
+  {
+   "from": "hermes_menu",
+   "to": "kingdom_shop",
+   "action": {
+    "type": "tap",
+    "target": "Show me your wares.",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
   }
  ]
 }

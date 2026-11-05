@@ -59,8 +59,28 @@ Refreshes weekly (5d03h left when read). Guild Tokens on hand: 760 (300 per dona
 
 Only Stellatie and Lucky Ticket are buyable now; the rest wait on the guild's Shop level.
 
+## Kingdom Shop (Hermes, "Smiling Merchant", Drasilgard), pays Abundance Leaves
+
+Hermes is the cat-eared NPC at the mushroom-roof shop on the east side of Drasilgard. The first talk gives an intro and a free welcome gift popup. After that his menu is "Show me your wares." / Chat / Leave, and the wares are the Kingdom Shop. Abundance Leaves on hand: 450. Shop Level 1/4 (0/3500 toward Lv 2); tabs Lv.1–Lv.4, with 2–4 locked. Read 2026-11-05, nothing bought.
+Screens: `docs/screens/world/drasilgard_hermes_dialogue.png`, `world/drasilgard_hermes_menu.png`, `world/drasilgard_hermes_welcome_gift.png`, `shops/kingdom_shop_drasilgard_lv1.png`, `shops/kingdom_shop_drasilgard_lv1_2.png`.
+
+| Item | Qty | Price (Leaves) | Badge | Limit | What it's for | Buy? |
+|---|---|---|---|---|---|---|
+| Stellatie | x1 | 100 | 90% | 1 | Prayer ticket (skill pulls) | |
+| Stellatie | x1? | 600 | 40% | 2 | Prayer ticket | |
+| Refined Ore | x100 | 100 | 90% | 1 | Advanced gear enhancement | |
+| Refined Ore | x100 | 600 | 40% | 2 | Advanced gear enhancement | |
+| Withering Potion | x1 | 1.8K | 40% | 1 | Clears a vine blockade | |
+| Withering Potion | x1 | 3K | | 1 | Clears a vine blockade | |
+| Recipe: Cheerful Greens | x1 | 600 | | 1 | Cooking recipe | |
+| Recipe: Stewed Meat and Potatoes | x1 | 600 | | 1 | Cooking recipe | |
+| Flour | x1 | 50 | | 50 | Cooking ingredient | |
+| Potato | x1 | 50 | | 50 | Cooking ingredient | |
+| Iris | x1 | 300 | | none shown | Companion gift | |
+| Jungle Fables | x1 | 300 | | none shown | Companion gift (book) | |
+
 ## Other shops
 
 - **Mall**: real money (USD) except the free gift box on each page, which the bot already claims (`sxs.loops.mall`).
 - **Starter Pack** and event packs on home: real money, never.
-- No other shop found yet; add new ones here.
+- Drasilgard has more NPCs not yet visited (notice board stall, house with a "G" sign, yellow-star NPCs): add their shops here.
