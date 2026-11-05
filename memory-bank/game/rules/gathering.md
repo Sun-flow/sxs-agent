@@ -50,6 +50,7 @@ Special nodes or encounters carry a green timer circle at their upper right and 
 
 ### R-123 · Bellflowers come from the free Verdantglade Flower Harvest
 - Route: Character (0.11, 0.97), rank badge (0.82, 0.72), the middle cost icon on Rank Advancement (0.50, 0.74), the item card's Source row "Verdantglade Flower Harvest »" (0.82, 0.59), OK (0.68, 0.57). Lands in Verdantglade II near minimap (181, 90) with a tracker "a/20" on the left panel and an edge ring toward the field. Code: `Gatherer.enter_bellflower_field()`; `python -m sxs gather --harvest bellflower` collects once on the map.
+- The look-alike plants in Drasilgard don't count (R-134).
 - Field: Moonveil Woods, minimap (169, 94-95), the clearing south of the big hollow-tree arch, stone statue on its west side. About 8 white-bell plants respawn.
 - **Tap the plants themselves, never the tracker ring over the character or the Bellflower icon** (mae). Picks are free, +2 each; blue-aura first (R-122). **Never tap other players in the field** (R-057).
 - At 20/20 Akane's dialogue says "Go for that rank advancement!" (tap on); home then shows a tutorial overlay on Character, rank badge, Advance (R-036).
