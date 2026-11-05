@@ -390,6 +390,8 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 if home_area:
                     ui.tap(dev, ui.NAV_WORLD, 4)
                     goto.go_to(dev, det, home_area)
+            elif d.state == "area_map":
+                ui.tap(dev, ui.BACK_ARROW, 2)  # left open by a big-map walk that didn't move us: close it
             elif d.state == "home":
                 return f"left_area:{d.state}"
             else:

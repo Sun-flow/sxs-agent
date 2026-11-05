@@ -11,13 +11,13 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | The Home scene: Cart, Statue, Vendor Booth, house and bed, home looks wrong | `home.md` |
 | Island map: exploring, minimap, area map, travel, fog, statues, gates, puzzles, unreachable targets | `overworld.md` |
 | The quest tracker: what's next, tracking, progressing, claiming | `quests.md` |
-| Before a fight, low HP, losses, mini-dungeons, Fantasia Ascent | `combat.md` |
+| Before a fight, low HP, losses, mini-dungeons, team dungeons, Fantasia Ascent | `combat.md` |
 | Daily loop content: sign-in, events, Journal, Material Realms, milestones | `dailies.md` |
 | Guild island, donations, AFK gathering, Conquest, Guild Shop | `guild.md` |
 | Stamina, materials, pickups, Bellflowers | `gathering.md` |
 | Character power: the character "!", gear, skills, charms, class, rank, relics | `upgrades.md` |
 | Currencies, Vendor Booth, Mall | `economy.md` |
-| Background: regions, servers, level unlocks, seasons, server time | `world.md` |
+| Background: regions, servers, level unlocks, seasons, server time, towns and their NPCs | `world.md` |
 
 ## Entry format
 
@@ -33,7 +33,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 
 ## Adding or changing a rule
 
-- New rule: next free ID (**next free: R-133**), under the right `##` heading of the right file, plus a row in the ID index below.
+- New rule: next free ID (**next free: R-136**), under the right `##` heading of the right file, plus a row in the ID index below.
 - Never reuse or renumber an ID. When merging a rule into another, delete it, add it to the retired table, and repoint citations.
 - Run `python3 scripts/check-rules.py`: it checks that every cited ID resolves, retired IDs aren't cited, every file is listed here, and image paths exist.
 
@@ -76,7 +76,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-052 | `dailies.md` | Exploration Goals: milestone rewards |
 | R-053 | `ui.md` | Find menu buttons by label; they move as features unlock |
 | R-054 | `policy.md` | Class choices are mae's: pick Leave and stop |
-| R-057 | `policy.md` | Leave social requests alone |
+| R-057 | `policy.md` | Social features are open to the bot: team up freely |
 | R-059 | `home.md` | Filter home labels out of tracker OCR |
 | R-060 | `ui.md` | Close popups by tapping above them; rating popups get Later |
 | R-061 | `combat.md` | Heal to 70% before any fight; retry a lost fight at most twice |
@@ -94,7 +94,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-073 | `combat.md` | Fight monsters that block the path |
 | R-074 | `overworld.md` | Edge pointers: tap one to pan the camera to its target |
 | R-076 | `overworld.md` | The area map shows resources, progress and power gates |
-| R-077 | `policy.md` | Leave the Team panel alone |
+| R-077 | `policy.md` | The Team panel: invite and team up |
 | R-078 | `combat.md` | Read HP on the HUD bar; heal via the HUD portrait |
 | R-079 | `combat.md` | Fantasia Ascent: one climb a day, Auto Challenge on, never Retry |
 | R-080 | `upgrades.md` | A "!" on the player or the character screen means an upgrade is waiting: take it |
@@ -146,6 +146,9 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-130 | `overworld.md` | Fog-walk and pathfind toward the light-green to striped-green edge |
 | R-131 | `overworld.md` | Save a reference of every collectible and monster met while exploring |
 | R-132 | `overworld.md` | Dotted lines mark zone borders: finish the zone you're in first |
+| R-133 | `combat.md` | Auroradrasil: a free 4-player story dungeon with NPC companions |
+| R-134 | `world.md` | Drasilgard: what each NPC and object does |
+| R-135 | `overworld.md` | Non-quest exploration order: lowest-CP unblessed zone first |
 
 ## Retired IDs
 

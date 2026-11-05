@@ -18,11 +18,22 @@ Walk to each green minimap dot and interact with what it marks, beat roaming mon
 - A dotted line is the border between two zones such as Verdantglade III and IV (mae). On the minimap it shows as light dashes. In the world it shows as dark dashes, usually labelled with the zone name: "Troll Lair" with its power "17K" in a horizontal label at a corner of a line, or "Zephyr Vale" written sideways along a vertical line with no power shown.
 - Use it to tell which zone the character is in, and finish that zone to 100% (R-065) before crossing into the next. Seen: the fog walk crossed into Verdantglade IV with III at about 91%.
 - A zone across the line still needs the 1.25x power check (R-127).
+- Auroradrasil is its own zone, not part of Verdantglade V (mae), even though it sits inside V on the map; it has its own Lost Goddess Statue (R-070). Travelling to finish a zone must land on that zone's own ground, not on a neighbour inside it.
 *told, observed* · `world/zone_boundary_troll_lair_mae.png`, `world/zone_boundary_zephyr_vale_mae.png`, `minimap/legend_zone_boundary_mae.png` · R-065, R-066, R-127, R-130
 
 ### R-065 · When stuck or between quests, walk the fog edge
 Exploration comes in two kinds (mae), and loops should handle both: **quest-progression** (follow the tracker's Explore and unlock quests, R-044) and **fog-walking** (clear side areas that aren't tied to progression but are within our CP range, e.g. Damp Woods). Side areas have no quest but give resources and levels; walking into the fog edge reveals new areas. **Explore outward from the connected area the character is in; never jump back across the map** (mae). Code: `python -m sxs roam` (`--area`, `--minutes`, `--max-areas`). It picks an unexplored area with recommended power up to 1.25x ours (R-127, R-084), enters from a connected explored neighbour (R-067), explores it with the Fog Walk (`sxs/loops/fogwalk.py`; stays in its current area when that borders the target) and blesses the statue (R-070). **Fog-walk goal** (mae): at all times aim for 100% exploration of the unexplored area: collect every green dot, fight or interact with every orange dot, complete every yellow structure or mini-dungeon (R-071). Only then does the Goddess Statue or Lost Goddess Statue become available to bless the area (R-070). Exploring itself never spends stamina (mae). In unexplored areas, monsters and interactables are free: fight and collect them. In explored, blessed areas, monsters respawn and they and most interactables cost stamina: skip them unless a loop is deliberately farming (battle essence for skills, gathering, R-107).
 *told, observed* · R-044, R-066, R-067, R-070, R-071, R-084, R-127, R-130, R-131
+
+### R-135 · Non-quest exploration order: lowest-CP unblessed zone first
+The non-quest exploration loop (mae; the quest-progression loop is settled):
+1. Pick the lowest-CP zone not yet blessed (within the fight limit, R-127).
+2. Explore it until its statue is blessed (R-065 goal, R-070).
+3. Repeat until no unblessed zone remains.
+4. Then look for any fog-walk ground not yet explored (R-130). Explore it if there is some; otherwise exploration is concluded for now.
+Next by this order (2026-11-05): Jungle Camp (12.6K); walking in from Drasilgard's south edge gained no %, so its entry point is unknown ❓.
+Code: `python -m sxs roam` reads zones and powers from the area map (zones with no power line read go last), blesses a statue when its area-map "!" lights (R-070), and ends with `exploration_concluded`.
+*told* · R-065, R-070, R-076, R-127, R-130, R-132
 
 ## Walking and the camera
 
@@ -42,7 +53,7 @@ Templates in `resource/image/explore/`:
 ## Reading the minimap
 
 ### R-004 · Minimap and coordinates give relative positions
-The minimap shows items, interactables and enemies around the character; use it to choose a direction. Tile coordinates show as "(x, y)" under it ("Originisle I (24,23)"), read by OCR. x grows east (screen right), y shrinks south (screen down), as `sxs/actions/goto.py` uses them.
+The minimap shows items, interactables and enemies around the character; use it to choose a direction. Tile coordinates show as "(x, y)" under it ("Originisle I (24,23)"), read by OCR. x grows east (screen right), y shrinks south (screen down), as `sxs/actions/goto.py` uses them. OCR sometimes reads the comma as a period ("(134.93)"); accept both.
 *told, observed* · node `world_map` · R-066, R-068
 
 ### R-066 · Minimap legend: it shows the true tiles
@@ -74,7 +85,7 @@ Connections can be far off the straight line (Verdantglade II to Moonveil Woods 
 2. Tap the destination; the camera centres there.
 3. Close the map and tap the ground: the player auto-paths, around walls and through land bridges and unseen gaps.
 The same route reaches any target, not just areas (mae): find it on the area map (a dot, a structure), tap it there to centre the camera on it, close the map, then tap the now-visible element on screen to walk to it. No player-relative pathfinding is needed: the character auto-paths to any tapped spot even when it is off screen, so the bot finds endpoints and never manages the route (mae). The camera only has to see the thing to tap it. With several targets in view, tap each on screen in turn without reopening the map; reopen it only when nothing targetable is left in view (mae).
-Zoom differs each opening: pick places by OCR'd label, never fixed positions. Match labels exactly, trailing numerals included ("Verdantglade III" is not "Verdantglade I"). A label in fog can't be reached this way (`no_move`): travel from home (R-089). Code: `python -m sxs goto "Area Name"` or `python -m sxs goto X Y`.
+Zoom differs each opening: pick places by OCR'd label, never fixed positions. Match labels exactly, trailing numerals included ("Verdantglade III" is not "Verdantglade I"; a V/VI mix-up once landed the bot in Auroradrasil). At full zoom-out OCR merges neighbouring labels ("Wildbloom Coahlidden Camp", "14.8K Monolith Ruins") and drops percentages: zoom out one step at most when reading zones. A label in fog can't be reached this way (`no_move`): travel from home (R-089). Code: `python -m sxs goto "Area Name"` or `python -m sxs goto X Y`.
 *told, observed* · `world/world_area_map.png`, `world/world_map_moonveil_entry.png`, `world/world_area_map_stone_ruins.png` · node `area_map` · R-065, R-067, R-076, R-089, R-130
 
 ### R-089 · Travel from home through the quest tracker
@@ -115,10 +126,11 @@ Tapping a map object (e.g. a Portal) opens a card with one button at (0.5, 0.70)
 ### R-070 · Goddess Statues bless a fully explored area
 - **Goddess Statue**: needs "Reach 100% exploration in <area>"; Unlock gives Blessing Level +1 (level 2 raised Max Cart Level 1→2 and AFK EXP 50→500): bless every area. "The Goddess's Grace I/II" follows each Explore quest; reach it via the statue pointer (R-074).
 - **Lost Goddess Statue** ("Activate this dim statue..."): same requirement; Unlock at (0.5, 0.81); gives +1% Home EXP and +1% of one home yield (Highland Woods Wood, Moonveil Woods Rolla, Damp Woods Stone), then Tap to Continue.
+- Two sizes, both bless the area (mae): the large Goddess Statue gives greater rewards than the smaller Lost Goddess Statue. Non-progression side areas often hold a Lost Goddess Statue, usable once the zone is explored. A red "!" over a statue means it can be blessed now: go and unlock it. The "!" also shows on the area map (about 17 px, smaller than menu badges; a gold-ore icon can carry the same "!", told apart by its big yellow block, and that is not a statue): tap it there, close the map, tap the screen centre, and the statue's card opens (R-068). Auroradrasil's Lost Goddess Statue ("Reach 100% exploration in Auroradrasil") gave Home EXP Yield Boost +1% and Home Stone Yield Boost +1%, then "Divine Power Awakens Your Potential", Tap to Continue.
 - Match both with `^(Lost )?Goddess Statue$`.
 - **Already blessed**: "A starlit statue silently guards this Blessed Land", Regional Relics, no button. Dismiss and walk around it (kind `blessed_statue`).
 - Goddess, Witch and Hero statues can each be used once a day; whether these are the blessing statues is unknown ❓.
-*observed, reported* · `world/interact_goddess_statue.png`, `world/interact_goddess_statue_blessed.png`, `world/blessing_level.png`, `world/lost_goddess_statue.png` · R-002, R-074
+*observed, reported* · `world/interact_goddess_statue.png`, `world/interact_goddess_statue_blessed.png`, `world/blessing_level.png`, `world/lost_goddess_statue.png`, `world/lost_goddess_statue_auroradrasil_mae.png`, `unlabeled/lost_goddess_statue_auroradrasil.png`, `unlabeled/lost_goddess_statue_blessed.png`, `unlabeled/area_map_statue_badge_auroradrasil.png` · R-002, R-065, R-074
 
 ### R-085 · Stone tile floor puzzle: step on every tile for chests
 Stone Ruins I: a 2x2 floor of stone tiles; each lights cyan when stepped on. All 4 lit spawns two chests (about 60 Dawnium each, plus Rolla, ore, gear, Abundance Leaf). Each chest pops a gear-swap prompt (swap button bottom right) that closes with the reward popup.

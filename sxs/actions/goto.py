@@ -12,6 +12,7 @@ character walks there, around cliffs and through gaps the player can't see.
 from __future__ import annotations
 
 import logging
+import difflib
 import re
 import time
 from typing import Optional
@@ -26,7 +27,7 @@ log = logging.getLogger("sxs.actions.goto")
 MINIMAP = ui.MINIMAP  # tapping the minimap opens the area map
 AREA_MAP_ZOOM_OUT = (682, 1113)  # the "-" under the area map's zoom slider
 SCREEN_CENTRE = ui.SCREEN_CENTRE  # where the area-map point lands after the camera re-centres
-COORDS = re.compile(r"\(?(\d+), ?(\d+)\)?")
+COORDS = re.compile(r"\(?(\d+) ?[,.] ?(\d+)\)?")  # OCR reads the comma as "." sometimes
 WALK_TIMEOUT_S = 60
 LABEL_DY = 0  # tap the label itself: area labels sit on the area they name
 
@@ -48,11 +49,26 @@ def area_name_here(det, frame=None) -> str:
     return re.sub(r"^\W*\w{1,2}\s+(?=[A-Z][a-z])", "", read_line(det, AREA_NAME_ROI, frame))
 
 
+def close_name(a: str, b: str) -> bool:
+    """OCR dropped or swapped a letter inside the name ("Drasi gard" for "Drasilgard", 2026-11-05), numerals equal."""
+    x, y = squeeze(a), squeeze(b)
+    if len(x) < 6 or len(y) < 6 or re.sub(r"[^i]+", "", x[-3:]) != re.sub(r"[^i]+", "", y[-3:]):
+        return False
+    return difflib.SequenceMatcher(None, x, y).ratio() >= 0.88
+
+
 def same_area(a: str, b: str) -> bool:
     """Loose name match for OCR'd area names: equal after squeeze(), or one is the other missing up to two end
     characters (OCR drops or adds a trailing "I": "Highland Woods" / "Highland Woods I")."""
     x, y = squeeze(a), squeeze(b)
     if not x or not y:
+        return False
+    # Roman numerals at the end must agree: "Verdantglade V" is not "Verdantglade VI" (2026-11-05: the walk to V
+    # went to VI's label and ended in Auroradrasil). Only when both names carry one; OCR often drops a final "I".
+    nx, ny = re.search(r"(?<=[a-z]{4})([ivx]+)$", x), re.search(r"(?<=[a-z]{4})([ivx]+)$", y)
+    if nx and ny and nx.group(1) != ny.group(1) and abs(len(nx.group(1)) - len(ny.group(1))) != 1:
+        return False
+    if nx and ny and {nx.group(1), ny.group(1)} in ({"v", "vi"}, {"iv", "v"}, {"ix", "x"}):
         return False
     short, long_ = sorted((x, y), key=len)
     # OCR drops or adds a trailing letter, including a stray "I" after a name without a numeral ("Highland Woods I"),
@@ -103,7 +119,7 @@ def _widen(dev) -> bool:
 def go_to(dev, det, target) -> str:
     """target: an area name on the area map, or an (x, y) point there. Returns "arrived" (walked and stopped),
     "no_move" (coordinates didn't change: blocked or unreachable), "no_label", or "not_on_map"."""
-    banner(log, "Go To", f"walk to {target} picked on the area map",
+    banner(log, "Go To", f"walk to {'the nearest object' if callable(target) else target} picked on the area map",
            f"the character stops moving, {WALK_TIMEOUT_S}s, or no movement at all after the tap")
     start = coords(det)
     for nudge in ((360, 600, 360, 760), (360, 600, 200, 600)):
@@ -138,7 +154,8 @@ def go_to(dev, det, target) -> str:
                             or [b for t, b in labels.items() if squeeze(t) == squeeze(target)]
                             or [b for t, b in labels.items() if squeeze(target) in squeeze(t)]
                             or [b for t, b in labels.items() if squeeze(t) and squeeze(target).startswith(squeeze(t))
-                                and same_area(t, target)])
+                                and same_area(t, target)]
+                            or [b for t, b in labels.items() if close_name(t, target)])
         labels, hit = find()
         if not hit and _widen(dev):
             labels, hit = find()
@@ -173,7 +190,11 @@ def go_to(dev, det, target) -> str:
         time.sleep(2)
         c = coords(det)
         if c is None:
-            log.info("left the map while walking (%s)", det.detect().state)
+            st = det.detect().state
+            log.info("left the map while walking (%s)", st)
+            if st == "area_map":  # the map reopened (a tap on the minimap): close it again
+                dev.tap(*ui.BACK_ARROW)
+                time.sleep(1.5)
             return "arrived" if moved else "no_move"
         if c != last:
             moved, still, last = True, 0, c

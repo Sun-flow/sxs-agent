@@ -35,7 +35,7 @@ Enhance Gear > Resonance (0.86, 0.20). Tiers read "Enhance Gear x4 to +N" (N = 5
 
 ### R-088 · Replace gear with better items from the profile
 A "!" over a gear piece's picture means a better piece is available for that slot (mae: red; blue Equip badges seen too, R-080). Replace it whenever one drops. This is its own task, independent of enhancing (R-092), and the bot should do it on its own (mae). Profile, an Equip slot, Replace. The list puts the best first, green up arrow on upgrades. Tap one for a compare (equipped left, new right, with power); Replace is under the new item. Enhancement levels carry over, so replacing loses nothing.
-- Code: its own loop `python -m sxs gearswap`, also daily step `gear_swap`. The slot badge says to look; the power compare decides whether to Replace.
+- Code: its own loop `python -m sxs gearswap`, also daily step `gear_swap`. The slot badge says to look; the power compare decides whether to Replace. First live run worked: head 1100 to 1170, chest 889 to 1900, boots 143 to 1860 power.
 *observed, told* · `character/replace_gear.png`, `character/gear_compare.png` · nodes `replace_gear`, `gear_compare` · R-080, R-092
 
 ## Skills and charms

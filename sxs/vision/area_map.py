@@ -14,6 +14,7 @@ import numpy as np
 
 LEGEND = (530, 30, 190, 240)  # x, y, w, h of the legend box top right (its icons are not targets)
 MAP_AREA = (0, 90, 720, 1060)  # below the title, above the kingdom buttons
+MIN_PX = 25  # objects closer than this to our white dot are our own marker
 SIZES = {"item": (15, 120), "monster": (15, 200), "building": (40, 400), "player": (30, 200)}
 
 
@@ -51,6 +52,8 @@ def nearest(frame: np.ndarray, kinds=("item", "monster", "building"), max_px: in
     if not me:
         return None
     px, py = me[0]
+    # Not our own dot: its glow reads as an object right on top of us (seen 2026-11-05: "centring on (360, 640)",
+    # the player, over and over).
     cands = [(k, p) for k, p in objs if k in kinds and p not in skip
-             and (p[0] - px) ** 2 + (p[1] - py) ** 2 <= max_px ** 2]
+             and MIN_PX ** 2 < (p[0] - px) ** 2 + (p[1] - py) ** 2 <= max_px ** 2]
     return min(cands, key=lambda kp: (kp[1][0] - px) ** 2 + (kp[1][1] - py) ** 2) if cands else None
