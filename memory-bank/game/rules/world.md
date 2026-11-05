@@ -1,6 +1,6 @@
 # World rules
 
-Read for background facts: regions, servers, level unlocks, seasons, server time.
+Read for background facts: regions, servers, level unlocks, seasons, server time, and towns (what each NPC does).
 
 ## Regions and servers
 
