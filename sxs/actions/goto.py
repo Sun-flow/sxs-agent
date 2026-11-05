@@ -190,7 +190,11 @@ def go_to(dev, det, target) -> str:
         time.sleep(2)
         c = coords(det)
         if c is None:
-            log.info("left the map while walking (%s)", det.detect().state)
+            st = det.detect().state
+            log.info("left the map while walking (%s)", st)
+            if st == "area_map":  # the map reopened (a tap on the minimap): close it again
+                dev.tap(*ui.BACK_ARROW)
+                time.sleep(1.5)
             return "arrived" if moved else "no_move"
         if c != last:
             moved, still, last = True, 0, c
