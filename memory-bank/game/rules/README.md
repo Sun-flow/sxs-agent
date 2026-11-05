@@ -33,7 +33,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 
 ## Adding or changing a rule
 
-- New rule: next free ID (**next free: R-129**), under the right `##` heading of the right file, plus a row in the ID index below.
+- New rule: next free ID (**next free: R-130**), under the right `##` heading of the right file, plus a row in the ID index below.
 - Never reuse or renumber an ID. When merging a rule into another, delete it, add it to the retired table, and repoint citations.
 - Run `python3 scripts/check-rules.py`: it checks that every cited ID resolves, retired IDs aren't cited, every file is listed here, and image paths exist.
 
@@ -142,6 +142,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-126 | `home.md` | Find home objects by template; the camera keeps its pan |
 | R-127 | `combat.md` | Take fights against up to 25% more CP than ours |
 | R-128 | `quests.md` | Daily Quest: the default Quest page |
+| R-129 | `ui.md` | "Choose Your Reward": ask mae, or take the class match |
 
 ## Retired IDs
 
