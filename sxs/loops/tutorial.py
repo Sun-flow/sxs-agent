@@ -29,9 +29,10 @@ HIGHLIGHT_LO = np.array([25, 100, 170])
 HIGHLIGHT_HI = np.array([35, 255, 255])
 GLOW_MAX_S, GLOW_MIN_V, GLOW_BAND_MIN = 40, 200, 0.35  # the white glow band inside a filled highlight
 GLOW_STATES = ("companions",)  # screens whose tutorial highlight is the filled style
-# mae decides (builder asked 2026-11-05 01:59): the tutorial locks the Companions screen until Akane (a story NPC) is
-# invited. Until mae says yes, the tutorial follower stops there with "needs_decision" instead of tapping Invite.
-INVITE_COMPANIONS = False
+# The tutorial locks the Companions screen until Akane is invited. mae, 2026-11-05 02:23: inviting to parties and
+# the social features are fine ("teaming up is an important part of this game"), so the follower taps Invite.
+# False makes it stop there with "needs_decision" instead.
+INVITE_COMPANIONS = True
 HINT_TO_BUTTON_DY = 100
 # Never tap a highlight whose text looks like spending: gacha pulls, shop buys, premium currency.
 NEVER_TAP = r"Pray|Buy|Purchase|Refresh|Spend|Dawnium|Recharge|Top ?up"

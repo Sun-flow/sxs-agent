@@ -31,7 +31,7 @@ names the row in `Loop.owns` (the tutorial loop owns `tutorial`) or wraps a bloc
 | `choose_reward` | `choose_reward` | R-129 class-matched pick | both or neither card usable: `needs_decision` |
 | `rating_popup` | `rating_popup` | Later (R-060) | never |
 | `chat` | `chat` | close the panel (R-027) | never |
-| `tutorial` | `world_map`, `home` or `companions` with a highlight | `tutorial.follow`, 20 steps | highlight on a spend word: `tutorial_spend_prompt`; a companion invite: `needs_decision` (mae) |
+| `tutorial` | `world_map`, `home` or `companions` with a highlight | `tutorial.follow`, 20 steps | highlight on a spend word: `tutorial_spend_prompt` |
 
 Left out on purpose: fights, loading, dialogue and reward popups (every loop already passes through them with
 `actions/common.pass_through`); defeated, battle prep and cards (the loop's goal decides those); `unknown` (explicit,
@@ -52,8 +52,8 @@ frames and on nothing else in those states:
   inside it around a lime button (`docs/screens/dialogs/companions_invite_tutorial.png`, Akane's Invite; the
   tutorial locks the back arrow there). `find_highlight(frame, glow=True)` accepts it; glow is only switched on for
   `tutorial.GLOW_STATES`, because furniture popups, the alchemy pot and the main menu have the same look.
-  Inviting a companion waits on mae: `tutorial.INVITE_COMPANIONS = False` makes the follower stop there with
-  `needs_decision`; set it to True once she says yes.
+  mae (2026-11-05 02:23): inviting to parties and the social features are fine, so the follower taps Invite
+  (`tutorial.INVITE_COMPANIONS = True`; False would make it stop there with `needs_decision`).
 
 Not covered yet, and handled by running `python -m sxs tutorial` as before: tutorial overlays the detector reads as
 `unknown` (the post-rank overlays, R-036; `dialogs/tutorial_highlight*.png`). Next step: live frames of those, then

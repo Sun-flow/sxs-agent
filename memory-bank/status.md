@@ -26,7 +26,7 @@ Format: `- what — branch, PR, environment (started)`. Remove the line when it 
 
 ## Next (in order)
 
-- Interrupt layer (`docs/interrupts.md`): live check that a tutorial highlight on the island map pauses Fog Walk and resumes it; capture frames of tutorials on unknown overlays so the row can learn them. Companions invite waits on mae (`tutorial.INVITE_COMPANIONS`).
+- Interrupt layer (`docs/interrupts.md`): live check that a tutorial highlight on the island map pauses Fog Walk and resumes it; capture frames of tutorials on unknown overlays so the row can learn them. Companions invite is followed (mae 02:23: inviting is fine).
 
 0. Progress tracker live check: run `python -m sxs progress` on rif-love-su, confirm the profile/Journal/guild/area readings, then the daily run's report. Routes still missing: the bag (Lumium, Material Realm tools), relics (not unlocked).
 

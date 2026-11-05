@@ -5,7 +5,7 @@
 
 ### 2026-11-05 (night) · Interrupts: task switching on state change (Claude Code, cloud)
 - mae (01:56) asked for a detector that moves between tasks (explore and tutorial) when the screen changes. New `sxs/core/interrupts.py` (InterruptingDetector, Interrupt, LoopStop, resume_with) and `sxs/actions/interrupts.py` (table: choose_reward, rating_popup, chat, tutorial on world_map/home). The runner wraps every loop's detector; readouts gain `[Interrupt]` / `[Resume X]` lines and an `interrupts` list. Explore's own reward-choice branch removed; the tutorial loop owns its row; Fog Walk walks back to its area after a handler. `StateDetector.last_frame` added. `tests/check_interrupts.py`; design `docs/interrupts.md`.
-- Builder captures (cherry-picked): the Auroradrasil outline (caught) and the Companions "Invite" filled glow. New `companions` state; `find_highlight(glow=True)` for the filled style on that screen only (furniture popups and the main menu look the same); inviting waits on mae (`INVITE_COMPANIONS = False`, stops with needs_decision).
+- Builder captures (cherry-picked): the Auroradrasil outline (caught) and the Companions "Invite" filled glow. New `companions` state; `find_highlight(glow=True)` for the filled style on that screen only (furniture popups and the main menu look the same); inviting followed (mae 02:23: social features and invites are fine; `INVITE_COMPANIONS = True`).
 - Open: live check; the finder matches 18 ordinary reference screens, so tutorials on unknown overlays still need `python -m sxs tutorial`.
 
 ### 2026-11-05 (night) · Game docs: minimap legend, reward choice on by default (Claude Code, cloud)

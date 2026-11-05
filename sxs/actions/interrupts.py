@@ -8,7 +8,7 @@ Order is priority: the first row that matches wins. Add a row here instead of a 
 | choose_reward | choose_reward                              | R-129 class-matched pick (actions/choose_reward) | both or neither usable: needs_decision |
 | rating_popup  | rating_popup                               | "Later" (R-060)                               | never                          |
 | chat          | chat                                       | close the panel (R-027)                       | never                          |
-| tutorial      | world_map, home or companions + highlight  | the tutorial loop's `follow` (bounded)        | spend word; companion invite (mae) |
+| tutorial      | world_map, home or companions + highlight  | the tutorial loop's `follow` (bounded)        | highlight on a spend word      |
 
 Not in the table, on purpose: fights, loading, dialogue and reward popups (every loop passes through them already,
 `actions/common.pass_through`); defeated, battle prep and cards (a loop's goal decides those); unknown (explicit,
@@ -16,8 +16,8 @@ mae's rule).
 
 The tutorial row checks only world_map, home and companions: on the reference screens `find_highlight` also matches
 Mall buttons, prayer tabs, tower floor rows, the bed bubble and popups (18 false matches, none in those states). On
-companions it looks for the filled glow style (Akane's Invite); inviting waits on mae (tutorial.INVITE_COMPANIONS),
-so there the row ends the run with needs_decision. Tutorials on unknown overlays stay with `python -m sxs tutorial`.
+companions it looks for the filled glow style (Akane's Invite) and taps it (mae, 02:23: inviting is fine;
+tutorial.INVITE_COMPANIONS). Tutorials on unknown overlays stay with `python -m sxs tutorial`.
 See docs/interrupts.md.
 """
 
