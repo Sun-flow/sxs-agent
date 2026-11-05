@@ -20,7 +20,7 @@ Read before pressing any button that might spend, and on any class, social, acco
 - **A 3rd guild donation in a day** (R-103).
 - **Choose a class or press "Change Class"**: mae's call (R-054, R-117).
 - **"Rcmd Loadouts"** or its Apply (R-080).
-- **Anything social** (requests, Apply, Team, other players); guild choice beyond joining one random open guild is mae's (R-057, R-077, R-102).
+- **Guild choice** beyond joining one random open guild is mae's (R-102). Other social features are allowed (R-057, R-077).
 - **Delete or dismantle items**; **accept agreements or account prompts** (mae).
 - **Type in chat**; close Server Chat with the down arrow (0.06, 0.96) (R-027).
 - **Rate the game or open the store**: rating popups get **Later** (mae) (R-060).
@@ -70,12 +70,12 @@ Policy: `resource/policy/cards.json`, `sxs/policy/decide.py`; nav-graph edges mi
 
 ## Social
 
-### R-057 · Leave social requests alone
-- **Never accept, decline or touch social requests: mae's call.**
-- The badged person icon on the map's left edge (0.06, 0.6) opens "Apply" (Friends / Team Up / Challenge / Room; Decline All, Agree All). Don't use it.
-- Ignore Friend Request toasts (X / check) on home near the tracker. Never tap other players in the world (R-123).
+### R-057 · Social features are open to the bot: team up freely
+- **The bot may use social features** (mae): invite anyone to parties, team up, and answer social requests. Teaming up is an important part of the game, and the tutorial teaches inviting.
+- The badged person icon on the map's left edge (0.06, 0.6) opens "Apply" (Friends / Team Up / Challenge / Room; Decline All, Agree All). Friend Request toasts (X / check) show on home near the tracker.
+- Still off-limits: typing in chat (R-027), creating, choosing or leaving a guild beyond joining one random open guild (R-102), and anything that spends (R-043). Don't tap other players by accident while gathering (R-123).
 *observed, told* · `guild/apply_requests.png` · node `apply_requests` · R-077, R-027, R-102
 
-### R-077 · Leave the Team panel alone
-The flag at the map's top left (0.08, 0.12) opens the Team panel (Players, Team Goal, World Call / Invite / Nearby). **Don't touch it.**
+### R-077 · The Team panel: invite and team up
+The flag at the map's top left (0.08, 0.12) opens the Team panel (Players, Team Goal, World Call / Invite / Nearby). The bot may use it to invite players and form parties (R-057, mae).
 *observed* · `home/team.png` · node `team` · R-057

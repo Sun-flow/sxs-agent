@@ -76,7 +76,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-052 | `dailies.md` | Exploration Goals: milestone rewards |
 | R-053 | `ui.md` | Find menu buttons by label; they move as features unlock |
 | R-054 | `policy.md` | Class choices are mae's: pick Leave and stop |
-| R-057 | `policy.md` | Leave social requests alone |
+| R-057 | `policy.md` | Social features are open to the bot: team up freely |
 | R-059 | `home.md` | Filter home labels out of tracker OCR |
 | R-060 | `ui.md` | Close popups by tapping above them; rating popups get Later |
 | R-061 | `combat.md` | Heal to 70% before any fight; retry a lost fight at most twice |
@@ -94,7 +94,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-073 | `combat.md` | Fight monsters that block the path |
 | R-074 | `overworld.md` | Edge pointers: tap one to pan the camera to its target |
 | R-076 | `overworld.md` | The area map shows resources, progress and power gates |
-| R-077 | `policy.md` | Leave the Team panel alone |
+| R-077 | `policy.md` | The Team panel: invite and team up |
 | R-078 | `combat.md` | Read HP on the HUD bar; heal via the HUD portrait |
 | R-079 | `combat.md` | Fantasia Ascent: one climb a day, Auto Challenge on, never Retry |
 | R-080 | `upgrades.md` | A "!" on the player or the character screen means an upgrade is waiting: take it |

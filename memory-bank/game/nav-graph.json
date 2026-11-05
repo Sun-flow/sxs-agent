@@ -712,7 +712,7 @@
    "images": [
     "docs/screens/guild/apply_requests.png"
    ],
-   "notes": "Tabs Friends / Team Up / Challenge / Room; incoming requests with x / check, Decline All / Agree All. Leave untouched (R-057)."
+   "notes": "Tabs Friends / Team Up / Challenge / Room; incoming requests with x / check, Decline All / Agree All. The bot may answer them (R-057)."
   },
   {
    "id": "area_map",
@@ -750,7 +750,7 @@
    "images": [
     "docs/screens/home/team.png"
    ],
-   "notes": "Players 1/9, Team Goal, World Call / Invite / Nearby. Social; left alone (R-077)."
+   "notes": "Players 1/9, Team Goal, World Call / Invite / Nearby. The bot may invite and team up (R-077)."
   },
   {
    "id": "blessing_level",

@@ -7,7 +7,7 @@ Read before any guild screen. Code: `sxs/loops/guild.py` (`python -m sxs guild [
 ### R-102 · Join a random open guild; never create one
 - Unlocks with level (R-011): bottom bar 4th icon (0.68, 0.97), Akane dialogue, then "Join Guild Go>>" (0.71, 0.38) / "Create Guild <<Go" (0.29, 0.77).
 - Join list: search (name or ID), Refresh; rows offer instant "Join" or "Apply" (approval); a red "50K+ Power" label is a power requirement.
-- mae: join a random instant-"Join" guild. **Never Create Guild** (may cost Dawnium). Choosing or leaving guilds otherwise is mae's call (R-057). Current guild: karsa_1515 (ID 700460600036).
+- mae: join a random instant-"Join" guild. **Never Create Guild** (may cost Dawnium). Choosing or leaving guilds otherwise is mae's call (R-102). Current guild: karsa_1515 (ID 700460600036).
 *observed, told* · `guild/guild_tutorial_intro.png`, `guild/guild_no_guild.png`, `guild/guild_join_list.png` · node `guild_no_guild`, `guild_join_list` · R-011, R-043, R-057
 
 ## Guild island
