@@ -1,8 +1,8 @@
 """"Choose Your Reward": the skill pick after clearing a Realm / mini-dungeon (seen 2026-11-05, Temple Ruins).
 
-Two skill cards, one radio circle under each, OK below. mae's rule (2026-11-05): when exactly one card is marked
-"Class Mismatch", take the other (the skill our class can use); when both are usable (or both mismatch), it's a
-real choice: stop and ask. Screen: docs/screens/dialogs/choose_reward_skill.png. No model calls.
+Two skill cards, one radio circle under each, OK below. R-129 (mae, 2026-11-05): for now always stop and ask
+(AUTO_PICK is False). Later, with AUTO_PICK on: when exactly one card is marked "Class Mismatch", take the other
+(the skill our class can use); when both are usable (or both mismatch), stop and ask. Screen: docs/screens/dialogs/choose_reward_skill.png. No model calls.
 """
 
 from __future__ import annotations
@@ -18,6 +18,7 @@ log = logging.getLogger("sxs.actions.choose_reward")
 CARD_ROIS = [[190, 480, 170, 330], [370, 480, 170, 330]]  # left and right skill cards
 RADIOS = [(276, 765), (450, 765)]
 OK = (360, 993)
+AUTO_PICK = False  # R-129: mae picks for now; True applies the class-match rule
 
 
 def options(det, frame=None) -> list[tuple[str, bool]]:
@@ -37,7 +38,7 @@ def choose(dev, det) -> str:
     opts = options(det)
     usable = [i for i, (_, ok) in enumerate(opts) if ok]
     log.info("reward choice: %s", opts)
-    if len(usable) != 1:
+    if not AUTO_PICK or len(usable) != 1:
         log.warning("reward choice needs mae: %s; frame %s", opts, save_unknown(dev, "choose_reward"))
         return "needs_decision"
     i = usable[0]
