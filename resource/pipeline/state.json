@@ -35,6 +35,7 @@
                 "State.BattlePrep",
                 "State.BackgroundFight",
                 "State.Battle",
+                "State.FurnitureUpgrade",
                 "State.Cart",
                 "State.Home",
                 "State.WorldOverview",
@@ -774,7 +775,12 @@
         "doc": "Companions list (Akane, Qin, Killian: story NPCs) with Invite buttons; the tutorial locks it before Auroradrasil with a filled glow on Akane's Invite (docs/screens/dialogs/companions_invite_tutorial.png). Inviting waits on mae (sxs/loops/tutorial.py INVITE_COMPANIONS).",
         "recognition": "OCR",
         "expected": "^Companions$",
-        "roi": [0, 20, 320, 70],
+        "roi": [
+            0,
+            20,
+            320,
+            70
+        ],
         "pre_delay": 0,
         "post_delay": 0
     },
@@ -826,6 +832,19 @@
             80,
             150,
             40
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.FurnitureUpgrade": {
+        "doc": "Cart Furniture Upgrade screen (tap a Cart row arrow): tabs per resource row at y=150 (Rolla, Wood, Stone, Raw Ore, Battle Essence), selected row name at (360, 385), \"Lv. N -> Lv. N+1\" at y=440, Upgrade Cost icons with have/need at y=975-1025, \"Upgrade x1\" at (360, 1107), back arrow bottom left. sxs.loops.cart.",
+        "recognition": "OCR",
+        "expected": "^Furniture Upgrade$",
+        "roi": [
+            20,
+            20,
+            400,
+            70
         ],
         "pre_delay": 0,
         "post_delay": 0

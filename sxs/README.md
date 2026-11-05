@@ -65,6 +65,7 @@ Every loop has the same inputs, outputs and readouts:
 | `goto` | `actions/goto.py` | Walk somewhere via the area map | `"Highland Woods"` or `X Y` |
 | `gather` | `loops/gather.py` | Generic `collect(Target)` for ore, sand, essence, rolla, bellflower | `--material sand`, `--check`, `--harvest` |
 | `upgrade` | `loops/upgrade.py` | Every "!" on the Character screen | `--only skills` |
+| `cart` | `loops/cart.py` | Claim the Cart, then raise its Stone and Wood rows evenly (R-136); ends when capped or short | `--check`, `--max N` |
 | `gearswap` | `loops/gearswap.py` | Equip the better piece wherever a gear slot shows "!" (separate from enhancing) | `--check`, `--all` |
 | `strengthen` | `loops/strengthen.py` | Cart, gear/charm equip, enhance, techniques | |
 | `tower` | `loops/tower.py` | Fantasia Ascent, one run a day | `--tower "Moonveil Woods"` |

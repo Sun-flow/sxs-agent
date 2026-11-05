@@ -3,18 +3,18 @@
 > **Last updated**: 2026-11-05
 > Where the work stands now. Past sessions: `log.md`. How a builder works: `playbook.md`.
 
-## Game state (2026-11-05 04:00Z, mae's PC)
+## Game state (2026-11-05 05:05Z, mae's PC)
 
-- gromb2: Mage, Apprentice II, Lv 24/30, power 22.2K (gear swap put on Beastclaw Boots, Beasthide Armor and a better hat from Auroradrasil). Rolla ~72.7K, Dawnium ~1.85K (never spent by the bot), stamina ~234/300, Abundance Leaves 450, 1 Shapeshifting Mirror (unused).
+- gromb2: Mage, Apprentice II, Lv 24/30, power 22.4K (skills Lv 17-18 after Quick Upgrade; Cart Stone and Wood Lv 5). Rolla ~72.7K, Dawnium ~1.85K (never spent by the bot), stamina ~234/300, Abundance Leaves 450, 1 Shapeshifting Mirror (unused).
 - Explored and blessed: Originisle; Verdantglade I-IV area quests done; Verdantglade III 100%; Auroradrasil 100% and blessed (Lost Goddess Statue, 2026-11-05). Drasilgard town visited (Chief, Hermes, Carol). Verdantglade V 78% (quest "Explore Verdantglade V"). Unexplored: Jungle Camp 12.6K, Zephyr Vale, Monolith Ruins I, Troll Lair 17K, Verdantglade VI, Wildbloom Coast 20.4K.
 - Rank: Apprentice III needs Lv 30, leaves 16/5, Bellflower 4/30 (source: Verdantglade Flower Harvest in Moonveil Woods; the plants in Drasilgard are decoration), Rolla 10.5K. Blocked on Lv 30.
 - Fantasia Ascent Moonveil Woods: Auto Challenge climbed to F24+ in the background (2026-11-04).
 - Social features open (R-057): NPC companions Akane, Qin, Killian were invited for Auroradrasil (rank B).
 
-## For the next thread: strengthening and the Cart
+## Strengthening and the Cart (2026-11-05 early morning)
 
-- Strengthening: `python -m sxs upgrade` (goals pass, then skills, gear, class, rank, one pass per lit badge, 90 s each), `python -m sxs gearswap` (works live: 3 swaps on 2026-11-05), `python -m sxs strengthen` (Cart claim, banded gear enhance, techniques). Last upgrade run left no badges on the Character screen (2026-11-04); new gear since then may light gear badges for enhancing.
-- AFK Cart: `Strengthener.claim_cart` claims its loot from home (daily step `cart`). Tracker side quests "Cart Upgrade I" and "Cart Upgrade II" ("Upgrade N Resources to Lv. 2") appeared and were claimed from the tracker gift on 2026-11-04, so the Cart has upgradeable resource lines; the upgrade screen itself hasn't been mapped and no code upgrades the Cart yet. ❓ Which currency the Cart upgrades cost (check before tapping; R-043 never-press list applies).
+- Strengthening done: power 22.4K. `python -m sxs upgrade` now always opens the Skill page (Quick Upgrade shows blue arrows, not a red "!"). At the end the Character screen's weapon slot showed a red "!" and chest/boots blue arrows: recheck with `gearswap` and the gear pass.
+- Cart: `python -m sxs cart` (also daily step `cart_upgrade`) raises Stone and Wood evenly (R-136). Both are Lv 5, capped: Lv 6 needs Blessing Lv 6 (the bed's Blessing Level). Costs are Wood + Stone + Rolla only. ❓ How the Blessing Level rises (blessing statues? R-035, R-070).
 
 ## Works (all on main, PRs #1–#30)
 
