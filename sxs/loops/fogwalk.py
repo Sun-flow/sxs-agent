@@ -30,7 +30,7 @@ from ..core.nav import Navigator
 from ..policy.decide import Context, Decider
 from ..vision import minimap
 from ..vision.hp import PREP_HP_BAR
-from ..vision import collectibles
+from ..vision import area_map, collectibles
 from ..vision.hud import read_stamina
 from ..vision.player import player_on_screen
 from . import tower
@@ -78,6 +78,7 @@ def to_world(player_xy: Optional[tuple[int, int]], player: Optional[tuple[int, i
             player_xy[1] - round((point[1] - player[1]) / minimap.SCREEN_TILE))
 
 
+AREA_MAP_TRIES = 3  # area-map walks to a dot per run, when the minimap plan finds nothing
 OUTSIDE_RADIUS = 3  # map tiles around a spot found to be in another zone that are no longer goals
 LAST_GOAL: Optional[str] = None  # what the last minimap_target() headed for: "monster", "building" or None
 
@@ -175,6 +176,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
     if area and walk_there:
         goto.go_to(dev, det, area)
     stood_on: set = set()  # map coordinates the character has stood on this run
+    map_tries = 0
     outside: set = set()  # map coordinates where we found ourselves in another zone (R-132)
     tapped, saved_fight = None, False  # (frame, screen point) of the last walk tap, for the collectibles store
     free = not area_blessed(dev, det, area)  # unexplored: fights and pickups cost nothing (R-065)
@@ -233,9 +235,21 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 last_xy, still, progress_at = d.text, 0, time.monotonic()
             else:
                 still += 1
+                if last_tap:
+                    stood_on.add(last_tap)  # a tap that didn't move us: plan somewhere else next time
                 # Monsters in brackets guard the way into the area: fight one, then walk on.
                 if fight and still in (2, 3) and attack_guard(dev, det, frame):
                     continue
+                if still >= STILL_LIMIT and map_tries < AREA_MAP_TRIES:
+                    # Blocked on the minimap plan: try mae's big-map walk to the nearest dot before giving up.
+                    map_tries += 1
+                    kinds = tuple(k for k in ("item", "monster", "building")
+                                  if (free or k != "item") and (fight or k != "monster"))
+                    why = goto.go_to(dev, det, lambda f: (area_map.nearest(f, kinds) or (None, None))[1])
+                    log.info("blocked; area-map walk to the nearest %s: %s", "/".join(kinds), why)
+                    if why == "arrived":
+                        still = 0
+                        continue
                 if still >= STILL_LIMIT:
                     log.warning("no new tile for %d taps (at %s, %d tiles visited); stopping", still, d.text,
                                 len(visited))
@@ -275,6 +289,17 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 if known:
                     name, kind, target, score = known[0]
                     log.info("known %s %r on screen at %s (%.2f): heading there", kind, name, target, score)
+                elif map_tries < AREA_MAP_TRIES:
+                    # mae, 2026-11-05: open the big map, tap the nearest dot or structure (the camera centres on
+                    # it), close the map and tap the middle of the screen, where the element now is.
+                    map_tries += 1
+                    kinds = tuple(k for k in ("item", "monster", "building")
+                                  if (items_ok or k != "item") and (fight or k != "monster"))
+                    pick = lambda f: (area_map.nearest(f, kinds) or (None, None))[1]  # noqa: E731
+                    why = goto.go_to(dev, det, pick)
+                    log.info("area-map walk to the nearest %s: %s", "/".join(kinds), why)
+                    if why == "arrived":
+                        continue
             if target:
                 log.info("walking toward unexplored ground at %s (map %s)", target, spot)
                 last_tap = spot
