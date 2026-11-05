@@ -15,11 +15,13 @@ import cv2
 import numpy as np
 
 MIN_AREA, MAX_AREA = 180, 1100  # red pixel count of one disc
+SMALL_MIN_AREA = 120  # area-map badges (statues, ore) are smaller
 MAX_ASPECT = 1.35
 
 
-def find_badges(frame: np.ndarray, roi=None) -> list[tuple[int, int]]:
-    """Centres (x, y) of red "!" badges, top to bottom then left to right. roi = [x, y, w, h] limits the search."""
+def find_badges(frame: np.ndarray, roi=None, min_area: int = MIN_AREA) -> list[tuple[int, int]]:
+    """Centres (x, y) of red "!" badges, top to bottom then left to right. roi = [x, y, w, h] limits the search.
+    min_area: the area map's badges are smaller (about 17 px, 175 red pixels): pass SMALL_MIN_AREA there."""
     ox = oy = 0
     if roi:
         x, y, w, h = roi
@@ -38,7 +40,7 @@ def find_badges(frame: np.ndarray, roi=None) -> list[tuple[int, int]]:
         if max(bw, bh) / max(1, min(bw, bh)) > MAX_ASPECT:
             continue
         r = int(red[by:by + bh, bx:bx + bw].sum())
-        if not (MIN_AREA <= r <= MAX_AREA) or r < 0.45 * bw * bh:
+        if not (min_area <= r <= MAX_AREA) or r < 0.45 * bw * bh:
             continue
         # White inside the disc only (the box corners show the background): the "!" is a thin upright mark, not a
         # wider white glyph such as a class icon's sword.

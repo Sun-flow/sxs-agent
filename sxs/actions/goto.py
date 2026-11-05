@@ -63,6 +63,13 @@ def same_area(a: str, b: str) -> bool:
     x, y = squeeze(a), squeeze(b)
     if not x or not y:
         return False
+    # Roman numerals at the end must agree: "Verdantglade V" is not "Verdantglade VI" (2026-11-05: the walk to V
+    # went to VI's label and ended in Auroradrasil). Only when both names carry one; OCR often drops a final "I".
+    nx, ny = re.search(r"(?<=[a-z]{4})([ivx]+)$", x), re.search(r"(?<=[a-z]{4})([ivx]+)$", y)
+    if nx and ny and nx.group(1) != ny.group(1) and abs(len(nx.group(1)) - len(ny.group(1))) != 1:
+        return False
+    if nx and ny and {nx.group(1), ny.group(1)} in ({"v", "vi"}, {"iv", "v"}, {"ix", "x"}):
+        return False
     short, long_ = sorted((x, y), key=len)
     # OCR drops or adds a trailing letter, including a stray "I" after a name without a numeral ("Highland Woods I"),
     # but a name that already ends in a numeral differs from the next one (Verdantglade I vs II vs III).

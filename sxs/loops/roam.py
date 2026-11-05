@@ -34,12 +34,13 @@ import numpy as np
 from ..actions import goto
 from ..actions.common import close_rewards
 from ..core import ui
-from ..core.loop import Loop, banner
+from ..core.loop import Loop, banner, progress
 from ..core.marks import server_day
 from ..core.nav import Navigator
 from ..core.paths import LOGS, RESOURCE
 from ..policy.decide import Context, Decider
 from ..policy import fights
+from ..vision.badges import SMALL_MIN_AREA, find_badges
 from ..vision.hud import read_power
 from ..vision.ocr import power_k
 from . import fogwalk
@@ -99,6 +100,24 @@ def read_areas(det, frame=None) -> list[Area]:
             target = min(above, key=lambda a: y - a.box[1])
             setattr(target, kind, value)
     return areas
+
+
+ORE_YELLOW_PX = 250  # yellow pixels left of a badge that mean a gold ore icon
+
+
+def statue_badges(frame: np.ndarray) -> list[tuple[int, int]]:
+    """Area-map points of statues that can be blessed now: a small red "!" on a grey (unsaturated) statue icon
+    (mae, 2026-11-05: the "!" means the zone is explored and its statue is ready; seen in Auroradrasil). The "!" on
+    a gold ore icon is skipped by its size. Returns the icon's point, just below-left of the badge."""
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    out = []
+    for bx, by in find_badges(frame, min_area=SMALL_MIN_AREA):
+        # The statue icon is small and mostly hidden under its badge; a gold ore icon is a big yellow block.
+        near = hsv[max(0, by - 10):by + 40, max(0, bx - 45):bx]
+        yellow = ((near[..., 0] >= 15) & (near[..., 0] <= 35) & (near[..., 1] > 120) & (near[..., 2] > 150)).sum()
+        if yellow < ORE_YELLOW_PX:
+            out.append((bx - 4, by + 5))
+    return out
 
 
 def statue_points(frame: np.ndarray) -> list[tuple[int, int]]:
@@ -186,19 +205,42 @@ class Roamer:
         time.sleep(2.5)
         frame = self.dev.screenshot()
         areas = read_areas(self.det, frame)
-        statues = statue_points(frame)
+        statues = statue_badges(frame)  # statues ready to bless (red "!"), as area-map points
         self.dev.tap(*ui.BACK_ARROW)
         time.sleep(2)
-        log.info("power %s; areas %s; %d statue icons", power,
+        log.info("power %s; areas %s; %d statues ready to bless", power,
                  [(a.name, a.pct, a.gate) for a in areas], len(statues))
         return areas, statues, power
+
+    def bless_ready(self, statues: list[tuple[int, int]]) -> int:
+        """mae, 2026-11-05: a statue with a red "!" on the area map is ready: walk there the big-map way (tap it on
+        the area map, close the map, tap the middle of the screen) and unlock it through the card rules."""
+        done = 0
+        for p in statues[:3]:
+            log.info("statue ready to bless at area-map %s", p)
+            if goto.go_to(self.dev, self.det, p) == "not_on_map":
+                break
+            self.dev.tap(*goto.SCREEN_CENTRE)
+            time.sleep(4)
+            if self.det.detect().state in ("world_map", "unknown") and not self.det.read_text([60, 560, 600, 80]):
+                continue
+            card, choice = Decider(self.det).decide(Context(goal="explore"))
+            log.info("statue card %r -> %s", card.title, choice.kind)
+            self.dev.tap(*choice.point)
+            time.sleep(3)
+            close_rewards(self.dev, self.det)
+            progress(("blessed", p))
+            done += 1
+        return done
 
     def pick(self, areas: list[Area], power: Optional[float]) -> tuple[Optional[Area], Optional[Area]]:
         """(next area to explore, first area behind a power wall)."""
         todo = [a for a in areas if a.pct is not None and a.pct < 100 and not self.skipped(a.name)]
         walled = [a for a in todo if not fights.within_reach(a.gate, power)]  # up to 25% above us (mae)
         open_ = [a for a in todo if a not in walled]
-        open_.sort(key=lambda a: -a.pct)  # nearly done first: finishing an area unlocks its statue
+        # mae, 2026-11-05: the lowest-CP zone not yet blessed first (no power line counts as the lowest), then the one
+        # nearest done; explore it until its statue is blessed, then the next.
+        open_.sort(key=lambda a: (a.gate or 0, -a.pct))
         return (open_[0] if open_ else None), (walled[0] if walled else None)
 
     def approach(self, areas: list[Area], target: Area) -> Optional[Area]:
@@ -233,7 +275,7 @@ class Roamer:
             frame = self.dev.screenshot()
             areas = {a.name: a for a in read_areas(self.det, frame)}
             label = next((a for n, a in areas.items() if same(n, area_name)), None)
-            statues = statue_points(frame)
+            statues = statue_badges(frame) + [p for p in statue_points(frame)]
             self.dev.tap(*ui.BACK_ARROW)
             time.sleep(2)
             if label is None:
@@ -272,7 +314,9 @@ class Roamer:
         if not self._to_world():
             return "not_on_map"
         while time.monotonic() < deadline and done < max_areas:
-            areas, _, power = self.survey()
+            areas, statues, power = self.survey()
+            if statues and self.bless_ready(statues):
+                continue  # blessed something: read the map again
             if area:
                 target = next((a for a in areas if same(a.name, area)), None)
                 if target is None or target.pct is None:
@@ -286,7 +330,10 @@ class Roamer:
                 if wall:
                     log.info("next area %s needs %sK (power %sK): natural wall", wall.name, wall.gate, power)
                     return "power_wall"
-                return "all_explored"
+                # Every zone in reach is blessed (mae): one last fog walk for ground nobody has walked yet.
+                why = fogwalk.walk(self.dev, self.det, minutes=walk_minutes)
+                log.info("all zones blessed; fog walk for leftover ground ended: %s", why)
+                return "exploration_concluded" if why == "no_fog" else "all_explored"
             log.info("exploring %s (%s%%)", target.name, target.pct)
             via = self.approach(areas, target)
             left = (deadline - time.monotonic()) / 60
@@ -327,7 +374,7 @@ def _args(p) -> None:
     p.add_argument("--minutes", type=float, default=20,  # an outer ceiling only: the runner's progress check ends
                    help="upper limit; normally the 2-minute progress check ends the run")  # a stuck run (mae)
     p.add_argument("--area", help="explore only this area (as named on the area map)")
-    p.add_argument("--max-areas", type=int, default=2)
+    p.add_argument("--max-areas", type=int, default=10)
     p.add_argument("--walk-minutes", type=float, default=2, help="fog walk budget per pass")
 
 
@@ -335,6 +382,6 @@ def _run(ctx, opts):
     return Roamer(ctx.dev, ctx.det).run(opts.minutes, opts.area, opts.max_areas, opts.walk_minutes)
 
 
-OK = {"area_done", "power_wall", "all_explored", "timeout", "max_areas"}
+OK = {"area_done", "power_wall", "all_explored", "timeout", "max_areas", "exploration_concluded"}
 LOOP = Loop("roam", "Roam", "free exploration: unexplored areas under our power, then their statues", _run, _args,
             ok=OK)
