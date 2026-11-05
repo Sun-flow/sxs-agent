@@ -2,6 +2,9 @@
 
 Older entries moved from `memory-bank/log.md`, newest first.
 
+### 2026-11-04 (morning, later) · Game docs: guild, upgrades, shops, exploration (Claude Code, cloud)
+- Docs thread folded the builders' batches into rules R-102 to R-126 (guild, upgrades and materials, background fights, pull x10-only, rating popup Later, Vendor Booth and free Vault stamina, Mall gift boxes, shop policy, Bellflowers and Rank II, collector order, home layout, Roam Loop, Gates of Power, orange minimap monsters). PRs #15 to #24 and #27. Full entry: `git show cc7de5a:memory-bank/log.md`.
+
 ### 2026-11-04 (morning) · Game docs: bed EXP (Claude Code, cloud)
 - PR #13 merged. mae: collect bed EXP daily, not in every upgrade pass, and sooner near a level-up (R-101); the guild unlocked at Lv 20 (R-011). Next: rule batches from the guild-mapping thread.
 - Dailies builder's final batch: guild crest icon at Lv 20 (R-011), bed EXP took Lv 13 to 20 (R-101), "Path to Upgrade: Reach Lv. 20" after Verdant Wonders III (R-084). Opened PR #16 for `dailies-wrapup` (handoff for the guild thread).
