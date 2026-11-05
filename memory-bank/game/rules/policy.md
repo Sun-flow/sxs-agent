@@ -25,6 +25,7 @@ Read before pressing any button that might spend, and on any class, social, acco
 - **Type in chat**; close Server Chat with the down arrow (0.06, 0.96) (R-027).
 - **Rate the game or open the store**: rating popups get **Later** (mae) (R-060).
 - **Retry on the Fantasia Ascent DEFEAT screen**, or tick Auto Challenge there (R-079).
+- **Spend stamina while exploring**: no stamina pickups and no fights in explored, blessed areas unless a loop is deliberately spending stamina on them (mae) (R-065, R-131).
 - **Pick a "Choose Your Reward" option when both are valid**: ask mae; only a lone Class Mismatch lets the bot take the other (R-129).
 
 **Allowed (the only exceptions):**

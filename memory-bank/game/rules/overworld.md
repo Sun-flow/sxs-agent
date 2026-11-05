@@ -6,10 +6,16 @@ Read when on the island map: exploring, reading the minimap or area map, travell
 
 ### R-002 · Full exploration = every green dot cleared and all mist revealed
 Walk to each green minimap dot and interact with what it marks, beat roaming monsters, and walk into all the area's fog. "Explore <area>" quests are done this way. Full exploration unlocks the area's statue (R-070). Exploring also pays Dawnium and Rolla.
-*told, observed* · R-021, R-066, R-070
+*told, observed* · R-021, R-066, R-070, R-131
+
+### R-131 · Save a reference of every collectible and monster met while exploring
+- Each time exploration collects an interactable or fights a monster, save a reference crop of it, tagged "exploration collectibles" (mae). Explore then watches for things it recognises it needs to collect or fight.
+- Store: `resource/image/explore/collectibles/`, one crop per object plus a row in a manifest.json there (name, kind: collectible / interactable / monster, area, date, stamina cost if any). Builder designs the code ❓.
+- Interacting while exploring must cost no stamina (R-065); a crop with a stamina cost is a gathering target, not an exploration one.
+*told* · R-002, R-065, R-066, R-107
 
 ### R-065 · When stuck or between quests, walk the fog edge
-Exploration comes in two kinds (mae), and loops should handle both: **quest-progression** (follow the tracker's Explore and unlock quests, R-044) and **fog-walking** (clear side areas that aren't tied to progression but are within our CP range, e.g. Damp Woods). Side areas have no quest but give resources and levels; walking into the fog edge reveals new areas. **Explore outward from the connected area the character is in; never jump back across the map** (mae). Code: `python -m sxs roam` (`--area`, `--minutes`, `--max-areas`). It picks an unexplored area with recommended power up to 1.25x ours (R-127, R-084), enters from a connected explored neighbour (R-067), explores it with the Fog Walk (`sxs/loops/fogwalk.py`; stays in its current area when that borders the target) and blesses the statue (R-070). It takes 5-stamina pickups only while stamina stays ≥70 (R-107).
+Exploration comes in two kinds (mae), and loops should handle both: **quest-progression** (follow the tracker's Explore and unlock quests, R-044) and **fog-walking** (clear side areas that aren't tied to progression but are within our CP range, e.g. Damp Woods). Side areas have no quest but give resources and levels; walking into the fog edge reveals new areas. **Explore outward from the connected area the character is in; never jump back across the map** (mae). Code: `python -m sxs roam` (`--area`, `--minutes`, `--max-areas`). It picks an unexplored area with recommended power up to 1.25x ours (R-127, R-084), enters from a connected explored neighbour (R-067), explores it with the Fog Walk (`sxs/loops/fogwalk.py`; stays in its current area when that borders the target) and blesses the statue (R-070). Exploring itself never spends stamina (mae): skip 5-stamina pickups and fights in explored, blessed areas; those belong to loops that spend stamina on purpose (gathering, R-107).
 *told, observed* · R-044, R-066, R-067, R-070, R-084, R-127, R-130
 
 ## Walking and the camera
