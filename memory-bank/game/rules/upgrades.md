@@ -6,7 +6,7 @@ Read when raising character power: the character-screen "!", gear, skills, charm
 
 ### R-080 · A "!" on the player or the character screen means an upgrade is waiting: take it
 - A red "!" over the player on the overworld means "something for your character" (charms or gear to equip, maybe low HP). It is **not** a heal signal: heal only from the HP bar (R-061, R-078), and never block fights on the "!".
-- The "!" is not one signal (mae). It can mean gear enhance (R-092), gear replace (R-088), charms, skill upgrade (R-104) or ascend (R-115), class (R-117), rank (R-118) or relics (R-105). Each is its own upgrade task with its own check for whether it is needed; follow the badge to the exact tab or button to tell which, and never assume it means gear. A lit Goals tab is claimed first (R-116).
+- The "!" is not one signal (mae). It can mean gear enhance (R-092), gear replace (R-088), charms, skill upgrade (R-104; skill icons show a blue arrow instead of a "!") or ascend (R-115), class (R-117), rank (R-118) or relics (R-105). Each is its own upgrade task with its own check for whether it is needed; follow the badge to the exact tab or button to tell which, and never assume it means gear. A lit Goals tab is claimed first (R-116).
 - Open the character panel (HUD portrait or your own character). Badges sit on gear slots, Skill, Class and the rank badge, and inside each screen on the exact tab or button. Red badges: empty charm slots (row y≈0.71). Blue badges on Equip: better gear (R-088). Always follow a badge and take the upgrade, within the spending rules (mae). Badges pulse: check 2 frames.
 - Fill a charm slot: tap it to open "Edit" (charm slots at x≈0.87, y≈0.21 / 0.30 / 0.39 / 0.48), Charm tab (0.56, 0.62), a charm card, Equip (0.5, 0.70), then a pulsing empty slot. A filled slot's button reads Replace. The 4th slot was still locked at Lv 13 ❓.
 - **Never use Rcmd ("Rcmd Loadouts" / Apply).**
@@ -50,6 +50,8 @@ A "!" over a gear piece's picture means a better piece is available for that slo
 
 ### R-104 · Level everything at once with Quick Upgrade
 Skill page, Quick Upgrade icon at about (0.73, 0.47), captioned "Upgrade". No selection needed: one tap levels everything Battle Essence can afford, charms included. It disappears when nothing is affordable.
+- Upgradable skill icons show a **blue arrow**, not a red "!" (the "!" means ascend, R-115). Press Quick Upgrade whenever any skill icon carries a blue arrow, even with no "!" anywhere.
+- Live 04:37: one press raised every skill 2–4 levels for about 3K Battle Essence; power 22.2K to 22.4K.
 *told, observed* · `character/skill_page.png`, `character/skill_page_after_quick_upgrade.png` · node `skill_loadout` · R-037, R-106
 
 ### R-115 · Ascend a badged skill with its own shards
