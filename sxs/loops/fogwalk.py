@@ -25,7 +25,7 @@ from ..actions.unstick import attack_guard
 from ..actions.watchdog import Heartbeat, UnknownScreens
 from ..core import ui
 from ..core.device import save_unknown
-from ..core.loop import Loop, banner
+from ..core.loop import progress, Loop, banner
 from ..core.nav import Navigator
 from ..policy.decide import Context, Decider
 from ..vision import minimap
@@ -78,7 +78,7 @@ def to_world(player_xy: Optional[tuple[int, int]], player: Optional[tuple[int, i
             player_xy[1] - round((point[1] - player[1]) / minimap.SCREEN_TILE))
 
 
-AREA_MAP_TRIES = 3  # area-map walks to a dot per run, when the minimap plan finds nothing
+AREA_MAP_TRIES = 12  # big-map walks to a dot or structure per run (each takes ~20 s)
 OUTSIDE_RADIUS = 3  # map tiles around a spot found to be in another zone that are no longer goals
 LAST_GOAL: Optional[str] = None  # what the last minimap_target() headed for: "monster", "building" or None
 
@@ -136,6 +136,8 @@ def minimap_target(det, frame: np.ndarray, lookahead: int = 4, player_xy=None,
             path = minimap.path_to_nearest(mm, goals=("walk_unexplored",), skip=stood)
     if len(path) < 2:
         return None
+    if mm.grid[path[-1][0]][path[-1][1]] == "item":
+        LAST_GOAL = "item"
     if mm.grid[path[-1][0]][path[-1][1]] == "monster":
         log.info("heading for a monster %d tiles away", len(path) - 1)
         LAST_GOAL = "monster"
@@ -282,14 +284,28 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 spot = to_world(xy, player, target)
                 log.info("map %s opened a card before; stepping aside to %s", spot, target)
             goal = LAST_GOAL  # what minimap_target headed for (None for a known reference: already stored)
+            # mae, 2026-11-05: reaching an object needs only the camera, not a path from the player. A known
+            # reference on screen is tapped directly; any other object the minimap shows is reached the big-map
+            # way (tap it on the area map, close, tap the middle). Player-relative steps are only for fog.
+            known = collectibles.find(frame, explored=not free, farm=farm, area=home_area or "")
+            if known:
+                name, kind, target, score = known[0]
+                goal = None
+                log.info("known %s %r on screen at %s (%.2f): tapping it", kind, name, target, score)
+            elif goal in ("item", "monster", "building") and map_tries < AREA_MAP_TRIES:
+                map_tries += 1
+                kinds = tuple(k for k in ("item", "monster", "building")
+                              if (items_ok or k != "item") and (fight or k != "monster"))
+                why = goto.go_to(dev, det, lambda f: (area_map.nearest(f, kinds) or (None, None))[1])
+                log.info("big-map walk to the nearest %s: %s", "/".join(kinds), why)
+                if why == "arrived":
+                    progress(("map_walk", map_tries))
+                    continue
+                # Not on the big map (or blocked): fall back to the minimap step toward it.
             if target is None:
                 # Nothing on the minimap: anything we've met before and can see on screen (R-131; the store's
                 # explored gate decides whether it's worth tapping here).
-                known = collectibles.find(frame, explored=not free, farm=farm, area=home_area or "")
-                if known:
-                    name, kind, target, score = known[0]
-                    log.info("known %s %r on screen at %s (%.2f): heading there", kind, name, target, score)
-                elif map_tries < AREA_MAP_TRIES:
+                if map_tries < AREA_MAP_TRIES:
                     # mae, 2026-11-05: open the big map, tap the nearest dot or structure (the camera centres on
                     # it), close the map and tap the middle of the screen, where the element now is.
                     map_tries += 1
