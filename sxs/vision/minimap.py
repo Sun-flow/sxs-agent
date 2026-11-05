@@ -147,8 +147,21 @@ if __name__ == "__main__":
 # --- path planning -------------------------------------------------------------------------------------------
 
 SCREEN_TILE = 104  # px per game tile on the island map at the default zoom (grid lines are this far apart)
-GOALS = ("item", "monster", "walk_unexplored")  # what free exploration heads for (nearest first); orange monster
-# dots are fought (mae, 2026-11-04: "orange minimap icons are monsters and should be fought")
+GOALS = ("item", "monster", "walk_unexplored", "fog_lead")  # what free exploration heads for (nearest first);
+# orange monster dots are fought (mae, 2026-11-04: "orange minimap icons are monsters and should be fought").
+# "fog_lead" is not a tile class: it is any walkable tile touching black, unspotted fog (mae, 2026-11-05: light
+# green running into black is a lead to follow into the fog, not a dead end).
+
+
+def fog_lead(mm: Minimap, r: int, c: int) -> bool:
+    """A walkable tile with unspotted fog next to it: walking there reveals what lies beyond. The player's ring
+    (the tiles next to the centre) reads as fog too, so it doesn't count."""
+    if mm.grid[r][c] not in WALKABLE:
+        return False
+    n, (pr, pc) = len(mm.grid), mm.centre
+    return any(0 <= r + dr < n and 0 <= c + dc < n and mm.grid[r + dr][c + dc] == "unspotted"
+               and max(abs(r + dr - pr), abs(c + dc - pc)) > 1
+               for dr, dc in ((1, 0), (-1, 0), (0, 1), (0, -1)))
 
 
 def path_to_nearest(mm: Minimap, goals=GOALS, skip=frozenset()) -> list[tuple[int, int]]:
@@ -163,7 +176,8 @@ def path_to_nearest(mm: Minimap, goals=GOALS, skip=frozenset()) -> list[tuple[in
     while q:
         cur = q.popleft()
         r, c = cur
-        if cur != start and mm.grid[r][c] in goals and cur not in skip:
+        if cur != start and cur not in skip and (mm.grid[r][c] in goals
+                                                  or ("fog_lead" in goals and fog_lead(mm, r, c))):
             path = []
             while cur is not None:
                 path.append(cur)
@@ -171,7 +185,10 @@ def path_to_nearest(mm: Minimap, goals=GOALS, skip=frozenset()) -> list[tuple[in
             return path[::-1]
         for dr, dc in ((1, 0), (-1, 0), (0, 1), (0, -1)):
             nr, nc = r + dr, c + dc
-            if 0 <= nr < n and 0 <= nc < n and (nr, nc) not in prev and mm.grid[nr][nc] in WALKABLE:
+            # The player's white ring reads as grey "unspotted" on the tiles around it (seen 2026-11-05 in
+            # Verdantglade III: it walled the player in and no path was ever found), so they count as walkable.
+            ring = max(abs(nr - start[0]), abs(nc - start[1])) <= 1
+            if 0 <= nr < n and 0 <= nc < n and (nr, nc) not in prev and (mm.grid[nr][nc] in WALKABLE or ring):
                 prev[(nr, nc)] = cur
                 q.append((nr, nc))
     return []
@@ -184,7 +201,9 @@ def world_tile(mm: Minimap, tile: tuple[int, int], player_xy: tuple[int, int]) -
 
 
 def screen_point(player_xy: tuple[int, int], mm: Minimap, tile: tuple[int, int],
-                 area=(20, 150, 680, 820)) -> tuple[int, int]:
+                 area=(20, 320, 680, 600)) -> tuple[int, int]:
+    # area starts under the minimap and the area name (a tap at y ~200 opened the area map, 2026-11-05) and ends
+    # above the quest tracker and chat strip.
     """Where to tap on the island map to walk toward a minimap tile, given the player's screen position.
     Points off screen are pulled back along the same direction into the play area (the game pathfinds the rest)."""
     pr, pc = mm.centre

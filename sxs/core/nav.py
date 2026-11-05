@@ -28,6 +28,7 @@ TOWARD_HOME = {
     "defeated": DEFEATED_OK,
     "battle": None,  # auto battle, ends by itself
     "chat": (42, 1226),  # chat panel: the down chevron closes it
+    "area_map": BACK_ARROW,
     "battle_prep": BACK_ARROW,
     "world_map": BACK_ARROW,
     "world_overview": NAV_HOME,
