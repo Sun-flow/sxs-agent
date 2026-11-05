@@ -8,8 +8,9 @@ import time
 from typing import Optional
 
 from ..core.ui import PLAYER_NAME
+from ..vision import collectibles
 from ..vision.ocr import read_line
-from ..vision.player import player_label
+from ..vision.player import player_on_screen
 
 log = logging.getLogger("sxs.unstick")
 
@@ -45,17 +46,22 @@ def blocker_point(det) -> Optional[tuple[int, int]]:
     the path usually stands (e.g. a wolf between the player and a sword pickup in Verdantglade I)."""
     frame = det.device.screenshot()
     marker = det.find("Explore.Marker", frame)
-    me = player_label(det, frame, [0, 120, 720, 840])
+    me = player_on_screen(det, frame, [0, 120, 720, 840])  # by the name label, else by the character's head
     if not marker or not me:
         return None
     mx, my, mw, mh = marker.box
     tx, ty = mx + mw // 2, my + mh // 2 + MARKER_TARGET_DYS[0]
-    monsters = det.find_all("Explore.Monster", frame)
+    monsters = list(det.find_all("Explore.Monster", frame))
+    # Monsters met before (the exploration collectibles store, R-131) count too (mae, 2026-11-05: "you are trying
+    # to click the quest icon, but a monster is in the way"). Quest paths run through unexplored ground, where
+    # fights are free, so the store's explored gate is passed as unexplored here.
+    monsters += [(x - 30, y - 30, 60, 60) for _, _, (x, y), _ in
+                 collectibles.find(frame, explored=False, kinds=("monster",))]
     if monsters:
         # A known monster on screen: the one nearest the target is the likely blocker.
         x, y, w, h = min(monsters, key=lambda b: (b[0] + b[2] / 2 - tx) ** 2 + (b[1] + b[3] / 2 - ty) ** 2)
         return x + w // 2, y + h // 2
-    px, py = me[0] + me[2] // 2, me[1] - 50  # the label sits under the character's feet
+    px, py = me
     return (px + tx) // 2, (py + ty) // 2
 
 
