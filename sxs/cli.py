@@ -4,6 +4,7 @@
     python -m sxs see badges|minimap|gift [FRAME ...]   run one detector on frames (default: a live screenshot)
     python -m sxs bank                       copy unfamiliar frames (captures/unknown/) into docs/screens/unlabeled/
     python -m sxs label                      file the screens mae labelled in docs/screens/unlabeled/README.md
+    python -m sxs report [--day YYYY-MM-DD]  the day's progress report from saved snapshots (no emulator)
 
     python -m sxs screenshot [out.png]       save the current frame
     python -m sxs tap X Y
@@ -82,6 +83,10 @@ def main(argv: list[str] | None = None) -> int:
             print(f"usage: python -m sxs see {{{','.join(SEE)}}} [FRAME ...]", file=sys.stderr)
             return 2
         return importlib.import_module(SEE[argv[1]]).main(argv[2:])
+    if argv and argv[0] == "report":
+        from .loops.progress import report_main
+
+        return report_main(argv[1:])
     if argv and argv[0] in ("bank", "label"):
         from .core import screens
 

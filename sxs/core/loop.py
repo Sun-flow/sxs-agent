@@ -9,6 +9,7 @@ Readouts  when it starts, the loop prints mae's banner ([Running X Loop] / [Goal
           When it ends, the runner logs `[Result X] status` and prints one JSON line to stdout:
           {"loop": "explore", "status": "complete", "ok": true, "seconds": 812, ...data}.
           Exit code: 0 ok, 1 stopped for a reason that needs a look, 2 refused (bad or unauthorised input).
+          The readout and exit code are also appended to logs/runs.jsonl (`core/records.py`).
 Time      loops run briefly (mae, 2026-11-04: 1-2 minutes, never 10+). Every run has a budget (`Loop.budget`,
           `--budget SECONDS`). The budget is a stuck check, not a hard stop (mae): when it runs out, a loop that
           reported progress in the last --stall seconds gets another budget (up to MAX_EXTENSIONS times); one
@@ -269,6 +270,7 @@ def run_cli(loop: Loop, argv: Optional[list[str]] = None, address: Optional[str]
     readout = result.readout(loop.name, time.monotonic() - t0)
     log.info("[Result %s] %s%s", loop.title, result.status, "" if result.ok else " (needs a look)")
     print(json.dumps(readout, default=str), flush=True)
-    if result.status.startswith(REFUSED):
-        return 2
-    return 0 if result.ok else 1
+    code = 2 if result.status.startswith(REFUSED) else 0 if result.ok else 1
+    from .records import log_run
+    log_run(readout, code)  # logs/runs.jsonl: the progress report counts runs and outcomes per day
+    return code
