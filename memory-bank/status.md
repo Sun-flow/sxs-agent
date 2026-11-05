@@ -45,7 +45,7 @@ Format: `- what — branch, PR, environment (started)`. Remove the line when it 
 
 ## Known problems
 
-- Auroradrasil sits inside Verdantglade V on the map, so the fog walk's zone check (R-132) bounces the bot out when a walk lands there. Open decision for mae: treat sub-zones as part of their parent zone, or walk to the parent's percentage label. Verdantglade V is at 78%.
+- Auroradrasil sits inside Verdantglade V on the map, so the fog walk's zone check (R-132) bounces the bot out when a walk lands there. mae (03:10): Auroradrasil is its own zone, so the goto for Verdantglade V must land on V's own ground (R-132). Verdantglade V is at 78%.
 - Minimap classifier was tuned in Verdantglade II; in Highland Woods it labels walkable explored tiles as walls.
 - The island-map camera doesn't follow the player: locate the player first (the "gromb2" label or the player edge pointer).
 - Quick Heal from the "badly wounded" dialog didn't seem to heal; Quick Heal from the portrait works.

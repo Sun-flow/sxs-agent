@@ -18,7 +18,7 @@ Walk to each green minimap dot and interact with what it marks, beat roaming mon
 - A dotted line is the border between two zones such as Verdantglade III and IV (mae). On the minimap it shows as light dashes. In the world it shows as dark dashes, usually labelled with the zone name: "Troll Lair" with its power "17K" in a horizontal label at a corner of a line, or "Zephyr Vale" written sideways along a vertical line with no power shown.
 - Use it to tell which zone the character is in, and finish that zone to 100% (R-065) before crossing into the next. Seen: the fog walk crossed into Verdantglade IV with III at about 91%.
 - A zone across the line still needs the 1.25x power check (R-127).
-- Sub-zones (Auroradrasil, Monolith Ruins, mini-dungeons) sit inside a parent zone on the map, and the zone check can bounce the bot out of them. Open decision for mae ❓: count sub-zones as part of their parent zone, or walk to the parent zone's own percentage label on the area map.
+- Auroradrasil is its own zone, not part of Verdantglade V (mae), even though it sits inside V on the map; it has its own Lost Goddess Statue (R-070). Travelling to finish a zone must land on that zone's own ground, not on a neighbour inside it.
 *told, observed* · `world/zone_boundary_troll_lair_mae.png`, `world/zone_boundary_zephyr_vale_mae.png`, `minimap/legend_zone_boundary_mae.png` · R-065, R-066, R-127, R-130
 
 ### R-065 · When stuck or between quests, walk the fog edge
@@ -116,10 +116,11 @@ Tapping a map object (e.g. a Portal) opens a card with one button at (0.5, 0.70)
 ### R-070 · Goddess Statues bless a fully explored area
 - **Goddess Statue**: needs "Reach 100% exploration in <area>"; Unlock gives Blessing Level +1 (level 2 raised Max Cart Level 1→2 and AFK EXP 50→500): bless every area. "The Goddess's Grace I/II" follows each Explore quest; reach it via the statue pointer (R-074).
 - **Lost Goddess Statue** ("Activate this dim statue..."): same requirement; Unlock at (0.5, 0.81); gives +1% Home EXP and +1% of one home yield (Highland Woods Wood, Moonveil Woods Rolla, Damp Woods Stone), then Tap to Continue.
+- Two sizes, both bless the area (mae): the large Goddess Statue gives greater rewards than the smaller Lost Goddess Statue. Non-progression side areas often hold a Lost Goddess Statue, usable once the zone is explored. A red "!" over a statue means it can be blessed now: go and unlock it.
 - Match both with `^(Lost )?Goddess Statue$`.
 - **Already blessed**: "A starlit statue silently guards this Blessed Land", Regional Relics, no button. Dismiss and walk around it (kind `blessed_statue`).
 - Goddess, Witch and Hero statues can each be used once a day; whether these are the blessing statues is unknown ❓.
-*observed, reported* · `world/interact_goddess_statue.png`, `world/interact_goddess_statue_blessed.png`, `world/blessing_level.png`, `world/lost_goddess_statue.png` · R-002, R-074
+*observed, reported* · `world/interact_goddess_statue.png`, `world/interact_goddess_statue_blessed.png`, `world/blessing_level.png`, `world/lost_goddess_statue.png`, `world/lost_goddess_statue_auroradrasil_mae.png` · R-002, R-065, R-074
 
 ### R-085 · Stone tile floor puzzle: step on every tile for chests
 Stone Ruins I: a 2x2 floor of stone tiles; each lights cyan when stepped on. All 4 lit spawns two chests (about 60 Dawnium each, plus Rolla, ore, gear, Abundance Leaf). Each chest pops a gear-swap prompt (swap button bottom right) that closes with the reward popup.
