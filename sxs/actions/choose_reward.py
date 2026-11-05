@@ -1,8 +1,8 @@
 """"Choose Your Reward": the skill pick after clearing a Realm / mini-dungeon (seen 2026-11-05, Temple Ruins).
 
-Two skill cards, one radio circle under each, OK below. R-129 (mae, 2026-11-05): for now always stop and ask
-(AUTO_PICK is False). Later, with AUTO_PICK on: when exactly one card is marked "Class Mismatch", take the other
-(the skill our class can use); when both are usable (or both mismatch), stop and ask. Screen: docs/screens/dialogs/choose_reward_skill.png. No model calls.
+Two skill cards, one radio circle under each, OK below. R-129 (mae, 2026-11-05, on by default): when exactly one
+card is marked "Class Mismatch", take the other (the skill our class can use); when both are usable (or both
+mismatch), stop and ask. AUTO_PICK = False makes it always ask. Screen: docs/screens/dialogs/choose_reward_skill.png. No model calls.
 """
 
 from __future__ import annotations
@@ -18,7 +18,7 @@ log = logging.getLogger("sxs.actions.choose_reward")
 CARD_ROIS = [[190, 480, 170, 330], [370, 480, 170, 330]]  # left and right skill cards
 RADIOS = [(276, 765), (450, 765)]
 OK = (360, 993)
-AUTO_PICK = False  # R-129: mae picks for now; True applies the class-match rule
+AUTO_PICK = True  # R-129 (mae, 2026-11-05: on by default): class-matched pick when exactly one is a mismatch
 
 
 def options(det, frame=None) -> list[tuple[str, bool]]:
