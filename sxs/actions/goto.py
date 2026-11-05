@@ -112,7 +112,7 @@ def _widen(dev) -> bool:
 def go_to(dev, det, target) -> str:
     """target: an area name on the area map, or an (x, y) point there. Returns "arrived" (walked and stopped),
     "no_move" (coordinates didn't change: blocked or unreachable), "no_label", or "not_on_map"."""
-    banner(log, "Go To", f"walk to {target} picked on the area map",
+    banner(log, "Go To", f"walk to {'the nearest object' if callable(target) else target} picked on the area map",
            f"the character stops moving, {WALK_TIMEOUT_S}s, or no movement at all after the tap")
     start = coords(det)
     for nudge in ((360, 600, 360, 760), (360, 600, 200, 600)):
