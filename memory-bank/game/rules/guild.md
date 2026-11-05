@@ -37,11 +37,11 @@ Read before any guild screen. Code: `sxs/loops/guild.py` (`python -m sxs guild [
 
 ### R-111 · Conquest: claim floors, use both attempts in the background
 - Gate of Expedition: Guild Events, Conquest (guild boss) and Guild Clash (unlocks 2026-11-12).
-- Shared boss per floor; "Daily Challenge Attempts: N/2" (OCR gives "Dailly Challenge Attempts:O/2": match "Challenge Attempts", read O as 0).
+- Shared boss per floor; "Daily Challenge Attempts: N/2" (OCR gives "Dailly Challenge Attempts:O/2": match "Challenge ?Attempts", read O as 0; also seen with no spaces at all, "DailyChallengeAttempts:2/2").
 - Beaten floor: claim its chest (0.49, 0.57), then step right (0.95, 0.37) to the live floor.
-- Challenge (0.50, 0.77), Start Battle (0.50, 0.75), 50-round fight: minimise it (R-112). Result: damage and participation rewards (10 Dawnium, 150 Guild Tokens), Tap to Continue. A "Done Conquest Fn" chip then shows at left, y≈0.75, on home and island.
+- Challenge (0.50, 0.77), Start Battle (0.50, 0.75), 50-round fight: minimise it (R-112). The second Challenge may skip battle prep and go straight into the fight (background icon showing). Result: damage and participation rewards (10 Dawnium, 150 Guild Tokens), Tap to Continue. A "Done Conquest Fn" chip then shows at left, y≈0.75, on home and island.
 - Goals tab: claim Serverwide (per server floor) and Personal (total challenges 10/20/...). Rankings tab is a known state (the detector once misread Challenge as a map object and wandered in).
-*observed* · `guild/guild_events.png`, `guild/guild_conquest.png`, `guild/guild_conquest_battle.png`, `guild/guild_conquest_result.png`, `guild/guild_conquest_rankings.png` · node `guild_events`, `guild_conquest`, `guild_conquest_result` · R-112, R-113
+*observed* · `guild/guild_events.png`, `guild/guild_conquest.png`, `guild/guild_conquest_battle.png`, `guild/guild_conquest_result.png`, `guild/guild_conquest_rankings.png`, `guild/guild_conquest_fight.png`, `guild/guild_conquest_defeated.png` · node `guild_events`, `guild_conquest`, `guild_conquest_result` · R-112, R-113
 
 ## Guild shop and Warehouse
 

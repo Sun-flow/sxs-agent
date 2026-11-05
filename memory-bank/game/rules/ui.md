@@ -28,8 +28,8 @@ The back key does nothing on some screens (player profile). Use the back arrow (
 *observed* · `character/player_profile.png` · R-060
 
 ### R-027 · Keep away from the chat strip
-Home's chat strip (y 0.82-0.90) opens Server Chat. **Never type there.** Close it with the down arrow (0.06, 0.96).
-*observed* · node `server_chat` · R-057
+Home's chat strip (y 0.82-0.90) opens Server Chat; a stray tap on the strip opens the chat panel (Server | Guild | Private) from any screen, even mid-fight. **Never type there.** Close it with the down chevron (42, 1226), about (0.06, 0.96). Detector state `chat`.
+*observed* · `system/chat.png` · node `server_chat` · R-057
 
 ### R-053 · Find menu buttons by label; they move as features unlock
 - Home menu buttons shift with unlocks (at Lv 10: Friends 0.14, Photo 0.32, Notice 0.49, User Center 0.67, Settings 0.85, y 0.85; later a second row plus Quest and Mall cards). Match labels.
@@ -49,11 +49,16 @@ Menus unlock with tutorial progress and the game announces it. Each node's `unlo
 - Exception: Notice board tab badges mean unread posts.
 *told* · `home/notice_board.png` · R-062, R-080, R-116, R-044
 
-### R-116 · Milestone Goals tabs: claim them all from Home
-- **mae: ignore the milestone Goals tabs at the bottom of menus.** A "collect all goals" control in the Home menu claims them; not mapped yet ❓. Until then, claim on the tabs.
-- Quest-like goals (tasks, not milestone rewards) are not ignored.
-- Known tabs (free, shown with "!"): Skill, Enhance Gear, Rank, Class, Prayer (R-093), Vendor Booth Pts (R-120).
+### R-116 · Claim every lit Goals tab with the claim-goals task
+- Menus have milestone Goals tabs at the bottom. Whenever a Goals tab shows "!", claim it with the dedicated claim-goals task (mae). It's free, and an unclaimed "!" confuses the screen-state and upgrade readers (R-080), so clear it before reading the menu. It runs as its own pass, first in the upgrade loop (`goals`, R-080).
+- Known tabs (free, shown with "!"): Skill, Enhance Gear, Rank, Class, Prayer (R-093), Vendor Booth Pts (R-120). Quest-like goals (tasks, not milestone rewards) follow their own rules.
 *observed, told* · `character/skill_goals_quality.png`, `character/gear_goals.png`, `character/rank_level_goals.png`, `character/rank_power_goals.png`, `character/class_goals.png` · R-063
+
+### R-129 · "Choose Your Reward": ask mae, or take the class match
+- Some clears offer a choice of rewards ("Choose Your Reward", seen after clearing the Temple Ruins mini-dungeon, R-040). The detector can misread it as the Class page.
+- For now, always stop and ask mae which to take (mae).
+- Later: if exactly one choice is marked "Class Mismatch", take the other, class-matched one. If both are valid, ask mae.
+*told* · R-040, R-054
 
 ## Reading shops and items
 

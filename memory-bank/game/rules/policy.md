@@ -25,6 +25,7 @@ Read before pressing any button that might spend, and on any class, social, acco
 - **Type in chat**; close Server Chat with the down arrow (0.06, 0.96) (R-027).
 - **Rate the game or open the store**: rating popups get **Later** (mae) (R-060).
 - **Retry on the Fantasia Ascent DEFEAT screen**, or tick Auto Challenge there (R-079).
+- **Pick a "Choose Your Reward" option on its own**: ask mae for now (R-129).
 
 **Allowed (the only exceptions):**
 - **Healing food**: buy with Rolla or cook, eat freely; conserve stat-boost **dishes** (R-061).

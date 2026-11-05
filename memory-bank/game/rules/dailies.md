@@ -5,13 +5,14 @@ Read when running or extending the daily loop (`python -m sxs daily`): sign-in, 
 ## Thrilling Events (home, top right)
 
 ### R-096 · Thrilling Events: only Sign-in and Growth Trial
-- Thrilling Events (0.91, 0.125) opens "Featured": Dawnstar Prelude, Growth Trial (R-098), Daily Sign-in (R-097), Link Account.
+- Thrilling Events (0.91, 0.125) opens "Featured": Dawnstar Prelude, Growth Trial (R-098), Daily Sign-in (R-097), Link Account, and event cards (Haunted Carnival).
+- The list order changes with events (Dawnstar Prelude and Haunted Carnival now on top): find cards by OCR'd title, never by position.
 - **Never Dawnstar Prelude (gacha draws) or Link Account** (R-043).
-*observed* · node `featured` · R-097, R-098, R-043
+*observed* · `dailies/featured_events.png` · node `featured` · R-097, R-098, R-043
 
 ### R-097 · Daily Sign-in: claim today's tile, never Catch Up
 - 30-tile calendar. Today's tile shows a green "Claim"; tap for "YOU RECEIVED" (e.g. 10 Stellatie, R-093).
-- **Missed days show "Catch Up": spending, never press.**
+- **Missed days show "Catch Up": spending, never press.** A missed tile's Catch Up (day 01) can sit on the same row as today's Claim: tap Claim inside today's tile only, and don't let another tile's Catch Up block the claim.
 - Days 5/20: gold card item x50; 10/25: red item; 15/30: purple crystal.
 - Daily step `sign_in`. Dailies reset 8:00 server time (UTC-5, R-024); `sxs/loops/daily.py` keeps done marks in `logs/daily.json` by server date.
 *observed* · `dailies/daily_signin.png`, `dailies/daily_signin_received.png` · node `daily_signin` · R-024, R-043
