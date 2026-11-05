@@ -6,11 +6,23 @@ Read when on the island map: exploring, reading the minimap or area map, travell
 
 ### R-002 · Full exploration = every green dot cleared and all mist revealed
 Walk to each green minimap dot and interact with what it marks, beat roaming monsters, and walk into all the area's fog. "Explore <area>" quests are done this way. Full exploration unlocks the area's statue (R-070). Exploring also pays Dawnium and Rolla.
-*told, observed* · R-021, R-066, R-070
+*told, observed* · R-021, R-066, R-070, R-131
+
+### R-131 · Save a reference of every collectible and monster met while exploring
+- Each time exploration collects an interactable or fights a monster, save a reference crop of it, tagged "exploration collectibles" (mae). Explore then watches for things it recognises it needs to collect or fight.
+- Store: `resource/image/explore/collectibles/`, one crop per object plus a row in a manifest.json there (name, kind: collectible / interactable / monster, area, date, stamina cost if any). Builder designs the code ❓.
+- Use the crops in unexplored areas to spot monsters and interactables that must be fought or collected (free there). In explored, blessed areas the same things cost stamina: a crop match there must not trigger a tap unless a loop is deliberately farming (R-065).
+*told* · R-002, R-065, R-066, R-107
+
+### R-132 · Dotted lines mark zone borders: finish the zone you're in first
+- A dotted line is the border between two zones such as Verdantglade III and IV (mae). On the minimap it shows as light dashes. In the world it shows as dark dashes, usually labelled with the zone name: "Troll Lair" with its power "17K" in a horizontal label at a corner of a line, or "Zephyr Vale" written sideways along a vertical line with no power shown.
+- Use it to tell which zone the character is in, and finish that zone to 100% (R-065) before crossing into the next. Seen: the fog walk crossed into Verdantglade IV with III at about 91%.
+- A zone across the line still needs the 1.25x power check (R-127).
+*told, observed* · `world/zone_boundary_troll_lair_mae.png`, `world/zone_boundary_zephyr_vale_mae.png`, `minimap/legend_zone_boundary_mae.png` · R-065, R-066, R-127, R-130
 
 ### R-065 · When stuck or between quests, walk the fog edge
-Exploration comes in two kinds (mae), and loops should handle both: **quest-progression** (follow the tracker's Explore and unlock quests, R-044) and **fog-walking** (clear side areas that aren't tied to progression but are within our CP range, e.g. Damp Woods). Side areas have no quest but give resources and levels; walking into the fog edge reveals new areas. **Explore outward from the connected area the character is in; never jump back across the map** (mae). Code: `python -m sxs roam` (`--area`, `--minutes`, `--max-areas`). It picks an unexplored area with recommended power up to 1.25x ours (R-127, R-084), enters from a connected explored neighbour (R-067), explores it with the Fog Walk (`sxs/loops/fogwalk.py`; stays in its current area when that borders the target) and blesses the statue (R-070). It takes 5-stamina pickups only while stamina stays ≥70 (R-107).
-*told, observed* · R-044, R-066, R-067, R-070, R-084, R-127
+Exploration comes in two kinds (mae), and loops should handle both: **quest-progression** (follow the tracker's Explore and unlock quests, R-044) and **fog-walking** (clear side areas that aren't tied to progression but are within our CP range, e.g. Damp Woods). Side areas have no quest but give resources and levels; walking into the fog edge reveals new areas. **Explore outward from the connected area the character is in; never jump back across the map** (mae). Code: `python -m sxs roam` (`--area`, `--minutes`, `--max-areas`). It picks an unexplored area with recommended power up to 1.25x ours (R-127, R-084), enters from a connected explored neighbour (R-067), explores it with the Fog Walk (`sxs/loops/fogwalk.py`; stays in its current area when that borders the target) and blesses the statue (R-070). **Fog-walk goal** (mae): at all times aim for 100% exploration of the unexplored area: collect every green dot, fight or interact with every orange dot, complete every yellow structure or mini-dungeon (R-071). Only then does the Goddess Statue or Lost Goddess Statue become available to bless the area (R-070). Exploring itself never spends stamina (mae). In unexplored areas, monsters and interactables are free: fight and collect them. In explored, blessed areas, monsters respawn and they and most interactables cost stamina: skip them unless a loop is deliberately farming (battle essence for skills, gathering, R-107).
+*told, observed* · R-044, R-066, R-067, R-070, R-071, R-084, R-127, R-130, R-131
 
 ## Walking and the camera
 
@@ -35,15 +47,21 @@ The minimap shows items, interactables and enemies around the character; use it 
 
 ### R-066 · Minimap legend: it shows the true tiles
 Code: `sxs/vision/minimap.py`. About 8 px per tile; player at the centre (0.856, 0.138); usable radius about 86 px. Tiles (OpenCV HSV):
-- **green dots**: pickups/POIs. Under shadow they look pale (about 39/81/213). Highland Woods dots are paler (S about 128 vs 150+).
+- **green dots**: collectibles. Walk to them and interact for now; they'll be auto-collected once Fantomon unlock (mae). Under shadow they look pale (about 39/81/213). Highland Woods dots are paler (S about 128 vs 150+).
 - **light green**: explored walkable, S<95, V>=115.
-- **light green, shaded about 0.55x**: unexplored walkable. If connected to explored ground, it's an exploration target (R-065).
-- **dark green**: wall; explored S>=95, V>=85; unexplored V<85.
-- **cross-hatch, no colour**: unspotted (grey, S<35, V about 35); resolves when the player gets close.
+- **Stripes mean unexplored** (mae); the colour under them still shows the terrain as fog clears.
+- **light green, shaded about 0.55x, striped** (about 42/79/81): unexplored walkable. If connected to explored ground, it's an exploration target (R-065).
+- **dark green**: wall. Explored: unlined (about 54/117/109, S>=95, V>=85). Unexplored: very dark, striped (about 54/130/58, V<85).
+- Explored walkable light green is about 41/72/148. Once an area is blessed (100% plus statue, R-070) its colours brighten.
+- **black / cross-hatch, no colour**: fog the player hasn't come near (grey, S<35, V about 35). Coming close reveals the terrain under it and the dots around it.
 - **gold buildings**: interactables; the biggest are dungeons (daily challenges after the first clear), smaller ones mini-dungeons such as mines (R-071).
-- **orange** (about 18/116/187): monsters, and gold buildings under shadow. Fight monsters (mae), within the HP rules (R-061, R-078).
+- **orange** (about 18/116/187): monsters or interactables (also gold buildings under shadow). They must be dealt with to explore the area: fight monsters, interact with the rest (mae), within the HP rules (R-061, R-078).
 Other types aren't catalogued ❓. Highland Woods (9.6K): entered past a bracketed wolf-boss pack (R-041, beaten at 10K); its ground pickups by a cooking pot alone finish it.
-*told, observed* · `minimap/minimap_verdantglade2.png`, `minimap/minimap_classified.png`, `minimap/tile_walk_explored.png`, `minimap/tile_walk_unexplored.png`, `minimap/tile_wall_explored.png`, `minimap/tile_wall_unexplored.png`, `minimap/tile_unspotted.png`, `minimap/minimap_highland_items.png` · R-004, R-065, R-071
+*told, observed* · `minimap/minimap_verdantglade2.png`, `minimap/minimap_classified.png`, `minimap/tile_walk_explored.png`, `minimap/tile_walk_unexplored.png`, `minimap/tile_wall_explored.png`, `minimap/tile_wall_unexplored.png`, `minimap/tile_unspotted.png`, `minimap/minimap_highland_items.png`, `minimap/legend_boundary_mae.png`, `minimap/legend_fog_edge_mae.png`, `minimap/legend_walk_explored.png`, `minimap/legend_walk_unexplored_striped.png`, `minimap/legend_wall_explored.png`, `minimap/legend_wall_unexplored_striped.png`, `minimap/legend_dots_fog_mae.png` · R-004, R-065, R-070, R-071, R-130
+
+### R-130 · Fog-walk and pathfind toward the light-green to striped-green edge
+When fog-walking (R-065) or finding a way to an out-of-the-way spot, look on the minimap for where explored light green meets striped dark green (unexplored walkable). That edge is where to walk: it is open ground into the fog. Where passable (light green, explored or striped) terrain runs into black fog, follow it in: walking near the fog reveals the terrain and the dots around it. Exposing fog is the one case that needs player-oriented movement (locating the character, stepping toward the edge), because there is no visible endpoint to tap; everything else travels by endpoint (R-068). Unlined darker green and very dark striped green are walls or impassable terrain; don't path into them (mae). Colours and crops: R-066.
+*told* · `minimap/legend_boundary_mae.png`, `minimap/legend_fog_edge_mae.png`, `minimap/legend_dots_fog_mae.png` · R-065, R-066, R-067
 
 ## Getting somewhere
 
@@ -55,8 +73,9 @@ Connections can be far off the straight line (Verdantglade II to Moonveil Woods 
 1. Tap the minimap to open the area map (the white box is the camera viewport).
 2. Tap the destination; the camera centres there.
 3. Close the map and tap the ground: the player auto-paths, around walls and through land bridges and unseen gaps.
+The same route reaches any target, not just areas (mae): find it on the area map (a dot, a structure), tap it there to centre the camera on it, close the map, then tap the now-visible element on screen to walk to it. No player-relative pathfinding is needed: the character auto-paths to any tapped spot even when it is off screen, so the bot finds endpoints and never manages the route (mae). The camera only has to see the thing to tap it. With several targets in view, tap each on screen in turn without reopening the map; reopen it only when nothing targetable is left in view (mae).
 Zoom differs each opening: pick places by OCR'd label, never fixed positions. Match labels exactly, trailing numerals included ("Verdantglade III" is not "Verdantglade I"). A label in fog can't be reached this way (`no_move`): travel from home (R-089). Code: `python -m sxs goto "Area Name"` or `python -m sxs goto X Y`.
-*told, observed* · `world/world_area_map.png`, `world/world_map_moonveil_entry.png`, `world/world_area_map_stone_ruins.png` · node `area_map` · R-067, R-076, R-089
+*told, observed* · `world/world_area_map.png`, `world/world_map_moonveil_entry.png`, `world/world_area_map_stone_ruins.png` · node `area_map` · R-065, R-067, R-076, R-089, R-130
 
 ### R-089 · Travel from home through the quest tracker
 At home, tapping the tracker for a quest elsewhere asks "Travel to <Area> now?"; OK is free. Use it for areas whose area-map label is in fog.
