@@ -26,8 +26,6 @@ Then run `python -m sxs label`. Each row that has a State moves into its folder 
 | `photo_mode.png` | | | | |
 | `settings_other.png` | | | | |
 | `area_map_resource.png` | | | | |
-| `companions_invite_tutorial.png` | | | | Companions list before Auroradrasil; tutorial glow on Akane's Invite (filled glow, not an outline); back arrow locked |
-| `auroradrasil_tutorial_highlight.png` | | | | Island map, tutorial highlight framing the Auroradrasil tree |
 | `auroradrasil_entry.png` | | | | Auroradrasil dungeon card: Team 4/4, Enter Dungeon (no cost), Rating Bracket D-S, drop level 18-30 |
 | `team_panel_companions.png` | | | | Team panel after inviting the NPC companions (Players 4/4, Allow Teammate Invites) |
 | `auroradrasil_result.png` | | | | Auroradrasil result: rank B, team chests, Drops, Claim Rewards |

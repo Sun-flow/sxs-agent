@@ -75,7 +75,7 @@ When weighing a fight or challenge, accept monsters with up to 25% more CP (powe
 - Story dungeon for 4 players. The Team panel fills the party with NPC companions (Akane, Qin, Killian; inviting players is allowed too, R-057). **Enter Dungeon** is free.
 - Inside, cards "1 More Floor(s)", "Dungeon Room Map" and "Highest tier" have no rule yet ❓; dismissing them still cleared the run.
 - Result: rating D to S (rank B on the first clear), drop level 18-30, a chest per player, then **Claim Rewards**. First clear dropped 96 Raw Ore, Beastclaw Boots and Beasthide Armor (swap them in, R-088).
-*observed* · `unlabeled/auroradrasil_entry.png`, `unlabeled/team_panel_companions.png`, `unlabeled/auroradrasil_result.png`, `unlabeled/auroradrasil_claimed.png`, `unlabeled/companions_invite_tutorial.png` · R-057, R-077, R-088, R-091
+*observed* · `unlabeled/auroradrasil_entry.png`, `unlabeled/team_panel_companions.png`, `unlabeled/auroradrasil_result.png`, `unlabeled/auroradrasil_claimed.png`, `dialogs/companions_invite_tutorial.png` · R-057, R-077, R-088, R-091
 
 ## Fantasia Ascent (tower)
 
