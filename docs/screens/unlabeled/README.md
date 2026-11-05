@@ -36,3 +36,6 @@ Then run `python -m sxs label`. Each row that has a State moves into its folder 
 | `drasilgard_carol_gift.png` | | | | Carol's free Shapeshifting Mirror (reward popup) |
 | `drasilgard_carol_menu.png` | | | | Carol menu: Transform! / Chat / Let me think about it |
 | `drasilgard_carol_reshape.png` | | | | Reshape screen (appearance: General, Hair, Face, Trait); Complete costs 1 Shapeshifting Mirror; not pressed |
+| `lost_goddess_statue_auroradrasil.png` | | | | Lost Goddess Statue card (Auroradrasil 100%): Unlock, rewards Home EXP/Stone Yield +1% |
+| `lost_goddess_statue_blessed.png` | | | | After Unlock: Divine Power Awakens, Tap to Continue |
+| `area_map_statue_badge_auroradrasil.png` | | | | Area map: small statue icon with red "!" in Auroradrasil (find_badges misses this size); gold ore "!" in Verdantglade V |
