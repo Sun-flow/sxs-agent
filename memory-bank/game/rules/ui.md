@@ -58,7 +58,8 @@ Menus unlock with tutorial progress and the game announces it. Each node's `unlo
 - Some clears offer a choice of rewards ("Choose Your Reward", seen after clearing the Temple Ruins mini-dungeon, R-040). The detector can misread it as the Class page.
 - For now, always stop and ask mae which to take (mae).
 - Later: if exactly one choice is marked "Class Mismatch", take the other, class-matched one. If both are valid, ask mae.
-*told* · R-040, R-054
+- Code: detector state `choose_reward`, `sxs/actions/choose_reward.py` (class-match pick behind `AUTO_PICK`, off for now), called from explore.
+*told, observed* · `dialogs/choose_reward_skill.png` · R-040, R-054
 
 ## Reading shops and items
 
