@@ -9,8 +9,9 @@ Checks, with a scripted fake detector:
 - an interrupt that keeps firing is muted, and MUTE from a handler mutes it;
 - LoopStop from a handler ends the run through the runner with that status and exit 1;
 - resume_with() runs after a handler and is a no-op on a bare detector;
-- the table's tutorial row fires on no reference screen in the states it watches (docs/screens + expected.json),
-  so the highlight finder's known false matches (Mall, prayer, tower rows) can't pause a loop.
+- the table's tutorial row fires on the live tutorial frames and on no other reference screen in the states it
+  watches (docs/screens + expected.json), so the finder's known false matches (Mall, prayer, tower rows, furniture
+  popups) can't pause a loop.
 """
 
 from __future__ import annotations
@@ -43,6 +44,11 @@ class FakeDet:
         s = self.states[min(self.calls, len(self.states) - 1)]
         self.calls += 1
         return SimpleNamespace(state=s, text=None, box=None)
+
+
+# Live tutorials the row must catch (builder, 2026-11-05): the outline on the Auroradrasil tree, the filled glow on
+# Akane's Invite. Every other reference screen in the row's states must not fire it.
+TUTORIAL_FRAMES = {"auroradrasil_tutorial_highlight", "companions_invite_tutorial"}
 
 
 def table(log, outcome=ix.RESUME, stop=None):
@@ -127,8 +133,11 @@ def main() -> int:
         if frame is None or frame.shape[:2] != (1280, 720):
             continue
         checked += 1
-        if row.matches(SimpleNamespace(state=state), frame):
-            bad.append(f"tutorial row fires on {path.relative_to(ROOT)} ({state})")
+        fires = row.matches(SimpleNamespace(state=state), frame)
+        if fires != (path.stem in TUTORIAL_FRAMES):
+            bad.append(f"tutorial row {'fires' if fires else 'misses'} on {path.relative_to(ROOT)} ({state})")
+    for name in sorted(TUTORIAL_FRAMES - {p.stem for p in reference_screens()}):
+        bad.append(f"tutorial reference screen {name}.png missing")
     if checked < 10:
         bad.append(f"only {checked} reference screens in the tutorial row's states")
 

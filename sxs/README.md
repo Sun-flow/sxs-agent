@@ -46,7 +46,7 @@ Every loop has the same inputs, outputs and readouts:
 
 - **Interrupts** (mae, 2026-11-05). The runner wraps the detector so that after every screen check one table,
   `actions/interrupts.py`, can pause the loop for a tutorial highlight, Choose Your Reward, the rating popup or chat,
-  run that row's short handler, and hand the loop the screen after it (`[Interrupt] ...` / `[Resume X] ...`). A
+  run that row's short handler (tutorial highlights on the island map, home and Companions), and hand the loop the screen after it (`[Interrupt] ...` / `[Resume X] ...`). A
   handler that needs mae raises `LoopStop(status)` and the run ends with that status. `Loop.owns` names rows a loop
   handles itself; `resume_with(det, fn)` registers a step that puts the loop back where its goal is. Mechanism in
   `core/interrupts.py`, design in `docs/interrupts.md`. Add a screen every loop should handle the same way as a row

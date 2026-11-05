@@ -43,6 +43,7 @@
                 "State.MainMenu",
                 "State.EnhanceGear",
                 "State.Mall",
+                "State.Companions",
                 "State.MapExploration",
                 "State.GearResonance",
                 "State.RankAdvancement",
@@ -766,6 +767,14 @@
             320,
             60
         ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Companions": {
+        "doc": "Companions list (Akane, Qin, Killian: story NPCs) with Invite buttons; the tutorial locks it before Auroradrasil with a filled glow on Akane's Invite (docs/screens/dialogs/companions_invite_tutorial.png). Inviting waits on mae (sxs/loops/tutorial.py INVITE_COMPANIONS).",
+        "recognition": "OCR",
+        "expected": "^Companions$",
+        "roi": [0, 20, 320, 70],
         "pre_delay": 0,
         "post_delay": 0
     },

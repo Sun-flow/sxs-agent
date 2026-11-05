@@ -27,18 +27,43 @@ log = logging.getLogger("sxs.loops.tutorial")
 # Highlight border colour in HSV (OpenCV ranges: H 0-179). Measured on live frames, not the 256-colour references.
 HIGHLIGHT_LO = np.array([25, 100, 170])
 HIGHLIGHT_HI = np.array([35, 255, 255])
+GLOW_MAX_S, GLOW_MIN_V, GLOW_BAND_MIN = 40, 200, 0.35  # the white glow band inside a filled highlight
+GLOW_STATES = ("companions",)  # screens whose tutorial highlight is the filled style
+# mae decides (builder asked 2026-11-05 01:59): the tutorial locks the Companions screen until Akane (a story NPC) is
+# invited. Until mae says yes, the tutorial follower stops there with "needs_decision" instead of tapping Invite.
+INVITE_COMPANIONS = False
 HINT_TO_BUTTON_DY = 100
 # Never tap a highlight whose text looks like spending: gacha pulls, shop buys, premium currency.
 NEVER_TAP = r"Pray|Buy|Purchase|Refresh|Spend|Dawnium|Recharge|Top ?up"
 
 
-def find_highlight(frame: np.ndarray) -> Optional[tuple[int, int, int, int]]:
+def _glow_band(hsv_box: np.ndarray, b: int) -> bool:
+    """The second highlight style (Companions "Invite", docs/screens/dialogs/companions_invite_tutorial.png): a yellow
+    border with a white glow just inside it around a lime button. True when most of the band between the border
+    and the button is near-white (low saturation, bright)."""
+    h, w = hsv_box.shape[:2]
+    lo, hi = max(2, b // 2), 2 * b
+    if h <= 2 * hi or w <= 2 * hi:
+        return False
+    white = (hsv_box[..., 1] < GLOW_MAX_S) & (hsv_box[..., 2] > GLOW_MIN_V)
+    band = np.zeros((h, w), bool)
+    band[lo:h - lo, lo:w - lo] = True
+    band[hi:h - hi, hi:w - hi] = False
+    return white[band].mean() > GLOW_BAND_MIN
+
+
+def find_highlight(frame: np.ndarray, glow: bool = False) -> Optional[tuple[int, int, int, int]]:
     """Box (x, y, w, h) of the largest yellow rounded-rectangle outline, or None.
 
     The border pulses and has gaps, so instead of looking for a closed shape this checks that the yellow pixels
-    sit along the box's edges (not inside it, which rules out lime buttons) and reach into its corners (which
-    rules out round icons)."""
-    mask = cv2.inRange(cv2.cvtColor(frame, cv2.COLOR_BGR2HSV), HIGHLIGHT_LO, HIGHLIGHT_HI)
+    sit along the box's edges (not inside it, which rules out lime buttons, unless a white glow band separates
+    the border from the button: the filled style on the Companions screen) and reach into its corners (which
+    rules out round icons).
+
+    glow=True also accepts the filled style. Only for screens in GLOW_STATES: furniture popups, the alchemy pot and
+    the main menu have the same white-inside-yellow look and would match too."""
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    mask = cv2.inRange(hsv, HIGHLIGHT_LO, HIGHLIGHT_HI)
     mask = cv2.dilate(mask, np.ones((5, 5), np.uint8))
     contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     best = None
@@ -51,8 +76,10 @@ def find_highlight(frame: np.ndarray) -> Optional[tuple[int, int, int, int]]:
         m = mask[y:y + h, x:x + w] > 0
         b = max(6, min(w, h) // 8)
         inner = m[b:-b, b:-b]
-        if inner.size == 0 or inner.mean() > 0.3:
+        if inner.size == 0:
             continue
+        if inner.mean() > 0.3 and not (glow and _glow_band(hsv[y:y + h, x:x + w], b)):
+            continue  # filled yellow inside: a lime button, unless a white glow band sits inside the border
         k = max(8, min(w, h) // 5)
         corners = [m[:k, :k].mean(), m[:k, -k:].mean(), m[-k:, :k].mean(), m[-k:, -k:].mean()]
         if min(corners) < 0.1:
@@ -63,7 +90,7 @@ def find_highlight(frame: np.ndarray) -> Optional[tuple[int, int, int, int]]:
 
 
 def follow(dev: Device, det: StateDetector, steps: int = 40) -> str:
-    """Returns "done" (nothing left to follow), "stuck", "spend_prompt" or "steps"."""
+    """Returns "done" (nothing left to follow), "stuck", "spend_prompt", "needs_decision" or "steps"."""
     idle = same = 0
     last_box = None
     for _ in range(steps):
@@ -77,9 +104,12 @@ def follow(dev: Device, det: StateDetector, steps: int = 40) -> str:
         elif d.state == "loading":
             time.sleep(2)
             continue
+        elif d.state == "companions" and not INVITE_COMPANIONS:
+            log.warning("tutorial wants a companion invited; waiting on mae (INVITE_COMPANIONS)")
+            return "needs_decision"
         else:
             frame = dev.screenshot()
-            box = find_highlight(frame)
+            box = find_highlight(frame, glow=d.state in GLOW_STATES)
             hint = det.find("Tutorial.Hint", frame) if box is None else None
             if hint:
                 # The wanted button sits about 100 px below Akane's bubble, centred on the screen.
