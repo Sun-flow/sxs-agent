@@ -73,7 +73,7 @@ Connections can be far off the straight line (Verdantglade II to Moonveil Woods 
 1. Tap the minimap to open the area map (the white box is the camera viewport).
 2. Tap the destination; the camera centres there.
 3. Close the map and tap the ground: the player auto-paths, around walls and through land bridges and unseen gaps.
-The same route reaches any target, not just areas (mae): find it on the area map (a dot, a structure), tap it there to centre the camera on it, close the map, then tap the now-visible element on screen to walk to it. No player-relative pathfinding is needed; the camera only has to see the thing to tap it.
+The same route reaches any target, not just areas (mae): find it on the area map (a dot, a structure), tap it there to centre the camera on it, close the map, then tap the now-visible element on screen to walk to it. No player-relative pathfinding is needed; the camera only has to see the thing to tap it. With several targets in view, tap each on screen in turn without reopening the map; reopen it only when nothing targetable is left in view (mae).
 Zoom differs each opening: pick places by OCR'd label, never fixed positions. Match labels exactly, trailing numerals included ("Verdantglade III" is not "Verdantglade I"). A label in fog can't be reached this way (`no_move`): travel from home (R-089). Code: `python -m sxs goto "Area Name"` or `python -m sxs goto X Y`.
 *told, observed* · `world/world_area_map.png`, `world/world_map_moonveil_entry.png`, `world/world_area_map_stone_ruins.png` · node `area_map` · R-065, R-067, R-076, R-089, R-130
 
