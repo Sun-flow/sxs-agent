@@ -31,7 +31,7 @@ from typing import Optional
 
 from ..core import ui
 from ..core.device import save_unknown
-from ..core.loop import Loop, banner, task
+from ..core.loop import Loop, banner, progress, task
 from ..core.nav import Navigator
 from ..core.ui import CLASS_BUTTON, RANK_BADGE, SKILL_BUTTON, TECHNIQUE_CARD_ENHANCE
 from ..policy import claims
@@ -133,6 +133,7 @@ class Upgrader:
                 break
             self._tap(button, wait)
             n += 1
+            progress(("pressed", button, n))
         return n
 
     # --- passes ---
@@ -196,6 +197,7 @@ class Upgrader:
             if done:
                 self._tap(ui.BELOW_POPUP, 2)  # "TIER UP ... Tap to Continue"
             log.info("icon at %s: ascended %d time(s)", (bx, by), done)
+            progress(("icon", bx, by))
             n += done
             self._tap(ui.BACK_ARROW, 2.5)
             if self.det.detect().state != "skill_page":

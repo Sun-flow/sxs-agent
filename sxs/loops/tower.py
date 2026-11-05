@@ -24,7 +24,7 @@ from ..actions import heal
 from ..actions.common import pass_through
 from ..core import marks, ui
 from ..core.device import save_unknown
-from ..core.loop import Loop, banner
+from ..core.loop import Loop, banner, progress
 from ..core.nav import Navigator
 from ..policy import fights
 from ..vision.hud import read_power
@@ -148,6 +148,7 @@ def climb(dev, det, tower: Optional[str] = None, to_floor: Optional[int] = None,
                 cleared += 1
                 ensure_auto_challenge(dev)  # not after a loss: ticking it there would start a retry
                 log.info("cleared %s (%d this run)", line or "a floor", cleared)
+                progress(("floor", floor))
                 if to_floor and floor and floor >= to_floor:
                     dev.tap(*ui.BACK_ARROW)  # back to the floors, not on to the next fight
                     time.sleep(2.5)
@@ -183,7 +184,8 @@ def _args(p) -> None:
     p.add_argument("--tower", help="tower name on the Fantasia Ascent list, e.g. 'Moonveil Woods'")
     p.add_argument("--to", type=int, help="stop after clearing this floor (a quest's 'Reach <Tower> Fn')")
     p.add_argument("--floors", type=int, default=110, help="most floors to clear in one run")
-    p.add_argument("--minutes", type=float, default=2)  # mae, 2026-11-04: runs of 1-2 minutes
+    p.add_argument("--minutes", type=float, default=20,  # an outer ceiling only: the runner's progress check ends
+                   help="upper limit; normally the 2-minute progress check ends the run")  # a stuck run (mae)
 
 
 def _run(ctx, opts):

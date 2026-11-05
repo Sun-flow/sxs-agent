@@ -12,6 +12,8 @@ import re
 from typing import Optional
 import time
 
+from ..core.loop import progress
+
 from ..core import ui
 from ..core.device import Device
 from ..core.state import StateDetector
@@ -63,6 +65,7 @@ def claim_all(dev: Device, det: StateDetector, roi=FULL, max_taps: int = 15, hom
         dev.tap(*buttons[0])
         time.sleep(2)
         claimed += 1
+        progress(("claimed", buttons[0], claimed))
         for _ in range(3):  # close "YOU RECEIVED" and similar popups
             s = det.detect().state
             if s not in ("reward_popup", "tap_to_continue"):

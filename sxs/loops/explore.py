@@ -450,7 +450,8 @@ def explore(dev, det, minutes: float = 20, chain: bool = False, choose: Optional
 
 
 def _args(p) -> None:
-    p.add_argument("--minutes", type=float, default=2)  # mae, 2026-11-04: runs of 1-2 minutes
+    p.add_argument("--minutes", type=float, default=20,  # an outer ceiling only: the runner's progress check ends
+                   help="upper limit; normally the 2-minute progress check ends the run")  # a stuck run (mae)
     p.add_argument("--chain", action="store_true", help="after a quest completes, carry on with the next one")
     p.add_argument("--choose", help="regex for a decision a human has made, e.g. '^Ascend to Mage$'")
 

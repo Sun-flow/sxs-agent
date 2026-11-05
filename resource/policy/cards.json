@@ -130,10 +130,9 @@
                 "goal": [
                     "explore"
                 ],
-                "hp_ok": true,
-                "time_ok": true
+                "hp_ok": true
             },
-            "why": "Structures on the map are mini-dungeons with floors of fights; clearing them counts toward Explore quests. Only with 90 s of the run's budget left (mae, 2026-11-04: a run cut mid-dungeon left the character on a floor card); otherwise the next rule dismisses it and the next run enters."
+            "why": "Structures on the map are mini-dungeons with floors of fights; clearing them counts toward Explore quests."
         },
         {
             "kind": "mini_dungeon",

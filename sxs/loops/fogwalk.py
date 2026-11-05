@@ -275,7 +275,8 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
 
 
 def _args(p) -> None:
-    p.add_argument("--minutes", type=float, default=2)  # mae, 2026-11-04: runs of 1-2 minutes
+    p.add_argument("--minutes", type=float, default=20,  # an outer ceiling only: the runner's progress check ends
+                   help="upper limit; normally the 2-minute progress check ends the run")  # a stuck run (mae)
     p.add_argument("--area", help="area to explore, as named on the area map (walks there first)")
 
 
