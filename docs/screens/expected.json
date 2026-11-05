@@ -8,6 +8,7 @@
   "cart": "cart",
   "character": "character",
   "chat": "chat",
+  "choose_reward_skill": "choose_reward",
   "class_choice": "dialogue_choice",
   "class_goals": "upgrade_goals",
   "class_hierarchy": "class_page",

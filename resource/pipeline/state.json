@@ -11,6 +11,7 @@
                 "State.Title",
                 "State.Loading.Title",
                 "State.Chat",
+                "State.ChooseReward",
                 "State.RatingPopup",
                 "State.RewardPopup",
                 "State.TapToContinue",
@@ -789,6 +790,19 @@
             15,
             360,
             50
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.ChooseReward": {
+        "doc": "'Choose Your Reward' after clearing a Realm / mini-dungeon: two skill cards with a radio each, OK at (360, 993). mae (2026-11-05): one card marked Class Mismatch -> take the other; otherwise ask. Code: sxs/actions/choose_reward.py. Image: docs/screens/dialogs/choose_reward_skill.png.",
+        "recognition": "OCR",
+        "expected": "Choose Your Reward",
+        "roi": [
+            100,
+            320,
+            520,
+            80
         ],
         "pre_delay": 0,
         "post_delay": 0
