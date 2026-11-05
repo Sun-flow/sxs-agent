@@ -42,8 +42,10 @@ AREA_NAME_ROI = [500, 255, 220, 36]  # area name above the coordinates, under th
 
 
 def area_name_here(det, frame=None) -> str:
-    """The area name under the minimap (where the character stands)."""
-    return read_line(det, AREA_NAME_ROI, frame)
+    """The area name under the minimap (where the character stands). OCR sometimes reads an icon in front of it as a
+    short token ("OA Verdantglade III", "R Verdantglade III", seen 2026-11-05), which made the fog walk think it had
+    strayed: drop a leading token of one or two characters."""
+    return re.sub(r"^\W*\w{1,2}\s+(?=[A-Z][a-z])", "", read_line(det, AREA_NAME_ROI, frame))
 
 
 def same_area(a: str, b: str) -> bool:

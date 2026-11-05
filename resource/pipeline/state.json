@@ -12,6 +12,7 @@
                 "State.Loading.Title",
                 "State.Chat",
                 "State.ChooseReward",
+                "State.AreaMap",
                 "State.RatingPopup",
                 "State.RewardPopup",
                 "State.TapToContinue",
@@ -803,6 +804,19 @@
             320,
             520,
             80
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.AreaMap": {
+        "doc": "Area map (tap the minimap): the kingdom's areas with Exploration % and power, legend top right (Portal, Lost Statue, ores). Tapping a spot moves the camera there; an area label opens nothing but a stray tap can select an area (a yellow highlight). Back arrow (60, 1216) returns to the island map. Images: docs/screens/world/world_area_map.png, docs/screens/world/area_map_v3.png.",
+        "recognition": "OCR",
+        "expected": "^Lost Statue$",
+        "roi": [
+            560,
+            80,
+            150,
+            40
         ],
         "pre_delay": 0,
         "post_delay": 0

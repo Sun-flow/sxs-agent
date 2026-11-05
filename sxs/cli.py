@@ -1,7 +1,7 @@
 """Command line: run a loop, look at the screen, or drive the device by hand.
 
     python -m sxs <loop> [options]           run a loop (list below; `python -m sxs <loop> --help` for its options)
-    python -m sxs see badges|minimap|gift [FRAME ...]   run one detector on frames (default: a live screenshot)
+    python -m sxs see badges|minimap|gift|collectibles [FRAME ...]   run one detector on frames (default: a live screenshot)
     python -m sxs bank                       copy unfamiliar frames (captures/unknown/) into docs/screens/unlabeled/
     python -m sxs label                      file the screens mae labelled in docs/screens/unlabeled/README.md
     python -m sxs report [--day YYYY-MM-DD]  the day's progress report from saved snapshots (no emulator)
@@ -33,7 +33,8 @@ from .core.device import DEFAULT_ADDRESS, Device
 from .core.paths import SCREENS as SCREENS_DIR
 from .loops import REGISTRY
 
-SEE = {"badges": "sxs.vision.badges", "minimap": "sxs.vision.minimap", "gift": "sxs.vision.gift"}
+SEE = {"badges": "sxs.vision.badges", "minimap": "sxs.vision.minimap", "gift": "sxs.vision.gift",
+       "collectibles": "sxs.vision.collectibles"}
 DEVICE_COMMANDS = ("screenshot", "tap", "swipe", "back", "start", "stop", "state", "capture", "watch")
 
 
