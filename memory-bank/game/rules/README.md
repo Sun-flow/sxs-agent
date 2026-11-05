@@ -17,7 +17,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | Stamina, materials, pickups, Bellflowers | `gathering.md` |
 | Character power: the character "!", gear, skills, charms, class, rank, relics | `upgrades.md` |
 | Currencies, Vendor Booth, Mall | `economy.md` |
-| Background: regions, servers, level unlocks, seasons, server time | `world.md` |
+| Background: regions, servers, level unlocks, seasons, server time, towns and their NPCs | `world.md` |
 
 ## Entry format
 
@@ -33,7 +33,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 
 ## Adding or changing a rule
 
-- New rule: next free ID (**next free: R-134**), under the right `##` heading of the right file, plus a row in the ID index below.
+- New rule: next free ID (**next free: R-135**), under the right `##` heading of the right file, plus a row in the ID index below.
 - Never reuse or renumber an ID. When merging a rule into another, delete it, add it to the retired table, and repoint citations.
 - Run `python3 scripts/check-rules.py`: it checks that every cited ID resolves, retired IDs aren't cited, every file is listed here, and image paths exist.
 
@@ -147,6 +147,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-131 | `overworld.md` | Save a reference of every collectible and monster met while exploring |
 | R-132 | `overworld.md` | Dotted lines mark zone borders: finish the zone you're in first |
 | R-133 | `combat.md` | Auroradrasil: a free 4-player story dungeon with NPC companions |
+| R-134 | `world.md` | Drasilgard: what each NPC and object does |
 
 ## Retired IDs
 

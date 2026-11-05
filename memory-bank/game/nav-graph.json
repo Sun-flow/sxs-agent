@@ -1073,7 +1073,7 @@
    "unlock": "story",
    "detect": null,
    "images": [],
-   "notes": "Story town with several NPCs. Village Chief (big house, north): story only, points to Auroradrasil (cleanse the Chaotic Blight; Killian and Qin went ahead). Hermes (mushroom-roof shop, east): Kingdom Shop. Not yet visited: notice board stall (west), house with a 'G' sign (south), stone ring with a green rune (centre), portal (east of centre), several yellow-star NPC markers."
+   "notes": "Story town (R-134). Village Chief (north): story only. Hermes (east): Kingdom Shop. Carol the Black Cat (west, by the dome house): Reshape. Portal east of the stone ring: Teleport. Notice board stall and 'G' dome house are decoration; stone ring gives no card. Yellow-star markers NE unmapped."
   },
   {
    "id": "hermes_menu",
@@ -1101,6 +1101,32 @@
     "docs/screens/shops/kingdom_shop_drasilgard_lv1_2.png"
    ],
    "notes": "Pays Abundance Leaves. Shop Level 1/4, tabs Lv.1-Lv.4. Stock in docs/shop-tables.md. Buy nothing until mae fills Buy? (R-043, R-114)."
+  },
+  {
+   "id": "carol_menu",
+   "name": "Carol the Black Cat",
+   "kind": "dialog",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/unlabeled/drasilgard_carol_dialogue.png",
+    "docs/screens/unlabeled/drasilgard_carol_gift.png",
+    "docs/screens/unlabeled/drasilgard_carol_menu.png"
+   ],
+   "notes": "First meeting gives a free Shapeshifting Mirror. Menu Transform! / Chat / Let me think about it."
+  },
+  {
+   "id": "reshape",
+   "name": "Reshape (appearance)",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/unlabeled/drasilgard_carol_reshape.png"
+   ],
+   "notes": "Tabs General, Hair, Face, Trait. Complete costs 1 Shapeshifting Mirror: never press, mae's choice (R-134)."
   }
  ],
  "edges": [
@@ -2788,6 +2814,30 @@
    },
    "confidence": "observed",
    "notes": ""
+  },
+  {
+   "from": "drasilgard",
+   "to": "carol_menu",
+   "action": {
+    "type": "tap",
+    "target": "Carol (wizard-hat cat NPC by the dome house, west)",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": ""
+  },
+  {
+   "from": "carol_menu",
+   "to": "reshape",
+   "action": {
+    "type": "tap",
+    "target": "Transform!",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Look only; back out without Complete."
   }
  ]
 }
