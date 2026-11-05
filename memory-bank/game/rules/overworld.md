@@ -27,6 +27,14 @@ Exploration comes in two kinds (mae), and loops should handle both: **quest-prog
 
 ## Walking and the camera
 
+
+### R-135 · Non-quest exploration order: lowest-CP unblessed zone first
+The non-quest exploration loop (mae; the quest-progression loop is settled):
+1. Pick the lowest-CP zone not yet blessed (within the fight limit, R-127).
+2. Explore it until its statue is blessed (R-065 goal, R-070).
+3. Repeat until no unblessed zone remains.
+4. Then look for any fog-walk ground not yet explored (R-130). Explore it if there is some; otherwise exploration is concluded for now.
+*told* · R-065, R-070, R-076, R-127, R-130, R-132
 ### R-025 · Tap to walk, swipe to pan; the camera doesn't follow
 Tap a spot to walk; swipe to pan. A tap inside fog doesn't move the character: tap tiles at its edge. The camera stays put after walking, so re-centre (drag the map or tap an edge pointer, R-074) before the next tap.
 *observed* · `world/world_map.png` · R-067, R-074
