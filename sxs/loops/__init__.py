@@ -26,6 +26,7 @@ REGISTRY = {
     "mall": "sxs.loops.mall",
     "vendor": "sxs.loops.vendor",
     "tutorial": "sxs.loops.tutorial",
+    "progress": "sxs.loops.progress",
     "pray": "sxs.loops.pray",  # handler-triggered only; no loop imports it
 }
 

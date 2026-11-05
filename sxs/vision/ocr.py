@@ -17,6 +17,22 @@ def read_line(det, roi, frame=None) -> str:
     return " ".join(t for t, _ in det.read_text(roi, frame))
 
 
+def zoomed_lines(det, frame, box, scale: float = 3.0) -> list[str]:
+    """OCR one small region after enlarging it onto a black canvas. Small white labels on dark badges ("+15",
+    "Lv. 10", the top-bar amounts) are missed or misread at their real size and read cleanly enlarged.
+    `frame` is required (a screenshot or saved image); `box` is [x, y, w, h]. Lines come back top to bottom."""
+    import cv2
+    import numpy as np
+
+    x, y, w, h = box
+    crop = frame[y:y + h, x:x + w]
+    scale = max(1.0, min(scale, 680 / max(w, 1), 1180 / max(h, 1)))
+    big = cv2.resize(crop, None, fx=scale, fy=scale, interpolation=cv2.INTER_CUBIC)
+    canvas = np.zeros((1280, 720, 3), np.uint8)
+    canvas[50:50 + big.shape[0], 20:20 + big.shape[1]] = big
+    return [t for t, _ in det.read_text([0, 0, 720, 1280], canvas)]
+
+
 def int_in(text: str, pattern: str, ocr_fixes: bool = False) -> Optional[int]:
     """First capture group of `pattern` in `text` as an int. ocr_fixes: drop spaces and read O as 0 (counters such
     as "Attempts: O/2")."""

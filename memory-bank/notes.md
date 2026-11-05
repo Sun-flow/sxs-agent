@@ -15,7 +15,8 @@
 ## How loops must behave (mae, 2026-11-04)
 
 - **Goal-driven**: "given the goal and circumstances, pick the right option (which may be declining)", not "advance through the menu". Cards go through `sxs/policy/decide.py` and `resource/policy/cards.json`.
-- **Stuck checks**: every loop checks regularly whether it's stuck (no progress, same screen or card repeating: heartbeat, watchdogs) and ends early with a named reason. A stuck case that recurs means make the loop more robust, not restart it.
+- **Short runs** (mae, 21:45): a loop run lasts 1-2 minutes at most, never 10+. Split long jobs into small discrete tasks, each with its own end condition. A task that normally takes long measures progress toward its goal (tracker %, stamina, floor number, screen state, badge count) and exits shortly after the goal is met, not when a timer runs out. Defaults: `--budget 120` s, `--stall 60` s.
+- **Stuck checks**: every loop checks regularly whether it's stuck (no progress, same screen or card repeating: heartbeat, watchdogs) and ends early with a named reason: if the progress signal hasn't moved within a short window, exit with a stuck or unknown result instead of retrying for minutes. A stuck case that recurs means make the loop more robust, not restart it.
 - **Unknown state**: unfamiliar screens are an explicit `UNKNOWN` (`sxs/core/state.py`). Try a known recovery (back arrow, close, tap the HUD) a bounded number of times, otherwise end early and report, with the frame saved to `captures/unknown/`.
 - **Composable**: loops call each other and resume (explore hands Fantasia Ascent screens to `sxs.loops.tower`, then carries on).
 - **Banner**: every loop logs this when it starts, and the builder posts it to mae:
