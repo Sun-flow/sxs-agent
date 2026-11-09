@@ -250,9 +250,9 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
         sent to, `was` is a way in (with the coordinates just inside)."""
         if not was or not now or goto.same_area(was, now) or not tree.key(now) or not tree.key(was):
             return
-        if home_area and goto.same_area(now, home_area) and any(goto.same_area(was, a) for a in allowed):
-            # Only a walk in from the neighbour roam sent us through is a way in; coming back from a wrong turn
-            # (seen 2026-11-09: Verdantglade IV back into V) just proves the two connect.
+        if home_area and goto.same_area(now, home_area):
+            # Any walk into the zone is a way in, a walk back from a wrong turn included: zones have several ways in
+            # and out and border several zones (mae, 2026-11-09).
             tree.record_entry(now, was, True, server_day(), xy=xy)
             log.info("entered %s from %s at %s: saved as its way in", now, was, xy)
         else:

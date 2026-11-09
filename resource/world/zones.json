@@ -100,7 +100,17 @@
    "first_seen": "2026-11-05",
    "cp": 14.8,
    "pct": 78,
-   "notes": "Auroradrasil sits inside it on the map but is its own zone (R-132): walks to finish V must land on V's own ground."
+   "notes": "Auroradrasil sits inside it on the map but is its own zone (R-132): walks to finish V must land on V's own ground.",
+   "entries": [
+    {
+     "via": "Verdantglade IV",
+     "day": "2026-11-09",
+     "xy": [
+      143,
+      108
+     ]
+    }
+   ]
   },
   "Verdantglade VI": {
    "kingdom": "Verdantglade",
@@ -173,7 +183,7 @@
    "a": "Verdantglade V",
    "b": "Verdantglade IV",
    "how": "walked",
-   "note": "a fog walk crossed south from V into IV at about (143, 107) and walked back (2026-11-09); the edge runs along Vs south side, IV is light (explored)"
+   "note": "a fog walk crossed south from V into IV at about (143, 107) and walked back (2026-11-09); the edge runs along Vs south side, IV is light (explored); entered Verdantglade V at (143, 108)"
   },
   {
    "a": "Verdantglade V",
