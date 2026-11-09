@@ -466,7 +466,13 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
             elif d.state in TOWER_STATES:
                 # A tower opened from here: hand over to the tower loop, then come back to this area (mae: loops call
                 # each other). Mini-dungeon floors need no hand-over: their cards and fights are handled below.
-                log.info("tower climb: %s", tower.climb(dev, det, minutes=max(1.0, (deadline - time.monotonic()) / 60)))
+                if tower.done_today():  # R-079: one climb a day, never retry a loss
+                    log.info("tower already climbed today; leaving it")
+                else:
+                    climbed = tower.climb(dev, det, minutes=max(1.0, (deadline - time.monotonic()) / 60))
+                    log.info("tower climb: %s", climbed)
+                    if climbed in tower.OK:
+                        tower.mark_done()
                 Navigator(dev, det).go_home()
                 if home_area:
                     ui.tap(dev, ui.NAV_WORLD, 4)

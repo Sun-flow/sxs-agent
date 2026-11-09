@@ -1,8 +1,10 @@
-"""Get stronger between fights using only soft resources: claim the Cart, enhance gear, upgrade techniques.
+"""Shared strengthening helpers (claim the Cart, banded gear enhancing, charms, gear replace) and the Strengthen loop.
 
     python -m sxs strengthen
 
-Each step starts from home and returns there. Spends Rolla, Raw/Refined Ore and Battle Essence only; stops tapping
+The loop runs `sxs.loops.upgrade.get_stronger`: Cart, gear swap, charms, then the Upgrade Loop (mae, 2026-11-09:
+the old path levelled techniques one tap at a time instead of Quick Upgrade, R-104). Each step starts from home and
+returns there. Spends Rolla, Raw/Refined Ore and Battle Essence only; stops tapping
 an upgrade as soon as the game says materials are short. Never touches Dawnium, Prayer or the shop. No model calls.
 """
 
@@ -37,10 +39,7 @@ GEAR_BAND = 5  # mae, 2026-11-04: enhance in 5-level bands, all pieces together
 # weapon > offhand > headpiece > chest > boots; when an offhand tab appears, insert its index after the weapon.
 GEAR_PRIORITY = [0, 1, 2, 3]
 SKILL_BUTTON = ui.SKILL_BUTTON
-TECHNIQUE_SLOT = (92, 270)
 TECHNIQUE_CARD_ENHANCE = ui.TECHNIQUE_CARD_ENHANCE
-TECHNIQUE_TABS = [(160, 190), (318, 190), (424, 190), (552, 190)]
-TECHNIQUE_UPGRADE = (360, 1086)
 SHORT = r"Insufficient|Unlocks at Character"
 PROFILE_CHARM_ROW_ROI = [360, 840, 360, 110]  # player profile: the Charm row and its badges
 PROFILE_CHARM_SLOTS = [(406, 910), (480, 910), (554, 910), (628, 910)]  # player profile: Charm row; an empty one opens the loadout editor
@@ -153,22 +152,6 @@ class Strengthener:
         self._tap(ui.BACK_ARROW, 2)
         log.info("gear enhanced: %s (%d taps%s)", levels, taps, ", materials short" if short else "")
 
-    def upgrade_techniques(self, taps_per_item: int = 12) -> None:
-        self.nav.go_home()
-        self.nav.tap_and_expect(ui.NAV_CHARACTER, "character")
-        self._tap(SKILL_BUTTON, 2.5)
-        self._tap(TECHNIQUE_SLOT, 2)
-        self._tap(TECHNIQUE_CARD_ENHANCE, 2.5)
-        for tab in TECHNIQUE_TABS:
-            self._tap(tab)
-            for _ in range(taps_per_item):
-                self._tap(TECHNIQUE_UPGRADE, 1.2)
-                if self._short():
-                    break
-        self._tap(ui.BACK_ARROW, 2)
-        self._tap(ui.BACK_ARROW, 2)
-        log.info("techniques upgraded")
-
     @staticmethod
     def _filled(frame, xy) -> bool:
         x, y = xy
@@ -253,16 +236,11 @@ class Strengthener:
                 self._tap((360, 1250), 1.5)
         return replaced
 
-    def run(self) -> None:
-        self.claim_cart()
-        self.enhance_gear()
-        self.upgrade_techniques()
-        self.nav.go_home()
-
 
 def _run(ctx, opts):
-    Strengthener(ctx.dev, ctx.det).run()
+    from .upgrade import get_stronger  # upgrade imports this module
+    return {"end": "done", **get_stronger(ctx.dev, ctx.det)}
 
 
-LOOP = Loop("strengthen", "Strengthen", "claim the Cart, enhance gear and upgrade techniques with soft resources",
-            _run)
+LOOP = Loop("strengthen", "Strengthen", "get stronger with soft resources: Cart, gear swap, charms, Upgrade Loop",
+            _run, budget=8 * 90)

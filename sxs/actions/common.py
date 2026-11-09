@@ -43,3 +43,17 @@ def close_rewards(dev, det, tries: int = 3, wait: float = 1.5) -> int:
         ui.tap(dev, ui.REWARD_CLOSE, wait)
         n += 1
     return n
+
+
+def start_fight(dev, det) -> bool:
+    """Battle prep showing: heal to 70% from the portrait (R-061, R-078), then Start Battle. Returns False (after
+    backing out of prep) when HP stays low, so the caller must not fight. Any loop that meets a guard and wants the
+    fight calls this, then carries on with its own goal (mae, 2026-11-09: gather fights a guard, then resumes the
+    pickup)."""
+    from . import heal  # heal imports nothing from here; kept local so common stays light
+
+    if not heal.heal_via_portrait(dev, det, heal.PREP_HP_BAR):
+        ui.tap(dev, ui.BACK_ARROW, 2)
+        return False
+    ui.tap(dev, ui.START_BATTLE, 3)
+    return True

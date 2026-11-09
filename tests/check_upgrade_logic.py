@@ -8,7 +8,7 @@ import cv2
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from sxs.vision.badges import find_badges  # noqa: E402
 from sxs.loops.gather import pickups_to_take  # noqa: E402
-from sxs.loops.upgrade import relic_plan  # noqa: E402
+from sxs.loops.upgrade import gear_enhanceable, relic_plan  # noqa: E402
 
 SCREENS = Path(__file__).resolve().parent.parent / "docs" / "screens"
 fails = 0
@@ -34,6 +34,10 @@ check("relic nothing owned", relic_plan({}, aff), None)
 check("stamina 171 -> 20 pickups", pickups_to_take(171, 70), 20)
 check("stamina 74 -> 0 pickups", pickups_to_take(74, 70), 0)
 check("stamina 50 -> 0 pickups", pickups_to_take(50, 70), 0)
+
+# Blue enhance pips on gear slots (mae, 2026-11-09): weapon +4 and head +0 show one, the two empty slots don't.
+check("enhance pips on character.png", gear_enhanceable(cv2.imread(str(SCREENS / "character/character.png"))), [0, 1])
+check("no enhance pips on skill_page.png", gear_enhanceable(cv2.imread(str(SCREENS / "character/skill_page.png"))), [])
 
 # Badges ("!") on reference screens.
 check("badges skill_page", len(find_badges(cv2.imread(str(SCREENS / "character/skill_page.png")))), 4)
