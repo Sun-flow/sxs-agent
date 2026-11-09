@@ -30,6 +30,7 @@ from ..core.interrupts import resume_with
 from ..core.loop import progress, Loop, banner
 from ..core.nav import Navigator
 from ..core.marks import server_day
+from ..core.paths import RESOURCE
 from ..policy.decide import Context, Decider
 from ..policy.zones import Tree
 from ..vision import minimap
@@ -85,6 +86,8 @@ def to_world(player_xy: Optional[tuple[int, int]], player: Optional[tuple[int, i
 BORDER_KEEP = 1  # tiles: walk taps stay this far from a zone border line unless crossing is allowed (R-132)
 AREA_MAP_TRIES = 12  # big-map walks to a dot or structure per run (each takes ~20 s)
 OUTSIDE_RADIUS = 3  # map tiles around a spot found to be in another zone that are no longer goals
+LAST_DIST = 99  # tiles along the path to what minimap_target headed for
+GUARD_TAPS_MAX = 6  # taps on monsters under guard markers per walk
 LAST_GOAL: Optional[str] = None  # what the last minimap_target() headed for: "monster", "building" or None
 
 
@@ -118,8 +121,8 @@ def minimap_target(det, frame: np.ndarray, lookahead: int = 4, player_xy=None,
 
     R-132 (mae, 2026-11-09): a zone's dotted border on the minimap is a wall for the plan unless cross_border (the
     caller allows it only when walking in from a finished neighbour into the zone it was sent to)."""
-    global LAST_GOAL
-    LAST_GOAL = None
+    global LAST_GOAL, LAST_DIST
+    LAST_GOAL, LAST_DIST = None, 99
     mm = minimap.read(frame, home_light)
     # mae, 2026-11-05: exploration % comes from what you do, not where you walk: collect green dots, fight orange
     # ones, complete yellow structures; then the area's statue appears. So objects come first, in that order of
@@ -156,6 +159,7 @@ def minimap_target(det, frame: np.ndarray, lookahead: int = 4, player_xy=None,
             path = minimap.path_to_nearest(mm, goals=("walk_unexplored",), skip=stood, cross_border=cross_border)
     if len(path) < 2:
         return None
+    LAST_DIST = len(path) - 1
     if mm.grid[path[-1][0]][path[-1][1]] == "item":
         LAST_GOAL = "item"
     if mm.grid[path[-1][0]][path[-1][1]] == "monster":
@@ -179,6 +183,94 @@ def minimap_target(det, frame: np.ndarray, lookahead: int = 4, player_xy=None,
 
 
 MAP_LABELS_ROI = [0, 120, 720, 1060]  # area-map zone labels (legend and kingdom buttons excluded below)
+
+
+QUEST_LOCATE_X = 330  # the locate (target) icon right of the tracker's progress line
+QUEST_TARGET_DY = 80  # the quest ring floats this far above its target
+QUEST_FAILS_MAX = 3  # quest-pointer steps without the counter moving before the walk stops using it
+
+
+def quest_counter(det, zone: str) -> Optional[int]:
+    """The tracked quest's counter when it is "Explore <zone> N/100", else None."""
+    prog = det.find("Explore.Progress")
+    m = re.search(r"Explore\s*(.+?)\s*(\d+)\s*/\s*100", prog.text if prog else "")
+    if not m or not goto.same_area(m.group(1), zone):
+        return None
+    return int(m.group(2))
+
+
+MARKER_TEMPLATES = ("marker.png", "marker_dim.png")  # resource/image/explore/: the gold quest ring
+MARKER_MATCH = 0.75
+
+
+def find_quest_ring(frame) -> Optional[tuple[int, int]]:
+    """Centre of the gold quest ring anywhere below the very top (live 2026-11-09: as an edge ring it sat at y 50,
+    above the pipeline node's region, so the step thought there was none)."""
+    best = (0.0, None)
+    for name in MARKER_TEMPLATES:
+        tpl = cv2.imread(str(RESOURCE / "image" / "explore" / name))
+        if tpl is None:
+            continue
+        r = cv2.matchTemplate(frame[20:960], tpl, cv2.TM_CCOEFF_NORMED)
+        _, score, _, (x, y) = cv2.minMaxLoc(r)
+        if score > best[0]:
+            best = (score, (x + tpl.shape[1] // 2, 20 + y + tpl.shape[0] // 2))
+    return best[1] if best[0] >= MARKER_MATCH else None
+
+
+def quest_step(dev, det, fight: bool) -> bool:
+    """One step toward the tracked Explore quest's next target. The tracker's locate icon toggles tracking ("Tracking
+    On"/off), so it is tapped only when no gold ring shows. An edge ring is tapped to pan the camera to the target;
+    then the target under the ring is tapped. A monster guarding it (red skull marker) is fought first. True when a
+    step was taken."""
+    prog = det.find("Explore.Progress")
+    if not prog:
+        return False
+    ring = find_quest_ring(dev.screenshot())
+    if ring is None:
+        ui.tap(dev, (QUEST_LOCATE_X, ui.centre(prog.box)[1]), 2)  # tracking was off: turn it on
+        ring = find_quest_ring(dev.screenshot())
+    for _ in range(2):
+        if ring is None:
+            return False
+        cx, cy = ring
+        if cx < 70 or cx > 650 or cy < 150 or cy > 900:  # an edge ring: tapping it pans the camera to the target
+            ui.tap(dev, (cx, cy), 2)
+            ring = find_quest_ring(dev.screenshot())
+            continue
+        if fight and attack_guard(dev, det):
+            return True
+        log.info("quest pointer: tapping the target under the ring at %s", (cx, cy))
+        ui.tap(dev, (cx, cy + QUEST_TARGET_DY), 10)
+        return True
+    return False
+
+
+def zone_by_map(dev, det, hint: str = "") -> Optional[str]:
+    """R-140 (mae, 2026-11-09): where the player is comes from the player's white dot on the big map, not the name
+    under the minimap (at Verdantglade V's north gate that read "Verdantglade VI" while we stood in V). Opens the
+    area map zoomed out, takes the zone whose label is nearest our dot, closes the map. None if unreadable."""
+    dev.tap(*goto.MINIMAP)
+    time.sleep(2.5)
+    if det.detect().state != "area_map":
+        return None
+    goto.survey_zoom(dev)
+    frame = dev.screenshot()
+    me = [p for k, p in area_map.objects(frame) if k == "player"]
+    labels = map_labels(det, frame)
+    dev.tap(*ui.BACK_ARROW)
+    time.sleep(2)
+    if not me or not labels:
+        return None
+    px, py = me[0]
+    dist = {t: ((labels[t][0] - px) ** 2 + (labels[t][1] - py) ** 2) ** 0.5 for t in labels}
+    best = min(dist, key=dist.get)
+    # Labels sit mid-zone, so near an edge another zone's label can be the nearest (live 2026-11-09: at Verdantglade
+    # V's east edge, Highland Woods). The name under the minimap stands unless the dot is clearly in another zone.
+    hinted = [t for t in labels if hint and goto.same_area(t, hint)]
+    if hinted and dist[best] >= area_map.LABEL_MARGIN * min(dist[t] for t in hinted):
+        return hinted[0]
+    return best
 
 
 def map_labels(det, frame) -> dict:
@@ -240,10 +332,18 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
         goto.go_to(dev, det, area)
     stood_on: set = set()  # map coordinates the character has stood on this run
     map_tries = 0
+    guard_taps = 0
+    quest_fails = 0  # quest-pointer steps in a row that didn't move the zone's Explore counter
+    buildings_ok = True  # structures are goals until one's card can only be dismissed (a blocker)
+    dismissed: dict = {}  # card title -> times dismissed this walk
     map_arrivals: list = []  # where big-map walks to an object ended (a repeat means we can't take it)
     outside: set = set()  # map coordinates where we found ourselves in another zone (R-132)
     tapped, saved_fight = None, False  # (frame, screen point) of the last walk tap, for the collectibles store
-    free = not area_blessed(dev, det, area)  # unexplored: fights and pickups cost nothing (R-065)
+    # Unexplored: fights and pickups cost nothing (R-065). The location tree knows; reading the area map here at
+    # whatever zoom it opens with called Verdantglade V at 88% "explored" (live 2026-11-09).
+    tree = Tree.load()
+    known = tree.get(area or goto.area_name_here(det))
+    free = (not tree.explored(area or goto.area_name_here(det))) if known else not area_blessed(dev, det, area)
     fight = free or farm
     log.info("area %s: pickups %s, fights %s", "still unexplored" if free else "explored",
              "free" if free else ("farming" if farm else "off"), "on" if fight else "off")
@@ -251,9 +351,17 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
     # coordinates: centre_player and the edge pointer move the camera, so screen points don't stay put.
     bumped: list[tuple[int, int]] = []
     beat = Heartbeat()
-    tree = Tree.load()  # the location tree: crossings a walk makes are written back (zones.py)
+    # `tree` (the location tree, loaded above): crossings a walk makes are written back (zones.py)
     last_zone: Optional[str] = None  # area name read on the previous map step
     last_plan = None  # the frame the last minimap walk tap was planned on
+    seen_names: dict = {}  # name under the minimap -> zone the big map's player dot put us in (R-140)
+
+    def map_zone(name: str) -> str:
+        if name not in seen_names:
+            seen_names[name] = zone_by_map(dev, det, home_area or "") or name
+            if seen_names[name] != name:
+                log.info("the minimap says %r, the big map puts us in %s (R-140)", name, seen_names[name])
+        return seen_names[name]
 
     def note_crossing(was: Optional[str], now: str, xy) -> None:
         """A walk took us from one zone into another: that border is passable, and if `now` is the zone we were
@@ -307,7 +415,9 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 if home_area is None and name:
                     home_area = name
                 elif (name and not goto.same_area(name, home_area) and not strayed
-                      and not any(goto.same_area(name, a) or goto.squeeze(name)[:7] == goto.squeeze(a)[:7] for a in allowed)):
+                      and not any(goto.same_area(name, a) or goto.squeeze(name)[:7] == goto.squeeze(a)[:7] for a in allowed)
+                      and not goto.same_area(map_zone(name), home_area)):
+                    # The name under the minimap changed; the big map's player dot (R-140) confirmed we left.
                     # Wandered into a neighbouring area: walk back with the area map rather than exploring the wrong one.
                     strayed = True
                     if last_plan is not None:  # the frame the crossing tap was planned on, for tuning the border check
@@ -349,7 +459,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                     if still >= STILL_LIMIT and map_tries < AREA_MAP_TRIES:
                         # Blocked on the minimap plan: try mae's big-map walk to the nearest dot before giving up.
                         map_tries += 1
-                        kinds = tuple(k for k in ("item", "monster", "building")
+                        kinds = tuple(k for k in ("item", "monster") + (("building",) if buildings_ok else ())
                                       if (free or k != "item") and (fight or k != "monster"))
                         why = goto.go_to(dev, det, zone_picker(det, kinds, home_area))
                         log.info("blocked; area-map walk to the nearest %s: %s", "/".join(kinds), why)
@@ -360,6 +470,27 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                         log.warning("no new tile for %d taps (at %s, %d tiles visited); stopping", still, d.text,
                                     len(visited))
                         return "stuck"
+                # The zone's own Explore quest knows where the next % is (live 2026-11-09: a flower in a fog pocket
+                # neither map showed gave 85 -> 88% in one tap): follow its pointer first while it moves the counter.
+                if free and home_area and quest_fails < QUEST_FAILS_MAX:
+                    before = quest_counter(det, home_area)
+                    if before is not None and quest_step(dev, det, fight):
+                        after = quest_counter(det, home_area)
+                        if after is not None and after > before:
+                            log.info("quest pointer: %s %d -> %d%%", home_area, before, after)
+                            progress(("quest", after))
+                            quest_fails = 0
+                            if after >= 100:
+                                # Live 2026-11-09: Verdantglade V reached 100% and the walk carried on for 3 minutes.
+                                log.info("%s explored (100%%): walk done", home_area)
+                                if tree.key(home_area):
+                                    tree.observe(home_area, pct=100)
+                                    tree.save()
+                                rewards.claim_tracker_reward(dev, det, dev.screenshot())
+                                return "zone_done"
+                        else:
+                            quest_fails += 1
+                        continue
                 if centre_player(dev, det, frame):
                     frame = dev.screenshot()
                 # Pickups cost 5 stamina; only a loop that opted in takes them, and it keeps the 70 reserve (R-107).
@@ -374,14 +505,14 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 # neighbour we walk in from (roam's `allowed`), the border into that zone may be crossed (roam already
                 # checked its power, R-127).
                 cross = bool(home_area and name and not goto.same_area(name, home_area))
-                target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen, items_ok=items_ok,
+                target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen if buildings_ok else None, items_ok=items_ok,
                                         player=player, monsters_ok=fight,
                                         visited_xy=stood_on, outside_xy=outside, cross_border=cross,
                                         home_light=not free, shaded_walk=not free)
                 if target is None and recentre_on_player(dev, det, frame):
                     frame = dev.screenshot()
                     player = player_on_screen(det, frame)
-                    target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen, items_ok=items_ok,
+                    target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen if buildings_ok else None, items_ok=items_ok,
                                             player=player, monsters_ok=fight,
                                             visited_xy=stood_on, outside_xy=outside, cross_border=cross,
                                         home_light=not free, shaded_walk=not free)
@@ -394,6 +525,18 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                     spot = to_world(xy, player, target)
                     log.info("map %s opened a card before; stepping aside to %s", spot, target)
                 goal = LAST_GOAL  # what minimap_target headed for (None for a known reference: already stored)
+                # A monster guarding an item (red skull marker): fight it first (mae, 2026-11-09: in every exploring
+                # loop). Its battle prep goes through this loop's fight branch.
+                if fight and guard_taps < GUARD_TAPS_MAX and attack_guard(dev, det, frame):
+                    guard_taps += 1
+                    continue
+                # An object a few tiles away is tapped directly; the big-map walk is for ones out of reach (live
+                # 2026-11-09: a monster 1 tile away got a 25 s big-map walk that ended beside it, twice).
+                if goal in ("item", "monster") and target and minimap.CLOSE_TILES >= LAST_DIST:
+                    log.info("%s %d tiles away: tapping it directly", goal, LAST_DIST)
+                    goal_direct = True
+                else:
+                    goal_direct = False
                 # mae, 2026-11-05: reaching an object needs only the camera, not a path from the player. A known
                 # reference on screen is tapped directly; any other object the minimap shows is reached the big-map
                 # way (tap it on the area map, close, tap the middle). Player-relative steps are only for fog.
@@ -402,9 +545,9 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                     name, kind, target, score = known[0]
                     goal = None
                     log.info("known %s %r on screen at %s (%.2f): tapping it", kind, name, target, score)
-                elif goal in ("item", "monster", "building") and map_tries < AREA_MAP_TRIES:
+                elif goal in ("item", "monster", "building") and map_tries < AREA_MAP_TRIES and not goal_direct:
                     map_tries += 1
-                    kinds = tuple(k for k in ("item", "monster", "building")
+                    kinds = tuple(k for k in ("item", "monster") + (("building",) if buildings_ok else ())
                                   if (items_ok or k != "item") and (fight or k != "monster"))
                     why = goto.go_to(dev, det, zone_picker(det, kinds, home_area))
                     log.info("big-map walk to the nearest %s: %s", "/".join(kinds), why)
@@ -419,7 +562,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                         # mae, 2026-11-05: open the big map, tap the nearest dot or structure (the camera centres on
                         # it), close the map and tap the middle of the screen, where the element now is.
                         map_tries += 1
-                        kinds = tuple(k for k in ("item", "monster", "building")
+                        kinds = tuple(k for k in ("item", "monster") + (("building",) if buildings_ok else ())
                                       if (items_ok or k != "item") and (fight or k != "monster"))
                         pick = zone_picker(det, kinds, home_area)
                         why = goto.go_to(dev, det, pick)
@@ -523,6 +666,22 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                     bumped.append(last_tap)
                     log.info("card %r opened from the tap at map %s: walking around that spot from now on",
                              card.title, last_tap)
+                if choice.action == "dismiss" and card.title:
+                    dismissed[card.title] = dismissed.get(card.title, 0) + 1
+                    if dismissed[card.title] == 2 and buildings_ok:
+                        # Live 2026-11-09: the Sealed Stone Gate (the gold "!" structure on Verdantglade V's north
+                        # edge) was the nearest structure again and again; every walk reopened its card. A structure
+                        # whose card we can only dismiss is a blocker, not a goal: no more structures this walk.
+                        buildings_ok = False
+                        here_xy = goto.coords(det)
+                        log.warning("STUCK %s: %r can only be dismissed (no rule); skipping structures for the rest "
+                                    "of this walk", home_area, card.title)
+                        if home_area and tree.key(home_area):
+                            z = tree.zones[tree.key(home_area)]
+                            note = f"blocked: {card.title.strip()} near {here_xy} (no rule; dismissed)"
+                            if note.split(" near ")[0] not in (z.get("notes") or ""):
+                                z["notes"] = ((z.get("notes") or "") + " " + note).strip()
+                                tree.save()
                 ui.tap(dev, choice.point, 3)
                 if choice.kind == "power_gate":
                     log.info("blocked by %r (needs more power): this area's wall", card.title)
@@ -546,5 +705,5 @@ def _run(ctx, opts):
 
 
 # Ends that mean the area ran out of things to do, not that something went wrong.
-OK = {"no_fog", "timeout", "power_gate", "stuck", "no_objects", "object_unreachable"}
+OK = {"no_fog", "timeout", "power_gate", "stuck", "no_objects", "object_unreachable", "zone_done"}
 LOOP = Loop("fogwalk", "Fog Walk", "explore one side area: minimap targets, then the fog edge", _run, _args, ok=OK)

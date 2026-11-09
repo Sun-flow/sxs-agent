@@ -26,6 +26,7 @@ Ends when no area is left to explore, the time is up, or a lower loop stops for 
 
 from __future__ import annotations
 
+import difflib
 import json
 import logging
 import re
@@ -63,7 +64,8 @@ SURVEY_ZOOM_OUT = 4  # "-" taps: enough to reach full zoom-out from any opening
 # mae, 2026-11-09: read one step closer than full zoom-out (OCR merged labels there). Live the same day: one "+" tap
 # jumps to the closest zoom (labels clipped to "/erdanto", % lines lost), so drag the slider knob up a little instead.
 NAME_RE = re.compile(r"^[A-Z][a-z]+(?: [A-Z][a-z]+)*(?: [IVX]+)?$")  # a zone name as printed ("Monolith Ruins I")
-FINISHED_READS = 2  # surveys in a row with no % line before a zone the tree has under 100% counts as finished
+MISREAD_RATIO = 0.7  # a new name this similar to a known zone's is a misread of it
+FINISHED_READS = 3  # surveys in a row with no % line before a zone the tree has under 100% counts as finished (2 let Troll Lair, whose label sits on Verdantglade IV's, flip to 100%)
 PAN_FROM = (300, 620)  # drag start for survey pans: on the map, clear of the legend and the zoom slider
 PAN_PX, PAN_MS = 250, 1500  # a slow drag so the map doesn't fling on
 # Reveal directions (east, south) for a 3x3 grid around the opening view: N, NW, W, SW, S, SE, E, NE.
@@ -112,7 +114,9 @@ def read_areas(det, frame=None) -> list[Area]:
     extras = []
     for text, box in lines:
         t = text.replace("-", " ").strip(" |")
-        pct = re.search(r"(?:Explor\w*\s*:?\s*)?(\d+)\s*%", t)
+        pct = (re.search(r"(?:Explor\w*\s*:?\s*)?(\d+)\s*%", t)
+               # Live 2026-11-09: "Exploration: 83Monolith Ruins !" (the % sign lost where two labels touch).
+               or re.search(r"Explor\w*\s*:?\s*(\d{1,3})(?=[A-Za-z])", t))
         if pct:
             x, y, w, h = box
             # Joined text: place the % part by its share of the characters.
@@ -364,7 +368,14 @@ class Roamer:
             if len(goto.squeeze(a.name)) < 5 or (kingdom and goto.squeeze(a.name) == goto.squeeze(kingdom)):
                 continue  # the kingdom title, or an OCR scrap
             known = self.tree.key(a.name)
-            if not known and (not NAME_RE.match(a.name) or re.search(r"Explor|%", a.name)):
+            near = [k for k in self.tree.zones
+                    if difflib.SequenceMatcher(None, goto.squeeze(k), goto.squeeze(a.name)).ratio() >= MISREAD_RATIO]
+            if not known and near:
+                # Close to a zone we know but not it: an OCR misread ("Verdantgladeto", "Iden Camp", live
+                # 2026-11-09), not a new zone.
+                continue
+            if not known and (not NAME_RE.match(a.name) or re.search(r"Explor|%", a.name)
+                              or len(goto.squeeze(a.name)) < 7):
                 log.info("not adding %r to the location tree: doesn't read as a zone name", a.name)
                 continue  # live 2026-11-09: "/erdanto", "Exploratio", "ildbloom Coastdden Camp" went in
             pct = ... if a.unsure else a.pct
@@ -443,12 +454,15 @@ class Roamer:
         """mae, 2026-11-04: "try moving from areas you are connected to". Walk into the explored area whose label
         sits nearest the target's on the area map, then toward the target as far as the explored ground goes; the
         fog walk takes it from there. Returns the neighbour used (None if there is none: walk to the label)."""
-        here = goto.area_name_here(self.det)
+        hint = goto.area_name_here(self.det)
+        here = fogwalk.zone_by_map(self.dev, self.det, hint) or hint  # R-140: the big map's dot decides
+        progress(("zone_here", here))
         if here and same(here, target.name):
             log.info("already in %s: finishing it here first (R-132)", target.name)
             return None
         # Try the plain big-map walk to the zone's label first: most zones can be walked into from where we are
         # (live 2026-11-09: from Verdantglade VI the walk "via Verdantglade IV" landed in Auroradrasil instead).
+        progress(("walk_to", target.name))
         if goto.go_to(self.dev, self.det, target.name) == "arrived":
             now = goto.area_name_here(self.det)
             if now and same(now, target.name):
@@ -577,6 +591,11 @@ class Roamer:
                     return "no_progress"
             elif now.pct is None and now.unsure:
                 log.info("%s: %% line not readable this time; trying again next pass", target.name)
+            elif now.pct is None and not self.tree.explored(target.name):
+                # The tree still has it unfinished: one reading without a % line isn't proof (live 2026-11-09: run 5
+                # declared Verdantglade V finished when OCR joined its "83%" to Monolith Ruins' label).
+                log.info("%s showed no %% line but the location tree has it at %s%%: not finished", target.name,
+                         (self.tree.get(target.name) or {}).get("pct"))
             elif now.pct is None:
                 if via:
                     self.tree.record_entry(target.name, via.name, True, server_day())

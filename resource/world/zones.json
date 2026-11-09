@@ -8,17 +8,24 @@
    "blessed": true,
    "notes": "Free 4-player story dungeon (R-133); Lost Goddess Statue blessed 2026-11-05.",
    "map_point": [
-    481,
+    23,
     699
    ],
-   "last_seen": "2026-11-09"
+   "last_seen": "2026-11-09",
+   "entries": []
   },
   "Damp Woods": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-04",
    "cp": 15.5,
    "pct": 0,
-   "notes": "15.5 is the Gate of Power inside (R-086), not an area-map gate. An area-map walk to its label from Verdantglade II lands at about (184, 86); items behind the gate finish it."
+   "notes": "15.5 is the Gate of Power inside (R-086), not an area-map gate. An area-map walk to its label from Verdantglade II lands at about (184, 86); items behind the gate finish it.",
+   "map_point": [
+    78,
+    1049
+   ],
+   "last_seen": "2026-11-09",
+   "entries": []
   },
   "Drasilgard": {
    "kingdom": "Verdantglade",
@@ -26,21 +33,22 @@
    "kind": "town",
    "notes": "Town: Chief, Hermes, Carol, portal (R-134).",
    "map_point": [
-    550,
-    887
+    61,
+    888
    ],
-   "last_seen": "2026-11-09"
+   "last_seen": "2026-11-09",
+   "entries": []
   },
   "Hidden Camp": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
    "pct": 0,
-   "cp": 20.4,
    "map_point": [
-    413,
-    280
+    400,
+    461
    ],
-   "last_seen": "2026-11-09"
+   "last_seen": "2026-11-09",
+   "entries": []
   },
   "Highland Woods": {
    "kingdom": "Verdantglade",
@@ -49,10 +57,11 @@
    "pct": 100,
    "notes": "Entered past a bracketed wolf-boss pack (R-041); ground pickups by a cooking pot finish it (R-066).",
    "map_point": [
-    1035,
-    675
+    459,
+    674
    ],
-   "last_seen": "2026-11-09"
+   "last_seen": "2026-11-09",
+   "entries": []
   },
   "Jungle Camp": {
    "kingdom": "Verdantglade",
@@ -64,15 +73,22 @@
    },
    "notes": "Next by R-135 order. Entry point unknown.",
    "map_point": [
-    314,
-    1019
+    134,
+    1113
    ],
-   "last_seen": "2026-11-09"
+   "last_seen": "2026-11-09",
+   "entries": []
   },
   "Monolith Ruins I": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
-   "pct": 0
+   "pct": 0,
+   "map_point": [
+    -271,
+    585
+   ],
+   "last_seen": "2026-11-09",
+   "entries": []
   },
   "Moonveil Woods": {
    "kingdom": "Verdantglade",
@@ -80,69 +96,65 @@
    "pct": 100,
    "notes": "Dungeon gate unlocked by quest; Bellflower field at minimap (169, 94-95) (R-123).",
    "map_point": [
-    1098,
-    911
+    523,
+    912
    ],
-   "last_seen": "2026-11-09"
+   "last_seen": "2026-11-09",
+   "entries": []
   },
   "Stone Ruins I": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-04",
    "pct": 100,
-   "notes": "2x2 stone-tile puzzle spawns two chests (R-089 area)."
+   "notes": "2x2 stone-tile puzzle spawns two chests (R-089 area).",
+   "map_point": [
+    845,
+    799
+   ],
+   "last_seen": "2026-11-09",
+   "entries": []
   },
   "Sunrise Isle": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-04",
-   "notes": "Bottom right of the Verdantglade map; its % isn't read (R-076)."
+   "notes": "Bottom right of the Verdantglade map; its % isn't read (R-076).",
+   "entries": []
   },
   "Troll Lair": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
    "cp": 17.0,
-   "pct": 100,
+   "pct": 0,
    "notes": "Border label 'Troll Lair 17K' at a corner of its dotted line (R-132).",
    "map_point": [
-    517,
-    780
+    339,
+    875
    ],
-   "last_seen": "2026-11-09"
-  },
-  "Veidantglade VI": {
-   "kingdom": "Verdantglade",
-   "first_seen": "2026-11-09",
-   "pct": 0,
-   "map_point": [
-    371,
-    525
-   ],
-   "last_seen": "2026-11-09"
-  },
-  "Veldantglade VI": {
-   "kingdom": "Verdantglade",
-   "first_seen": "2026-11-09",
-   "pct": 0,
-   "map_point": [
-    370,
-    524
-   ],
-   "last_seen": "2026-11-09"
+   "last_seen": "2026-11-09",
+   "entries": []
   },
   "Verdantglade I": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-04",
    "pct": 100,
-   "notes": "Area quests done."
+   "notes": "Area quests done.",
+   "map_point": [
+    29,
+    522
+   ],
+   "last_seen": "2026-11-09",
+   "entries": []
   },
   "Verdantglade II": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-04",
    "pct": 100,
    "map_point": [
-    389,
-    974
+    27,
+    822
    ],
-   "last_seen": "2026-11-09"
+   "last_seen": "2026-11-09",
+   "entries": []
   },
   "Verdantglade III": {
    "kingdom": "Verdantglade",
@@ -151,28 +163,30 @@
    "pct": 100,
    "notes": "No way in on foot from Moonveil Woods (fog south of about (168, 94) never moves); entered with the quest's Go travel (R-084, R-089).",
    "map_point": [
-    1010,
+    435,
     1075
    ],
-   "last_seen": "2026-11-09"
+   "last_seen": "2026-11-09",
+   "entries": []
   },
   "Verdantglade IV": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-04",
    "notes": "Area quests done; % not read since.",
    "map_point": [
-    449,
-    817
+    271,
+    912
    ],
    "last_seen": "2026-11-09",
-   "pct": 100
+   "pct": 100,
+   "entries": []
   },
   "Verdantglade V": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
    "cp": 14.8,
-   "pct": 78,
-   "notes": "Auroradrasil sits inside it on the map but is its own zone (R-132): walks to finish V must land on V's own ground.",
+   "pct": 100,
+   "notes": "Auroradrasil sits inside it on the map but is its own zone (R-132): walks to finish V must land on V's own ground. blocked: Sealed Stone Gate at the north edge, about (135, 126) (no rule; dismissed)",
    "entries": [
     {
      "via": "Verdantglade IV",
@@ -184,13 +198,10 @@
     }
    ],
    "map_point": [
-    401,
-    505
+    222,
+    599
    ],
-   "last_seen": "2026-11-09",
-   "failed_via": {
-    "Verdantglade IV": "2026-11-09 (fog walk no_objects)"
-   }
+   "last_seen": "2026-11-09"
   },
   "Verdantglade VI": {
    "kingdom": "Verdantglade",
@@ -200,16 +211,18 @@
     "Auroradrasil": "2026-11-04"
    },
    "map_point": [
-    370,
-    525
+    -116,
+    565
    ],
-   "last_seen": "2026-11-09"
+   "last_seen": "2026-11-09",
+   "entries": []
   },
   "Wildbloom Coast": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
    "cp": 20.4,
-   "pct": 0
+   "pct": 0,
+   "entries": []
   },
   "Zephyr Vale": {
    "kingdom": "Verdantglade",
@@ -217,28 +230,14 @@
    "pct": 0,
    "notes": "Its border label runs sideways along a vertical dotted line, no power shown (R-132).",
    "map_point": [
-    527,
-    668
+    -272,
+    710
    ],
-   "last_seen": "2026-11-09"
+   "last_seen": "2026-11-09",
+   "entries": []
   }
  },
  "links": [
-  {
-   "a": "Verdantglade I",
-   "b": "Highland Woods",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Verdantglade I",
-   "b": "Stone Ruins I",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Stone Ruins I",
-   "b": "Verdantglade II",
-   "how": "map_adjacent"
-  },
   {
    "a": "Verdantglade II",
    "b": "Moonveil Woods",
@@ -287,157 +286,7 @@
   },
   {
    "a": "Auroradrasil",
-   "b": "Verdantglade VI",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Drasilgard",
-   "b": "Troll Lair",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Drasilgard",
-   "b": "Verdantglade IV",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Drasilgard",
-   "b": "Verdantglade V",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Drasilgard",
-   "b": "Zephyr Vale",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Hidden Camp",
-   "b": "Verdantglade V",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Highland Woods",
-   "b": "Moonveil Woods",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Highland Woods",
-   "b": "Troll Lair",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Highland Woods",
-   "b": "Verdantglade IV",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Highland Woods",
-   "b": "Verdantglade V",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Highland Woods",
-   "b": "Zephyr Vale",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Jungle Camp",
-   "b": "Troll Lair",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Jungle Camp",
-   "b": "Verdantglade II",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Jungle Camp",
-   "b": "Verdantglade III",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Jungle Camp",
-   "b": "Verdantglade IV",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Moonveil Woods",
-   "b": "Troll Lair",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Moonveil Woods",
-   "b": "Verdantglade IV",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Moonveil Woods",
-   "b": "Zephyr Vale",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Troll Lair",
-   "b": "Verdantglade II",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Troll Lair",
-   "b": "Verdantglade III",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Troll Lair",
-   "b": "Verdantglade IV",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Troll Lair",
-   "b": "Zephyr Vale",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Verdantglade II",
-   "b": "Verdantglade III",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Verdantglade II",
-   "b": "Verdantglade IV",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Verdantglade II",
-   "b": "Zephyr Vale",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Verdantglade III",
-   "b": "Verdantglade IV",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Verdantglade III",
-   "b": "Zephyr Vale",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Verdantglade IV",
-   "b": "Zephyr Vale",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Auroradrasil",
-   "b": "Highland Woods",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Auroradrasil",
-   "b": "Moonveil Woods",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Auroradrasil",
-   "b": "Troll Lair",
+   "b": "Verdantglade I",
    "how": "map_adjacent"
   },
   {
@@ -447,27 +296,17 @@
   },
   {
    "a": "Auroradrasil",
-   "b": "Verdantglade III",
+   "b": "Verdantglade VI",
    "how": "map_adjacent"
   },
   {
-   "a": "Auroradrasil",
-   "b": "Verdantglade IV",
+   "a": "Damp Woods",
+   "b": "Drasilgard",
    "how": "map_adjacent"
   },
   {
-   "a": "Auroradrasil",
-   "b": "Zephyr Vale",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Drasilgard",
-   "b": "Highland Woods",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Drasilgard",
-   "b": "Moonveil Woods",
+   "a": "Damp Woods",
+   "b": "Jungle Camp",
    "how": "map_adjacent"
   },
   {
@@ -476,133 +315,28 @@
    "how": "map_adjacent"
   },
   {
-   "a": "Drasilgard",
-   "b": "Verdantglade III",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Hidden Camp",
-   "b": "Highland Woods",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Highland Woods",
+   "a": "Monolith Ruins I",
    "b": "Verdantglade VI",
    "how": "map_adjacent"
   },
   {
-   "a": "Jungle Camp",
-   "b": "Moonveil Woods",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Moonveil Woods",
-   "b": "Verdantglade V",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Troll Lair",
-   "b": "Verdantglade V",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Troll Lair",
-   "b": "Verdantglade VI",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Verdantglade IV",
-   "b": "Verdantglade VI",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Verdantglade VI",
+   "a": "Monolith Ruins I",
    "b": "Zephyr Vale",
    "how": "map_adjacent"
   },
   {
-   "a": "Auroradrasil",
-   "b": "Veldantglade VI",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Hidden Camp",
-   "b": "Verdantglade VI",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Hidden Camp",
-   "b": "Veldantglade VI",
+   "a": "Moonveil Woods",
+   "b": "Troll Lair",
    "how": "map_adjacent"
   },
   {
    "a": "Troll Lair",
-   "b": "Veldantglade VI",
+   "b": "Verdantglade IV",
    "how": "map_adjacent"
   },
   {
-   "a": "Verdantglade IV",
-   "b": "Veldantglade VI",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Verdantglade V",
+   "a": "Verdantglade I",
    "b": "Verdantglade VI",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Verdantglade V",
-   "b": "Veldantglade VI",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Verdantglade VI",
-   "b": "Veldantglade VI",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Zephyr Vale",
-   "b": "Veldantglade VI",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Auroradrasil",
-   "b": "Veidantglade VI",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Hidden Camp",
-   "b": "Veidantglade VI",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Troll Lair",
-   "b": "Veidantglade VI",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Veldantglade VI",
-   "b": "Veidantglade VI",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Verdantglade IV",
-   "b": "Veidantglade VI",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Verdantglade V",
-   "b": "Veidantglade VI",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Verdantglade VI",
-   "b": "Veidantglade VI",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Zephyr Vale",
-   "b": "Veidantglade VI",
    "how": "map_adjacent"
   }
  ],

@@ -269,6 +269,7 @@ if __name__ == "__main__":
 
 # --- path planning -------------------------------------------------------------------------------------------
 
+CLOSE_TILES = 4  # objects this many tiles away or nearer are tapped on screen, not reached by a big-map walk
 SCREEN_TILE = 104  # px per game tile on the island map at the default zoom (grid lines are this far apart)
 GOALS = ("item", "monster", "walk_unexplored", "fog_lead")  # what free exploration heads for (nearest first);
 # orange monster dots are fought (mae, 2026-11-04: "orange minimap icons are monsters and should be fought").
