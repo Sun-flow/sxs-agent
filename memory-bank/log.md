@@ -1,7 +1,15 @@
 # Session Log
 
-> **Last updated**: 2026-11-05
+> **Last updated**: 2026-11-09
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
+
+### 2026-11-09 · Zone borders, location tree, closer-zoom map survey, Cart unlock (Claude Code, mae's PC via Remote Control, offline only)
+- Branch `claude/project-thread-sesbe9` (off main d1d7339). No live run: the new code needs one (ask mae first).
+- R-132 before the crossing: `minimap.border_mask/border_tiles` find the dotted zone line on the minimap (1-2 px light grey, S < 40, V 105-200, straight runs of 12+ px with green on both sides; icon edges dropped). Border tiles are walls for `path_to_nearest` unless `cross_border`; the fog walk allows crossing only while standing outside the zone it was sent to (walking in from roam's neighbour). Tuned on `world/explore_bellflower_picked.png` (passage east of the player) and four border-free frames.
+- Location tree `resource/world/zones.json` + `sxs/policy/zones.py` (`python -m sxs zones`): zones with kingdom, CP, %, blessed, map point, way in (`entry`), failed neighbours by day; links walked / map_adjacent / inside; open questions (Jungle Camp's entry first). Seeded from status and rules. Roam's `pick` uses `Tree.next_zone` (the zone we stand in first while unfinished, else lowest-CP unexplored in reach), `approach` ranks neighbours by the tree, and walks record entries that worked or failed; the fog walk records every zone change it sees.
+- Area-map survey: full zoom-out then one "+" (682, 795), and a 3x3 grid of slow 300 px pans stitched by phase correlation; readings merged by name (a label with no room under it for its % line is `unsure`, not finished). Ready statues are tied to their zone and blessed by walking there, then to the badge nearest us.
+- Cart (R-137): `CartUpgrader.unlock_rows` presses any row's exact "Unlock" before upgrading; any cost or spend word on a confirmation backs out with needs_decision.
+- New `tests/check_zones.py`. Open: everything above is unwatched live (survey pan size and the "+" position are guesses from one reference screen; whether the map remembers its zoom; map-adjacency distance 330 px); the world-view border labels ("Troll Lair 17K") are not read yet.
 
 ### 2026-11-05 (early morning) · Strengthening pass, Cart upgrade script (Claude Code, mae's PC via Remote Control)
 - Strengthening (mae's ask): gearswap --all kept all four pieces; Upgrade Loop claimed 2 rank Goals but skipped skills (blue arrows, no red "!"); Quick Upgrade by hand raised every skill to Lv 17-18 (about 3K Battle Essence); one Skill Goal claimed. Power 22.2K to 22.4K. Fix: the Upgrade Loop always opens the Skill page (the Quick Upgrade caption is the need check).
@@ -61,6 +69,3 @@
 - mae asked for concise rules organised by situation. The single rules file (101 KB) became `game/rules/` (12 situation files + index): 99 rules kept with their IDs, 27 merged (retired table in the index), ~40% fewer words, two independent fidelity passes against the original. New `scripts/check-rules.py`. Merged IDs remapped in the nav graph and code comments.
 - Memory bank: the handoff file split into `playbook.md` (process) and `status.md` (state, next, waiting on mae); `environments.md` split out of `notes.md`; game facts removed from notes (they're rules); 9 log entries archived. Step 1-5 docs rewritten against the code (step 4's step table was 8 steps behind). Branch `claude/project-thread-qq78yt`.
 - The `cards.json` never list was widened in PR #29. Sibling PR (repo audit) adds the sxs, scripts and docs README indexes that context.md and playbook.md point at, and moves bellflower_mae.png to docs/screens.
-
-### 2026-11-04 (late morning) · Bed, pathfinding, Roam Loop, Damp Woods (Claude Code, rif-love-su via Remote Control)
-- Same branch. Bed pan fix (Lv 22). New `sxs/roam.py`; Fog Walk: monsters, stamina reserve, bumped-card step-aside, neighbour areas; minimap shaded thresholds; goto takes (from, to, fraction); rules `blessed_statue`, `power_gate_open`. Damp Woods explored and blessed (Lv 23, 17.4K). Verdantglade III not enterable from Moonveil. Rules batch sent (folded into docs PR #24). Details in handoff.md.
