@@ -1,6 +1,6 @@
 # Status
 
-> **Last updated**: 2026-11-05
+> **Last updated**: 2026-11-09
 > Where the work stands now. Past sessions: `log.md`. How a builder works: `playbook.md`.
 
 ## Game state (2026-11-05 05:05Z, mae's PC)
@@ -31,6 +31,8 @@ Format: `- what — branch, PR, environment (started)`. Remove the line when it 
 
 - Exploration drivers per mae (2026-11-05): roam picks the lowest-CP unblessed zone, blesses statues whose area-map "!" is lit, ends with a fog walk; fog walk reaches objects through the big map, follows passable ground into fog, keeps to its zone (R-132), free pickups and fights only in unexplored areas (R-065), collectibles store (R-131) — `claude/project-thread-ieaqnz` (latest commits beyond #41), mae's PC. Open: (1) at the zoomed-out area map OCR merges neighbouring labels and loses percentages (read at a closer zoom with pans instead); (2) Jungle Camp run (2026-11-05): approach from Drasilgard, big-map walks mostly "no_move", no % gained; the walk into Jungle Camp needs a better entry point; (3) progress readings with OCR noise in coordinates count as movement, so a stuck run can be extended; (4) the tutorial glow on the Companions "Invite" isn't found by the highlight finder (interrupt layer PR #40).
 
+- Loop diagrams (mae, 2026-11-09): `docs/loops/` has a Mermaid page per loop, a screen-by-screen table and `docs/loops/open-questions.md` (15 places where code, rules and mae's asks disagree) — `claude/project-thread-aqcucg`, PR pending, cloud. Follow-up proposed in `docs/loops/README.md`: per-loop flow specs the loops read, so the diagrams become the source of truth.
+
 ## Next (in order)
 
 - Interrupt layer (`docs/interrupts.md`): ran under all 8 live runs of the strengthening session (2026-11-05) with no false trigger; still to watch live: the tutorial pause/resume path. Live check that a tutorial highlight on the island map pauses Fog Walk and resumes it; capture frames of tutorials on unknown overlays so the row can learn them. Companions invite is followed (mae 02:23: inviting is fine).
@@ -44,6 +46,8 @@ Format: `- what — branch, PR, environment (started)`. Remove the line when it 
 5. Older: test HP logic when HP drops below 70% while alive; minimap classifier per area palette; model supervisor for `unknown_*` stops.
 
 ## Waiting on mae
+
+- Answer the questions in `docs/loops/open-questions.md` (gear-enhance trigger, Quick Heal on badly wounded, guarded pickups, Forge-full fallback, what else goes in the daily loop).
 
 - Label the 9 screens in `docs/screens/unlabeled/README.md` (and any new ones `python -m sxs bank` adds), then `python -m sxs label`.
 

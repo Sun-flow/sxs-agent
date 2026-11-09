@@ -1,7 +1,12 @@
 # Session Log
 
-> **Last updated**: 2026-11-05
+> **Last updated**: 2026-11-09
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
+
+### 2026-11-09 · Loop diagrams (Claude Code, cloud)
+- mae asked for the decision flow in a human-readable, editable form. New `docs/loops/`: one page per loop (runner and interrupts, daily, explore, roam, fogwalk, gather, cart, upgrade and strengthen, gearswap, tower, guild, small loops) with goal, end condition, ok statuses, numbered Mermaid flowcharts of the step and check order, sub-loops called, and per-screen actions; `states.md` maps every detector state to the loops that act on it and to `go_home`; all 27 diagrams render (mermaid-cli).
+- `docs/loops/open-questions.md` lists what the drawing turned up: mae's new asks not built (unlock free Cart rows; zone borders seen before crossing), questions for mae (gear enhance only runs when a swap badge is lit; Quick Heal on badly wounded spends dishes; gather backs out of guarded pickups; Forge-full fallback; daily scope), code against rules (explore's retry path uses the old strengthen; explore/fogwalk can start a second tower climb after the day's loss; the tutorial follower answers dialogue choices blind; 15 known screens with no `go_home` tap; vendor pans fast), and out-of-date rule text (R-023, R-042 vs R-091).
+- Open: mae's answers; the proposed flow-spec follow-up (`docs/loops/README.md`).
 
 ### 2026-11-05 (early morning) · Strengthening pass, Cart upgrade script (Claude Code, mae's PC via Remote Control)
 - Strengthening (mae's ask): gearswap --all kept all four pieces; Upgrade Loop claimed 2 rank Goals but skipped skills (blue arrows, no red "!"); Quick Upgrade by hand raised every skill to Lv 17-18 (about 3K Battle Essence); one Skill Goal claimed. Power 22.2K to 22.4K. Fix: the Upgrade Loop always opens the Skill page (the Quick Upgrade caption is the need check).
@@ -61,6 +66,3 @@
 - mae asked for concise rules organised by situation. The single rules file (101 KB) became `game/rules/` (12 situation files + index): 99 rules kept with their IDs, 27 merged (retired table in the index), ~40% fewer words, two independent fidelity passes against the original. New `scripts/check-rules.py`. Merged IDs remapped in the nav graph and code comments.
 - Memory bank: the handoff file split into `playbook.md` (process) and `status.md` (state, next, waiting on mae); `environments.md` split out of `notes.md`; game facts removed from notes (they're rules); 9 log entries archived. Step 1-5 docs rewritten against the code (step 4's step table was 8 steps behind). Branch `claude/project-thread-qq78yt`.
 - The `cards.json` never list was widened in PR #29. Sibling PR (repo audit) adds the sxs, scripts and docs README indexes that context.md and playbook.md point at, and moves bellflower_mae.png to docs/screens.
-
-### 2026-11-04 (late morning) · Bed, pathfinding, Roam Loop, Damp Woods (Claude Code, rif-love-su via Remote Control)
-- Same branch. Bed pan fix (Lv 22). New `sxs/roam.py`; Fog Walk: monsters, stamina reserve, bumped-card step-aside, neighbour areas; minimap shaded thresholds; goto takes (from, to, fraction); rules `blessed_statue`, `power_gate_open`. Damp Woods explored and blessed (Lv 23, 17.4K). Verdantglade III not enterable from Moonveil. Rules batch sent (folded into docs PR #24). Details in handoff.md.
