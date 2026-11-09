@@ -9,6 +9,7 @@ Run from the repo root on the Windows PC (`.venv\Scripts\python`, shown below as
     python -m sxs <loop> --help             # that loop's options
     python -m sxs see badges|minimap|gift [FRAME ...]   # run one detector on saved frames or a live screenshot
     python -m sxs bank | label             # unlabelled-screens bank (docs/screens/README.md)
+    python -m sxs labeler                  # web page: name screens, box buttons/text/icons, save crops as templates
     python -m sxs report [--day DAY]       # the day's progress report from saved snapshots (no emulator)
     python -m sxs state | screenshot | tap X Y | swipe ... | back | start | stop | capture NAME | watch
 
@@ -96,6 +97,7 @@ Who calls whom: `daily` → `mall`, `vendor`, `gearswap`, `tower`, `guild`, `gat
 | Per-day records (`logs/runs.jsonl`, `logs/progress/`) | `core/records.py`: `note(source, values)` from any loop that sees a stat on the way |
 | Repo paths | `core/paths.py` (`RESOURCE`, `POLICY`, `SCREENS`, `CAPTURES`, `LOGS`) |
 | Reference screenshots | `core/screens.py`: `folder_for(name)`, `find(name)`, `reference_screens()`, `load_expected()`, the bank |
+| A button, text line or icon mae boxed in the labeler | `vision/labels.py`: `roi(screen, box)`, `find(frame, screen, box)`, `tap_point(...)`; data in `core/labels.py` |
 
 Read logs without MaaFramework's chatter: `grep -v -i "nemu\|product:\|same day\|^x:\|after convert"`.
 
@@ -103,8 +105,8 @@ Read logs without MaaFramework's chatter: `grep -v -i "nemu\|product:\|same day\
 
 - A new screen: capture it (`python -m sxs capture NAME`), add a `State.*` node, add it to
   `docs/screens/expected.json`. Steps in `docs/step2-hands-and-eyes.md` "Adding a screen".
-- An unfamiliar screen from a run: `python -m sxs bank`, mae labels it in `docs/screens/unlabeled/README.md`,
-  then `python -m sxs label` (see `docs/screens/README.md`).
+- An unfamiliar screen from a run: `python -m sxs bank`, then mae labels it in the labeler (`python -m sxs labeler`)
+  or in `docs/screens/unlabeled/README.md`, then `python -m sxs label` (see `docs/screens/README.md`).
 - A new loop: a module in `loops/` with `LOOP = Loop(...)` and a line in `loops/__init__.py` REGISTRY. Log the banner
   at start, keep a time budget, `save_unknown` on unfamiliar screens, return a status. Wire it into `daily.py` if
   it's once a day. Then run `python tests/check_loops.py`.

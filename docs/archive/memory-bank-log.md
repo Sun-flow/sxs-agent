@@ -2,6 +2,10 @@
 
 Older entries moved from `memory-bank/log.md`, newest first.
 
+### 2026-11-04 (midday) · Repo structure audit (Claude Code, cloud)
+- Branch `claude/project-thread-kb6hi9`, stacked on the rules/docs branch. Three audit passes (code, scripts/resources, docs/memory). Added README indexes in `sxs/`, `scripts/`, `tests/`, `resource/`, `docs/` and a map table in `AGENTS.md`; new `tests/check_repo.py` (pipelines, templates, State.Detect order, module/script names in docs, compile). Deleted `scripts/enhance_all.py` and `scripts/sheet.py`; mae's bellflower picture moved to `docs/screens/explore_bellflower_mae.png`. New `sxs/marks.py` (daily and tower shared the same done-marks code); explore/fogwalk take heal constants from `sxs/heal.py` and the area name from `sxs/goto.py`; unused constants and imports removed. check-memory skips paths in log.md (history). Spending code untouched.
+- Offline checks: check_repo, check-memory, check-rules and check_upgrade_logic pass in the cloud (maafw installs on Linux). Open: the larger proposals in the PR (package split, docs/screens subfolders, heal-sequence dedupe, lazy maa import, loop runner).
+
 ### 2026-11-04 (midday) · Rules and docs consolidation (Claude Code, cloud)
 - mae asked for concise rules organised by situation. The single rules file (101 KB) became `game/rules/` (12 situation files + index): 99 rules kept with their IDs, 27 merged (retired table in the index), ~40% fewer words, two independent fidelity passes against the original. New `scripts/check-rules.py`. Merged IDs remapped in the nav graph and code comments.
 - Memory bank: the handoff file split into `playbook.md` (process) and `status.md` (state, next, waiting on mae); `environments.md` split out of `notes.md`; game facts removed from notes (they're rules); 9 log entries archived. Step 1-5 docs rewritten against the code (step 4's step table was 8 steps behind). Branch `claude/project-thread-qq78yt`.
