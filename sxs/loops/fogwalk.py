@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import logging
 import random
+import re
 import time
 from typing import Optional
 
@@ -81,6 +82,7 @@ def to_world(player_xy: Optional[tuple[int, int]], player: Optional[tuple[int, i
             player_xy[1] - round((point[1] - player[1]) / minimap.SCREEN_TILE))
 
 
+BORDER_KEEP = 1  # tiles: walk taps stay this far from a zone border line unless crossing is allowed (R-132)
 AREA_MAP_TRIES = 12  # big-map walks to a dot or structure per run (each takes ~20 s)
 OUTSIDE_RADIUS = 3  # map tiles around a spot found to be in another zone that are no longer goals
 LAST_GOAL: Optional[str] = None  # what the last minimap_target() headed for: "monster", "building" or None
@@ -108,7 +110,7 @@ def minimap_target(det, frame: np.ndarray, lookahead: int = 4, player_xy=None,
                    buildings_seen: Optional[set] = None, items_ok: bool = True,
                    player: Optional[tuple[int, int]] = None, monsters_ok: bool = True,
                    visited_xy: Optional[set] = None, outside_xy: Optional[set] = None,
-                   cross_border: bool = False) -> Optional[tuple[int, int]]:
+                   cross_border: bool = False, home_light: Optional[bool] = None) -> Optional[tuple[int, int]]:
     """Plan on the minimap: shortest walkable path to the nearest pickup or unexplored walkable tile, else to a gold
     building not visited yet this run (dungeons, mines: interactable; their cards go through the rules), then tap
     a few tiles along it (relative to the player, found by its name label). None if nothing is reachable.
@@ -117,7 +119,7 @@ def minimap_target(det, frame: np.ndarray, lookahead: int = 4, player_xy=None,
     caller allows it only when walking in from a finished neighbour into the zone it was sent to)."""
     global LAST_GOAL
     LAST_GOAL = None
-    mm = minimap.read(frame)
+    mm = minimap.read(frame, home_light)
     # mae, 2026-11-05: exploration % comes from what you do, not where you walk: collect green dots, fight orange
     # ones, complete yellow structures; then the area's statue appears. So objects come first, in that order of
     # nearness; then walkable ground running into black fog (a lead); then shaded ground we haven't stood on, so
@@ -156,10 +158,42 @@ def minimap_target(det, frame: np.ndarray, lookahead: int = 4, player_xy=None,
         log.info("heading for a monster %d tiles away", len(path) - 1)
         LAST_GOAL = "monster"
         lookahead = len(path)  # tap the monster itself: walking onto it starts the fight
+    step = min(lookahead, len(path) - 1)
+    if mm.border and not cross_border:
+        # Live 2026-11-09: a tap 2 tiles short of the border still carried the character over it (the game paths to
+        # the tapped spot its own way). Tap no tile within BORDER_KEEP of the line; a goal right at it is walked to
+        # one short step at a time.
+        safe = [i for i, t in enumerate(path[:step + 1])
+                if all(max(abs(t[0] - b[0]), abs(t[1] - b[1])) > BORDER_KEEP for b in mm.border)]
+        if not safe or max(safe) == 0:
+            return None  # every step toward it is at the line: no tap (the path already keeps a tile's buffer)
+        step = max(safe)
     player = player or player_on_screen(det, frame)
     if player is None:
         return None
-    return minimap.screen_point(player, mm, path[min(lookahead, len(path) - 1)])
+    return minimap.screen_point(player, mm, path[step])
+
+
+MAP_LABELS_ROI = [0, 120, 720, 1060]  # area-map zone labels (legend and kingdom buttons excluded below)
+
+
+def map_labels(det, frame) -> dict:
+    """Zone labels on the area map: name -> centre. Not % lines, power lines or the legend."""
+    out = {}
+    for t, b in det.read_text(MAP_LABELS_ROI, frame):
+        t = t.replace("-", " ").strip(" |")
+        if len(t) < 4 or re.search(r"%|\d\.?\d?K$|Exploration", t) or (b[0] > 530 and b[1] < 270):
+            continue
+        out[t] = ui.centre(b)
+    return out
+
+
+def zone_picker(det, kinds, home: Optional[str]):
+    """Big-map picker: the nearest object of `kinds` that is in our zone (R-132)."""
+    def pick(frame):
+        labels = map_labels(det, frame) if home else None
+        return (area_map.nearest(frame, kinds, labels=labels, home=home) or (None, None))[1]
+    return pick
 
 
 def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
@@ -209,13 +243,16 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
     beat = Heartbeat()
     tree = Tree.load()  # the location tree: crossings a walk makes are written back (zones.py)
     last_zone: Optional[str] = None  # area name read on the previous map step
+    last_plan = None  # the frame the last minimap walk tap was planned on
 
     def note_crossing(was: Optional[str], now: str, xy) -> None:
         """A walk took us from one zone into another: that border is passable, and if `now` is the zone we were
         sent to, `was` is a way in (with the coordinates just inside)."""
         if not was or not now or goto.same_area(was, now) or not tree.key(now) or not tree.key(was):
             return
-        if home_area and goto.same_area(now, home_area):
+        if home_area and goto.same_area(now, home_area) and any(goto.same_area(was, a) for a in allowed):
+            # Only a walk in from the neighbour roam sent us through is a way in; coming back from a wrong turn
+            # (seen 2026-11-09: Verdantglade IV back into V) just proves the two connect.
             tree.record_entry(now, was, True, server_day(), xy=xy)
             log.info("entered %s from %s at %s: saved as its way in", now, was, xy)
         else:
@@ -263,6 +300,15 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                       and not any(goto.same_area(name, a) or goto.squeeze(name)[:7] == goto.squeeze(a)[:7] for a in allowed)):
                     # Wandered into a neighbouring area: walk back with the area map rather than exploring the wrong one.
                     strayed = True
+                    if last_plan is not None:  # the frame the crossing tap was planned on, for tuning the border check
+                        try:
+                            from ..core.paths import CAPTURES
+                            (CAPTURES / "border").mkdir(parents=True, exist_ok=True)
+                            path = CAPTURES / "border" / f"crossed_{name.replace(' ', '_')}_{int(time.time())}.png"
+                            cv2.imwrite(str(path), last_plan)
+                            log.info("crossed a border the planner didn't stop; planning frame saved to %s", path)
+                        except Exception as e:  # never let a debug save end the walk
+                            log.debug("could not save the planning frame: %s", e)
                     # mae, 2026-11-05 (R-132): the dotted line is a zone edge; finish this zone before crossing. The
                     # walk that crossed it ended past the edge, so ground around where we stand now is off limits
                     # as a goal for the rest of the run.
@@ -295,7 +341,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                         map_tries += 1
                         kinds = tuple(k for k in ("item", "monster", "building")
                                       if (free or k != "item") and (fight or k != "monster"))
-                        why = goto.go_to(dev, det, lambda f: (area_map.nearest(f, kinds) or (None, None))[1])
+                        why = goto.go_to(dev, det, zone_picker(det, kinds, home_area))
                         log.info("blocked; area-map walk to the nearest %s: %s", "/".join(kinds), why)
                         if why == "arrived":
                             still = 0
@@ -320,13 +366,15 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 cross = bool(home_area and name and not goto.same_area(name, home_area))
                 target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen, items_ok=items_ok,
                                         player=player, monsters_ok=fight,
-                                        visited_xy=stood_on, outside_xy=outside, cross_border=cross)
+                                        visited_xy=stood_on, outside_xy=outside, cross_border=cross,
+                                        home_light=not free)
                 if target is None and recentre_on_player(dev, det, frame):
                     frame = dev.screenshot()
                     player = player_on_screen(det, frame)
                     target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen, items_ok=items_ok,
                                             player=player, monsters_ok=fight,
-                                            visited_xy=stood_on, outside_xy=outside, cross_border=cross)
+                                            visited_xy=stood_on, outside_xy=outside, cross_border=cross,
+                                        home_light=not free)
                 spot = to_world(xy, player, target) if target else None
                 if spot and any(max(abs(spot[0] - b[0]), abs(spot[1] - b[1])) <= 1 for b in bumped):
                     # The path runs through something that opens a card (seen: a blessed Goddess Statue). Tapping it
@@ -348,7 +396,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                     map_tries += 1
                     kinds = tuple(k for k in ("item", "monster", "building")
                                   if (items_ok or k != "item") and (fight or k != "monster"))
-                    why = goto.go_to(dev, det, lambda f: (area_map.nearest(f, kinds) or (None, None))[1])
+                    why = goto.go_to(dev, det, zone_picker(det, kinds, home_area))
                     log.info("big-map walk to the nearest %s: %s", "/".join(kinds), why)
                     if why == "arrived":
                         progress(("map_walk", map_tries))
@@ -363,7 +411,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                         map_tries += 1
                         kinds = tuple(k for k in ("item", "monster", "building")
                                       if (items_ok or k != "item") and (fight or k != "monster"))
-                        pick = lambda f: (area_map.nearest(f, kinds) or (None, None))[1]  # noqa: E731
+                        pick = zone_picker(det, kinds, home_area)
                         why = goto.go_to(dev, det, pick)
                         log.info("area-map walk to the nearest %s: %s", "/".join(kinds), why)
                         if why == "arrived":
@@ -371,6 +419,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 if target:
                     log.info("walking toward unexplored ground at %s (map %s)", target, spot)
                     last_tap = spot
+                    last_plan = frame
                     # Only taps aimed at an object feed the store (a walk can be interrupted by anything).
                     tapped = (frame, target, goal) if goal and target else None
                     dev.tap(*target)

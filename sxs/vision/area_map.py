@@ -44,9 +44,24 @@ def objects(frame: np.ndarray) -> list[tuple[str, tuple[int, int]]]:
     return out
 
 
+def crosses_border(lines: np.ndarray, a: tuple[int, int], b: tuple[int, int], near: int = 3) -> bool:
+    """True when the straight line a -> b on the area map passes within `near` px of a dotted zone border."""
+    n = max(abs(b[0] - a[0]), abs(b[1] - a[1]), 1)
+    h, w = lines.shape
+    for i in range(n + 1):
+        x, y = round(a[0] + (b[0] - a[0]) * i / n), round(a[1] + (b[1] - a[1]) * i / n)
+        if lines[max(0, y - near):min(h, y + near + 1), max(0, x - near):min(w, x + near + 1)].any():
+            return True
+    return False
+
+
 def nearest(frame: np.ndarray, kinds=("item", "monster", "building"), max_px: int = 260,
-            skip=()) -> Optional[tuple[str, tuple[int, int]]]:
-    """The object of `kinds` nearest our white dot (within max_px), or None."""
+            skip=(), same_zone: bool = True, labels: Optional[dict] = None,
+            home: Optional[str] = None) -> Optional[tuple[str, tuple[int, int]]]:
+    """The object of `kinds` nearest our white dot (within max_px), or None. same_zone (R-132, live 2026-11-09: a
+    big-map walk to the nearest dot from Verdantglade V ended in Zephyr Vale): skip objects whose straight line from
+    us crosses a dotted zone border, and, given the map's zone labels {name: point} and our zone's name, objects
+    whose nearest label is another zone's (labels sit in their zone's middle)."""
     objs = objects(frame)
     me = [p for k, p in objs if k == "player"]
     if not me:
@@ -56,4 +71,16 @@ def nearest(frame: np.ndarray, kinds=("item", "monster", "building"), max_px: in
     # the player, over and over).
     cands = [(k, p) for k, p in objs if k in kinds and p not in skip
              and MIN_PX ** 2 < (p[0] - px) ** 2 + (p[1] - py) ** 2 <= max_px ** 2]
+    if same_zone and cands:
+        from .minimap import dotted_lines
+        lines = dotted_lines(frame)
+        lx, ly, lw, lh = LEGEND
+        lines[ly:ly + lh, lx:lx + lw] = 0
+        cands = [(k, p) for k, p in cands if not crosses_border(lines, (px, py), p)]
+        if labels and home:
+            from ..actions.goto import same_area
+            if any(same_area(t, home) for t in labels):
+                def zone_of(p):
+                    return min(labels, key=lambda t: (labels[t][0] - p[0]) ** 2 + (labels[t][1] - p[1]) ** 2)
+                cands = [(k, p) for k, p in cands if same_area(zone_of(p), home)]
     return min(cands, key=lambda kp: (kp[1][0] - px) ** 2 + (kp[1][1] - py) ** 2) if cands else None

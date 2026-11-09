@@ -168,6 +168,17 @@
    "b": "Jungle Camp",
    "how": "map_adjacent",
    "note": "walking in from Drasilgard's south edge gained no % (2026-11-05)"
+  },
+  {
+   "a": "Verdantglade V",
+   "b": "Verdantglade IV",
+   "how": "walked",
+   "note": "a fog walk crossed south from V into IV at about (143, 107) and walked back (2026-11-09); the edge runs along Vs south side, IV is light (explored)"
+  },
+  {
+   "a": "Verdantglade V",
+   "b": "Zephyr Vale",
+   "how": "walked"
   }
  ],
  "gaps": [
