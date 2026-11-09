@@ -6,7 +6,7 @@ Notes: `docs/step3-explore.md`.
 **Goal:** follow the tracked quest line: walk to its gold marker, fight, open cards by the rules, hand tower screens
 to the tower loop, claim finished quests; with `--chain`, carry on with the next quest.
 **End condition:** the quest completes (without `--chain`), or a stop reason below.
-**Ok statuses:** `complete`, `timeout`. Everything else needs a look.
+**Ok statuses:** `complete`, `timeout`, `tower_done_today` (the quest needs a tower climb and today's is used; R-079). Everything else needs a look.
 
 ## Outer loop: one quest after another
 
@@ -19,7 +19,7 @@ flowchart TD
     C -->|no| OK1(["complete"])
     R -->|"defeated, with --chain"| L{"Losses in a row?"}
     L -->|"1 or 2"| Q
-    L -->|"3, not strengthened yet"| ST[["strengthen (old path)"]] --> Q
+    L -->|"3, not strengthened yet"| ST[["get_stronger: Cart, gear swap,<br/>charms, Upgrade loop"]] --> Q
     L -->|"after strengthening"| NH(["needs_help"])
     R -->|"anything else"| OUT(["that status"])
     classDef ok fill:#d4edda,stroke:#2e7d32,color:#000
@@ -56,8 +56,10 @@ flowchart TD
     MISS -->|10| NM(["no_marker"])
     MISS -->|odd| PAN["Pan one step"] --> D
     MISS -->|even| TOG["Toggle tracking to re-centre"] --> D
-    W -->|"tower_list, tower_floors, tower_result"| TW[["tower.climb"]] --> TWR{"Tower ok?"}
-    TWR -->|yes| HOME1["go_home, carry on"] --> D
+    W -->|"tower_list, tower_floors, tower_result"| TD{"Tower already climbed today?"}
+    TD -->|yes| TDH["go_home"] --> TDE(["tower_done_today"])
+    TD -->|no| TW[["tower.climb"]] --> TWR{"Tower ok?"}
+    TWR -->|yes| HOME1["Mark today climbed, go_home, carry on"] --> D
     TWR -->|no| TWS(["tower status"])
     W -->|battle_prep| BP{"Prep HP bar under 70%?"}
     BP -->|"yes, under 2 back-outs"| BPH["Quick Heal from the portrait"] --> D
@@ -86,7 +88,7 @@ flowchart TD
     classDef ok fill:#d4edda,stroke:#2e7d32,color:#000
     classDef look fill:#fde2c8,stroke:#c25e00,color:#000
     classDef sub fill:#dbe9ff,stroke:#1f5fbf,color:#000
-    class OKC ok
+    class OKC,TDE ok
     class LOW,SP,NM,TWS,DEF,UC,RC,SS,ND,NT,SH,US look
     class TW sub
 ```

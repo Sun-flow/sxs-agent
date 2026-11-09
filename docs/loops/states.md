@@ -26,10 +26,10 @@ loop passes through it (`actions/common.pass_through`). **Cards** = the card rul
 | player_profile | explore: heal under 80%, fill charms once, close; fogwalk: close; gather: close, 3rd time `stuck_self`; daily strengthen: fill charms | no way home |
 | guild_donation, guild_conquest, guild_panel | guild | above the popup / back |
 | interact | explore, fogwalk: Cards (map object, statue, mini-dungeon, gate) | no way home |
-| dialogue_choice | explore: `--choose`, else stop on Ascend/Change Class, else lowest option; tutorial: taps an option without reading it (see Q11) | no way home |
+| dialogue_choice | explore: `--choose`, else stop on Ascend/Change Class, else lowest option; tutorial: Leave and stop on Ascend/Change Class, else the detected option (Q11) | no way home |
 | dialogue | Pass: next (explore logs the text) | next |
 | guild_join_list, guild_no_guild | Nobody (joining was done once by hand) | back / Home |
-| battle_prep | explore: heal under 70% then Start; fogwalk: back out when fights are off, else heal then Start; tower: heal then Start; guild conquest: Start; gather: back out, `guarded` | back |
+| battle_prep | explore: heal under 70% then Start; fogwalk: back out when fights are off, else heal then Start; tower: heal then Start; guild conquest: Start; gather: heal then Start, then resume gathering (back out after 3 guard fights) | back |
 | background_fight | tower: wait (Auto Challenge); guild conquest: minimise | minimise |
 | battle | Pass: wait | wait |
 | furniture_upgrade | cart | no way home |

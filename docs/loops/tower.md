@@ -49,5 +49,5 @@ flowchart TD
     class U0,U1,LH,U2,NT look
 ```
 
-When explore or fogwalk hand over, `climb` doesn't check whether today's climb already happened: see
-[open-questions.md](open-questions.md) Q10.
+When explore or fogwalk meet a tower screen, they check today's mark first: if the day's climb already ran they
+leave the tower; otherwise they climb and mark the day (R-079, [open-questions.md](open-questions.md) Q10).

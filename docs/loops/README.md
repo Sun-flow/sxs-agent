@@ -64,20 +64,21 @@ flowchart LR
     daily --> upgrade[["upgrade"]]
     daily --> progress[["progress"]]
     explore[["explore"]] --> tower
-    explore --> strengthen[["strengthen (old path)"]]
+    explore --> upgrade
     roam[["roam"]] --> fogwalk[["fogwalk"]]
     roam --> goto[["goto"]]
     fogwalk --> tower
     fogwalk --> goto
-    upgrade --> strengthen
+    upgrade --> strengthen[["strengthen helpers"]]
+    upgrade --> gearswap
     cart --> strengthen
     runner(["runner: every loop"]) -.-> interrupts[["interrupt table"]]
     interrupts -.-> tutorial[["tutorial"]]
     pray[["pray: mae only, nothing calls it"]]
 ```
 
-`strengthen` here means the `Strengthener` helpers (claim the Cart, banded gear enhance). `upgrade` and `cart`
-reuse them; `explore` runs the whole old `strengthen` loop after repeated losses (see open question Q9).
+`strengthen` here means the `Strengthener` helpers (claim the Cart, banded gear enhance, charms). After 3 losses in a
+row `explore` calls `get_stronger` in `upgrade` (Cart, gear swap, charms, Upgrade loop).
 
 ## Making the diagrams the source of truth (proposed follow-up)
 

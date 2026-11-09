@@ -1,8 +1,8 @@
 # Open questions: where the loops, the rules and mae's asks don't line up
 
 Found while drawing the loop pages (2026-11-09, code as of PR #42). Each item says what the rules or mae say, what
-the code does, and a recommendation. Nothing here is changed yet: these pages only describe. When one is settled,
-fix the code or the rule, update the loop page, and delete the item here.
+the code does, and a recommendation. When one is settled, fix the code or the rule, update the loop page, and move
+the item to "Settled" at the bottom (keep its number, so links stay right).
 
 ## Decided by mae, not built yet
 
@@ -17,45 +17,16 @@ before a tap.
 
 ## Needs mae's call
 
-**Q3. What should start gear enhancing?** The Upgrade loop's gear pass runs only when a gear slot on the Character
-screen shows "!" ([upgrade.md](upgrade.md)). By R-088 that "!" means a better piece is in the bag, which the daily
-`gear_swap` step handles just before. Once the swap clears the badge, the gear pass is skipped, so gear is enhanced
-only when a swap badge happens to stay. *Recommend:* always run the gear pass, like skills (enhancing stops by itself
-when materials run short), unless mae knows a separate enhance signal.
-
-**Q4. Quick Heal on the "badly wounded" card.** The card rules press Quick Heal there (explore and daily goals).
-R-046 says that Quick Heal costs dishes, and R-061 says to conserve dishes. Is spending them here fine, or should the
-bot take Return to Home and heal with food?
-
-**Q5. Guarded pickups while gathering.** Gather backs out of any fight and ends `guarded`. R-073 says to fight a
-monster standing between us and a pickup. *Recommend:* fight it when HP is 70%+ and it's within 1.25x our power
-(R-127), else skip that pickup instead of ending the run. Note: in explored zones a fight costs stamina (R-065).
-
 **Q6. Guild AFK when the Forge is full.** The code falls back to the Mine, then the Power Station. R-110 only says
 Forge. Is the fallback fine?
 
-**Q7. What else belongs in the daily loop?** Not in it today: event sign-ins on the Notice board (R-051),
-Exploration Goals claims (R-052, marked ❓), the bed's free speed-up (R-035), and any exploring. *Recommend:* add
-the Exploration Goals claim and the bed speed-up as daily steps; run `roam` as its own loop after the dailies rather
-than inside them (it runs long).
+**Q7. What else belongs in the daily loop?** Not in it today: event sign-ins on the Notice board (R-051) and
+Exploration Goals claims (R-052, marked ❓). The bed's free speed-up is settled (see below). *Recommend:* add the
+Exploration Goals claim as a daily step; run `roam` as its own loop after the dailies rather than inside them.
 
 **Q8. Cart tie-break** (asked 2026-11-05, still open): Stone first when Stone and Wood are level is the default.
 
 ## Code that goes against a rule (recommend fixing)
-
-**Q9. Explore's "get stronger" step uses the old path.** After 3 losses `explore --chain` runs the Strengthen loop,
-which levels techniques by tapping Upgrade up to 12 times each instead of Quick Upgrade (R-104), and skips gear swap
-(R-088), Goals (R-116), class and rank. *Recommend:* run the same pieces as the daily `strengthen` step (gear swap,
-charms, Upgrade loop), then retire the Strengthen loop.
-
-**Q10. A second tower climb on the same day.** When explore or fogwalk meets a tower screen they call `tower.climb`
-without checking whether today's climb already happened. After the daily climb ended in a loss, a quest's "Reach
-<Tower> Fn" can start the tower again: a retry R-079 forbids. *Recommend:* the hand-over checks the day's mark and
-leaves the tower if it's set.
-
-**Q11. The tutorial follower answers dialogue choices blind.** On `dialogue_choice` it taps an option without reading
-it. Explore stops on "Ascend to" / "Change Class" (R-054); the tutorial (also run as an interrupt) doesn't.
-*Recommend:* the same check in `tutorial.follow`, ending `needs_decision`.
 
 **Q12. Known screens with no way home.** `go_home` has no tap for `choose_reward`, `dungeon_floor`, `quest_detail`,
 `player_profile`, `interact`, `dialogue_choice`, `furniture_upgrade`, `companions`, `map_exploration`,
@@ -84,3 +55,34 @@ isn't detected, the zone counts as finished.
   low HP is no reason to leave: heal, then Next Floor. R-042 should match R-091.
 - R-061 notes explore heals at 80% after a fight, while the rule is 70% before one; both thresholds are in the code
   (`HEAL_BELOW` in `sxs/loops/explore.py`, `FIGHT_MIN_HP` in `sxs/actions/heal.py`).
+
+## Settled (mae, 2026-11-09)
+
+**Q3. Gear enhancing starts on the blue pip.** A red "!" on a gear slot means a better piece to swap in (gearswap); a
+blue up-arrow pip in the same place means the piece can be enhanced. *Done:* `find_up_pips` in
+`sxs/vision/badges.py`, and the Upgrade loop's gear pass now runs when a slot shows the pip
+(`gear_enhanceable` in `sxs/loops/upgrade.py`; checked on `docs/screens/character/character.png`). Rule update for the
+docs thread: R-080, R-088, R-092.
+
+**Q4. Quick Heal on "badly wounded" is fine.** Two kinds of dishes: permanent dishes (stat buffs, the Dishes menu in
+the portrait) are the ones to conserve; healing dishes only heal and can be cooked without limit with Rolla, which is
+approved. No code change. Rule update for the docs thread: R-046, R-061.
+
+**Q5. Gather fights a guard, then resumes.** *Done:* on battle prep, gather calls the shared
+`start_fight` (`sxs/actions/common.py`: heal to 70% from the portrait, then Start Battle), waits out the fight and
+carries on collecting. It ends `low_hp` if HP stays low, `defeated` on a loss, `guarded` after 3 guard fights in a
+run.
+
+**Bed free speed-up (part of Q7).** Keep it as its own task, not in the daily loop: call it on purpose once the day's
+exploration is done (content wall reached), to get the most from it. Not built yet.
+
+**Q9. Explore's "get stronger" step.** *Done:* new `get_stronger` in `sxs/loops/upgrade.py` (Cart, gear swap,
+charms, Upgrade loop). Explore calls it after 3 losses in a row, and `python -m sxs strengthen` now runs it. The old
+one-tap-at-a-time technique levelling is gone.
+
+**Q10. One tower climb a day.** *Done:* when explore or fogwalk meet a tower screen they first check today's mark.
+If the day's climb already ran, explore goes home and ends `tower_done_today` (ok: the quest waits for tomorrow) and
+fogwalk walks back to its zone. A climb they do start marks the day done.
+
+**Q11. Tutorial dialogue choices.** *Done:* `tutorial.follow` reads the options first; on "Ascend to" / "Change
+Class" it taps Leave and ends `needs_decision`, which stops whatever loop the interrupt paused (R-054).

@@ -31,7 +31,7 @@ Format: `- what — branch, PR, environment (started)`. Remove the line when it 
 
 - Exploration drivers per mae (2026-11-05): roam picks the lowest-CP unblessed zone, blesses statues whose area-map "!" is lit, ends with a fog walk; fog walk reaches objects through the big map, follows passable ground into fog, keeps to its zone (R-132), free pickups and fights only in unexplored areas (R-065), collectibles store (R-131) — `claude/project-thread-ieaqnz` (latest commits beyond #41), mae's PC. Open: (1) at the zoomed-out area map OCR merges neighbouring labels and loses percentages (read at a closer zoom with pans instead); (2) Jungle Camp run (2026-11-05): approach from Drasilgard, big-map walks mostly "no_move", no % gained; the walk into Jungle Camp needs a better entry point; (3) progress readings with OCR noise in coordinates count as movement, so a stuck run can be extended; (4) the tutorial glow on the Companions "Invite" isn't found by the highlight finder (interrupt layer PR #40).
 
-- Loop diagrams (mae, 2026-11-09): `docs/loops/` has a Mermaid page per loop, a screen-by-screen table and `docs/loops/open-questions.md` (15 places where code, rules and mae's asks disagree) — `claude/project-thread-aqcucg`, PR pending, cloud. Follow-up proposed in `docs/loops/README.md`: per-loop flow specs the loops read, so the diagrams become the source of truth.
+- Loop diagrams (mae, 2026-11-09): `docs/loops/` has a Mermaid page per loop, a screen-by-screen table and `docs/loops/open-questions.md` (15 places where code, rules and mae's asks disagree; mae's 2026-11-09 answers applied: blue-pip gear enhance trigger, gather fights guards, `get_stronger` for explore, one tower climb a day from any loop, tutorial stops on class choices; none run live yet) — `claude/project-thread-aqcucg`, PR pending, cloud. Follow-up proposed in `docs/loops/README.md`: per-loop flow specs the loops read, so the diagrams become the source of truth.
 
 ## Next (in order)
 
@@ -47,7 +47,7 @@ Format: `- what — branch, PR, environment (started)`. Remove the line when it 
 
 ## Waiting on mae
 
-- Answer the questions in `docs/loops/open-questions.md` (gear-enhance trigger, Quick Heal on badly wounded, guarded pickups, Forge-full fallback, what else goes in the daily loop).
+- Remaining questions in `docs/loops/open-questions.md`: Forge-full fallback (Q6), Notice sign-ins and Exploration Goals in the daily loop (Q7), Cart tie-break (Q8). Settled 2026-11-09: Q3, Q4, Q5, Q9, Q10, Q11, bed speed-up timing.
 
 - Label the 9 screens in `docs/screens/unlabeled/README.md` (and any new ones `python -m sxs bank` adds), then `python -m sxs label`.
 

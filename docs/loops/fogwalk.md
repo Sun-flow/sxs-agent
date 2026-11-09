@@ -81,7 +81,7 @@ flowchart TD
 | battle, loading, dialogue, reward_popup, tap_to_continue | pass through | |
 | defeated | card rules: OK | `defeated` |
 | player_profile | close it | |
-| tower_list, tower_floors, tower_result | [tower.md](tower.md) climb, go home, walk back to the zone | |
+| tower_list, tower_floors, tower_result | if today's climb already ran: leave it; else [tower.md](tower.md) climb and mark the day; then go home and walk back to the zone (R-079) | |
 | area_map | close it (left open by a big-map walk) | |
 | home | | `left_area:home` |
 | any card (interact, dungeon_floor, confirm_dialog, quest_detail, ...) | card rules (see [explore.md](explore.md#card-rules-it-uses-resourcepolicycardsjson-goal-explore)); a dismissed card's spot is walked around; a structure's card is saved as a crop | `power_gate` on a Gate of Power without Open; `repeating_card` after the same card 4 times |

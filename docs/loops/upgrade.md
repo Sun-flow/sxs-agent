@@ -17,7 +17,7 @@ flowchart TD
     S(["Start"]) --> CH["1. go_home, Character screen"]
     CH -->|"didn't open"| U(["unknown_screen"])
     CH --> BD["2. Read badges (2 frames: they pulse)"]
-    BD --> LIT["Lit passes: skills always (blue arrows show no !);<br/>gear if a gear slot has !; class if Class has !;<br/>rank if the rank badge has !; relics never (locked)"]
+    BD --> LIT["Lit passes: skills always (blue arrows show no !);<br/>gear if a gear slot shows the blue up-arrow pip<br/>(a red ! there means swap: gearswap); class if Class has !;<br/>rank if the rank badge has !; relics never (locked)"]
     LIT --> G{"3. goals: any page lit?"}
     G -->|yes| GP["Open each lit page; claim its Goals tab if the tab has ! (R-116)"]
     G -->|no| SK
@@ -73,21 +73,21 @@ flowchart LR
 Every button press first checks that no spend word sits on its row (`policy/claims.SPEND`), and stops when the
 "!" goes away. A screen that isn't the expected one saves the frame and ends that pass.
 
-## Strengthen loop (the older, simpler path)
+## Get stronger (`get_stronger`, the Strengthen loop)
 
-**Goal:** get stronger between fights with soft resources. **Used by:** `explore --chain` after 3 lost fights in a
-row. The daily loop's `strengthen` step does *not* use this; it uses the Upgrade loop above.
-**Ok statuses:** `done` (it always returns done).
+**Goal:** everything that raises power with soft resources, in one call. **Used by:** `explore --chain` after 3 lost
+fights in a row, and `python -m sxs strengthen`. The daily loop runs the same pieces as its `gear_swap` and
+`strengthen` steps. **Ok statuses:** `done`.
 
 ```mermaid
 flowchart TD
     S(["Start"]) --> A["1. Claim the Cart (sweep home for the bubble)"]
-    A --> B["2. Enhance gear in 5-level bands (same as the gear pass)"]
-    B --> C["3. Skill page, first technique, Enhance:<br/>each of 4 tabs press Upgrade up to 12 times until 'Insufficient'"]
-    C --> D["4. go_home"] --> OK(["done"])
+    A --> B[["2. Gear Swap: every slot with a red !"]]
+    B --> C["3. Portrait: fill empty charm slots if the charm row has !"]
+    C --> D[["4. Upgrade loop: goals, skills, gear, class, rank"]]
+    D --> OK(["done"])
     classDef ok fill:#d4edda,stroke:#2e7d32,color:#000
+    classDef sub fill:#dbe9ff,stroke:#1f5fbf,color:#000
     class OK ok
+    class B,D sub
 ```
-
-Step 3 levels techniques one by one instead of Quick Upgrade (R-104), and the loop doesn't swap gear (R-088) or run
-the Goals, class or rank passes. See [open-questions.md](open-questions.md) Q9.

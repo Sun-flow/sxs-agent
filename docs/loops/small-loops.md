@@ -47,7 +47,9 @@ interrupt table ([runner.md](runner.md)) on world_map, home and companions. Rule
 ```mermaid
 flowchart TD
     D["Read the screen (up to --steps times)"] --> W{"Screen?"}
-    W -->|dialogue_choice| DC["Tap the detected option"] --> D
+    W -->|dialogue_choice| DCQ{"An option reads Ascend to / Change Class?"}
+    DCQ -->|yes| DCL["Tap Leave"] --> DCN(["needs_decision (R-054)"])
+    DCQ -->|no| DC["Tap the detected option"] --> D
     W -->|dialogue| DN["Next"] --> D
     W -->|"reward_popup, tap_to_continue"| RW["Close"] --> D
     W -->|loading| LD["Wait"] --> D

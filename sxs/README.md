@@ -67,7 +67,7 @@ Every loop has the same inputs, outputs and readouts:
 | `upgrade` | `loops/upgrade.py` | Every "!" on the Character screen | `--only skills` |
 | `cart` | `loops/cart.py` | Claim the Cart, then raise its Stone and Wood rows evenly (R-136); ends when capped or short | `--check`, `--max N` |
 | `gearswap` | `loops/gearswap.py` | Equip the better piece wherever a gear slot shows "!" (separate from enhancing) | `--check`, `--all` |
-| `strengthen` | `loops/strengthen.py` | Cart, gear/charm equip, enhance, techniques | |
+| `strengthen` | `loops/strengthen.py` | `upgrade.get_stronger`: Cart, gear swap, charms, Upgrade Loop | |
 | `tower` | `loops/tower.py` | Fantasia Ascent, one run a day | `--tower "Moonveil Woods"` |
 | `guild` | `loops/guild.py` | Donate x2, Forge AFK, Conquest | `--only donate,afk` |
 | `mall` | `loops/mall.py` | Mall free gift boxes, never a price (**safeguard**) | |
@@ -79,7 +79,7 @@ Every loop has the same inputs, outputs and readouts:
 Who calls whom: `daily` → `mall`, `vendor`, `gearswap`, `tower`, `guild`, `gather`, `strengthen`, `upgrade`, `policy.claims`, `progress`.
 `progress` → `guild` (island and building taps), `roam` (area map reader).
 `roam` → `actions.goto`, `fogwalk`; `fogwalk` → `explore` (HP reader), `gather` (stamina cost), `actions.rewards`;
-`explore` → `tower`, `strengthen`. Everything → `core`.
+`explore` → `tower`, `upgrade.get_stronger` (→ `gearswap`, `upgrade`). Everything → `core`.
 
 ## Shared pieces worth knowing
 

@@ -8,8 +8,10 @@ green-timer nodes always, blue-aura pickups first.
 **End condition:** the pickup budget is spent, stamina at the reserve, 6 taps without a pickup, an unknown screen,
 or 2 minutes.
 **Ok statuses:** `budget_spent`, `no_spare_stamina`, `check`, `timeout`, `full`. Needs a look: `stamina_reserve`
-(only when it hits the reserve before the budget), `stuck_progress`, `stuck_self`, `guarded`, `unknown_screen`,
-`no_tracker`.
+(only when it hits the reserve before the budget), `stuck_progress`, `stuck_self`, `guarded` (more than 3 guard
+fights), `low_hp`, `defeated`, `unknown_screen`, `no_tracker`.
+
+A monster guarding a pickup is fought (R-073; mae, 2026-11-09), then gathering carries on.
 
 ## Getting there (stamina materials)
 
@@ -50,7 +52,13 @@ flowchart TD
     SELF -->|no| CL["Close it"] --> D
     W -->|"reward_popup, tap_to_continue"| RW["Close"] --> D
     W -->|dialogue| DL["Next"] --> D
-    W -->|battle_prep| GD["Back arrow"] --> GDE(["guarded"])
+    W -->|battle_prep| GF{"4th guard fight this run?"}
+    GF -->|yes| GD["Back arrow"] --> GDE(["guarded"])
+    GF -->|no| SF[["start_fight: heal to 70%, Start Battle"]]
+    SF -->|"HP stays low"| LHP(["low_hp"])
+    SF -->|started| D
+    W -->|"battle, loading"| WT["Wait out the fight"] --> D
+    W -->|defeated| DF["OK (home)"] --> DFE(["defeated"])
     W -->|"anything else but world_map"| UK{"3rd time off the map?"}
     UK -->|yes| US(["unknown_screen"])
     UK -->|no| BA["Back arrow"] --> D
@@ -75,7 +83,9 @@ flowchart TD
     classDef ok fill:#d4edda,stroke:#2e7d32,color:#000
     classDef look fill:#fde2c8,stroke:#c25e00,color:#000
     class OK1 ok
-    class SS,GDE,US,SR,SP look
+    class SS,GDE,US,SR,SP,LHP,DFE look
+    classDef sub fill:#dbe9ff,stroke:#1f5fbf,color:#000
+    class SF sub
 ```
 
 Never tapped: the ring or icon floating over our own character (R-123), other players, anything inside the
