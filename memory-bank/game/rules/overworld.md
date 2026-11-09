@@ -34,7 +34,7 @@ Exploration comes in two kinds (mae), and loops should handle both: **quest-prog
 ### R-135 · Non-quest exploration order: lowest-CP unblessed zone first
 The non-quest exploration loop (mae; the quest-progression loop is settled):
 1. Pick the lowest-CP zone not yet blessed (within the fight limit, R-127).
-2. Explore it until its statue is blessed (R-065 goal, R-070).
+2. Explore it until its statue is blessed (R-065 goal, R-070). A zone counts as finished only when the quest tracker's % and the location map agree (builder, 2026-11-09); its zone is confirmed by the player indicator on the big map (R-140).
 3. Repeat until no unblessed zone remains.
 4. Then look for any fog-walk ground not yet explored (R-130). Explore it if there is some; otherwise exploration is concluded for now.
 Next by this order (2026-11-05): Jungle Camp (12.6K); walking in from Drasilgard's south edge gained no %, so its entry point is unknown ❓.
@@ -57,6 +57,12 @@ Templates in `resource/image/explore/`:
 *observed* · `world/world_map_player_pointer.png` · R-022, R-025
 
 ## Reading the minimap
+
+### R-140 · Know where the player is only from the big map's player indicator
+- The player's current location and zone come **only** from the player indicator on the big (area) map (mae, 2026-11-09). Never from the zone name under the minimap, and never from assumptions about the surroundings.
+- Why: at Verdantglade VI's gate the minimap name read "Verdantglade VI" while the player was still in V, and the bot walked into Auroradrasil.
+- The bot must detect the player indicator on the big map and use it to confirm the zone before and after any zone-level decision (finishing, crossing, choosing the next zone).
+*told* · node `area_map` · R-004, R-068, R-132, R-135
 
 ### R-004 · Minimap and coordinates give relative positions
 The minimap shows items, interactables and enemies around the character; use it to choose a direction. Tile coordinates show as "(x, y)" under it ("Originisle I (24,23)"), read by OCR. x grows east (screen right), y shrinks south (screen down), as `sxs/actions/goto.py` uses them. OCR sometimes reads the comma as a period ("(134.93)"); accept both.
@@ -91,8 +97,8 @@ Connections can be far off the straight line (Verdantglade II to Moonveil Woods 
 2. Tap the destination; the camera centres there.
 3. Close the map and tap the ground: the player auto-paths, around walls and through land bridges and unseen gaps.
 The same route reaches any target, not just areas (mae): find it on the area map (a dot, a structure), tap it there to centre the camera on it, close the map, then tap the now-visible element on screen to walk to it. No player-relative pathfinding is needed: the character auto-paths to any tapped spot even when it is off screen, so the bot finds endpoints and never manages the route (mae). The camera only has to see the thing to tap it. With several targets in view, tap each on screen in turn without reopening the map; reopen it only when nothing targetable is left in view (mae).
-Zoom differs each opening: pick places by OCR'd label, never fixed positions. Match labels exactly, trailing numerals included ("Verdantglade III" is not "Verdantglade I"; a V/VI mix-up once landed the bot in Auroradrasil). At full zoom-out OCR merges neighbouring labels ("Wildbloom Coahlidden Camp", "14.8K Monolith Ruins") and drops percentages: zoom out one step at most when reading zones. A label in fog can't be reached this way (`no_move`): travel from home (R-089). Code: `python -m sxs goto "Area Name"` or `python -m sxs goto X Y`.
-*told, observed* · `world/world_area_map.png`, `world/world_map_moonveil_entry.png`, `world/world_area_map_stone_ruins.png` · node `area_map` · R-065, R-067, R-076, R-089, R-130
+Zoom differs each opening: pick places by OCR'd label, never fixed positions. **No label-to-label shortcut walks between zones**: to leave a zone, walk back out the way you came in (builder, 2026-11-09; R-132). Match labels exactly, trailing numerals included ("Verdantglade III" is not "Verdantglade I"; a V/VI mix-up once landed the bot in Auroradrasil). At full zoom-out OCR merges neighbouring labels ("Wildbloom Coahlidden Camp", "14.8K Monolith Ruins") and drops percentages: zoom out one step at most when reading zones. A label in fog can't be reached this way (`no_move`): travel from home (R-089). Code: `python -m sxs goto "Area Name"` or `python -m sxs goto X Y`.
+*told, observed* · `world/world_area_map.png`, `world/world_map_moonveil_entry.png`, `world/world_area_map_stone_ruins.png` · node `area_map` · R-065, R-067, R-076, R-089, R-130, R-140
 
 ### R-089 · Travel from home through the quest tracker
 At home, tapping the tracker for a quest elsewhere asks "Travel to <Area> now?"; OK is free. Use it for areas whose area-map label is in fog.
