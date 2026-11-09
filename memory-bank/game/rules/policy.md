@@ -45,7 +45,7 @@ Read before pressing any button that might spend, and on any class, social, acco
 ### R-042 · Answer cards by a goal-dependent policy, not a fixed tap
 Policy: `resource/policy/cards.json`, `sxs/policy/decide.py`; nav-graph edges mirror it in `when`. The `never` regex in that file blocks the R-043 buttons (Buy, Purchase, Refresh, Spend, Dawnium, Pray, Recharge, Top up, Catch Up, Advanced Trial, Create Guild, Change Class, USD/$, hammer) whatever the card; `sxs.loops.pray` doesn't use the decider.
 - Defeated: OK (home). Travel prompt: OK when exploring or doing dailies, Cancel when only going home. Portal: Activate.
-- Mini-dungeon card: Explore only if the goal is explore and HP is fine, else dismiss. Dungeon floor: Next Floor if HP is fine, else the back arrow.
+- Mini-dungeon card: Explore only if the goal is explore and HP is fine, else dismiss. Dungeon floor: heal from the portrait if HP is low, then Next Floor (R-091); never leave for low HP.
 - Unknown card: dismiss and log.
 *told* · R-043, R-091
 

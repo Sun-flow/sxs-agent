@@ -20,7 +20,7 @@ Read when raising character power: the character-screen "!", gear, skills, charm
 - Character, a gear slot, the item card (Replace / Enhance), Enhance Gear.
 - Cost: Raw Ore (blue crystal), Refined Ore (red crystal), Rolla, shown have/need ("Raw Ore 7/720"). Short: toast "Insufficient materials to enhance."
 - 4 tabs on top, one per piece (weapon, head, chest, boots; no offhand yet), each "+N". The selected piece shows "+21 → +22" at y≈0.42, stat deltas, cost, Enhance (0.5, 0.85), Resonance (R-119), Goals (R-116).
-- Not a detector state yet: `go_home` gets stuck there.
+- Detector state `enhance_gear`.
 *observed* · `character/enhance_gear.png` · nodes `character`, `enhance_gear` · R-092, R-119
 
 ### R-092 · Enhance all gear evenly, in 5-level bands
@@ -34,7 +34,7 @@ Enhance Gear > Resonance (0.86, 0.20). Tiers read "Enhance Gear x4 to +N" (N = 5
 *observed* · `character/gear_resonance.png` · node `enhance_gear` · R-023, R-092
 
 ### R-088 · Replace gear with better items from the profile
-A red "!" over a gear piece's picture means a better piece is available for that slot: swap it. A **blue upgrade-arrow pip** in the same spot means the piece can be enhanced instead (R-092), not swapped (mae, 2026-11-09). Replace it whenever one drops. This is its own task, independent of enhancing (R-092), and the bot should do it on its own (mae). Profile, an Equip slot, Replace. The list puts the best first, green up arrow on upgrades. Tap one for a compare (equipped left, new right, with power); Replace is under the new item. Enhancement levels carry over, so replacing loses nothing.
+A red "!" over a gear piece's picture means a better piece is available for that slot: swap it. A **blue upgrade-arrow pip** in the same spot means the piece can be enhanced instead (R-092), not swapped (mae, 2026-11-09). Replace it whenever one drops. Code (PR #45): the blue pip is found by `find_up_pips` in `sxs/vision/badges.py`, and the Upgrade loop's gear pass runs on it. This is its own task, independent of enhancing (R-092), and the bot should do it on its own (mae). Profile, an Equip slot, Replace. The list puts the best first, green up arrow on upgrades. Tap one for a compare (equipped left, new right, with power); Replace is under the new item. Enhancement levels carry over, so replacing loses nothing.
 - Code: its own loop `python -m sxs gearswap`, also daily step `gear_swap`. The slot badge says to look; the power compare decides whether to Replace. First live run worked: head 1100 to 1170, chest 889 to 1900, boots 143 to 1860 power.
 *observed, told* · `character/replace_gear.png`, `character/gear_compare.png` · nodes `replace_gear`, `gear_compare` · R-080, R-092
 
