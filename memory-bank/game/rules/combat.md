@@ -40,7 +40,7 @@ Read before any fight, when HP is low, after a loss, or inside a mini-dungeon, t
 *observed* · R-001, R-041, R-066
 
 ### R-141 · Every exploring loop fights guards itself; never switch loops to get past one
-- Monster fighting is part of every loop that explores: quest, roam, fog walk and gather (mae, 2026-11-09). A monster guarding an item is fought first, then the item is taken (R-073, R-139), inside the same loop.
+- Monster fighting is part of every loop that explores: quest, roam, fog walk and gather (mae, 2026-11-09). A guard shows a red horned-skull marker over it (`resource/image/explore/guard_marker.png`); code: `unstick.attack_guard`. A monster guarding an item is fought first, then the item is taken (R-073, R-139), inside the same loop.
 - **Never switch loop types to get past a stuck point** (mae): a loop that meets a guard or gets stuck handles it with the shared fight logic (`start_fight`) or stops and reports; it does not hand over to another loop to dodge the guard.
 - The usual fight checks still apply: HP at 70% (R-061), the power limit (R-127), at most two retries (R-061).
 *told* · R-061, R-065, R-073, R-124, R-127, R-139

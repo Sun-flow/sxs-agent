@@ -26,6 +26,7 @@ Ends when no area is left to explore, the time is up, or a lower loop stops for 
 
 from __future__ import annotations
 
+import difflib
 import json
 import logging
 import re
@@ -60,13 +61,16 @@ STATUE_NEAR_LABEL = 260  # px on the area map: statues this close to an area's l
 MAP_ROI = [0, 120, 720, 1100]  # labels below y 1185 are the kingdom buttons
 STOP_REASONS = {"defeated", "unknown_screen", "left_area:home"}
 SURVEY_ZOOM_OUT = 4  # "-" taps: enough to reach full zoom-out from any opening
-SURVEY_ZOOM_IN = 1  # then "+" taps: mae, 2026-11-09, read one step closer than full zoom-out (OCR merged labels there)
-AREA_MAP_ZOOM_IN = (682, 795)  # the "+" above the area map's zoom slider
+# mae, 2026-11-09: read one step closer than full zoom-out (OCR merged labels there). Live the same day: one "+" tap
+# jumps to the closest zoom (labels clipped to "/erdanto", % lines lost), so drag the slider knob up a little instead.
+NAME_RE = re.compile(r"^[A-Z][a-z]+(?: [A-Z][a-z]+)*(?: [IVX]+)?$")  # a zone name as printed ("Monolith Ruins I")
+MISREAD_RATIO = 0.7  # a new name this similar to a known zone's is a misread of it
+FINISHED_READS = 3  # surveys in a row with no % line before a zone the tree has under 100% counts as finished (2 let Troll Lair, whose label sits on Verdantglade IV's, flip to 100%)
 PAN_FROM = (300, 620)  # drag start for survey pans: on the map, clear of the legend and the zoom slider
-PAN_PX, PAN_MS = 300, 900  # a slow drag so the map doesn't fling on
+PAN_PX, PAN_MS = 250, 1500  # a slow drag so the map doesn't fling on
 # Reveal directions (east, south) for a 3x3 grid around the opening view: N, NW, W, SW, S, SE, E, NE.
 PANS = [(0, -1), (-1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, -1), (0, -1)]
-STITCH_ROI = (0, 120, 540, 940)  # x, y, w, h compared between pans (left of the slider, under the title)
+STITCH_ROI = (0, 120, 655, 940)  # x, y, w, h compared between pans (left of the slider, under the title)
 PCT_ROOM = 70  # px under a label for its % line: a label nearer the bottom edge can't prove it's finished
 KINGDOM_ROI = [20, 25, 400, 60]  # the kingdom's name, top left of the area map
 MAX_ENTRY_TRIES = 3  # connected areas to try walking in from before giving up on an area for the day
@@ -99,37 +103,66 @@ def same(a: str, b: str) -> bool:
 
 
 def read_areas(det, frame=None) -> list[Area]:
-    """Area-map OCR into areas. A percentage or a power line belongs to the nearest label above it."""
+    """Area-map OCR into areas. A percentage or a power line belongs to the label right above it.
+
+    Live 2026-11-09: OCR joins a % line with the neighbouring label ("Exploration: 78%onolith Ruins !"), and a
+    neighbour's "Exploration: 0%" sat within reach of the Verdantglade V label, so it read 0%. Now the % is found
+    anywhere in a line, its x is estimated from where it sits in the joined text, and it goes to the label whose
+    width covers it (nearest above), not merely one within 120 px."""
     lines = det.read_text(MAP_ROI, frame)
     areas: list[Area] = []
     extras = []
     for text, box in lines:
         t = text.replace("-", " ").strip(" |")
-        pct = re.search(r"(?:Exploration\s*:?\s*)?(\d+)\s*%$", t)
+        pct = (re.search(r"(?:Explor\w*\s*:?\s*)?(\d+)\s*%", t)
+               # Live 2026-11-09: "Exploration: 83Monolith Ruins !" (the % sign lost where two labels touch).
+               or re.search(r"Explor\w*\s*:?\s*(\d{1,3})(?=[A-Za-z])", t))
         if pct:
-            extras.append(("pct", int(pct.group(1)), box))
+            x, y, w, h = box
+            # Joined text: place the % part by its share of the characters.
+            a0, a1 = pct.start() / max(1, len(t)), pct.end() / max(1, len(t))
+            extras.append(("pct", int(pct.group(1)), [int(x + w * a0), y, max(1, int(w * (a1 - a0))), h]))
         elif re.fullmatch(r"\D{0,2}\d+(\.\d)?K", t):
             extras.append(("gate", power_k(t), box))
         elif len(t) >= 4 and box[0] < 540 and box[1] < 1185 and not re.search(r"%|Ore$|Sandstone|Portal|Statue|Ahead of", t):
             areas.append(Area(t, box))
     for kind, value, (x, y, w, h) in extras:
-        above = [a for a in areas if 0 < y - a.box[1] < 70 and abs((a.box[0] + a.box[2] / 2) - (x + w / 2)) < 120]
+        cx = x + w / 2
+        above = [a for a in areas if 0 < y - a.box[1] < 70
+                 and abs((a.box[0] + a.box[2] / 2) - cx) < max(a.box[2] / 2, 50)]
         if above:
-            target = min(above, key=lambda a: y - a.box[1])
-            setattr(target, kind, value)
+            target = min(above, key=lambda a: (y - a.box[1], abs((a.box[0] + a.box[2] / 2) - cx)))
+            if getattr(target, kind) is None:
+                setattr(target, kind, value)
     return areas
 
 
-def pan_shift(prev: np.ndarray, cur: np.ndarray, expected: tuple[int, int]) -> tuple[int, int]:
-    """How far the map content moved between two survey frames (phase correlation on the map part). Falls back to the
-    commanded drag when the match is weak (a mostly dark, featureless view)."""
-    x, y, w, h = STITCH_ROI
-    a = cv2.cvtColor(prev[y:y + h, x:x + w], cv2.COLOR_BGR2GRAY).astype(np.float32)
-    b = cv2.cvtColor(cur[y:y + h, x:x + w], cv2.COLOR_BGR2GRAY).astype(np.float32)
-    (dx, dy), response = cv2.phaseCorrelate(a, b)
-    if response < 0.05 or abs(dx) > w / 2 or abs(dy) > h / 2:
-        return expected
-    return int(round(dx)), int(round(dy))
+PATCH = (250, 380, 160, 360)  # x, y, w, h of the previous view matched in the next one to measure a pan
+PAN_MATCH = 0.6  # below this the pan is not trusted and that view's reading is dropped (live 2026-11-09: guessed
+# shifts put Zephyr Vale and Troll Lair 530 px west of where they are)
+
+
+def pan_shift(prev: np.ndarray, cur: np.ndarray, expected: tuple[int, int] = (0, 0)) -> Optional[tuple[int, int]]:
+    """How far the map content moved between two survey frames: patches of the previous view found in the current one
+    by template matching on edges (labels and tile borders); the best match wins. Live 2026-11-09 the same drag moved
+    the map 353 px, or 7 px at the map's edge, so the shift is measured, never assumed. None when nothing matches
+    well."""
+    x0, y0, w, h = PATCH
+    sx, sy, sw, sh = STITCH_ROI
+    edges = lambda im: cv2.Canny(cv2.cvtColor(im, cv2.COLOR_BGR2GRAY), 40, 120)  # noqa: E731
+    a = edges(prev)
+    b = edges(cur)[sy:sy + sh, sx:sx + sw]
+    starts = {(int(min(max(sx, x0 - expected[0] / 2), sx + sw - w)), int(min(max(sy, y0 - expected[1] / 2), sy + sh - h)))}
+    starts |= {(x, y) for x in (sx, sx + (sw - w) // 2, sx + sw - w) for y in (sy, sy + (sh - h) // 2, sy + sh - h)}
+    best = (0.0, None)
+    for x, y in starts:
+        tpl = a[y:y + h, x:x + w]
+        if tpl.mean() < 2:  # featureless (all fog): nothing to match on
+            continue
+        _, score, _, loc = cv2.minMaxLoc(cv2.matchTemplate(b, tpl, cv2.TM_CCOEFF_NORMED))
+        if score > best[0]:
+            best = (score, (sx + loc[0] - x, sy + loc[1] - y))
+    return best[1] if best[0] >= PAN_MATCH else None
 
 
 def merge_readings(readings: list, bottom: int = 1185) -> list[Area]:
@@ -142,7 +175,11 @@ def merge_readings(readings: list, bottom: int = 1185) -> list[Area]:
             x, y, w, h = a.box
             room = y + h + PCT_ROOM <= bottom
             g = Area(a.name, [x - ox, y - oy, w, h], a.pct, a.gate, unsure=a.pct is None and not room)
-            hit = next((m for m in out if same(m.name, g.name)), None)
+            # Same label: same name read the same way, or a clipped/loosely read name at about the same place (live
+            # 2026-11-09: a loose name match alone gave Verdantglade VI the 78% of Verdantglade V).
+            hit = next((m for m in out if goto.squeeze(m.name) == goto.squeeze(g.name)
+                        or (same(m.name, g.name) and abs(m.point[0] - g.point[0]) + abs(m.point[1] - g.point[1]) < 80)),
+                       None)
             if hit is None:
                 out.append(g)
                 continue
@@ -215,6 +252,7 @@ class Roamer:
         self.given_up: set[str] = set()
         self.power: Optional[float] = None
         self.tree = Tree.load()
+        self.no_pct: dict[str, int] = {}  # zone -> surveys in a row that showed it with no % line
 
     def give_up(self, name: str, why: str) -> None:
         """Skip `name` for the rest of this run, and in later runs the same server day until power grows (seen 2026-11-04:
@@ -277,25 +315,27 @@ class Roamer:
         else:
             log.warning("the area map did not open; frame %s", save_unknown(self.dev, "roam_survey"))
             return [], [], power
-        for _ in range(SURVEY_ZOOM_OUT):
-            self.dev.tap(*goto.AREA_MAP_ZOOM_OUT)
-            time.sleep(0.5)
-        for _ in range(SURVEY_ZOOM_IN):
-            self.dev.tap(*AREA_MAP_ZOOM_IN)
-            time.sleep(0.6)
+        goto.survey_zoom(self.dev)
         time.sleep(1)
         frame = self.dev.screenshot()
         kingdom = " ".join(t for t, _ in self.det.read_text(KINGDOM_ROI, frame)).strip()
         readings = [(read_areas(self.det, frame), (0, 0))]
         badges = [(p, (0, 0)) for p in statue_badges(frame)]
-        shift = (0, 0)
+        shift, pending = (0, 0), (0, 0)
         for rx, ry in PANS:
             fx, fy = PAN_FROM
             self.dev.swipe(fx, fy, fx - rx * PAN_PX, fy - ry * PAN_PX, PAN_MS)
             time.sleep(1.2)
             cur = self.dev.screenshot()
-            dx, dy = pan_shift(frame, cur, (-rx * PAN_PX, -ry * PAN_PX))
-            shift = (shift[0] + dx, shift[1] + dy)
+            pending = (pending[0] - rx * PAN_PX, pending[1] - ry * PAN_PX)  # drags since the last trusted view
+            moved = pan_shift(frame, cur, pending)
+            if moved is None:
+                # Not sure where this view sits (or the map stopped at its edge): drop it, and measure the next pan
+                # from the last trusted view.
+                log.info("survey pan %s: couldn't match it to the last view; reading skipped", (rx, ry))
+                continue
+            pending = (0, 0)
+            shift = (shift[0] + moved[0], shift[1] + moved[1])
             readings.append((read_areas(self.det, cur), shift))
             badges += [(p, shift) for p in statue_badges(cur)]
             frame = cur
@@ -327,8 +367,31 @@ class Roamer:
         for a in areas:
             if len(goto.squeeze(a.name)) < 5 or (kingdom and goto.squeeze(a.name) == goto.squeeze(kingdom)):
                 continue  # the kingdom title, or an OCR scrap
-            self.tree.observe(a.name, kingdom or None, pct=... if a.unsure else a.pct,
-                              cp=a.gate if a.gate else ..., point=a.point)
+            known = self.tree.key(a.name)
+            near = [k for k in self.tree.zones
+                    if difflib.SequenceMatcher(None, goto.squeeze(k), goto.squeeze(a.name)).ratio() >= MISREAD_RATIO]
+            if not known and near:
+                # Close to a zone we know but not it: an OCR misread ("Verdantgladeto", "Iden Camp", live
+                # 2026-11-09), not a new zone.
+                continue
+            if not known and (not NAME_RE.match(a.name) or re.search(r"Explor|%", a.name)
+                              or len(goto.squeeze(a.name)) < 7):
+                log.info("not adding %r to the location tree: doesn't read as a zone name", a.name)
+                continue  # live 2026-11-09: "/erdanto", "Exploratio", "ildbloom Coastdden Camp" went in
+            pct = ... if a.unsure else a.pct
+            z = self.tree.zones.get(known) if known else None
+            if pct is None and z and (z.get("pct") or 0) < 100:
+                # No % line read for a zone we know is unfinished: OCR drops lines, so one reading isn't proof
+                # (live 2026-11-09: Verdantglade V at 78% was declared finished). Count it; trust it the second time.
+                n = self.no_pct.get(known, 0) + 1
+                self.no_pct[known] = n
+                if n < FINISHED_READS:
+                    log.info("%s showed no %% line (%s%% before): finished only if the next survey agrees", known,
+                             z.get("pct"))
+                    pct = ...
+            elif known:
+                self.no_pct.pop(known, None)
+            self.tree.observe(known or a.name, kingdom or None, pct=pct, cp=a.gate if a.gate else ..., point=a.point)
         if kingdom:
             self.tree.link_neighbours_by_map(kingdom)
         self.tree.save()
@@ -391,10 +454,24 @@ class Roamer:
         """mae, 2026-11-04: "try moving from areas you are connected to". Walk into the explored area whose label
         sits nearest the target's on the area map, then toward the target as far as the explored ground goes; the
         fog walk takes it from there. Returns the neighbour used (None if there is none: walk to the label)."""
-        here = goto.area_name_here(self.det)
+        hint = goto.area_name_here(self.det)
+        here = fogwalk.zone_by_map(self.dev, self.det, hint) or hint  # R-140: the big map's dot decides
+        progress(("zone_here", here))
         if here and same(here, target.name):
             log.info("already in %s: finishing it here first (R-132)", target.name)
             return None
+        # Try the plain big-map walk to the zone's label first: most zones can be walked into from where we are
+        # (live 2026-11-09: from Verdantglade VI the walk "via Verdantglade IV" landed in Auroradrasil instead).
+        progress(("walk_to", target.name))
+        if goto.go_to(self.dev, self.det, target.name) == "arrived":
+            now = goto.area_name_here(self.det)
+            if now and same(now, target.name):
+                log.info("walked into %s from %s directly", target.name, here or "?")
+                if here:
+                    self.tree.record_entry(target.name, here, True, server_day(), xy=goto.coords(self.det))
+                    self.tree.save()
+                return None
+            log.info("the walk to %s's label ended in %s; trying a connected area", target.name, now or "?")
         done = [a for a in areas if a.pct is None and not a.unsure and not same(a.name, target.name)]
         if not done:
             goto.go_to(self.dev, self.det, target.name)
@@ -473,10 +550,15 @@ class Roamer:
                 continue  # blessed something: read the map again
             if area:
                 target = next((a for a in areas if same(a.name, area)), None)
-                if target is None or target.pct is None:
-                    log.info("%s shows no percentage: finished", area)
+                if self.tree.explored(area) or (self.tree.get(area) is None and target and target.pct is None
+                                                 and not target.unsure):
+                    log.info("%s is explored (location tree): finished", area)
                     self.bless_near(area)
                     return "area_done"
+                z = self.tree.get(area) or {}
+                if target is None or target.pct is None:  # the label or its % line wasn't read: the tree knows
+                    target = Area(self.tree.key(area) or area, target.box if target else [0, 0, 0, 0],
+                                  z.get("pct"), z.get("cp"))
                 wall = None
             else:
                 target, wall = self.pick(areas, power, goto.area_name_here(self.det))
@@ -509,6 +591,11 @@ class Roamer:
                     return "no_progress"
             elif now.pct is None and now.unsure:
                 log.info("%s: %% line not readable this time; trying again next pass", target.name)
+            elif now.pct is None and not self.tree.explored(target.name):
+                # The tree still has it unfinished: one reading without a % line isn't proof (live 2026-11-09: run 5
+                # declared Verdantglade V finished when OCR joined its "83%" to Monolith Ruins' label).
+                log.info("%s showed no %% line but the location tree has it at %s%%: not finished", target.name,
+                         (self.tree.get(target.name) or {}).get("pct"))
             elif now.pct is None:
                 if via:
                     self.tree.record_entry(target.name, via.name, True, server_day())

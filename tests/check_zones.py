@@ -47,6 +47,7 @@ check("crossing allowed reaches the item", len(minimap.path_to_nearest(wall, goa
 # The location tree (resource/world/zones.json).
 check("tree file exists", ZONES_FILE.exists(), True)
 t = Tree.load()
+t.zones["Verdantglade V"]["pct"] = 78  # the checks below use V as an unfinished zone (it reached 100% live)
 check("Jungle Camp is next at 22.4K (lowest-CP unexplored)", t.next_zone(22.4), "Jungle Camp")
 check("finish the zone we stand in first (R-132)", t.next_zone(22.4, "Verdantglade V"), "Verdantglade V")
 check("no crossing out of an unfinished zone", t.can_cross("Verdantglade V", "Jungle Camp", 22.4)[0], False)

@@ -33,7 +33,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 
 ## Adding or changing a rule
 
-- New rule: next free ID (**next free: R-142**), under the right `##` heading of the right file, plus a row in the ID index below.
+- New rule: next free ID (**next free: R-146**), under the right `##` heading of the right file, plus a row in the ID index below.
 - Never reuse or renumber an ID. When merging a rule into another, delete it, add it to the retired table, and repoint citations.
 - Run `python3 scripts/check-rules.py`: it checks that every cited ID resolves, retired IDs aren't cited, every file is listed here, and image paths exist.
 
@@ -155,6 +155,10 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-139 | `gathering.md` | A monster guarding a pickup: fight it, then resume the pickup |
 | R-140 | `overworld.md` | Know where the player is only from the big map's player indicator |
 | R-141 | `combat.md` | Every exploring loop fights guards itself; never switch loops to get past one |
+| R-142 | `overworld.md` | While exploring, follow the zone's own Explore quest |
+| R-143 | `overworld.md` | In an unblessed zone the whole minimap is shaded: the % comes from objects |
+| R-144 | `overworld.md` | "Statue of <name>": press Visit |
+| R-145 | `overworld.md` | Sealed Stone Gate: dismiss for now |
 
 ## Retired IDs
 

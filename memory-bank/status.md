@@ -6,7 +6,7 @@
 ## Game state (2026-11-05 05:05Z, mae's PC)
 
 - gromb2: Mage, Apprentice II, Lv 24/30, power 22.4K (skills Lv 17-18 after Quick Upgrade; Cart Stone and Wood Lv 5). Rolla ~72.7K, Dawnium ~1.85K (never spent by the bot), stamina ~234/300, Abundance Leaves 450, 1 Shapeshifting Mirror (unused).
-- Explored and blessed: Originisle; Verdantglade I-IV area quests done; Verdantglade III 100%; Auroradrasil 100% and blessed (Lost Goddess Statue, 2026-11-05). Drasilgard town visited (Chief, Hermes, Carol). Verdantglade V 78% (quest "Explore Verdantglade V"). Unexplored: Jungle Camp 12.6K, Zephyr Vale, Monolith Ruins I, Troll Lair 17K, Verdantglade VI, Wildbloom Coast 20.4K.
+- Explored and blessed: Originisle; Verdantglade I-IV area quests done; Verdantglade III 100%; Auroradrasil 100% and blessed (Lost Goddess Statue, 2026-11-05). Drasilgard town visited (Chief, Hermes, Carol). Verdantglade V 100% (live, 2026-11-09; statue blessing not confirmed ❓). Zones at 100%: Originisle I–V, Verdantglade I–III and V, Moonveil Woods, Stone Ruins I, Highland Woods, Damp Woods, Auroradrasil. Sealed Stone Gate on V's north edge: need unknown (asked mae). Unexplored: Jungle Camp 12.6K, Zephyr Vale, Monolith Ruins I, Troll Lair 17K, Verdantglade VI, Wildbloom Coast 20.4K.
 - Rank: Apprentice III needs Lv 30, leaves 16/5, Bellflower 4/30 (source: Verdantglade Flower Harvest in Moonveil Woods; the plants in Drasilgard are decoration), Rolla 10.5K. Blocked on Lv 30.
 - Fantasia Ascent Moonveil Woods: Auto Challenge climbed to F24+ in the background (2026-11-04).
 - Social features open (R-057): NPC companions Akane, Qin, Killian were invited for Auroradrasil (rank B).
@@ -63,7 +63,7 @@ Format: `- what — branch, PR, environment (started)`. Remove the line when it 
 
 ## Known problems
 
-- Auroradrasil sits inside Verdantglade V on the map, so the fog walk's zone check (R-132) bounces the bot out when a walk lands there. mae (03:10): Auroradrasil is its own zone, so the goto for Verdantglade V must land on V's own ground (R-132). Verdantglade V is at 78%.
+- Auroradrasil sits inside Verdantglade V on the map, so the fog walk's zone check (R-132) bounces the bot out when a walk lands there. mae (03:10): Auroradrasil is its own zone, so the goto for Verdantglade V must land on V's own ground (R-132). Verdantglade V reached 100% on 2026-11-09.
 - Minimap classifier was tuned in Verdantglade II; in Highland Woods it labels walkable explored tiles as walls.
 - The island-map camera doesn't follow the player: locate the player first (the "gromb2" label or the player edge pointer).
 - Quick Heal from the "badly wounded" dialog didn't seem to heal; Quick Heal from the portrait works.

@@ -43,7 +43,7 @@ from . import fights
 
 ZONES_FILE = RESOURCE / "world" / "zones.json"
 LINK_RANK = {"map_adjacent": 0, "inside": 1, "walked": 2}
-ADJACENT_PX = 330  # stitched area-map distance between two labels that makes them likely neighbours
+ADJACENT_PX = 200  # survey-zoom px between two labels that makes them likely neighbours (330 linked half the kingdom)
 
 
 def squeeze(t: str) -> str:

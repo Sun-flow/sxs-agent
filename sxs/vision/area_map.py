@@ -28,20 +28,70 @@ def _masks(hsv: np.ndarray) -> dict:
     }
 
 
+SLIDER = (660, 770, 60, 360)  # x, y, w, h of the zoom slider and its +/- (not objects)
+DOT_FILL = 0.5  # dots are round blobs: pixels / bounding box at least this; text glyphs are thinner
+DOT_ASPECT = 1.8  # and about as wide as tall
+BUILDING_MERGE = 40  # px: yellow pieces this close are one structure icon
+LABEL_MARGIN = 0.75  # an object is another zone's only if that zone's label is under 0.75x as far as ours
+
+
+def _text_rows(blobs: list[tuple[int, int, int, int]]) -> set[int]:
+    """Indexes of blobs sitting in a row of 4+ close neighbours at the same height: text ("20.4K", "Exploration:
+    0%" drawn green for zones over our power; seen 2026-11-09 as a dozen "items")."""
+    out = set()
+    for i, (x, y, w, h) in enumerate(blobs):
+        row = [j for j, (x2, y2, w2, h2) in enumerate(blobs) if abs((y2 + h2 / 2) - (y + h / 2)) <= 4
+               and abs(x2 - x) <= 60]
+        if len(row) >= 4:
+            out.update(row)
+    return out
+
+
 def objects(frame: np.ndarray) -> list[tuple[str, tuple[int, int]]]:
-    """(kind, centre) for each object blob on the area map."""
+    """(kind, centre) for each object blob on the area map. Live 2026-11-09: green and orange text, the red "!" on
+    structure icons and the zoom slider read as dots, so blobs must be round, not in a text row, not on a badge."""
+    from .badges import SMALL_MIN_AREA, find_badges
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     x0, y0, w, h = MAP_AREA
     lx, ly, lw, lh = LEGEND
+    sx, sy, sw, sh = SLIDER
+    badges = find_badges(frame, min_area=SMALL_MIN_AREA)
     out = []
     for kind, mask in _masks(hsv).items():
         m = np.zeros(mask.shape, np.uint8)
         m[y0:y0 + h, x0:x0 + w] = mask[y0:y0 + h, x0:x0 + w]
         m[ly:ly + lh, lx:lx + lw] = 0
+        m[sy:sy + sh, sx:sx + sw] = 0
         n, _, stats, cents = cv2.connectedComponentsWithStats(m)
         lo, hi = SIZES[kind]
-        out += [(kind, (int(cents[i][0]), int(cents[i][1]))) for i in range(1, n) if lo <= stats[i, 4] <= hi]
-    return out
+        keep = [i for i in range(1, n) if lo <= stats[i, 4] <= hi]
+        if kind in ("item", "monster"):
+            boxes = [tuple(int(v) for v in stats[i, :4]) for i in keep]
+            text = _text_rows(boxes)
+            keep = [i for k, i in enumerate(keep) if k not in text
+                    and stats[i, 4] >= DOT_FILL * stats[i, 2] * stats[i, 3]
+                    and max(stats[i, 2], stats[i, 3]) <= DOT_ASPECT * max(1, min(stats[i, 2], stats[i, 3]))]
+        if kind == "monster":  # a badge's red is not a monster
+            keep = [i for i in keep if all(abs(cents[i][0] - bx) + abs(cents[i][1] - by) > 14 for bx, by in badges)]
+        if kind == "building":
+            # Yellow town names ("Drasilgard") are text rows; one structure icon splits into several yellow pieces:
+            # merge pieces within BUILDING_MERGE px into one point.
+            boxes = [tuple(int(v) for v in stats[i, :4]) for i in keep]
+            text = _text_rows(boxes)
+            pts: list[tuple[int, int]] = []
+            for k, i in enumerate(keep):
+                if k in text:
+                    continue
+                p = (int(cents[i][0]), int(cents[i][1]))
+                if all(abs(p[0] - q[0]) + abs(p[1] - q[1]) > BUILDING_MERGE for q in pts):
+                    pts.append(p)
+            out += [(kind, p) for p in pts]
+            continue
+        out += [(kind, (int(cents[i][0]), int(cents[i][1]))) for i in keep]
+    # Orange bits of a yellow structure icon aren't monsters.
+    blds = [p for k, p in out if k == "building"]
+    return [(k, p) for k, p in out
+            if k != "monster" or all(abs(p[0] - q[0]) + abs(p[1] - q[1]) > BUILDING_MERGE for q in blds)]
 
 
 def crosses_border(lines: np.ndarray, a: tuple[int, int], b: tuple[int, int], near: int = 3) -> bool:
@@ -80,7 +130,14 @@ def nearest(frame: np.ndarray, kinds=("item", "monster", "building"), max_px: in
         if labels and home:
             from ..actions.goto import same_area
             if any(same_area(t, home) for t in labels):
-                def zone_of(p):
-                    return min(labels, key=lambda t: (labels[t][0] - p[0]) ** 2 + (labels[t][1] - p[1]) ** 2)
-                cands = [(k, p) for k, p in cands if same_area(zone_of(p), home)]
+                def d(t, p):
+                    return ((labels[t][0] - p[0]) ** 2 + (labels[t][1] - p[1]) ** 2) ** 0.5
+
+                def ours(p):
+                    # Labels sit mid-zone, so nearest-label is only a rough zone test: drop an object only when
+                    # another zone's label is clearly nearer (LABEL_MARGIN) than ours.
+                    mine = min(d(t, p) for t in labels if same_area(t, home))
+                    other = min((d(t, p) for t in labels if not same_area(t, home)), default=1e9)
+                    return other >= LABEL_MARGIN * mine
+                cands = [(k, p) for k, p in cands if ours(p)]
     return min(cands, key=lambda kp: (kp[1][0] - px) ** 2 + (kp[1][1] - py) ** 2) if cands else None

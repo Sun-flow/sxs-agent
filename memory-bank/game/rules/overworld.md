@@ -41,6 +41,17 @@ Next by this order (2026-11-05): Jungle Camp (12.6K); walking in from Drasilgard
 Code: `python -m sxs roam` picks the zone with `Tree.next_zone` from the location tree (`resource/world/zones.json`, `sxs/policy/zones.py`, `python -m sxs zones`; zones with no power line read go last). The tree holds each zone's kingdom, CP, %, blessed, map point and way in, and records Jungle Camp's missing entry as an open question. Roam blesses a statue when its area-map "!" lights (R-070), and ends with `exploration_concluded`.
 *told* · R-065, R-070, R-076, R-127, R-130, R-132
 
+### R-142 · While exploring, follow the zone's own Explore quest
+- The zone's own Explore quest in the tracker ("Explore Verdantglade V") is the best goal source while exploring (live, Verdantglade V 78% → 100%, 2026-11-09).
+- Tap the tracker's locate icon only when no gold ring is showing: the icon toggles Tracking on and off (R-022).
+- Follow an edge ring (R-074; at the top edge it sits at y≈50), then tap the target about 80 px below the ring.
+- Code: `fogwalk.quest_step` in `sxs/loops/fogwalk.py`.
+*observed* · R-022, R-065, R-074, R-135
+
+### R-143 · In an unblessed zone the whole minimap is shaded: the % comes from objects
+In a zone whose statue isn't blessed, every minimap tile is shaded, walked or not, so "unexplored ground" is not a goal there. The exploration % rises only by clearing objects: dots, monsters, structures (R-002, R-065). Shaded means "not blessed", not "not walked".
+*observed* · R-002, R-065, R-066, R-130
+
 ## Walking and the camera
 
 ### R-025 · Tap to walk, swipe to pan; the camera doesn't follow
@@ -62,7 +73,8 @@ Templates in `resource/image/explore/`:
 - The player's current location and zone come **only** from the player indicator on the big (area) map (mae, 2026-11-09). Never from the zone name under the minimap, and never from assumptions about the surroundings.
 - Why: at Verdantglade VI's gate the minimap name read "Verdantglade VI" while the player was still in V, and the bot walked into Auroradrasil.
 - The bot must detect the player indicator on the big map and use it to confirm the zone before and after any zone-level decision (finishing, crossing, choosing the next zone).
-*told* · node `area_map` · R-004, R-068, R-132, R-135
+- Code: the zone is the label nearest the big-map player dot, with a 0.75 margin over the next label; the minimap name is only a hint to re-check.
+*told, observed* · node `area_map` · R-004, R-068, R-132, R-135
 
 ### R-004 · Minimap and coordinates give relative positions
 The minimap shows items, interactables and enemies around the character; use it to choose a direction. Tile coordinates show as "(x, y)" under it ("Originisle I (24,23)"), read by OCR. x grows east (screen right), y shrinks south (screen down), as `sxs/actions/goto.py` uses them. OCR sometimes reads the comma as a period ("(134.93)"); accept both.
@@ -115,9 +127,9 @@ At home, tapping the tracker for a quest elsewhere asks "Travel to <Area> now?";
 - Unfinished areas show "Exploration: N%" and any power gate ("12K") under the label; finished ones show only the name. Gates seen: Highland Woods 9.6K, Verdantglade III 12K. Skip areas gated above your power (R-084).
 - Lost Statue icon: `resource/image/areamap/lost_statue.png` at 0.8.
 - Edge labels are clipped on the left ("tglade III"); `sxs/loops/roam.py` accepts a 6+ letter suffix with matching numerals.
-- Survey (code: `sxs/loops/roam.py`): zoom out fully, then tap "+" at (682, 795) once (at full zoom-out OCR merges labels and drops %), and read a 3×3 grid of slow 300 px pans, merging readings by name. The "+" position and pan size come from one reference screen ❓ (not yet watched live).
+- Survey (code: `sxs/loops/roam.py`): zoom out fully (OCR merges labels and drops % there), then drag the zoom slider from (682, 1090) to (682, 1030) for one step closer; the "+" button jumps straight to the closest zoom, so don't use it. Read a 3×3 grid of slow 300 px pans, merging readings by name. Reference `world/area_map_survey_zoom.png`.
 - A 100% area with a red "!" probably has its statue waiting ❓. Sunrise Isle is at the bottom right of the Verdantglade map; its % isn't read ❓.
-*observed* · `world/world_area_map.png`, `world/area_map_lv22.png` · node `area_map` · R-068, R-070, R-084, R-086
+*observed* · `world/world_area_map.png`, `world/area_map_lv22.png`, `world/area_map_survey_zoom.png` · node `area_map` · R-068, R-070, R-084, R-086
 
 ## Power walls and gates
 
@@ -129,6 +141,10 @@ Where recommended power is well above yours and fights end in losses (R-031), st
 A stone pillar card "Gate of Power": "Requires: Power reaches 15.5K (Current: 8.1K)". Short of power there's no button: dismiss (policy kind `power_gate`); the fog walk stops there. With enough power a free "Open" shows at about (0.5, 0.74): press it (kind `power_gate_open`) and the pillar sinks.
 - Damp Woods: an area-map walk to its label from Verdantglade II lands at about (184, 86), a fogged pocket with a stone mini-dungeon, ore baskets, a statue and the 15.5K gate. Behind it: ore baskets, a glowing crystal and a duck-shaped item, free to tap; they finish Damp Woods. The minimap barely shows them under shadow, so the bot can't find them from it yet ❓.
 *observed* · `world/gate_of_power.png`, `world/gate_of_power_open.png` · R-065, R-070, R-084
+
+### R-145 · Sealed Stone Gate: dismiss for now
+A gold "!" structure on Verdantglade V's north edge at about (135, 126) opens a "Sealed Stone Gate" card that can only be dismissed. What opens it is unknown ❓ (asked mae).
+*observed* · R-030, R-086
 
 ## Map objects and statues
 
@@ -144,6 +160,10 @@ Tapping a map object (e.g. a Portal) opens a card with one button at (0.5, 0.70)
 - **Already blessed**: "A starlit statue silently guards this Blessed Land", Regional Relics, no button. Dismiss and walk around it (kind `blessed_statue`).
 - Goddess, Witch and Hero statues can each be used once a day; whether these are the blessing statues is unknown ❓.
 *observed, reported* · `world/interact_goddess_statue.png`, `world/interact_goddess_statue_blessed.png`, `world/blessing_level.png`, `world/lost_goddess_statue.png`, `world/lost_goddess_statue_auroradrasil_mae.png`, `unlabeled/lost_goddess_statue_auroradrasil.png`, `unlabeled/lost_goddess_statue_blessed.png`, `unlabeled/area_map_statue_badge_auroradrasil.png` · R-002, R-065, R-074
+
+### R-144 · "Statue of <name>": press Visit
+A "Statue of <name>" card (e.g. Statue of Lunar Sage in Verdantglade V) has a free Visit: it gives a permanent stat boost (Lunar Sage: HP +170), heals fully and counts toward exploration. Always press Visit. Policy: `resource/policy/cards.json` (match "Statue of ...").
+*observed* · R-030, R-042, R-070
 
 ### R-085 · Stone tile floor puzzle: step on every tile for chests
 Stone Ruins I: a 2x2 floor of stone tiles; each lights cyan when stepped on. All 4 lit spawns two chests (about 60 Dawnium each, plus Rolla, ore, gear, Abundance Leaf). Each chest pops a gear-swap prompt (swap button bottom right) that closes with the reward popup.
