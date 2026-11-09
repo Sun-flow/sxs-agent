@@ -26,7 +26,7 @@ Scene labels (e.g. "Class to Unlock") overlap the quest tracker region; filter t
 - The Cart fills offline up to a cap (reported); collect at least once per cap period.
 - Tap the loot bubble (`resource/image/home/cart_bubble.png`): reward popup (Rolla, Stone, Wood).
 - Find the Cart by its wheel: the sprite changes when it is loaded with goods.
-- Tapping the cart opens hourly income, each row with a level and upgrade arrow: Rolla, Wood, Stone, Raw Ore, Battle Essence, Gear (unlocks at Lv 15; now open at +2/h), Chrono Sand (an Unlock button with "!"; not pressed yet ❓ ask mae), Treats (unlocks at Lv 45). "Claim All" (0.5, 0.86); close with (0.5, 0.95).
+- Tapping the cart opens hourly income, each row with a level and upgrade arrow: Rolla, Wood, Stone, Raw Ore, Battle Essence, Gear (unlocks at Lv 15; now open at +2/h), Chrono Sand (an Unlock button with "!": press it, R-137), Treats (unlocks at Lv 45). "Claim All" (0.5, 0.86); close with (0.5, 0.95).
 *observed* · `home/home_cart.png`, `home/cart.png`, `home/cart_lv3.png`, `dialogs/reward_popup.png` · node `cart` · R-126, R-136
 
 ### R-136 · Upgrade only Stone and Wood on the Cart, keeping their levels even
@@ -39,11 +39,18 @@ Scene labels (e.g. "Class to Unlock") overlap the quest tracker region; filter t
 - Live 04:54: Stone and Wood both Lv 3 → 5, alternating Stone first; the other rows stay Lv 3. Code: `python -m sxs cart`, daily step `cart_upgrade`.
 *told, observed* · `home/cart_furniture_upgrade.png`, `home/cart_lv3.png` · nodes `cart`, `furniture_upgrade` · R-020, R-035, R-099
 
+### R-137 · Unlock every available Cart production row
+- When a Cart row shows an Unlock button (often with a red "!"), press it. Unlocking is free (mae). Chrono Sand was the first such row.
+- This is separate from upgrading: unlocking a row doesn't make it an upgrade target. Upgrades stay Stone and Wood only (R-136).
+- Rows still locked behind a level (Treats, Lv 45) show no Unlock button yet; check again on later runs.
+- Code: `CartUpgrader.unlock_rows` in `sxs/loops/cart.py` presses an exact "Unlock" before upgrading. If a confirmation shows any cost or spend word, it backs out and asks (needs a decision). Not yet watched live.
+*told* · node `cart` · R-020, R-136
+
 ## The house
 
 ### R-035 · Use the bed's free speed-up once a day
 - The bed ("Sleep to earn AFK EXP...") shows Blessing Level, EXP/Hr, EXP Reserve and more.
-- "Today's Free Speedup" is a **daily task**: one free a day.
+- "Today's Free Speedup": one free a day. It is its **own task, not a daily step** (mae, 2026-11-09). Save it until the day's exploration is complete (the content wall, not reached yet), so it adds the most; it will be called on purpose later in the day. Collecting the bed's stored EXP is separate (R-101).
 - Furniture slots unlock by level (Lv 7: Alchemy Pot, R-047). Blessing statues likely raise Blessing Level ❓ (R-070). Blessing Level caps the Cart's row levels (R-136).
 *observed* · `home/home_house.png`, `home/bed.png`, `home/furniture_unlock.png`, `dialogs/unlocked.png` · node `home_house`, `bed` · R-101
 

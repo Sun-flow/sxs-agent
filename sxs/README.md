@@ -19,7 +19,7 @@ Coordinates are in the 720×1280 portrait frame. No module calls a model.
 |---|---|---|
 | `core/` | Device, state detector, navigator, paths, shared screen coordinates (`ui.py`), daily marks, run and progress records (`records.py`), the loop contract (`loop.py`) | Knows nothing about any one game system |
 | `vision/` | Reading the screen: OCR helpers, HP bar, HUD numbers, account stats (`stats.py`), player label, tracker, pickups, badges, minimap, gift | Never taps |
-| `policy/` | Decisions from `resource/policy/*.json`: card/popup decider, free-claim presser | The spend blocklists live here (**safeguard**) |
+| `policy/` | Decisions from `resource/policy/*.json`: card/popup decider, free-claim presser; `fights.py` (1.25x power rule), `zones.py` (location tree in `resource/world/zones.json`: next zone, crossing check, ways in) | The spend blocklists live here (**safeguard**) |
 | `actions/` | Small reusable steps that tap: heal, close rewards / step dialogue, go to an area, unstick, camera, watchdog | No loop of its own, except `goto` |
 | `loops/` | Goal-driven loops, one module each, each exposing `LOOP` | Registered in `loops/__init__.py` |
 

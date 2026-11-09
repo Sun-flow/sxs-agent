@@ -5,7 +5,12 @@
     python -m sxs cart --max 4      # at most 4 upgrades this run
 
 mae's priority: only Stone and Wood, kept level with each other: raise whichever is lower; when they are level, Stone
-first. Every other row (Rolla, Raw Ore, Battle Essence, Gear, Chrono Sand...) is ignored, and so are row Unlock buttons.
+first. Every other row (Rolla, Raw Ore, Battle Essence, Gear, Chrono Sand...) is never upgraded.
+
+R-137 (mae, 2026-11-09): a production row with an "Unlock" button (Chrono Sand at Lv 24) is free to unlock: press it
+before the upgrades. Unlocked rows are not upgrade targets (R-136 still raises Stone and Wood only). A row that reads
+"Unlocks at Lv. 45" (Treats) has no button and is left alone; an unlock that shows any cost or spend word is backed
+out of with needs_decision.
 
 Route: home -> claim the Cart bubble (Strengthener.claim_cart) -> tap the Cart (Home.Cart) -> Cart panel (State.Cart)
 -> a row's upgrade arrow -> Furniture Upgrade (State.FurnitureUpgrade): one tab per row along the top, the selected
@@ -49,6 +54,9 @@ COST_ICON_ROI = [40, 930, 640, 85]  # Upgrade Cost icons (centred, 3 today at x 
 COST_TEXT_ROI = [40, 1008, 640, 36]  # "3.27K/65" under each icon
 UPGRADE_ROI = [200, 1075, 320, 65]
 UPGRADE_BUTTON = (360, 1107)
+PANEL_BUTTONS_ROI = [480, 420, 210, 640]  # right end of the Cart panel's rows: upgrade arrows and "Unlock" buttons
+POPUP_ROI = [0, 560, 720, 560]  # an unlock confirmation, if the game shows one (furniture popups put "Unlock" low)
+MAX_UNLOCKS = 3
 COST_TEMPLATES = ("wood", "stone", "rolla")
 TEMPLATE_DIR = REPO_ROOT / "resource" / "image" / "cart"
 MATCH = 0.75
@@ -149,6 +157,51 @@ class CartUpgrader:
         self._tap(PANEL_ARROWS["stone"], 2.5)
         return self.det.detect().state == "furniture_upgrade"
 
+    # --- R-137: free row unlocks --------------------------------------------------------------------------------
+
+    @staticmethod
+    def unlock_buttons(lines) -> list[tuple[int, int]]:
+        """Centres of row buttons that read exactly "Unlock" (not "Unlocks at Lv. 45"), from OCR lines of the panel."""
+        return [(b[0] + b[2] // 2, b[1] + b[3] // 2) for t, b in lines if re.fullmatch(r"\s*Unlock\s*!?\s*", t)]
+
+    def unlock_rows(self) -> list[str]:
+        """Cart panel showing: press every row's free Unlock (R-137). Returns what was unlocked; leaves the panel open
+        (reopened if the unlock closed it). Stops on any cost or spend word."""
+        done: list[str] = []
+        for _ in range(MAX_UNLOCKS):
+            frame = self.dev.screenshot()
+            buttons = self.unlock_buttons(self.det.read_text(PANEL_BUTTONS_ROI, frame=frame))
+            if not buttons:
+                break
+            x, y = buttons[0]
+            row = " ".join(t for t, _ in self.det.read_text([150, y - 35, 330, 70], frame=frame)).strip() or f"row@{y}"
+            log.info("Cart row %r has a free Unlock: pressing it (R-137)", row)
+            self._tap((x, y), 2.5)
+            state = self.det.detect().state
+            if state != "cart":
+                # A confirmation popup: read it before pressing anything (R-043: never spend).
+                words = " ".join(t for t, _ in self.det.read_text(POPUP_ROI))
+                if re.search(SPEND_WORDS, words, re.I) or re.search(r"\d+\s*/\s*\d+", words):
+                    log.warning("unlock of %r asks for something (%s); backing out. frame %s", row, words,
+                                save_unknown(self.dev, "cart_unlock"))
+                    self.dev.back()
+                    time.sleep(1.5)
+                    done.append("needs_decision")
+                    break
+                confirm = self.unlock_buttons(self.det.read_text(POPUP_ROI))
+                if confirm:
+                    self._tap(confirm[0], 2.5)
+                self._tap(ui.ABOVE_POPUP, 1.5)  # unlocked banner / reward card
+            elif (x, y) in self.unlock_buttons(self.det.read_text(PANEL_BUTTONS_ROI)):
+                log.warning("the Unlock on %r is still there after pressing it; leaving it. frame %s", row,
+                            save_unknown(self.dev, "cart_unlock"))
+                break
+            done.append(row)
+            progress(("unlocked", row))
+            if self.det.detect().state != "cart" and not self.open_panel(restart=False):
+                break
+        return done
+
     # --- reading the Furniture Upgrade screen -------------------------------------------------------------------
 
     def select(self, row: str) -> Optional[int]:
@@ -202,6 +255,15 @@ class CartUpgrader:
         if not self.open_panel():
             out["end"] = "no_cart"
             log.warning("Cart panel not found; frame %s", save_unknown(self.dev, "cart_panel"))
+            self.nav.go_home()
+            return out
+        out["unlocked"] = self.unlock_rows() if not check else []
+        if "needs_decision" in out["unlocked"]:
+            out["end"] = "needs_decision"
+            self.nav.go_home()
+            return out
+        if self.det.detect().state != "cart" and not self.open_panel(restart=False):
+            out["end"] = "no_cart"
             self.nav.go_home()
             return out
         if not self.open_upgrade():
