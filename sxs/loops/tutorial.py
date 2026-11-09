@@ -74,6 +74,8 @@ def find_highlight(frame: np.ndarray, glow: bool = False) -> Optional[tuple[int,
             continue
         if max(w, h) < 85 and abs(w - h) < 8:
             continue  # small round icons (battle_prep portraits, world-map buttons) pass the other tests
+        if x + w < 120 and y + h < 120:
+            continue  # the HUD portrait's yellow ring (live 2026-11-09: paused Roam twice for 90 s on the island map)
         m = mask[y:y + h, x:x + w] > 0
         b = max(6, min(w, h) // 8)
         inner = m[b:-b, b:-b]

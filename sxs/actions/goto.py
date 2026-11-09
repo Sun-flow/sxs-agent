@@ -116,6 +116,19 @@ def _widen(dev) -> bool:
     return True
 
 
+SLIDER_DRAG = (682, 1090, 682, 1030)  # zoom knob from full zoom-out a quarter up (`world/area_map_survey_zoom.png`)
+
+
+def survey_zoom(dev) -> None:
+    """Area map open: zoom out fully, then one step closer by dragging the knob (mae, 2026-11-09: fully zoomed out the
+    labels merge; the "+" button jumps to the closest zoom). The whole kingdom then nearly fits the screen."""
+    for _ in range(4):
+        dev.tap(*AREA_MAP_ZOOM_OUT)
+        time.sleep(0.4)
+    dev.swipe(*SLIDER_DRAG, 600)
+    time.sleep(1.2)
+
+
 def go_to(dev, det, target) -> str:
     """target: an area name on the area map, or an (x, y) point there. Returns "arrived" (walked and stopped),
     "no_move" (coordinates didn't change: blocked or unreachable), "no_label", or "not_on_map"."""
@@ -171,6 +184,11 @@ def go_to(dev, det, target) -> str:
         # element now in the middle of the screen).
         time.sleep(0.5)
         point = target(dev.screenshot())
+        if point is None:
+            # The map opens at whatever zoom it was left at, so the target may just be off screen (live 2026-11-09:
+            # "no_target" for Verdantglade V while its dots were outside the view): look again zoomed out.
+            survey_zoom(dev)
+            point = target(dev.screenshot())
         if point is None:
             dev.tap(*ui.BACK_ARROW)
             time.sleep(1.5)

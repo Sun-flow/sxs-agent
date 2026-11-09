@@ -110,7 +110,8 @@ def minimap_target(det, frame: np.ndarray, lookahead: int = 4, player_xy=None,
                    buildings_seen: Optional[set] = None, items_ok: bool = True,
                    player: Optional[tuple[int, int]] = None, monsters_ok: bool = True,
                    visited_xy: Optional[set] = None, outside_xy: Optional[set] = None,
-                   cross_border: bool = False, home_light: Optional[bool] = None) -> Optional[tuple[int, int]]:
+                   cross_border: bool = False, home_light: Optional[bool] = None,
+                   shaded_walk: bool = True) -> Optional[tuple[int, int]]:
     """Plan on the minimap: shortest walkable path to the nearest pickup or unexplored walkable tile, else to a gold
     building not visited yet this run (dungeons, mines: interactable; their cards go through the rules), then tap
     a few tiles along it (relative to the player, found by its name label). None if nothing is reachable.
@@ -148,7 +149,10 @@ def minimap_target(det, frame: np.ndarray, lookahead: int = 4, player_xy=None,
         if player_xy is not None and visited_xy:
             stood |= {(r, c) for r in range(n) for c in range(n) if minimap.world_tile(mm, (r, c), player_xy) in visited_xy}
         path = minimap.path_to_nearest(mm, goals=("fog_lead",), skip=stood, cross_border=cross_border)
-        if len(path) < 2:
+        if len(path) < 2 and shaded_walk:
+            # Not in a zone still being explored (live 2026-11-09, Verdantglade V at 78%): there every tile is drawn
+            # shaded until the zone is blessed, so "unexplored ground" never runs out and the walk paced for 6
+            # minutes without gaining a percent. The % comes from objects; the caller finds them on the big map.
             path = minimap.path_to_nearest(mm, goals=("walk_unexplored",), skip=stood, cross_border=cross_border)
     if len(path) < 2:
         return None
@@ -188,11 +192,16 @@ def map_labels(det, frame) -> dict:
     return out
 
 
-def zone_picker(det, kinds, home: Optional[str]):
-    """Big-map picker: the nearest object of `kinds` that is in our zone (R-132)."""
+ZONE_PICK_PX = 900  # big-map search radius for this zone's objects (the label check keeps it to the zone)
+
+
+def zone_picker(det, kinds, home: Optional[str], skip=()):
+    """Big-map picker: the nearest object of `kinds` that is in our zone (R-132), anywhere on the map (live
+    2026-11-09: a 260 px radius found nothing while Verdantglade V still had dots at its far edge)."""
     def pick(frame):
         labels = map_labels(det, frame) if home else None
-        return (area_map.nearest(frame, kinds, labels=labels, home=home) or (None, None))[1]
+        return (area_map.nearest(frame, kinds, max_px=ZONE_PICK_PX, labels=labels, home=home, skip=skip)
+                or (None, None))[1]
     return pick
 
 
@@ -231,6 +240,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
         goto.go_to(dev, det, area)
     stood_on: set = set()  # map coordinates the character has stood on this run
     map_tries = 0
+    map_arrivals: list = []  # where big-map walks to an object ended (a repeat means we can't take it)
     outside: set = set()  # map coordinates where we found ourselves in another zone (R-132)
     tapped, saved_fight = None, False  # (frame, screen point) of the last walk tap, for the collectibles store
     free = not area_blessed(dev, det, area)  # unexplored: fights and pickups cost nothing (R-065)
@@ -367,14 +377,14 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen, items_ok=items_ok,
                                         player=player, monsters_ok=fight,
                                         visited_xy=stood_on, outside_xy=outside, cross_border=cross,
-                                        home_light=not free)
+                                        home_light=not free, shaded_walk=not free)
                 if target is None and recentre_on_player(dev, det, frame):
                     frame = dev.screenshot()
                     player = player_on_screen(det, frame)
                     target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen, items_ok=items_ok,
                                             player=player, monsters_ok=fight,
                                             visited_xy=stood_on, outside_xy=outside, cross_border=cross,
-                                        home_light=not free)
+                                        home_light=not free, shaded_walk=not free)
                 spot = to_world(xy, player, target) if target else None
                 if spot and any(max(abs(spot[0] - b[0]), abs(spot[1] - b[1])) <= 1 for b in bumped):
                     # The path runs through something that opens a card (seen: a blessed Goddess Statue). Tapping it
@@ -414,7 +424,26 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                         pick = zone_picker(det, kinds, home_area)
                         why = goto.go_to(dev, det, pick)
                         log.info("area-map walk to the nearest %s: %s", "/".join(kinds), why)
+                        if why == "no_target" and free and not goto.same_area(goto.area_name_here(det), home_area):
+                            log.info("no object found from outside %s; walking back first", home_area)
+                            goto.go_to(dev, det, home_area)
+                            continue
+                        if why == "no_target" and free:
+                            # Nothing left on the minimap or the big map for this zone: say so instead of pacing
+                            # (live 2026-11-09). The roam loop records it as this zone's stuck point.
+                            log.warning("STUCK %s: no dot, monster or structure left in this zone on the minimap or "
+                                        "the big map, and the %% isn't 100: the rest is behind something we don't "
+                                        "handle yet (a gate card, a puzzle, fog the map doesn't show)", home_area)
+                            return "no_objects"
                         if why == "arrived":
+                            here_xy = goto.coords(det)
+                            if here_xy and any(max(abs(here_xy[0] - a[0]), abs(here_xy[1] - a[1])) <= 2
+                                               for a in map_arrivals):
+                                log.warning("STUCK %s: the big-map walk keeps ending at %s; the object there isn't "
+                                            "taken by walking onto it", home_area, here_xy)
+                                return "object_unreachable"
+                            if here_xy:
+                                map_arrivals.append(here_xy)
                             continue
                 if target:
                     log.info("walking toward unexplored ground at %s (map %s)", target, spot)
@@ -511,5 +540,5 @@ def _run(ctx, opts):
 
 
 # Ends that mean the area ran out of things to do, not that something went wrong.
-OK = {"no_fog", "timeout", "power_gate", "stuck"}
+OK = {"no_fog", "timeout", "power_gate", "stuck", "no_objects", "object_unreachable"}
 LOOP = Loop("fogwalk", "Fog Walk", "explore one side area: minimap targets, then the fog edge", _run, _args, ok=OK)
