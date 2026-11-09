@@ -19,6 +19,8 @@ into a folder by situation. The name's prefix picks the folder (`sxs/core/screen
 | `minimap/` | Minimap crops and tile samples for the minimap classifier; `legend_*` are mae's legend screenshots and crops (R-066, R-130) |
 | `unlabeled/` | **The bank:** screens nobody has named yet, with a table for mae to fill in (`unlabeled/README.md`) |
 
+`labels.json` holds the boxes mae drew on screens in the labeler (see below).
+
 `expected.json` holds what the state detector must report on each screen (`states`) and mae's notes on labelled
 screens (`notes`). `tests/check_states_offline.py` runs the detector over every folder except `icons/`, `minimap/`
 and `unlabeled/`.
@@ -30,3 +32,20 @@ and `unlabeled/`.
 3. mae fills in the row: a name, the state, and what it is. Commit it, or tell an agent what to write.
 4. `python -m sxs label` moves each filled row's screen into its folder and records its state and notes in
    `expected.json`. Then run `python tests/check_states_offline.py NAME` to see whether the detector agrees.
+
+## The labeler (mae, 2026-11-09)
+
+`python -m sxs labeler` opens a page at http://127.0.0.1:8765 (stdlib server plus Pillow, local only). It lists
+every screen, the bank first. On a screen:
+
+- **Drag to draw a box** around anything that matters, name it (`claim_button`), and pick what it is: button,
+  text (a line to read with OCR), icon, badge or region. Add a note on how to handle it if useful.
+- **Fill in the screen**: name, folder, state, what it is (the same fields as the bank table).
+- **Save** writes the boxes to `docs/screens/labels.json`, cuts a crop of each box ticked "save crop as template"
+  into `resource/image/labels/<screen>/<box>.png` with a row in its `manifest.json`, and writes the screen's row in
+  `unlabeled/README.md` (bank) or its state and notes in `expected.json` (filed screens).
+- **File labelled screens** runs `python -m sxs label`; boxes and crops follow the screen to its new name.
+
+The bot uses them through `sxs/vision/labels.py` (`find(frame, "cart", "upgrade_button")`, `python -m sxs see
+labels FRAME`), and a pipeline node can use the crop as `template: "labels/<screen>/<box>.png"`. Boxes are in the
+screen file's pixels: 720x1280 frame coordinates for reference frames.

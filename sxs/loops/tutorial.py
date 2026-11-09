@@ -35,6 +35,7 @@ GLOW_STATES = ("companions",)  # screens whose tutorial highlight is the filled 
 INVITE_COMPANIONS = True
 HINT_TO_BUTTON_DY = 100
 # Never tap a highlight whose text looks like spending: gacha pulls, shop buys, premium currency.
+DECISION_OPTIONS = r"^(Ascend to|Change Class)"  # dialogue options only mae answers (R-054)
 NEVER_TAP = r"Pray|Buy|Purchase|Refresh|Spend|Dawnium|Recharge|Top ?up"
 
 
@@ -99,6 +100,15 @@ def follow(dev: Device, det: StateDetector, steps: int = 40) -> str:
     for _ in range(steps):
         d = det.detect()
         if d.state == "dialogue_choice":
+            # R-054 (mae): class choices are hers. Read the options first; on "Ascend to" / "Change Class" take Leave
+            # and stop, as the explore loop does.
+            options = det.read_text([60, 300, 600, 750])
+            if any(re.search(DECISION_OPTIONS, t) for t, _ in options):
+                leave = [b for t, b in options if re.search(r"^Leave$", t)]
+                if leave:
+                    dev.tap(*ui.centre(leave[0]))
+                log.warning("dialogue choice needs mae: %s", [t for t, _ in options])
+                return "needs_decision"
             dev.tap(360, d.box[1] + d.box[3] // 2)
         elif d.state == "dialogue":
             dev.tap(*ui.DIALOGUE_NEXT)

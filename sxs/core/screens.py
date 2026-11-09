@@ -18,6 +18,7 @@ import shutil
 from pathlib import Path
 from typing import Optional
 
+from . import labels
 from .paths import CAPTURES, SCREENS
 
 # Folder by name prefix, first match wins. Exact names in FOLDER_OF override the prefixes.
@@ -114,6 +115,25 @@ def _write_rows(rows: list[dict]) -> None:
     BANK_INDEX.write_text(BANK_HEADER + body, encoding="utf-8")
 
 
+def bank_rows() -> list[dict]:
+    """The bank's rows: {file, name, folder, state, what}."""
+    return _rows()
+
+
+def set_row(file: str, name: str = "", folder: str = "", state: str = "", what: str = "") -> None:
+    """Fill in (or add) one bank row, as the labeling UI does. `python -m sxs label` files it later."""
+    clean = {k: v.replace("|", "/").replace("\n", " ").strip()
+             for k, v in dict(name=name, folder=folder, state=state, what=what).items()}
+    rows = _rows()
+    for r in rows:
+        if r["file"] == file:
+            r.update(clean)
+            break
+    else:
+        rows.append(dict(clean, file=file))
+    _write_rows(rows)
+
+
 def bank(save_png, source: Path = UNKNOWN_FRAMES) -> list[str]:
     """Copy each frame in captures/unknown/ that isn't banked yet into unlabeled/ (as a small reference PNG via
     `save_png(img, path)`), and add an empty row for it. Returns the new file names."""
@@ -165,6 +185,7 @@ def label() -> tuple[list[str], list[str]]:
             dest = SCREENS / folder / f"{name}.png"
             dest.parent.mkdir(exist_ok=True)
             shutil.move(str(src), dest)
+            labels.rename(f"unlabeled/{r['file']}", f"{folder}/{name}.png")  # boxes drawn in the labeler follow
             if r["state"] != "-":
                 expected["states"][name] = r["state"]
             if r["what"]:

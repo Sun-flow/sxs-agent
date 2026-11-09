@@ -53,6 +53,32 @@ def find_badges(frame: np.ndarray, roi=None, min_area: int = MIN_AREA) -> list[t
     return sorted(out, key=lambda p: (p[1] // 20, p[0]))
 
 
+def find_up_pips(frame: np.ndarray, roi=None) -> list[tuple[int, int]]:
+    """Centres of the small light-blue discs with a white up arrow that sit where a red "!" would (mae, 2026-11-09):
+    on a gear slot it means the piece can be enhanced (the red "!" means a better piece to swap in, R-088); skill
+    icons show them too (R-104). About 22 px across: blue H 85-108, S 45-120 (the sky behind is paler, S 20-35), with
+    a white arrow inside. Other light-blue art matches as well, so look only where a pip can sit (near_any)."""
+    ox = oy = 0
+    if roi:
+        x, y, w, h = roi
+        frame, ox, oy = frame[y:y + h, x:x + w], x, y
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    h, s, v = hsv[..., 0], hsv[..., 1], hsv[..., 2]
+    blue = ((h >= 85) & (h <= 108) & (s >= 45) & (s <= 120) & (v >= 140)).astype(np.uint8)
+    blue = cv2.morphologyEx(blue, cv2.MORPH_CLOSE, np.ones((3, 3), np.uint8))  # the arrow splits the disc
+    white = ((s < 30) & (v > 230)).astype(np.uint8)
+    n, _, stats, cents = cv2.connectedComponentsWithStats(blue, 8)
+    out = []
+    for i in range(1, n):
+        bx, by, bw, bh, area = stats[i]
+        if not (14 <= bw <= 32 and 14 <= bh <= 32) or max(bw, bh) / max(1, min(bw, bh)) > MAX_ASPECT:
+            continue
+        if area < 0.4 * bw * bh or int(white[by:by + bh, bx:bx + bw].sum()) < 30:
+            continue
+        out.append((int(cents[i][0]) + ox, int(cents[i][1]) + oy))
+    return sorted(out, key=lambda p: (p[1] // 20, p[0]))
+
+
 def near_any(badges: list[tuple[int, int]], xy, radius: int = 70) -> bool:
     """True if a badge sits within radius of xy (badges ride on the upper right corner of their button)."""
     return any(abs(bx - xy[0]) <= radius and abs(by - xy[1]) <= radius for bx, by in badges)
@@ -65,7 +91,9 @@ def main(argv: list[str]) -> int:
         from ..core.device import Device
         frame = Device().screenshot()
     for b in find_badges(frame):
-        print(b)
+        print("badge", b)
+    for b in find_up_pips(frame):
+        print("up pip", b)
     return 0
 
 
