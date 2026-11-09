@@ -11,6 +11,7 @@ Walk to each green minimap dot and interact with what it marks, beat roaming mon
 ### R-131 · Save a reference of every collectible and monster met while exploring
 - Each time exploration collects an interactable or fights a monster, save a reference crop of it, tagged "exploration collectibles" (mae). Explore then watches for things it recognises it needs to collect or fight.
 - Store: `resource/image/explore/collectibles/`, one crop per object plus a row in a manifest.json there (name, kind: collectible / interactable / monster, area, date, stamina cost if any). Builder designs the code ❓.
+- Goal (mae, 2026-11-09): every pickup ends up in a class of reference images that the fog walk searches for while exploring a zone. Whether all pickups share one glow is not established ❓: only the rarer pickups are known to carry a blue aura (R-122), and the store holds no pickup crops yet (one monster).
 - Use the crops in unexplored areas to spot monsters and interactables that must be fought or collected (free there). In explored, blessed areas the same things cost stamina: a crop match there must not trigger a tap unless a loop is deliberately farming (R-065).
 *told* · R-002, R-065, R-066, R-107
 

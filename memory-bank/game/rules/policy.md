@@ -30,7 +30,7 @@ Read before pressing any button that might spend, and on any class, social, acco
 - **Pick a "Choose Your Reward" option when both are valid**: ask mae; only a lone Class Mismatch lets the bot take the other (R-129).
 
 **Allowed (the only exceptions):**
-- **Healing food**: buy with Rolla or cook, eat freely; conserve stat-boost **dishes** (R-061).
+- **Healing food and healing dishes**: buy or craft with Rolla (approved, no limit), eat freely; conserve **permanent dishes** (R-138).
 - **Skill pulls**: only `python -m sxs pray --pulls N --handler-approved`, started by mae for that run, x10 only (R-093).
 - **Guild donations**: the first two a day, the 2nd costing 20 Dawnium (R-103).
 - **Vendor Booth Vault "Free" x30 Stamina**: once a day, only if OCR reads exactly "Free" (mae) (R-120).

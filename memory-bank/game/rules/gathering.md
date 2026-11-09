@@ -42,6 +42,10 @@ Never the ring or icon over the character (R-123). Bellflower template: mae's pi
 Blue-aura pickups are rarer and give bonus ingredients. Take them before plain ones in reach.
 *told* · R-124
 
+### R-139 · A monster guarding a pickup: fight it, then resume the pickup
+When a monster blocks or guards a pickup, the gatherer calls the shared fight function, then goes back to the same pickup and collects it (mae, 2026-11-09). The fight follows the usual checks: HP at 70% (R-061) and the power limit (R-127).
+*told* · R-061, R-124, R-127
+
 ### R-109 · Always tap special nodes with a green timer circle
 Special nodes or encounters carry a green timer circle at their upper right and are high value: always tap them. A Grand Mine gives one free material collection. Chat announces "Grand Iron Mine" / "Grand Sand Mine" spawns in Verdantglade ❓ (where they appear is unknown).
 *told* · R-108, R-124
