@@ -24,6 +24,7 @@
 - Upgrades and gathering: `sxs.loops.upgrade` follows character-screen badges (banded gear, Resonance, Quick Upgrade, ascension, class levels, rank; relic banding defined ahead); `sxs.loops.gather` `collect(target)` for ore, sand, essence, Rolla, Bellflower (`docs/step5-upgrades.md`).
 - Pulls: `sxs.loops.pray` (handler-approved, x10 only). Shop survey: `scripts/shop_survey.py`, tables in `docs/shop-tables.md`.
 - Game knowledge: `game/rules/` (by topic) and `game/nav-graph.json`.
+- Screen labeler (2026-11-09, branch `claude/project-thread-genq9f`): `python -m sxs labeler` web page where mae names screens and boxes buttons, text, icons; boxes in `docs/screens/labels.json`, template crops in `resource/image/labels/`, matched by `sxs/vision/labels.py`. No boxes drawn yet: mae's first pass over the bank is next.
 
 ## In progress
 

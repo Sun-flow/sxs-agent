@@ -10,6 +10,7 @@
 | `check_upgrade_logic.py` | MaaFramework, OpenCV | Badge finder, gather pickup choice, relic banding plan, Cart row pick and cost icons |
 | `check_progress.py` | MaaFramework + OCR models | Progress tracker: stat readers on reference screens, bands, the day report (temp logs), the home > profile > Journal route replayed |
 | `check_zones.py` | OpenCV, MaaFramework (imports only) | Minimap zone-border detector on reference frames, border blocks the planner, location tree decisions (R-132, R-135), area-map pan merge, Cart Unlock finder (R-137) |
+| `check_labeler.py` | Pillow, OpenCV | Labeler page API in a temp copy: save boxes, crops and manifest, bank row, filing moves boxes and crops, paths outside docs/screens refused, `vision/labels.py` finds a crop |
 | `smoke_test.py [--no-restart]` | Live emulator | Cold start → home → menus → home |
 
-Run the first eight after any code change; `smoke_test.py` after changing navigation.
+Run the first nine after any code change; `smoke_test.py` after changing navigation.
