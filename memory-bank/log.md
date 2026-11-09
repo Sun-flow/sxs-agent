@@ -3,6 +3,9 @@
 > **Last updated**: 2026-11-05
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
 
+### 2026-11-09 · Game docs: unlock Cart rows (Claude Code, cloud)
+- #42 merged (Cart loop, R-136, blue-arrow skills). mae (19:35): always unlock any available Cart production row, it is free (new R-137; Chrono Sand waits for the Cart loop to learn the Unlock button).
+
 ### 2026-11-05 (early morning) · Strengthening pass, Cart upgrade script (Claude Code, mae's PC via Remote Control)
 - Strengthening (mae's ask): gearswap --all kept all four pieces; Upgrade Loop claimed 2 rank Goals but skipped skills (blue arrows, no red "!"); Quick Upgrade by hand raised every skill to Lv 17-18 (about 3K Battle Essence); one Skill Goal claimed. Power 22.2K to 22.4K. Fix: the Upgrade Loop always opens the Skill page (the Quick Upgrade caption is the need check).
 - New `python -m sxs cart` (`sxs/loops/cart.py`, daily step `cart_upgrade`): claim, open the Cart, Furniture Upgrade screen (new state `furniture_upgrade`), Stone and Wood kept even (Stone on ties, R-136), cost icons matched to Wood/Stone/Rolla templates and have/need read before every press. Live: Stone and Wood Lv 3 to 5; costs Wood 25-75, Stone 25-75, Rolla 190-215 per step; capped at Lv 5 by "Unlocks at Blessing Lv. 6" (run ends `capped`, ok).
@@ -61,6 +64,3 @@
 - mae asked for concise rules organised by situation. The single rules file (101 KB) became `game/rules/` (12 situation files + index): 99 rules kept with their IDs, 27 merged (retired table in the index), ~40% fewer words, two independent fidelity passes against the original. New `scripts/check-rules.py`. Merged IDs remapped in the nav graph and code comments.
 - Memory bank: the handoff file split into `playbook.md` (process) and `status.md` (state, next, waiting on mae); `environments.md` split out of `notes.md`; game facts removed from notes (they're rules); 9 log entries archived. Step 1-5 docs rewritten against the code (step 4's step table was 8 steps behind). Branch `claude/project-thread-qq78yt`.
 - The `cards.json` never list was widened in PR #29. Sibling PR (repo audit) adds the sxs, scripts and docs README indexes that context.md and playbook.md point at, and moves bellflower_mae.png to docs/screens.
-
-### 2026-11-04 (late morning) · Bed, pathfinding, Roam Loop, Damp Woods (Claude Code, rif-love-su via Remote Control)
-- Same branch. Bed pan fix (Lv 22). New `sxs/roam.py`; Fog Walk: monsters, stamina reserve, bumped-card step-aside, neighbour areas; minimap shaded thresholds; goto takes (from, to, fraction); rules `blessed_statue`, `power_gate_open`. Damp Woods explored and blessed (Lv 23, 17.4K). Verdantglade III not enterable from Moonveil. Rules batch sent (folded into docs PR #24). Details in handoff.md.

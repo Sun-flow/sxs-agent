@@ -14,7 +14,7 @@
 ## Strengthening and the Cart (2026-11-05 early morning)
 
 - Strengthening done: power 22.4K. `python -m sxs upgrade` now always opens the Skill page (Quick Upgrade shows blue arrows, not a red "!"). At the end the Character screen's weapon slot showed a red "!" and chest/boots blue arrows: recheck with `gearswap` and the gear pass.
-- Cart: `python -m sxs cart` (also daily step `cart_upgrade`) raises Stone and Wood evenly (R-136). Both are Lv 5, capped: Lv 6 needs Blessing Lv 6 (the bed's Blessing Level). Costs are Wood + Stone + Rolla only. ❓ How the Blessing Level rises (blessing statues? R-035, R-070).
+- Cart: `python -m sxs cart` (also daily step `cart_upgrade`) raises Stone and Wood evenly (R-136). Both are Lv 5, capped: Lv 6 needs Blessing Lv 6 (the bed's Blessing Level). Costs are Wood + Stone + Rolla only. ❓ How the Blessing Level rises (blessing statues? R-035, R-070). To do: the Cart loop should press any row's Unlock button (Chrono Sand waits; mae 2026-11-09: unlocking is free, R-137).
 
 ## Works (all on main, PRs #1–#30)
 
