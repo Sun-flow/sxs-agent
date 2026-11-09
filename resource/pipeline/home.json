@@ -3,8 +3,30 @@
         "doc": "Trophy bubble above the Cart on the home scene when AFK loot is waiting. The scene scrolls sideways, so the bubble is searched for; tap it to open the Cart panel.",
         "recognition": "TemplateMatch",
         "template": "home/cart_bubble.png",
-        "roi": [0, 120, 720, 880],
+        "roi": [
+            0,
+            120,
+            720,
+            880
+        ],
         "threshold": 0.75,
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "Home.Cart": {
+        "doc": "The Cart's wheel on the home scene (night and day looks; the cart body changes with level and load, the wheel doesn't). Tap it to open the Cart panel (State.Cart). The scene scrolls sideways, so it is searched for.",
+        "recognition": "TemplateMatch",
+        "template": [
+            "home/cart_night.png",
+            "home/cart_day.png"
+        ],
+        "roi": [
+            0,
+            500,
+            720,
+            560
+        ],
+        "threshold": 0.8,
         "pre_delay": 0,
         "post_delay": 0
     }
