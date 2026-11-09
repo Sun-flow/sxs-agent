@@ -22,7 +22,7 @@ Walk to each green minimap dot and interact with what it marks, beat roaming mon
 - Second sign (mae, 2026-11-09): on the minimap, a zone border is often where explored (lightened) ground meets unexplored (shadowed) ground (R-066). Those edges are usually regular and clearly defined, unlike the ragged edge of fog being walked into.
 - Code (`sxs/vision/minimap.py`): `border_mask` / `border_tiles` find the dotted line: light grey, 1–2 px wide, S < 50 (live lines are blurrier than the crops), V 105–200, straight runs of 12+ px with green on both sides. `shade_border` adds mae's cue: straight light/shaded edges of 4+ tiles, measured relative to the zone being explored (the shaded side while it is unexplored). The fog walk treats border tiles as walls unless roam is walking into the target zone, and `path_to_nearest` keeps a one-tile buffer round them (the drawn line is accurate only to a tile).
 - Big-map walks skip objects across a dotted line or nearer another zone's label (a walk from Verdantglade V once ended in Zephyr Vale).
-- Zones can border several others and have several ways in and out (mae): a crossing point is a valid way in, not an error; record it in the location tree (R-135).
+- Zones can border several others and have several ways in and out (mae): a crossing point is a valid way in, not an error. The location tree keeps an `entries` list per zone (one per neighbour); any walk back into a zone counts as a way in, and the bot tries the most recent working way in first (R-067, R-135).
 - Seen: Verdantglade IV (explored) lies directly south of Verdantglade V, line at about y 107 for x 143–147; Zephyr Vale borders V to the east.
 - Auroradrasil is its own zone, not part of Verdantglade V (mae), even though it sits inside V on the map; it has its own Lost Goddess Statue (R-070). Travelling to finish a zone must land on that zone's own ground, not on a neighbour inside it.
 *told, observed* · `world/zone_boundary_troll_lair_mae.png`, `world/zone_boundary_zephyr_vale_mae.png`, `minimap/legend_zone_boundary_mae.png`, `world/zone_edge_verdantglade_v.png`, `world/zone_edge_verdantglade_v_on_line.png` · R-065, R-066, R-127, R-130
@@ -83,8 +83,8 @@ When fog-walking (R-065) or finding a way to an out-of-the-way spot, look on the
 ## Getting somewhere
 
 ### R-067 · Areas join by land bridges: head for the connection, not the straight line
-Connections can be far off the straight line (Verdantglade II to Moonveil Woods is a land bridge at the minimap's bottom). Straight walks hit walls and water: path-find over walkable minimap tiles (R-066) to the connection, or travel via the area map (R-068), whose taps auto-path.
-*told* · R-066, R-068
+Connections can be far off the straight line (Verdantglade II to Moonveil Woods is a land bridge at the minimap's bottom). A zone can have several ways in and border several zones (mae); try the most recent way in that worked first (R-132). Straight walks hit walls and water: path-find over walkable minimap tiles (R-066) to the connection, or travel via the area map (R-068), whose taps auto-path.
+*told* · R-066, R-068, R-132
 
 ### R-068 · Travel far or into unexplored ground through the area map
 1. Tap the minimap to open the area map (the white box is the camera viewport).
