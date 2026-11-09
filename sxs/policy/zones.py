@@ -20,7 +20,8 @@ Zone fields (all optional except kingdom):
     pct           exploration % (100 = explored: the area map shows no % line), null if never read
     blessed       true / false / null (unknown)
     map_point     [x, y] of the label on the stitched area-map survey (only comparable within one kingdom survey)
-    entry         {"via": zone, "xy": [x, y], "day": ...}: the last walk that got in (map coordinates on arrival)
+    entries       [{"via": zone, "xy": [x, y], "day": ...}]: every way in a walk has used, one per neighbour (map
+                  coordinates on arrival). mae, 2026-11-09: zones have several ways in and out and border several zones.
     failed_via    {zone: day}: neighbours a walk in from made no progress, by server day
     first_seen, last_seen   dates
     notes         free text; gaps are open questions (shown by `python -m sxs zones`)
@@ -186,7 +187,9 @@ class Tree:
             return
         z = self.zones[k]
         if ok:
-            z["entry"] = {"via": self.key(via) or via, "day": day, **({"xy": list(xy)} if xy else {})}
+            v = self.key(via) or via
+            z["entries"] = [e for e in z.get("entries", []) if e.get("via") != v]
+            z["entries"].append({"via": v, "day": day, **({"xy": list(xy)} if xy else {})})
             z.get("failed_via", {}).pop(self.key(via) or via, None)
             self.link(k, via, "walked", f"entered {k} from here" if not xy else f"entered {k} at {tuple(xy)}")
         else:
@@ -217,13 +220,14 @@ class Tree:
         return todo[0] if todo else None
 
     def entry_candidates(self, target: str, day: str) -> list[str]:
-        """Neighbours to walk in from, best first: the known entry, then walked links, then explored map neighbours;
+        """Neighbours to walk in from, best first: known ways in (latest first), then walked links, then explored map
+        neighbours;
         ones that failed today go last."""
         z = self.get(target) or {}
         failed = {k for k, v in z.get("failed_via", {}).items() if str(v).startswith(day)}
-        known = (z.get("entry") or {}).get("via")
+        known = [e["via"] for e in reversed(z.get("entries", []))]
         cands = self.neighbours(target)
-        rank = lambda n: (n in failed, n != known, self.neighbours(target, ("walked",)).count(n) == 0,  # noqa: E731
+        rank = lambda n: (n in failed, (known.index(n) if n in known else len(known)), self.neighbours(target, ("walked",)).count(n) == 0,  # noqa: E731
                           not self.explored(n))
         return sorted(dict.fromkeys(cands), key=rank)
 
@@ -232,7 +236,7 @@ class Tree:
         for k, z in sorted(self.zones.items()):
             if z.get("kind", "zone") != "zone" or self.done(k):
                 continue
-            if not z.get("entry") and not self.neighbours(k, ("walked",)):
+            if not z.get("entries") and not self.neighbours(k, ("walked",)):
                 out.append(f"{k}: no known way in" + (f" (failed from {', '.join(z['failed_via'])})"
                                                       if z.get("failed_via") else ""))
             if z.get("cp") is None and z.get("pct") != 100:
@@ -249,7 +253,7 @@ def main(argv: list[str]) -> int:
                 continue
             state = "town" if z.get("kind") == "town" else (
                 "blessed" if z.get("blessed") else f"{z['pct']}%" if z.get("pct") is not None else "?%")
-            via = (z.get("entry") or {}).get("via")
+            via = ", ".join(e["via"] for e in z.get("entries", []))
             print(f"  {k:<20} {(str(z['cp']) + 'K') if z.get('cp') else '-':>6}  {state:<8} "
                   f"next to: {', '.join(t.neighbours(k)) or '?'}" + (f"  (enter from {via})" if via else ""))
     q = t.open_questions()

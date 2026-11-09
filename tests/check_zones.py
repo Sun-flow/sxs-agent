@@ -62,11 +62,13 @@ with tempfile.TemporaryDirectory() as d:
     t2.path = Path(d) / "zones.json"
     t2.observe("Jungle Camp", pct=12, today="2026-11-09")
     t2.record_entry("Jungle Camp", "Verdantglade V", True, "2026-11-09", xy=(201, 80))
+    t2.record_entry("Jungle Camp", "Drasilgard", True, "2026-11-09", xy=(120, 60))
     t2.save()
     t3 = Tree.load(t2.path)
-    check("an entry that worked is saved", t3.zones["Jungle Camp"]["entry"]["via"], "Verdantglade V")
+    check("a working way in clears its failure", "Drasilgard" in t3.zones["Jungle Camp"].get("failed_via", {}), False)
     check("and becomes a walked link", "Verdantglade V" in t3.neighbours("Jungle Camp", ("walked",)), True)
-    check("known entry ranks first", t3.entry_candidates("Jungle Camp", "2026-11-09")[0], "Verdantglade V")
+    check("several ways in are kept", [e["via"] for e in t3.zones["Jungle Camp"]["entries"]], ["Verdantglade V", "Drasilgard"])
+    check("the latest way in ranks first", t3.entry_candidates("Jungle Camp", "2026-11-09")[0], "Drasilgard")
     check("survey % updates the tree", t3.zones["Jungle Camp"]["pct"], 12)
 
 # Survey merge: pans of one opening put into the first view's coordinates.
