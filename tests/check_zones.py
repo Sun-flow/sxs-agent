@@ -31,6 +31,12 @@ check("border tiles east of the player", {(10, 13), (11, 13)} <= set(mm.border),
 for name in ("world_map", "world_map_explore", "world_map_monsters", "world_map_player_pointer"):
     check(f"no border on {name}", len(minimap.read(cv2.imread(str(SCREENS / f"world/{name}.png"))).border), 0)
 
+# Live frames (2026-11-09) in Verdantglade V, unexplored and shaded, with explored Verdantglade IV light to the south:
+# the planner must not reach the light zone, also when standing right on the line. Saved lossless on purpose: the\n# 256-colour reference format shifts the tiles next to the player from shaded to light.
+for name in ("zone_edge_verdantglade_v", "zone_edge_verdantglade_v_on_line"):
+    live = minimap.read(cv2.imread(str(SCREENS / f"world/{name}.png")), home_light=False)
+    check(f"{name}: light zone unreachable", minimap.path_to_nearest(live, goals=("walk_explored",)), [])
+
 # A border line is a wall for the planner unless crossing is allowed.
 grid = [["walk_explored"] * 7 for _ in range(7)]
 grid[3][6] = "item"
