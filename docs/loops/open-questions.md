@@ -4,17 +4,6 @@ Found while drawing the loop pages (2026-11-09, code as of PR #42). Each item sa
 the code does, and a recommendation. When one is settled, fix the code or the rule, update the loop page, and move
 the item to "Settled" at the bottom (keep its number, so links stay right).
 
-## Decided by mae, not built yet
-
-**Q1. Unlock every free Cart production row** (mae, 2026-11-09). The Cart loop and R-136 ignore Unlock buttons, and
-R-020 still lists Chrono Sand's Unlock as a question. *To do:* a rule update (R-020, R-136), and a Cart step that
-presses a row's Unlock when its cost is free (no cost icons, no spend word), before the Stone/Wood upgrades.
-
-**Q2. Spot a zone border before crossing it** (R-132; mae, 2026-11-09: high priority). Fog Walk only notices a
-border after the walk crossed it (the HUD area name changes), then walks back and marks that ground off limits
-([fogwalk.md](fogwalk.md) step 3). Nothing reads the dotted lines on the minimap or the zone labels in the world
-before a tap.
-
 ## Needs mae's call
 
 **Q6. Guild AFK when the Forge is full.** The code falls back to the Mine, then the Power Station. R-110 only says
@@ -57,6 +46,15 @@ isn't detected, the zone counts as finished.
   (`HEAL_BELOW` in `sxs/loops/explore.py`, `FIGHT_MIN_HP` in `sxs/actions/heal.py`).
 
 ## Settled (mae, 2026-11-09)
+
+**Q1. Unlock every free Cart production row.** *Built in PR #43, not run live yet:* `CartUpgrader.unlock_rows`
+presses any row's exact "Unlock" before the upgrades and backs out of any cost or spend word (R-137). See
+[cart.md](cart.md).
+
+**Q2. Spot a zone border before crossing it.** *Built in PR #43, not run live yet:* `border_mask` in
+`sxs/vision/minimap.py` finds the dotted line on the minimap and the Fog Walk's plan treats it as a wall (R-132); the
+location tree (`sxs/policy/zones.py`) keeps zones, neighbours and entry points; roam finishes the zone it stands in
+first. See [fogwalk.md](fogwalk.md) and [roam.md](roam.md).
 
 **Q3. Gear enhancing starts on the blue pip.** A red "!" on a gear slot means a better piece to swap in (gearswap); a
 blue up-arrow pip in the same place means the piece can be enhanced. *Done:* `find_up_pips` in

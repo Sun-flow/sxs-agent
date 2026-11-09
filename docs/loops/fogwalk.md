@@ -44,7 +44,7 @@ flowchart TD
     H -->|no| G{"2. Tracker gift with a red !?<br/>(max 3 taps a run)"}
     G -->|yes| GT["Claim it"] --> D
     G -->|no| Z{"3. Area name on the HUD<br/>is another zone?"}
-    Z -->|"yes: crossed a border"| ZB["Mark the ground around here off limits (R-132),<br/>walk back to our zone by area map"] --> D
+    Z -->|"yes: crossed a border anyway"| ZB["Mark the ground around here off limits (R-132),<br/>walk back to our zone by area map"] --> D
     Z -->|no| P{"4. Standing on a tile not stood on before?"}
     P -->|yes| RESET["Progress: still = 0"]
     P -->|no| STILL["still + 1"]
@@ -57,7 +57,7 @@ flowchart TD
     RESET --> PLAN["5. Centre the camera on the character"]
     PLAN --> K{"6. A known collectible or monster<br/>on screen? (R-131 crops)"}
     K -->|yes| TAPK["Tap it"] --> D
-    K -->|no| MM{"7. Minimap plan, nearest first:<br/>green dot (if pickups on), orange dot (if fights on),<br/>gold building not visited, fog lead, unexplored ground"}
+    K -->|no| MM{"7. Minimap plan, nearest first:<br/>green dot (if pickups on), orange dot (if fights on),<br/>gold building not visited, fog lead, unexplored ground;<br/>the dotted zone border is a wall (R-132)"}
     MM -->|"a dot or building"| BMW2[["goto: nearest one on the area map"]] --> D
     MM -->|"ground tile"| TAPG["Tap a few tiles along the path<br/>(step aside if that spot opened a card before)"] --> D
     MM -->|"nothing"| BM3{"Big-map walks left (12 a run)?"}

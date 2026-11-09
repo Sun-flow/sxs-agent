@@ -4,8 +4,8 @@ Code: `sxs/loops/cart.py` (`CartUpgrader`), Cart claim in `sxs/loops/strengthen.
 Command: `python -m sxs cart [--check] [--max N]`; daily steps `cart` (claim) and `cart_upgrade`. Rules: R-020,
 R-100, R-126, R-136.
 
-**Goal:** claim the Cart's AFK loot, then raise the Stone and Wood income rows with ordinary materials, keeping them
-level: the lower one first, Stone on a tie. Every other row and every Unlock button is left alone.
+**Goal:** claim the Cart's AFK loot, press every free row Unlock (R-137), then raise the Stone and Wood income rows
+with ordinary materials, keeping them level: the lower one first, Stone on a tie. No other row is upgraded.
 **End condition:** a cost we can't pay (`short`), the Blessing Level cap (`capped`), a cost we don't recognise, a
 level that won't rise, or an unexpected screen.
 **Ok statuses:** `done`, `short`, `capped`, `checked`, `max_upgrades`. Needs a look: `needs_decision`, `no_cart`,
@@ -18,7 +18,11 @@ flowchart TD
     C2 --> C3{"Cart panel open?"}
     C3 -->|"no, first time"| RS["Restart the game (home stuck on sky, R-100)"] --> C2
     C3 -->|"no, after a restart"| NC(["no_cart"])
-    C3 -->|yes| C4["3. Stone row's arrow: Furniture Upgrade"]
+    C3 -->|yes| UL1{"2b. A row shows an exact Unlock button? (R-137)"}
+    UL1 -->|yes| UL2["Press it; on a confirmation read it first"]
+    UL2 -->|"any cost or spend word"| UND(["needs_decision"])
+    UL2 -->|free| UL1
+    UL1 -->|"no (or 3 done)"| C4["3. Stone row's arrow: Furniture Upgrade"]
     C4 --> C5{"furniture_upgrade?"}
     C5 -->|no| U1(["unknown_screen"])
     C5 -->|yes| C6["4. Read Stone and Wood levels from their tabs"]
@@ -44,11 +48,10 @@ flowchart TD
     classDef ok fill:#d4edda,stroke:#2e7d32,color:#000
     classDef look fill:#fde2c8,stroke:#c25e00,color:#000
     class SH,CAP,CHK,MU ok
-    class NC,U1,UL,ND,NOC,NB,U2,NCH look
+    class NC,U1,UL,ND,NOC,NB,U2,NCH,UND look
 ```
 
 `short` and `capped` become `done` when at least one upgrade went through this run. Today (05:11, 2026-11-05)
 Stone and Wood are Lv 5, capped by Blessing Lv 5: raising the bed's Blessing Level is what unblocks this loop.
 
-**Not yet in the loop:** mae asked on 2026-11-09 to always unlock any production row that can be unlocked (free).
-The loop and R-136 still ignore Unlock buttons: see [open-questions.md](open-questions.md) Q1.
+The free-unlock step (R-137, `CartUpgrader.unlock_rows`) came in PR #43 and hasn't run live yet.

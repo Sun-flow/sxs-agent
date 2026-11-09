@@ -16,24 +16,25 @@ Needs a look: `not_on_map`, `no_area_map`, `no_progress`, `defeated`, `unknown_s
 flowchart TD
     S(["Start"]) --> W{"On the island map?<br/>else home, World, Verdantglade's island"}
     W -->|no| NOM(["not_on_map"])
-    W -->|yes| SV["1. Survey: open the area map, zoom out one step,<br/>read every zone label, % and power line,<br/>find statue ! badges, close"]
+    W -->|yes| SV["1. Survey: open the area map, zoom out fully then one step in,<br/>read a 3x3 grid of pans (stitched), every label, % and power line,<br/>statue ! badges; save it all to the location tree; close"]
     SV --> SV2{"Any zone read?"}
     SV2 -->|no| NAM(["no_area_map"])
     SV2 -->|yes| BL{"2. Statue with a red ! on the map?"}
     BL -->|yes| BR["Walk there the big-map way, tap the centre,<br/>card rules: Unlock (up to 3)"] --> SV
-    BL -->|no| PK["3. Pick the next zone:<br/>under 100%, not given up today,<br/>power within 1.25x ours;<br/>lowest power first, no power line last"]
+    BL -->|no| PK["3. Pick the next zone (location tree):<br/>the zone we stand in if unfinished (R-132), else<br/>lowest power first among zones under 100%,<br/>within 1.25x ours, not given up today; no power line last"]
     PK --> PK2{"A zone picked?"}
     PK2 -->|"no, but one is behind a power wall"| PW(["power_wall"])
     PK2 -->|"no zone left"| LF[["4b. Fog Walk where we stand<br/>(leftover fog-walk ground)"]]
     LF --> LF2{"Walk ended no_fog?"}
     LF2 -->|yes| EC(["exploration_concluded"])
     LF2 -->|no| AE(["all_explored"])
-    PK2 -->|yes| AP["4. Approach: walk into the explored neighbour<br/>nearest the target (one that failed today goes last),<br/>then 60% of the way toward the target's label"]
+    PK2 -->|yes| AP["4. Approach (skipped if we already stand in it):<br/>the neighbour the tree knows got in before, then walked links,<br/>then the nearest explored label (failed today goes last);<br/>then 60% of the way toward the target's label"]
     AP --> FW[["5. Fog Walk in the target zone<br/>(the neighbour counts as inside)"]]
     FW --> FW2{"Fog Walk ended defeated,<br/>unknown_screen or at home?"}
     FW2 -->|yes| STOP(["that status"])
     FW2 -->|no| RS["6. Survey again"]
     RS --> RS2{"Target zone now?"}
+    RS2 -->|"no % line read, label near the bottom edge"| SV
     RS2 -->|"no % shown: 100%"| BN["Walk to the statue icon near its label,<br/>tap the centre, card rules: Unlock"] --> CNT{"Zones done = --max-areas?"}
     CNT -->|yes| MA(["max_areas"])
     CNT -->|no| SV
@@ -56,7 +57,9 @@ statue and ends `area_done`; a pass without progress ends `no_progress`.
 ## State kept between runs
 
 `logs/roam.json`: statues already opened, zones given up today (with the power at the time), and which neighbours
-failed as a way into each zone today.
+failed as a way into each zone today. The location tree (`resource/world/zones.json`, `sxs/policy/zones.py`,
+`python -m sxs zones`): every zone with kingdom, power, %, blessed, neighbours, and which neighbour a walk got in
+from (or failed from). Built in PR #43, not run live yet.
 
 ## Screens
 
