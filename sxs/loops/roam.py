@@ -6,10 +6,15 @@ mae, 2026-11-04: "code general non-quest exploration". The pieces already existe
 over areas that strings them together:
 
 1. Read the area map (R-076): every area label, and under the ones not finished yet an "Exploration: N%" line and
-   sometimes a power gate ("12K"). Labels without a percentage are taken as done.
-2. Pick the next area: under 100%, recommended power at most 25% above ours (HUD, `policy.fights`), not given up on this run. The
-   Verdantglade cap (handoff: 4 to 7 areas, or stop at a natural wall) is enforced by stopping at the first
-   power wall, and by `--max-areas`.
+   sometimes a power gate ("12K"). Labels without a percentage are taken as done. mae, 2026-11-09: fully zoomed out,
+   OCR merges neighbouring labels and drops the % lines, so the survey zooms out fully, steps one zoom closer, and
+   reads a 3x3 grid of pans, stitched by the measured pan shift (`survey`).
+   Every reading goes into the location tree (`sxs/policy/zones.py`, `resource/world/zones.json`): zones, CP, %,
+   blessed, map neighbours, and which neighbour a walk got in from.
+2. Pick the next area (`Tree.next_zone`): the zone we stand in if it isn't finished (R-132: finish the zone you're in
+   first), else the lowest-CP zone not yet explored with recommended power at most 25% above ours (R-135, R-127), not
+   given up on. The Verdantglade cap (handoff: 4 to 7 areas, or stop at a natural wall) is enforced by stopping at
+   the first power wall, and by `--max-areas`.
 3. Walk there with the area map and explore it (`fogwalk.walk`: minimap dots and unexplored tiles, then fog edge;
    fights and cards go through the usual rules).
 4. When the area shows no percentage any more (100%), walk to each Lost Statue icon near its label and open the
@@ -41,6 +46,7 @@ from ..core.nav import Navigator
 from ..core.paths import LOGS, RESOURCE
 from ..policy.decide import Context, Decider
 from ..policy import fights
+from ..policy.zones import Tree
 from ..vision.badges import SMALL_MIN_AREA, find_badges
 from ..vision.hud import read_power
 from ..vision.ocr import power_k
@@ -53,7 +59,16 @@ STATUE_THRESHOLD = 0.8
 STATUE_NEAR_LABEL = 260  # px on the area map: statues this close to an area's label belong to it
 MAP_ROI = [0, 120, 720, 1100]  # labels below y 1185 are the kingdom buttons
 STOP_REASONS = {"defeated", "unknown_screen", "left_area:home"}
-SURVEY_ZOOM_OUT = 1  # zoom-out taps before reading the area map (3 merged neighbouring labels in OCR)
+SURVEY_ZOOM_OUT = 4  # "-" taps: enough to reach full zoom-out from any opening
+SURVEY_ZOOM_IN = 1  # then "+" taps: mae, 2026-11-09, read one step closer than full zoom-out (OCR merged labels there)
+AREA_MAP_ZOOM_IN = (682, 795)  # the "+" above the area map's zoom slider
+PAN_FROM = (300, 620)  # drag start for survey pans: on the map, clear of the legend and the zoom slider
+PAN_PX, PAN_MS = 300, 900  # a slow drag so the map doesn't fling on
+# Reveal directions (east, south) for a 3x3 grid around the opening view: N, NW, W, SW, S, SE, E, NE.
+PANS = [(0, -1), (-1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, -1), (0, -1)]
+STITCH_ROI = (0, 120, 540, 940)  # x, y, w, h compared between pans (left of the slider, under the title)
+PCT_ROOM = 70  # px under a label for its % line: a label nearer the bottom edge can't prove it's finished
+KINGDOM_ROI = [20, 25, 400, 60]  # the kingdom's name, top left of the area map
 MAX_ENTRY_TRIES = 3  # connected areas to try walking in from before giving up on an area for the day
 STATE_FILE = LOGS / "roam.json"  # statues opened and areas given up on, kept across runs
 VERDANTGLADE_ISLAND = (300, 640)  # world overview (kingdom picker): Verdantglade's island
@@ -66,6 +81,7 @@ class Area:
     box: list[int]
     pct: Optional[int] = None  # None: no percentage shown (finished)
     gate: Optional[float] = None  # power needed, in K
+    unsure: bool = False  # no % read, but the label was never far enough from the bottom edge to show one
 
     @property
     def point(self) -> tuple[int, int]:
@@ -102,6 +118,51 @@ def read_areas(det, frame=None) -> list[Area]:
             target = min(above, key=lambda a: y - a.box[1])
             setattr(target, kind, value)
     return areas
+
+
+def pan_shift(prev: np.ndarray, cur: np.ndarray, expected: tuple[int, int]) -> tuple[int, int]:
+    """How far the map content moved between two survey frames (phase correlation on the map part). Falls back to the
+    commanded drag when the match is weak (a mostly dark, featureless view)."""
+    x, y, w, h = STITCH_ROI
+    a = cv2.cvtColor(prev[y:y + h, x:x + w], cv2.COLOR_BGR2GRAY).astype(np.float32)
+    b = cv2.cvtColor(cur[y:y + h, x:x + w], cv2.COLOR_BGR2GRAY).astype(np.float32)
+    (dx, dy), response = cv2.phaseCorrelate(a, b)
+    if response < 0.05 or abs(dx) > w / 2 or abs(dy) > h / 2:
+        return expected
+    return int(round(dx)), int(round(dy))
+
+
+def merge_readings(readings: list, bottom: int = 1185) -> list[Area]:
+    """Areas from several pans of one area-map opening, in the first view's coordinates. `readings` holds each pan's
+    areas and how far the content had moved by then. The same label read twice keeps its % and gate from whichever
+    reading had them; a label only ever read with no room under it for a % line is `unsure`, not finished."""
+    out: list[Area] = []
+    for areas, (ox, oy) in readings:
+        for a in areas:
+            x, y, w, h = a.box
+            room = y + h + PCT_ROOM <= bottom
+            g = Area(a.name, [x - ox, y - oy, w, h], a.pct, a.gate, unsure=a.pct is None and not room)
+            hit = next((m for m in out if same(m.name, g.name)), None)
+            if hit is None:
+                out.append(g)
+                continue
+            if len(g.name) > len(hit.name):
+                hit.name = g.name  # the reading not clipped by an edge
+            if g.pct is not None and (hit.pct is None or g.pct > hit.pct):
+                hit.pct, hit.unsure = g.pct, False
+            elif hit.pct is None and not g.unsure:
+                hit.unsure = False
+            hit.gate = hit.gate or g.gate
+    return out
+
+
+def nearest_badge(frame: np.ndarray) -> Optional[tuple[int, int]]:
+    """Area-map picker: the ready statue nearest our white dot (or the screen centre)."""
+    from ..vision import area_map
+    me = [p for k, p in area_map.objects(frame) if k == "player"]
+    cx, cy = me[0] if me else goto.SCREEN_CENTRE
+    pts = statue_badges(frame)
+    return min(pts, key=lambda p: (p[0] - cx) ** 2 + (p[1] - cy) ** 2) if pts else None
 
 
 ORE_YELLOW_PX = 250  # yellow pixels left of a badge that mean a gold ore icon
@@ -153,6 +214,7 @@ class Roamer:
         self.state = _load_state()
         self.given_up: set[str] = set()
         self.power: Optional[float] = None
+        self.tree = Tree.load()
 
     def give_up(self, name: str, why: str) -> None:
         """Skip `name` for the rest of this run, and in later runs the same server day until power grows (seen 2026-11-04:
@@ -199,8 +261,12 @@ class Roamer:
             d = self.det.detect()
         return d.state == "world_map"
 
-    def survey(self) -> tuple[list[Area], list[tuple[int, int]], Optional[float]]:
-        """Open the area map, read it, close it. Returns areas, statue icons (area-map points) and power."""
+    def survey(self) -> tuple[list[Area], list[str], Optional[float]]:
+        """Open the area map, read it, close it. Returns areas, zones with a statue ready to bless, and power.
+
+        mae, 2026-11-09: zoomed all the way out, OCR merged neighbouring labels and lost the % lines. So zoom out
+        fully, step one zoom closer, and read a 3x3 grid of pans; labels are placed in the first view's coordinates
+        by the measured pan shift. Everything read goes into the location tree."""
         power = read_power(self.det)
         self.power = power or self.power
         for _ in range(2):  # the first tap can land while the map is still settling: check the area map opened
@@ -211,27 +277,73 @@ class Roamer:
         else:
             log.warning("the area map did not open; frame %s", save_unknown(self.dev, "roam_survey"))
             return [], [], power
-        for _ in range(SURVEY_ZOOM_OUT):  # the whole kingdom on one screen: zones off screen were taken as done
+        for _ in range(SURVEY_ZOOM_OUT):
             self.dev.tap(*goto.AREA_MAP_ZOOM_OUT)
+            time.sleep(0.5)
+        for _ in range(SURVEY_ZOOM_IN):
+            self.dev.tap(*AREA_MAP_ZOOM_IN)
             time.sleep(0.6)
         time.sleep(1)
         frame = self.dev.screenshot()
-        areas = read_areas(self.det, frame)
-        statues = statue_badges(frame)  # statues ready to bless (red "!"), as area-map points
+        kingdom = " ".join(t for t, _ in self.det.read_text(KINGDOM_ROI, frame)).strip()
+        readings = [(read_areas(self.det, frame), (0, 0))]
+        badges = [(p, (0, 0)) for p in statue_badges(frame)]
+        shift = (0, 0)
+        for rx, ry in PANS:
+            fx, fy = PAN_FROM
+            self.dev.swipe(fx, fy, fx - rx * PAN_PX, fy - ry * PAN_PX, PAN_MS)
+            time.sleep(1.2)
+            cur = self.dev.screenshot()
+            dx, dy = pan_shift(frame, cur, (-rx * PAN_PX, -ry * PAN_PX))
+            shift = (shift[0] + dx, shift[1] + dy)
+            readings.append((read_areas(self.det, cur), shift))
+            badges += [(p, shift) for p in statue_badges(cur)]
+            frame = cur
+            progress(("survey_pan", shift))
         self.dev.tap(*ui.BACK_ARROW)
         time.sleep(2)
-        log.info("power %s; areas %s; %d statues ready to bless", power,
-                 [(a.name, a.pct, a.gate) for a in areas], len(statues))
-        return areas, statues, power
+        areas = merge_readings(readings)
+        ready = self.statue_zones(areas, [(x - ox, y - oy) for (x, y), (ox, oy) in badges])
+        self.remember(areas, kingdom)
+        log.info("power %s; %s areas %s; statues ready in %s", power, kingdom or "?",
+                 [(a.name, a.pct, a.gate) + (("unsure",) if a.unsure else ()) for a in areas], ready)
+        return areas, ready, power
 
-    def bless_ready(self, statues: list[tuple[int, int]]) -> int:
-        """mae, 2026-11-05: a statue with a red "!" on the area map is ready: walk there the big-map way (tap it on
-        the area map, close the map, tap the middle of the screen) and unlock it through the card rules."""
+    @staticmethod
+    def statue_zones(areas: list[Area], points: list[tuple[int, int]]) -> list[str]:
+        """The zone each ready statue belongs to: the nearest label within STATUE_NEAR_LABEL."""
+        out = []
+        for p in points:
+            near = [a for a in areas if abs(a.point[0] - p[0]) + abs(a.point[1] - p[1]) < STATUE_NEAR_LABEL]
+            if near:
+                name = min(near, key=lambda a: abs(a.point[0] - p[0]) + abs(a.point[1] - p[1])).name
+                if name not in out:
+                    out.append(name)
+        return out
+
+    def remember(self, areas: list[Area], kingdom: str) -> None:
+        """Write a survey into the location tree (resource/world/zones.json)."""
+        kingdom = re.sub(r"[^A-Za-z ]", "", kingdom).strip()
+        for a in areas:
+            if len(goto.squeeze(a.name)) < 5 or (kingdom and goto.squeeze(a.name) == goto.squeeze(kingdom)):
+                continue  # the kingdom title, or an OCR scrap
+            self.tree.observe(a.name, kingdom or None, pct=... if a.unsure else a.pct,
+                              cp=a.gate if a.gate else ..., point=a.point)
+        if kingdom:
+            self.tree.link_neighbours_by_map(kingdom)
+        self.tree.save()
+
+    def bless_ready(self, zones: list[str]) -> int:
+        """mae, 2026-11-05: a statue with a red "!" on the area map is ready. Walk to its zone, then to the badge
+        nearest us the big-map way (tap it on the area map, close the map, tap the middle of the screen) and unlock it
+        through the card rules."""
         done = 0
-        for p in statues[:3]:
-            log.info("statue ready to bless at area-map %s", p)
-            if goto.go_to(self.dev, self.det, p) == "not_on_map":
-                break
+        for name in zones[:3]:
+            log.info("statue ready to bless in %s", name)
+            goto.go_to(self.dev, self.det, name)
+            why = goto.go_to(self.dev, self.det, nearest_badge)
+            if why in ("not_on_map", "no_target"):
+                continue
             self.dev.tap(*goto.SCREEN_CENTRE)
             time.sleep(4)
             if self.det.detect().state in ("world_map", "unknown") and not self.det.read_text([60, 560, 600, 80]):
@@ -241,25 +353,49 @@ class Roamer:
             self.dev.tap(*choice.point)
             time.sleep(3)
             close_rewards(self.dev, self.det)
-            progress(("blessed", p))
+            self.tree.mark_blessed(name)
+            self.tree.save()
+            progress(("blessed", name))
             done += 1
         return done
 
-    def pick(self, areas: list[Area], power: Optional[float]) -> tuple[Optional[Area], Optional[Area]]:
-        """(next area to explore, first area behind a power wall)."""
-        todo = [a for a in areas if a.pct is not None and a.pct < 100 and not self.skipped(a.name)]
-        walled = [a for a in todo if not fights.within_reach(a.gate, power)]  # up to 25% above us (mae)
-        open_ = [a for a in todo if a not in walled]
-        # mae, 2026-11-05: the lowest-CP zone not yet blessed first, then the one
-        # nearest done; explore it until its statue is blessed, then the next.
-        open_.sort(key=lambda a: (a.gate is None, a.gate or 0, -a.pct))  # a zone with no power line read goes last
-        return (open_[0] if open_ else None), (walled[0] if walled else None)
+    def pick(self, areas: list[Area], power: Optional[float], here: str = "") -> tuple[Optional[Area], Optional[Area]]:
+        """(next area to explore, first area behind a power wall), by the location tree (`Tree.next_zone`):
+
+        - R-132 (mae, 2026-11-09): the zone we stand in comes first while it's under 100% and in reach; a walk
+          doesn't cross a dotted border out of an unfinished zone.
+        - R-135: else the lowest-CP zone not yet explored, at most 25% above our power (zones with no CP last).
+        The tree was just updated from this survey; zones it knows but this survey didn't read still count (walked to
+        by name), except ones given up on."""
+        skip = [k for k in self.tree.zones if self.skipped(k)]
+        name = self.tree.next_zone(power, here, skip=skip)
+        target = None
+        if name:
+            target = next((a for a in areas if same(a.name, name)), None)
+            if target is None:
+                z = self.tree.zones[name]
+                target = Area(name, [0, 0, 0, 0], z.get("pct"), z.get("cp"))
+                log.info("%s is next by the location tree but wasn't read on this survey", name)
+            elif target.pct is None:
+                target.pct = (self.tree.get(name) or {}).get("pct")
+        todo = [k for k, z in self.tree.zones.items() if z.get("kind", "zone") == "zone" and not self.tree.done(k)]
+        walled = [k for k in todo if not fights.within_reach(self.tree.zones[k].get("cp"), power)]
+        walled.sort(key=lambda k: self.tree.zones[k].get("cp") or 0)
+        wall = None
+        if walled:
+            z = self.tree.zones[walled[0]]
+            wall = Area(walled[0], [0, 0, 0, 0], z.get("pct"), z.get("cp"))
+        return target, wall
 
     def approach(self, areas: list[Area], target: Area) -> Optional[Area]:
         """mae, 2026-11-04: "try moving from areas you are connected to". Walk into the explored area whose label
         sits nearest the target's on the area map, then toward the target as far as the explored ground goes; the
         fog walk takes it from there. Returns the neighbour used (None if there is none: walk to the label)."""
-        done = [a for a in areas if a.pct is None and a.name != target.name]
+        here = goto.area_name_here(self.det)
+        if here and same(here, target.name):
+            log.info("already in %s: finishing it here first (R-132)", target.name)
+            return None
+        done = [a for a in areas if a.pct is None and not a.unsure and not same(a.name, target.name)]
         if not done:
             goto.go_to(self.dev, self.det, target.name)
             return None
@@ -267,10 +403,14 @@ class Roamer:
         # Nearest neighbour first; one that already failed today for this target is tried last (2026-11-04:
         # Verdantglade III can't be entered from Moonveil Woods, its nearest label, so try Damp Woods or
         # Verdantglade II next, in the next short run).
+        # The location tree knows better than label distance: the neighbour a walk got in from before, then walked
+        # links, then map neighbours (zones.Tree.entry_candidates); those not in the tree keep the distance order.
         tried = self.tried_from(target.name)
-        done.sort(key=lambda a: (any(same(a.name, t) for t in tried), (a.point[0] - tx) ** 2 + (a.point[1] - ty) ** 2))
+        ranked = self.tree.entry_candidates(target.name, server_day())
+        rank = lambda a: next((i for i, n in enumerate(ranked) if same(n, a.name)), len(ranked))  # noqa: E731
+        done.sort(key=lambda a: (any(same(a.name, t) for t in tried), rank(a),
+                                 (a.point[0] - tx) ** 2 + (a.point[1] - ty) ** 2))
         via = done[0]
-        here = goto.area_name_here(self.det)
         log.info("approaching %s from the connected area %s (standing in %s)", target.name, via.name, here)
         # Most of the way from the neighbour's label toward the target's, so the walk ends on the shared border.
         if (goto.go_to(self.dev, self.det, (via.name, target.name, 0.6)) != "arrived"
@@ -339,7 +479,7 @@ class Roamer:
                     return "area_done"
                 wall = None
             else:
-                target, wall = self.pick(areas, power)
+                target, wall = self.pick(areas, power, goto.area_name_here(self.det))
             if target is None:
                 if wall:
                     log.info("next area %s needs %sK (power %sK): natural wall", wall.name, wall.gate, power)
@@ -348,7 +488,7 @@ class Roamer:
                 why = fogwalk.walk(self.dev, self.det, minutes=walk_minutes)
                 log.info("all zones blessed; fog walk for leftover ground ended: %s", why)
                 return "exploration_concluded" if why == "no_fog" else "all_explored"
-            log.info("exploring %s (%s%%)", target.name, target.pct)
+            log.info("exploring %s (%s%%, %sK)", target.name, target.pct, target.gate)
             via = self.approach(areas, target)
             left = (deadline - time.monotonic()) / 60
             why = fogwalk.walk(self.dev, self.det, minutes=min(walk_minutes, max(1.0, left)), area=target.name,
@@ -367,11 +507,23 @@ class Roamer:
                 self.given_up.add(target.name)
                 if area:
                     return "no_progress"
+            elif now.pct is None and now.unsure:
+                log.info("%s: %% line not readable this time; trying again next pass", target.name)
             elif now.pct is None:
+                if via:
+                    self.tree.record_entry(target.name, via.name, True, server_day())
+                    self.tree.save()
                 log.info("%s finished; looking for its statue", target.name)
                 self.bless_near(target.name)
                 done += 1
+            elif target.pct is not None and now.pct > target.pct:
+                if via:
+                    self.tree.record_entry(target.name, via.name, True, server_day())
+                    self.tree.save()
             elif now.pct == target.pct:
+                if via:
+                    self.tree.record_entry(target.name, via.name, False, server_day(), why=f"fog walk {why}")
+                    self.tree.save()
                 if via and self.failed_from(target.name, via.name) < MAX_ENTRY_TRIES:
                     # Not in from this side: the next run tries the next-nearest connected area instead.
                     log.info("no way into %s from %s; the next run tries another neighbour", target.name, via.name)

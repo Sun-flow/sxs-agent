@@ -7,9 +7,15 @@ Read before any fight, when HP is low, after a loss, or inside a mini-dungeon, t
 ### R-061 · Heal to 70% before any fight; retry a lost fight at most twice
 - **HP must be at least 70% before any fight** (mae). Judge HP from the HUD bar only (R-078); a red "!" over the player is not a heal signal (R-080). `sxs/loops/explore.py` heals below 80%; `sxs/actions/heal.py` is the shared check.
 - Healing food (Alchemy Pot, or bought with Rolla) is cheap: use freely. Player portrait, then "Recover" (or similar) on the right.
-- **Dishes** are rare temporary stat boosts: conserve them.
+- Two kinds of dish (R-138): **healing dishes** heal only, use freely; **permanent dishes** give stats: conserve them.
 - Same fight lost twice in a row after healing: stop (mae). Contact mae or go home to get stronger (gear, techniques, rank).
 *told* · node `player_profile`, `wounded`, `alchemy_pot` · R-078, R-031, R-080
+
+### R-138 · Two kinds of dish: healing dishes are free to use, permanent dishes are conserved
+- **Healing dishes** give no stats and only heal. They can be crafted without limit for Rolla, and that spending is approved (mae, 2026-11-09). Use them freely for healing (R-061, R-046).
+- **Permanent dishes** give permanent stats and big buffs. They live in the "Dishes" menu reached from the character portrait. Conserve them; the bot never uses them on its own.
+- Cooking: Alchemy Pot Dish tab (R-047).
+*told* · node `player_profile`, `alchemy_pot` · R-046, R-047, R-061
 
 ### R-078 · Read HP on the HUD bar; heal via the HUD portrait
 - HP bar: top-left of the map HUD, x 116-268, y 52-64 (720x1280 px).
@@ -19,7 +25,7 @@ Read before any fight, when HP is low, after a loss, or inside a mini-dungeon, t
 
 ### R-046 · "Badly wounded" dialog
 - Starting a fight badly hurt shows "The character is badly wounded. Use dishes to heal?": Return to Home / Quick Heal (costs dishes, e.g. 2; count top right; cooked in the Alchemy Pot, R-047).
-- Repeated Quick Heal sometimes didn't clear it, then only Return to Home was offered ❓ (heal too small, or dishes ran out). "Dishes" may mean healing food here ❓.
+- Repeated Quick Heal sometimes didn't clear it, then only Return to Home was offered ❓ (heal too small, or dishes ran out). Here "dishes" are healing dishes (R-138), free to use.
 *observed* · `battle/wounded.png` · node `wounded` · R-061, R-031, R-047
 
 ## Starting and running fights

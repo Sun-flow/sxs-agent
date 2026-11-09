@@ -1,0 +1,179 @@
+{
+ "about": "Location tree (sxs/policy/zones.py): zones, CP, exploration, blessing, connections.",
+ "zones": {
+  "Auroradrasil": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-05",
+   "pct": 100,
+   "blessed": true,
+   "notes": "Free 4-player story dungeon (R-133); Lost Goddess Statue blessed 2026-11-05."
+  },
+  "Damp Woods": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-04",
+   "cp": 15.5,
+   "pct": 0,
+   "notes": "15.5 is the Gate of Power inside (R-086), not an area-map gate. An area-map walk to its label from Verdantglade II lands at about (184, 86); items behind the gate finish it."
+  },
+  "Drasilgard": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-05",
+   "kind": "town",
+   "notes": "Town: Chief, Hermes, Carol, portal (R-134)."
+  },
+  "Hidden Camp": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-05",
+   "pct": 0
+  },
+  "Highland Woods": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-04",
+   "cp": 9.6,
+   "pct": 100,
+   "notes": "Entered past a bracketed wolf-boss pack (R-041); ground pickups by a cooking pot finish it (R-066)."
+  },
+  "Jungle Camp": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-05",
+   "cp": 12.6,
+   "pct": 0,
+   "failed_via": {
+    "Drasilgard": "2026-11-05 (walked in from the south edge; big-map walks mostly no_move, no % gained)"
+   },
+   "notes": "Next by R-135 order. Entry point unknown."
+  },
+  "Monolith Ruins I": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-05",
+   "pct": 0
+  },
+  "Moonveil Woods": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-04",
+   "pct": 100,
+   "notes": "Dungeon gate unlocked by quest; Bellflower field at minimap (169, 94-95) (R-123)."
+  },
+  "Stone Ruins I": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-04",
+   "pct": 100,
+   "notes": "2x2 stone-tile puzzle spawns two chests (R-089 area)."
+  },
+  "Sunrise Isle": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-04",
+   "notes": "Bottom right of the Verdantglade map; its % isn't read (R-076)."
+  },
+  "Troll Lair": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-05",
+   "cp": 17.0,
+   "pct": 0,
+   "notes": "Border label 'Troll Lair 17K' at a corner of its dotted line (R-132)."
+  },
+  "Verdantglade I": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-04",
+   "pct": 100,
+   "notes": "Area quests done."
+  },
+  "Verdantglade II": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-04",
+   "pct": 100
+  },
+  "Verdantglade III": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-04",
+   "cp": 12.0,
+   "pct": 100,
+   "notes": "No way in on foot from Moonveil Woods (fog south of about (168, 94) never moves); entered with the quest's Go travel (R-084, R-089)."
+  },
+  "Verdantglade IV": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-04",
+   "notes": "Area quests done; % not read since."
+  },
+  "Verdantglade V": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-05",
+   "cp": 14.8,
+   "pct": 78,
+   "notes": "Auroradrasil sits inside it on the map but is its own zone (R-132): walks to finish V must land on V's own ground."
+  },
+  "Verdantglade VI": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-05",
+   "pct": 0,
+   "failed_via": {
+    "Auroradrasil": "2026-11-04"
+   }
+  },
+  "Wildbloom Coast": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-05",
+   "cp": 20.4,
+   "pct": 0
+  },
+  "Zephyr Vale": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-05",
+   "pct": 0,
+   "notes": "Its border label runs sideways along a vertical dotted line, no power shown (R-132)."
+  }
+ },
+ "links": [
+  {
+   "a": "Verdantglade I",
+   "b": "Highland Woods",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade I",
+   "b": "Stone Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Stone Ruins I",
+   "b": "Verdantglade II",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade II",
+   "b": "Moonveil Woods",
+   "how": "walked",
+   "note": "land bridge at the minimap's bottom (R-067)"
+  },
+  {
+   "a": "Verdantglade II",
+   "b": "Damp Woods",
+   "how": "walked",
+   "note": "area-map walk to the Damp Woods label lands at about (184, 86) (R-086)"
+  },
+  {
+   "a": "Moonveil Woods",
+   "b": "Verdantglade III",
+   "how": "map_adjacent",
+   "note": "no way in on foot from here (R-084)"
+  },
+  {
+   "a": "Verdantglade V",
+   "b": "Auroradrasil",
+   "how": "inside",
+   "note": "Auroradrasil sits inside Verdantglade V (R-132)"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Jungle Camp",
+   "how": "map_adjacent",
+   "note": "walking in from Drasilgard's south edge gained no % (2026-11-05)"
+  }
+ ],
+ "gaps": [
+  "Jungle Camp: entry point unknown; the walk in from Drasilgard's south edge gained no % (2026-11-05). Next by the R-135 order, so the next survey's map neighbours are the ones to try.",
+  "Connections of Verdantglade IV, V, VI, Drasilgard, Zephyr Vale, Monolith Ruins I, Troll Lair, Wildbloom Coast and Hidden Camp are not mapped yet; the first closer-zoom survey fills map points and map neighbours.",
+  "Originisle (explored and blessed) is not in the tree yet.",
+  "Blessed or not is unknown for most explored Verdantglade zones (null); the roam loop sets it when it unlocks a statue."
+ ]
+}
