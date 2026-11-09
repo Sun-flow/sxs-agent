@@ -29,6 +29,7 @@ Read before pressing any button that might spend, and on any class, social, acco
 - **Change the character's appearance**: never press Complete on Carol's Reshape (costs a Shapeshifting Mirror); the look is mae's choice (R-134).
 - **Pick a "Choose Your Reward" option when both are valid**: ask mae; only a lone Class Mismatch lets the bot take the other (R-129).
 - **Decide the player's zone from the minimap name or the surroundings**: only the big map's player indicator says where the player is (mae) (R-140). **Walk label-to-label between zones**: leave by the way you came in (R-068).
+- **Switch loops to dodge a guard or a stuck point**: every exploring loop fights guards itself (mae) (R-141).
 
 **Allowed (the only exceptions):**
 - **Healing food and healing dishes**: buy or craft with Rolla (approved, no limit), eat freely; conserve **permanent dishes** (R-138).
