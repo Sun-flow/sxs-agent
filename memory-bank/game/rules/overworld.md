@@ -18,6 +18,7 @@ Walk to each green minimap dot and interact with what it marks, beat roaming mon
 - A dotted line is the border between two zones such as Verdantglade III and IV (mae). On the minimap it shows as light dashes. In the world it shows as dark dashes, usually labelled with the zone name: "Troll Lair" with its power "17K" in a horizontal label at a corner of a line, or "Zephyr Vale" written sideways along a vertical line with no power shown.
 - Use it to tell which zone the character is in, and finish that zone to 100% (R-065) before crossing into the next. Seen: the fog walk crossed into Verdantglade IV with III at about 91%.
 - A zone across the line still needs the 1.25x power check (R-127).
+- Code: `border_mask` / `border_tiles` in `sxs/vision/minimap.py` find the minimap line: light grey, 1–2 px wide, S < 40, V 105–200, straight runs of 12+ px with green on both sides (measured on `world/explore_bellflower_picked.png`). The fog walk treats border tiles as walls unless roam is walking into the target zone.
 - Auroradrasil is its own zone, not part of Verdantglade V (mae), even though it sits inside V on the map; it has its own Lost Goddess Statue (R-070). Travelling to finish a zone must land on that zone's own ground, not on a neighbour inside it.
 *told, observed* · `world/zone_boundary_troll_lair_mae.png`, `world/zone_boundary_zephyr_vale_mae.png`, `minimap/legend_zone_boundary_mae.png` · R-065, R-066, R-127, R-130
 
@@ -32,7 +33,7 @@ The non-quest exploration loop (mae; the quest-progression loop is settled):
 3. Repeat until no unblessed zone remains.
 4. Then look for any fog-walk ground not yet explored (R-130). Explore it if there is some; otherwise exploration is concluded for now.
 Next by this order (2026-11-05): Jungle Camp (12.6K); walking in from Drasilgard's south edge gained no %, so its entry point is unknown ❓.
-Code: `python -m sxs roam` reads zones and powers from the area map (zones with no power line read go last), blesses a statue when its area-map "!" lights (R-070), and ends with `exploration_concluded`.
+Code: `python -m sxs roam` picks the zone with `Tree.next_zone` from the location tree (`resource/world/zones.json`, `sxs/policy/zones.py`, `python -m sxs zones`; zones with no power line read go last). The tree holds each zone's kingdom, CP, %, blessed, map point and way in, and records Jungle Camp's missing entry as an open question. Roam blesses a statue when its area-map "!" lights (R-070), and ends with `exploration_concluded`.
 *told* · R-065, R-070, R-076, R-127, R-130, R-132
 
 ## Walking and the camera
@@ -103,6 +104,7 @@ At home, tapping the tracker for a quest elsewhere asks "Travel to <Area> now?";
 - Unfinished areas show "Exploration: N%" and any power gate ("12K") under the label; finished ones show only the name. Gates seen: Highland Woods 9.6K, Verdantglade III 12K. Skip areas gated above your power (R-084).
 - Lost Statue icon: `resource/image/areamap/lost_statue.png` at 0.8.
 - Edge labels are clipped on the left ("tglade III"); `sxs/loops/roam.py` accepts a 6+ letter suffix with matching numerals.
+- Survey (code: `sxs/loops/roam.py`): zoom out fully, then tap "+" at (682, 795) once (at full zoom-out OCR merges labels and drops %), and read a 3×3 grid of slow 300 px pans, merging readings by name. The "+" position and pan size come from one reference screen ❓ (not yet watched live).
 - A 100% area with a red "!" probably has its statue waiting ❓. Sunrise Isle is at the bottom right of the Verdantglade map; its % isn't read ❓.
 *observed* · `world/world_area_map.png`, `world/area_map_lv22.png` · node `area_map` · R-068, R-070, R-084, R-086
 

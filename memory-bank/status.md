@@ -1,6 +1,6 @@
 # Status
 
-> **Last updated**: 2026-11-05
+> **Last updated**: 2026-11-09
 > Where the work stands now. Past sessions: `log.md`. How a builder works: `playbook.md`.
 
 ## Game state (2026-11-05 05:05Z, mae's PC)
@@ -14,7 +14,7 @@
 ## Strengthening and the Cart (2026-11-05 early morning)
 
 - Strengthening done: power 22.4K. `python -m sxs upgrade` now always opens the Skill page (Quick Upgrade shows blue arrows, not a red "!"). At the end the Character screen's weapon slot showed a red "!" and chest/boots blue arrows: recheck with `gearswap` and the gear pass.
-- Cart: `python -m sxs cart` (also daily step `cart_upgrade`) raises Stone and Wood evenly (R-136). Both are Lv 5, capped: Lv 6 needs Blessing Lv 6 (the bed's Blessing Level). Costs are Wood + Stone + Rolla only. ❓ How the Blessing Level rises (blessing statues? R-035, R-070). To do: the Cart loop should press any row's Unlock button (Chrono Sand waits; mae 2026-11-09: unlocking is free, R-137).
+- Cart: `python -m sxs cart` (also daily step `cart_upgrade`) raises Stone and Wood evenly (R-136). Both are Lv 5, capped: Lv 6 needs Blessing Lv 6 (the bed's Blessing Level). Costs are Wood + Stone + Rolla only. ❓ How the Blessing Level rises (blessing statues? R-035, R-070). Chrono Sand Unlock (free, R-137): `CartUpgrader.unlock_rows` presses it; first live run still to do.
 
 ## Works (all on main, PRs #1–#30)
 
@@ -29,7 +29,9 @@
 
 Format: `- what — branch, PR, environment (started)`. Remove the line when it merges or is dropped.
 
-- Exploration drivers per mae (2026-11-05): roam picks the lowest-CP unblessed zone, blesses statues whose area-map "!" is lit, ends with a fog walk; fog walk reaches objects through the big map, follows passable ground into fog, keeps to its zone (R-132), free pickups and fights only in unexplored areas (R-065), collectibles store (R-131) — `claude/project-thread-ieaqnz` (latest commits beyond #41), mae's PC. Open: (1) at the zoomed-out area map OCR merges neighbouring labels and loses percentages (read at a closer zoom with pans instead); (2) Jungle Camp run (2026-11-05): approach from Drasilgard, big-map walks mostly "no_move", no % gained; the walk into Jungle Camp needs a better entry point; (3) progress readings with OCR noise in coordinates count as movement, so a stuck run can be extended; (4) the tutorial glow on the Companions "Invite" isn't found by the highlight finder (interrupt layer PR #40).
+- Exploration drivers per mae (2026-11-05): roam picks the lowest-CP unblessed zone, blesses statues whose area-map "!" is lit, ends with a fog walk; fog walk reaches objects through the big map, follows passable ground into fog, keeps to its zone (R-132), free pickups and fights only in unexplored areas (R-065), collectibles store (R-131) — `claude/project-thread-ieaqnz` (latest commits beyond #41), mae's PC. Open: (1) at the zoomed-out area map OCR merges neighbouring labels and loses percentages (closer zoom with pans written on `claude/project-thread-sesbe9`, not yet live); (2) Jungle Camp run (2026-11-05): approach from Drasilgard, big-map walks mostly "no_move", no % gained; the walk into Jungle Camp needs a better entry point; (3) progress readings with OCR noise in coordinates count as movement, so a stuck run can be extended; (4) the tutorial glow on the Companions "Invite" isn't found by the highlight finder (interrupt layer PR #40).
+
+- Zone borders, location tree, closer-zoom survey, Cart unlock (mae, 2026-11-09) — `claude/project-thread-sesbe9`, folded into PR #43, offline-tested only. First live run: `python -m sxs roam --max-areas 1` (check the survey log line lists % for the far zones, `python -m sxs zones` after), then `python -m sxs cart --max 0` (presses the free Chrono Sand Unlock, no upgrades). Commit `resource/world/zones.json` after live runs: it is the bot's map.
 
 ## Next (in order)
 

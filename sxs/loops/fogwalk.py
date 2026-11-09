@@ -28,7 +28,9 @@ from ..core.device import save_unknown
 from ..core.interrupts import resume_with
 from ..core.loop import progress, Loop, banner
 from ..core.nav import Navigator
+from ..core.marks import server_day
 from ..policy.decide import Context, Decider
+from ..policy.zones import Tree
 from ..vision import minimap
 from ..vision.hp import PREP_HP_BAR
 from ..vision import area_map, collectibles
@@ -105,10 +107,14 @@ def area_blessed(dev, det, area: Optional[str]) -> bool:
 def minimap_target(det, frame: np.ndarray, lookahead: int = 4, player_xy=None,
                    buildings_seen: Optional[set] = None, items_ok: bool = True,
                    player: Optional[tuple[int, int]] = None, monsters_ok: bool = True,
-                   visited_xy: Optional[set] = None, outside_xy: Optional[set] = None) -> Optional[tuple[int, int]]:
+                   visited_xy: Optional[set] = None, outside_xy: Optional[set] = None,
+                   cross_border: bool = False) -> Optional[tuple[int, int]]:
     """Plan on the minimap: shortest walkable path to the nearest pickup or unexplored walkable tile, else to a gold
     building not visited yet this run (dungeons, mines: interactable; their cards go through the rules), then tap
-    a few tiles along it (relative to the player, found by its name label). None if nothing is reachable."""
+    a few tiles along it (relative to the player, found by its name label). None if nothing is reachable.
+
+    R-132 (mae, 2026-11-09): a zone's dotted border on the minimap is a wall for the plan unless cross_border (the
+    caller allows it only when walking in from a finished neighbour into the zone it was sent to)."""
     global LAST_GOAL
     LAST_GOAL = None
     mm = minimap.read(frame)
@@ -122,10 +128,13 @@ def minimap_target(det, frame: np.ndarray, lookahead: int = 4, player_xy=None,
     off = {(r, c) for r in range(n) for c in range(n) if player_xy is not None and outside_xy and any(
         max(abs(wx - ox), abs(wy - oy)) <= OUTSIDE_RADIUS
         for (wx, wy) in [minimap.world_tile(mm, (r, c), player_xy)] for (ox, oy) in outside_xy)}
-    path = minimap.path_to_nearest(mm, goals=objects, skip=off) if objects else []
+    if mm.border:
+        log.debug("zone border on the minimap at %d tiles (%s)", len(mm.border), "crossing allowed" if cross_border
+                  else "a wall: finish this zone first")
+    path = minimap.path_to_nearest(mm, goals=objects, skip=off, cross_border=cross_border) if objects else []
     if len(path) < 2 and player_xy is not None and buildings_seen is not None:
         skip = off | {tile for tile in mm.tiles("building") if minimap.world_tile(mm, tile, player_xy) in buildings_seen}
-        path = minimap.path_to_nearest(mm, goals=("building",), skip=skip)
+        path = minimap.path_to_nearest(mm, goals=("building",), skip=skip, cross_border=cross_border)
         if len(path) >= 2:
             spot = minimap.world_tile(mm, path[-1], player_xy)
             buildings_seen.add(spot)
@@ -136,9 +145,9 @@ def minimap_target(det, frame: np.ndarray, lookahead: int = 4, player_xy=None,
         stood = set(off)
         if player_xy is not None and visited_xy:
             stood |= {(r, c) for r in range(n) for c in range(n) if minimap.world_tile(mm, (r, c), player_xy) in visited_xy}
-        path = minimap.path_to_nearest(mm, goals=("fog_lead",), skip=stood)
+        path = minimap.path_to_nearest(mm, goals=("fog_lead",), skip=stood, cross_border=cross_border)
         if len(path) < 2:
-            path = minimap.path_to_nearest(mm, goals=("walk_unexplored",), skip=stood)
+            path = minimap.path_to_nearest(mm, goals=("walk_unexplored",), skip=stood, cross_border=cross_border)
     if len(path) < 2:
         return None
     if mm.grid[path[-1][0]][path[-1][1]] == "item":
@@ -198,6 +207,21 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
     # coordinates: centre_player and the edge pointer move the camera, so screen points don't stay put.
     bumped: list[tuple[int, int]] = []
     beat = Heartbeat()
+    tree = Tree.load()  # the location tree: crossings a walk makes are written back (zones.py)
+    last_zone: Optional[str] = None  # area name read on the previous map step
+
+    def note_crossing(was: Optional[str], now: str, xy) -> None:
+        """A walk took us from one zone into another: that border is passable, and if `now` is the zone we were
+        sent to, `was` is a way in (with the coordinates just inside)."""
+        if not was or not now or goto.same_area(was, now) or not tree.key(now) or not tree.key(was):
+            return
+        if home_area and goto.same_area(now, home_area):
+            tree.record_entry(now, was, True, server_day(), xy=xy)
+            log.info("entered %s from %s at %s: saved as its way in", now, was, xy)
+        else:
+            tree.link(was, now, "walked")
+        tree.save()
+
     def back_to_area(bare_det) -> None:
         # Runs after an interrupt handler (a tutorial, a reward choice; sxs/actions/interrupts.py): if it left us at
         # home (where this loop would end "left_area"), walk back to this area so the walk resumes where its goal is.
@@ -229,6 +253,10 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                     reward_taps += 1
                     continue
                 name = goto.area_name_here(det, frame)
+                here_xy = goto.COORDS.search(d.text or "")
+                if name and last_zone and name != last_zone:
+                    note_crossing(last_zone, name, (int(here_xy.group(1)), int(here_xy.group(2))) if here_xy else None)
+                last_zone = name or last_zone
                 if home_area is None and name:
                     home_area = name
                 elif (name and not goto.same_area(name, home_area) and not strayed
@@ -286,15 +314,19 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 xy = goto.COORDS.search(d.text or "")
                 xy = (int(xy.group(1)), int(xy.group(2))) if xy else None
                 player = player_on_screen(det, frame)
+                # R-132: the border out of the zone we were sent to is a wall until it's finished; standing in the
+                # neighbour we walk in from (roam's `allowed`), the border into that zone may be crossed (roam already
+                # checked its power, R-127).
+                cross = bool(home_area and name and not goto.same_area(name, home_area))
                 target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen, items_ok=items_ok,
                                         player=player, monsters_ok=fight,
-                                        visited_xy=stood_on, outside_xy=outside)
+                                        visited_xy=stood_on, outside_xy=outside, cross_border=cross)
                 if target is None and recentre_on_player(dev, det, frame):
                     frame = dev.screenshot()
                     player = player_on_screen(det, frame)
                     target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen, items_ok=items_ok,
                                             player=player, monsters_ok=fight,
-                                        visited_xy=stood_on, outside_xy=outside)
+                                            visited_xy=stood_on, outside_xy=outside, cross_border=cross)
                 spot = to_world(xy, player, target) if target else None
                 if spot and any(max(abs(spot[0] - b[0]), abs(spot[1] - b[1])) <= 1 for b in bumped):
                     # The path runs through something that opens a card (seen: a blessed Goddess Statue). Tapping it
