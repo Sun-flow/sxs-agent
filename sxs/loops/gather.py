@@ -31,10 +31,11 @@ from typing import Optional
 import cv2
 
 from ..actions.camera import centre_player
+from ..actions.common import pass_through, start_fight
 from ..core import ui
 from ..core.device import save_unknown
 from ..core.loop import Loop, banner
-from ..core.nav import Navigator
+from ..core.nav import DEFEATED_OK, Navigator
 from ..core.paths import POLICY
 from ..vision.hud import read_stamina
 from ..vision.ocr import read_fraction, read_line
@@ -60,6 +61,7 @@ LABEL_TO_PICKUP = (6, -33)  # from the cost label's centre to the pickup above i
 COST = 5
 SELF_RADIUS = 70  # px round the character where nothing is tapped (the tracker icon/ring floats there after a pick)
 AURA_MIN = 0.04  # share of light-blue pixels round an object that marks a rare (blue-aura) one
+MAX_GUARD_FIGHTS = 3  # guard fights per run; more means something keeps attacking: stop and report
 STALE_ACTIONS = 6  # map taps without progress before the loop stops (stuck)
 MAX_MINUTES = 2  # mae, 2026-11-04: runs of 1-2 minutes; the next run carries on
 
@@ -214,14 +216,14 @@ class Gatherer:
                 minutes: float = MAX_MINUTES) -> dict:
         """Collect `target` on the current world map until done: `budget` pickups (stamina targets) or the
         tracker reading a/b with a >= b (tracker targets). Stops early with a reason: stamina_reserve,
-        stuck_progress, stuck_self, guarded, unknown_screen, no_tracker, timeout."""
+        stuck_progress, stuck_self, guarded (more than 3 guard fights), low_hp, defeated, unknown_screen, no_tracker, timeout."""
         goal = (f"pick {target.name} until its tracker is full" if target.progress == "tracker"
                 else f"take {budget} {target.name} pickups ({target.cost} stamina each)")
         banner(log, f"Collect {target.name}", goal + ", blue-aura ones first, special nodes always",
                f"done, stamina at {keep}, {STALE_ACTIONS} taps without progress, an unknown screen, or {minutes:g} min")
         out = {"target": target.name, "pickups": 0}
         deadline = time.monotonic() + minutes * 60
-        taken = stale = self_taps = unknown = 0
+        taken = stale = self_taps = unknown = fights = 0
         if target.progress == "tracker":
             c = self.tracked_count()
             log.info("tracker: %s", c)
@@ -247,9 +249,22 @@ class Gatherer:
             if d.state == "dialogue":  # e.g. Akane at 20/20 Bellflowers: "Go for that rank advancement!"
                 self._tap(ui.DIALOGUE_NEXT, 1.5)
                 continue
-            if d.state == "battle_prep":  # guarded pickup: fights are explore's job (HP rules)
-                self._tap(ui.BACK_ARROW, 2)
-                return {**out, "end": "guarded"}
+            if d.state == "battle_prep":
+                # A guard stands on the pickup (R-073; mae, 2026-11-09): fight it at 70%+ HP, then carry on gathering.
+                fights += 1
+                if fights > MAX_GUARD_FIGHTS:
+                    self._tap(ui.BACK_ARROW, 2)
+                    return {**out, "end": "guarded", "fights": fights - 1}
+                if not start_fight(self.dev, self.det):
+                    return {**out, "end": "low_hp", "fights": fights - 1}
+                log.info("guard fight %d started", fights)
+                stale = 0
+                continue
+            if d.state == "defeated":  # lost to a guard: OK goes home (R-031)
+                self._tap(DEFEATED_OK, 3)
+                return {**out, "end": "defeated", "fights": fights}
+            if pass_through(self.dev, d):  # the guard fight, loading
+                continue
             if d.state != "world_map":
                 unknown += 1
                 log.warning("left the map (%s); frame %s; back arrow", d.state,

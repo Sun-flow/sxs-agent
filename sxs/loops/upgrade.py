@@ -35,7 +35,7 @@ from ..core.loop import Loop, banner, progress, task
 from ..core.nav import Navigator
 from ..core.ui import CLASS_BUTTON, RANK_BADGE, SKILL_BUTTON, TECHNIQUE_CARD_ENHANCE
 from ..policy import claims
-from ..vision.badges import find_badges, near_any
+from ..vision.badges import find_badges, find_up_pips, near_any
 from ..vision.ocr import boxes_of, read_line
 from .strengthen import CHARM_LIST, CHARM_SLOTS, GEAR_SLOTS, ITEM_CARD_ENHANCE, Strengthener
 
@@ -66,6 +66,16 @@ RESONANCE = (620, 256)
 PASS_BUDGET_S = 90  # one pass (skills, gear, class, rank, relics)
 TAP_BUDGET = 25  # per button: far above any real need, so a dead button can't loop forever
 RELIC_BAND = 1
+
+
+PIP_FROM_SLOT, PIP_RADIUS = (30, -45), 50  # a slot's pip (or "!") rides on its top-right rim, as in gearswap
+
+
+def gear_enhanceable(frame) -> list[int]:
+    """Indexes of the Character screen's gear slots (GEAR_SLOTS order) showing the blue enhance pip."""
+    pips = find_up_pips(frame)
+    return [i for i, (x, y) in enumerate(GEAR_SLOTS)
+            if near_any(pips, (x + PIP_FROM_SLOT[0], y + PIP_FROM_SLOT[1]), PIP_RADIUS)]
 
 
 def relic_plan(levels: dict[str, list[int]], affinity: dict[str, float]) -> Optional[tuple[str, int]]:
@@ -348,7 +358,9 @@ class Upgrader:
                 # Character screen), and the Quick Upgrade caption there is the real need check (2026-11-05: the
                 # pass was skipped while Quick Upgrade raised every skill 2-4 levels by hand).
                 "skills": True,
-                "gear": any(near_any(frame_badges, (x + 40, y - 40), 50) for x, y in GEAR_SLOTS),
+                # mae, 2026-11-09: a blue up-arrow pip on a gear slot means it can be enhanced (the red "!" in the same
+                # place means a better piece to swap in: gearswap's job, R-088).
+                "gear": bool(gear_enhanceable(self.dev.screenshot())),
                 "class_levels": near_any(frame_badges, (CLASS_BUTTON[0] + 30, CLASS_BUTTON[1] - 30), 50),
                 "rank": near_any(frame_badges, (RANK_BADGE[0] + 90, RANK_BADGE[1] - 30), 70),
                 "relics": False,
@@ -377,6 +389,25 @@ class Upgrader:
             self.nav.go_home()
         log.info("upgrade: %s", results)
         return results
+
+
+def get_stronger(dev, det) -> dict:
+    """Everything that raises power with soft resources, in one call (mae, 2026-11-09): claim the Cart, put on
+    better gear wherever a slot shows a red "!" (gearswap, R-088), fill empty charm slots from the profile, then the
+    Upgrade Loop (Goals, Quick Upgrade and ascensions, banded gear enhancing, class, rank). The same pieces as the
+    daily loop's gear_swap and strengthen steps. Used by explore after repeated losses and by `python -m sxs strengthen`."""
+    from .gearswap import GearSwap
+
+    st = Strengthener(dev, det)
+    out: dict = {"cart": st.claim_cart()}
+    out["gear_swap"] = GearSwap(dev, det).run().get("end")
+    nav = Navigator(dev, det)
+    nav.go_home()
+    ui.tap(dev, ui.HUD_PORTRAIT, 2.5)  # -> player profile
+    out["charms"] = st.equip_charms(from_profile=True) if det.detect().state == "player_profile" else 0
+    nav.go_home()
+    out["upgrade"] = Upgrader(dev, det).run()
+    return out
 
 
 def _args(p) -> None:

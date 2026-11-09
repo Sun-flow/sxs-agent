@@ -34,6 +34,8 @@ from ..vision.hp import HUD_HP_BAR, PREP_HP_BAR, bar_fraction
 from ..vision.tracker import progress_signal, read_tracker, tracking_on, tracking_toggle
 from . import tower
 from .strengthen import Strengthener
+from .tutorial import DECISION_OPTIONS  # dialogue options only mae answers (R-054)
+from .upgrade import get_stronger
 
 log = logging.getLogger("sxs.loops.explore")
 
@@ -42,7 +44,6 @@ STALE_STEP_S = 15  # seconds of no progress per "stale" step (drives the tap-off
 STALE_LIMIT = 4  # stale steps (~1 min) before trying NPCs and guards
 STALE_GIVE_UP_S = 300  # no progress for this long ends the run
 SELF_TAP_LIMIT = 6  # own-profile opens without progress before the loop gives up
-DECISION_OPTIONS = r"^(Ascend to|Change Class)"  # dialogue options a human decides
 DIALOGUE_ROI = [0, 1020, 720, 230]  # speaker name and text in the story box
 DIALOGUE_LOG = LOGS / "dialogue.log"
 RETRIES = 2  # retries of a lost fight before strengthening (mae, 2026-11-03)
@@ -50,6 +51,7 @@ HEAL_BELOW = 80  # HP % under which the profile's Quick Heal (1 cooked dish) is 
 REPEAT_LIMIT = 4  # same card title this many times in a row means the choice isn't working
 CARD_STATES = ("defeated", "interact", "dungeon_floor", "confirm_dialog", "quest_detail")
 LOSS_KINDS = ("wounded", "defeated")
+OK = {"complete", "timeout", "tower_done_today"}  # tower_done_today: the quest needs tomorrow's climb (R-079)
 
 
 def hud_hp(frame, bar=None) -> float:
@@ -69,7 +71,7 @@ def log_dialogue(det) -> None:
 
 class Explorer:
     """One run of the quest follower. Stop reasons: complete, defeated, no_marker, no_tracker, unknown_card,
-    repeating_card, needs_decision, stuck_home, stuck_progress, stuck_self, low_hp, unknown_screen, timeout."""
+    repeating_card, needs_decision, tower_done_today, stuck_home, stuck_progress, stuck_self, low_hp, unknown_screen, timeout."""
 
     def __init__(self, dev, det, minutes: float = 20, max_misses: int = 10, choose: Optional[str] = None):
         self.dev, self.det = dev, det
@@ -272,12 +274,19 @@ class Explorer:
     def _on_tower(self) -> Optional[str]:
         # The quest's Go brought us to Fantasia Ascent ("Reach <Tower> Fn"): hand over to the tower loop, which
         # climbs with Auto Challenge until the first loss (no retries there), then carry on with the quest line.
+        if tower.done_today():
+            # R-079 (mae): one climb a day, never retry a loss. Today's climb already ran (the daily step, or an
+            # earlier hand-over): leave the tower; the quest waits for tomorrow's climb.
+            log.info("tower already climbed today; leaving it (the quest waits for tomorrow)")
+            stop = self._go_home_or_stop()
+            return stop or "tower_done_today"
         m = re.search(r"Reach (.+?) F ?(\d+)", self.last_progress or "")
         result = tower.climb(self.dev, self.det, m.group(1).strip() if m else None,
                              minutes=max(1.0, (self.deadline - time.monotonic()) / 60))
         log.info("tower climb: %s", result)
         if result not in tower.OK:
             return result
+        tower.mark_done()  # that was today's one climb
         stop = self._go_home_or_stop()
         if stop:
             return stop
@@ -438,14 +447,14 @@ def explore(dev, det, minutes: float = 20, chain: bool = False, choose: Optional
                 log.info("lost a fight; retry %d of %d after healing", losses, RETRIES)
             elif not strengthened:
                 log.info("lost %d times in a row; getting stronger before one more try", losses)
-                Strengthener(dev, det).run()
+                get_stronger(dev, det)  # gear swap, charms, Upgrade Loop (mae, 2026-11-09)
                 strengthened = True
             else:
                 return Result("needs_help", False, {"completed": completed, "why": "still losing after strengthening"})
             time.sleep(3)
             continue
         if result != "complete" or not chain:
-            return Result(result, result in ("complete", "timeout"), {"completed": completed})
+            return Result(result, result in OK, {"completed": completed})
         time.sleep(3)
 
 
@@ -461,5 +470,5 @@ def _run(ctx, opts) -> Result:
 
 
 LOOP = Loop("explore", "Explore", "follow the tracked quest line (fights, cards, unstick, claims)", _run, _args,
-            ok={"complete", "timeout"})  # runs are 2 minutes: a timeout with progress is the normal end; no progress
+            ok=OK)  # runs are 2 minutes: a timeout with progress is the normal end; no progress
 # for --stall seconds ends it as "stalled" instead
