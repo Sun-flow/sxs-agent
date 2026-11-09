@@ -5,6 +5,7 @@
 | `pipeline/state.json` | `State.*` screen detectors; `State.Detect` lists them in priority order (first hit wins) |
 | `pipeline/explore.json`, `home.json`, `upgrade.json`, `tutorial.json` | Template/OCR nodes used by the loops (`Explore.*`, `Gather.*`, `Home.*`, `Guild.*`, `Tutorial.*`) |
 | `image/<group>/` | Templates the pipelines and code match (paths are relative to `image/`) |
+| `image/labels/` | Crops of boxes mae drew in the labeler (`python -m sxs labeler`), one folder per screen, `manifest.json` (`sxs/core/labels.py`) |
 | `policy/cards.json` | Card/popup decision rules (`sxs/policy/decide.py`) |
 | `policy/gather.json` | Material priority for the Gather Loop |
 | `model/ocr/` | OCR models (fetched by `scripts/fetch-ocr-models.py`, gitignored except `keys.txt`) |

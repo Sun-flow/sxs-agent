@@ -69,7 +69,7 @@ for path in sorted((ROOT / "resource" / "policy").glob("*.json")):
 # Commands: `python -m sxs <name>` must be a registered loop (sxs/loops/__init__.py REGISTRY, read as text so this
 # check needs no MaaFramework), a device command in sxs/cli.py or `see`. The old `python -m sxs.<module>` form is gone.
 REGISTRY = set(re.findall(r'^\s+"([a-z_]+)": "sxs\.', (ROOT / "sxs" / "loops" / "__init__.py").read_text(), re.M))
-CLI_WORDS = {"see", "bank", "label", "report", "--help", "-h", "--address", "<loop>", "<name>"}
+CLI_WORDS = {"see", "bank", "label", "labeler", "report", "--help", "-h", "--address", "<loop>", "<name>"}
 CLI_WORDS |= set(re.findall(r'"([a-z]+)"', re.search(r"DEVICE_COMMANDS = \(([^)]*)\)",
                                                        (ROOT / "sxs" / "cli.py").read_text()).group(1)))
 OLD_REF = re.compile(r"python3? -m sxs\.([a-z_.]+)")

@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Screen labeler</title>
+<style>
+  :root { --bg:#16181d; --panel:#1f2229; --line:#333844; --text:#e6e8ee; --dim:#9aa1b1; --accent:#5aa9ff;
+          --warn:#ffb454; --ok:#6fcf97; --sel:#ffd34d; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:14px/1.4 system-ui, sans-serif; height:100vh;
+         display:grid; grid-template-columns: 260px 1fr 320px; overflow:hidden; }
+  aside, section { overflow:auto; }
+  #list { border-right:1px solid var(--line); background:var(--panel); }
+  #list header { position:sticky; top:0; background:var(--panel); padding:10px; border-bottom:1px solid var(--line); }
+  #filter { width:100%; }
+  #list label { color:var(--dim); font-size:12px; display:block; margin-top:6px; }
+  .group { padding:6px 10px 2px; color:var(--dim); font-size:11px; text-transform:uppercase; letter-spacing:.06em; }
+  .item { padding:4px 10px; cursor:pointer; display:flex; gap:6px; align-items:center; white-space:nowrap; }
+  .item:hover { background:#2a2e38; }
+  .item.cur { background:#2f3a4d; }
+  .item .f { overflow:hidden; text-overflow:ellipsis; flex:1; }
+  .dot { width:8px; height:8px; border-radius:50%; background:var(--line); flex:none; }
+  .dot.done { background:var(--ok); }
+  .n { color:var(--dim); font-size:11px; }
+  #stage { display:flex; align-items:center; justify-content:center; padding:12px; position:relative; }
+  #wrap { position:relative; height:calc(100vh - 24px); }
+  #img { height:100%; display:block; user-select:none; -webkit-user-drag:none; }
+  #canvas { position:absolute; inset:0; width:100%; height:100%; cursor:crosshair; }
+  #hint { color:var(--dim); font-size:12px; margin-top:16px; border-top:1px solid var(--line); padding-top:10px; }
+  #side { border-left:1px solid var(--line); background:var(--panel); padding:12px; }
+  h2 { font-size:13px; margin:14px 0 6px; color:var(--dim); text-transform:uppercase; letter-spacing:.06em; }
+  h2:first-child { margin-top:0; }
+  .field { display:grid; grid-template-columns: 70px 1fr; gap:6px; align-items:center; margin-bottom:6px; }
+  .field span { color:var(--dim); font-size:12px; }
+  .field input, .field textarea { min-width:0; width:100%; }
+  input, select, textarea, button { font:inherit; color:var(--text); background:#14161b; border:1px solid var(--line);
+          border-radius:4px; padding:4px 6px; }
+  textarea { width:100%; min-height:48px; resize:vertical; }
+  button { cursor:pointer; background:#2a3140; }
+  button.primary { background:var(--accent); color:#06121f; border-color:var(--accent); font-weight:600; }
+  button:disabled { opacity:.5; cursor:default; }
+  .box { border:1px solid var(--line); border-radius:6px; padding:6px; margin-bottom:6px; cursor:pointer; }
+  .box.sel { border-color:var(--sel); }
+  .box .row { display:flex; gap:6px; margin-bottom:4px; }
+  .box .row input[type=text] { flex:1; min-width:0; }
+  .box .xy { color:var(--dim); font-size:11px; }
+  #msg { margin-top:8px; font-size:12px; white-space:pre-wrap; }
+  #msg.err { color:var(--warn); } #msg.ok { color:var(--ok); }
+  .bar { display:flex; gap:6px; margin-top:10px; flex-wrap:wrap; }
+  .muted { color:var(--dim); font-size:12px; }
+  kbd { background:#2a2e38; border-radius:3px; padding:0 4px; font-size:11px; }
+</style>
+</head>
+<body>
+<aside id="list">
+  <header>
+    <input id="filter" placeholder="Filter screens" autocomplete="off">
+    <label><input type="checkbox" id="onlyTodo"> only screens with no state yet</label>
+  </header>
+  <div id="items"></div>
+</aside>
+
+<section id="stage">
+  <div id="wrap">
+    <img id="img" alt="">
+    <canvas id="canvas"></canvas>
+  </div>
+</section>
+
+<aside id="side">
+  <h2>Screen</h2>
+  <div class="muted" id="key"></div>
+  <div class="field"><span>Name</span><input id="f_name" placeholder="e.g. guild_shop_top"></div>
+  <div class="field"><span>Folder</span><input id="f_folder" placeholder=""></div>
+  <div class="field"><span>State</span><input id="f_state" list="states" placeholder="detector state, unknown or -"></div>
+  <datalist id="states"></datalist>
+  <div class="field" style="align-items:start"><span>What it is</span><textarea id="f_what"></textarea></div>
+
+  <h2>Marked items <span class="muted" id="count"></span></h2>
+  <div id="boxes"><div class="muted">Drag on the screen to mark a button, text, icon or area.</div></div>
+
+  <div class="bar">
+    <button class="primary" id="save">Save</button>
+    <button id="file" title="Runs python -m sxs label: moves every banked screen with a State into its folder">File labelled screens</button>
+  </div>
+  <div id="msg"></div>
+  <div id="hint">Drag on the screen to draw a box. Click a box to select it, drag it to move it, drag its corner to
+    resize it. <kbd>Del</kbd> removes the selected box, <kbd>Ctrl+S</kbd> saves, <kbd>[</kbd> and <kbd>]</kbd> go to
+    the previous or next screen. Colours: blue button, green text, purple icon, red badge, orange region.</div>
+</aside>
+
+<script>
+const $ = s => document.querySelector(s);
+const img = $('#img'), cv = $('#canvas'), ctx = cv.getContext('2d');
+let screens = [], kinds = [], tmplKinds = [], cur = null, boxes = [], sel = -1, dirty = false, size = [720, 1280];
+let drag = null;
+
+async function api(path, body) {
+  const r = await fetch(path, body ? {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)} : {});
+  const j = await r.json();
+  if (!r.ok) throw new Error(j.error || r.statusText);
+  return j;
+}
+
+function msg(text, cls) { const m = $('#msg'); m.textContent = text; m.className = cls || ''; }
+function setDirty(v) { dirty = v; $('#save').textContent = v ? 'Save *' : 'Save'; }
+
+async function loadList(keepKey) {
+  const j = await api('/api/screens');
+  screens = j.screens; kinds = j.kinds; tmplKinds = j.template_kinds;
+  $('#states').innerHTML = j.states.map(s => `<option value="${s}">`).join('');
+  renderList();
+  const key = keepKey || (screens[0] && screens[0].key);
+  if (key && (!cur || cur.key !== key)) open(key); else renderList();
+}
+
+function renderList() {
+  const q = $('#filter').value.toLowerCase(), todo = $('#onlyTodo').checked;
+  let html = '', group = null;
+  for (const s of screens) {
+    if (q && !s.key.toLowerCase().includes(q) && !(s.state || '').includes(q)) continue;
+    if (todo && s.labelled) continue;
+    const g = s.banked ? 'unlabeled (the bank)' : s.folder;
+    if (g !== group) { html += `<div class="group">${g}</div>`; group = g; }
+    html += `<div class="item${cur && cur.key === s.key ? ' cur' : ''}" data-key="${s.key}">
+      <span class="dot${s.labelled ? ' done' : ''}" title="${s.labelled ? 'has a state' : 'no state yet'}"></span>
+      <span class="f">${s.file.replace('.png','')}</span>${s.boxes ? `<span class="n">${s.boxes}▢</span>` : ''}</div>`;
+  }
+  $('#items').innerHTML = html || '<div class="muted" style="padding:10px">Nothing matches.</div>';
+}
+
+$('#items').addEventListener('click', e => { const it = e.target.closest('.item'); if (it) open(it.dataset.key); });
+$('#filter').addEventListener('input', renderList);
+$('#onlyTodo').addEventListener('change', renderList);
+
+async function open(key) {
+  if (dirty && cur && !confirm('Unsaved changes on ' + cur.key + '. Leave without saving?')) return;
+  const d = await api('/api/screen?key=' + encodeURIComponent(key));
+  cur = d; boxes = d.boxes.map(b => ({...b})); sel = -1; size = d.size;
+  $('#key').textContent = d.key + (d.banked ? ' · in the bank' : '');
+  for (const k of ['name','folder','state','what']) $('#f_' + k).value = d.fields[k] || '';
+  $('#f_name').disabled = $('#f_folder').disabled = !d.banked;
+  $('#f_folder').placeholder = d.banked ? 'default: ' + d.suggested_folder : '';
+  img.src = '/img/' + encodeURIComponent(key).replace(/%2F/g, '/');
+  setDirty(false); msg(''); renderList(); renderBoxes();
+}
+
+img.addEventListener('load', () => { cv.width = size[0]; cv.height = size[1]; draw(); });
+
+// --- drawing -----------------------------------------------------------------------------------------------------
+function toImg(e) {
+  const r = cv.getBoundingClientRect();
+  return [(e.clientX - r.left) * size[0] / r.width, (e.clientY - r.top) * size[1] / r.height];
+}
+const HANDLE = () => 14 * size[0] / cv.getBoundingClientRect().width;  // corner handle, in image px
+
+function hit(x, y) {
+  for (let i = boxes.length - 1; i >= 0; i--) {
+    const b = boxes[i], h = HANDLE();
+    if (Math.abs(x - (b.x + b.w)) < h && Math.abs(y - (b.y + b.h)) < h) return [i, 'resize'];
+    if (x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h) return [i, 'move'];
+  }
+  return [-1, null];
+}
+
+cv.addEventListener('mousedown', e => {
+  if (!cur) return;
+  const [x, y] = toImg(e), [i, mode] = hit(x, y);
+  if (i >= 0) { sel = i; drag = {mode, i, x0:x, y0:y, b:{...boxes[i]}}; }
+  else { drag = {mode:'new', x0:x, y0:y}; sel = -1; }
+  renderBoxes(); draw();
+});
+window.addEventListener('mousemove', e => {
+  if (!drag) { if (cur) { const [x, y] = toImg(e); const [, m] = hit(x, y); cv.style.cursor = m === 'resize' ? 'nwse-resize' : m ? 'move' : 'crosshair'; } return; }
+  const [x, y] = toImg(e);
+  if (drag.mode === 'new') drag.cur = [x, y];
+  else if (drag.mode === 'move') { const b = boxes[drag.i]; b.x = drag.b.x + x - drag.x0; b.y = drag.b.y + y - drag.y0; setDirty(true); }
+  else { const b = boxes[drag.i]; b.w = Math.max(4, drag.b.w + x - drag.x0); b.h = Math.max(4, drag.b.h + y - drag.y0); setDirty(true); }
+  draw();
+});
+window.addEventListener('mouseup', () => {
+  if (!drag) return;
+  if (drag.mode === 'new' && drag.cur) {
+    const [x1, y1] = drag.cur, x = Math.min(drag.x0, x1), y = Math.min(drag.y0, y1), w = Math.abs(x1 - drag.x0), h = Math.abs(y1 - drag.y0);
+    if (w > 4 && h > 4) {
+      boxes.push({name:'', kind:'button', x, y, w, h, note:'', template:true});
+      sel = boxes.length - 1; setDirty(true);
+    }
+  }
+  const created = drag.mode === 'new' && sel === boxes.length - 1 && sel >= 0;
+  if (drag.mode !== 'new') boxes.forEach(round);
+  drag = null; renderBoxes(); draw();
+  if (created) { const el = document.querySelector(`#boxes .box[data-i="${sel}"] input[type=text]`); el && el.focus(); }
+});
+function round(b) { for (const k of ['x','y','w','h']) b[k] = Math.round(b[k]); }
+
+const COLORS = {button:'#5aa9ff', text:'#6fcf97', icon:'#c792ea', badge:'#ff6b6b', region:'#ffb454', other:'#aab'};
+function draw() {
+  ctx.clearRect(0, 0, cv.width, cv.height);
+  const lw = Math.max(2, size[0] / 360), fs = Math.max(14, size[0] / 36);
+  ctx.font = `600 ${fs}px system-ui, sans-serif`;
+  boxes.forEach((b, i) => {
+    const c = i === sel ? '#ffd34d' : COLORS[b.kind] || '#aab';
+    ctx.strokeStyle = c; ctx.lineWidth = i === sel ? lw * 1.6 : lw;
+    ctx.fillStyle = c + '22'; ctx.fillRect(b.x, b.y, b.w, b.h); ctx.strokeRect(b.x, b.y, b.w, b.h);
+    const label = (b.name || '(unnamed)') + ' · ' + b.kind, tw = ctx.measureText(label).width;
+    const ly = b.y - fs - 4 < 0 ? b.y + b.h : b.y - fs - 4;
+    ctx.fillStyle = '#000b'; ctx.fillRect(b.x, ly, tw + 8, fs + 4);
+    ctx.fillStyle = c; ctx.fillText(label, b.x + 4, ly + fs - 1);
+    if (i === sel) { const h = HANDLE() * .6; ctx.fillStyle = c; ctx.fillRect(b.x + b.w - h, b.y + b.h - h, h * 2, h * 2); }
+  });
+  if (drag && drag.mode === 'new' && drag.cur) {
+    ctx.setLineDash([8, 6]); ctx.strokeStyle = '#ffd34d'; ctx.lineWidth = lw;
+    ctx.strokeRect(drag.x0, drag.y0, drag.cur[0] - drag.x0, drag.cur[1] - drag.y0); ctx.setLineDash([]);
+  }
+}
+
+// --- box list ----------------------------------------------------------------------------------------------------
+function esc(s) { return String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function renderBoxes() {
+  $('#count').textContent = boxes.length ? `(${boxes.length})` : '';
+  if (!boxes.length) { $('#boxes').innerHTML = '<div class="muted">Drag on the screen to mark a button, text, icon or area.</div>'; return; }
+  $('#boxes').innerHTML = boxes.map((b, i) => `
+    <div class="box${i === sel ? ' sel' : ''}" data-i="${i}">
+      <div class="row"><input type="text" data-k="name" value="${esc(b.name)}" placeholder="name, e.g. upgrade_button">
+        <select data-k="kind">${kinds.map(k => `<option${k === b.kind ? ' selected' : ''}>${k}</option>`).join('')}</select></div>
+      <div class="row"><input type="text" data-k="note" value="${esc(b.note)}" placeholder="what to do with it (optional)"></div>
+      <div class="row" style="justify-content:space-between;align-items:center">
+        <label class="muted"><input type="checkbox" data-k="template"${b.template ? ' checked' : ''}> save crop as template</label>
+        <span class="xy">${Math.round(b.x)},${Math.round(b.y)} ${Math.round(b.w)}×${Math.round(b.h)}</span>
+        <button data-del="${i}" title="Remove">✕</button></div>
+    </div>`).join('');
+}
+$('#boxes').addEventListener('click', e => {
+  const del = e.target.dataset.del;
+  if (del !== undefined) { boxes.splice(+del, 1); sel = -1; setDirty(true); renderBoxes(); draw(); return; }
+  const card = e.target.closest('.box');
+  if (card && sel !== +card.dataset.i) { sel = +card.dataset.i; document.querySelectorAll('#boxes .box').forEach(el => el.classList.toggle('sel', +el.dataset.i === sel)); draw(); }
+});
+$('#boxes').addEventListener('input', e => {
+  const card = e.target.closest('.box'), k = e.target.dataset.k; if (!card || !k) return;
+  const b = boxes[+card.dataset.i];
+  if (k === 'template') b.template = e.target.checked;
+  else if (k === 'kind') { b.kind = e.target.value; b.template = tmplKinds.includes(b.kind); card.querySelector('[data-k=template]').checked = b.template; }
+  else b[k] = k === 'name' ? e.target.value.toLowerCase().replace(/[^a-z0-9_]+/g, '_') : e.target.value;
+  if (k === 'name' && e.target.value !== b.name) e.target.value = b.name;
+  setDirty(true); draw();
+});
+for (const k of ['name','folder','state','what']) $('#f_' + k).addEventListener('input', () => setDirty(true));
+
+// --- save / file -------------------------------------------------------------------------------------------------
+async function save() {
+  if (!cur) return;
+  const unnamed = boxes.findIndex(b => !b.name);
+  if (unnamed >= 0) { sel = unnamed; renderBoxes(); draw(); msg('Give every marked item a name before saving.', 'err'); return; }
+  const fields = {}; for (const k of ['name','folder','state','what']) fields[k] = $('#f_' + k).value.trim();
+  try {
+    const r = await api('/api/save', {key:cur.key, fields, boxes});
+    setDirty(false);
+    msg(r.problems.length ? 'Saved, with problems:\n' + r.problems.join('\n') : `Saved. ${r.crops.length} template crop(s).`, r.problems.length ? 'err' : 'ok');
+    const d = await api('/api/screen?key=' + encodeURIComponent(cur.key)); boxes = d.boxes; sel = -1;
+    renderBoxes(); draw(); await loadList(cur.key);
+  } catch (e) { msg('Save failed: ' + e.message, 'err'); }
+}
+$('#save').addEventListener('click', save);
+$('#file').addEventListener('click', async () => {
+  if (dirty) await save();
+  try {
+    const r = await api('/api/file', {});
+    msg(`${r.filed.length} filed${r.filed.length ? ':\n' + r.filed.join('\n') : ''}${r.problems.length ? '\nLeft in the bank:\n' + r.problems.join('\n') : ''}`, r.problems.length ? 'err' : 'ok');
+    cur = null; setDirty(false); await loadList(null);
+  } catch (e) { msg('Filing failed: ' + e.message, 'err'); }
+});
+
+window.addEventListener('keydown', e => {
+  const typing = ['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName);
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); save(); return; }
+  if (typing) return;
+  if ((e.key === 'Delete' || e.key === 'Backspace') && sel >= 0) { boxes.splice(sel, 1); sel = -1; setDirty(true); renderBoxes(); draw(); }
+  if (e.key === ']' || e.key === '[') {
+    const vis = [...document.querySelectorAll('#items .item')].map(el => el.dataset.key);
+    const i = vis.indexOf(cur && cur.key), j = i + (e.key === ']' ? 1 : -1);
+    if (vis[j]) open(vis[j]);
+  }
+});
+window.addEventListener('beforeunload', e => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
+window.addEventListener('resize', draw);
+loadList();
+</script>
+</body>
+</html>

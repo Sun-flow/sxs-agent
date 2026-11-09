@@ -9,6 +9,7 @@
 | `check_interrupts.py` | OpenCV | Interrupt layer: pause, handle, resume, owned rows, mutes, LoopStop through the runner; the tutorial row fires on no reference screen it watches |
 | `check_upgrade_logic.py` | MaaFramework, OpenCV | Badge finder, gather pickup choice, relic banding plan, Cart row pick and cost icons |
 | `check_progress.py` | MaaFramework + OCR models | Progress tracker: stat readers on reference screens, bands, the day report (temp logs), the home > profile > Journal route replayed |
+| `check_labeler.py` | Pillow, OpenCV | Labeler page API in a temp copy: save boxes, crops and manifest, bank row, filing moves boxes and crops, paths outside docs/screens refused, `vision/labels.py` finds a crop |
 | `smoke_test.py [--no-restart]` | Live emulator | Cold start → home → menus → home |
 
-Run the first seven after any code change; `smoke_test.py` after changing navigation.
+Run the first eight after any code change; `smoke_test.py` after changing navigation.
