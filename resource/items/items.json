@@ -130,9 +130,9 @@
    "id": "stamina",
    "name": "Stamina",
    "kind": "currency",
-   "description": "",
+   "description": "Spend Stamina in Terrain Quest's Blessed Lands to mine ores and defeat monsters for resources. Restores 5 Stamina per hour. Passive recovery stops at 300 Stamina. You can hold up to 1,200 Stamina.",
    "uses": "Exploration/gathering energy; Vault x30 free daily (R-120)",
-   "named_by": "screen",
+   "named_by": "popup",
    "icons": [
     {
      "file": "stamina.png",
@@ -155,6 +155,17 @@
       33
      ],
      "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "stamina_3.png",
+     "screen": "items/home_top_bar.png",
+     "box": [
+      580,
+      36,
+      30,
+      32
+     ],
+     "found_in": "Home > Top bar"
     }
    ]
   },
@@ -288,9 +299,9 @@
    "id": "rolla",
    "name": "Rolla",
    "kind": "currency",
-   "description": "",
-   "uses": "Common currency (R-019): enhancement, Rank Advancement; never paid Refresh",
-   "named_by": "screen",
+   "description": "Use them for gear enhance, ascension, and buying items from the shop. Metal coins from Kanstein, featuring iconic staff and sword design.",
+   "uses": "Common currency (R-019): enhancement, Rank Advancement; never paid Refresh Sources: Shop Purchase, Home AFK Yield, Realm: Gilded Depths, Commission (locked), Verdantglade Gold Mining",
+   "named_by": "popup",
    "icons": [
     {
      "file": "rolla.png",
@@ -302,6 +313,17 @@
       32
      ],
      "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "rolla_2.png",
+     "screen": "items/home_top_bar.png",
+     "box": [
+      326,
+      39,
+      31,
+      29
+     ],
+     "found_in": "Home > Top bar"
     }
    ]
   },
@@ -309,9 +331,9 @@
    "id": "dawnium",
    "name": "Dawnium",
    "kind": "currency",
-   "description": "",
+   "description": "A currency for shop purchases, obtainable through exchanging Luminium at a 1:1 ratio. Magical stars that sparkle with light, carrying people's hopes and dreams.",
    "uses": "Premium currency (R-018): never spend",
-   "named_by": "screen",
+   "named_by": "popup",
    "icons": [
     {
      "file": "dawnium.png",
@@ -323,6 +345,38 @@
       33
      ],
      "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "dawnium_2.png",
+     "screen": "items/home_top_bar.png",
+     "box": [
+      454,
+      37,
+      31,
+      31
+     ],
+     "found_in": "Home > Top bar"
+    }
+   ]
+  },
+  {
+   "id": "green_riceball",
+   "name": "Green Riceball",
+   "kind": "consumable",
+   "description": "Eat it to restore HP. Soft and delectable rice cakes made from washed and pounded green grains.",
+   "uses": "Sources: Shop Purchase, Dish Cooking",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "green_riceball.png",
+     "screen": "items/profile.png",
+     "box": [
+      601,
+      40,
+      37,
+      29
+     ],
+     "found_in": "Island map > Profile"
     }
    ]
   }
