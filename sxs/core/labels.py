@@ -10,6 +10,7 @@ box is for: a button to tap, text to read with OCR, an icon or badge to match, o
 
 For the UI detector (docs/detector-design.md) a box can also carry "cls", one of the detector classes in
 resource/detect/classes.json, and "draft": true when the pre-labeller drew it and mae has not confirmed it yet.
+A box of class item_icon can also carry "item", an id from the item catalogue (resource/items/items.json).
 Only boxes with a cls go into a training dataset (`python -m sxs dataset`); drafts only when asked.
 
 The template path in the manifest is relative to resource/image/, so a pipeline node can use it as `template` and
@@ -35,6 +36,13 @@ MANIFEST = CROPS / "manifest.json"
 KINDS = ("button", "text", "icon", "badge", "region", "other")
 TEMPLATE_KINDS = ("button", "icon", "badge")  # ticked as templates by default in the UI
 NAME = re.compile(r"^[a-z][a-z0-9_]*$")
+
+
+def item_ids() -> list[str]:
+    """Ids in the item catalogue (resource/items/items.json), in order."""
+    from ..detect import items
+
+    return items.ids()
 
 
 def classes() -> list[dict]:
@@ -82,11 +90,17 @@ def clean_boxes(boxes: list, size: tuple[int, int]) -> tuple[list[dict], list[st
         if cls and cls not in known:
             problems.append(f"box {name}: class {cls!r} is not in resource/detect/classes.json")
             cls = ""
+        item = str(b.get("item") or "").strip()
+        if item and (cls != "item_icon" or item not in item_ids()):
+            problems.append(f"box {name}: item {item!r} is not in resource/items/items.json")
+            item = ""
         seen.add(name)
         box = {"name": name, "kind": kind, "x": x0, "y": y0, "w": x1 - x0, "h": y1 - y0,
                "note": str(b.get("note", "")).strip(), "template": bool(b.get("template"))}
         if cls:
             box["cls"] = cls
+        if item:
+            box["item"] = item
         if b.get("draft"):
             box["draft"] = True
         out.append(box)

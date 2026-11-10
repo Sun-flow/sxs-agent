@@ -44,7 +44,7 @@
   .box.sel { border-color:var(--sel); }
   .box .row { display:flex; gap:6px; margin-bottom:4px; }
   .box .row input[type=text] { flex:1; min-width:0; }
-  .box .row select[data-k=cls] { flex:1; min-width:0; }
+  .box .row select[data-k=cls], .box .row select[data-k=item] { flex:1; min-width:0; }
   .box .xy { color:var(--dim); font-size:11px; }
   #msg { margin-top:8px; font-size:12px; white-space:pre-wrap; }
   #msg.err { color:var(--warn); } #msg.ok { color:var(--ok); }
@@ -98,7 +98,7 @@
 <script>
 const $ = s => document.querySelector(s);
 const img = $('#img'), cv = $('#canvas'), ctx = cv.getContext('2d');
-let screens = [], kinds = [], tmplKinds = [], classes = [], cur = null, boxes = [], sel = -1, dirty = false, size = [720, 1280];
+let screens = [], kinds = [], tmplKinds = [], classes = [], items = [], cur = null, boxes = [], sel = -1, dirty = false, size = [720, 1280];
 let drag = null;
 
 async function api(path, body) {
@@ -113,7 +113,7 @@ function setDirty(v) { dirty = v; $('#save').textContent = v ? 'Save *' : 'Save'
 
 async function loadList(keepKey) {
   const j = await api('/api/screens');
-  screens = j.screens; kinds = j.kinds; tmplKinds = j.template_kinds; classes = j.classes || [];
+  screens = j.screens; kinds = j.kinds; tmplKinds = j.template_kinds; classes = j.classes || []; items = j.items || [];
   $('#states').innerHTML = j.states.map(s => `<option value="${s}">`).join('');
   renderList();
   const key = keepKey || (screens[0] && screens[0].key);
@@ -213,7 +213,7 @@ function draw() {
     if (b.draft) ctx.setLineDash([10, 6]);
     ctx.fillStyle = c + (b.draft ? '11' : '22'); ctx.fillRect(b.x, b.y, b.w, b.h); ctx.strokeRect(b.x, b.y, b.w, b.h);
     ctx.setLineDash([]);
-    const label = (b.draft ? 'draft · ' : '') + (b.cls || b.name || '(unnamed)') + ' · ' + b.kind, tw = ctx.measureText(label).width;
+    const label = (b.draft ? 'draft · ' : '') + (b.item || b.cls || b.name || '(unnamed)') + ' · ' + b.kind, tw = ctx.measureText(label).width;
     const ly = b.y - fs - 4 < 0 ? b.y + b.h : b.y - fs - 4;
     ctx.fillStyle = '#000b'; ctx.fillRect(b.x, ly, tw + 8, fs + 4);
     ctx.fillStyle = c; ctx.fillText(label, b.x + 4, ly + fs - 1);
@@ -235,6 +235,7 @@ function renderBoxes() {
       <div class="row"><input type="text" data-k="name" value="${esc(b.name)}" placeholder="name, e.g. upgrade_button">
         <select data-k="kind">${kinds.map(k => `<option${k === b.kind ? ' selected' : ''}>${k}</option>`).join('')}</select></div>
       <div class="row"><select data-k="cls" title="detector class (resource/detect/classes.json)"><option value="">no detector class</option>${classes.map(c => `<option value="${c.name}"${c.name === b.cls ? ' selected' : ''} title="${esc(c.about)}">${c.group} · ${c.name}</option>`).join('')}</select>
+        ${b.cls === 'item_icon' ? `<select data-k="item" title="which item (resource/items/items.json; add new ones with python -m sxs items add)"><option value="">which item?</option>${items.map(it => `<option value="${it.id}"${it.id === b.item ? ' selected' : ''}>${esc(it.name || it.id)}</option>`).join('')}</select>` : ''}
         ${b.draft ? `<button data-confirm="${i}" title="The box is right: keep it">Confirm</button>` : ''}</div>
       <div class="row"><input type="text" data-k="note" value="${esc(b.note)}" placeholder="what to do with it (optional)"></div>
       <div class="row" style="justify-content:space-between;align-items:center">
@@ -255,11 +256,12 @@ $('#boxes').addEventListener('input', e => {
   const b = boxes[+card.dataset.i];
   if (k === 'template') b.template = e.target.checked;
   else if (k === 'cls') {
-    b.cls = e.target.value; b.draft = false;
+    b.cls = e.target.value; b.draft = false; if (b.cls !== 'item_icon') delete b.item;
     const c = classes.find(c => c.name === b.cls);
     if (c) { b.kind = c.kind; if (!b.name) b.name = uniqueName(b.cls); }
     renderBoxes();
   }
+  else if (k === 'item') { b.item = e.target.value; b.draft = false; }
   else if (k === 'kind') { b.kind = e.target.value; b.template = tmplKinds.includes(b.kind); card.querySelector('[data-k=template]').checked = b.template; }
   else b[k] = k === 'name' ? e.target.value.toLowerCase().replace(/[^a-z0-9_]+/g, '_') : e.target.value;
   if (k === 'name' && e.target.value !== b.name) e.target.value = b.name;

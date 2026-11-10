@@ -98,3 +98,8 @@ Entry format:
 - **Rationale**: fastest screenshot path (~10 ms IPC vs ~100 ms `adb screencap`), a CLI for instance control, per-instance ADB ports, wide use in bot communities. 1280×720 is what most bot assets assume.
 - **Alternatives considered**: BlueStacks 5 (fallback; slower screenshots, little CLI); LDPlayer 9 (dropped by MAA for unstable screenshots); Android Studio AVD (ARM games run poorly on x86); Redroid on Linux (best for headless later, not worth it for iteration 1).
 - **Status**: Accepted
+
+## 2026-11-10 · Item symbols are catalogued and taught to the detector (mae)
+- Every item, material and currency symbol gets a catalogue entry in `resource/items/` with its name and description read from its own in-game popup; the UI detector learns them (`item_icon`, one class per item in the export by default).
+- Standing rule for every thread: when you see a material or currency symbol that is not in the catalogue, find out what it is and add it (`python -m sxs items add`). Not all of them matter to the bot; all of them help training.
+
