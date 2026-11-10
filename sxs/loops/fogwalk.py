@@ -804,11 +804,14 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                     if dismissed[card.title] == 2 and buildings_ok:
                         # Live 2026-11-09: the Sealed Stone Gate (the gold "!" structure on Verdantglade V's north
                         # edge) was the nearest structure again and again; every walk reopened its card. A structure
-                        # whose card we can only dismiss is a blocker, not a goal: no more structures this walk.
-                        buildings_ok = False
+                        # whose card we can only dismiss is a blocker, not a goal: skip that spot (and others like it),
+                        # not every structure (live 2026-11-10: after a Lost Goddess Statue it skipped all structures
+                        # and walked past Wildbloom Coast's chest).
                         here_xy = goto.coords(det)
-                        log.warning("STUCK %s: %r can only be dismissed (no rule); skipping structures for the rest "
-                                    "of this walk", home_area, card.title)
+                        if here_xy:
+                            outside.add(tuple(here_xy))
+                        log.warning("STUCK %s: %r can only be dismissed (no rule); skipping it, not other structures",
+                                    home_area, card.title)
                         if home_area and tree.key(home_area):
                             z = tree.zones[tree.key(home_area)]
                             note = f"blocked: {card.title.strip()} near {here_xy} (no rule; dismissed)"

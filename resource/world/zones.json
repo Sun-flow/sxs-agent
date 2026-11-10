@@ -8,8 +8,8 @@
    "blessed": true,
    "notes": "Free 4-player story dungeon (R-133); Lost Goddess Statue blessed 2026-11-05.",
    "map_point": [
-    159,
-    731
+    133,
+    875
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -21,8 +21,8 @@
    "pct": 100,
    "notes": "15.5 is the Gate of Power inside (R-086), not an area-map gate. An area-map walk to its label from Verdantglade II lands at about (184, 86); items behind the gate finish it. 2026-11-10: walked in at (184,82); no object, no fog edge, label shows no % line: taken as explored.",
    "map_point": [
-    872,
-    1132
+    1153,
+    1317
    ],
    "last_seen": "2026-11-09",
    "entries": [
@@ -42,29 +42,19 @@
    "kind": "town",
    "notes": "Town: Chief, Hermes, Carol, portal (R-134).",
    "map_point": [
-    227,
-    918
+    201,
+    1062
    ],
    "last_seen": "2026-11-09",
    "entries": []
-  },
-  "Expletatio": {
-   "kingdom": "aVerdantglade",
-   "first_seen": "2026-11-09",
-   "pct": 100,
-   "map_point": [
-    32,
-    594
-   ],
-   "last_seen": "2026-11-09"
   },
   "Hidden Camp": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
    "pct": 0,
    "map_point": [
-    203,
-    347
+    371,
+    550
    ],
    "last_seen": "2026-11-09",
    "entries": [],
@@ -73,7 +63,8 @@
     "Troll Lair": "2026-11-09 (fog walk not_in_zone)"
    },
    "notes": "blocked: Boulder Blockade near None (no rule; dismissed)",
-   "blocked": "Boulder Blockade needs Magic Drill (0/1)"
+   "blocked": "Boulder Blockade needs Magic Drill (0/1)",
+   "blessed": true
   },
   "Highland Woods": {
    "kingdom": "Verdantglade",
@@ -82,8 +73,8 @@
    "pct": 100,
    "notes": "Entered past a bracketed wolf-boss pack (R-041); ground pickups by a cooking pot finish it (R-066).",
    "map_point": [
-    622,
-    706
+    597,
+    850
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -95,8 +86,8 @@
    "pct": 100,
    "notes": "Entered from Verdantglade III (142,84) or Drasilgard (138,84). The last 7% was the Lucky Wheel (blue !): its first spin is free while the zone is unexplored (mae). Lost Goddess Statue unlocked 2026-11-10.",
    "map_point": [
-    298,
-    1144
+    581,
+    1330
    ],
    "last_seen": "2026-11-09",
    "entries": [
@@ -124,11 +115,12 @@
    "first_seen": "2026-11-05",
    "pct": 0,
    "map_point": [
-    498,
-    668
+    472,
+    812
    ],
    "last_seen": "2026-11-09",
-   "entries": []
+   "entries": [],
+   "cp": 50.5
   },
   "Moonveil Woods": {
    "kingdom": "Verdantglade",
@@ -136,8 +128,8 @@
    "pct": 100,
    "notes": "Dungeon gate unlocked by quest; Bellflower field at minimap (169, 94-95) (R-123).",
    "map_point": [
-    685,
-    943
+    967,
+    1129
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -158,7 +150,16 @@
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-04",
    "notes": "Bottom right of the Verdantglade map; its % isn't read (R-076).",
-   "entries": []
+   "entries": [
+    {
+     "via": "Damp Woods",
+     "day": "2026-11-09",
+     "xy": [
+      190,
+      80
+     ]
+    }
+   ]
   },
   "Troll Lair": {
    "kingdom": "Verdantglade",
@@ -167,8 +168,8 @@
    "pct": 100,
    "notes": "Border label 'Troll Lair 17K' at a corner of its dotted line (R-132).",
    "map_point": [
-    500,
-    1341
+    782,
+    1367
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -179,8 +180,8 @@
    "pct": 100,
    "notes": "Area quests done.",
    "map_point": [
-    822,
-    1043
+    1099,
+    1091
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -190,8 +191,8 @@
    "first_seen": "2026-11-04",
    "pct": 100,
    "map_point": [
-    821,
-    1342
+    1104,
+    1092
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -203,8 +204,8 @@
    "pct": 100,
    "notes": "No way in on foot from Moonveil Woods (fog south of about (168, 94) never moves); entered with the quest's Go travel (R-084, R-089).",
    "map_point": [
-    597,
-    1105
+    879,
+    1292
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -214,8 +215,8 @@
    "first_seen": "2026-11-04",
    "notes": "Area quests done; % not read since.",
    "map_point": [
-    244,
-    976
+    283,
+    842
    ],
    "last_seen": "2026-11-09",
    "pct": 100,
@@ -225,7 +226,7 @@
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
    "cp": 14.8,
-   "pct": 100,
+   "pct": 0,
    "notes": "Auroradrasil sits inside it on the map but is its own zone (R-132): walks to finish V must land on V's own ground. blocked: Sealed Stone Gate at the north edge, about (135, 126) (no rule; dismissed)",
    "entries": [
     {
@@ -238,8 +239,8 @@
     }
    ],
    "map_point": [
-    382,
-    630
+    684,
+    814
    ],
    "last_seen": "2026-11-09",
    "blessed": true
@@ -252,8 +253,8 @@
     "Auroradrasil": "2026-11-04"
    },
    "map_point": [
-    54,
-    556
+    52,
+    700
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -261,9 +262,24 @@
   "Wildbloom Coast": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
-   "cp": 20.4,
-   "pct": 0,
-   "entries": []
+   "cp": 204.0,
+   "pct": 100,
+   "entries": [
+    {
+     "via": "Sunrise Isle",
+     "day": "2026-11-09",
+     "xy": [
+      145,
+      140
+     ]
+    }
+   ],
+   "map_point": [
+    350,
+    590
+   ],
+   "last_seen": "2026-11-09",
+   "blessed": true
   },
   "Zephyr Vale": {
    "kingdom": "Verdantglade",
@@ -271,8 +287,8 @@
    "pct": 0,
    "notes": "Its border label runs sideways along a vertical dotted line, no power shown (R-132).",
    "map_point": [
-    511,
-    794
+    805,
+    1256
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -755,6 +771,138 @@
   {
    "a": "Stone Ruins I",
    "b": "Verdantglade V",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Hidden Camp",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Stone Ruins I",
+   "b": "Verdantglade VI",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Highland Woods",
+   "b": "Verdantglade VI",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins I",
+   "b": "Moonveil Woods",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Moonveil Woods",
+   "b": "Zephyr Vale",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Stone Ruins I",
+   "b": "Verdantglade II",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Stone Ruins I",
+   "b": "Verdantglade IV",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Auroradrasil",
+   "b": "Verdantglade III",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Sunrise Isle",
+   "b": "Damp Woods",
+   "how": "walked",
+   "note": "entered Sunrise Isle at (190, 80)"
+  },
+  {
+   "a": "Wildbloom Coast",
+   "b": "Sunrise Isle",
+   "how": "walked",
+   "note": "entered Wildbloom Coast at (145, 140)"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Verdantglade V",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade VI",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade V",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Auroradrasil",
+   "b": "Jungle Camp",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Damp Woods",
+   "b": "Monolith Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Damp Woods",
+   "b": "Stone Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Damp Woods",
+   "b": "Verdantglade VI",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Verdantglade V",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Verdantglade VI",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Hidden Camp",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Monolith Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Moonveil Woods",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Stone Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Verdantglade VI",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins I",
+   "b": "Verdantglade III",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade I",
+   "b": "Wildbloom Coast",
    "how": "map_adjacent"
   }
  ],
