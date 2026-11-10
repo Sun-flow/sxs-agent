@@ -267,7 +267,12 @@ def quest_step(dev, det, fight: bool) -> bool:
             # 2026-11-10, a "Mage" card and the Class page). Leave the quest pointer for now.
             log.info("quest ring under the HUD at %s: not tapping it", ring)
             return False
-        if cx < 70 or cx > 650 or cy < 150 or cy > 900:  # an edge ring: tapping it pans the camera to the target
+        me = player_on_screen(det, dev.screenshot())
+        on_me = me is not None and (cx - me[0]) ** 2 + (cy - me[1]) ** 2 < 90 ** 2
+        # Traced live 2026-11-10 (scripts/tap_trace.py, tap 37): with us at the screen edge, the quest ring floated
+        # over our own character at x 667; taken for an edge ring, the tap hit us and opened the profile. A ring on us
+        # marks a target next to us, not an off-screen one.
+        if not on_me and (cx < 70 or cx > 650 or cy < 150 or cy > 900):  # an edge ring: tapping it pans the camera
             ui.tap(dev, (cx, cy), 2)
             ring = find_quest_ring(dev.screenshot())
             continue
