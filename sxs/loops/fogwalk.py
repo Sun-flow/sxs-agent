@@ -516,7 +516,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                     if last_tap:
                         stood_on.add(last_tap)  # a tap that didn't move us: plan somewhere else next time
                     # Monsters in brackets guard the way into the area: fight one, then walk on.
-                    if fight and still in (2, 3) and attack_guard(dev, det, frame):
+                    if fight and still in (2, 3) and name and home_area and goto.same_area(name, home_area)                             and attack_guard(dev, det, frame):
                         continue
                     if still >= STILL_LIMIT and map_tries < AREA_MAP_TRIES:
                         # Blocked on the minimap plan: try mae's big-map walk to the nearest dot before giving up.
@@ -589,7 +589,10 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 goal = LAST_GOAL  # what minimap_target headed for (None for a known reference: already stored)
                 # A monster guarding an item (red skull marker): fight it first (mae, 2026-11-09: in every exploring
                 # loop). Its battle prep goes through this loop's fight branch.
-                if fight and guard_taps < GUARD_TAPS_MAX and attack_guard(dev, det, frame):
+                # Only inside the zone being explored (mae, 2026-11-10: it fought guards in a neighbouring, explored
+                # zone it was only walking through, where nothing needed them gone).
+                in_zone = bool(name and home_area and goto.same_area(name, home_area))
+                if fight and in_zone and guard_taps < GUARD_TAPS_MAX and attack_guard(dev, det, frame):
                     guard_taps += 1
                     continue
                 # An object a few tiles away is tapped directly; the big-map walk is for ones out of reach (live

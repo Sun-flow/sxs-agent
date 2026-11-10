@@ -478,6 +478,14 @@ class Roamer:
         if here and same(here, target.name):
             log.info("already in %s: finishing it here first (R-132)", target.name)
             return None
+        # R-150 (mae, 2026-11-10): start a new zone at its entrance, the explored ground nearest it on the big map;
+        # the fog walk then steps onto the tiles beside its fog. Only for a zone not yet walked into.
+        if not (self.tree.get(target.name) or {}).get("entries"):
+            progress(("entrance", target.name))
+            why = goto.go_to(self.dev, self.det, self.entrance_picker(target.name), pan_for_target=True)
+            log.info("walk to %s's entrance (explored ground nearest it): %s", target.name, why)
+            if why == "arrived":
+                return None
         # Try the plain big-map walk to the zone's label first: most zones can be walked into from where we are
         # (live 2026-11-09: from Verdantglade VI the walk "via Verdantglade IV" landed in Auroradrasil instead).
         progress(("walk_to", target.name))
@@ -515,12 +523,23 @@ class Roamer:
         done.sort(key=lambda a: (any(same(a.name, t) for t in tried), rank(a),
                                  (a.point[0] - tx) ** 2 + (a.point[1] - ty) ** 2))
         via = done[0]
+        progress(("approach", target.name, via.name))
         log.info("approaching %s from the connected area %s (standing in %s)", target.name, via.name, here)
         # Most of the way from the neighbour's label toward the target's, so the walk ends on the shared border.
         if (goto.go_to(self.dev, self.det, (via.name, target.name, 0.6)) != "arrived"
                 and not goto.same_area(here, via.name)):
             goto.go_to(self.dev, self.det, via.name)
         return via
+
+    def entrance_picker(self, name: str):
+        """Area-map picker: the explored-ground point nearest `name`'s label (R-150)."""
+        from ..vision import area_map
+
+        def pick(frame):
+            labels = fogwalk.map_labels(self.det, frame)
+            hits = [p for k, p in labels.items() if same(k, name) or goto.close_name(k, name)]
+            return area_map.entrance(frame, hits[0]) if hits else None
+        return pick
 
     def escape(self) -> bool:
         """Leave an enclosed area the big-map walks can't route out of, by following the tracked quest's pointer (one

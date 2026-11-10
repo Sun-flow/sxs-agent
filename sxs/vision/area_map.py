@@ -83,6 +83,34 @@ def blue_badges(frame: np.ndarray) -> list[tuple[int, int]]:
     return out
 
 
+ENTRANCE_MIN_PX = 45  # an entrance point keeps this far from the target's label (the label sits on fog/shade)
+ENTRANCE_MAX_PX = 400  # and is no farther than this from it
+
+
+def entrance(frame: np.ndarray, target: tuple[int, int]) -> Optional[tuple[int, int]]:
+    """mae, 2026-11-10 (R-150): to enter a new zone, find where explored ground comes closest to it on the area map,
+    put the camera there and walk to the tiles beside its fog. Returns the explored-ground point (light green, HSV
+    about 41/72/148) nearest the target zone's label, or None. Points below the safe tap line are left out."""
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    h, s, v = (hsv[..., i].astype(int) for i in range(3))
+    light = (h >= 33) & (h <= 50) & (s >= 50) & (s <= 95) & (v >= 130) & (v <= 175)
+    x0, y0, w, hh = MAP_AREA
+    lx, ly, lw, lh = LEGEND
+    m = np.zeros(light.shape, np.uint8)
+    m[y0:min(y0 + hh, SAFE_TAP_MAX_Y), x0:x0 + w] = light[y0:min(y0 + hh, SAFE_TAP_MAX_Y), x0:x0 + w]
+    m[ly:ly + lh, lx:lx + lw] = 0
+    m = cv2.morphologyEx(m, cv2.MORPH_OPEN, np.ones((5, 5), np.uint8))  # whole tiles, not label anti-aliasing
+    ys, xs = np.nonzero(m)
+    if len(xs) == 0:
+        return None
+    d = np.sqrt((xs - target[0]) ** 2 + (ys - target[1]) ** 2)
+    ok = (d >= ENTRANCE_MIN_PX) & (d <= ENTRANCE_MAX_PX)
+    if not ok.any():
+        return None
+    i = int(np.argmin(np.where(ok, d, 1e9)))
+    return int(xs[i]), int(ys[i])
+
+
 def objects(frame: np.ndarray) -> list[tuple[str, tuple[int, int]]]:
     """(kind, centre) for each object blob on the area map. Live 2026-11-09: green and orange text, the red "!" on
     structure icons and the zoom slider read as dots, so blobs must be round, not in a text row, not on a badge."""
