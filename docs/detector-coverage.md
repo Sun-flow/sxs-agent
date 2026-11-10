@@ -260,11 +260,11 @@ No box yet (36): `rotting_petal` (monster_material), `bellflower` (advancement_m
 - **`btn_quick_heal` and `anchor_hud_portrait` describe the same box** (the top-left portrait, R-078). Two classes
   on one identical region teach the model to guess between them. Either drop one, or make `btn_quick_heal` mean the
   separate "Quick Heal" button on the wounded dialog and player profile. Vision thread's call.
-- **Price buttons look like `btn_primary`.** The yellow USD and Dawnium buttons in the Mall and Vendor Booth are the
-  same shape and colour. If they are left unlabelled the model learns them as background and then fires on them
-  anyway. Suggest labelling them `btn_primary` and relying on the text check that already guards spend buttons
-  (hybrid design), or adding a `btn_price` class so the bot can refuse them by class. Needs mae's decision before
-  the shop screens are boxed.
+- **Price buttons get their own class, `btn_price`** (mae, 2026-11-10). The yellow USD and Dawnium buttons in the
+  Mall, Vendor Booth and purchase prompts look like `btn_primary`; left unlabelled the model would learn them as
+  background and fire on them anyway. With their own class the bot can refuse them by class as well as by the text
+  check (hybrid design). The class is to be appended to `resource/detect/classes.json` by the vision thread (never
+  reorder); then box every price button on the shop screens as `btn_price`, never as `btn_primary`.
 - **Splits.** Of the 23 element classes with boxes (not counting `item_icon`), 12 have no valid image and 17 have no test image. Roboflow can
   rebalance splits when a version is generated, but our upload sets them by folder. For the first run, either
   rebalance in Roboflow or have the export guarantee each class at least one screen in valid and test (vision

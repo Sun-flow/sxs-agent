@@ -15,6 +15,12 @@ Entry format:
 
 ---
 
+### [2026-11-10] Yellow price buttons are their own detector class, btn_price
+- **Decision**: Mall, Vendor Booth and purchase-prompt price buttons (USD, Dawnium) are labelled `btn_price`, a new class appended to `resource/detect/classes.json`, never `btn_primary`.
+- **Rationale**: mae (2026-11-10, decision card). They look identical to action buttons; a separate class lets the bot refuse spend buttons by class as a second safeguard beside the text check.
+- **Alternatives considered**: label them `btn_primary` and rely on the text check only; leave shop screens unlabelled (the model would still fire on them).
+- **Status**: Accepted
+
 ### [2026-11-10] Screen checks: one OCR read per frame now; a trained UI detector works alongside it (hybrid)
 - **Decision**: `StateDetector.detect()` reads the whole screen once per frame and matches every plain OCR State node against that read (PR #48). The next step is a UI detector (YOLO26 Nano and RF-DETR Nano trained head to head on one private Roboflow dataset, keep the winner), labelled in our labeler with detector classes from `resource/detect/classes.json`. Once trained, it runs first for screens whose anchors it sees with high confidence; the text check still decides spend-risk screens (cards, shops, prayer, confirms), unsure frames and unknown screens. Minimap objects are detector classes too, trained on an enlarged minimap crop and on the full frame to compare; minimap terrain stays with the colour code.
 - **Rationale**: mae (2026-11-10): faster, cheaper processing first, then "why don't they work together?" Measured on her PC: old check 6.4 s median, new 1.3 s (1.0 s on DirectML). A model pass is ~40-60 ms, but only text gives wording safety (an allowed button verb), one-line new screens, unknown-stays-unknown, and numbers.
