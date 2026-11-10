@@ -108,7 +108,8 @@ When fog-walking (R-065) or finding a way to an out-of-the-way spot, look on the
 
 ### R-150 · Entering a new zone: start at the entrance, then work outward to the fog
 - On entering a new zone, don't start by searching for fog (mae, 2026-11-10 02:35). First find the entrance between the previous zone and the new one on the map (the crossing point, R-132; the location tree's way in, R-135), move the camera there, then walk to walkable tiles next to the unexplored fog from that entrance outward (never the fog itself, R-146).
-*told* · R-067, R-130, R-132, R-135, R-146
+- Advance from revealed ground toward unrevealed ground, one step at a time; never skip to the middle of a zone (mae, 02:45). Unless the zone already has revealed terrain inside, the first targets are right at the entrance. Why: the fog walk failed by tapping deep inside a zone, past the monster group guarding its entrance; fight that group first (R-139).
+*told* · R-067, R-130, R-132, R-135, R-139, R-146
 
 ### R-067 · Areas join by land bridges: head for the connection, not the straight line
 Connections can be far off the straight line (Verdantglade II to Moonveil Woods is a land bridge at the minimap's bottom). A zone can have several ways in and border several zones (mae); try the most recent way in that worked first (R-132). Straight walks hit walls and water: path-find over walkable minimap tiles (R-066) to the connection, or travel via the area map (R-068), whose taps auto-path.
@@ -139,7 +140,7 @@ At home, tapping the tracker for a quest elsewhere asks "Travel to <Area> now?";
 - The legend's search pill opens a filter panel (Trial Stone, Portal, Statue, … Select All). A second minimap tap while the map is opening can hit it; a tap on the map below the panel closes it (`goto.open_area_map` handles this).
 - Detection (`State.AreaMap`) accepts any of the first legend lines: a zone label showing through the translucent legend can break a single "Lost Statue" match (`world/area_map_legend_overlap.png`).
 - Edge labels are clipped on the left ("tglade III"); `sxs/loops/roam.py` accepts a 6+ letter suffix with matching numerals.
-- Survey (code: `sxs/loops/roam.py`): zoom out fully (OCR merges labels and drops % there), then drag the zoom slider from (682, 1090) to (682, 1030) for one step closer; the "+" button jumps straight to the closest zoom, so don't use it. Read a 3×3 grid of slow 300 px pans, merging readings by name; the grid runs only when no zone with work left is in view. Some labels sit off-screen even at survey zoom (Damp Woods): pan to find them. Never tap area-map points below y≈1080 (back arrow and kingdom buttons): pan first. Reference `world/area_map_survey_zoom.png`.
+- Survey (code: `sxs/loops/roam.py`): zoom out fully (OCR merges labels and drops % there), then drag the zoom slider from (682, 1090) to (682, 1030) for one step closer; the "+" button jumps straight to the closest zoom, so don't use it. Read a 3×3 grid of slow 300 px pans, merging readings by name; the grid runs only when no zone with work left is in view. Some labels sit off-screen even at survey zoom (Damp Woods): pan to find them. Never tap area-map points below y≈1080 (back arrow and kingdom buttons): pan first. A stray tap on the big map once opened the Class page (2026-11-10): back out and re-open the map. Reference `world/area_map_survey_zoom.png`.
 - A 100% area with a red "!" probably has its statue waiting ❓. Sunrise Isle is at the bottom right of the Verdantglade map; its % isn't read ❓.
 *observed* · `world/world_area_map.png`, `world/area_map_lv22.png`, `world/area_map_survey_zoom.png`, `world/area_map_legend_overlap.png` · node `area_map` · R-068, R-070, R-084, R-086
 
@@ -162,6 +163,7 @@ A gold "!" structure on Verdantglade V's north edge at about (135, 126) opens a 
 
 ### R-030 · Map objects open a card with one action
 Tapping a map object (e.g. a Portal) opens a card with one button at (0.5, 0.70), e.g. "Activate"; using it adds Explore progress. Press only safe verbs: Activate, Collect, Claim, Open, Interact, Bless, Pray, Gather, Harvest, Mine, Examine, Read. **This never covers the Prayer gacha's Pray (R-093) or any spend button (R-043).** Card choices: R-042.
+- Unknown cards seen, dismissed until understood ❓: "Boulder Blockade" at Hidden Camp's edge (2026-11-10), "Limpid Legion" in Drasilgard (R-134).
 *observed* · `world/interact_portal.png` · node `interact` · R-042, R-043
 
 ### R-070 · Goddess Statues bless a fully explored area
