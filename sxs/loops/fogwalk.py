@@ -380,6 +380,13 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
     stood_on: set = set()  # map coordinates the character has stood on this run
     map_tries = 0
     guard_taps = 0
+    fog_misses = 0  # fog-edge looks in a row that found no walkable edge
+
+    def fog_worked() -> bool:
+        """mae, 2026-11-10: a zone is explored from revealed ground toward the fog, never by jumping into its middle
+        (big-map walks went deep, past monsters guarding the entrance, and stalled). Big-map walks only once the fog
+        edge around us is worked out (no walkable fog edge in view twice in a row), or in an explored zone."""
+        return not free or fog_misses >= 2
     wheel_spun = False  # one free Lucky Wheel spin per walk, in an unexplored zone only
     objects_done = False  # no object left on either map: only fog edges remain (then stop)
     direct_taps: dict = {}  # map spot -> direct taps at a near object there (a repeat means it isn't taken that way)
@@ -400,11 +407,24 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
     # Map coordinates of walk taps that opened a card we dismissed (a blessed statue, a sign). Kept in map
     # coordinates: centre_player and the edge pointer move the camera, so screen points don't stay put.
     bumped: list[tuple[int, int]] = []
+    # mae, 2026-11-10: it kept re-opening statues it had already checked. Spots whose card could only be dismissed
+    # (a statue not ready, "Visited Today", a blessed statue) are kept per zone in the location tree and are no
+    # longer goals in later walks either.
+    seen_spots = {tuple(p) for z in tree.zones.values() for p in z.get("dismissed_spots", [])}
+    outside |= seen_spots
     beat = Heartbeat()
     # `tree` (the location tree, loaded above): crossings a walk makes are written back (zones.py)
     last_zone: Optional[str] = None  # area name read on the previous map step
     last_plan = None  # the frame the last minimap walk tap was planned on
     seen_names: dict = {}  # name under the minimap -> zone the big map's player dot put us in (R-140)
+
+    def in_home(zone: str) -> bool:
+        """True when `zone` is the zone being explored, also when OCR joined two labels ("Wildbloom CoastHidden Camo"
+        for Hidden Camp, live 2026-11-10: the walk left the zone it was in to 'go back' to it)."""
+        if not home_area or not zone:
+            return False
+        h, z = goto.squeeze(home_area), goto.squeeze(zone)
+        return goto.same_area(zone, home_area) or (len(h) >= 6 and h[:-1] in z)
 
     def map_zone(name: str) -> str:
         # R-140 (amended 2026-11-10): a name under the minimap that the tree knows is the zone; only unknown names
@@ -470,7 +490,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                     home_area = name
                 elif (name and not goto.same_area(name, home_area) and not strayed
                       and not any(goto.same_area(name, a) or goto.squeeze(name)[:7] == goto.squeeze(a)[:7] for a in allowed)
-                      and not goto.same_area(map_zone(name), home_area)):
+                      and not in_home(map_zone(name))):
                     # The name under the minimap changed; the big map's player dot (R-140) confirmed we left.
                     # Wandered into a neighbouring area: walk back with the area map rather than exploring the wrong one.
                     strayed = True
@@ -516,9 +536,9 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                     if last_tap:
                         stood_on.add(last_tap)  # a tap that didn't move us: plan somewhere else next time
                     # Monsters in brackets guard the way into the area: fight one, then walk on.
-                    if fight and still in (2, 3) and attack_guard(dev, det, frame):
+                    if fight and still in (2, 3) and name and home_area and goto.same_area(name, home_area)                             and attack_guard(dev, det, frame):
                         continue
-                    if still >= STILL_LIMIT and map_tries < AREA_MAP_TRIES:
+                    if still >= STILL_LIMIT and map_tries < AREA_MAP_TRIES and fog_worked():
                         # Blocked on the minimap plan: try mae's big-map walk to the nearest dot before giving up.
                         map_tries += 1
                         kinds = tuple(k for k in ("statue", "item", "monster") + (("building",) if buildings_ok else ())
@@ -589,7 +609,10 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 goal = LAST_GOAL  # what minimap_target headed for (None for a known reference: already stored)
                 # A monster guarding an item (red skull marker): fight it first (mae, 2026-11-09: in every exploring
                 # loop). Its battle prep goes through this loop's fight branch.
-                if fight and guard_taps < GUARD_TAPS_MAX and attack_guard(dev, det, frame):
+                # Only inside the zone being explored (mae, 2026-11-10: it fought guards in a neighbouring, explored
+                # zone it was only walking through, where nothing needed them gone).
+                in_zone = bool(name and home_area and goto.same_area(name, home_area))
+                if fight and in_zone and guard_taps < GUARD_TAPS_MAX and attack_guard(dev, det, frame):
                     guard_taps += 1
                     continue
                 # An object a few tiles away is tapped directly; the big-map walk is for ones out of reach (live
@@ -616,7 +639,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                     name, kind, target, score = known[0]
                     goal = None
                     log.info("known %s %r on screen at %s (%.2f): tapping it", kind, name, target, score)
-                elif goal in ("item", "monster", "building") and map_tries < AREA_MAP_TRIES and not goal_direct:
+                elif goal in ("item", "monster", "building") and map_tries < AREA_MAP_TRIES and not goal_direct                         and fog_worked():
                     map_tries += 1
                     kinds = tuple(k for k in ("statue", "item", "monster") + (("building",) if buildings_ok else ())
                                   if (items_ok or k != "item") and (fight or k != "monster"))
@@ -629,7 +652,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 if target is None:
                     # Nothing on the minimap: anything we've met before and can see on screen (R-131; the store's
                     # explored gate decides whether it's worth tapping here).
-                    if map_tries < AREA_MAP_TRIES and not objects_done:
+                    if map_tries < AREA_MAP_TRIES and not objects_done and fog_worked():
                         # mae, 2026-11-05: open the big map, tap the nearest dot or structure (the camera centres on
                         # it), close the map and tap the middle of the screen, where the element now is.
                         map_tries += 1
@@ -675,6 +698,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 me = player_on_screen(det, frame)
                 mm_now = minimap.read(frame, not free)
                 target = fog_edge_target(frame, valid=lambda p: walkable_at(mm_now, me, p))
+                fog_misses = fog_misses + 1 if target is None else 0
                 if target is None:
                     no_fog += 1
                     if no_fog >= 4:
@@ -754,8 +778,27 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 last_card = card.title
                 if choice.action == "dismiss" and last_tap and last_tap not in bumped:
                     bumped.append(last_tap)
+                    outside.add(tuple(last_tap))  # no more goals around it this walk
+                    k = tree.key(home_area or "")
+                    if k and card.title and re.search(r"Statue|Gate|Wheel|Rankings", card.title):
+                        spots = tree.zones[k].setdefault("dismissed_spots", [])
+                        if list(last_tap) not in spots:
+                            spots.append(list(last_tap))
+                            tree.save()
                     log.info("card %r opened from the tap at map %s: walking around that spot from now on",
                              card.title, last_tap)
+                if choice.action == "dismiss" and re.search(r"Required Item|Insufficient items", card.body or ""):
+                    # A blocker that needs an item we don't have (Boulder Blockade: a Magic Drill). The zone waits for
+                    # it; say so instead of circling (live 2026-11-10, Hidden Camp).
+                    need = re.search(r"Use an? ([A-Z][\w ]+?) to", card.body or "")
+                    why = f"{card.title.strip()} needs {need.group(1) if need else 'an item'}"
+                    log.warning("STUCK %s: %s", home_area, why)
+                    k = tree.key(home_area or "")
+                    if k:
+                        tree.zones[k]["blocked"] = why
+                        tree.save()
+                    ui.tap(dev, choice.point, 2)
+                    return "blocked_item"
                 if choice.action == "dismiss" and card.title:
                     dismissed[card.title] = dismissed.get(card.title, 0) + 1
                     if dismissed[card.title] == 2 and buildings_ok:
@@ -795,5 +838,5 @@ def _run(ctx, opts):
 
 
 # Ends that mean the area ran out of things to do, not that something went wrong.
-OK = {"no_fog", "timeout", "power_gate", "stuck", "no_objects", "object_unreachable", "zone_done", "not_in_zone"}
+OK = {"no_fog", "timeout", "power_gate", "stuck", "no_objects", "object_unreachable", "zone_done", "not_in_zone", "blocked_item"}
 LOOP = Loop("fogwalk", "Fog Walk", "explore one side area: minimap targets, then the fog edge", _run, _args, ok=OK)
