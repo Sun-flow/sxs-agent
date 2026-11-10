@@ -202,6 +202,17 @@
       77
      ],
      "found_in": "Home > Cart (yield rows; icon tap shows a yield tooltip, not a card)"
+    },
+    {
+     "file": "raw_ore_6.png",
+     "screen": "items/enhance_gear.png",
+     "box": [
+      167,
+      924,
+      79,
+      80
+     ],
+     "found_in": "Character > Gear > Enhance (cost)"
     }
    ]
   },
@@ -526,6 +537,17 @@
       100
      ],
      "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "refined_ore_3.png",
+     "screen": "items/enhance_gear.png",
+     "box": [
+      320,
+      924,
+      80,
+      80
+     ],
+     "found_in": "Character > Gear > Enhance (cost)"
     }
    ]
   },
@@ -687,6 +709,17 @@
       69
      ],
      "found_in": "Home > Cart (yield rows; icon tap shows a yield tooltip, not a card)"
+    },
+    {
+     "file": "rolla_6.png",
+     "screen": "items/enhance_gear.png",
+     "box": [
+      477,
+      924,
+      79,
+      80
+     ],
+     "found_in": "Character > Gear > Enhance (cost)"
     }
    ]
   },
@@ -1429,6 +1462,48 @@
       66
      ],
      "found_in": "Home > Cart (yield rows; icon tap shows a yield tooltip, not a card)"
+    }
+   ]
+  },
+  {
+   "id": "rotting_petal",
+   "name": "Rotting Petal",
+   "kind": "material",
+   "description": "A material dropped by Stink Bombs. A decayed petal from a floral monster.",
+   "uses": "Sources: Verdantglade Monster Drop",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "rotting_petal.png",
+     "screen": "items/rank_advancement.png",
+     "box": [
+      167,
+      900,
+      79,
+      80
+     ],
+     "found_in": "Character > Rank Advancement (cost)"
+    }
+   ]
+  },
+  {
+   "id": "bellflower",
+   "name": "Bellflower",
+   "kind": "material",
+   "description": "Use it for rank advancement. Delicate bell-shaped flowers dangle from the grass releasing a subtle, fresh scent.",
+   "uses": "Sources: Verdantglade Flower Harvest",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "bellflower.png",
+     "screen": "items/rank_advancement.png",
+     "box": [
+      320,
+      900,
+      80,
+      80
+     ],
+     "found_in": "Character > Rank Advancement (cost)"
     }
    ]
   }

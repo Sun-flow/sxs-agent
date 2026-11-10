@@ -2267,6 +2267,44 @@
     }
    ]
   },
+  "items/enhance_gear.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "btn_primary_1",
+     "kind": "button",
+     "x": 210,
+     "y": 1052,
+     "w": 300,
+     "h": 64,
+     "note": "Enhance (spends materials)",
+     "template": false,
+     "cls": "btn_primary"
+    }
+   ]
+  },
+  "items/rank_advancement.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "btn_primary_1",
+     "kind": "button",
+     "x": 210,
+     "y": 1060,
+     "w": 300,
+     "h": 64,
+     "note": "Advance (rank up: spends materials)",
+     "template": false,
+     "cls": "btn_primary"
+    }
+   ]
+  },
   "items/realm_dread_hollow.png": {
    "size": [
     720,
