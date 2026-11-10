@@ -354,6 +354,51 @@ def lucky_wheel_free(det) -> bool:
     return bool(re.fullmatch(r"\s*Tap to spin\s*", button))
 
 
+COMPANION_TAB = (608, 1216)  # the friend picker's bottom tabs: Friends / Guild / Companion
+COMPANION_PICKS = ((626, 230), (626, 348), (626, 466))  # select circles of the three companion rows
+PICKER_OK = (360, 1104)
+GATE_SLOT_DX = 136  # px between the card's friend slots; the first "+" sits this far right of our own portrait
+
+
+def elemental_gate(dev, det) -> Optional[str]:
+    """Gate of Wind (and the other Gates of Elements): "Total Wind Affinity reaches 1", with up to 3 friend slots.
+    Affinity comes from relics (not unlocked) or helpers; our NPC companions (Akane, Qin, Killian) carry 101 each and
+    adding them is free (R-057). Live 2026-11-10, Zephyr Vale: Akane alone opened it. Returns None when this isn't
+    such a card, else "opened" or "short" (the requirement still not met after three helpers)."""
+    lines = det.read_text([30, 520, 660, 520])
+    text = " ".join(t for t, _ in lines)
+    if not re.search(r"Gate of \w+", text) or not re.search(r"Affinity|Aegis", text) or "Power reaches" in text:
+        return None
+    taken = 0
+    for _ in range(len(COMPANION_PICKS) + 1):
+        lines = det.read_text([30, 520, 660, 640])
+        opened = [b for t, b in lines if re.fullmatch(r"\s*Open\s*", t)]
+        if opened:
+            x, y, w, h = opened[0]
+            ui.tap(dev, (x + w // 2, y + h // 2), 6)
+            log.info("Gate of Elements: requirement met with companions; opened it")
+            return "opened"
+        friends = [b for t, b in lines if "Select Friends" in t]
+        if not friends:
+            break
+        # The first empty "+" slot: our portrait sits at x ~150, the slots follow at GATE_SLOT_DX spacing.
+        slot_y = friends[0][1] + 82
+        if taken >= len(COMPANION_PICKS):
+            break
+        plus = sorted((b for t, b in lines if t.strip() == "+"), key=lambda b: b[0])
+        slot = ((plus[0][0] + plus[0][2] // 2, plus[0][1] + plus[0][3] // 2) if plus
+                else (152 + GATE_SLOT_DX * (taken + 1), slot_y))
+        ui.tap(dev, slot, 3)
+        ui.tap(dev, COMPANION_TAB, 2)
+        ui.tap(dev, COMPANION_PICKS[taken], 1)
+        ui.tap(dev, PICKER_OK, 3)
+        taken += 1
+        log.info("Gate of Elements: added companion %d", taken)
+    log.warning("Gate of Elements: still short after adding companions; leaving it")
+    ui.tap(dev, ui.ABOVE_POPUP, 2)
+    return "short"
+
+
 ME_RADIUS = 70  # px round our character on screen: a tap there opens our profile ("Mage", Class Level 8)
 
 
@@ -958,7 +1003,12 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 # ("1159", "1140") and tapped the round counter to "dismiss" them.
                 time.sleep(3)
                 progress(("battle", d.text or ""))
-            elif free and not wheel_spun and lucky_wheel_free(det):
+            elif (gate := elemental_gate(dev, det)) is not None:
+                # Gate of Wind and the other Gates of Elements: free with our companions' affinity (R-057).
+                note_objective("Gate of Elements", gate, goto.coords(det) or last_tap)
+                if gate == "short" and last_tap:
+                    outside.add(tuple(last_tap))
+                progress(("elemental_gate", gate))
                 # mae, 2026-11-10: each Lucky Wheel's first spin is free while its zone is unexplored (once explored a
                 # spin costs). Jungle Camp's last 7% was this spin. Pressed only when the button shows no cost.
                 log.info("Lucky Wheel in an unexplored zone, no cost shown: taking the free spin")
