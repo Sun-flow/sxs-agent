@@ -188,7 +188,8 @@ A map structure opens a "Rankings" card. It has nothing for the bot: back out an
 - The Lucky Wheel structure (e.g. in Jungle Camp) opens "Wheel of Destiny". The first spin on each wheel is free and can be done while its zone is still below 100%; once the zone is explored, spins cost Lucky Wheel tickets (mae, 2026-11-10 02:26).
 - Press "Tap to spin" **exactly once per wheel**, only when the zone is not yet 100% and the card shows no ticket or currency cost. Never spin again after that, and never when a cost shows. Close with the back arrow (card rule `lucky_wheel`).
 - A blue "!" on the area map can mark a wheel with its free spin waiting (R-148).
-*observed* · `world/lucky_wheel.png` · R-030, R-043
+- Code: `fogwalk.lucky_wheel_free` checks the card title "Wheel of Destiny" and a button reading exactly "Tap to spin" with no cost, and spins at most once per walk, only in an unexplored zone. Jungle Camp's free spin gave Stellatie ×5 and was the zone's last 7% (2026-11-10).
+*told, observed* · `world/lucky_wheel.png` · R-030, R-043, R-148
 
 ### R-085 · Stone tile floor puzzle: step on every tile for chests
 Stone Ruins I: a 2x2 floor of stone tiles; each lights cyan when stepped on. All 4 lit spawns two chests (about 60 Dawnium each, plus Rolla, ore, gear, Abundance Leaf). Each chest pops a gear-swap prompt (swap button bottom right) that closes with the reward popup.
