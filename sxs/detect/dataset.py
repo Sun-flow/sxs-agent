@@ -1,7 +1,8 @@
 """Export the labelled boxes as a YOLO-format detection dataset for Roboflow (or local Ultralytics / RF-DETR
 training), with mae's account name blacked out (docs/detector-design.md, step 3).
 
-    python -m sxs dataset [--out DIR] [--drafts] [--include-private] [--minimap both|crop|full] [--zip]
+    python -m sxs dataset [--out DIR] [--drafts] [--include-private] [--minimap both|crop|full] [--items each|one]
+                          [--zip]
 
 Reads docs/screens/labels.json (boxes with a detector class; drafts only with --drafts) and writes:
 
@@ -14,6 +15,10 @@ Minimap classes (group "minimap"): the dots are 2-10 px, near the limit of a det
 so by default (--minimap both) they go into an enlarged minimap crop (MINIMAP_SCALE times) *and* the full frame, and
 training can compare the two (mae, 2026-11-10: "what makes you so sure"). crop or full keeps one. Every other class
 goes only into the full frame.
+Item symbols (class item_icon with an "item" id from resource/items/items.json): with --items each (default) every
+catalogued item becomes its own class, item_<id>, numbered after the fixed classes in catalogue order, so the
+model names the symbol (mae, 2026-11-10); a box without an item id stays item_icon. --items one keeps them all as
+item_icon (the runtime then names them by matching the catalogue crops).
 
 Privacy (nothing here may identify mae or other players): the HUD name strip is blacked out on every frame, and
 with SXS_ACCOUNT_NAME set (an environment variable, never committed) every OCR line that reads as that name, such
@@ -105,11 +110,19 @@ def yolo_line(cls_id: int, box: dict, ox: int, oy: int, scale: float, W: int, H:
 
 
 def export(out: Path, drafts: bool = False, include_private: bool = False, name: Optional[str] = None,
-           name_ocr: bool = True, det=None, minimap: str = "both") -> dict:
+           name_ocr: bool = True, det=None, minimap: str = "both", items: str = "each") -> dict:
     """Write the dataset. `det` (a StateDetector) reads each frame for name lines when name_ocr is on.
     Returns a summary: images and boxes per split, boxes per class, screens skipped and why."""
     classes = labels.classes()
+    if items == "each":  # one class per catalogued item after the fixed classes, in catalogue order
+        classes = classes + [{"name": f"item_{i}", "group": "items"} for i in labels.item_ids()]
     ids = {c["name"]: i for i, c in enumerate(classes)}
+
+    def cid(b: dict) -> int:
+        if items == "each" and b["cls"] == "item_icon" and f"item_{b.get('item')}" in ids:
+            return ids[f"item_{b['item']}"]
+        return ids[b["cls"]]
+
     mini = {c["name"] for c in classes if c["group"] == "minimap"}
     expected = screens.load_expected()["states"]
     if out.exists():
@@ -137,7 +150,7 @@ def export(out: Path, drafts: bool = False, include_private: bool = False, name:
         split = split_of(key)
         base = re.sub(r"[^a-z0-9_]+", "_", key[:-4].lower())
         H, W = frame.shape[:2]
-        full = [yolo_line(ids[b["cls"]], b, 0, 0, 1.0, W, H) for b in boxes
+        full = [yolo_line(cid(b), b, 0, 0, 1.0, W, H) for b in boxes
                 if b["cls"] not in mini or minimap in ("both", "full")]
         full = [ln for ln in full if ln]
         crop_boxes = [b for b in boxes if b["cls"] in mini] if minimap in ("both", "crop") else []
@@ -147,7 +160,7 @@ def export(out: Path, drafts: bool = False, include_private: bool = False, name:
         if crop_boxes:
             crop = cv2.resize(frame[my:my + mh, mx:mx + mw], None, fx=MINIMAP_SCALE, fy=MINIMAP_SCALE,
                               interpolation=cv2.INTER_NEAREST)
-            cl = [yolo_line(ids[b["cls"]], b, mx, my, MINIMAP_SCALE, crop.shape[1], crop.shape[0]) for b in crop_boxes]
+            cl = [yolo_line(cid(b), b, mx, my, MINIMAP_SCALE, crop.shape[1], crop.shape[0]) for b in crop_boxes]
             cl = [ln for ln in cl if ln]
             if cl:
                 written.append((base + "_minimap", crop, cl))
@@ -176,6 +189,8 @@ def main(argv: list[str]) -> int:
     p.add_argument("--no-name-ocr", action="store_true", help="mask only the fixed HUD name strip (no OCR pass)")
     p.add_argument("--minimap", choices=("both", "crop", "full"), default="both",
                    help="where minimap boxes go: an enlarged crop, the full frame, or both (default)")
+    p.add_argument("--items", choices=("each", "one"), default="each",
+                   help="item symbols: one class per catalogued item (default) or all as item_icon")
     p.add_argument("--zip", action="store_true", help="also write DIR.zip for a Roboflow upload")
     args = p.parse_args(argv)
     name = os.environ.get("SXS_ACCOUNT_NAME", "").strip()
@@ -189,7 +204,7 @@ def main(argv: list[str]) -> int:
         from ..core.state import StateDetector
 
         det = StateDetector(ImageDevice())
-    s = export(args.out, args.drafts, args.include_private, name or None, not args.no_name_ocr, det, args.minimap)
+    s = export(args.out, args.drafts, args.include_private, name or None, not args.no_name_ocr, det, args.minimap, args.items)
     for split, _ in SPLITS:
         print(f"{split}: {s['images'][split]} image(s), {s['boxes'][split]} box(es)")
     print("by class: " + (", ".join(f"{c} {n}" for c, n in sorted(s["classes"].items())) or "none"))

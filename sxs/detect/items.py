@@ -46,7 +46,7 @@ NAMED_BY = ("popup", "screen", "mae", "guess", "")
 ID = re.compile(r"^[a-z][a-z0-9_]*$")
 MATCH = 0.86  # normalised correlation needed for a hit
 MIN_SIZE, MAX_SIZE = 22, 130  # icon sizes (longest side, px) tried by find()
-SIZES = (22, 26, 30, 36, 44, 54, 66, 80, 96, 112, 130)
+SIZES = (22, 24, 26, 28, 30, 33, 36, 40, 44, 48, 53, 58, 64, 70, 77, 85, 93, 102, 112, 122, 132)
 
 
 def load() -> dict:
@@ -150,15 +150,17 @@ def _templates():
 
 
 def find(frame, threshold: float = MATCH, templates=None) -> list[dict]:
-    """Every catalogued symbol on the frame: [{"item", "x", "y", "w", "h", "score"}], best first, overlaps removed."""
+    """Every catalogued symbol on the frame: [{"item", "x", "y", "w", "h", "score"}], best first, overlaps removed.
+    A coarse pass on a half-size frame finds candidates; each is checked again at full size."""
     import cv2
     import numpy as np
 
     hits = []
     H, W = frame.shape[:2]
+    small = cv2.resize(frame, (W // 2, H // 2), interpolation=cv2.INTER_AREA)
     for item_id, t in templates if templates is not None else _templates():
         side = max(t.shape[:2])
-        for size in SIZES:
+        for size in sorted(set(SIZES) | {side}):
             s = size / side
             if not (0.2 <= s <= 1.6):
                 continue
@@ -166,10 +168,18 @@ def find(frame, threshold: float = MATCH, templates=None) -> list[dict]:
             if tw >= W or th >= H:
                 continue
             tt = cv2.resize(t, (tw, th), interpolation=cv2.INTER_AREA if s < 1 else cv2.INTER_LINEAR)
-            res = cv2.matchTemplate(frame, tt, cv2.TM_CCOEFF_NORMED)
-            ys, xs = np.nonzero(res >= threshold)
-            for x, y in zip(xs, ys):
-                hits.append({"item": item_id, "x": int(x), "y": int(y), "w": tw, "h": th, "score": float(res[y, x])})
+            ts = cv2.resize(tt, (max(3, tw // 2), max(3, th // 2)), interpolation=cv2.INTER_AREA)
+            res = cv2.matchTemplate(small, ts, cv2.TM_CCOEFF_NORMED)
+            peak = (res >= threshold - 0.12) & (res == cv2.dilate(res, np.ones((5, 5), np.uint8)))
+            for x, y in zip(*np.nonzero(peak)[::-1]):
+                x0, y0 = max(0, 2 * x - 4), max(0, 2 * y - 4)
+                win = frame[y0:min(H, 2 * y + th + 4), x0:min(W, 2 * x + tw + 4)]
+                if win.shape[0] < th or win.shape[1] < tw:
+                    continue
+                r = cv2.matchTemplate(win, tt, cv2.TM_CCOEFF_NORMED)
+                _, best, _, (bx, by) = cv2.minMaxLoc(r)
+                if best >= threshold:
+                    hits.append({"item": item_id, "x": x0 + bx, "y": y0 + by, "w": tw, "h": th, "score": float(best)})
     hits.sort(key=lambda h: -h["score"])
     kept: list[dict] = []
     for h in hits:

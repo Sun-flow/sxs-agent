@@ -1,5 +1,5 @@
 {
- "doc": "Detector classes (docs/detector-design.md). The order is the class id in exported datasets: append new classes, never reorder or rename one in use. kind is the labeler box kind the class implies. Classes in group minimap are trained on enlarged minimap crops (MINIMAP_CROP in sxs/detect/dataset.py), not on the full frame. Classes in group screen are anchors for model-first state detection (docs/detector-design.md, hybrid).",
+ "doc": "Detector classes (docs/detector-design.md). The order is the class id in exported datasets: append new classes, never reorder or rename one in use. kind is the labeler box kind the class implies. Classes in group minimap are trained on enlarged minimap crops (MINIMAP_CROP in sxs/detect/dataset.py), not on the full frame. Classes in group screen are anchors for model-first state detection (docs/detector-design.md, hybrid). Class item_icon is any catalogued item or currency symbol (resource/items/items.json); the box names which item in \"item\", and the dataset export can turn each item into its own class (--items each).",
  "classes": [
   {
    "name": "card_chest",
@@ -252,6 +252,12 @@
    "group": "screen",
    "kind": "region",
    "about": "Legend box on the area map"
+  },
+  {
+   "name": "item_icon",
+   "group": "items",
+   "kind": "icon",
+   "about": "An item, material or currency symbol from resource/items (box field item names which)"
   }
  ]
 }

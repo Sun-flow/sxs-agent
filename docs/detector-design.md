@@ -37,6 +37,29 @@ training decides:
 
 `python -m sxs dataset --minimap both|crop|full` picks which (default both).
 
+### Item symbols (mae, 2026-11-10)
+
+Items, materials and currencies (Rolla, Dawnium, Stamina, Raw Ore, Stellatie, Gold Pickaxe, ...) each have fixed art,
+and tapping one opens a popup with its name and description. mae wants the model to name them, so they get a
+catalogue, `resource/items/` (`python -m sxs items`, `sxs/detect/items.py`):
+
+- `items.json`: one entry per item (id, name, kind, the popup's description word for word, our `uses` note,
+  `named_by` popup | screen | mae | guess) and one entry per sighting (icon crop, reference screen, box, menu path in
+  `found_in`). Unnamed symbols are `unknown_N` with a blank name until someone reads the popup or mae names them.
+  Append only: catalogue order sets the class ids below.
+- Detector class `item_icon` (group items). A labeler box of that class carries `item`, the catalogue id (the
+  labeler shows a "which item?" menu).
+- Auto-labelling: `python -m sxs prelabel --items` finds every catalogued symbol on the reference screens by
+  template matching at sizes from 22 to 132 px (the same art is ~30 px in the top bar and ~100 px on shop cards),
+  coarse on a half-size frame and checked at full size, and drafts an `item_icon` box with its id. About 10 s a
+  screen with 15 items; it grows with the catalogue.
+- Export: `python -m sxs dataset --items each` (default) makes each item its own class `item_<id>`, after the fixed
+  classes; `--items one` keeps them all as `item_icon`, and the bot would then name a found symbol by matching the
+  catalogue crops (cheap: one small crop, a few templates). Which one trains better is left to the first run.
+- Standing rule (mae): any material or currency symbol a thread sees that is not in the catalogue gets identified
+  (tap it, read the popup) and added with `python -m sxs items add`. Not all of them matter to the bot; all of
+  them help the model.
+
 ### Working with the screen check (hybrid, mae 2026-11-10)
 
 mae: "why don't they work together?" They should. The model is faster: one ~40-60 ms pass against a ~1 s text read

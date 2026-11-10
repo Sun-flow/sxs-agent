@@ -19,7 +19,7 @@ import cv2  # noqa: E402
 import numpy as np  # noqa: E402
 
 from sxs.core import labels, screens  # noqa: E402
-from sxs.detect import dataset, prelabel  # noqa: E402
+from sxs.detect import dataset, items, prelabel  # noqa: E402
 from sxs.vision import minimap as mm  # noqa: E402
 
 problems: list[str] = []
@@ -33,14 +33,65 @@ def check(ok: bool, what: str) -> None:
 
 def point_at(tmp: Path) -> None:
     shots, image = tmp / "screens", tmp / "image"
-    labels.SCREENS = screens.SCREENS = dataset.SCREENS = shots
+    labels.SCREENS = screens.SCREENS = dataset.SCREENS = items.SCREENS = shots
     labels.LABELS_FILE = shots / "labels.json"
     labels.IMAGE, labels.CROPS = image, image / "labels"
     labels.MANIFEST = labels.CROPS / "manifest.json"
     screens.EXPECTED_FILE = shots / "expected.json"
+    items.ITEMS_DIR = tmp / "items"
+    items.ITEMS_FILE, items.ICONS = items.ITEMS_DIR / "items.json", items.ITEMS_DIR / "icons"
+
+
+def check_items() -> None:
+    real = items.load()["items"]
+    check(len(real) >= 10 and all(items.ID.match(i["id"]) and i["kind"] in items.KINDS and i["icons"] for i in real),
+          f"{len(real)} catalogued items, each with an id, a kind and an icon")
+    check(all((items.ICONS / ic["file"]).exists() for i in real for ic in i["icons"]), "every item icon file exists")
+    vault = cv2.imread(str(screens.SCREENS / "shops" / "vendor_booth_vault.png"))
+    with tempfile.TemporaryDirectory() as t:
+        tmp = Path(t)
+        point_at(tmp)
+        (tmp / "screens" / "shops").mkdir(parents=True)
+        cv2.imwrite(str(tmp / "screens" / "shops" / "vault.png"), vault)
+        it = items.add("dawnium", "shops/vault.png", [465, 36, 31, 37], "Dawnium", "currency", named_by="screen",
+                       tight=True, found_in="Home > Vendor Booth > Vault")
+        x, y, w, h = it["icons"][0]["box"]
+        check(abs(x - 463) <= 3 and abs(y - 37) <= 3 and w < 40 and h < 40,
+              f"--tight shrinks the box ({x},{y} {w}x{h})")
+        u = items.add("unknown", "shops/vault.png", [545, 523, 90, 102], tight=True)
+        check(u["id"] == "unknown_1" and u["name"] == "", "an unnamed symbol becomes unknown_1")
+        items.add("dawnium", "shops/vault.png", [463, 37, 35, 33], desc="Premium currency.", named_by="popup")
+        d = items.get("dawnium")
+        check(len(d["icons"]) == 2 and d["description"] == "Premium currency." and d["named_by"] == "screen",
+              "a second sighting adds an icon and fills only empty fields")
+        hits = items.find(cv2.resize(vault, None, fx=0.9, fy=0.9))
+        check(any(h["item"] == "dawnium" for h in hits) and any(h["item"] == "unknown_1" for h in hits),
+              "find matches catalogued symbols at another size")
+        good, probs = labels.clean_boxes([
+            {"name": "a", "kind": "icon", "x": 5, "y": 5, "w": 20, "h": 20, "cls": "item_icon", "item": "dawnium"},
+            {"name": "b", "kind": "icon", "x": 5, "y": 5, "w": 20, "h": 20, "cls": "item_icon", "item": "nope"}],
+            (720, 1280))
+        check(good[0].get("item") == "dawnium" and "item" not in good[1] and len(probs) == 1,
+              "item ids checked against the catalogue")
+        labels.set_boxes("shops/vault.png", [
+            {"name": "d", "kind": "icon", "x": 463, "y": 37, "w": 35, "h": 33, "cls": "item_icon", "item": "dawnium"},
+            {"name": "e", "kind": "icon", "x": 545, "y": 523, "w": 90, "h": 102, "cls": "item_icon"}], (720, 1280))
+        s = dataset.export(tmp / "ds", name_ocr=False)
+        yaml = (tmp / "ds" / "data.yaml").read_text()
+        n = len(labels.classes())
+        lab = (tmp / "ds" / dataset.split_of("shops/vault.png") / "labels" / "shops_vault.txt").read_text().split("\n")
+        got = sorted(int(ln.split()[0]) for ln in lab if ln)
+        check("item_dawnium" in yaml and got == sorted([n, n - 1]),
+              "--items each: item_<id> classes after the fixed ones; an unnamed item box stays item_icon")
+        dataset.export(tmp / "ds1", name_ocr=False, items="one")
+        lab1 = (tmp / "ds1" / dataset.split_of("shops/vault.png") / "labels" / "shops_vault.txt").read_text()
+        check("item_dawnium" not in (tmp / "ds1" / "data.yaml").read_text()
+              and {int(ln.split()[0]) for ln in lab1.split("\n") if ln} == {n - 1}, "--items one: all item_icon")
+        check(s["classes"].get("item_dawnium") == 1, "summary counts item classes")
 
 
 def main() -> int:
+    check_items()
     cls = labels.classes()
     names = [c["name"] for c in cls]
     check(len(names) == len(set(names)) and len(names) >= 30, f"{len(names)} unique detector classes")
