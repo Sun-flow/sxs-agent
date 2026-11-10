@@ -8,8 +8,8 @@
    "blessed": true,
    "notes": "Free 4-player story dungeon (R-133); Lost Goddess Statue blessed 2026-11-05.",
    "map_point": [
-    1139,
-    274
+    954,
+    350
    ],
    "last_seen": "2026-11-10",
    "entries": []
@@ -42,8 +42,8 @@
    "kind": "town",
    "notes": "Town: Chief, Hermes, Carol, portal (R-134).",
    "map_point": [
-    1210,
-    459
+    1022,
+    535
    ],
    "last_seen": "2026-11-10",
    "entries": []
@@ -54,8 +54,8 @@
    "pct": 0,
    "cp": 23.0,
    "map_point": [
-    992,
-    -98
+    503,
+    262
    ],
    "last_seen": "2026-11-10"
   },
@@ -95,8 +95,8 @@
    "pct": 100,
    "notes": "Entered from Verdantglade III (142,84) or Drasilgard (138,84). The last 7% was the Lucky Wheel (blue !): its first spin is free while the zone is unexplored (mae). Lost Goddess Statue unlocked 2026-11-10.",
    "map_point": [
-    575,
-    762
+    1092,
+    764
    ],
    "last_seen": "2026-11-10",
    "entries": [
@@ -125,8 +125,8 @@
    "pct": 0,
    "cp": 25.5,
    "map_point": [
-    346,
-    786
+    339,
+    851
    ],
    "last_seen": "2026-11-10"
   },
@@ -139,7 +139,13 @@
     673
    ],
    "last_seen": "2026-11-10",
-   "entries": []
+   "entries": [],
+   "dismissed_spots": [
+    [
+     103,
+     113
+    ]
+   ]
   },
   "Monolith Ruins II": {
    "kingdom": "Verdantglade",
@@ -147,8 +153,8 @@
    "pct": 0,
    "last_seen": "2026-11-10",
    "map_point": [
-    484,
-    673
+    178,
+    737
    ]
   },
   "Moonveil Woods": {
@@ -168,8 +174,8 @@
    "first_seen": "2026-11-09",
    "pct": 0,
    "map_point": [
-    1140,
-    -76
+    953,
+    -1
    ],
    "last_seen": "2026-11-10"
   },
@@ -178,8 +184,8 @@
    "first_seen": "2026-11-09",
    "pct": 0,
    "map_point": [
-    966,
-    311
+    478,
+    677
    ],
    "last_seen": "2026-11-10"
   },
@@ -290,8 +296,8 @@
     }
    ],
    "map_point": [
-    561,
-    462
+    1177,
+    249
    ],
    "last_seen": "2026-11-10",
    "blessed": true
@@ -302,8 +308,8 @@
    "pct": 100,
    "failed_via": {},
    "map_point": [
-    1029,
-    100
+    543,
+    463
    ],
    "last_seen": "2026-11-10",
    "entries": [
@@ -332,12 +338,12 @@
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-10",
    "pct": 100,
-   "cp": 23.6,
+   "cp": 27.0,
    "last_seen": "2026-11-10",
    "notes": "Main-quest zone (Explore Verdantglade VII). Next to Verdantglade VI; its Goddess Statue is at (102,113), unlocked 2026-11-10 (Blessing Lv 8). 2026-11-10: monsters there are fought from the tile beside them (a tap from afar does nothing). blocked: Value near None (no rule; dismissed) blocked: Voucher near None (no rule; dismissed)",
    "map_point": [
-    743,
-    274
+    216,
+    638
    ],
    "objectives": [
     {
@@ -359,8 +365,8 @@
    "cp": 27.0,
    "last_seen": "2026-11-10",
    "map_point": [
-    967,
-    548
+    795,
+    624
    ]
   },
   "Wildbloom Coast": {
@@ -379,8 +385,8 @@
     }
    ],
    "map_point": [
-    1215,
-    553
+    1172,
+    25
    ],
    "last_seen": "2026-11-10",
    "blessed": true
@@ -1215,7 +1221,8 @@
   {
    "a": "Monolith Ruins II",
    "b": "Verdantglade VII",
-   "how": "map_adjacent"
+   "how": "walked",
+   "note": "VII (88,106) borders Monolith Ruins II: seen on screen at (91,107), 2026-11-10 (first logged as Monolith Ruins I: the minimap name lost its last I)"
   },
   {
    "a": "Rabbit Vault",
@@ -1376,12 +1383,6 @@
    "a": "Monolith Ruins II",
    "b": "Verdantglade V",
    "how": "map_adjacent"
-  },
-  {
-   "a": "Monolith Ruins I",
-   "b": "Verdantglade VII",
-   "how": "walked",
-   "note": "a walk from VII at (88,106) crossed into Monolith Ruins I (2026-11-10)"
   }
  ],
  "gaps": [
