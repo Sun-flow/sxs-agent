@@ -37,6 +37,7 @@ Format: `- what — branch, PR, environment (started)`. Remove the line when it 
 
 - Item symbol survey (mae, 2026-11-10) — `claude/project-thread-6juae0`, mae's PC, no PR yet (hand to the docs thread). 78 catalogue items read from their cards; survey notes `docs/screens/items/README.md`. Left: `unknown_1` name from mae, skill shards, Carnival Sign-In, Kingdom shop, Mall, mail.
 - UI detector (mae, 2026-11-10): screen-check speed-ups merged (#48; mae's PC 6.4 s -> 1.3 s median, 1.0 s with `SXS_INFERENCE=directml`). Step 1 built: detector classes, labeler class menu + drafts, `python -m sxs prelabel` (365 drafts committed), `python -m sxs dataset` — `claude/project-thread-wuht8i`, new PR, cloud. Waiting on mae: check drafts in the labeler, Roboflow account. Plan: `docs/detector-design.md`.
+- Detector label coverage (mae, 2026-11-10): `docs/detector-coverage.md` + `scripts/label_coverage.py` — `claude/project-thread-60bvjc`, cloud. Next: second labeling pass on the bank, then the capture list (emulator thread).
 - Item and currency symbol catalogue (mae, 2026-11-10): `resource/items/` + `python -m sxs items`, class `item_icon`, `prelabel --items`, `dataset --items each|one` — `claude/project-thread-wuht8i`, cloud. The RC thread "Map item and currency symbols" fills it from popups on the emulator. Standing rule: any unrecognised material or currency symbol gets identified (tap it, read the popup) and added.
 
 ## Next (in order)
