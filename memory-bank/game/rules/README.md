@@ -33,7 +33,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 
 ## Adding or changing a rule
 
-- New rule: next free ID (**next free: R-146**), under the right `##` heading of the right file, plus a row in the ID index below.
+- New rule: next free ID (**next free: R-147**), under the right `##` heading of the right file, plus a row in the ID index below.
 - Never reuse or renumber an ID. When merging a rule into another, delete it, add it to the retired table, and repoint citations.
 - Run `python3 scripts/check-rules.py`: it checks that every cited ID resolves, retired IDs aren't cited, every file is listed here, and image paths exist.
 
@@ -159,6 +159,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-143 | `overworld.md` | In an unblessed zone the whole minimap is shaded: the % comes from objects |
 | R-144 | `overworld.md` | "Statue of <name>": press Visit |
 | R-145 | `overworld.md` | Sealed Stone Gate: dismiss for now |
+| R-146 | `overworld.md` | Never tap fog: tap walkable ground next to it |
 
 ## Retired IDs
 

@@ -98,6 +98,10 @@ Other types aren't catalogued ❓. Highland Woods (9.6K): entered past a bracket
 When fog-walking (R-065) or finding a way to an out-of-the-way spot, look on the minimap for where explored light green meets striped dark green (unexplored walkable). That edge is where to walk: it is open ground into the fog. Where passable (light green, explored or striped) terrain runs into black fog, follow it in: walking near the fog reveals the terrain and the dots around it. Exposing fog is the one case that needs player-oriented movement (locating the character, stepping toward the edge), because there is no visible endpoint to tap; everything else travels by endpoint (R-068). Unlined darker green and very dark striped green are walls or impassable terrain; don't path into them (mae). Colours and crops: R-066.
 *told* · `minimap/legend_boundary_mae.png`, `minimap/legend_fog_edge_mae.png`, `minimap/legend_dots_fog_mae.png` · R-065, R-066, R-067
 
+### R-146 · Never tap fog: tap walkable ground next to it
+- Exploration targets are never fog tiles (mae, 2026-11-10). Tap valid walkable ground beside the fog edge; the auto-path walks the player there, and walking reveals the fog.
+- Pick the nearest walkable tile that touches fog (R-130's light-green to striped edge), on the zone's own side of any border (R-132).
+*told* · R-066, R-068, R-130, R-132
 ## Getting somewhere
 
 ### R-067 · Areas join by land bridges: head for the connection, not the straight line
