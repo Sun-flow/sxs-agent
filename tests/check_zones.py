@@ -50,6 +50,7 @@ t = Tree.load()
 t.zones["Verdantglade V"].update(pct=78, blessed=False)  # the checks below use V as an unfinished zone (it reached 100% live)
 # ... and Jungle Camp as a zone with no known way in (live runs found one through Verdantglade III).
 t.zones["Jungle Camp"].pop("entries", None)
+t.zones["Jungle Camp"].update(pct=0, blessed=False)
 t.links = [ln for ln in t.links if not ("Jungle Camp" in (ln["a"], ln["b"]) and ln["how"] == "walked")]
 check("Jungle Camp is next at 22.4K (lowest-CP unexplored)", t.next_zone(22.4), "Jungle Camp")
 check("finish the zone we stand in first (R-132)", t.next_zone(22.4, "Verdantglade V"), "Verdantglade V")

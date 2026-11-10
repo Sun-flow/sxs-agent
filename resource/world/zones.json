@@ -81,9 +81,8 @@
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
    "cp": 12.6,
-   "pct": 93,
-   "failed_via": {},
-   "notes": "Next by R-135 order. Entry point unknown. blocked: 198 near None (no rule; dismissed) blocked: Lost Goddess Statue near None (no rule; dismissed)",
+   "pct": 100,
+   "notes": "Entered from Verdantglade III (142,84) or Drasilgard (138,84). The last 7% was the Lucky Wheel (blue !): its first spin is free while the zone is unexplored (mae). Lost Goddess Statue unlocked 2026-11-10.",
    "map_point": [
     151,
     794
@@ -106,7 +105,8 @@
       84
      ]
     }
-   ]
+   ],
+   "blessed": true
   },
   "Monolith Ruins I": {
    "kingdom": "Verdantglade",
