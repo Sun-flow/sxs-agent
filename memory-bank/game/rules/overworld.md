@@ -148,9 +148,10 @@ A stone pillar card "Gate of Power": "Requires: Power reaches 15.5K (Current: 8.
 - Damp Woods: an area-map walk to its label from Verdantglade II lands at about (184, 86), a fogged pocket with a stone mini-dungeon, ore baskets, a statue and the 15.5K gate. Behind it: ore baskets, a glowing crystal and a duck-shaped item, free to tap; they finish Damp Woods. The minimap barely shows them under shadow, so the bot can't find them from it yet ❓.
 *observed* · `world/gate_of_power.png`, `world/gate_of_power_open.png` · R-065, R-070, R-084
 
-### R-145 · Sealed Stone Gate: dismiss for now
-A gold "!" structure on Verdantglade V's north edge at about (135, 126) opens a "Sealed Stone Gate" card that can only be dismissed. What opens it is unknown ❓ (asked mae).
-*observed* · R-030, R-086
+### R-145 · Sealed Stone Gate: a zone's Goddess Statue before it unlocks
+- Verdantglade V's Goddess Statue is the gold "!" structure on its north edge at about (135, 126). While the zone was below 100% its card read "Sealed Stone Gate" and could only be dismissed.
+- Once the zone was explored, Unlock was free: Blessing Level 5 → 6, AFK EXP 592 → 608 (2026-11-10). Treat a Sealed Stone Gate as the zone's statue: dismiss it until the zone reaches 100% (R-065), then unlock and bless it (R-070).
+*observed* · R-030, R-035, R-065, R-070
 
 ## Map objects and statues
 

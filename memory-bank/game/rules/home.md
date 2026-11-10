@@ -51,7 +51,7 @@ Scene labels (e.g. "Class to Unlock") overlap the quest tracker region; filter t
 ### R-035 · Use the bed's free speed-up once a day
 - The bed ("Sleep to earn AFK EXP...") shows Blessing Level, EXP/Hr, EXP Reserve and more.
 - "Today's Free Speedup": one free a day. It is its **own task, not a daily step** (mae, 2026-11-09). Save it until the day's exploration is complete (the content wall, not reached yet), so it adds the most; it will be called on purpose later in the day. Collecting the bed's stored EXP is separate (R-101).
-- Furniture slots unlock by level (Lv 7: Alchemy Pot, R-047). Blessing statues likely raise Blessing Level ❓ (R-070). Blessing Level caps the Cart's row levels (R-136).
+- Furniture slots unlock by level (Lv 7: Alchemy Pot, R-047). Blessing a zone's statue raises Blessing Level (Verdantglade V: 5 → 6, R-145). Blessing Level caps the Cart's row levels (R-136).
 *observed* · `home/home_house.png`, `home/bed.png`, `home/furniture_unlock.png`, `dialogs/unlocked.png` · node `home_house`, `bed` · R-101
 
 ### R-101 · Collect bed EXP daily, and when close to levelling

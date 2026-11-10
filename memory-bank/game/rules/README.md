@@ -158,7 +158,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-142 | `overworld.md` | While exploring, follow the zone's own Explore quest |
 | R-143 | `overworld.md` | In an unblessed zone the whole minimap is shaded: the % comes from objects |
 | R-144 | `overworld.md` | "Statue of <name>": press Visit |
-| R-145 | `overworld.md` | Sealed Stone Gate: dismiss for now |
+| R-145 | `overworld.md` | Sealed Stone Gate: a zone's Goddess Statue before it unlocks |
 | R-146 | `overworld.md` | Never tap fog: tap walkable ground next to it |
 
 ## Retired IDs
