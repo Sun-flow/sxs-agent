@@ -363,7 +363,7 @@
   "Verdantglade VIII": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-10",
-   "pct": 0,
+   "pct": 100,
    "cp": 27.0,
    "last_seen": "2026-11-10",
    "map_point": [
@@ -375,15 +375,23 @@
    },
    "entries": [
     {
+     "via": "Verdantglade VIII",
+     "day": "2026-11-10",
+     "xy": [
+      112,
+      102
+     ]
+    },
+    {
      "via": "Verdantglade VII",
      "day": "2026-11-10",
      "xy": [
-      110,
-      85
+      114,
+      91
      ]
     }
    ],
-   "notes": "Way in: the south edge of Verdantglade VII at (102,110), guarded by a monster group on the dotted line (beaten 2026-11-10, +13%). The east side under Drasilgard is cliffs and forest: the quest ring there sits in fog and cannot be reached from Drasilgard.",
+   "notes": "Way in: the south edge of Verdantglade VII at (102,110), guarded by a monster group on the dotted line (beaten 2026-11-10, +13%). The east side under Drasilgard is cliffs and forest: the quest ring there sits in fog and cannot be reached from Drasilgard. 100% and Goddess Statue unlocked 2026-11-10 (run 5); next quest Explore Verdantglade IX (30K), south of VIII. Gate of Power 30.5K by Bubble Lake (109,83), VIII west edge.",
    "dismissed_spots": [
     [
      115,
@@ -393,7 +401,8 @@
      108,
      83
     ]
-   ]
+   ],
+   "blessed": true
   },
   "Wildbloom Coast": {
    "kingdom": "Verdantglade",
@@ -1474,7 +1483,7 @@
    "a": "Verdantglade VII",
    "b": "Verdantglade VIII",
    "how": "walked",
-   "note": "VII (102,110) south border; monster group guards the crossing (2026-11-10); entered Verdantglade VIII at (106, 103); entered Verdantglade VIII at (112, 93); entered Verdantglade VIII at (111, 91); entered Verdantglade VIII at (110, 85)"
+   "note": "VII (102,110) south border; monster group guards the crossing (2026-11-10); entered Verdantglade VIII at (106, 103); entered Verdantglade VIII at (112, 93); entered Verdantglade VIII at (111, 91); entered Verdantglade VIII at (110, 85); entered Verdantglade VIII at (114, 91)"
   }
  ],
  "gaps": [

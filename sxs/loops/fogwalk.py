@@ -235,6 +235,13 @@ def quest_counter(det, zone: str) -> Optional[int]:
     return int(m.group(2))
 
 
+def quest_moved_on(det, zone: str) -> bool:
+    """The tracker shows another zone's Explore quest: this zone's quest was finished and claimed."""
+    prog = det.find("Explore.Progress")
+    m = re.search(r"Explore\s*(.+?)\s*(\d+)\s*/\s*100", prog.text if prog else "")
+    return bool(m) and not goto.same_area(m.group(1), zone)
+
+
 MARKER_TEMPLATES = ("marker.png", "marker_dim.png")  # resource/image/explore/: the gold quest ring
 MARKER_MATCH = 0.75
 
@@ -505,6 +512,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
     objects_done = False  # no object left on either map: only fog edges remain (then stop)
     goal_taps: dict = {}  # minimap goal tile (map coordinates) -> walk taps aimed at it
     direct_taps: dict = {}  # map spot -> direct taps at a near object there (a repeat means it isn't taken that way)
+    own_quest_seen = False  # the tracker showed this zone's own Explore quest during this walk
     quest_fails = 0  # quest-pointer steps in a row that didn't move the zone's Explore counter
     buildings_ok = True  # structures are goals until one's card can only be dismissed (a blocker)
     dismissed: dict = {}  # card title -> times dismissed this walk
@@ -690,8 +698,17 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                         return "stuck"
                 # The zone's own Explore quest knows where the next % is (live 2026-11-09: a flower in a fog pocket
                 # neither map showed gave 85 -> 88% in one tap): follow its pointer first while it moves the counter.
+                if free and home_area and own_quest_seen and quest_moved_on(det, home_area):
+                    # Live 2026-11-10 (Verdantglade VIII): a big-map walk took the last %, the quest gift was claimed
+                    # and the tracker moved on to "Explore Verdantglade IX"; the walk carried on into IX's border.
+                    log.info("%s's Explore quest is finished (the tracker moved on): walk done", home_area)
+                    if tree.key(home_area):
+                        tree.observe(home_area, pct=100)
+                        tree.save()
+                    return "zone_done"
                 if free and home_area and quest_fails < QUEST_FAILS_MAX:
                     before = quest_counter(det, home_area)
+                    own_quest_seen = own_quest_seen or before is not None
                     if before is not None and quest_step(dev, det, fight):
                         after = quest_counter(det, home_area)
                         if after is not None and after > before:
