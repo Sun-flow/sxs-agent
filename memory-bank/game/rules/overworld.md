@@ -232,6 +232,12 @@ Stone Ruins I: a 2x2 floor of stone tiles; each lights cyan when stepped on. All
 Ancient Fortress, "Energy Circuits": 3 slabs in a row; tap two to swap until all nodes link (swapping the end slabs solved the one seen). Reset is top right. The bot doesn't solve these yet.
 *observed* · `world/puzzle_energy_circuits.png` · node `puzzle_energy_circuits`
 
+### R-153 · Puzzle areas: skip them for now; never spend Golden Beetles
+- Skip puzzle areas for now (mae, 2026-11-10 06:25), e.g. the Fonik box puzzle that gates Monolith Ruins II. The exploration loops treat a puzzle as a blocker and move on.
+- **Never spend Golden Beetles** (a Golden Beetle skips a puzzle, R-125). mae would rather the bot solve puzzles itself: writing puzzle solvers is a future task.
+- R-085 (tile floor, solved by hand) and R-072 (Energy Circuits) record the puzzles seen so far.
+*told* · R-043, R-072, R-085, R-125, R-151
+
 ## Target unreachable or quest not moving
 
 ### R-062 · Talk to red "!" NPCs first; they gate what's around them

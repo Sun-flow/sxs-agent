@@ -68,3 +68,9 @@ Menus unlock with tutorial progress and the game announces it. Each node's `unlo
 - Tap an item's **icon**, not its price button (about 100 px lower), for a read-only card (name, type, owned, use, source); tap outside to close. `scripts/shop_survey.py` does a whole grid, icons only.
 - Uses: Wood, Stone: furniture upgrades. Gold Pickaxe: Realm Gilded Depths. Worn Knuckles: Realm Dread Hollow. Refined Ore: gear enhancement (from dismantling advanced gear, Fantasia Ascent). Golden Beetle: skips a puzzle. Lucky Ticket: Wheel of Destiny. Water: cooking.
 *observed* · `shops/vendor_booth_general.png` · R-043, R-120, R-114
+
+### R-154 · Identify every unrecognized item or currency symbol
+- Whenever you see a material, currency or item symbol you don't already recognize, find out what it is: tap the symbol for its read-only info card (name and description, R-125), then add it to the items and currency database (mae, 2026-11-10 06:24).
+- It applies to every session, builders and the item-map work alike. Most symbols don't matter to the bot's decisions, but every one is a class for the Roboflow detector's training data.
+- Tap only the icon, never a price or spend button (R-043).
+*told* · R-018, R-019, R-043, R-125, R-131

@@ -18,6 +18,8 @@ Keep the Sword x Staff test account progressing and turn everything learned into
 
 The builder runs as a Remote Control session on mae's PC (machine details: `environments.md`). It talks to mae only through the thread tools and sends rule facts to the coordinator, which forwards them to whoever maintains `game/rules/` and `game/nav-graph.json`.
 
+New item or currency symbol you don't recognize? Tap it for its info card and add it to the items and currency database (mae, R-154). Never spend Golden Beetles; skip puzzle areas for now (mae, R-153).
+
 ## Loop
 
 1. **Let the loop play; step in when it stops.** Run the loop (e.g. `python -m sxs explore --chain`, `python -m sxs roam`, `python -m sxs fogwalk --area NAME`, `python -m sxs daily`) with output to a log. Set `SXS_ADB_ADDRESS=127.0.0.1:16416` first on mae's PC (`environments.md`). Every 2 minutes the runner checks progress and carries on or stops (`--budget`, `--stall`); `--minutes` is only an outer ceiling. It returns a reason when it can't go on (`unknown_card`, `stuck_progress`, `needs_decision`, `defeated`, `needs_help`, ...).
