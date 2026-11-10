@@ -37,6 +37,8 @@ check("stamina 50 -> 0 pickups", pickups_to_take(50, 70), 0)
 
 # Blue enhance pips on gear slots (mae, 2026-11-09): weapon +4 and head +0 show one, the two empty slots don't.
 check("enhance pips on character.png", gear_enhanceable(cv2.imread(str(SCREENS / "character/character.png"))), [0, 1])
+check("enhance pips on all four slots (live 2026-11-09, bluer discs, one merged with the chest rim)",
+      gear_enhanceable(cv2.imread(str(SCREENS / "character/character_pips_all4.png"))), [0, 1, 2, 3])
 check("no enhance pips on skill_page.png", gear_enhanceable(cv2.imread(str(SCREENS / "character/skill_page.png"))), [])
 
 # Badges ("!") on reference screens.

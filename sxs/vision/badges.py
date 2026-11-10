@@ -16,7 +16,7 @@ import numpy as np
 
 MIN_AREA, MAX_AREA = 180, 1100  # red pixel count of one disc
 SMALL_MIN_AREA = 120  # area-map badges (statues, ore) are smaller
-MAX_ASPECT = 1.35
+MAX_ASPECT = 1.5  # 1.35 dropped a pip merged with the chest slot's rim (38x26, live 2026-11-09)
 
 
 def find_badges(frame: np.ndarray, roi=None, min_area: int = MIN_AREA) -> list[tuple[int, int]]:
@@ -64,14 +64,17 @@ def find_up_pips(frame: np.ndarray, roi=None) -> list[tuple[int, int]]:
         frame, ox, oy = frame[y:y + h, x:x + w], x, y
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     h, s, v = hsv[..., 0], hsv[..., 1], hsv[..., 2]
-    blue = ((h >= 85) & (h <= 108) & (s >= 45) & (s <= 120) & (v >= 140)).astype(np.uint8)
+    # Live 2026-11-09 on the Character screen the discs read H 98-114, S up to ~175 (bluer than the first crop): the
+    # old S <= 120 cut found none and the Upgrade Loop skipped four enhanceable slots.
+    blue = ((h >= 85) & (h <= 116) & (s >= 45) & (s <= 190) & (v >= 140)).astype(np.uint8)
     blue = cv2.morphologyEx(blue, cv2.MORPH_CLOSE, np.ones((3, 3), np.uint8))  # the arrow splits the disc
     white = ((s < 30) & (v > 230)).astype(np.uint8)
     n, _, stats, cents = cv2.connectedComponentsWithStats(blue, 8)
     out = []
     for i in range(1, n):
         bx, by, bw, bh, area = stats[i]
-        if not (14 <= bw <= 32 and 14 <= bh <= 32) or max(bw, bh) / max(1, min(bw, bh)) > MAX_ASPECT:
+        # Up to 40 px: next to a slot's blue rim the disc merges with it (chest slot, live 2026-11-09: 38x26).
+        if not (14 <= bw <= 40 and 14 <= bh <= 40) or max(bw, bh) / max(1, min(bw, bh)) > MAX_ASPECT:
             continue
         if area < 0.4 * bw * bh or int(white[by:by + bh, bx:bx + bw].sum()) < 30:
             continue
