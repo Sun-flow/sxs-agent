@@ -67,9 +67,9 @@
    "id": "raw_ore",
    "name": "Raw Ore",
    "kind": "material",
-   "description": "",
-   "uses": "Gear enhancement (bottleneck)",
-   "named_by": "screen",
+   "description": "Use them for gear enhancement. This grayish-blue ore is the result of initial iron ore refinement.",
+   "uses": "Gear enhancement (bottleneck) Sources: Fantasia Ascent, Realm: Ironvein Pit, Commission, Verdantglade Iron Mining",
+   "named_by": "popup",
    "icons": [
     {
      "file": "raw_ore.png",
@@ -81,6 +81,17 @@
       108
      ],
      "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "raw_ore_2.png",
+     "screen": "items/realm_ironvein_pit.png",
+     "box": [
+      474,
+      37,
+      34,
+      33
+     ],
+     "found_in": "Journal > Material Realms > Ironvein Pit > Top bar"
     }
    ]
   },
@@ -173,9 +184,9 @@
    "id": "gold_pickaxe",
    "name": "Gold Pickaxe",
    "kind": "key_item",
-   "description": "",
-   "uses": "Realm: Gilded Depths entry",
-   "named_by": "screen",
+   "description": "Use it to mine gold ore in the Realm: Gilded Depths. A perfectly ordinary pickaxe that's surprisingly flimsy. It breaks after one use..",
+   "uses": "Realm: Gilded Depths entry Sources: Shop Purchase, Commission",
+   "named_by": "popup",
    "icons": [
     {
      "file": "gold_pickaxe.png",
@@ -187,6 +198,17 @@
       109
      ],
      "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "gold_pickaxe_2.png",
+     "screen": "items/realm_gilded_depths.png",
+     "box": [
+      579,
+      38,
+      37,
+      36
+     ],
+     "found_in": "Journal > Material Realms > Gilded Depths > Top bar"
     }
    ]
   },
@@ -377,6 +399,27 @@
       29
      ],
      "found_in": "Island map > Profile"
+    }
+   ]
+  },
+  {
+   "id": "iron_hammer",
+   "name": "Iron Hammer",
+   "kind": "key_item",
+   "description": "Use it to mine iron ore in the Realm: Ironvein Pit. A perfectly ordinary iron hammer that's surprisingly flimsy. It breaks after one use.",
+   "uses": "Realm: Ironvein Pit entry (one per run). Sources: Shop Purchase, Commission (locked)",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "iron_hammer.png",
+     "screen": "items/realm_ironvein_pit.png",
+     "box": [
+      577,
+      36,
+      36,
+      34
+     ],
+     "found_in": "Journal > Material Realms > Ironvein Pit > Top bar"
     }
    ]
   }
