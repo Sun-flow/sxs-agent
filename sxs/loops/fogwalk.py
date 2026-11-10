@@ -51,9 +51,12 @@ STAMINA_KEEP = 70  # R-107: stamina kept for the daily commissions
 REWARD_TAPS_MAX = 3  # tracker gift taps per walk: a gift that stays after this many taps isn't claimable from here
 
 
-def fog_edge_target(frame: np.ndarray) -> Optional[tuple[int, int]]:
+def fog_edge_target(frame: np.ndarray, valid=None) -> Optional[tuple[int, int]]:
     """A tap point on clear ground right next to the fog, nearest the screen centre (with a little randomness so
-    repeated calls spread along the edge). None if there's no fog in view."""
+    repeated calls spread along the edge). None if there's no fog in view.
+
+    R-146 (mae, 2026-11-10): never tap fog, and never a tree or rock beside it: the point must be walkable ground the
+    game can path to. `valid(point)` (the minimap's verdict on the tile under it) filters the candidates."""
     x0, y0, w, h = PLAY_AREA
     hsv = cv2.cvtColor(frame[y0:y0 + h, x0:x0 + w], cv2.COLOR_BGR2HSV)
     fog = ((hsv[:, :, 1] < FOG_S_MAX) & (hsv[:, :, 2] > FOG_V_MIN)).astype(np.uint8)
@@ -69,8 +72,28 @@ def fog_edge_target(frame: np.ndarray) -> Optional[tuple[int, int]]:
         return None
     cx, cy = w / 2, h / 2
     d = (xs - cx) ** 2 + (ys - cy) ** 2
-    pick = random.choice(np.argsort(d)[:200])
-    return int(xs[pick] + x0), int(ys[pick] + y0)
+    order = np.argsort(d)
+    if valid is None:
+        pick = random.choice(order[:200])
+        return int(xs[pick] + x0), int(ys[pick] + y0)
+    for k in order[::7][:300]:  # nearest first, thinned: neighbouring pixels share a tile
+        p = (int(xs[k] + x0), int(ys[k] + y0))
+        if valid(p):
+            return p
+    return None
+
+
+def walkable_at(mm, player: Optional[tuple[int, int]], point: tuple[int, int]) -> bool:
+    """True when the minimap tile under a screen point is walkable ground (not fog, not a wall, not a border)."""
+    if player is None:
+        return False
+    pr, pc = mm.centre
+    r = pr + round((point[1] - player[1]) / minimap.SCREEN_TILE)
+    c = pc + round((point[0] - player[0]) / minimap.SCREEN_TILE)
+    n = len(mm.grid)
+    if not (0 <= r < n and 0 <= c < n) or (r, c) in mm.border:
+        return False
+    return mm.grid[r][c] in ("walk_explored", "walk_unexplored", "item")
 
 
 def to_world(player_xy: Optional[tuple[int, int]], player: Optional[tuple[int, int]],
@@ -87,6 +110,7 @@ BORDER_KEEP = 1  # tiles: walk taps stay this far from a zone border line unless
 AREA_MAP_TRIES = 12  # big-map walks to a dot or structure per run (each takes ~20 s)
 OUTSIDE_RADIUS = 3  # map tiles around a spot found to be in another zone that are no longer goals
 LAST_DIST = 99  # tiles along the path to what minimap_target headed for
+DIRECT_TAPS_MAX = 2  # direct taps on the same near object before giving up on it
 GUARD_TAPS_MAX = 6  # taps on monsters under guard markers per walk
 LAST_GOAL: Optional[str] = None  # what the last minimap_target() headed for: "monster", "building" or None
 
@@ -246,10 +270,21 @@ def quest_step(dev, det, fight: bool) -> bool:
     return False
 
 
+def zone_here(dev, det, tree: Optional[Tree] = None) -> str:
+    """The zone the player is in. R-140 as amended by mae (2026-11-10): the name under the minimap is always a valid
+    description of the zone and is the first check. The big map's player dot (`zone_by_map`) is the fallback, for
+    when that name is unreadable or isn't a zone the location tree knows."""
+    name = goto.area_name_here(det)
+    tree = tree or Tree.load()
+    if name and tree.key(name):
+        return tree.key(name)
+    return zone_by_map(dev, det, name) or name
+
+
 def zone_by_map(dev, det, hint: str = "") -> Optional[str]:
-    """R-140 (mae, 2026-11-09): where the player is comes from the player's white dot on the big map, not the name
-    under the minimap (at Verdantglade V's north gate that read "Verdantglade VI" while we stood in V). Opens the
-    area map zoomed out, takes the zone whose label is nearest our dot, closes the map. None if unreadable."""
+    """Where the player is by the white dot on the big map: the fallback for `zone_here` (R-140) when the name under
+    the minimap can't be read or matched. Opens the area map zoomed out, takes the zone whose label is nearest our dot
+    (the hint stands unless another label is clearly nearer), closes the map. None if unreadable."""
     dev.tap(*goto.MINIMAP)
     time.sleep(2.5)
     if det.detect().state != "area_map":
@@ -333,6 +368,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
     stood_on: set = set()  # map coordinates the character has stood on this run
     map_tries = 0
     guard_taps = 0
+    direct_taps: dict = {}  # map spot -> direct taps at a near object there (a repeat means it isn't taken that way)
     quest_fails = 0  # quest-pointer steps in a row that didn't move the zone's Explore counter
     buildings_ok = True  # structures are goals until one's card can only be dismissed (a blocker)
     dismissed: dict = {}  # card title -> times dismissed this walk
@@ -357,6 +393,10 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
     seen_names: dict = {}  # name under the minimap -> zone the big map's player dot put us in (R-140)
 
     def map_zone(name: str) -> str:
+        # R-140 (amended 2026-11-10): a name under the minimap that the tree knows is the zone; only unknown names
+        # are checked on the big map.
+        if tree.key(name):
+            return tree.key(name)
         if name not in seen_names:
             seen_names[name] = zone_by_map(dev, det, home_area or "") or name
             if seen_names[name] != name:
@@ -535,6 +575,15 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 if goal in ("item", "monster") and target and minimap.CLOSE_TILES >= LAST_DIST:
                     log.info("%s %d tiles away: tapping it directly", goal, LAST_DIST)
                     goal_direct = True
+                    if spot:
+                        direct_taps[spot] = direct_taps.get(spot, 0) + 1
+                        if direct_taps[spot] > DIRECT_TAPS_MAX:
+                            # Live 2026-11-10 (Jungle Camp): the same "monster 2 tiles away" tapped 6 times, each tap
+                            # landing on our own character (profile). Give up on goals around that spot.
+                            log.warning("STUCK %s: %s at map %s doesn't start anything after %d taps; skipping it",
+                                        home_area, goal, spot, DIRECT_TAPS_MAX)
+                            outside.add(spot)
+                            continue
                 else:
                     goal_direct = False
                 # mae, 2026-11-05: reaching an object needs only the camera, not a path from the player. A known
@@ -597,7 +646,9 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                     dev.tap(*target)
                     time.sleep(3)
                     continue
-                target = fog_edge_target(frame)
+                me = player_on_screen(det, frame)
+                mm_now = minimap.read(frame, not free)
+                target = fog_edge_target(frame, valid=lambda p: walkable_at(mm_now, me, p))
                 if target is None:
                     no_fog += 1
                     if no_fog >= 4:

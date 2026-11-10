@@ -289,10 +289,17 @@ class Roamer:
     def _to_world(self) -> bool:
         if self.det.detect().state == "world_map":
             return True
+        progress("to_world")
         self.nav.go_home()
+        progress("home")
         self.dev.tap(*ui.NAV_WORLD)
-        time.sleep(5)
+        # Loading the island can take longer than 5 s (live 2026-11-10: "not_on_map" while it was still loading).
         d = self.det.detect()
+        for _ in range(8):
+            time.sleep(2)
+            d = self.det.detect()
+            if d.state in ("world_map", "world_overview"):
+                break
         if d.state == "world_overview":  # the kingdom picker: tap Verdantglade's island
             self.dev.tap(*VERDANTGLADE_ISLAND)
             time.sleep(8)
@@ -307,12 +314,7 @@ class Roamer:
         by the measured pan shift. Everything read goes into the location tree."""
         power = read_power(self.det)
         self.power = power or self.power
-        for _ in range(2):  # the first tap can land while the map is still settling: check the area map opened
-            self.dev.tap(*goto.MINIMAP)
-            time.sleep(2.5)
-            if self.det.detect().state == "area_map":
-                break
-        else:
+        if not goto.open_area_map(self.dev, self.det):
             log.warning("the area map did not open; frame %s", save_unknown(self.dev, "roam_survey"))
             return [], [], power
         goto.survey_zoom(self.dev)
@@ -402,9 +404,12 @@ class Roamer:
         through the card rules."""
         done = 0
         for name in zones[:3]:
-            log.info("statue ready to bless in %s", name)
-            goto.go_to(self.dev, self.det, name)
+            # The zone is only a guess from the nearest label (live 2026-11-10: Verdantglade V's statue was put in
+            # "Wildbloom Coast" and the walk to that label went nowhere). Walk straight to the badge nearest us.
+            log.info("statue ready to bless (near the %s label)", name)
+            progress(("bless", name))
             why = goto.go_to(self.dev, self.det, nearest_badge)
+            progress(("bless_walk", why))
             if why in ("not_on_map", "no_target"):
                 continue
             self.dev.tap(*goto.SCREEN_CENTRE)
@@ -454,8 +459,7 @@ class Roamer:
         """mae, 2026-11-04: "try moving from areas you are connected to". Walk into the explored area whose label
         sits nearest the target's on the area map, then toward the target as far as the explored ground goes; the
         fog walk takes it from there. Returns the neighbour used (None if there is none: walk to the label)."""
-        hint = goto.area_name_here(self.det)
-        here = fogwalk.zone_by_map(self.dev, self.det, hint) or hint  # R-140: the big map's dot decides
+        here = fogwalk.zone_here(self.dev, self.det, self.tree)  # R-140: the minimap name first, then the big map
         progress(("zone_here", here))
         if here and same(here, target.name):
             log.info("already in %s: finishing it here first (R-132)", target.name)

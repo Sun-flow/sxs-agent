@@ -47,20 +47,24 @@ check("crossing allowed reaches the item", len(minimap.path_to_nearest(wall, goa
 # The location tree (resource/world/zones.json).
 check("tree file exists", ZONES_FILE.exists(), True)
 t = Tree.load()
-t.zones["Verdantglade V"]["pct"] = 78  # the checks below use V as an unfinished zone (it reached 100% live)
+t.zones["Verdantglade V"].update(pct=78, blessed=False)  # the checks below use V as an unfinished zone (it reached 100% live)
+# ... and Jungle Camp as a zone with no known way in (live runs found one through Verdantglade III).
+t.zones["Jungle Camp"].pop("entries", None)
+t.links = [ln for ln in t.links if not ("Jungle Camp" in (ln["a"], ln["b"]) and ln["how"] == "walked")]
 check("Jungle Camp is next at 22.4K (lowest-CP unexplored)", t.next_zone(22.4), "Jungle Camp")
 check("finish the zone we stand in first (R-132)", t.next_zone(22.4, "Verdantglade V"), "Verdantglade V")
 check("no crossing out of an unfinished zone", t.can_cross("Verdantglade V", "Jungle Camp", 22.4)[0], False)
 check("1.25x power check on crossing", t.can_cross("Drasilgard", "Troll Lair", 12.0)[0], False)
 check("crossing from a town into a zone in reach", t.can_cross("Drasilgard", "Jungle Camp", 22.4)[0], True)
 check("Jungle Camp's missing way in is an open question",
-      any(q.startswith("Jungle Camp: entry point unknown") for q in t.open_questions()), True)
+      any(q.startswith("Jungle Camp: no known way in") for q in t.open_questions()), True)
 check("name match keeps numerals apart", same("Verdantglade V", "Verdantglade VI"), False)
 check("name match takes a clipped label", same("tglade III", "Verdantglade III"), True)
 
 with tempfile.TemporaryDirectory() as d:
     t2 = Tree.load()
     t2.path = Path(d) / "zones.json"
+    t2.zones["Jungle Camp"].pop("entries", None)
     t2.observe("Jungle Camp", pct=12, today="2026-11-09")
     t2.record_entry("Jungle Camp", "Verdantglade V", True, "2026-11-09", xy=(201, 80))
     t2.record_entry("Jungle Camp", "Drasilgard", True, "2026-11-09", xy=(120, 60))
