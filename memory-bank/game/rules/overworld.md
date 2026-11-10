@@ -150,6 +150,11 @@ At home, tapping the tracker for a quest elsewhere asks "Travel to <Area> now?";
 Where recommended power is well above yours and fights end in losses (R-031), stop exploring; don't retry. Verdantglade cap (mae): clear only the first 4 to 7 Verdantglade areas, or stop at a natural wall; `sxs/loops/roam.py` stops at the first power wall and caps areas with `--max-areas`. Get stronger first: gear, charms, techniques, tower clears. Verdantglade III (12K) lost every fight at 8.1K and 10K. Enter it with the quest's Go travel (R-089): that took it from 0 to 73/100. On foot from Moonveil Woods the fog edge south of about (168, 94) never moves. OCR mixes II and III on the area map, so check the trailing numeral (R-068).
 *observed* · R-031, R-061, R-076, R-086
 
+### R-151 · Boulder Blockade: a barrier that needs a drill bit; Hidden Camp is inaccessible for now
+- A "Boulder Blockade" card at Hidden Camp's edge is a barrier that opens only with a drill bit item, which we get later (mae, 2026-11-10 02:51). Dismiss it.
+- Mark Hidden Camp inaccessible in the location tree and leave it out of roam's zone choice until a drill bit is in the bag; then come back.
+*told, observed* · R-030, R-086, R-135
+
 ### R-086 · Gate of Power: a wall until power meets it, then press Open
 A stone pillar card "Gate of Power": "Requires: Power reaches 15.5K (Current: 8.1K)". Short of power there's no button: dismiss (policy kind `power_gate`); the fog walk stops there. With enough power a free "Open" shows at about (0.5, 0.74): press it (kind `power_gate_open`) and the pillar sinks.
 - Damp Woods: an area-map walk to its label from Verdantglade II lands at about (184, 86), a fogged pocket with a stone mini-dungeon, ore baskets, a statue and the 15.5K gate. Behind it: ore baskets, a glowing crystal and a duck-shaped item, free to tap; they finish Damp Woods. The minimap barely shows them under shadow, so the bot can't find them from it yet ❓.
@@ -163,7 +168,7 @@ A gold "!" structure on Verdantglade V's north edge at about (135, 126) opens a 
 
 ### R-030 · Map objects open a card with one action
 Tapping a map object (e.g. a Portal) opens a card with one button at (0.5, 0.70), e.g. "Activate"; using it adds Explore progress. Press only safe verbs: Activate, Collect, Claim, Open, Interact, Bless, Pray, Gather, Harvest, Mine, Examine, Read. **This never covers the Prayer gacha's Pray (R-093) or any spend button (R-043).** Card choices: R-042.
-- Unknown cards seen, dismissed until understood ❓: "Boulder Blockade" at Hidden Camp's edge (2026-11-10), "Limpid Legion" in Drasilgard (R-134).
+- Unknown cards seen, dismissed until understood ❓: "Limpid Legion" in Drasilgard (R-134). "Boulder Blockade" is a barrier (R-151).
 *observed* · `world/interact_portal.png` · node `interact` · R-042, R-043
 
 ### R-070 · Goddess Statues bless a fully explored area
