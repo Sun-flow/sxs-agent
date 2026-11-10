@@ -313,8 +313,13 @@ class Roamer:
                 break
         if d.state == "world_overview":  # the kingdom picker: tap Verdantglade's island
             self.dev.tap(*VERDANTGLADE_ISLAND)
-            time.sleep(8)
-            d = self.det.detect()
+            # The island can take over 8 s to load after the kingdom picker (live 2026-11-10 22:43: "not_on_map"
+            # with the island up a moment later): poll up to ~24 s.
+            for _ in range(8):
+                time.sleep(3)
+                d = self.det.detect()
+                if d.state == "world_map":
+                    break
         return d.state == "world_map"
 
     def survey(self) -> tuple[list[Area], list[str], Optional[float]]:
@@ -678,6 +683,10 @@ class Roamer:
             via = self.approach(areas, target)
             if via is NO_ENTRANCE:
                 log.info("skipping %s for now: no entrance found (R-150)", target.name)
+                if area:
+                    # Only this zone was asked for: retrying it just repeats the same survey (live 2026-11-10: Leafy
+                    # Corridor gave up and was picked again every 30 s until killed).
+                    return "no_entrance"
                 continue
             left = (deadline - time.monotonic()) / 60
             why = fogwalk.walk(self.dev, self.det, minutes=min(walk_minutes, max(1.0, left)), area=target.name,
@@ -750,6 +759,6 @@ def _run(ctx, opts):
     return Roamer(ctx.dev, ctx.det).run(opts.minutes, opts.area, opts.max_areas, opts.walk_minutes)
 
 
-OK = {"area_done", "power_wall", "all_explored", "timeout", "max_areas", "exploration_concluded"}
+OK = {"area_done", "power_wall", "all_explored", "timeout", "max_areas", "exploration_concluded", "no_entrance"}
 LOOP = Loop("roam", "Roam", "free exploration: unexplored areas under our power, then their statues", _run, _args,
             ok=OK)

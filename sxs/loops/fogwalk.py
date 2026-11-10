@@ -40,6 +40,8 @@ from ..vision.hud import read_stamina
 from ..vision.player import player_on_screen
 from . import tower
 from .explore import REPEAT_LIMIT, hud_hp
+
+GATE_LIMIT = 3  # Gate of Power cards in one walk before the zone counts as walled off
 from .gather import COST
 
 log = logging.getLogger("sxs.loops.fogwalk")
@@ -226,11 +228,34 @@ QUEST_FAILS_MAX = 3  # quest-pointer steps without the counter moving before the
 
 def quest_counter(det, zone: str) -> Optional[int]:
     """The tracked quest's counter when it is "Explore <zone> N/100", else None."""
+    m = _explore_quest(det)
+    if not m or not goto.same_area(m[0], zone):
+        return None
+    return m[1]
+
+
+def _explore_quest(det) -> Optional[tuple[str, int]]:
+    """The tracker's "Explore <zone> N/100" as (zone, N). OCR reads the numeral I as 1 or l before V/X
+    ("ExploreVerdantglade1X26/100", live 2026-11-10): put the I back so IX doesn't read as another zone."""
     prog = det.find("Explore.Progress")
     m = re.search(r"Explore\s*(.+?)\s*(\d+)\s*/\s*100", prog.text if prog else "")
-    if not m or not goto.same_area(m.group(1), zone):
+    if not m:
         return None
-    return int(m.group(2))
+    name = re.sub(r"[1l|](?=[VX]\b)", "I", m.group(1).strip())
+    name = re.sub(r"(?<=[a-z])(?=[IVX]+$)", " ", name)  # "VerdantgladeIX" -> "Verdantglade IX"
+    return name, int(m.group(2))
+
+
+def quest_moved_on(det, zone: str) -> bool:
+    """The tracker shows another zone's Explore quest: this zone's quest was finished and claimed."""
+    for i in range(2):  # twice: one misread must not end a walk (live 2026-11-10: "Verdantglade1X" ended IX at 17%)
+        m = _explore_quest(det)
+        if not m or goto.same_area(m[0], zone) or goto.close_name(m[0], zone):
+            return False
+        if i == 0:
+            time.sleep(0.5)
+    log.info("tracker reads %r, not %s", m, zone)
+    return True
 
 
 MARKER_TEMPLATES = ("marker.png", "marker_dim.png")  # resource/image/explore/: the gold quest ring
@@ -343,6 +368,51 @@ def lucky_wheel_free(det) -> bool:
         return False
     button = " ".join(t for t, _ in det.read_text([180, 1060, 360, 80]))
     return bool(re.fullmatch(r"\s*Tap to spin\s*", button))
+
+
+COMPANION_TAB = (608, 1216)  # the friend picker's bottom tabs: Friends / Guild / Companion
+COMPANION_PICKS = ((626, 230), (626, 348), (626, 466))  # select circles of the three companion rows
+PICKER_OK = (360, 1104)
+GATE_SLOT_DX = 136  # px between the card's friend slots; the first "+" sits this far right of our own portrait
+
+
+def elemental_gate(dev, det) -> Optional[str]:
+    """Gate of Wind (and the other Gates of Elements): "Total Wind Affinity reaches 1", with up to 3 friend slots.
+    Affinity comes from relics (not unlocked) or helpers; our NPC companions (Akane, Qin, Killian) carry 101 each and
+    adding them is free (R-057). Live 2026-11-10, Zephyr Vale: Akane alone opened it. Returns None when this isn't
+    such a card, else "opened" or "short" (the requirement still not met after three helpers)."""
+    lines = det.read_text([30, 520, 660, 520])
+    text = " ".join(t for t, _ in lines)
+    if not re.search(r"Gate of \w+", text) or not re.search(r"Affinity|Aegis", text) or "Power reaches" in text:
+        return None
+    taken = 0
+    for _ in range(len(COMPANION_PICKS) + 1):
+        lines = det.read_text([30, 520, 660, 640])
+        opened = [b for t, b in lines if re.fullmatch(r"\s*Open\s*", t)]
+        if opened:
+            x, y, w, h = opened[0]
+            ui.tap(dev, (x + w // 2, y + h // 2), 6)
+            log.info("Gate of Elements: requirement met with companions; opened it")
+            return "opened"
+        friends = [b for t, b in lines if "Select Friends" in t]
+        if not friends:
+            break
+        # The first empty "+" slot: our portrait sits at x ~150, the slots follow at GATE_SLOT_DX spacing.
+        slot_y = friends[0][1] + 82
+        if taken >= len(COMPANION_PICKS):
+            break
+        plus = sorted((b for t, b in lines if t.strip() == "+"), key=lambda b: b[0])
+        slot = ((plus[0][0] + plus[0][2] // 2, plus[0][1] + plus[0][3] // 2) if plus
+                else (152 + GATE_SLOT_DX * (taken + 1), slot_y))
+        ui.tap(dev, slot, 3)
+        ui.tap(dev, COMPANION_TAB, 2)
+        ui.tap(dev, COMPANION_PICKS[taken], 1)
+        ui.tap(dev, PICKER_OK, 3)
+        taken += 1
+        log.info("Gate of Elements: added companion %d", taken)
+    log.warning("Gate of Elements: still short after adding companions; leaving it")
+    ui.tap(dev, ui.ABOVE_POPUP, 2)
+    return "short"
 
 
 ME_RADIUS = 70  # px round our character on screen: a tap there opens our profile ("Mage", Class Level 8)
@@ -478,6 +548,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
     home_area, strayed = area, False
     visited: set[str] = set()
     repeats, last_card = 0, None
+    gates = 0  # Gate of Power cards met this walk
     buildings_seen: set = set()
     heal_tries = 0
     last_tap = None  # map coordinates of the last walk tap (None when the player wasn't found on screen)
@@ -502,6 +573,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
     objects_done = False  # no object left on either map: only fog edges remain (then stop)
     goal_taps: dict = {}  # minimap goal tile (map coordinates) -> walk taps aimed at it
     direct_taps: dict = {}  # map spot -> direct taps at a near object there (a repeat means it isn't taken that way)
+    own_quest_seen = False  # the tracker showed this zone's own Explore quest during this walk
     quest_fails = 0  # quest-pointer steps in a row that didn't move the zone's Explore counter
     buildings_ok = True  # structures are goals until one's card can only be dismissed (a blocker)
     dismissed: dict = {}  # card title -> times dismissed this walk
@@ -564,6 +636,10 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
             return tree.key(home_area) or home_area
         if tree.key(name):
             return tree.key(name)
+        if home_area and clean and goto.close_name(clean, home_area):
+            # Live 2026-11-10 (Troll Lair): the minimap read "Croll Lair", the big map's label "roILall", and the walk
+            # thought it had left. A name one OCR slip from the zone being explored (and no other zone) is that zone.
+            return tree.key(home_area) or home_area
         if name not in seen_names:
             seen_names[name] = zone_by_map(dev, det, home_area or "") or name
             if seen_names[name] != name:
@@ -687,8 +763,17 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                         return "stuck"
                 # The zone's own Explore quest knows where the next % is (live 2026-11-09: a flower in a fog pocket
                 # neither map showed gave 85 -> 88% in one tap): follow its pointer first while it moves the counter.
+                if free and home_area and own_quest_seen and quest_moved_on(det, home_area):
+                    # Live 2026-11-10 (Verdantglade VIII): a big-map walk took the last %, the quest gift was claimed
+                    # and the tracker moved on to "Explore Verdantglade IX"; the walk carried on into IX's border.
+                    log.info("%s's Explore quest is finished (the tracker moved on): walk done", home_area)
+                    if tree.key(home_area):
+                        tree.observe(home_area, pct=100)
+                        tree.save()
+                    return "zone_done"
                 if free and home_area and quest_fails < QUEST_FAILS_MAX:
                     before = quest_counter(det, home_area)
+                    own_quest_seen = own_quest_seen or before is not None
                     if before is not None and quest_step(dev, det, fight):
                         after = quest_counter(det, home_area)
                         if after is not None and after > before:
@@ -934,7 +1019,12 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 # ("1159", "1140") and tapped the round counter to "dismiss" them.
                 time.sleep(3)
                 progress(("battle", d.text or ""))
-            elif free and not wheel_spun and lucky_wheel_free(det):
+            elif (gate := elemental_gate(dev, det)) is not None:
+                # Gate of Wind and the other Gates of Elements: free with our companions' affinity (R-057).
+                note_objective("Gate of Elements", gate, goto.coords(det) or last_tap)
+                if gate == "short" and last_tap:
+                    outside.add(tuple(last_tap))
+                progress(("elemental_gate", gate))
                 # mae, 2026-11-10: each Lucky Wheel's first spin is free while its zone is unexplored (once explored a
                 # spin costs). Jungle Camp's last 7% was this spin. Pressed only when the button shows no cost.
                 log.info("Lucky Wheel in an unexplored zone, no cost shown: taking the free spin")
@@ -956,7 +1046,11 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 last_card = card.title
                 if choice.action == "dismiss" and last_tap and last_tap not in bumped:
                     bumped.append(last_tap)
-                    outside.add(tuple(last_tap))  # no more goals around it this walk
+                    if not re.search(r"Goddess Statue", card.title or ""):
+                        # No more goals around it this walk. Not for a statue that isn't ready yet: the pickups
+                        # round it are what it waits for (live 2026-11-10, Zephyr Vale at 66%: a chest, a Destiny
+                        # Fruit and an ore pile beside its Lost Goddess Statue were left; by hand they made 100%).
+                        outside.add(tuple(last_tap))
                     k = tree.key(home_area or "")
                     if k and card.title and re.search(r"Statue|Gate|Wheel|Rankings", card.title):
                         spots = tree.zones[k].setdefault("dismissed_spots", [])
@@ -998,8 +1092,19 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                                 tree.save()
                 ui.tap(dev, choice.point, 3)
                 if choice.kind == "power_gate":
-                    log.info("blocked by %r (needs more power): this area's wall", card.title)
-                    return "power_gate"
+                    # A Gate of Power walls off one way, not the whole zone (live 2026-11-10: Verdantglade VIII at 50%
+                    # stopped at a 30.5K gate by Bubble Lake with half the zone left elsewhere). Walk around its spot
+                    # from now on; stop only when gates keep coming back.
+                    gates += 1
+                    here_xy = goto.coords(det)
+                    for spot in (here_xy, last_tap):
+                        if spot:
+                            outside.add(tuple(spot))
+                    if gates >= GATE_LIMIT:
+                        log.info("blocked by %r (needs more power) %d times: this area's wall", card.title, gates)
+                        return "power_gate"
+                    log.info("blocked by %r (needs more power) near %s: walking around it", card.title, here_xy)
+                    continue
                 if repeats >= REPEAT_LIMIT:
                     log.warning("card %r keeps coming back; stopping", card.title)
                     return "repeating_card"
