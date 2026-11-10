@@ -309,6 +309,17 @@
       66
      ],
      "found_in": "Menu > Quest > Daily (rewards)"
+    },
+    {
+     "file": "stamina_5.png",
+     "screen": "items/vendor_booth_vault.png",
+     "box": [
+      94,
+      236,
+      78,
+      100
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
     }
    ]
   },
@@ -363,6 +374,28 @@
       66
      ],
      "found_in": "Menu > Quest > Daily (rewards)"
+    },
+    {
+     "file": "gold_pickaxe_5.png",
+     "screen": "items/vendor_booth_vault.png",
+     "box": [
+      80,
+      529,
+      108,
+      95
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "gold_pickaxe_6.png",
+     "screen": "items/vendor_booth_vault.png",
+     "box": [
+      306,
+      529,
+      108,
+      95
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
     }
    ]
   },
@@ -424,9 +457,9 @@
    "id": "refined_ore",
    "name": "Refined Ore",
    "kind": "material",
-   "description": "",
-   "uses": "Advanced gear enhancement",
-   "named_by": "screen",
+   "description": "Use them for gear enhancement. This reddish-gold metal ore is obtained by dismantling advanced gear.",
+   "uses": "Advanced gear enhancement Sources: Fantasia Ascent",
+   "named_by": "popup",
    "icons": [
     {
      "file": "refined_ore.png",
@@ -438,6 +471,17 @@
       108
      ],
      "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "refined_ore_2.png",
+     "screen": "items/vendor_booth_vault.png",
+     "box": [
+      547,
+      524,
+      91,
+      100
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
     }
    ]
   },
@@ -445,9 +489,9 @@
    "id": "golden_beetle",
    "name": "Golden Beetle",
    "kind": "consumable",
-   "description": "",
-   "uses": "Skips a puzzle",
-   "named_by": "screen",
+   "description": "Use it to skip a puzzle. These lucky beetles are blessed by the Goddess and loved by her messenger. Offer one up and watch as a clever fox solves the puzzle for you.",
+   "uses": "Skips a puzzle Sources: Shop Purchase, Pilgrimage Pass. Never spend Golden Beetles (mae, 2026-11-10); puzzle areas are skipped for now",
+   "named_by": "popup",
    "icons": [
     {
      "file": "golden_beetle.png",
@@ -459,6 +503,17 @@
       102
      ],
      "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "golden_beetle_2.png",
+     "screen": "items/vendor_booth_vault_2.png",
+     "box": [
+      86,
+      958,
+      86,
+      98
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
     }
    ]
   },
@@ -466,9 +521,9 @@
    "id": "shapeshifting_mirror",
    "name": "Shapeshifting Mirror",
    "kind": "consumable",
-   "description": "",
+   "description": "Visit Black Cat Carol in Drasilgard to customize your appearance. A magical mirror created by Carol, the Verdantglade witch. Her proudest work that she can't use it on herself.",
    "uses": "Changes appearance; never used by the bot",
-   "named_by": "screen",
+   "named_by": "popup",
    "icons": [
     {
      "file": "shapeshifting_mirror.png",
@@ -480,6 +535,17 @@
       116
      ],
      "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "shapeshifting_mirror_2.png",
+     "screen": "items/vendor_booth_vault_2.png",
+     "box": [
+      309,
+      958,
+      104,
+      100
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
     }
    ]
   },
@@ -487,9 +553,9 @@
    "id": "rename_card",
    "name": "Rename Card",
    "kind": "consumable",
-   "description": "",
+   "description": "Use it to change your adventurer's name. Ready for a new identity? This small card lets you pick a fresh name.",
    "uses": "Changes the character name; never used by the bot",
-   "named_by": "screen",
+   "named_by": "popup",
    "icons": [
     {
      "file": "rename_card.png",
@@ -499,6 +565,17 @@
       804,
       110,
       112
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "rename_card_2.png",
+     "screen": "items/vendor_booth_vault_2.png",
+     "box": [
+      532,
+      958,
+      108,
+      100
      ],
      "found_in": "Home > Vendor Booth > Vault"
     }
@@ -873,6 +950,17 @@
       66
      ],
      "found_in": "Menu > Quest > Weekly (rewards)"
+    },
+    {
+     "file": "rare_auroral_badge_3.png",
+     "screen": "items/vendor_booth_vault.png",
+     "box": [
+      306,
+      244,
+      108,
+      92
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
     }
    ]
   },
@@ -1062,6 +1150,17 @@
       96
      ],
      "found_in": "Menu > Quest > Weekly > Random Epic Gift card (contents)"
+    },
+    {
+     "file": "mandrake_2.png",
+     "screen": "items/vendor_booth_vault.png",
+     "box": [
+      316,
+      810,
+      90,
+      100
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
     }
    ]
   },
@@ -1137,6 +1236,69 @@
       52
      ],
      "found_in": "Journal > Map Exploration > Resource Hunt (gather priority choice; not tapped) [dimmed art: matched by eye to the vendor icon, not popup-read]"
+    }
+   ]
+  },
+  {
+   "id": "destiny_fruit",
+   "name": "Destiny Fruit",
+   "kind": "consumable",
+   "description": "Search the world map for mysterious rewards. Remember, uncollected destiny resources will disappear after a while. Mystical fruits from the Arborisfatum that light your path to fated encounters.",
+   "uses": "The fruit counter in the island-map top bar (R-019). Sources: Commission (locked)",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "destiny_fruit.png",
+     "screen": "items/vendor_booth_vault.png",
+     "box": [
+      547,
+      239,
+      90,
+      97
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
+    }
+   ]
+  },
+  {
+   "id": "epic_auroral_badge",
+   "name": "Epic Auroral Badge",
+   "kind": "ticket",
+   "description": "Use 10 to get a capsule from the Epic Aeonic Gacha.",
+   "uses": "Gacha ticket (Epic Aeonic Gacha, 10 per capsule): a pull, never used by the bot",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "epic_auroral_badge.png",
+     "screen": "items/vendor_booth_vault.png",
+     "box": [
+      81,
+      810,
+      104,
+      100
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
+    }
+   ]
+  },
+  {
+   "id": "quest_scroll",
+   "name": "Quest Scroll",
+   "kind": "consumable",
+   "description": "Gives you extra quest attempts after hitting your daily limit. Skilled adventurers are always in demand. Whose quest will you take on next?",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "quest_scroll.png",
+     "screen": "items/vendor_booth_vault.png",
+     "box": [
+      532,
+      812,
+      108,
+      95
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
     }
    ]
   }
