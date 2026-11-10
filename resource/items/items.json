@@ -827,6 +827,227 @@
       66
      ],
      "found_in": "Menu > Quest > Daily (rewards)"
+    },
+    {
+     "file": "rare_auroral_badge_2.png",
+     "screen": "items/quests_weekly.png",
+     "box": [
+      145,
+      535,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Weekly (rewards)"
+    }
+   ]
+  },
+  {
+   "id": "blessing_card",
+   "name": "Blessing Card",
+   "kind": "other",
+   "description": "Regular Blessing Card Don't forget to leave a Blessing Card during your visit!",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "blessing_card.png",
+     "screen": "items/quests_weekly.png",
+     "box": [
+      233,
+      183,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Weekly (rewards)"
+    }
+   ]
+  },
+  {
+   "id": "random_epic_gift",
+   "name": "Random Epic Gift",
+   "kind": "gift",
+   "description": "Open it to get a Epic gift of a random type. Randomly receive 1 of the following items",
+   "uses": "Chest of one random Epic companion gift (8 shown in its card)",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "random_epic_gift.png",
+     "screen": "items/quests_weekly.png",
+     "box": [
+      145,
+      711,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Weekly (rewards)"
+    }
+   ]
+  },
+  {
+   "id": "blazing_legends",
+   "name": "Blazing Legends",
+   "kind": "gift",
+   "description": "Give it as a gift to increase Affinity of a companion. An exciting tale of adventure! A bestselling classic in Kanstein. Perfect for companions who enjoy reading.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "blazing_legends.png",
+     "screen": "items/random_epic_gift_contents.png",
+     "box": [
+      134,
+      642,
+      94,
+      96
+     ],
+     "found_in": "Menu > Quest > Weekly > Random Epic Gift card (contents)"
+    }
+   ]
+  },
+  {
+   "id": "flavors_of_kanstein",
+   "name": "Flavors of Kanstein",
+   "kind": "gift",
+   "description": "Give it as a gift to increase Affinity of a companion. A journey through our world's culinary wonders. Perfect for companions who enjoy reading.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "flavors_of_kanstein.png",
+     "screen": "items/random_epic_gift_contents.png",
+     "box": [
+      254,
+      642,
+      94,
+      96
+     ],
+     "found_in": "Menu > Quest > Weekly > Random Epic Gift card (contents)"
+    }
+   ]
+  },
+  {
+   "id": "golden_ingot",
+   "name": "Golden Ingot",
+   "kind": "gift",
+   "description": "Give it as a gift to increase Affinity of a companion. A precious metal of guaranteed worth. Perfect for companions who value precious gifts.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "golden_ingot.png",
+     "screen": "items/random_epic_gift_contents.png",
+     "box": [
+      374,
+      642,
+      94,
+      96
+     ],
+     "found_in": "Menu > Quest > Weekly > Random Epic Gift card (contents)"
+    }
+   ]
+  },
+  {
+   "id": "luminous_jade",
+   "name": "Luminous Jade",
+   "kind": "gift",
+   "description": "Give it as a gift to increase Affinity of a companion. A pendant of smooth, gleaming jade. Perfect for companions who value precious gifts.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "luminous_jade.png",
+     "screen": "items/random_epic_gift_contents.png",
+     "box": [
+      494,
+      642,
+      94,
+      96
+     ],
+     "found_in": "Menu > Quest > Weekly > Random Epic Gift card (contents)"
+    }
+   ]
+  },
+  {
+   "id": "silken_dreams",
+   "name": "Silken Dreams",
+   "kind": "gift",
+   "description": "Give it as a gift to increase Affinity of a companion. A finely stitched pillow for restful nights. Perfect for companions who value practical gifts.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "silken_dreams.png",
+     "screen": "items/random_epic_gift_contents.png",
+     "box": [
+      134,
+      774,
+      94,
+      96
+     ],
+     "found_in": "Menu > Quest > Weekly > Random Epic Gift card (contents)"
+    }
+   ]
+  },
+  {
+   "id": "feather_quill",
+   "name": "Feather Quill",
+   "kind": "gift",
+   "description": "Give it as a gift to increase Affinity of a companion. A refined quill for beautiful writing. Perfect for companions who value practical gifts.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "feather_quill.png",
+     "screen": "items/random_epic_gift_contents.png",
+     "box": [
+      254,
+      774,
+      94,
+      96
+     ],
+     "found_in": "Menu > Quest > Weekly > Random Epic Gift card (contents)"
+    }
+   ]
+  },
+  {
+   "id": "mandrake",
+   "name": "Mandrake",
+   "kind": "gift",
+   "description": "Give it as a gift to increase Affinity of a companion. A pristine cluster of mandrakes. Perfect for companions who enjoy flowers.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "mandrake.png",
+     "screen": "items/random_epic_gift_contents.png",
+     "box": [
+      374,
+      774,
+      94,
+      96
+     ],
+     "found_in": "Menu > Quest > Weekly > Random Epic Gift card (contents)"
+    }
+   ]
+  },
+  {
+   "id": "sakura",
+   "name": "Sakura",
+   "kind": "gift",
+   "description": "Give it as a gift to increase Affinity of a companion. A touching bouquet of sakura blossoms. Perfect for companions who enjoy flowers.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "sakura.png",
+     "screen": "items/random_epic_gift_contents.png",
+     "box": [
+      494,
+      774,
+      94,
+      96
+     ],
+     "found_in": "Menu > Quest > Weekly > Random Epic Gift card (contents)"
     }
    ]
   }
