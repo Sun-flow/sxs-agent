@@ -112,6 +112,13 @@
             "why": "Live 2026-11-09 (Verdantglade V, Statue of Lunar Sage): Visit is free, gives a permanent stat boost (HP +170), heals fully and counts toward exploration."
         },
         {
+            "kind": "lucky_wheel",
+            "match": "Wheel of Destiny|All items have an equal drop rate",
+            "choose": "dismiss",
+            "dismiss_by": "back",
+            "why": "Live 2026-11-10 (Jungle Camp's Lucky Wheel): 'Tap to spin' uses Lucky Wheel tickets (we have 0); never spin unasked. A tap outside doesn't close this full screen: use the back arrow."
+        },
+        {
             "kind": "obelisk",
             "match": "^Voyage Obelisk$",
             "choose": "^Activate$",

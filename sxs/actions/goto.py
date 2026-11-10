@@ -129,6 +129,29 @@ def survey_zoom(dev) -> None:
     time.sleep(1.2)
 
 
+LEGEND_FILTER_CLOSE = (360, 1150)  # a tap on the map below the legend's filter panel closes it
+
+
+def open_area_map(dev, det) -> bool:
+    """Tap the minimap and wait for the area map. Live 2026-11-10: a second tap sent while the map was still opening
+    landed on the legend's search pill (the minimap sits under the legend) and opened the legend filter panel
+    ("Select All"), which the state detector doesn't know; then nothing opened the map. Now: one tap, wait, retap only
+    while still on the island map, and close the filter panel if it shows."""
+    dev.tap(*MINIMAP)
+    for i in range(6):
+        time.sleep(1.2)
+        state = det.detect().state
+        if state == "area_map":
+            return True
+        if any(re.search(r"Select All", t) for t, _ in det.read_text([300, 700, 300, 80])):
+            log.info("legend filter panel open: closing it")
+            dev.tap(*LEGEND_FILTER_CLOSE)
+            continue
+        if state == "world_map" and i == 3:
+            dev.tap(*MINIMAP)
+    return det.detect().state == "area_map"
+
+
 def go_to(dev, det, target) -> str:
     """target: an area name on the area map, or an (x, y) point there. Returns "arrived" (walked and stopped),
     "no_move" (coordinates didn't change: blocked or unreachable), "no_label", or "not_on_map"."""
