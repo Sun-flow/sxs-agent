@@ -326,7 +326,7 @@ def zone_picker(det, kinds, home: Optional[str], skip=()):
     """Big-map picker: the nearest object of `kinds` that is in our zone (R-132), anywhere on the map (live
     2026-11-09: a 260 px radius found nothing while Verdantglade V still had dots at its far edge)."""
     def pick(frame):
-        labels = map_labels(det, frame) if home else None
+        labels = (lambda: map_labels(det, frame)) if home else None  # OCR only if there's something to check
         return (area_map.nearest(frame, kinds, max_px=ZONE_PICK_PX, labels=labels, home=home, skip=skip)
                 or (None, None))[1]
     return pick
@@ -483,7 +483,10 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                         outside.add((int(here.group(1)), int(here.group(2))))
                     log.info("left %s for %s; going back (no goals near %s from now on)", home_area, name,
                              sorted(outside)[-1] if outside else "?")
-                    goto.go_to(dev, det, home_area)
+                    if goto.go_to(dev, det, home_area) == "no_move":
+                        # Inside an enclosure (Auroradrasil) big-map walks don't route out: the quest pointer does.
+                        quest_step(dev, det, fight)
+                        goto.go_to(dev, det, home_area)
                     continue
                 elif name and goto.same_area(name, home_area):
                     strayed = False
@@ -505,7 +508,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                     if still >= STILL_LIMIT and map_tries < AREA_MAP_TRIES:
                         # Blocked on the minimap plan: try mae's big-map walk to the nearest dot before giving up.
                         map_tries += 1
-                        kinds = tuple(k for k in ("item", "monster") + (("building",) if buildings_ok else ())
+                        kinds = tuple(k for k in ("statue", "item", "monster") + (("building",) if buildings_ok else ())
                                       if (free or k != "item") and (fight or k != "monster"))
                         why = goto.go_to(dev, det, zone_picker(det, kinds, home_area))
                         log.info("blocked; area-map walk to the nearest %s: %s", "/".join(kinds), why)
@@ -602,7 +605,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                     log.info("known %s %r on screen at %s (%.2f): tapping it", kind, name, target, score)
                 elif goal in ("item", "monster", "building") and map_tries < AREA_MAP_TRIES and not goal_direct:
                     map_tries += 1
-                    kinds = tuple(k for k in ("item", "monster") + (("building",) if buildings_ok else ())
+                    kinds = tuple(k for k in ("statue", "item", "monster") + (("building",) if buildings_ok else ())
                                   if (items_ok or k != "item") and (fight or k != "monster"))
                     why = goto.go_to(dev, det, zone_picker(det, kinds, home_area))
                     log.info("big-map walk to the nearest %s: %s", "/".join(kinds), why)
@@ -617,7 +620,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                         # mae, 2026-11-05: open the big map, tap the nearest dot or structure (the camera centres on
                         # it), close the map and tap the middle of the screen, where the element now is.
                         map_tries += 1
-                        kinds = tuple(k for k in ("item", "monster") + (("building",) if buildings_ok else ())
+                        kinds = tuple(k for k in ("statue", "item", "monster") + (("building",) if buildings_ok else ())
                                       if (items_ok or k != "item") and (fight or k != "monster"))
                         pick = zone_picker(det, kinds, home_area)
                         why = goto.go_to(dev, det, pick)

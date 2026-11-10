@@ -80,9 +80,13 @@ def same_area(a: str, b: str) -> bool:
 def area_labels(det) -> dict[str, list[int]]:
     """Area-map OCR: name -> box, for lines that look like area names (not the legend or percentages)."""
     out = {}
-    for text, box in det.read_text([0, 120, 540, 1050]):
+    # Up to the zoom slider (x 655): labels on the right third, such as Damp Woods at the survey zoom, were cut off
+    # by the old x 540 limit (live 2026-11-10). The legend box (top right) is skipped.
+    for text, box in det.read_text([0, 120, 655, 1050]):
         t = text.replace("-", " ").strip(" |")
         if re.search(r"Exploration|%|\d\.\dK", t) or len(t) < 4:
+            continue
+        if box[0] > 530 and box[1] < 260:
             continue
         out[t] = box
     return out
@@ -130,6 +134,8 @@ def survey_zoom(dev) -> None:
     time.sleep(1.2)
 
 
+LABEL_PANS = [(300, 900, 300, 450), (450, 620, 150, 620), (300, 400, 300, 850), (300, 400, 300, 850),
+              (150, 620, 450, 620), (150, 620, 450, 620)]  # reveal south, east, north twice, west twice
 LEGEND_FILTER_CLOSE = (360, 1150)  # a tap on the map below the legend's filter panel closes it
 
 
@@ -153,7 +159,7 @@ def open_area_map(dev, det) -> bool:
     return det.detect().state == "area_map"
 
 
-def go_to(dev, det, target) -> str:
+def go_to(dev, det, target, pan_for_target: bool = False) -> str:
     """target: an area name on the area map, or an (x, y) point there. Returns "arrived" (walked and stopped),
     "no_move" (coordinates didn't change: blocked or unreachable), "no_label", or "not_on_map"."""
     banner(log, "Go To", f"walk to {'the nearest object' if callable(target) else target} picked on the area map",
@@ -196,6 +202,15 @@ def go_to(dev, det, target) -> str:
         labels, hit = find()
         if not hit and _widen(dev):
             labels, hit = find()
+        # Still not in view: the kingdom is bigger than the screen even zoomed out (live 2026-11-10: Damp Woods sat
+        # off the bottom right while the map opened centred on Auroradrasil). Pan and look again.
+        for drag in (LABEL_PANS if not hit else ()):
+            dev.swipe(*drag, 1500)
+            time.sleep(1.2)
+            labels, hit = find()
+            if hit:
+                log.info("found %r after panning the area map", target)
+                break
         if not hit:
             log.warning("no %r on the area map (saw %s); frame %s", target, list(labels), save_unknown(dev, "goto"))
             dev.tap(*ui.BACK_ARROW)
@@ -213,6 +228,13 @@ def go_to(dev, det, target) -> str:
             # "no_target" for Verdantglade V while its dots were outside the view): look again zoomed out.
             survey_zoom(dev)
             point = target(dev.screenshot())
+        for drag in (LABEL_PANS if point is None and pan_for_target else ()):
+            # Off screen or under the dark bottom-left corner (live 2026-11-10: Jungle Camp's blue "!"): pan, look again.
+            dev.swipe(*drag, 1500)
+            time.sleep(1.2)
+            point = target(dev.screenshot())
+            if point is not None:
+                break
         if point is None:
             dev.tap(*ui.BACK_ARROW)
             time.sleep(1.5)

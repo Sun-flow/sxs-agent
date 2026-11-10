@@ -8,8 +8,8 @@
    "blessed": true,
    "notes": "Free 4-player story dungeon (R-133); Lost Goddess Statue blessed 2026-11-05.",
    "map_point": [
-    -289,
-    525
+    30,
+    381
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -18,11 +18,11 @@
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-04",
    "cp": 15.5,
-   "pct": 0,
+   "pct": 100,
    "notes": "15.5 is the Gate of Power inside (R-086), not an area-map gate. An area-map walk to its label from Verdantglade II lands at about (184, 86); items behind the gate finish it.",
    "map_point": [
-    116,
-    996
+    417,
+    432
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -33,19 +33,29 @@
    "kind": "town",
    "notes": "Town: Chief, Hermes, Carol, portal (R-134).",
    "map_point": [
-    429,
-    837
+    81,
+    568
    ],
    "last_seen": "2026-11-09",
    "entries": []
+  },
+  "Expletatio": {
+   "kingdom": "aVerdantglade",
+   "first_seen": "2026-11-09",
+   "pct": 100,
+   "map_point": [
+    32,
+    594
+   ],
+   "last_seen": "2026-11-09"
   },
   "Hidden Camp": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
    "pct": 0,
    "map_point": [
-    598,
-    326
+    249,
+    54
    ],
    "last_seen": "2026-11-09",
    "entries": [],
@@ -61,8 +71,8 @@
    "pct": 100,
    "notes": "Entered past a bracketed wolf-boss pack (R-041); ground pickups by a cooking pot finish it (R-066).",
    "map_point": [
-    825,
-    318
+    175,
+    355
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -75,8 +85,8 @@
    "failed_via": {},
    "notes": "Next by R-135 order. Entry point unknown. blocked: 198 near None (no rule; dismissed) blocked: Lost Goddess Statue near None (no rule; dismissed)",
    "map_point": [
-    502,
-    1064
+    151,
+    794
    ],
    "last_seen": "2026-11-09",
    "entries": [
@@ -103,8 +113,8 @@
    "first_seen": "2026-11-05",
    "pct": 0,
    "map_point": [
-    700,
-    279
+    69,
+    394
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -115,8 +125,8 @@
    "pct": 100,
    "notes": "Dungeon gate unlocked by quest; Bellflower field at minimap (169, 94-95) (R-123).",
    "map_point": [
-    888,
-    553
+    238,
+    593
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -127,8 +137,8 @@
    "pct": 100,
    "notes": "2x2 stone-tile puzzle spawns two chests (R-089 area).",
    "map_point": [
-    845,
-    799
+    424,
+    135
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -146,8 +156,8 @@
    "pct": 100,
    "notes": "Border label 'Troll Lair 17K' at a corner of its dotted line (R-132).",
    "map_point": [
-    703,
-    631
+    45,
+    206
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -158,8 +168,8 @@
    "pct": 100,
    "notes": "Area quests done.",
    "map_point": [
-    1231,
-    255
+    377,
+    254
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -169,8 +179,8 @@
    "first_seen": "2026-11-04",
    "pct": 100,
    "map_point": [
-    105,
-    825
+    376,
+    554
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -182,8 +192,8 @@
    "pct": 100,
    "notes": "No way in on foot from Moonveil Woods (fog south of about (168, 94) never moves); entered with the quest's Go travel (R-084, R-089).",
    "map_point": [
-    800,
-    717
+    148,
+    755
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -193,8 +203,8 @@
    "first_seen": "2026-11-04",
    "notes": "Area quests done; % not read since.",
    "map_point": [
-    570,
-    590
+    308,
+    912
    ],
    "last_seen": "2026-11-09",
    "pct": 100,
@@ -217,8 +227,8 @@
     }
    ],
    "map_point": [
-    586,
-    549
+    236,
+    279
    ],
    "last_seen": "2026-11-09",
    "blessed": true
@@ -231,8 +241,8 @@
     "Auroradrasil": "2026-11-04"
    },
    "map_point": [
-    237,
-    476
+    53,
+    206
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -250,8 +260,8 @@
    "pct": 0,
    "notes": "Its border label runs sideways along a vertical dotted line, no power shown (R-132).",
    "map_point": [
-    713,
-    405
+    67,
+    94
    ],
    "last_seen": "2026-11-09",
    "entries": []
