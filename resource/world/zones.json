@@ -8,8 +8,8 @@
    "blessed": true,
    "notes": "Free 4-player story dungeon (R-133); Lost Goddess Statue blessed 2026-11-05.",
    "map_point": [
-    250,
-    909
+    60,
+    740
    ],
    "last_seen": "2026-11-10",
    "entries": []
@@ -19,8 +19,8 @@
    "first_seen": "2026-11-10",
    "pct": 0,
    "map_point": [
-    41,
-    978
+    60,
+    1328
    ],
    "last_seen": "2026-11-10"
   },
@@ -31,8 +31,8 @@
    "pct": 100,
    "notes": "15.5 is the Gate of Power inside (R-086), not an area-map gate. An area-map walk to its label from Verdantglade II lands at about (184, 86); items behind the gate finish it. 2026-11-10: walked in at (184,82); no object, no fog edge, label shows no % line: taken as explored.",
    "map_point": [
-    992,
-    1287
+    1082,
+    1305
    ],
    "last_seen": "2026-11-10",
    "entries": [
@@ -52,8 +52,8 @@
    "kind": "town",
    "notes": "Town: Chief, Hermes, Carol, portal (R-134).",
    "map_point": [
-    319,
-    1096
+    129,
+    1092
    ],
    "last_seen": "2026-11-10",
    "entries": []
@@ -64,7 +64,7 @@
    "pct": 0,
    "cp": 23.0,
    "map_point": [
-    98,
+    223,
     532
    ],
    "last_seen": "2026-11-10"
@@ -74,8 +74,8 @@
    "first_seen": "2026-11-05",
    "pct": 0,
    "map_point": [
-    187,
-    439
+    663,
+    889
    ],
    "last_seen": "2026-11-10",
    "entries": [],
@@ -92,8 +92,8 @@
    "pct": 100,
    "notes": "Entered past a bracketed wolf-boss pack (R-041); ground pickups by a cooking pot finish it (R-066).",
    "map_point": [
-    413,
-    739
+    521,
+    713
    ],
    "last_seen": "2026-11-10",
    "entries": []
@@ -105,8 +105,8 @@
    "pct": 100,
    "notes": "Entered from Verdantglade III (142,84) or Drasilgard (138,84). The last 7% was the Lucky Wheel (blue !): its first spin is free while the zone is unexplored (mae). Lost Goddess Statue unlocked 2026-11-10.",
    "map_point": [
-    388,
-    1322
+    198,
+    1150
    ],
    "last_seen": "2026-11-10",
    "entries": [
@@ -129,24 +129,13 @@
    ],
    "blessed": true
   },
-  "Leafy Corrido": {
-   "kingdom": "Verdantglade",
-   "first_seen": "2026-11-10",
-   "pct": 0,
-   "cp": 25.5,
-   "map_point": [
-    -79,
-    452
-   ],
-   "last_seen": "2026-11-10"
-  },
   "Monolith Ruins I": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
    "pct": 0,
    "map_point": [
-    641,
-    822
+    397,
+    677
    ],
    "last_seen": "2026-11-10",
    "entries": [],
@@ -180,8 +169,8 @@
    "pct": 100,
    "notes": "Dungeon gate unlocked by quest; Bellflower field at minimap (169, 94-95) (R-123).",
    "map_point": [
-    476,
-    976
+    585,
+    951
    ],
    "last_seen": "2026-11-10",
    "entries": []
@@ -191,8 +180,8 @@
    "first_seen": "2026-11-09",
    "pct": 0,
    "map_point": [
-    250,
-    558
+    60,
+    390
    ],
    "last_seen": "2026-11-10"
   },
@@ -201,8 +190,8 @@
    "first_seen": "2026-11-09",
    "pct": 0,
    "map_point": [
-    75,
-    947
+    199,
+    943
    ],
    "last_seen": "2026-11-10"
   },
@@ -212,10 +201,10 @@
    "pct": 100,
    "notes": "2x2 stone-tile puzzle spawns two chests (R-089 area).",
    "map_point": [
-    733,
-    482
+    1084,
+    1313
    ],
-   "last_seen": "2026-11-09",
+   "last_seen": "2026-11-10",
    "entries": []
   },
   "Sunrise Isle": {
@@ -240,8 +229,8 @@
    "pct": 100,
    "notes": "Border label 'Troll Lair 17K' at a corner of its dotted line (R-132). Really 100% (the area-map label reads Troll Lair 17K Exploration 100% under the Verdantglade IV label; OCR gives rolLall/ronLall). Lost Goddess Statue (Home EXP +1%, Battle Essence +1%) unlocked by hand 2026-11-10 at about (155,103).",
    "map_point": [
-    291,
-    939
+    401,
+    913
    ],
    "last_seen": "2026-11-10",
    "entries": [],
@@ -253,11 +242,11 @@
   "Verdantglade I": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-04",
-   "pct": 69,
+   "pct": 100,
    "notes": "Area quests done.",
    "map_point": [
-    943,
-    1060
+    1035,
+    782
    ],
    "last_seen": "2026-11-10",
    "entries": [],
@@ -266,10 +255,10 @@
   "Verdantglade II": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-04",
-   "pct": 0,
+   "pct": 100,
    "map_point": [
-    943,
-    1377
+    1032,
+    1387
    ],
    "last_seen": "2026-11-10",
    "entries": [],
@@ -282,8 +271,8 @@
    "pct": 100,
    "notes": "No way in on foot from Moonveil Woods (fog south of about (168, 94) never moves); entered with the quest's Go travel (R-084, R-089).",
    "map_point": [
-    388,
-    1139
+    496,
+    1113
    ],
    "last_seen": "2026-11-10",
    "entries": []
@@ -293,8 +282,8 @@
    "first_seen": "2026-11-04",
    "notes": "Area quests done; % not read since.",
    "map_point": [
-    224,
-    976
+    664,
+    1119
    ],
    "last_seen": "2026-11-10",
    "pct": 100,
@@ -306,8 +295,8 @@
    "pct": 0,
    "cp": 30.0,
    "map_point": [
-    213,
-    1497
+    335,
+    1492
    ],
    "last_seen": "2026-11-10"
   },
@@ -328,8 +317,8 @@
     }
    ],
    "map_point": [
-    174,
-    663
+    641,
+    806
    ],
    "last_seen": "2026-11-10",
    "blessed": true
@@ -340,8 +329,8 @@
    "pct": 100,
    "failed_via": {},
    "map_point": [
-    137,
-    734
+    261,
+    731
    ],
    "last_seen": "2026-11-10",
    "entries": [
@@ -397,8 +386,8 @@
    "cp": 27.0,
    "last_seen": "2026-11-10",
    "map_point": [
-    82,
-    1184
+    203,
+    1180
    ],
    "failed_via": {
     "Drasilgard": "2026-11-10 (fog walk stuck)"
@@ -450,8 +439,8 @@
     }
    ],
    "map_point": [
-    165,
-    583
+    274,
+    582
    ],
    "last_seen": "2026-11-10",
    "blessed": true
@@ -462,8 +451,8 @@
    "pct": 100,
    "notes": "Its border label runs sideways along a vertical dotted line, no power shown (R-132). Way in from Troll Lair/Verdantglade V side at (153,109) through a Gate of Wind (opened with companion Akane, 2026-11-10). 100% and Lost Goddess Statue (Home EXP +1%, Chrono Sand +1%) unlocked 2026-11-10; the last pickups sit beside the statue at about (157,109). Monolith Ruins I lies directly north.",
    "map_point": [
-    301,
-    827
+    410,
+    802
    ],
    "last_seen": "2026-11-10",
    "entries": [],
@@ -477,6 +466,18 @@
     ]
    ],
    "blessed": true
+  },
+  "Leafy Corridor": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-10",
+   "pct": 0,
+   "cp": 25.5,
+   "map_point": [
+    -79,
+    452
+   ],
+   "last_seen": "2026-11-10",
+   "notes": " 2026-11-10: all fog, no entrance on the big map. Its neighbours Bubble Lake (behind the 30.5K Gate of Power on VIII west edge) and Monolith Ruins II (Golden Beetle puzzle) are the likely ways in; retry when power reaches 30.5K."
   }
  },
  "links": [
@@ -1588,6 +1589,11 @@
   {
    "a": "Hidden Camp",
    "b": "Monolith Ruins II",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Leafy Corrido",
+   "b": "Rabbit Vault",
    "how": "map_adjacent"
   }
  ],
