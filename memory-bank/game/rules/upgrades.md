@@ -18,7 +18,7 @@ Read when raising character power: the character-screen "!", gear, skills, charm
 
 ### R-023 · Enhancing gear costs ore and Rolla
 - Character, a gear slot, the item card (Replace / Enhance), Enhance Gear.
-- Cost: Raw Ore (blue crystal) and Rolla, shown have/need ("Raw Ore 7/720"); higher steps add Refined Ore (red crystal): the weapon's +24 → +25 needs 300. Short: a banner "Insufficient materials to enhance."
+- Cost: Raw Ore (blue crystal) and Rolla, shown have/need ("Raw Ore 7/720"); higher steps add Refined Ore (red crystal): the weapon's +24 → +25 needs 300. Short: a banner "Insufficient materials to enhance." Wait for it to clear (about 2.5 s) before the next piece, or that piece reads the old banner as its own failure.
 - 4 tabs on top, one per piece (weapon, head, chest, boots; no offhand yet), each "+N". The selected piece shows "+21 → +22" at y≈0.42, stat deltas, cost, Enhance (0.5, 0.85), Resonance (R-119), Goals (R-116).
 - Detector state `enhance_gear`.
 *observed* · `character/enhance_gear.png` · nodes `character`, `enhance_gear` · R-092, R-119
@@ -26,7 +26,8 @@ Read when raising character power: the character-screen "!", gear, skills, charm
 ### R-092 · Enhance all gear evenly, in 5-level bands
 - All equipped pieces to +5, then all to +10, then +15... A piece passes a band only when every other piece has reached it.
 - A piece short of its own material, or at its cap, is left out and the other pieces keep banding (live 2026-11-09: the weapon's red ore stopped the whole pass before this fix).
-- Enhance the lower-level pieces first: the highest piece costs the most (mae, 2026-11-10 00:07). Among equal levels, priority: weapon, offhand (not unlocked), headpiece, chest, boots ❓ (the code still orders by priority only). Code: `Strengthener.enhance_gear` in `sxs/loops/strengthen.py` (`GEAR_BAND`, `GEAR_PRIORITY`; insert the offhand after the weapon when its tab appears).
+- Enhance the lower-level pieces first: the highest piece costs the most (mae, 2026-11-10 00:07). The band target comes from the lowest piece, so pieces already at it are skipped until the rest catch up. Among pieces below the target, priority: weapon, offhand (not unlocked), headpiece, chest, boots.
+- Enhance only pieces whose tab on the Enhance screen shows a blue pip (R-088); a tab without one is skipped, not tried. Code reads the tab row with `tabs_with_pip`. Covered by a screenshot test; live proof waits for the next materials. Code: `Strengthener.enhance_gear` in `sxs/loops/strengthen.py` (`GEAR_BAND`, `GEAR_PRIORITY`; insert the offhand after the weapon when its tab appears).
 - Ore is the bottleneck. Sources: Cart (+100 Raw Ore/h, R-020), gathering (R-107), Guidance quests (R-099), Ironvein Pit (R-095).
 *told, observed* · R-023, R-106, R-119
 
