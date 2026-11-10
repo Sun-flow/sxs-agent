@@ -270,7 +270,7 @@ def quest_step(dev, det, fight: bool) -> bool:
         if fight and attack_guard(dev, det):
             return True
         log.info("quest pointer: tapping the target under the ring at %s", (cx, cy))
-        ui.tap(dev, (cx, cy + QUEST_TARGET_DY), 10)
+        ui.tap(dev, off_me(det, (cx, cy + QUEST_TARGET_DY)), 10)
         return True
     return False
 
@@ -285,6 +285,25 @@ def lucky_wheel_free(det) -> bool:
         return False
     button = " ".join(t for t, _ in det.read_text([180, 1060, 360, 80]))
     return bool(re.fullmatch(r"\s*Tap to spin\s*", button))
+
+
+ME_RADIUS = 70  # px round our character on screen: a tap there opens our profile ("Mage", Class Level 8)
+
+
+def off_me(det, point: tuple[int, int], frame=None) -> tuple[int, int]:
+    """A walk tap that would land on our own character opens the profile (live 2026-11-09 and -10, again and
+    again). Push such a point out of ME_RADIUS, away from the character, so the tap still walks that way."""
+    me = player_on_screen(det, frame if frame is not None else det.device.screenshot())
+    if me is None:
+        return point
+    dx, dy = point[0] - me[0], point[1] - me[1]
+    d = (dx * dx + dy * dy) ** 0.5
+    if d >= ME_RADIUS:
+        return point
+    if d < 1:
+        dx, dy, d = 0, 1, 1  # straight on top of us: step down a little
+    k = (ME_RADIUS + 15) / d
+    return int(me[0] + dx * k), int(me[1] + dy * k)
 
 
 def zone_here(dev, det, tree: Optional[Tree] = None) -> str:
@@ -697,7 +716,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                     last_plan = frame
                     # Only taps aimed at an object feed the store (a walk can be interrupted by anything).
                     tapped = (frame, target, goal) if goal and target else None
-                    dev.tap(*target)
+                    dev.tap(*off_me(det, target, frame))
                     time.sleep(3)
                     continue
                 me = player_on_screen(det, frame)
@@ -720,7 +739,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 no_fog = 0
                 log.info("walking to fog edge at %s", target)
                 last_tap = to_world(xy, player_on_screen(det, frame), target)
-                dev.tap(*target)
+                dev.tap(*off_me(det, target, frame))
                 time.sleep(3)
             elif d.state == "battle_prep" and tapped and tapped[2] == "monster" and not saved_fight:
                 collectibles.save(tapped[0], tapped[1], "monster", "monster", home_area or "")

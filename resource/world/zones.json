@@ -42,8 +42,8 @@
    "kind": "town",
    "notes": "Town: Chief, Hermes, Carol, portal (R-134).",
    "map_point": [
-    751,
-    1614
+    137,
+    1039
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -58,13 +58,11 @@
    ],
    "last_seen": "2026-11-09",
    "entries": [],
-   "cp": 20.4,
    "failed_via": {
     "Troll Lair": "2026-11-09 (fog walk not_in_zone)"
    },
    "notes": "blocked: Boulder Blockade near None (no rule; dismissed)",
-   "blocked": "Boulder Blockade needs Magic Drill (0/1)",
-   "blessed": true
+   "blocked": "Boulder Blockade needs Magic Drill (0/1)"
   },
   "Highland Woods": {
    "kingdom": "Verdantglade",
@@ -73,8 +71,8 @@
    "pct": 100,
    "notes": "Entered past a bracketed wolf-boss pack (R-041); ground pickups by a cooking pot finish it (R-066).",
    "map_point": [
-    1150,
-    827
+    533,
+    828
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -115,12 +113,11 @@
    "first_seen": "2026-11-05",
    "pct": 0,
    "map_point": [
-    1025,
-    789
+    408,
+    790
    ],
    "last_seen": "2026-11-09",
-   "entries": [],
-   "cp": 50.5
+   "entries": []
   },
   "Moonveil Woods": {
    "kingdom": "Verdantglade",
@@ -128,8 +125,8 @@
    "pct": 100,
    "notes": "Dungeon gate unlocked by quest; Bellflower field at minimap (169, 94-95) (R-123).",
    "map_point": [
-    1212,
-    1064
+    597,
+    1065
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -174,12 +171,12 @@
   "Troll Lair": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
-   "cp": 1.0,
-   "pct": 100,
+   "cp": 17.0,
+   "pct": 42,
    "notes": "Border label 'Troll Lair 17K' at a corner of its dotted line (R-132).",
    "map_point": [
-    1027,
-    1601
+    411,
+    1027
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -283,7 +280,7 @@
   "Wildbloom Coast": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
-   "cp": 204.0,
+   "cp": 20.4,
    "pct": 100,
    "entries": [
     {
@@ -308,7 +305,7 @@
    "pct": 0,
    "notes": "Its border label runs sideways along a vertical dotted line, no power shown (R-132).",
    "map_point": [
-    1039,
+    421,
     915
    ],
    "last_seen": "2026-11-09",

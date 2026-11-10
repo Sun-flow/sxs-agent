@@ -144,7 +144,10 @@ class Tree:
             if z.get("kind") != "town":
                 z["pct"] = new
         if cp is not ... and cp is not None:
-            z["cp"] = float(cp)
+            old = z.get("cp")
+            # A zone's CP doesn't change: a reading far from the known one is OCR ("1.0" for Troll Lair's 17K).
+            if float(cp) <= 100 and (not old or abs(float(cp) - old) <= 0.3 * old):  # "204" is 20.4 with the dot lost
+                z["cp"] = float(cp)
         if point is not None:
             z["map_point"] = [int(point[0]), int(point[1])]
         z["last_seen"] = today
