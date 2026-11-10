@@ -41,7 +41,8 @@
      ],
      "found_in": "Home > Cart (yield rows; icon tap shows a yield tooltip, not a card)"
     }
-   ]
+   ],
+   "group": "building_material"
   },
   {
    "id": "stellatie",
@@ -139,7 +140,8 @@
      ],
      "found_in": "Thrilling Events > Growth Trial"
     }
-   ]
+   ],
+   "group": "prayer_ticket"
   },
   {
    "id": "stone",
@@ -193,7 +195,8 @@
      ],
      "found_in": "Home > Cart (yield rows; icon tap shows a yield tooltip, not a card)"
     }
-   ]
+   ],
+   "group": "building_material"
   },
   {
    "id": "raw_ore",
@@ -280,7 +283,8 @@
      ],
      "found_in": "Journal > Fantasia Ascent > Moonveil Woods (floor rewards)"
     }
-   ]
+   ],
+   "group": "ore"
   },
   {
    "id": "battle_essence",
@@ -356,7 +360,8 @@
      ],
      "found_in": "Character > Skill > Top bar"
     }
-   ]
+   ],
+   "group": "essence"
   },
   {
    "id": "water",
@@ -388,7 +393,8 @@
      ],
      "found_in": "Home > Vendor Booth > General"
     }
-   ]
+   ],
+   "group": "cooking_ingredient"
   },
   {
    "id": "stamina",
@@ -453,7 +459,8 @@
      ],
      "found_in": "Home > Vendor Booth > Vault"
     }
-   ]
+   ],
+   "group": "stamina"
   },
   {
    "id": "gold_pickaxe",
@@ -540,7 +547,8 @@
      ],
      "found_in": "Journal > Fantasia Ascent > Moonveil Woods (floor rewards)"
     }
-   ]
+   ],
+   "group": "realm_key"
   },
   {
    "id": "worn_knuckles",
@@ -605,7 +613,8 @@
      ],
      "found_in": "Journal > Fantasia Ascent > Moonveil Woods (floor rewards)"
     }
-   ]
+   ],
+   "group": "realm_key"
   },
   {
    "id": "refined_ore",
@@ -659,7 +668,8 @@
      ],
      "found_in": "Journal > Fantasia Ascent > Moonveil Woods (floor rewards)"
     }
-   ]
+   ],
+   "group": "ore"
   },
   {
    "id": "golden_beetle",
@@ -691,7 +701,8 @@
      ],
      "found_in": "Home > Vendor Booth > Vault"
     }
-   ]
+   ],
+   "group": "utility_item"
   },
   {
    "id": "shapeshifting_mirror",
@@ -723,7 +734,8 @@
      ],
      "found_in": "Home > Vendor Booth > Vault"
     }
-   ]
+   ],
+   "group": "utility_item"
   },
   {
    "id": "rename_card",
@@ -755,7 +767,8 @@
      ],
      "found_in": "Home > Vendor Booth > Vault"
     }
-   ]
+   ],
+   "group": "utility_item"
   },
   {
    "id": "rolla",
@@ -831,7 +844,8 @@
      ],
      "found_in": "Character > Gear > Enhance (cost)"
     }
-   ]
+   ],
+   "group": "currency_token"
   },
   {
    "id": "dawnium",
@@ -874,7 +888,8 @@
      ],
      "found_in": "Menu > Quest > Daily (rewards)"
     }
-   ]
+   ],
+   "group": "currency_token"
   },
   {
    "id": "green_riceball",
@@ -895,7 +910,8 @@
      ],
      "found_in": "Island map > Profile"
     }
-   ]
+   ],
+   "group": "dish"
   },
   {
    "id": "iron_hammer",
@@ -938,7 +954,8 @@
      ],
      "found_in": "Menu > Quest > Daily (rewards)"
     }
-   ]
+   ],
+   "group": "realm_key"
   },
   {
    "id": "realm_use_iron_hammer",
@@ -959,7 +976,8 @@
      ],
      "found_in": "Journal > Material Realms > Ironvein Pit"
     }
-   ]
+   ],
+   "group": "realm_use_button"
   },
   {
    "id": "realm_use_gold_pickaxe",
@@ -980,7 +998,8 @@
      ],
      "found_in": "Journal > Material Realms > Gilded Depths"
     }
-   ]
+   ],
+   "group": "realm_use_button"
   },
   {
    "id": "realm_use_worn_knuckles",
@@ -1001,7 +1020,8 @@
      ],
      "found_in": "Journal > Material Realms > Dread Hollow"
     }
-   ]
+   ],
+   "group": "realm_use_button"
   },
   {
    "id": "rolla_management_made_easy",
@@ -1022,7 +1042,8 @@
      ],
      "found_in": "Journal > Daily Dungeon > Goals"
     }
-   ]
+   ],
+   "group": "companion_gift"
   },
   {
    "id": "golden_leaf",
@@ -1043,7 +1064,8 @@
      ],
      "found_in": "Journal > Daily Dungeon > Goals"
     }
-   ]
+   ],
+   "group": "companion_gift"
   },
   {
    "id": "towel",
@@ -1064,7 +1086,8 @@
      ],
      "found_in": "Journal > Daily Dungeon > Goals"
     }
-   ]
+   ],
+   "group": "companion_gift"
   },
   {
    "id": "sunflower",
@@ -1096,7 +1119,8 @@
      ],
      "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
     }
-   ]
+   ],
+   "group": "companion_gift"
   },
   {
    "id": "sand_shovel",
@@ -1128,7 +1152,8 @@
      ],
      "found_in": "Menu > Quest > Daily (rewards)"
     }
-   ]
+   ],
+   "group": "realm_key"
   },
   {
    "id": "rare_auroral_badge",
@@ -1204,7 +1229,8 @@
      ],
      "found_in": "Thrilling Events > Growth Trial"
     }
-   ]
+   ],
+   "group": "prayer_ticket"
   },
   {
    "id": "blessing_card",
@@ -1225,7 +1251,8 @@
      ],
      "found_in": "Menu > Quest > Weekly (rewards)"
     }
-   ]
+   ],
+   "group": "utility_item"
   },
   {
    "id": "random_epic_gift",
@@ -1257,7 +1284,8 @@
      ],
      "found_in": "Thrilling Events > Growth Trial > Day 3"
     }
-   ]
+   ],
+   "group": "chest"
   },
   {
    "id": "blazing_legends",
@@ -1289,7 +1317,8 @@
      ],
      "found_in": "Thrilling Events > Growth Trial > Day 3"
     }
-   ]
+   ],
+   "group": "companion_gift"
   },
   {
    "id": "flavors_of_kanstein",
@@ -1310,7 +1339,8 @@
      ],
      "found_in": "Menu > Quest > Weekly > Random Epic Gift card (contents)"
     }
-   ]
+   ],
+   "group": "companion_gift"
   },
   {
    "id": "golden_ingot",
@@ -1342,7 +1372,8 @@
      ],
      "found_in": "Thrilling Events > Growth Trial > Day 3"
     }
-   ]
+   ],
+   "group": "companion_gift"
   },
   {
    "id": "luminous_jade",
@@ -1363,7 +1394,8 @@
      ],
      "found_in": "Menu > Quest > Weekly > Random Epic Gift card (contents)"
     }
-   ]
+   ],
+   "group": "companion_gift"
   },
   {
    "id": "silken_dreams",
@@ -1384,7 +1416,8 @@
      ],
      "found_in": "Menu > Quest > Weekly > Random Epic Gift card (contents)"
     }
-   ]
+   ],
+   "group": "companion_gift"
   },
   {
    "id": "feather_quill",
@@ -1405,7 +1438,8 @@
      ],
      "found_in": "Menu > Quest > Weekly > Random Epic Gift card (contents)"
     }
-   ]
+   ],
+   "group": "companion_gift"
   },
   {
    "id": "mandrake",
@@ -1437,7 +1471,8 @@
      ],
      "found_in": "Home > Vendor Booth > Vault"
     }
-   ]
+   ],
+   "group": "companion_gift"
   },
   {
    "id": "sakura",
@@ -1458,7 +1493,8 @@
      ],
      "found_in": "Menu > Quest > Weekly > Random Epic Gift card (contents)"
     }
-   ]
+   ],
+   "group": "companion_gift"
   },
   {
    "id": "chrono_sand",
@@ -1523,7 +1559,8 @@
      ],
      "found_in": "Home > Cart (yield rows; icon tap shows a yield tooltip, not a card)"
     }
-   ]
+   ],
+   "group": "relic_material"
   },
   {
    "id": "destiny_fruit",
@@ -1566,7 +1603,8 @@
      ],
      "found_in": "Thrilling Events > Growth Trial > Day 4"
     }
-   ]
+   ],
+   "group": "utility_item"
   },
   {
    "id": "epic_auroral_badge",
@@ -1598,7 +1636,8 @@
      ],
      "found_in": "Home > Vendor Booth > Goals"
     }
-   ]
+   ],
+   "group": "prayer_ticket"
   },
   {
    "id": "quest_scroll",
@@ -1619,7 +1658,8 @@
      ],
      "found_in": "Home > Vendor Booth > Vault"
     }
-   ]
+   ],
+   "group": "utility_item"
   },
   {
    "id": "cart_gear_yield",
@@ -1640,7 +1680,8 @@
      ],
      "found_in": "Home > Cart (yield rows; icon tap shows a yield tooltip, not a card)"
     }
-   ]
+   ],
+   "group": "cart_yield"
   },
   {
    "id": "treats",
@@ -1661,7 +1702,8 @@
      ],
      "found_in": "Home > Cart (yield rows; icon tap shows a yield tooltip, not a card)"
     }
-   ]
+   ],
+   "group": "cart_yield"
   },
   {
    "id": "rotting_petal",
@@ -1682,7 +1724,8 @@
      ],
      "found_in": "Character > Rank Advancement (cost)"
     }
-   ]
+   ],
+   "group": "monster_material"
   },
   {
    "id": "bellflower",
@@ -1703,7 +1746,8 @@
      ],
      "found_in": "Character > Rank Advancement (cost)"
     }
-   ]
+   ],
+   "group": "advancement_material"
   },
   {
    "id": "guild_token",
@@ -1724,7 +1768,8 @@
      ],
      "found_in": "Guild > Shop"
     }
-   ]
+   ],
+   "group": "currency_token"
   },
   {
    "id": "lucky_ticket",
@@ -1745,7 +1790,8 @@
      ],
      "found_in": "Guild > Shop"
     }
-   ]
+   ],
+   "group": "wheel_ticket"
   },
   {
    "id": "bond_trinket",
@@ -1788,7 +1834,8 @@
      ],
      "found_in": "Thrilling Events > Growth Trial > Day 6"
     }
-   ]
+   ],
+   "group": "summon_ticket"
   },
   {
    "id": "resilient_sprout",
@@ -1820,7 +1867,8 @@
      ],
      "found_in": "Guild > Shop"
     }
-   ]
+   ],
+   "group": "seedling"
   },
   {
    "id": "hopeful_bud",
@@ -1841,7 +1889,8 @@
      ],
      "found_in": "Guild > Shop"
     }
-   ]
+   ],
+   "group": "seedling"
   },
   {
    "id": "stone_sheep",
@@ -1873,7 +1922,8 @@
      ],
      "found_in": "Guild > Shop"
     }
-   ]
+   ],
+   "group": "livestock"
   },
   {
    "id": "cotton_sheep",
@@ -1894,7 +1944,8 @@
      ],
      "found_in": "Guild > Shop"
     }
-   ]
+   ],
+   "group": "livestock"
   },
   {
    "id": "steely_chicken",
@@ -1926,7 +1977,8 @@
      ],
      "found_in": "Guild > Shop"
     }
-   ]
+   ],
+   "group": "livestock"
   },
   {
    "id": "dawn_chicken",
@@ -1947,7 +1999,8 @@
      ],
      "found_in": "Guild > Shop"
     }
-   ]
+   ],
+   "group": "livestock"
   },
   {
    "id": "t3_livestock_selection_chest",
@@ -1968,7 +2021,8 @@
      ],
      "found_in": "Guild > Shop"
     }
-   ]
+   ],
+   "group": "chest"
   },
   {
    "id": "lunar_heart",
@@ -1989,7 +2043,8 @@
      ],
      "found_in": "Guild > Shop > T3 Livestock Selection Chest card (contents)"
     }
-   ]
+   ],
+   "group": "seedling"
   },
   {
    "id": "lunar_sheep",
@@ -2010,7 +2065,8 @@
      ],
      "found_in": "Guild > Shop > T3 Livestock Selection Chest card (contents)"
     }
-   ]
+   ],
+   "group": "livestock"
   },
   {
    "id": "lunar_chicken",
@@ -2031,7 +2087,8 @@
      ],
      "found_in": "Guild > Shop > T3 Livestock Selection Chest card (contents)"
     }
-   ]
+   ],
+   "group": "livestock"
   },
   {
    "id": "random_class_i_skill_chest",
@@ -2052,7 +2109,8 @@
      ],
      "found_in": "Thrilling Events > Growth Trial"
     }
-   ]
+   ],
+   "group": "chest"
   },
   {
    "id": "random_legendary_relic_chest_verdant",
@@ -2073,7 +2131,8 @@
      ],
      "found_in": "Thrilling Events > Growth Trial"
     }
-   ]
+   ],
+   "group": "chest"
   },
   {
    "id": "legendary_fantomon_selection_chest",
@@ -2094,7 +2153,8 @@
      ],
      "found_in": "Thrilling Events > Growth Trial"
     }
-   ]
+   ],
+   "group": "chest"
   },
   {
    "id": "abundance_leaf",
@@ -2115,7 +2175,8 @@
      ],
      "found_in": "Thrilling Events > Growth Trial"
     }
-   ]
+   ],
+   "group": "currency_token"
   },
   {
    "id": "t2_stone_casket",
@@ -2136,7 +2197,8 @@
      ],
      "found_in": "Thrilling Events > Growth Trial"
     }
-   ]
+   ],
+   "group": "chest"
   },
   {
    "id": "t2_wood_casket",
@@ -2157,7 +2219,8 @@
      ],
      "found_in": "Thrilling Events > Growth Trial"
     }
-   ]
+   ],
+   "group": "chest"
   },
   {
    "id": "t2_rolla_casket",
@@ -2178,18 +2241,19 @@
      ],
      "found_in": "Thrilling Events > Growth Trial"
     }
-   ]
+   ],
+   "group": "chest"
   },
   {
-   "id": "unknown_1",
-   "name": "",
+   "id": "growth_trial_points",
+   "name": "Growth Trial points (event tracker)",
    "kind": "other",
    "description": "",
-   "uses": "Growth Trial points coin (the 40 on the track; quests give 10-15)",
-   "named_by": "",
+   "uses": "Not a resource: completion tracker for the Growth Trial event (mae, 07:32). No card when tapped.",
+   "named_by": "mae",
    "icons": [
     {
-     "file": "unknown_1.png",
+     "file": "growth_trial_points.png",
      "screen": "items/growth_trial.png",
      "box": [
       28,
@@ -2200,7 +2264,7 @@
      "found_in": "Thrilling Events > Growth Trial (points track; no card when tapped)"
     },
     {
-     "file": "unknown_1_2.png",
+     "file": "growth_trial_points_2.png",
      "screen": "items/growth_trial.png",
      "box": [
       54,
@@ -2210,7 +2274,8 @@
      ],
      "found_in": "Thrilling Events > Growth Trial (quest points)"
     }
-   ]
+   ],
+   "group": "event_tracker"
   },
   {
    "id": "alloy_gear",
@@ -2242,7 +2307,8 @@
      ],
      "found_in": "Thrilling Events > Growth Trial > Day 5"
     }
-   ]
+   ],
+   "group": "currency_token"
   },
   {
    "id": "t3_battle_essence_casket",
@@ -2263,7 +2329,8 @@
      ],
      "found_in": "Thrilling Events > Growth Trial > Day 2"
     }
-   ]
+   ],
+   "group": "chest"
   },
   {
    "id": "tricksy_candy",
@@ -2284,7 +2351,8 @@
      ],
      "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
     }
-   ]
+   ],
+   "group": "currency_token"
   },
   {
    "id": "wheel_ticket",
@@ -2316,7 +2384,8 @@
      ],
      "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
     }
-   ]
+   ],
+   "group": "wheel_ticket"
   },
   {
    "id": "bond_sigil",
@@ -2348,7 +2417,8 @@
      ],
      "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
     }
-   ]
+   ],
+   "group": "summon_ticket"
   },
   {
    "id": "moonveil_howl",
@@ -2380,7 +2450,8 @@
      ],
      "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
     }
-   ]
+   ],
+   "group": "cosmetic"
   },
   {
    "id": "nightwolf_ears",
@@ -2401,7 +2472,8 @@
      ],
      "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
     }
-   ]
+   ],
+   "group": "cosmetic"
   },
   {
    "id": "graywolf_mask",
@@ -2422,7 +2494,8 @@
      ],
      "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
     }
-   ]
+   ],
+   "group": "cosmetic"
   },
   {
    "id": "twilight_wolfmane",
@@ -2443,7 +2516,8 @@
      ],
      "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
     }
-   ]
+   ],
+   "group": "cosmetic"
   },
   {
    "id": "focus_essence",
@@ -2464,7 +2538,8 @@
      ],
      "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
     }
-   ]
+   ],
+   "group": "fantomon_material"
   },
   {
    "id": "brown_egg",
@@ -2485,7 +2560,8 @@
      ],
      "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
     }
-   ]
+   ],
+   "group": "fantomon_material"
   },
   {
    "id": "fresh_essence",
@@ -2506,7 +2582,8 @@
      ],
      "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
     }
-   ]
+   ],
+   "group": "fantomon_material"
   },
   {
    "id": "magic_wool",
@@ -2527,7 +2604,690 @@
      ],
      "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
     }
-   ]
+   ],
+   "group": "fantomon_material"
+  },
+  {
+   "id": "dews_blessing_shard",
+   "name": "Dew's Blessing Shard",
+   "kind": "material",
+   "description": "Materials for crafting and ascending Dew's Blessing. Skill Effect: Increases the caster's Water Affinity.",
+   "uses": "Charm Shard, Common. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "dews_blessing_shard.png",
+     "screen": "items/skill_shards.png",
+     "box": [
+      52,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Shard"
+    }
+   ],
+   "group": "skill_shard"
+  },
+  {
+   "id": "tough_soul_shard",
+   "name": "Tough Soul Shard",
+   "kind": "material",
+   "description": "Materials for crafting and ascending Tough Soul. Skill Effect: Increases the caster's HP.",
+   "uses": "Charm Shard, Common. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "tough_soul_shard.png",
+     "screen": "items/skill_shards.png",
+     "box": [
+      180,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Shard"
+    }
+   ],
+   "group": "skill_shard"
+  },
+  {
+   "id": "tempest_sphere_shard",
+   "name": "Tempest Sphere Shard",
+   "kind": "material",
+   "description": "Materials for crafting and ascending Tempest Sphere. Skill Effect: Deals Wind DMG 5 times to 1 enemy within 3 to 5 grids of the caster.",
+   "uses": "Technique Shard, Common. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "tempest_sphere_shard.png",
+     "screen": "items/skill_shards.png",
+     "box": [
+      308,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Shard"
+    }
+   ],
+   "group": "skill_shard"
+  },
+  {
+   "id": "iron_thorn_shard",
+   "name": "Iron Thorn Shard",
+   "kind": "material",
+   "description": "Materials for crafting and ascending Iron Thorn. Skill Effect: Selects a grid within 3 grids of the caster. Deals Wind DMG once to all enemies within 1 grid of the target grid, with a 30% base chance to inflict Immobilize for 1 turn.",
+   "uses": "Technique Shard, Common. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "iron_thorn_shard.png",
+     "screen": "items/skill_shards.png",
+     "box": [
+      436,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Shard"
+    }
+   ],
+   "group": "skill_shard"
+  },
+  {
+   "id": "heart_of_flame_shard",
+   "name": "Heart of Flame Shard",
+   "kind": "material",
+   "description": "Materials for crafting and ascending Heart of Flame. Skill Effect: Increases the caster's Fire Affinity.",
+   "uses": "Charm Shard, Common. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "heart_of_flame_shard.png",
+     "screen": "items/skill_shards.png",
+     "box": [
+      564,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Shard"
+    }
+   ],
+   "group": "skill_shard"
+  },
+  {
+   "id": "flame_jet_shard",
+   "name": "Flame Jet Shard",
+   "kind": "material",
+   "description": "Materials for crafting and ascending Flame Jet. Skill Effect: Deals Fire DMG 3 times to all enemies in a 1x3 grid area in front of the caster.",
+   "uses": "Technique Shard, Common. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "flame_jet_shard.png",
+     "screen": "items/skill_shards.png",
+     "box": [
+      52,
+      970,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Shard"
+    }
+   ],
+   "group": "skill_shard"
+  },
+  {
+   "id": "water_assault_shard",
+   "name": "Water Assault Shard",
+   "kind": "material",
+   "description": "Materials for crafting and ascending Water Assault. Skill Effect: Deals Water DMG once to all enemies in a 3x4 grid area in front of the caster. DMG decreases by 25% for each subsequent hit on the same target. (Large targets may take multiple hits.).",
+   "uses": "Technique Shard, Common. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "water_assault_shard.png",
+     "screen": "items/skill_shards.png",
+     "box": [
+      180,
+      970,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Shard"
+    }
+   ],
+   "group": "skill_shard"
+  },
+  {
+   "id": "healing_touch_shard",
+   "name": "Healing Touch Shard",
+   "kind": "material",
+   "description": "Materials for crafting and ascending Healing Touch. Skill Effect: Heals an ally with the lowest HP percentage within 7 grids of the caster once and dispels 1 random ailment or debuff from the target.",
+   "uses": "Technique Shard, Common. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "healing_touch_shard.png",
+     "screen": "items/skill_shards.png",
+     "box": [
+      308,
+      970,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Shard"
+    }
+   ],
+   "group": "skill_shard"
+  },
+  {
+   "id": "insight_shard",
+   "name": "Insight Shard",
+   "kind": "material",
+   "description": "Materials for crafting and ascending Insight. Skill Effect: Increases the caster's Effect Hit Rate.",
+   "uses": "Charm Shard, Common. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "insight_shard.png",
+     "screen": "items/skill_shards.png",
+     "box": [
+      436,
+      970,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Shard"
+    }
+   ],
+   "group": "skill_shard"
+  },
+  {
+   "id": "curse_resonance_shard",
+   "name": "Curse Resonance Shard",
+   "kind": "material",
+   "description": "Materials for crafting and ascending Curse Resonance. Skill Effect: For each ailment or debuff the target carries, Technique DMG dealt by the caster to that target increases. Stacks up to 3 times.",
+   "uses": "Charm Shard, Common. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "curse_resonance_shard.png",
+     "screen": "items/skill_shards.png",
+     "box": [
+      564,
+      970,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Shard"
+    }
+   ],
+   "group": "skill_shard"
+  },
+  {
+   "id": "winds_whisper_shard",
+   "name": "Wind's Whisper Shard",
+   "kind": "material",
+   "description": "Materials for crafting and ascending Wind's Whisper. Skill Effect: Increases the caster's Wind Affinity.",
+   "uses": "Charm Shard, Common. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "winds_whisper_shard.png",
+     "screen": "items/skill_shards_2.png",
+     "box": [
+      52,
+      1035,
+      100,
+      95
+     ],
+     "found_in": "Character > Skill > Shard"
+    }
+   ],
+   "group": "skill_shard"
+  },
+  {
+   "id": "flame_jet",
+   "name": "Flame Jet",
+   "kind": "other",
+   "description": "Deals Fire DMG 3 times to all enemies in a 1x3 grid area in front of the caster.",
+   "uses": "Technique, Rare. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "flame_jet.png",
+     "screen": "items/skill_loadout.png",
+     "box": [
+      42,
+      216,
+      104,
+      104
+     ],
+     "found_in": "Character > Skill (loadout and Technique tab)"
+    }
+   ],
+   "group": "technique"
+  },
+  {
+   "id": "unstable_aura",
+   "name": "Unstable Aura",
+   "kind": "other",
+   "description": "When the caster's Technique deals DMG to an enemy, there's a 25% chance to trigger Aura, dealing additional Wind DMG once, with a 60% base chance to knock them back by 1 grid.",
+   "uses": "Charm, Rare. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "unstable_aura.png",
+     "screen": "items/skill_loadout.png",
+     "box": [
+      576,
+      216,
+      104,
+      104
+     ],
+     "found_in": "Character > Skill (loadout and Technique tab)"
+    }
+   ],
+   "group": "charm"
+  },
+  {
+   "id": "blazing_fire_ring",
+   "name": "Blazing Fire Ring",
+   "kind": "other",
+   "description": "Deals Fire DMG once to all enemies within 2 grids of the caster.",
+   "uses": "Technique, Legendary. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "blazing_fire_ring.png",
+     "screen": "items/skill_loadout.png",
+     "box": [
+      42,
+      332,
+      104,
+      104
+     ],
+     "found_in": "Character > Skill (loadout and Technique tab)"
+    }
+   ],
+   "group": "technique"
+  },
+  {
+   "id": "heart_of_flame",
+   "name": "Heart of Flame",
+   "kind": "other",
+   "description": "Increases the caster's Fire Affinity.",
+   "uses": "Charm, Rare / Stats. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "heart_of_flame.png",
+     "screen": "items/skill_loadout.png",
+     "box": [
+      576,
+      332,
+      104,
+      104
+     ],
+     "found_in": "Character > Skill (loadout and Technique tab)"
+    }
+   ],
+   "group": "charm"
+  },
+  {
+   "id": "fireball",
+   "name": "Fireball",
+   "kind": "other",
+   "description": "Selects a grid within 5 grids of the caster. Deals Fire DMG once to all enemies within a 1-grid square area of the target grid.",
+   "uses": "Technique, Epic. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "fireball.png",
+     "screen": "items/skill_loadout.png",
+     "box": [
+      42,
+      448,
+      104,
+      104
+     ],
+     "found_in": "Character > Skill (loadout and Technique tab)"
+    }
+   ],
+   "group": "technique"
+  },
+  {
+   "id": "elemental_body",
+   "name": "Elemental Body",
+   "kind": "other",
+   "description": "Increases the caster's Elemental RES.",
+   "uses": "Charm, Epic / Stats. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "elemental_body.png",
+     "screen": "items/skill_loadout.png",
+     "box": [
+      576,
+      448,
+      104,
+      104
+     ],
+     "found_in": "Character > Skill (loadout and Technique tab)"
+    }
+   ],
+   "group": "charm"
+  },
+  {
+   "id": "cyclone",
+   "name": "Cyclone",
+   "kind": "other",
+   "description": "Selects a grid within 6 grids of the caster. Deals Wind DMG once to all enemies within 2 grids of the target grid, knocking them airborne and pulling them to the target grid.",
+   "uses": "Technique, Epic. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "cyclone.png",
+     "screen": "items/skill_loadout.png",
+     "box": [
+      42,
+      564,
+      104,
+      104
+     ],
+     "found_in": "Character > Skill (loadout and Technique tab)"
+    }
+   ],
+   "group": "technique"
+  },
+  {
+   "id": "elemental_mystery",
+   "name": "Elemental Mystery",
+   "kind": "other",
+   "description": "Increases the caster's Elemental Mastery.",
+   "uses": "Charm, Rare / Stats. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "elemental_mystery.png",
+     "screen": "items/skill_loadout.png",
+     "box": [
+      576,
+      564,
+      104,
+      104
+     ],
+     "found_in": "Character > Skill (loadout and Technique tab)"
+    }
+   ],
+   "group": "charm"
+  },
+  {
+   "id": "stonechief_summon",
+   "name": "Stonechief Summon",
+   "kind": "other",
+   "description": "Summons a Stonechief in front of the caster that immediately acts. The summon inherits a percentage of the caster's stats and remains for up to 5 turns. (Zero Initial CD)",
+   "uses": "Technique, Epic / Summon. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "stonechief_summon.png",
+     "screen": "items/skill_loadout.png",
+     "box": [
+      52,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill (loadout and Technique tab)"
+    }
+   ],
+   "group": "technique"
+  },
+  {
+   "id": "ice_spike",
+   "name": "Ice Spike",
+   "kind": "other",
+   "description": "Deals Water DMG once to all enemies in a 1x5 grid area in front of the caster, with a 40% base chance to inflict Frozen for 1 turn.",
+   "uses": "Technique, Epic. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "ice_spike.png",
+     "screen": "items/skill_loadout.png",
+     "box": [
+      180,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill (loadout and Technique tab)"
+    }
+   ],
+   "group": "technique"
+  },
+  {
+   "id": "water_shot",
+   "name": "Water Shot",
+   "kind": "other",
+   "description": "Deals Water DMG once to 1 enemy within 4 grids of the caster.",
+   "uses": "Technique, Rare. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "water_shot.png",
+     "screen": "items/skill_loadout.png",
+     "box": [
+      308,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill (loadout and Technique tab)"
+    }
+   ],
+   "group": "technique"
+  },
+  {
+   "id": "iron_thorn",
+   "name": "Iron Thorn",
+   "kind": "other",
+   "description": "Selects a grid within 3 grids of the caster. Deals Wind DMG once to all enemies within 1 grid of the target grid, with a 30% base chance to inflict Immobilize for 1 turn.",
+   "uses": "Technique, Rare / Ailment. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "iron_thorn.png",
+     "screen": "items/skill_loadout.png",
+     "box": [
+      436,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill (loadout and Technique tab)"
+    }
+   ],
+   "group": "technique"
+  },
+  {
+   "id": "dews_blessing",
+   "name": "Dew's Blessing",
+   "kind": "other",
+   "description": "Increases the caster's Water Affinity.",
+   "uses": "Charm, Epic / Stats. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "dews_blessing.png",
+     "screen": "items/skill_charm_tab.png",
+     "box": [
+      52,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Charm tab"
+    }
+   ],
+   "group": "charm"
+  },
+  {
+   "id": "tough_soul",
+   "name": "Tough Soul",
+   "kind": "other",
+   "description": "Increases the caster's HP.",
+   "uses": "Charm, Epic / Stats. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "tough_soul.png",
+     "screen": "items/skill_charm_tab.png",
+     "box": [
+      180,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Charm tab"
+    }
+   ],
+   "group": "charm"
+  },
+  {
+   "id": "winds_whisper",
+   "name": "Wind's Whisper",
+   "kind": "other",
+   "description": "Increases the caster's Wind Affinity.",
+   "uses": "Charm, Rare / Stats. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "winds_whisper.png",
+     "screen": "items/skill_charm_tab.png",
+     "box": [
+      308,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Charm tab"
+    }
+   ],
+   "group": "charm"
+  },
+  {
+   "id": "crystal_armor",
+   "name": "Crystal Armor",
+   "kind": "other",
+   "description": "Increases the caster's DEF.",
+   "uses": "Charm, Rare / Stats. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "crystal_armor.png",
+     "screen": "items/skill_charm_tab_all.png",
+     "box": [
+      436,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Charm tab (All)"
+    }
+   ],
+   "group": "charm"
+  },
+  {
+   "id": "blade_tempest",
+   "name": "Blade Tempest",
+   "kind": "other",
+   "description": "Each time the caster's Technique deals DMG to an enemy, there's a 40% chance to trigger Sword Gale that deals additional Wind DMG once.",
+   "uses": "Charm, Rare. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "blade_tempest.png",
+     "screen": "items/skill_charm_tab_all.png",
+     "box": [
+      564,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Charm tab (All)"
+    }
+   ],
+   "group": "charm"
+  },
+  {
+   "id": "wind_blade_slash",
+   "name": "Wind Blade Slash",
+   "kind": "other",
+   "description": "Deals Wind DMG once to all enemies in a 1x4 grid area in front of the caster, with a 50% base chance to knock them back by 1 grid.",
+   "uses": "Technique, Epic. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "wind_blade_slash.png",
+     "screen": "items/skill_technique_tab_all.png",
+     "box": [
+      564,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Technique tab (All)"
+    }
+   ],
+   "group": "technique"
+  },
+  {
+   "id": "quadrant_slash",
+   "name": "Quadrant Slash",
+   "kind": "other",
+   "description": "Deals Physical DMG once to all enemies within 1 grid of the caster.",
+   "uses": "Technique, Epic. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "quadrant_slash.png",
+     "screen": "items/skill_technique_tab_all.png",
+     "box": [
+      52,
+      970,
+      99,
+      100
+     ],
+     "found_in": "Character > Skill > Technique tab (All)"
+    }
+   ],
+   "group": "technique"
+  },
+  {
+   "id": "edge_strike",
+   "name": "Edge Strike",
+   "kind": "other",
+   "description": "Deals Physical DMG once to 1 enemy within 1 grid of the caster.",
+   "uses": "Technique, Rare. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "edge_strike.png",
+     "screen": "items/skill_technique_tab_all.png",
+     "box": [
+      180,
+      970,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Technique tab (All)"
+    }
+   ],
+   "group": "technique"
   }
  ]
 }
