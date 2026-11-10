@@ -312,6 +312,7 @@ class Upgrader:
         carries "!". Free claims only (policy.claims)."""
         out = {}
         for page in pages:
+            progress(("goals_page", page))
             if not self._character():
                 return {**out, "end": "unknown_screen"}
             if page == "skills":
@@ -379,6 +380,9 @@ class Upgrader:
                 continue
             # Each pass is its own short task (mae, 2026-11-04: 1-2 minutes, cut it rather than bash on).
             budget = PASS_BUDGET_OVERRIDE.get(p, PASS_BUDGET_S)
+            # A pass starting is progress: Strengthen's 60 s watchdog stopped it while the Goals pass was still
+            # opening pages, before its first claim (live 2026-11-09).
+            progress(("pass", p))
             with task(p, budget) as t:
                 try:
                     results[p] = self.goals(lit_pages or ()) if p == "goals" and not only else getattr(self, p)()

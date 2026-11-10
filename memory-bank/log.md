@@ -6,7 +6,9 @@
 ### 2026-11-09 (late) · Upgrade loops live test (Claude Code, mae's PC via Remote Control)
 - mae (23:52): test the upgrade loops. Cart: claimed, the free Chrono Sand Unlock pressed (R-137, first live run, worked), Stone/Wood capped at Lv 5 (Blessing Lv 6). Gear swap: weapon 1490 → 1960, head 1170 → 1820. Upgrade Loop: 1 skill Quick Upgrade, Goals claimed. Gear enhance: weapon +21 → 24, head +18 → 23, chest and boots +15 → 20. Power 22.4K → about 24.5K.
 - Fixed: the blue enhance pip finder found none live (discs bluer, S up to ~175; one merged with the chest slot's rim, 38x26): range H 85-116, S 45-190, size to 40 px, aspect 1.5; reference `character/character_pips_all4.png`. The gear pass stopped at the first piece short of materials (the weapon's +25 needs red ore, 299/300) though others could go on: a short or capped piece is left out, the rest keep banding. Gear pass budget 180 s (enhancing four slots took 60 s of 90).
-- Open: chest and boots stop at +20 for the red ore too; class and rank showed no badge.
+- mae (23:52): claim EXP too. Bed EXP (daily step `bed`, free speed-up kept): Lv 24 → 30 (cap for Apprentice II), power about 28.4K. After it: boots swapped (2050 → 2110), 2 rank Goals claimed; the rank badge then cleared (Apprentice III still needs the Bellflowers).
+- Fixed: Strengthen's 60 s watchdog stopped it while the Upgrade Loop's Goals pass was still opening pages; each pass and Goals page now reports progress.
+- Open: chest and boots stop at +20 for the red ore too.
 
 ### 2026-11-09 (evening) · Verdantglade V explored 78 → 100%, exploration stuck points (Claude Code, mae's PC via Remote Control)
 - mae (20:53): test exploration on Verdantglade V, record stuck points; progress must be steady, never aimless. 10 runs; V went 78 → 83 → 85 (runs 5, 7), 88 (by hand via the quest pointer), 92 → 100% (quest pointer inside the fog walk, runs 9-10: 4 steps, about a minute).
