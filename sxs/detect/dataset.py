@@ -1,7 +1,7 @@
 """Export the labelled boxes as a YOLO-format detection dataset for Roboflow (or local Ultralytics / RF-DETR
 training), with mae's account name blacked out (docs/detector-design.md, step 3).
 
-    python -m sxs dataset [--out DIR] [--drafts] [--include-private] [--minimap both|crop|full] [--items each|one]
+    python -m sxs dataset [--out DIR] [--drafts] [--include-private] [--minimap both|crop|full] [--items each|group|one]
                           [--zip]
 
 Reads docs/screens/labels.json (boxes with a detector class; drafts only with --drafts) and writes:
@@ -18,7 +18,8 @@ goes only into the full frame.
 Item symbols (class item_icon with an "item" id from resource/items/items.json): with --items each (default) every
 catalogued item becomes its own class, item_<id>, numbered after the fixed classes in catalogue order, so the
 model names the symbol (mae, 2026-11-10); a box without an item id stays item_icon. --items one keeps them all as
-item_icon (the runtime then names them by matching the catalogue crops).
+item_icon (the runtime then names them by matching the catalogue crops); --items group makes one class per material
+type (the item's group, else its kind), a coarser model to compare against.
 
 Privacy (nothing here may identify mae or other players): the HUD name strip is blacked out on every frame, and
 with SXS_ACCOUNT_NAME set (an environment variable, never committed) every OCR line that reads as that name, such
@@ -114,13 +115,21 @@ def export(out: Path, drafts: bool = False, include_private: bool = False, name:
     """Write the dataset. `det` (a StateDetector) reads each frame for name lines when name_ocr is on.
     Returns a summary: images and boxes per split, boxes per class, screens skipped and why."""
     classes = labels.classes()
+    from . import items as catalogue
+
+    cat = catalogue.load()["items"]
     if items == "each":  # one class per catalogued item after the fixed classes, in catalogue order
-        classes = classes + [{"name": f"item_{i}", "group": "items"} for i in labels.item_ids()]
+        label = {i["id"]: f"item_{i['id']}" for i in cat}
+    elif items == "group":  # one class per material type (group, else kind), in order of first appearance
+        label = {i["id"]: f"item_{i.get('group') or i['kind']}" for i in cat}
+    else:
+        label = {}
+    classes = classes + [{"name": n, "group": "items"} for n in dict.fromkeys(label.values())]
     ids = {c["name"]: i for i, c in enumerate(classes)}
 
     def cid(b: dict) -> int:
-        if items == "each" and b["cls"] == "item_icon" and f"item_{b.get('item')}" in ids:
-            return ids[f"item_{b['item']}"]
+        if b["cls"] == "item_icon" and b.get("item") in label:
+            return ids[label[b["item"]]]
         return ids[b["cls"]]
 
     mini = {c["name"] for c in classes if c["group"] == "minimap"}
@@ -189,8 +198,8 @@ def main(argv: list[str]) -> int:
     p.add_argument("--no-name-ocr", action="store_true", help="mask only the fixed HUD name strip (no OCR pass)")
     p.add_argument("--minimap", choices=("both", "crop", "full"), default="both",
                    help="where minimap boxes go: an enlarged crop, the full frame, or both (default)")
-    p.add_argument("--items", choices=("each", "one"), default="each",
-                   help="item symbols: one class per catalogued item (default) or all as item_icon")
+    p.add_argument("--items", choices=("each", "group", "one"), default="each",
+                   help="item symbols: one class per item (default), per material type (group), or all item_icon")
     p.add_argument("--zip", action="store_true", help="also write DIR.zip for a Roboflow upload")
     args = p.parse_args(argv)
     name = os.environ.get("SXS_ACCOUNT_NAME", "").strip()

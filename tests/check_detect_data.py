@@ -93,6 +93,8 @@ def check_items() -> None:
         check("item_dawnium" not in (tmp / "ds1" / "data.yaml").read_text()
               and {int(ln.split()[0]) for ln in lab1.split("\n") if ln} == {n - 1}, "--items one: all item_icon")
         check(s["classes"].get("item_dawnium") == 1, "summary counts item classes")
+        sg = dataset.export(tmp / "dsg", name_ocr=False, items="group")
+        check(sg["classes"].get("item_currency") == 1, "--items group: one class per material type (kind when no group)")
 
 
 def main() -> int:
