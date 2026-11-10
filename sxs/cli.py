@@ -7,6 +7,7 @@
     python -m sxs labeler [--port 8765]      web page for naming screens and boxing what matters on them
     python -m sxs report [--day YYYY-MM-DD]  the day's progress report from saved snapshots (no emulator)
     python -m sxs zones                      the location tree: zones, CP, %, blessed, connections, open questions
+    python -m sxs bench [--one-per-state]    time the screen check on the reference screens, old way vs new (no emulator)
 
     python -m sxs screenshot [out.png]       save the current frame
     python -m sxs tap X Y
@@ -90,6 +91,10 @@ def main(argv: list[str] | None = None) -> int:
         from .policy.zones import main as zones_main
 
         return zones_main(argv[1:])
+    if argv and argv[0] == "bench":  # screen-check timings on the reference screens, no device needed
+        from .core.bench import main as bench_main
+
+        return bench_main(argv[1:])
     if argv and argv[0] == "report":
         from .loops.progress import report_main
 

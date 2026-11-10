@@ -13,6 +13,8 @@ Design notes, one per plan step. The code is the source of truth; these explain 
 | `interrupts.md` | How a loop is paused for a tutorial, reward choice or popup and resumed (the interrupt table) |
 | `function-check.md` | What each loop does, how to run it, what it reports, whether it has run live |
 | `progress-tracker.md` | `python -m sxs progress` / `report`: what each stat is read from, what still needs a route, stats worth adding |
+| `vision-upgrade.md` | How a screen check works and where its time goes (measured), no-ML speed-ups to approve, and whether to train a YOLO/Roboflow UI detector |
+| `detector-design.md` | Plan for a Roboflow-trained UI detector: classes, the three model choices with pros and cons, dataset pipeline, adoption |
 | `shop-tables.md` | Shop stock and mae's Buy? marks |
 | `screens/` | Reference screenshots in folders by situation, `expected.json`, the `unlabeled/` bank; index in `screens/README.md` |
 | `archive/` | History only (old log entries), never instructions |
