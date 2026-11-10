@@ -161,7 +161,11 @@ def minimap_target(det, frame: np.ndarray, lookahead: int = 4, player_xy=None,
     if mm.border:
         log.debug("zone border on the minimap at %d tiles (%s)", len(mm.border), "crossing allowed" if cross_border
                   else "a wall: finish this zone first")
-    path = minimap.path_to_nearest(mm, goals=objects, skip=off, cross_border=cross_border) if objects else []
+    # Our own marker and ring read as an orange "monster" right next to us (live 2026-11-10: "monster 1 tiles
+    # away", then the tap opened our profile, over and over): tiles touching the centre are never object goals.
+    pr, pc = mm.centre
+    ring = {(pr + dr, pc + dc) for dr in (-1, 0, 1) for dc in (-1, 0, 1)}
+    path = minimap.path_to_nearest(mm, goals=objects, skip=off | ring, cross_border=cross_border) if objects else []
     if len(path) < 2 and player_xy is not None and buildings_seen is not None:
         skip = off | {tile for tile in mm.tiles("building") if minimap.world_tile(mm, tile, player_xy) in buildings_seen}
         path = minimap.path_to_nearest(mm, goals=("building",), skip=skip, cross_border=cross_border)

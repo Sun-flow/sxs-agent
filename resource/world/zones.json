@@ -42,8 +42,8 @@
    "kind": "town",
    "notes": "Town: Chief, Hermes, Carol, portal (R-134).",
    "map_point": [
-    137,
-    1039
+    451,
+    723
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -71,8 +71,8 @@
    "pct": 100,
    "notes": "Entered past a bracketed wolf-boss pack (R-041); ground pickups by a cooking pot finish it (R-066).",
    "map_point": [
-    533,
-    828
+    849,
+    513
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -84,8 +84,8 @@
    "pct": 100,
    "notes": "Entered from Verdantglade III (142,84) or Drasilgard (138,84). The last 7% was the Lucky Wheel (blue !): its first spin is free while the zone is unexplored (mae). Lost Goddess Statue unlocked 2026-11-10.",
    "map_point": [
-    827,
-    1266
+    525,
+    951
    ],
    "last_seen": "2026-11-09",
    "entries": [
@@ -113,8 +113,8 @@
    "first_seen": "2026-11-05",
    "pct": 0,
    "map_point": [
-    408,
-    790
+    724,
+    474
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -175,8 +175,8 @@
    "pct": 42,
    "notes": "Border label 'Troll Lair 17K' at a corner of its dotted line (R-132).",
    "map_point": [
-    411,
-    1027
+    726,
+    965
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -211,8 +211,8 @@
    "pct": 100,
    "notes": "No way in on foot from Moonveil Woods (fog south of about (168, 94) never moves); entered with the quest's Go travel (R-084, R-089).",
    "map_point": [
-    1131,
-    972
+    823,
+    912
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -260,8 +260,8 @@
     "Auroradrasil": "2026-11-04"
    },
    "map_point": [
-    271,
-    677
+    323,
+    362
    ],
    "last_seen": "2026-11-09",
    "entries": [
@@ -305,8 +305,8 @@
    "pct": 0,
    "notes": "Its border label runs sideways along a vertical dotted line, no power shown (R-132).",
    "map_point": [
-    421,
-    915
+    738,
+    600
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -972,6 +972,21 @@
   {
    "a": "Highland Woods",
    "b": "Verdantglade III",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins I",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Rabbit Vault",
+   "b": "Verdantglade VI",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Wildbloom Coast",
+   "b": "Zephyr Vale",
    "how": "map_adjacent"
   }
  ],
