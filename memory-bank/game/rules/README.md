@@ -33,7 +33,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 
 ## Adding or changing a rule
 
-- New rule: next free ID (**next free: R-140**), under the right `##` heading of the right file, plus a row in the ID index below.
+- New rule: next free ID (**next free: R-153**), under the right `##` heading of the right file, plus a row in the ID index below.
 - Never reuse or renumber an ID. When merging a rule into another, delete it, add it to the retired table, and repoint citations.
 - Run `python3 scripts/check-rules.py`: it checks that every cited ID resolves, retired IDs aren't cited, every file is listed here, and image paths exist.
 
@@ -153,10 +153,22 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-137 | `home.md` | Unlock every available Cart production row |
 | R-138 | `combat.md` | Two kinds of dish: healing dishes are free to use, permanent dishes are conserved |
 | R-139 | `gathering.md` | A monster guarding a pickup: fight it, then resume the pickup |
+| R-140 | `overworld.md` | Confirm the player's zone by the minimap name first, then the big map |
+| R-142 | `overworld.md` | While exploring, follow the zone's own Explore quest |
+| R-143 | `overworld.md` | In an unblessed zone the whole minimap is shaded: the % comes from objects |
+| R-144 | `overworld.md` | "Statue of <name>": press Visit |
+| R-145 | `overworld.md` | Sealed Stone Gate: a rank-gated gate between zones; press the free Unlock |
+| R-146 | `overworld.md` | Never tap fog: tap walkable ground next to it |
+| R-147 | `overworld.md` | Lucky Wheel ("Wheel of Destiny"): one free spin per wheel while its zone is unexplored |
+| R-148 | `overworld.md` | A blue "!" on the area map marks interactable statues: tap them to finish the zone |
+| R-149 | `overworld.md` | "Rankings" structure: back out, press nothing |
+| R-150 | `overworld.md` | Entering a new zone: start at the entrance, then work outward to the fog |
+| R-151 | `overworld.md` | Boulder Blockade: a barrier that needs a drill bit; Hidden Camp is inaccessible for now |
+| R-152 | `overworld.md` | A Portal sits under the Verdantglade VI label on the big map |
 
 ## Retired IDs
 
-Merged into another rule during the 2026-11-04 consolidation. Cite the new ID.
+Merged into another rule (most during the 2026-11-04 consolidation; R-141 on 2026-11-10, when mae withdrew its loop-switching ban). Cite the new ID.
 
 | Old | Now |
 |---|---|
@@ -187,3 +199,4 @@ Merged into another rule during the 2026-11-04 consolidation. Cite the new ID.
 | R-083 | R-044 |
 | R-087 | R-066 |
 | R-090 | R-031 |
+| R-141 | R-139 |

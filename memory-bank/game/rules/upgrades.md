@@ -18,14 +18,16 @@ Read when raising character power: the character-screen "!", gear, skills, charm
 
 ### R-023 · Enhancing gear costs ore and Rolla
 - Character, a gear slot, the item card (Replace / Enhance), Enhance Gear.
-- Cost: Raw Ore (blue crystal), Refined Ore (red crystal), Rolla, shown have/need ("Raw Ore 7/720"). Short: toast "Insufficient materials to enhance."
+- Cost: Raw Ore (blue crystal) and Rolla, shown have/need ("Raw Ore 7/720"); higher steps add Refined Ore (red crystal): the weapon's +24 → +25 needs 300. Short: a banner "Insufficient materials to enhance." Wait for it to clear (about 2.5 s) before the next piece, or that piece reads the old banner as its own failure.
 - 4 tabs on top, one per piece (weapon, head, chest, boots; no offhand yet), each "+N". The selected piece shows "+21 → +22" at y≈0.42, stat deltas, cost, Enhance (0.5, 0.85), Resonance (R-119), Goals (R-116).
-- Not a detector state yet: `go_home` gets stuck there.
+- Detector state `enhance_gear`.
 *observed* · `character/enhance_gear.png` · nodes `character`, `enhance_gear` · R-092, R-119
 
 ### R-092 · Enhance all gear evenly, in 5-level bands
 - All equipped pieces to +5, then all to +10, then +15... A piece passes a band only when every other piece has reached it.
-- Inside a band, priority: weapon, offhand (not unlocked), headpiece, chest, boots. Code: `Strengthener.enhance_gear` in `sxs/loops/strengthen.py` (`GEAR_BAND`, `GEAR_PRIORITY`; insert the offhand after the weapon when its tab appears).
+- A piece short of its own material, or at its cap, is left out and the other pieces keep banding (live 2026-11-09: the weapon's red ore stopped the whole pass before this fix).
+- Enhance the lower-level pieces first: the highest piece costs the most (mae, 2026-11-10 00:07). The band target comes from the lowest piece, so pieces already at it are skipped until the rest catch up. Among pieces below the target, priority: weapon, offhand (not unlocked), headpiece, chest, boots.
+- Enhance only pieces whose tab on the Enhance screen shows a blue pip (R-088); a tab without one is skipped, not tried. Code reads the tab row with `tabs_with_pip`. Covered by a screenshot test; live proof waits for the next materials. Code: `Strengthener.enhance_gear` in `sxs/loops/strengthen.py` (`GEAR_BAND`, `GEAR_PRIORITY`; insert the offhand after the weapon when its tab appears).
 - Ore is the bottleneck. Sources: Cart (+100 Raw Ore/h, R-020), gathering (R-107), Guidance quests (R-099), Ironvein Pit (R-095).
 *told, observed* · R-023, R-106, R-119
 
@@ -34,9 +36,9 @@ Enhance Gear > Resonance (0.86, 0.20). Tiers read "Enhance Gear x4 to +N" (N = 5
 *observed* · `character/gear_resonance.png` · node `enhance_gear` · R-023, R-092
 
 ### R-088 · Replace gear with better items from the profile
-A red "!" over a gear piece's picture means a better piece is available for that slot: swap it. A **blue upgrade-arrow pip** in the same spot means the piece can be enhanced instead (R-092), not swapped (mae, 2026-11-09). Replace it whenever one drops. This is its own task, independent of enhancing (R-092), and the bot should do it on its own (mae). Profile, an Equip slot, Replace. The list puts the best first, green up arrow on upgrades. Tap one for a compare (equipped left, new right, with power); Replace is under the new item. Enhancement levels carry over, so replacing loses nothing.
-- Code: its own loop `python -m sxs gearswap`, also daily step `gear_swap`. The slot badge says to look; the power compare decides whether to Replace. First live run worked: head 1100 to 1170, chest 889 to 1900, boots 143 to 1860 power.
-*observed, told* · `character/replace_gear.png`, `character/gear_compare.png` · nodes `replace_gear`, `gear_compare` · R-080, R-092
+A red "!" over a gear piece's picture means a better piece is available for that slot: swap it. A **blue upgrade-arrow pip** in the same spot means the piece can be enhanced instead (R-092), not swapped (mae, 2026-11-09). Live pips are bluer than the first crop (H 98–114, S up to about 175), and next to the chest slot the pip merges with the slot rim (reference `character/character_pips_all4.png`). Replace it whenever one drops. Code (PR #45): the blue pip is found by `find_up_pips` in `sxs/vision/badges.py`, and the Upgrade loop's gear pass runs on it. This is its own task, independent of enhancing (R-092), and the bot should do it on its own (mae). Profile, an Equip slot, Replace. The list puts the best first, green up arrow on upgrades. Tap one for a compare (equipped left, new right, with power); Replace is under the new item. Enhancement levels carry over, so replacing loses nothing.
+- Code: its own loop `python -m sxs gearswap`, also daily step `gear_swap`. The slot badge says to look; the power compare decides whether to Replace. First live run worked: head 1100 to 1170, chest 889 to 1900, boots 143 to 1860 power. 2026-11-09: weapon 1490 to 1960, head 1170 to 1820.
+*observed, told* · `character/replace_gear.png`, `character/gear_compare.png`, `character/character_pips_all4.png` · nodes `replace_gear`, `gear_compare` · R-080, R-092
 
 ## Skills and charms
 

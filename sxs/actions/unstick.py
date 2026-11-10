@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import logging
 import time
+from pathlib import Path
 from typing import Optional
 
 from ..core.ui import PLAYER_NAME
@@ -20,14 +21,45 @@ NPC_DX, NPC_DY = 30, 50  # from the "!" bubble to the NPC's body
 GUARD_DX, GUARD_DY = -35, 50  # from the top-right guard bracket to the monster
 
 
+GUARD_MARKER = Path(__file__).resolve().parents[2] / "resource" / "image" / "explore" / "guard_marker.png"
+GUARD_MARKER_MATCH = 0.8  # the red horned-skull marker over a monster guarding something (0.89 on the boar frame)
+GUARD_MARKER_DY = 45  # from the marker's bottom edge to the monster under it
+
+
+def guard_marker(frame) -> Optional[tuple[int, int]]:
+    """Tap point of a monster under a red skull marker (live 2026-11-09: one guarded the blue-aura pot that
+    Verdantglade V's quest pointed at, and every loop walked up to the pot and stalled). None if there's none."""
+    import cv2
+
+    tpl = cv2.imread(str(GUARD_MARKER))
+    if tpl is None or frame is None:
+        return None
+    r = cv2.matchTemplate(frame[120:1000], tpl, cv2.TM_CCOEFF_NORMED)
+    _, best, _, (x, y) = cv2.minMaxLoc(r)
+    if best < GUARD_MARKER_MATCH:
+        return None
+    h, w = tpl.shape[:2]
+    return x + w // 2, 120 + y + h + GUARD_MARKER_DY
+
+
 def attack_guard(dev, det, frame=None) -> bool:
-    """Monsters in brackets guard a way through: tap one to fight it. True if one was there."""
+    """A monster guards the way or an item: one in brackets, or one under a red skull marker. Tap it to fight it
+    (the battle prep that follows goes through the loop's own fight handling: heal to 70%, then Start). Every loop
+    that explores calls this (mae, 2026-11-09: guard fights belong in any exploring loop). True if one was there."""
+    frame = det.device.screenshot() if frame is None else frame
     box = det.find("Explore.GuardBracket", frame)
     if box:
         log.info("attacking a guard at %s", box.box)
         dev.tap(box.box[0] + GUARD_DX, box.box[1] + GUARD_DY)
         time.sleep(3)
-    return bool(box)
+        return True
+    p = guard_marker(frame)
+    if p:
+        log.info("attacking the monster under a guard marker at %s", p)
+        dev.tap(*p)
+        time.sleep(3)
+        return True
+    return False
 
 
 def npc_to_talk_to(det) -> Optional[tuple[int, int]]:

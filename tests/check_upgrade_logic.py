@@ -37,6 +37,8 @@ check("stamina 50 -> 0 pickups", pickups_to_take(50, 70), 0)
 
 # Blue enhance pips on gear slots (mae, 2026-11-09): weapon +4 and head +0 show one, the two empty slots don't.
 check("enhance pips on character.png", gear_enhanceable(cv2.imread(str(SCREENS / "character/character.png"))), [0, 1])
+check("enhance pips on all four slots (live 2026-11-09, bluer discs, one merged with the chest rim)",
+      gear_enhanceable(cv2.imread(str(SCREENS / "character/character_pips_all4.png"))), [0, 1, 2, 3])
 check("no enhance pips on skill_page.png", gear_enhanceable(cv2.imread(str(SCREENS / "character/skill_page.png"))), [])
 
 # Badges ("!") on reference screens.
@@ -51,6 +53,10 @@ check("cart wood lower", CartUpgrader.pick({"stone": 4, "wood": 3}), "wood")
 check("cart stone lower", CartUpgrader.pick({"stone": 4, "wood": 5}), "stone")
 check("cart cost icons (Furniture Upgrade)", [n for n, _ in cost_icons(cv2.imread(str(SCREENS / "home/cart_furniture_upgrade.png")))],
       ["wood", "stone", "rolla"])
+
+# Enhance Gear tabs with the blue pip (mae, 2026-11-10: enhance only those; the weapon without one costs a red ore).
+from sxs.loops.strengthen import tabs_with_pip  # noqa: E402
+check("enhance pips on the tab row", tabs_with_pip(cv2.imread(str(SCREENS / "character/enhance_gear_short_weapon.png"))), [1, 2, 3])
 
 print("all good" if not fails else f"{fails} failed")
 sys.exit(1 if fails else 0)

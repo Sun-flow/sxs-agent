@@ -824,14 +824,14 @@
         "post_delay": 0
     },
     "State.AreaMap": {
-        "doc": "Area map (tap the minimap): the kingdom's areas with Exploration % and power, legend top right (Portal, Lost Statue, ores). Tapping a spot moves the camera there; an area label opens nothing but a stray tap can select an area (a yellow highlight). Back arrow (60, 1216) returns to the island map. Images: docs/screens/world/world_area_map.png, docs/screens/world/area_map_v3.png.",
+        "doc": "Area map (tap the minimap): the kingdom's areas with Exploration % and power, legend top right (Portal, Lost Statue, ores). Tapping a spot moves the camera there; an area label opens nothing but a stray tap can select an area (a yellow highlight). Back arrow (60, 1216) returns to the island map. Live 2026-11-10: with a zone label showing through the translucent legend, OCR no longer read exactly 'Lost Statue', so any of the first legend lines counts. Images: docs/screens/world/world_area_map.png, docs/screens/world/area_map_v3.png, docs/screens/world/area_map_legend_overlap.png.",
         "recognition": "OCR",
-        "expected": "^Lost Statue$",
+        "expected": "Lost Stat|^Portal$|Gold Ore",
         "roi": [
             560,
-            80,
+            45,
             150,
-            40
+            110
         ],
         "pre_delay": 0,
         "post_delay": 0

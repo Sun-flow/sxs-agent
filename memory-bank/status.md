@@ -1,20 +1,20 @@
 # Status
 
-> **Last updated**: 2026-11-09
+> **Last updated**: 2026-11-10
 > Where the work stands now. Past sessions: `log.md`. How a builder works: `playbook.md`.
 
 ## Game state (2026-11-05 05:05Z, mae's PC)
 
-- gromb2: Mage, Apprentice II, Lv 24/30, power 22.4K (skills Lv 17-18 after Quick Upgrade; Cart Stone and Wood Lv 5). Rolla ~72.7K, Dawnium ~1.85K (never spent by the bot), stamina ~234/300, Abundance Leaves 450, 1 Shapeshifting Mirror (unused).
-- Explored and blessed: Originisle; Verdantglade I-IV area quests done; Verdantglade III 100%; Auroradrasil 100% and blessed (Lost Goddess Statue, 2026-11-05). Drasilgard town visited (Chief, Hermes, Carol). Verdantglade V 78% (quest "Explore Verdantglade V"). Unexplored: Jungle Camp 12.6K, Zephyr Vale, Monolith Ruins I, Troll Lair 17K, Verdantglade VI, Wildbloom Coast 20.4K.
-- Rank: Apprentice III needs Lv 30, leaves 16/5, Bellflower 4/30 (source: Verdantglade Flower Harvest in Moonveil Woods; the plants in Drasilgard are decoration), Rolla 10.5K. Blocked on Lv 30.
+- gromb2: Mage, Apprentice II, Lv 30/30 (cap; bed EXP claim took Lv 24 to 30), power about 28.4K (2026-11-10: gear swap and enhance, boots 2050 to 2110; rank Goals claimed; skills Lv 17-18; Cart Stone and Wood Lv 5). Rolla ~72.7K, Dawnium ~1.85K (never spent by the bot), stamina ~234/300, Abundance Leaves 450, 1 Shapeshifting Mirror (unused).
+- Explored and blessed: Originisle; Verdantglade I-IV area quests done; Verdantglade III 100%; Auroradrasil 100% and blessed (Lost Goddess Statue, 2026-11-05). Drasilgard town visited (Chief, Hermes, Carol). Verdantglade V 100% and blessed (2026-11-10: its Goddess Statue near the north-east edge, R-070; Blessing Level 5 → 6, AFK EXP 592 → 608). Sealed Stone Gate on V's north edge (135, 126) is the way into Verdantglade VI: rank-gated (Apprentice II), unlocked free by run 10 at about 03:32 (R-145); runs 11–18 explored VI to 100%; its Goddess Statue blessed (Blessing Level 6 → 7, Cart max 7, AFK EXP 620 → 636; 2026-11-10). Explore Verdantglade VI gave a quest gift; next quest Explore Verdantglade VII (already 60%). Zones at 100%: Originisle I–V, Verdantglade I–III and V, Moonveil Woods, Stone Ruins I, Highland Woods, Damp Woods (❓ recheck: the tree's 100% came from three readings with no %), Auroradrasil, Jungle Camp, Wildbloom Coast (0 → 100% and blessed by the bot on its own, 2026-11-10 03:20). Jungle Camp 12.6K 100% and blessed (2026-11-10: Lost Goddess Statue, Home EXP +1%, Raw Ore +1%; the free Lucky Wheel spin was the last object, R-147; ways in from Verdantglade III (142, 84) and Drasilgard (138, 84)). Hidden Camp: inaccessible until we have a Magic Drill for its Boulder Blockade; not explored for now, and roam skips it (mae, R-151); behind the blockade: pickups (coins, apple, chests) and a Lost Goddess Statue. Verdantglade VI 100% and blessed. In progress: Verdantglade VII 60% (main quest), Troll Lair 42% (17K). Unexplored (0%): Zephyr Vale, Monolith Ruins I, Grotto Peninsula 23K, Rabbit Vault, Stagnant Jungle; Sunrise Isle never read on the big map.
+- Rank: Apprentice III now only needs Bellflowers, 4/30 (source: Verdantglade Flower Harvest in Moonveil Woods; the plants in Drasilgard are decoration). Lv 30, leaves 16/5 and Rolla 10.5K are met.
 - Fantasia Ascent Moonveil Woods: Auto Challenge climbed to F24+ in the background (2026-11-04).
 - Social features open (R-057): NPC companions Akane, Qin, Killian were invited for Auroradrasil (rank B).
 
 ## Strengthening and the Cart (2026-11-05 early morning)
 
-- Strengthening done: power 22.4K. `python -m sxs upgrade` now always opens the Skill page (Quick Upgrade shows blue arrows, not a red "!"). At the end the Character screen's weapon slot showed a red "!" and chest/boots blue arrows: recheck with `gearswap` and the gear pass.
-- Cart: `python -m sxs cart` (also daily step `cart_upgrade`) raises Stone and Wood evenly (R-136). Both are Lv 5, capped: Lv 6 needs Blessing Lv 6 (the bed's Blessing Level). Costs are Wood + Stone + Rolla only. ❓ How the Blessing Level rises (blessing statues? R-035, R-070). Chrono Sand Unlock (free, R-137): `CartUpgrader.unlock_rows` presses it; first live run still to do.
+- Strengthening, live-validated (2026-11-09/10): gear swap weapon 1490 to 1960, head 1170 to 1820; enhance weapon +21 to +24, head +18 to +23, chest +15 to +21, boots +15 to +20; power 22.4K to about 24.5K. `python -m sxs upgrade` always opens the Skill page; the gear pass finds blue enhance pips and leaves out pieces short of their own material (the weapon's +25 needs red ore; enough is now in hand). To do: enhance lower-level pieces first (mae, R-092).
+- Cart: `python -m sxs cart` (also daily step `cart_upgrade`) raises Stone and Wood evenly (R-136). Both are Lv 6 (2026-11-10); Lv 7 needs Blessing Lv 7. Costs are Wood + Stone + Rolla only. Blessing Level rises when a zone's Goddess Statue is unlocked (R-035, R-070). Chrono Sand unlocked live (free, R-137).
 
 ## Works (all on main, PRs #1–#30)
 
@@ -30,11 +30,10 @@
 
 Format: `- what — branch, PR, environment (started)`. Remove the line when it merges or is dropped.
 
-- Exploration drivers per mae (2026-11-05): roam picks the lowest-CP unblessed zone, blesses statues whose area-map "!" is lit, ends with a fog walk; fog walk reaches objects through the big map, follows passable ground into fog, keeps to its zone (R-132), free pickups and fights only in unexplored areas (R-065), collectibles store (R-131) — `claude/project-thread-ieaqnz` (latest commits beyond #41), mae's PC. Open: (1) at the zoomed-out area map OCR merges neighbouring labels and loses percentages (closer zoom with pans written on `claude/project-thread-sesbe9`, not yet live); (2) Jungle Camp run (2026-11-05): approach from Drasilgard, big-map walks mostly "no_move", no % gained; the walk into Jungle Camp needs a better entry point; (3) progress readings with OCR noise in coordinates count as movement, so a stuck run can be extended; (4) the tutorial glow on the Companions "Invite" isn't found by the highlight finder (interrupt layer PR #40).
-
-- Zone borders, location tree, closer-zoom survey, Cart unlock (mae, 2026-11-09) — `claude/project-thread-sesbe9`, folded into PR #43, offline-tested only. First live run: `python -m sxs roam --max-areas 1` (check the survey log line lists % for the far zones, `python -m sxs zones` after), then `python -m sxs cart --max 0` (presses the free Chrono Sand Unlock, no upgrades). Commit `resource/world/zones.json` after live runs: it is the bot's map.
-
-- Loop diagrams (mae, 2026-11-09): `docs/loops/` has a Mermaid page per loop, a screen-by-screen table and `docs/loops/open-questions.md` (15 places where code, rules and mae's asks disagree; mae's 2026-11-09 answers applied: blue-pip gear enhance trigger, gather fights guards, `get_stronger` for explore, one tower climb a day from any loop, tutorial stops on class choices; none run live yet) — `claude/project-thread-aqcucg`, PR pending, cloud. Follow-up proposed in `docs/loops/README.md`: per-loop flow specs the loops read, so the diagrams become the source of truth.
+- Exploration builder (2026-11-09/10) — `claude/project-thread-sesbe9` (latest d53e47c and later; earlier parts in #43/#46), mae's PC. Game state 2026-11-10 ~04:40Z: Lv 30, power 28.5K, Blessing Lv 7 (Cart max 7; Stone/Wood at 6), blessed Verdantglade V, VI, Jungle Camp, Wildbloom Coast; Damp Woods explored; Hidden Camp blocked (Boulder Blockade needs a Magic Drill); Troll Lair 42% (17K); Zephyr Vale, Monolith Ruins I, Rabbit Vault, Stagnant Jungle, Grotto Peninsula (23K) at 0%; quest "Explore Verdantglade VII" at 60%. Location tree: `python -m sxs zones` (`resource/world/zones.json`, now with per-zone `objectives`, `dismissed_spots`, `blocked`).
+- mae (04:44): keep exploring, alternating main-quest areas (Verdantglade VII) and side areas (Zephyr Vale, Monolith Ruins I, Troll Lair...); side areas are more trouble: log every issue as it happens. Readout rule: announce each run (command, goal, stop condition), readouts ~2 min, [Result] at the end. Use `scripts/tap_trace.py roam AREA MIN` to trace taps when a stuck point repeats.
+- Open stuck points: the statue-bless walk (`roam.nearest_badge`) picked our own spot when the lit statue was off-screen (VI blessed by hand); Troll Lair's label overlaps Verdantglade IV's and three no-% readings flip it to 100% (reset to 42%); survey OCR still garbles names at the survey zoom; Sunrise Isle never read.
+- Roam (2026-11-10): runs 1–4 gained nothing (label reads, Auroradrasil trap, Rankings card; all fixed). Runs 5–7 ended early on joined labels (fixed: the tree decides). Wildbloom Coast done 0 → 100%. Open stuck point: Monolith Ruins I (a monster tapped twice, no fight started; its label unread). Run 9 targeted Zephyr Vale, Monolith Ruins I, Verdantglade VI, Troll Lair. Run 10 unlocked the Sealed Stone Gate into Verdantglade VI (R-145); runs 11–17 explored VI to 87%, fixing the profile popup (ring over our own character, R-142), Class page taps (HUD ring, back arrow on gear and class cards, R-030), clipped labels in the per-step zone check (R-140) and the portal under VI's label (R-152); each zone now records its `objectives`. Run 18 finished VI; blessed (Blessing Lv 7).
 
 ## Next (in order)
 
@@ -63,7 +62,7 @@ Format: `- what — branch, PR, environment (started)`. Remove the line when it 
 
 ## Known problems
 
-- Auroradrasil sits inside Verdantglade V on the map, so the fog walk's zone check (R-132) bounces the bot out when a walk lands there. mae (03:10): Auroradrasil is its own zone, so the goto for Verdantglade V must land on V's own ground (R-132). Verdantglade V is at 78%.
+- Auroradrasil sits inside Verdantglade V on the map, so the fog walk's zone check (R-132) bounces the bot out when a walk lands there. mae (03:10): Auroradrasil is its own zone, so the goto for Verdantglade V must land on V's own ground (R-132). Verdantglade V reached 100% on 2026-11-09.
 - Minimap classifier was tuned in Verdantglade II; in Highland Woods it labels walkable explored tiles as walls.
 - The island-map camera doesn't follow the player: locate the player first (the "gromb2" label or the player edge pointer).
 - Quick Heal from the "badly wounded" dialog didn't seem to heal; Quick Heal from the portrait works.

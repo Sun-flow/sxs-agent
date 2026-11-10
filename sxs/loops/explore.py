@@ -22,7 +22,7 @@ from typing import Optional
 
 from ..actions import goto, heal
 from ..actions.common import FIGHT_STATES, TOWER_STATES, pass_through
-from ..actions.unstick import MARKER_TARGET_DYS, PAN_STEPS, npc_to_talk_to, unstick
+from ..actions.unstick import MARKER_TARGET_DYS, PAN_STEPS, attack_guard, guard_marker, npc_to_talk_to, unstick
 from ..actions.watchdog import Heartbeat
 from ..core import ui
 from ..core.device import save_unknown
@@ -41,6 +41,7 @@ log = logging.getLogger("sxs.loops.explore")
 
 PAN_CENTER = (360, 560)  # where a hidden marker is dragged to
 STALE_STEP_S = 15  # seconds of no progress per "stale" step (drives the tap-offset cycle)
+GUARD_TAPS_MAX = 6  # taps on monsters under guard markers per run
 STALE_LIMIT = 4  # stale steps (~1 min) before trying NPCs and guards
 STALE_GIVE_UP_S = 300  # no progress for this long ends the run
 SELF_TAP_LIMIT = 6  # own-profile opens without progress before the loop gives up
@@ -81,6 +82,7 @@ class Explorer:
         self.misses = self.unknowns = self.unknown_total = self.unknown_cards = self.repeats = self.home_taps = 0
         self.last_kind = self.last_progress = self.last_state = self.last_progress_seen = None
         self.stale, self.progress_at, self.unstick_round = 0, time.monotonic(), 0
+        self.guard_taps = 0
         self.beat = Heartbeat()
         self.hit_self = False  # the last marker tap landed on our own character
         self.self_taps, self.charms_tried = 0, False
@@ -145,6 +147,12 @@ class Explorer:
         stop = self._watch_progress(prog)
         if stop is not False:
             return stop
+        # A monster guarding the quest's target (red skull marker): fight it first, then the marker leads on
+        # (mae, 2026-11-09). Throttled so a marker the tap doesn't reach doesn't loop forever.
+        if self.guard_taps < GUARD_TAPS_MAX and guard_marker(self.dev.screenshot()):
+            self.guard_taps += 1
+            if attack_guard(self.dev, self.det):
+                return None
         return self._follow_marker()
 
     def _hp_check(self):
