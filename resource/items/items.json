@@ -94,6 +94,17 @@
       100
      ],
      "found_in": "Guild > Shop"
+    },
+    {
+     "file": "stellatie_5.png",
+     "screen": "items/fantasia_ascent_moonveil.png",
+     "box": [
+      166,
+      704,
+      64,
+      63
+     ],
+     "found_in": "Journal > Fantasia Ascent > Moonveil Woods (floor rewards)"
     }
    ]
   },
@@ -224,6 +235,17 @@
       80
      ],
      "found_in": "Character > Gear > Enhance (cost)"
+    },
+    {
+     "file": "raw_ore_7.png",
+     "screen": "items/fantasia_ascent_moonveil.png",
+     "box": [
+      20,
+      144,
+      64,
+      64
+     ],
+     "found_in": "Journal > Fantasia Ascent > Moonveil Woods (floor rewards)"
     }
    ]
   },
@@ -473,6 +495,17 @@
       95
      ],
      "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "gold_pickaxe_7.png",
+     "screen": "items/fantasia_ascent_moonveil.png",
+     "box": [
+      94,
+      144,
+      64,
+      64
+     ],
+     "found_in": "Journal > Fantasia Ascent > Moonveil Woods (floor rewards)"
     }
    ]
   },
@@ -527,6 +560,17 @@
       66
      ],
      "found_in": "Menu > Quest > Daily (rewards)"
+    },
+    {
+     "file": "worn_knuckles_5.png",
+     "screen": "items/fantasia_ascent_moonveil.png",
+     "box": [
+      94,
+      880,
+      64,
+      64
+     ],
+     "found_in": "Journal > Fantasia Ascent > Moonveil Woods (floor rewards)"
     }
    ]
   },
@@ -570,6 +614,17 @@
       80
      ],
      "found_in": "Character > Gear > Enhance (cost)"
+    },
+    {
+     "file": "refined_ore_4.png",
+     "screen": "items/fantasia_ascent_moonveil.png",
+     "box": [
+      166,
+      144,
+      64,
+      64
+     ],
+     "found_in": "Journal > Fantasia Ascent > Moonveil Woods (floor rewards)"
     }
    ]
   },
@@ -1400,6 +1455,17 @@
       97
      ],
      "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "destiny_fruit_2.png",
+     "screen": "items/fantasia_ascent_goals.png",
+     "box": [
+      168,
+      184,
+      72,
+      72
+     ],
+     "found_in": "Journal > Fantasia Ascent > Goals"
     }
    ]
   },
