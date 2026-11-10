@@ -22,11 +22,16 @@ What the cards look like and where to be careful:
   outside closes only the top card (used for Random Epic Gift, T3 Livestock Selection Chest).
 - Guild AFK materials add "Requires ... Implement Level / Space Required / ... EXP" rows and a Reward Preview.
 - Visage cosmetics show Style Scores and Compatible Body Types instead of Owned.
-- No card: Cart row icons (a yield tooltip instead), the Growth Trial points coin (catalogued as `unknown_1`),
-  the Resource Hunt choice icons in Map Exploration (tapping them changes the gather choice; not tapped).
+- No card: Cart row icons (a yield tooltip instead),
+  the Resource Hunt choice icons in Map Exploration (tapping them changes the gather choice; not tapped),
+  the Growth Trial points coin.
 - Never tapped: price buttons, Free claims, Refresh, `+` next to a counter (purchase), the big Material Realm use
   button (catalogued from the screen as kind `usage`), Carnival Sign-In days (their "Catch Up" tags may cost).
 - The Cart's coin bubble collects AFK income when tapped; open the Cart by tapping the cart body.
-- Skill shards (Skill page > Shard) open "Charm Shard"-style cards; not catalogued yet.
+- Skill page: shards, techniques and charms open cards (shard: "Charm/Technique Shard", rarity, Skill Effect;
+  technique/charm: rarity, tags, Level, stats, prose, with Replace/Enhance buttons: close with a tap above the
+  card at (360, 160)). The "All" box adds class-mismatch skills; switch it back off afterwards.
+- Every item has a `group` (material type, e.g. ore, realm_key, companion_gift, skill_shard, technique, charm).
+- The Growth Trial points coin is an event completion tracker, not a resource (mae): `growth_trial_points`.
 - OCR mistakes fixed by hand against the popup: joined words ("RawOre", "Flavorsof"), a full stop added at line
   ends, missing spaces after full stops. Check new reads against the `_popup.png`.
