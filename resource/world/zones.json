@@ -157,7 +157,7 @@
     702
    ],
    "notes": "Entered from Verdantglade VII at (88-91,106-107). 2026-11-10: walk found no objects, only the puzzle.",
-   "blocked": "Box puzzle (Fonik, God of Puzzles, at about (88,104)): the zone stays 0% until it's solved; a Golden Beetle makes Fonik solve it (mae's call)"
+   "blocked": "Box puzzle (Fonik, God of Puzzles, at about (88,104)); mae 2026-11-10: never spend Golden Beetles, skip puzzle areas until puzzles are solved in code"
   },
   "Moonveil Woods": {
    "kingdom": "Verdantglade",
