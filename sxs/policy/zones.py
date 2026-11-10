@@ -218,7 +218,10 @@ class Tree:
         if h and self.zones[h].get("kind", "zone") == "zone" and not self.explored(h) and ok(h):
             return h
         todo = [k for k, z in self.zones.items() if z.get("kind", "zone") == "zone" and not self.done(k) and ok(k)]
-        todo.sort(key=lambda k: (self.zones[k].get("cp") is None, self.zones[k].get("cp") or 0,
+        # A zone never read on the big map (no % line, e.g. Sunrise Isle) goes after every zone that was read
+        # (live 2026-11-10: roam picked it with nothing known and wandered toward it).
+        todo.sort(key=lambda k: (self.zones[k].get("pct") is None, self.zones[k].get("cp") is None,
+                                 self.zones[k].get("cp") or 0,
                                  -(self.zones[k].get("pct") or 0)))
         return todo[0] if todo else None
 
