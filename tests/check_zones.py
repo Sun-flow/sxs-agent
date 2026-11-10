@@ -92,5 +92,11 @@ check("a label never seen with room is unsure",
 lines = [("Unlock", [520, 893, 140, 40]), ("Unlocks at Lv. 45", [450, 970, 200, 36]), ("+60/h", [190, 520, 90, 30])]
 check("cart unlock button", CartUpgrader.unlock_buttons(lines), [(590, 913)])
 
+# Blue "!" interactables on the area map (mae, 2026-11-10): found, and nothing else is.
+from sxs.vision.area_map import blue_badges  # noqa: E402
+check("blue ! on Jungle Camp", len(blue_badges(cv2.imread(str(SCREENS / "world/area_map_blue_bang.png"))) or []), 1)
+for name in ("area_map_lv22", "area_map_survey_zoom", "area_map_v3", "world_area_map"):
+    check(f"no blue ! on {name}", blue_badges(cv2.imread(str(SCREENS / f"world/{name}.png"))), [])
+
 print("all good" if not fails else f"{fails} failed")
 sys.exit(1 if fails else 0)

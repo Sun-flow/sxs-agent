@@ -119,6 +119,13 @@
             "why": "Live 2026-11-10 (Jungle Camp's Lucky Wheel): 'Tap to spin' uses Lucky Wheel tickets (we have 0); never spin unasked. A tap outside doesn't close this full screen: use the back arrow."
         },
         {
+            "kind": "rankings",
+            "match": "^Rankings$",
+            "choose": "dismiss",
+            "dismiss_by": "back",
+            "why": "Live 2026-11-10 (Damp Woods): a structure opens a Rankings board. Nothing to do there while exploring; back out, press nothing."
+        },
+        {
             "kind": "obelisk",
             "match": "^Voyage Obelisk$",
             "choose": "^Activate$",

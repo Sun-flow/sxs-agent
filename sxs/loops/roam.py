@@ -65,6 +65,7 @@ SURVEY_ZOOM_OUT = 4  # "-" taps: enough to reach full zoom-out from any opening
 # jumps to the closest zoom (labels clipped to "/erdanto", % lines lost), so drag the slider knob up a little instead.
 NAME_RE = re.compile(r"^[A-Z][a-z]+(?: [A-Z][a-z]+)*(?: [IVX]+)?$")  # a zone name as printed ("Monolith Ruins I")
 MISREAD_RATIO = 0.7  # a new name this similar to a known zone's is a misread of it
+ENCLOSURE = "Auroradrasil"  # enclosed: walks from inside to far labels don't move the character (2026-11-10)
 FINISHED_READS = 3  # surveys in a row with no % line before a zone the tree has under 100% counts as finished (2 let Troll Lair, whose label sits on Verdantglade IV's, flip to 100%)
 PAN_FROM = (300, 620)  # drag start for survey pans: on the map, clear of the legend and the zoom slider
 PAN_PX, PAN_MS = 250, 1500  # a slow drag so the map doesn't fling on
@@ -324,7 +325,15 @@ class Roamer:
         readings = [(read_areas(self.det, frame), (0, 0))]
         badges = [(p, (0, 0)) for p in statue_badges(frame)]
         shift, pending = (0, 0), (0, 0)
-        for rx, ry in PANS:
+        # mae, 2026-11-10: the 3x3 pan grid (40-50 s per survey) wasted time; the survey zoom shows nearly the whole
+        # kingdom. Pan only when a zone the location tree still has work in wasn't read in this view.
+        first = [a.name for a in readings[0][0]]
+        missing = [k for k, z in self.tree.zones.items() if z.get("kind", "zone") == "zone"
+                   and not self.tree.done(k) and not any(same(n, k) for n in first)]
+        pans = PANS if missing else []
+        if missing:
+            log.info("survey: %s not in view; panning", ", ".join(missing[:4]))
+        for rx, ry in pans:
             fx, fy = PAN_FROM
             self.dev.swipe(fx, fy, fx - rx * PAN_PX, fy - ry * PAN_PX, PAN_MS)
             time.sleep(1.2)
@@ -439,7 +448,12 @@ class Roamer:
         name = self.tree.next_zone(power, here, skip=skip)
         target = None
         if name:
-            target = next((a for a in areas if same(a.name, name)), None)
+            target = next((a for a in areas if goto.squeeze(a.name) == goto.squeeze(name)), None) or                 next((a for a in areas if same(a.name, name)), None)
+            if target is not None and target.name != name:
+                # The tree's name, not the label read (live 2026-11-10: "Wildbloom CoastHidden Camp", two labels OCR
+                # joined, became the zone to explore and no walk or zone check could ever match it).
+                target = Area(name, target.box, target.pct if goto.squeeze(target.name) == goto.squeeze(name) else
+                              (self.tree.get(name) or {}).get("pct"), target.gate, target.unsure)
             if target is None:
                 z = self.tree.zones[name]
                 target = Area(name, [0, 0, 0, 0], z.get("pct"), z.get("cp"))
@@ -467,7 +481,13 @@ class Roamer:
         # Try the plain big-map walk to the zone's label first: most zones can be walked into from where we are
         # (live 2026-11-09: from Verdantglade VI the walk "via Verdantglade IV" landed in Auroradrasil instead).
         progress(("walk_to", target.name))
-        if goto.go_to(self.dev, self.det, target.name) == "arrived":
+        first = goto.go_to(self.dev, self.det, target.name)
+        if first == "no_move" or (here and same(here, ENCLOSURE)):
+            # Live 2026-11-10: from inside Auroradrasil (an enclosed clearing inside Verdantglade V) big-map walks to
+            # far labels don't move the character. Step out first: the tracked quest's pointer led out before.
+            if self.escape():
+                first = goto.go_to(self.dev, self.det, target.name)
+        if first == "arrived":
             now = goto.area_name_here(self.det)
             if now and same(now, target.name):
                 log.info("walked into %s from %s directly", target.name, here or "?")
@@ -476,7 +496,10 @@ class Roamer:
                     self.tree.save()
                 return None
             log.info("the walk to %s's label ended in %s; trying a connected area", target.name, now or "?")
-        done = [a for a in areas if a.pct is None and not a.unsure and not same(a.name, target.name)]
+        # Only zones the location tree knows, explored (live 2026-11-10: the kingdom's title "Verdantglade" and a
+        # clipped "Verdant" were picked as the neighbour to walk in from).
+        done = [a for a in areas if a.pct is None and not a.unsure and not same(a.name, target.name)
+                and self.tree.key(a.name) and self.tree.explored(a.name)]
         if not done:
             goto.go_to(self.dev, self.det, target.name)
             return None
@@ -498,6 +521,20 @@ class Roamer:
                 and not goto.same_area(here, via.name)):
             goto.go_to(self.dev, self.det, via.name)
         return via
+
+    def escape(self) -> bool:
+        """Leave an enclosed area the big-map walks can't route out of, by following the tracked quest's pointer (one
+        or two steps). True if the zone under the minimap changed."""
+        before = goto.area_name_here(self.det)
+        for _ in range(2):
+            if not fogwalk.quest_step(self.dev, self.det, fight=True):
+                break
+            now = goto.area_name_here(self.det)
+            if now and not same(now, before):
+                log.info("left %s by the quest pointer (now in %s)", before, now)
+                return True
+        log.info("could not leave %s by the quest pointer", before)
+        return False
 
     def bless_near(self, area_name: str) -> int:
         """Walk to each statue icon near the area's label that this bot hasn't opened yet and open its card."""

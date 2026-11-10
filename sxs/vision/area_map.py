@@ -47,6 +47,42 @@ def _text_rows(blobs: list[tuple[int, int, int, int]]) -> set[int]:
     return out
 
 
+BLUE_BANG_PX = (60, 400)  # pixel count of the blue disc of a blue "!" badge on the area map
+STATUE_BELOW = 14
+SAFE_TAP_MAX_Y = 1080  # area-map taps below this can land on the back arrow or kingdom buttons  # the statue icon sits under its blue "!" badge
+
+
+def blue_badges(frame: np.ndarray) -> list[tuple[int, int]]:
+    """mae, 2026-11-10: a new interactable, statues, shows on the area map as a blue disc with a white "!" (Jungle
+    Camp's last 7%). Returns tap points (just under each badge, on the statue icon). Portals are blue too but have no
+    white mark inside and are teal swirls, not discs."""
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    h, s, v = hsv[..., 0].astype(int), hsv[..., 1].astype(int), hsv[..., 2].astype(int)
+    blue = ((h >= 96) & (h <= 112) & (s > 110) & (v > 120)).astype(np.uint8)  # disc: H 99-102, S 130-177, V 129-226
+    white = (s < 30) & (v > 175)  # the "!": S 1-27, V 180-233
+    x0, y0, w, hh = MAP_AREA
+    lx, ly, lw, lh = LEGEND
+    m = np.zeros(blue.shape, np.uint8)
+    m[y0:y0 + hh, x0:x0 + w] = blue[y0:y0 + hh, x0:x0 + w]
+    m[ly:ly + lh, lx:lx + lw] = 0
+    m = cv2.morphologyEx(m, cv2.MORPH_CLOSE, np.ones((3, 3), np.uint8))
+    n, _, stats, cents = cv2.connectedComponentsWithStats(m)
+    out = []
+    for i in range(1, n):
+        bx, by, bw, bh, area = stats[i]
+        if not (BLUE_BANG_PX[0] <= area <= BLUE_BANG_PX[1]) or max(bw, bh) > 1.5 * max(1, min(bw, bh)):
+            continue
+        if area < 0.3 * bw * bh:  # 0.35 for a small badge at the survey zoom (white "!" fills the rest)
+            continue  # not a filled disc (a portal swirl)
+        if white[by:by + bh, bx:bx + bw].sum() < 6:
+            continue  # no white "!" inside
+        x, y = int(cents[i][0]), int(cents[i][1]) + STATUE_BELOW
+        if y > SAFE_TAP_MAX_Y:
+            continue  # too close to the back arrow and kingdom buttons to tap (live 2026-11-10): pan first
+        out.append((x, y))
+    return out
+
+
 def objects(frame: np.ndarray) -> list[tuple[str, tuple[int, int]]]:
     """(kind, centre) for each object blob on the area map. Live 2026-11-09: green and orange text, the red "!" on
     structure icons and the zoom slider read as dots, so blobs must be round, not in a text row, not on a badge."""
@@ -88,6 +124,7 @@ def objects(frame: np.ndarray) -> list[tuple[str, tuple[int, int]]]:
             out += [(kind, p) for p in pts]
             continue
         out += [(kind, (int(cents[i][0]), int(cents[i][1]))) for i in keep]
+    out += [("statue", p) for p in blue_badges(frame)]
     # Orange bits of a yellow structure icon aren't monsters.
     blds = [p for k, p in out if k == "building"]
     return [(k, p) for k, p in out
@@ -127,6 +164,8 @@ def nearest(frame: np.ndarray, kinds=("item", "monster", "building"), max_px: in
         lx, ly, lw, lh = LEGEND
         lines[ly:ly + lh, lx:lx + lw] = 0
         cands = [(k, p) for k, p in cands if not crosses_border(lines, (px, py), p)]
+        if callable(labels) and home and cands:
+            labels = labels()  # read the labels (OCR, ~3 s) only when there is a candidate to check
         if labels and home:
             from ..actions.goto import close_name, same_area as _same
 
@@ -147,4 +186,5 @@ def nearest(frame: np.ndarray, kinds=("item", "monster", "building"), max_px: in
                     other = min((d(t, p) for t in labels if not same_area(t, home)), default=1e9)
                     return other >= LABEL_MARGIN * mine
                 cands = [(k, p) for k, p in cands if ours(p)]
-    return min(cands, key=lambda kp: (kp[1][0] - px) ** 2 + (kp[1][1] - py) ** 2) if cands else None
+    # A blue-"!" statue first (mae, 2026-11-10: the interactable that finishes a zone), then the nearest object.
+    return min(cands, key=lambda kp: (kp[0] != "statue", (kp[1][0] - px) ** 2 + (kp[1][1] - py) ** 2)) if cands else None
