@@ -170,14 +170,14 @@ Tapping a map object (e.g. a Portal) opens a card with one button at (0.5, 0.70)
 *observed, reported* · `world/interact_goddess_statue.png`, `world/interact_goddess_statue_blessed.png`, `world/blessing_level.png`, `world/lost_goddess_statue.png`, `world/lost_goddess_statue_auroradrasil_mae.png`, `unlabeled/lost_goddess_statue_auroradrasil.png`, `unlabeled/lost_goddess_statue_blessed.png`, `unlabeled/area_map_statue_badge_auroradrasil.png` · R-002, R-065, R-074
 
 ### R-148 · A blue "!" on the area map marks interactable statues: tap them to finish the zone
-- Some zones hold interactable statues, marked on the area map with a blue "!" icon (mae, 2026-11-10). They count toward the zone's exploration %: tap each one (reach it through the area map, R-068).
+- Some zones hold interactable statues, marked on the area map with a blue "!" icon (mae, 2026-11-10). They are the "Statue of <name>" statues of R-144 (mae, 2026-11-10 02:18): tap each one and press Visit on its card. They count toward the zone's exploration % (reach them through the area map, R-068).
 - Jungle Camp's missing 7% (stuck at 93%, R-135) is these statues. Reference crop to come from the builder ❓.
 - A blue "!" is not the red "!" of a blessable Goddess Statue (R-070) or the gold "!" of a structure (R-145).
-*told* · node `area_map` · R-002, R-065, R-068, R-070, R-135
+*told* · node `area_map` · R-002, R-065, R-068, R-070, R-135, R-144
 
 ### R-144 · "Statue of <name>": press Visit
-A "Statue of <name>" card (e.g. Statue of Lunar Sage in Verdantglade V) has a free Visit: it gives a permanent stat boost (Lunar Sage: HP +170), heals fully and counts toward exploration. Always press Visit. Policy: `resource/policy/cards.json` (match "Statue of ...").
-*observed* · R-030, R-042, R-070
+A "Statue of <name>" card (e.g. Statue of Lunar Sage in Verdantglade V) has a free Visit: it gives a permanent stat boost (Lunar Sage: HP +170), heals fully and counts toward exploration. Always press Visit. The card shows "daily visit attempts". On the area map these statues carry a blue "!" and count toward exploration % (R-148). Policy: `resource/policy/cards.json` (match "Statue of ...").
+*observed* · R-030, R-042, R-070, R-148
 
 ### R-147 · Lucky Wheel ("Wheel of Destiny"): back out, never spin
 The Lucky Wheel structure in Jungle Camp opens "Wheel of Destiny". "Tap to spin" spends Lucky Wheel tickets (0 on 2026-11-10): never press it. Close with the back arrow (card rule `lucky_wheel`). Spinning would need a free ticket and mae's say-so ❓ (ask mae).
