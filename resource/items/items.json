@@ -25,9 +25,9 @@
    "id": "stellatie",
    "name": "Stellatie",
    "kind": "ticket",
-   "description": "",
-   "uses": "Prayer ticket (skill pulls); pulls only with --handler-approved",
-   "named_by": "screen",
+   "description": "Use it for Goddess Prayer to gain skills. Legends say the Goddess scattered stars across the universe at creation, each one full of endless possibilities. Find these shooting stars to gain the power to protect our world.",
+   "uses": "Prayer ticket (skill pulls); pulls only with --handler-approved Sources: Shop Purchase, Commission",
+   "named_by": "popup",
    "icons": [
     {
      "file": "stellatie.png",
@@ -39,6 +39,28 @@
       106
      ],
      "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "stellatie_2.png",
+     "screen": "items/quests_daily.png",
+     "box": [
+      233,
+      183,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Daily (rewards)"
+    },
+    {
+     "file": "stellatie_3.png",
+     "screen": "items/quests_daily.png",
+     "box": [
+      145,
+      711,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Daily (rewards)"
     }
    ]
   },
@@ -92,6 +114,17 @@
       33
      ],
      "found_in": "Journal > Material Realms > Ironvein Pit > Top bar"
+    },
+    {
+     "file": "raw_ore_3.png",
+     "screen": "items/map_exploration.png",
+     "box": [
+      111,
+      280,
+      47,
+      62
+     ],
+     "found_in": "Journal > Map Exploration > Resource Hunt (gather priority choice; not tapped)"
     }
    ]
   },
@@ -188,6 +221,17 @@
       32
      ],
      "found_in": "Home > Top bar"
+    },
+    {
+     "file": "stamina_4.png",
+     "screen": "items/quests_daily.png",
+     "box": [
+      145,
+      887,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Daily (rewards)"
     }
    ]
   },
@@ -231,6 +275,17 @@
       74
      ],
      "found_in": "Journal > Daily Dungeon > Goals"
+    },
+    {
+     "file": "gold_pickaxe_4.png",
+     "screen": "items/quests_daily.png",
+     "box": [
+      233,
+      535,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Daily (rewards)"
     }
    ]
   },
@@ -274,6 +329,17 @@
       74
      ],
      "found_in": "Journal > Daily Dungeon > Goals"
+    },
+    {
+     "file": "worn_knuckles_4.png",
+     "screen": "items/quests_daily.png",
+     "box": [
+      145,
+      359,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Daily (rewards)"
     }
    ]
   },
@@ -390,6 +456,28 @@
       29
      ],
      "found_in": "Home > Top bar"
+    },
+    {
+     "file": "rolla_3.png",
+     "screen": "items/map_exploration.png",
+     "box": [
+      35,
+      283,
+      51,
+      59
+     ],
+     "found_in": "Journal > Map Exploration > Resource Hunt (gather priority choice; not tapped)"
+    },
+    {
+     "file": "rolla_4.png",
+     "screen": "items/quests_daily.png",
+     "box": [
+      145,
+      183,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Daily (rewards)"
     }
    ]
   },
@@ -422,6 +510,17 @@
       31
      ],
      "found_in": "Home > Top bar"
+    },
+    {
+     "file": "dawnium_3.png",
+     "screen": "items/quests_daily.png",
+     "box": [
+      57,
+      183,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Daily (rewards)"
     }
    ]
   },
@@ -475,6 +574,17 @@
       74
      ],
      "found_in": "Journal > Daily Dungeon > Goals"
+    },
+    {
+     "file": "iron_hammer_3.png",
+     "screen": "items/quests_daily.png",
+     "box": [
+      145,
+      535,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Daily (rewards)"
     }
    ]
   },
@@ -643,6 +753,80 @@
       74
      ],
      "found_in": "Journal > Daily Dungeon > Goals"
+    },
+    {
+     "file": "sand_shovel_2.png",
+     "screen": "items/quests_daily.png",
+     "box": [
+      233,
+      887,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Daily (rewards)"
+    }
+   ]
+  },
+  {
+   "id": "unknown_1",
+   "name": "",
+   "kind": "other",
+   "description": "",
+   "uses": "",
+   "named_by": "",
+   "icons": [
+    {
+     "file": "unknown_1.png",
+     "screen": "items/map_exploration.png",
+     "box": [
+      180,
+      290,
+      58,
+      52
+     ],
+     "found_in": "Journal > Map Exploration > Resource Hunt (gather priority choice; not tapped)"
+    }
+   ]
+  },
+  {
+   "id": "unknown_2",
+   "name": "",
+   "kind": "other",
+   "description": "",
+   "uses": "",
+   "named_by": "",
+   "icons": [
+    {
+     "file": "unknown_2.png",
+     "screen": "items/map_exploration.png",
+     "box": [
+      253,
+      274,
+      57,
+      70
+     ],
+     "found_in": "Journal > Map Exploration > Resource Hunt (gather priority choice; not tapped)"
+    }
+   ]
+  },
+  {
+   "id": "rare_auroral_badge",
+   "name": "Rare Auroral Badge",
+   "kind": "ticket",
+   "description": "Use 10 to get a capsule from the Rare Aeonic Gacha.",
+   "uses": "Gacha ticket (Rare Aeonic Gacha, 10 per capsule): a pull, never used by the bot. Sources: Shop Purchase (locked), Commission (locked)",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "rare_auroral_badge.png",
+     "screen": "items/quests_daily.png",
+     "box": [
+      145,
+      1063,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Daily (rewards)"
     }
    ]
   }

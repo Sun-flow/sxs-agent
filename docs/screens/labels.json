@@ -2248,6 +2248,99 @@
     }
    ]
   },
+  "items/realm_dread_hollow.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "realm_use_worn_knuckles_1",
+     "kind": "icon",
+     "x": 272,
+     "y": 828,
+     "w": 178,
+     "h": 184,
+     "note": "realm use button: consumes one worn_knuckles",
+     "template": false,
+     "cls": "item_icon",
+     "item": "realm_use_worn_knuckles"
+    },
+    {
+     "name": "btn_back_arrow_1",
+     "kind": "button",
+     "x": 16,
+     "y": 1180,
+     "w": 116,
+     "h": 76,
+     "note": "",
+     "template": false,
+     "cls": "btn_back_arrow"
+    }
+   ]
+  },
+  "items/realm_gilded_depths.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "realm_use_gold_pickaxe_1",
+     "kind": "icon",
+     "x": 272,
+     "y": 828,
+     "w": 178,
+     "h": 184,
+     "note": "realm use button: consumes one gold_pickaxe",
+     "template": false,
+     "cls": "item_icon",
+     "item": "realm_use_gold_pickaxe"
+    },
+    {
+     "name": "btn_back_arrow_1",
+     "kind": "button",
+     "x": 16,
+     "y": 1180,
+     "w": 116,
+     "h": 76,
+     "note": "",
+     "template": false,
+     "cls": "btn_back_arrow"
+    }
+   ]
+  },
+  "items/realm_ironvein_pit.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "realm_use_iron_hammer_1",
+     "kind": "icon",
+     "x": 272,
+     "y": 828,
+     "w": 178,
+     "h": 184,
+     "note": "realm use button: consumes one iron_hammer",
+     "template": false,
+     "cls": "item_icon",
+     "item": "realm_use_iron_hammer"
+    },
+    {
+     "name": "btn_back_arrow_1",
+     "kind": "button",
+     "x": 16,
+     "y": 1180,
+     "w": 116,
+     "h": 76,
+     "note": "",
+     "template": false,
+     "cls": "btn_back_arrow"
+    }
+   ]
+  },
   "world/area_map_blue_bang.png": {
    "size": [
     720,
