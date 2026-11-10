@@ -22,7 +22,7 @@ into a folder by situation. The name's prefix picks the folder (`sxs/core/screen
 `labels.json` holds the boxes mae drew on screens in the labeler (see below).
 
 `expected.json` holds what the state detector must report on each screen (`states`) and mae's notes on labelled
-screens (`notes`). `tests/check_states_offline.py` runs the detector over every folder except `icons/`, `minimap/`
+screens (`notes`). `tests/check_states_offline.py` runs the detector over every folder except `icons/`, `items/` (item popup captures), `minimap/`
 and `unlabeled/`.
 
 ## Labelling unfamiliar screens
