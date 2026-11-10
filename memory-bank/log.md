@@ -1,6 +1,6 @@
 # Session Log
 
-> **Last updated**: 2026-11-09
+> **Last updated**: 2026-11-10
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
 
 ### 2026-11-10 · Faster screen checks + detector design (Claude Code, cloud)
@@ -12,6 +12,13 @@
 - mae asked how screen checks work and whether a Roboflow/YOLO UI detector would help. New `docs/vision-upgrade.md`. Measured offline (cloud CPU, reference screens): a check is up to 52 OCR nodes in sequence, ~60-110 ms each and 330-560 ms for the big ROIs (MainMenu, TapToContinue, ClassPage); world map ~2.8 s, unknown ~5.5 s, late pages ~7 s; template nodes 3-11 ms; all 53 sampled screens correct. 14 nodes OCR the same title strip.
 - Proposal for mae to approve: a bench command on her PC, shared title/tab strip reads, last-state-first with an overlay guard, unchanged-frame skip, foreground check only on unknown, tighter big ROIs, try DirectML. Detector (YOLO26n or Apache RF-DETR Nano via MaaFramework `NeuralNetworkDetect`) is stage 3-5: for finding cards, buttons, map icons, our marker, label boxes; not for %/CP text or minimap dots.
 - Open: mae's approval of Part 1; numbers on her PC.
+
+### 2026-11-10 · Explore diagram review (Claude Code, cloud)
+- mae regrouped the explore loop's per-screen diagram into handler groups (world map, tower and battle prep, pass-through and dialogue, cards and unknown screens, profile, home) with one shared return and grouped exits. Adopted in `docs/loops/explore.md` with fixes: exit groups declared first (otherwise Mermaid leaves them empty), "Step 1 ·" labels (Mermaid 11 draws "1. " as "Unsupported markdown: list"), groups named as handlers, not loops, the PR #46 guard step, and the missing battle-prep edge.
+- Code gaps listed under the diagram and as open-questions Q16-Q19: explore fights under 70% after two heal tries (use `start_fight`), two quest-ring followers (R-142, share one), "1. " labels on other pages. Code structure already mirrors the groups (one `_on_<screen>` per group); no reorganisation needed. Docs only, no code changed.
+- mae (00:55): remove R-141; overarching routines may switch loops (she only meant: don't change task focus without asking). Sent to the docs thread, which owns #46.
+- mae (00:56): the name under the minimap is the most accurate zone source; R-140 must not forbid it (sent to the docs thread; Q17 settled, no change).
+- R-150 (mae 02:35, rule on #46): new-zone entry step added to `docs/loops/fogwalk.md` and `explore.md` (find the entrance on the big map, centre the camera, walk to ground beside fog outward from it); marked as being built.
 
 ### 2026-11-10 (night) · More zones: V blessed, Jungle Camp 0 → 93% (Claude Code, mae's PC via Remote Control)
 - mae (00:46): explore more areas. Verdantglade V's Goddess Statue (gold, "!" by V's north-east edge near (154,135); not the Sealed Stone Gate at (135,126)) unlocked by hand: Blessing Lv 6, Cart max Lv 6, AFK EXP 592 → 608. Helmet and Armor Enhancement quest gifts claimed (red ore x50 each).
@@ -86,8 +93,3 @@
 - PRs #35, #37, #39 merged from `claude/project-thread-ieaqnz`: budget is a stuck check (extends while progressing), Choose Your Reward (R-129), fog walk per mae's minimap notes (objects first, fog leads, big-map walk to dots, zone edges R-132, free pickups and fights only in unexplored areas R-065, collectibles store R-131, player found by its head), area map state.
 - Live: Verdantglade III explored and its quests claimed; Temple Ruins cleared (Iron Thorn); Verdantglade V 42 to 71%; Drasilgard Chief and Hermes (Kingdom Shop, Abundance Leaves) mapped; Auroradrasil cleared with the NPC companions (B rank); gearswap swapped head, chest and boots (boots 143 to 1860 power).
 - Open: OCR noise in coordinates counts as progress (budget extends while stuck); tutorial glow on the Companions Invite isn't found by the highlight finder; more Drasilgard NPCs unmapped; social cards now accept team-up requests (needs a live check).
-
-### 2026-11-05 (night) · Interrupts: task switching on state change (Claude Code, cloud)
-- mae (01:56) asked for a detector that moves between tasks (explore and tutorial) when the screen changes. New `sxs/core/interrupts.py` (InterruptingDetector, Interrupt, LoopStop, resume_with) and `sxs/actions/interrupts.py` (table: choose_reward, rating_popup, chat, tutorial on world_map/home). The runner wraps every loop's detector; readouts gain `[Interrupt]` / `[Resume X]` lines and an `interrupts` list. Explore's own reward-choice branch removed; the tutorial loop owns its row; Fog Walk walks back to its area after a handler. `StateDetector.last_frame` added. `tests/check_interrupts.py`; design `docs/interrupts.md`.
-- Builder captures (cherry-picked): the Auroradrasil outline (caught) and the Companions "Invite" filled glow. New `companions` state; `find_highlight(glow=True)` for the filled style on that screen only (furniture popups and the main menu look the same); inviting followed (mae 02:23: social features and invites are fine; `INVITE_COMPANIONS = True`).
-- Open: live check; the finder matches 18 ordinary reference screens, so tutorials on unknown overlays still need `python -m sxs tutorial`.
