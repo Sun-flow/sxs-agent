@@ -75,7 +75,7 @@ Templates in `resource/image/explore/`:
 - Never judge the zone from assumptions about the surroundings.
 - Check before and after any zone-level decision (finishing, crossing, choosing the next zone).
 - Known misread to watch for: at Verdantglade VI's gate the minimap read "Verdantglade VI" and the bot walked into Auroradrasil; cross-check with the big map when a zone-level decision depends on it.
-- Code: `fogwalk.zone_by_map` keeps the minimap name unless the big-map dot is clearly elsewhere (the dot's nearest label wins only with a 0.75 margin over the next).
+- Code: `fogwalk.zone_by_map` keeps the minimap name unless the big-map dot is clearly elsewhere (the dot's nearest label wins only with a 0.75 margin over the next). A joined big-map label ("…CoastHidden Camp") still counts for reading the current zone (never as a walk target, R-068); a clipped minimap read ("erdantglade") is matched to its zone.
 *told, observed* · node `area_map` · R-004, R-068, R-132, R-135
 
 ### R-004 · Minimap and coordinates give relative positions
@@ -151,8 +151,8 @@ Where recommended power is well above yours and fights end in losses (R-031), st
 *observed* · R-031, R-061, R-076, R-086
 
 ### R-151 · Boulder Blockade: a barrier that needs a drill bit; Hidden Camp is inaccessible for now
-- A "Boulder Blockade" card at Hidden Camp's edge is a barrier that opens only with a drill bit item, which we get later (mae, 2026-11-10 02:51). Dismiss it.
-- Mark Hidden Camp inaccessible in the location tree and leave it out of roam's zone choice until a drill bit is in the bag; then come back.
+- A "Boulder Blockade" card at Hidden Camp's edge is a barrier that opens only with a drill bit, the "Magic Drill" item (0/1 on 2026-11-10), which we get later (mae, 02:51). The card shows "Required Item" and "Insufficient items". Dismiss it.
+- Stop exploring Hidden Camp for now (mae, 02:52). The bot records such a block in the location tree and moves on instead of circling; roam skips Hidden Camp until a Magic Drill is in the bag, then comes back.
 *told, observed* · R-030, R-086, R-135
 
 ### R-086 · Gate of Power: a wall until power meets it, then press Open
