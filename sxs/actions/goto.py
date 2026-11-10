@@ -256,6 +256,13 @@ def go_to(dev, det, target, pan_for_target: bool = False) -> str:
     time.sleep(1.5)
     dev.tap(*ui.BACK_ARROW)
     time.sleep(2)
+    for _ in range(2):
+        # Live 2026-11-10 (VII, 4 times): the back arrow didn't close the map (the tap on the target had selected
+        # it, and the first back only cleared that), so the centre tap landed on the map. Close it for sure.
+        if det.detect().state != "area_map":
+            break
+        dev.tap(*ui.BACK_ARROW)
+        time.sleep(1.5)
     if _me_at_centre(dev, det):
         # Live 2026-11-10 (Verdantglade VII, twice in a row): the camera came back to our character instead of
         # staying on the picked object, so the centre tap hit us and opened the profile. Tap nothing: the caller
