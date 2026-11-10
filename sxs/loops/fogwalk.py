@@ -1030,7 +1030,11 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 last_card = card.title
                 if choice.action == "dismiss" and last_tap and last_tap not in bumped:
                     bumped.append(last_tap)
-                    outside.add(tuple(last_tap))  # no more goals around it this walk
+                    if not re.search(r"Goddess Statue", card.title or ""):
+                        # No more goals around it this walk. Not for a statue that isn't ready yet: the pickups
+                        # round it are what it waits for (live 2026-11-10, Zephyr Vale at 66%: a chest, a Destiny
+                        # Fruit and an ore pile beside its Lost Goddess Statue were left; by hand they made 100%).
+                        outside.add(tuple(last_tap))
                     k = tree.key(home_area or "")
                     if k and card.title and re.search(r"Statue|Gate|Wheel|Rankings", card.title):
                         spots = tree.zones[k].setdefault("dismissed_spots", [])

@@ -454,8 +454,8 @@
   "Zephyr Vale": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
-   "pct": 0,
-   "notes": "Its border label runs sideways along a vertical dotted line, no power shown (R-132).",
+   "pct": 100,
+   "notes": "Its border label runs sideways along a vertical dotted line, no power shown (R-132). Way in from Troll Lair/Verdantglade V side at (153,109) through a Gate of Wind (opened with companion Akane, 2026-11-10). 100% and Lost Goddess Statue (Home EXP +1%, Chrono Sand +1%) unlocked 2026-11-10; the last pickups sit beside the statue at about (157,109). Monolith Ruins I lies directly north.",
    "map_point": [
     748,
     442
@@ -464,7 +464,14 @@
    "entries": [],
    "failed_via": {
     "Verdantglade V": "2026-11-10 (fog walk stuck)"
-   }
+   },
+   "dismissed_spots": [
+    [
+     156,
+     113
+    ]
+   ],
+   "blessed": true
   }
  },
  "links": [
