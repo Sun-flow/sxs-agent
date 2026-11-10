@@ -313,8 +313,13 @@ class Roamer:
                 break
         if d.state == "world_overview":  # the kingdom picker: tap Verdantglade's island
             self.dev.tap(*VERDANTGLADE_ISLAND)
-            time.sleep(8)
-            d = self.det.detect()
+            # The island can take over 8 s to load after the kingdom picker (live 2026-11-10 22:43: "not_on_map"
+            # with the island up a moment later): poll up to ~24 s.
+            for _ in range(8):
+                time.sleep(3)
+                d = self.det.detect()
+                if d.state == "world_map":
+                    break
         return d.state == "world_map"
 
     def survey(self) -> tuple[list[Area], list[str], Optional[float]]:

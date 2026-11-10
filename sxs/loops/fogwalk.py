@@ -40,6 +40,8 @@ from ..vision.hud import read_stamina
 from ..vision.player import player_on_screen
 from . import tower
 from .explore import REPEAT_LIMIT, hud_hp
+
+GATE_LIMIT = 3  # Gate of Power cards in one walk before the zone counts as walled off
 from .gather import COST
 
 log = logging.getLogger("sxs.loops.fogwalk")
@@ -478,6 +480,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
     home_area, strayed = area, False
     visited: set[str] = set()
     repeats, last_card = 0, None
+    gates = 0  # Gate of Power cards met this walk
     buildings_seen: set = set()
     heal_tries = 0
     last_tap = None  # map coordinates of the last walk tap (None when the player wasn't found on screen)
@@ -998,8 +1001,19 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                                 tree.save()
                 ui.tap(dev, choice.point, 3)
                 if choice.kind == "power_gate":
-                    log.info("blocked by %r (needs more power): this area's wall", card.title)
-                    return "power_gate"
+                    # A Gate of Power walls off one way, not the whole zone (live 2026-11-10: Verdantglade VIII at 50%
+                    # stopped at a 30.5K gate by Bubble Lake with half the zone left elsewhere). Walk around its spot
+                    # from now on; stop only when gates keep coming back.
+                    gates += 1
+                    here_xy = goto.coords(det)
+                    for spot in (here_xy, last_tap):
+                        if spot:
+                            outside.add(tuple(spot))
+                    if gates >= GATE_LIMIT:
+                        log.info("blocked by %r (needs more power) %d times: this area's wall", card.title, gates)
+                        return "power_gate"
+                    log.info("blocked by %r (needs more power) near %s: walking around it", card.title, here_xy)
+                    continue
                 if repeats >= REPEAT_LIMIT:
                     log.warning("card %r keeps coming back; stopping", card.title)
                     return "repeating_card"
