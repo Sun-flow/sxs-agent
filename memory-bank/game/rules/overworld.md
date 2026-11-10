@@ -46,6 +46,8 @@ Code: `python -m sxs roam` picks the zone with `Tree.next_zone` from the locatio
 - Tap the tracker's locate icon only when no gold ring is showing: the icon toggles Tracking on and off (R-022).
 - Follow an edge ring (R-074; at the top edge it sits at y≈50), then tap the target about 80 px below the ring.
 - Code: `fogwalk.quest_step` in `sxs/loops/fogwalk.py`.
+- A ring within 90 px of our own character is a near target, not an edge ring: with the character at the screen edge the ring floated over it, the tap hit the character and opened the profile popup (traced with `scripts/tap_trace.py`, 2026-11-10).
+- Never tap a ring over the HUD (that opened the Class page). Walk taps are pushed at least 70 px off our own character, and tiles touching our own minimap marker are never object goals (our ring read as a monster).
 *observed* · R-022, R-065, R-074, R-135
 
 ### R-143 · In an unblessed zone the whole minimap is shaded: the % comes from objects
@@ -76,6 +78,7 @@ Templates in `resource/image/explore/`:
 - Check before and after any zone-level decision (finishing, crossing, choosing the next zone).
 - Known misread to watch for: at Verdantglade VI's gate the minimap read "Verdantglade VI" and the bot walked into Auroradrasil; cross-check with the big map when a zone-level decision depends on it.
 - Code: `fogwalk.zone_by_map` keeps the minimap name unless the big-map dot is clearly elsewhere (the dot's nearest label wins only with a 0.75 margin over the next). Clipped minimap reads ("erdantglade") count as the home zone when they contain its name. A joined big-map label ("Wildbloom CoastHidden Camp") counts for the zone it starts with, and its % never lowers that zone's value; an unclean label never ends a run, the location tree decides (it ended runs 5–7 early). Joined labels are never walk targets (R-068).
+- The zone check runs on every step of a walk and course-corrects back toward the target zone (mae, 2026-11-10 04:18). Roam always names the target by the location tree's zone name; a clipped label ("erdantglade VI") once broke the per-step check.
 *told, observed* · node `area_map` · R-004, R-068, R-132, R-135
 
 ### R-004 · Minimap and coordinates give relative positions
@@ -123,6 +126,12 @@ Connections can be far off the straight line (Verdantglade II to Moonveil Woods 
 The same route reaches any target, not just areas (mae): find it on the area map (a dot, a structure), tap it there to centre the camera on it, close the map, then tap the now-visible element on screen to walk to it. No player-relative pathfinding is needed: the character auto-paths to any tapped spot even when it is off screen, so the bot finds endpoints and never manages the route (mae). The camera only has to see the thing to tap it. With several targets in view, tap each on screen in turn without reopening the map; reopen it only when nothing targetable is left in view (mae).
 Zoom differs each opening: pick places by OCR'd label (never a merged OCR label like "Wildbloom CoastHidden Camp": roam targets the location tree's zone name), never fixed positions. **No label-to-label shortcut walks between zones**: to leave a zone, walk back out the way you came in (builder, 2026-11-09; R-132). Match labels exactly, trailing numerals included ("Verdantglade III" is not "Verdantglade I"; a V/VI mix-up once landed the bot in Auroradrasil). At full zoom-out OCR merges neighbouring labels ("Wildbloom Coahlidden Camp", "14.8K Monolith Ruins") and drops percentages: zoom out one step at most when reading zones. A label in fog can't be reached this way (`no_move`): travel from home (R-089). Code: `python -m sxs goto "Area Name"` or `python -m sxs goto X Y`.
 *told, observed* · `world/world_area_map.png`, `world/world_map_moonveil_entry.png`, `world/world_area_map_stone_ruins.png` · node `area_map` · R-065, R-067, R-076, R-089, R-130, R-140
+
+### R-152 · A Portal sits under the Verdantglade VI label on the big map
+- On the area map a Portal sits directly under the "Verdantglade VI" label, so tapping the label can open the portal's card (builder, 2026-11-10).
+- Tapping the label is fine, and the portal card is an accepted outcome: back out or handle it (R-030), it is not an error (mae).
+- Code: area-map walks tap 26 px above a zone label (`goto.LABEL_DY`).
+*told, observed* · node `area_map` · R-030, R-068, R-076
 
 ### R-089 · Travel from home through the quest tracker
 At home, tapping the tracker for a quest elsewhere asks "Travel to <Area> now?"; OK is free. Use it for areas whose area-map label is in fog.
@@ -176,6 +185,8 @@ A stone pillar card "Gate of Power": "Requires: Power reaches 15.5K (Current: 8.
 Tapping a map object (e.g. a Portal) opens a card with one button at (0.5, 0.70), e.g. "Activate"; using it adds Explore progress. Press only safe verbs: Activate, Collect, Claim, Open, Interact, Bless, Pray, Gather, Harvest, Mine, Examine, Read. **This never covers the Prayer gacha's Pray (R-093) or any spend button (R-043).** Card choices: R-042.
 - Unknown cards seen, dismissed until understood ❓: "Limpid Legion" in Drasilgard (R-134). "Boulder Blockade" is a barrier (R-151).
 - Spots whose card could only be dismissed (a statue not yet blessable, a gate, the Lucky Wheel after its free spin, Rankings) are saved per zone as `dismissed_spots` in the location tree and skipped on later runs. Skip only that spot, never every structure (skipping all of them once made the bot walk past Wildbloom's chest).
+- Gear item cards and class cards close with the back arrow; a tap above them opened the Class page (card rules in `resource/policy/cards.json`).
+- Every card met while walking is recorded as an objective of its zone in the location tree (`objectives`: card title, spot, done or not; mae, 2026-11-10 04:18).
 *observed* · `world/interact_portal.png` · node `interact` · R-042, R-043
 
 ### R-070 · Goddess Statues bless a fully explored area

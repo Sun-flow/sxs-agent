@@ -33,7 +33,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 
 ## Adding or changing a rule
 
-- New rule: next free ID (**next free: R-152**), under the right `##` heading of the right file, plus a row in the ID index below.
+- New rule: next free ID (**next free: R-153**), under the right `##` heading of the right file, plus a row in the ID index below.
 - Never reuse or renumber an ID. When merging a rule into another, delete it, add it to the retired table, and repoint citations.
 - Run `python3 scripts/check-rules.py`: it checks that every cited ID resolves, retired IDs aren't cited, every file is listed here, and image paths exist.
 
@@ -164,6 +164,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-149 | `overworld.md` | "Rankings" structure: back out, press nothing |
 | R-150 | `overworld.md` | Entering a new zone: start at the entrance, then work outward to the fog |
 | R-151 | `overworld.md` | Boulder Blockade: a barrier that needs a drill bit; Hidden Camp is inaccessible for now |
+| R-152 | `overworld.md` | A Portal sits under the Verdantglade VI label on the big map |
 
 ## Retired IDs
 
