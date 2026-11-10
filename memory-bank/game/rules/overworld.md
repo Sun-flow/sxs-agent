@@ -39,6 +39,8 @@ The non-quest exploration loop (mae; the quest-progression loop is settled):
 4. Then look for any fog-walk ground not yet explored (R-130). Explore it if there is some; otherwise exploration is concluded for now.
 Next by this order (2026-11-05): Jungle Camp (12.6K). Ways in: from Verdantglade III at about (142, 84) and from Drasilgard at about (138, 84) (builder, 2026-11-10; in the location tree). Live 0 → 93%, then the free Lucky Wheel spin (R-147, R-148) took it to 100%; blessed 2026-11-10. When objects run out, the fog walk sweeps the zone's fog edges (R-146) before giving up. Its Lost Goddess Statue (orange Ψ-like map icon) gives Home EXP +1% and Home Raw Ore +1%.
 Code: `python -m sxs roam` picks the zone with `Tree.next_zone` from the location tree (`resource/world/zones.json`, `sxs/policy/zones.py`, `python -m sxs zones`; zones with no power line read go last). Zones never read on the big map (e.g. Sunrise Isle) rank last; a zone with no entrance and no known way in is skipped with a named reason, never wandered to (run 9 lesson, R-150). The tree holds each zone's kingdom, CP, %, blessed, map point and way in, and records Jungle Camp's missing entry as an open question. Roam blesses a statue when its area-map "!" lights (R-070), and ends with `exploration_concluded`.
+- Big-map reads (2026-11-10): Grotto Peninsula 23K, Rabbit Vault and Stagnant Jungle, all 0%. Troll Lair's label overlaps Verdantglade IV's, and three no-% readings once flipped it to 100% (reset to 42%) ❓. Sunrise Isle has never been read.
+- Direction (mae, 2026-11-10 04:44): alternate main-quest areas (the next Explore quest, Verdantglade VII) with side areas (Zephyr Vale, Monolith Ruins I, Troll Lair and others); side areas cause more trouble, so log every issue as it comes up.
 *told* · R-065, R-070, R-076, R-127, R-130, R-132
 
 ### R-142 · While exploring, follow the zone's own Explore quest
@@ -48,6 +50,7 @@ Code: `python -m sxs roam` picks the zone with `Tree.next_zone` from the locatio
 - Code: `fogwalk.quest_step` in `sxs/loops/fogwalk.py`.
 - A ring within 90 px of our own character is a near target, not an edge ring: with the character at the screen edge the ring floated over it, the tap hit the character and opened the profile popup (traced with `scripts/tap_trace.py`, 2026-11-10).
 - Never tap a ring over the HUD (that opened the Class page). Walk taps are pushed at least 70 px off our own character, and tiles touching our own minimap marker are never object goals (our ring read as a monster).
+- Finishing a zone's Explore quest gives a quest gift, and the next Explore quest follows (Explore Verdantglade VI → Explore Verdantglade VII, which was already at 60%, 2026-11-10).
 *observed* · R-022, R-065, R-074, R-135
 
 ### R-143 · In an unblessed zone the whole minimap is shaded: the % comes from objects
@@ -190,8 +193,9 @@ Tapping a map object (e.g. a Portal) opens a card with one button at (0.5, 0.70)
 *observed* · `world/interact_portal.png` · node `interact` · R-042, R-043
 
 ### R-070 · Goddess Statues bless a fully explored area
-- **Goddess Statue**: needs "Reach 100% exploration in <area>"; Unlock gives Blessing Level +1 (level 2 raised Max Cart Level 1→2 and AFK EXP 50→500; Verdantglade V's, a gold statue with a red "!" near its north-east edge at about (154, 135), raised it 5→6, Max Cart Level 5→6, AFK EXP 592→608, 2026-11-10): bless every area. "The Goddess's Grace I/II" follows each Explore quest; reach it via the statue pointer (R-074).
+- **Goddess Statue**: needs "Reach 100% exploration in <area>"; Unlock gives Blessing Level +1 (level 2 raised Max Cart Level 1→2 and AFK EXP 50→500; Verdantglade V's, a gold statue with a red "!" near its north-east edge at about (154, 135), raised it 5→6, Max Cart Level 5→6, AFK EXP 592→608, 2026-11-10; Verdantglade VI's raised it 6→7, Max Cart Level 7, AFK EXP 620→636, 2026-11-10): bless every area. "The Goddess's Grace I/II" follows each Explore quest; reach it via the statue pointer (R-074).
 - **Lost Goddess Statue** ("Activate this dim statue..."; on the area map an orange Ψ-like icon): same requirement; Unlock at (0.5, 0.81); gives +1% Home EXP and +1% of one home yield (Highland Woods Wood, Moonveil Woods Rolla, Damp Woods Stone), then Tap to Continue.
+- Open stuck point ❓: the statue-bless walk (`roam.nearest_badge`) picked our own spot when the lit statue was off-screen below; VI's statue was blessed by hand (2026-11-10).
 - Two sizes, both bless the area (mae): the large Goddess Statue gives greater rewards than the smaller Lost Goddess Statue. Non-progression side areas often hold a Lost Goddess Statue, usable once the zone is explored. A red "!" over a statue means it can be blessed now: go and unlock it. The "!" also shows on the area map (about 17 px, smaller than menu badges; a gold-ore icon can carry the same "!", told apart by its big yellow block, and that is not a statue): tap it there, close the map, tap the screen centre, and the statue's card opens (R-068). Auroradrasil's Lost Goddess Statue ("Reach 100% exploration in Auroradrasil") gave Home EXP Yield Boost +1% and Home Stone Yield Boost +1%, then "Divine Power Awakens Your Potential", Tap to Continue.
 - Match both with `^(Lost )?Goddess Statue$`.
 - **Already blessed**: "A starlit statue silently guards this Blessed Land", Regional Relics, no button. Dismiss and walk around it (kind `blessed_statue`).
