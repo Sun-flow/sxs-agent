@@ -8,8 +8,8 @@
    "blessed": true,
    "notes": "Free 4-player story dungeon (R-133); Lost Goddess Statue blessed 2026-11-05.",
    "map_point": [
-    1146,
-    236
+    1117,
+    358
    ],
    "last_seen": "2026-11-10",
    "entries": []
@@ -42,8 +42,8 @@
    "kind": "town",
    "notes": "Town: Chief, Hermes, Carol, portal (R-134).",
    "map_point": [
-    1216,
-    422
+    1183,
+    1122
    ],
    "last_seen": "2026-11-10",
    "entries": []
@@ -54,8 +54,8 @@
    "pct": 0,
    "cp": 23.0,
    "map_point": [
-    997,
-    -139
+    965,
+    557
    ],
    "last_seen": "2026-11-10"
   },
@@ -125,8 +125,8 @@
    "pct": 0,
    "cp": 25.5,
    "map_point": [
-    225,
-    749
+    195,
+    876
    ],
    "last_seen": "2026-11-10"
   },
@@ -153,20 +153,11 @@
    "pct": 0,
    "last_seen": "2026-11-10",
    "map_point": [
-    365,
-    636
+    660,
+    458
    ],
-   "notes": "blocked: Monolith Ruins II near None (no rule; dismissed)",
-   "entries": [
-    {
-     "via": "Monolith Ruins I",
-     "day": "2026-11-09",
-     "xy": [
-      91,
-      107
-     ]
-    }
-   ]
+   "notes": "Entered from Verdantglade VII at (88-91,106-107). 2026-11-10: walk found no objects, only the puzzle.",
+   "blocked": "Box puzzle (Fonik, God of Puzzles, at about (88,104)): the zone stays 0% until it's solved; a Golden Beetle makes Fonik solve it (mae's call)"
   },
   "Moonveil Woods": {
    "kingdom": "Verdantglade",
@@ -185,8 +176,8 @@
    "first_seen": "2026-11-09",
    "pct": 0,
    "map_point": [
-    1145,
-    -116
+    1115,
+    583
    ],
    "last_seen": "2026-11-10"
   },
@@ -195,8 +186,8 @@
    "first_seen": "2026-11-09",
    "pct": 0,
    "map_point": [
-    971,
-    274
+    942,
+    396
    ],
    "last_seen": "2026-11-10"
   },
@@ -319,8 +310,8 @@
    "pct": 100,
    "failed_via": {},
    "map_point": [
-    1034,
-    61
+    1004,
+    182
    ],
    "last_seen": "2026-11-10",
    "entries": [
@@ -353,8 +344,8 @@
    "last_seen": "2026-11-10",
    "notes": "Main-quest zone (Explore Verdantglade VII). Next to Verdantglade VI; its Goddess Statue is at (102,113), unlocked 2026-11-10 (Blessing Lv 8). 2026-11-10: monsters there are fought from the tile beside them (a tap from afar does nothing). blocked: Value near None (no rule; dismissed) blocked: Voucher near None (no rule; dismissed)",
    "map_point": [
-    402,
-    536
+    695,
+    358
    ],
    "objectives": [
     {
@@ -376,8 +367,8 @@
    "cp": 27.0,
    "last_seen": "2026-11-10",
    "map_point": [
-    970,
-    510
+    941,
+    633
    ]
   },
   "Wildbloom Coast": {
@@ -1323,8 +1314,7 @@
   {
    "a": "Monolith Ruins I",
    "b": "Monolith Ruins II",
-   "how": "walked",
-   "note": "entered Monolith Ruins II at (91, 107)"
+   "how": "map_adjacent"
   },
   {
    "a": "Monolith Ruins I",
@@ -1424,6 +1414,11 @@
   {
    "a": "Grotto Peninsula",
    "b": "Verdantglade VIII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins I",
+   "b": "Verdantglade VII",
    "how": "map_adjacent"
   }
  ],
