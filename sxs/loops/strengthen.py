@@ -24,7 +24,7 @@ from ..core.loop import Loop
 from ..core.nav import Navigator
 from ..vision.stats import read_cart
 
-from ..vision.badges import find_badges
+from ..vision.badges import find_badges, find_up_pips, near_any
 
 log = logging.getLogger("sxs.loops.strengthen")
 
@@ -33,6 +33,15 @@ GEAR_SLOTS = [(84, 400), (646, 380), (646, 476), (646, 620)]  # Character screen
 ITEM_CARD_ENHANCE = (490, 880)
 GEAR_TABS = [(160, 166), (304, 166), (424, 166), (552, 166)]  # Enhance Gear screen, top row
 GEAR_ENHANCE = (360, 1084)
+TAB_PIP_FROM = (28, -35)  # a tab's blue enhance pip sits on its upper right (Enhance Gear screen)
+
+
+def tabs_with_pip(frame) -> list[int]:
+    """GEAR_TABS indexes whose icon carries the blue enhance pip: the pieces the game says can be enhanced now.
+    mae, 2026-11-10: the pass kept trying the highest piece (no pip, costs a red ore we lack) first; its
+    "Insufficient materials" banner then lingered and made the next pieces read as short too."""
+    pips = find_up_pips(frame, [80, 90, 580, 110])
+    return [i for i, (x, y) in enumerate(GEAR_TABS) if near_any(pips, (x + TAB_PIP_FROM[0], y + TAB_PIP_FROM[1]), 25)]
 GEAR_LEVEL_ROI = [150, 510, 420, 70]  # Enhance Gear: "+21 -> +22" for the selected piece
 GEAR_BAND = 5  # mae, 2026-11-04: enhance in 5-level bands, all pieces together
 # Enhance order inside a band, as indexes into GEAR_TABS (shown weapon, head, chest, boots today). mae's priority is
@@ -130,7 +139,12 @@ class Strengthener:
                 levels[i] = lv
         log.info("gear levels: %s", levels)
         taps, short = 0, False
-        capped: dict = {}  # slots left out: at their cap, or short of their own materials
+        capped: dict = {}  # slots left out: no pip, at their cap, or short of their own materials
+        lit = tabs_with_pip(self.dev.screenshot())
+        for i in [i for i in levels if i not in lit]:
+            capped[i] = levels.pop(i)
+        if capped:
+            log.info("no enhance pip on slots %s: leaving them (can't be enhanced now)", sorted(capped))
         while levels and not short and taps < max_taps:
             target = (min(levels.values()) // GEAR_BAND + 1) * GEAR_BAND
             for i in [i for i in GEAR_PRIORITY if i in levels]:
@@ -141,6 +155,7 @@ class Strengthener:
                     self._tap(GEAR_ENHANCE, 1.2)
                     taps += 1
                     if self._short():
+                        time.sleep(2.5)  # let the banner fade, or the next piece reads as short too
                         # Short for this piece only (live 2026-11-09: the weapon's +25 needs a red ore we had 299/300
                         # of, while the other three pieces cost only blue ore and Rolla): leave it, band the rest.
                         log.info("gear slot %d: insufficient materials at +%s; going on with the others", i, levels[i])

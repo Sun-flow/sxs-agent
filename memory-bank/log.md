@@ -8,6 +8,7 @@
 - Fixed: the blue enhance pip finder found none live (discs bluer, S up to ~175; one merged with the chest slot's rim, 38x26): range H 85-116, S 45-190, size to 40 px, aspect 1.5; reference `character/character_pips_all4.png`. The gear pass stopped at the first piece short of materials (the weapon's +25 needs red ore, 299/300) though others could go on: a short or capped piece is left out, the rest keep banding. Gear pass budget 180 s (enhancing four slots took 60 s of 90).
 - mae (23:52): claim EXP too. Bed EXP (daily step `bed`, free speed-up kept): Lv 24 → 30 (cap for Apprentice II), power about 28.4K. After it: boots swapped (2050 → 2110), 2 rank Goals claimed; the rank badge then cleared (Apprentice III still needs the Bellflowers).
 - Fixed: Strengthen's 60 s watchdog stopped it while the Upgrade Loop's Goals pass was still opening pages; each pass and Goals page now reports progress.
+- mae (00:07): the pass kept trying the highest piece (no pip, unaffordable) although the lower pieces had pips. Now only Enhance Gear tabs with the blue pip are enhanced (`strengthen.tabs_with_pip`), and after an "Insufficient materials" banner it waits for the banner to fade (it had made the next pieces read as short). Reference `character/enhance_gear_short_weapon.png`. Live after the fix: no pips left (materials spent), pass does nothing, correctly.
 - Open: chest and boots stop at +20 for the red ore too.
 
 ### 2026-11-09 (evening) · Verdantglade V explored 78 → 100%, exploration stuck points (Claude Code, mae's PC via Remote Control)
