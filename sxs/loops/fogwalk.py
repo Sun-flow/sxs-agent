@@ -899,6 +899,28 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 ui.tap(dev, ui.BACK_ARROW, 2)  # left open by a big-map walk that didn't move us: close it
             elif d.state == "home":
                 return f"left_area:{d.state}"
+            elif d.state == "dialogue_choice":
+                # Live 2026-11-10 (Monolith Ruins II): a box puzzle's NPC, Fonik ("Present a Golden Beetle, and I
+                # shall unveil its truth": Help me solve this! / Reset the puzzle. / Leave). The card decider tapped
+                # above it five times (it doesn't close) and the walk stopped. Using the rare Golden Beetle is mae's
+                # call: take "Leave", note the puzzle as the zone's objective, and walk around it.
+                lines = det.read_text([60, 300, 600, 750])
+                leave = [b for t, b in lines if re.fullmatch(r"\s*Leave\.?\s*", t)]
+                texts = " / ".join(t for t, _ in lines)
+                if not leave:
+                    log.warning("dialogue choice with no Leave option (%s); stopping", texts)
+                    return "needs_decision"
+                puzzle = bool(re.search(r"puzzle|Golden Beetle", texts + " " + " ".join(
+                    t for t, _ in det.read_text([0, 1150, 720, 130])), re.I))
+                log.info("dialogue choice (%s): taking Leave%s", texts, " (a puzzle: noted, walking around it)"
+                         if puzzle else "")
+                if puzzle:
+                    note_objective("Puzzle (Fonik: Golden Beetle solves it)", "dismiss", goto.coords(det) or last_tap)
+                if last_tap:
+                    outside.add(tuple(last_tap))
+                    if last_tap not in bumped:
+                        bumped.append(last_tap)
+                ui.tap(dev, ui.centre(leave[0]), 2)
             elif d.state in ("battle", "loading"):
                 # An auto battle (a mini-dungeon floor, "Round 3/25") or a loading screen: wait. Live 2026-11-10
                 # (Ironvein Pit): the battle went to the card decider, which read the damage numbers as card titles
