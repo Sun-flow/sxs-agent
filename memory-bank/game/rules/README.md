@@ -157,7 +157,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-142 | `overworld.md` | While exploring, follow the zone's own Explore quest |
 | R-143 | `overworld.md` | In an unblessed zone the whole minimap is shaded: the % comes from objects |
 | R-144 | `overworld.md` | "Statue of <name>": press Visit |
-| R-145 | `overworld.md` | Sealed Stone Gate: dismiss for now |
+| R-145 | `overworld.md` | Sealed Stone Gate: a rank-gated gate between zones; press the free Unlock |
 | R-146 | `overworld.md` | Never tap fog: tap walkable ground next to it |
 | R-147 | `overworld.md` | Lucky Wheel ("Wheel of Destiny"): one free spin per wheel while its zone is unexplored |
 | R-148 | `overworld.md` | A blue "!" on the area map marks interactable statues: tap them to finish the zone |

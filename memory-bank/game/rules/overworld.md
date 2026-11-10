@@ -38,7 +38,7 @@ The non-quest exploration loop (mae; the quest-progression loop is settled):
 3. Repeat until no unblessed zone remains.
 4. Then look for any fog-walk ground not yet explored (R-130). Explore it if there is some; otherwise exploration is concluded for now.
 Next by this order (2026-11-05): Jungle Camp (12.6K). Ways in: from Verdantglade III at about (142, 84) and from Drasilgard at about (138, 84) (builder, 2026-11-10; in the location tree). Live 0 → 93%, then the free Lucky Wheel spin (R-147, R-148) took it to 100%; blessed 2026-11-10. When objects run out, the fog walk sweeps the zone's fog edges (R-146) before giving up. Its Lost Goddess Statue (orange Ψ-like map icon) gives Home EXP +1% and Home Raw Ore +1%.
-Code: `python -m sxs roam` picks the zone with `Tree.next_zone` from the location tree (`resource/world/zones.json`, `sxs/policy/zones.py`, `python -m sxs zones`; zones with no power line read go last). The tree holds each zone's kingdom, CP, %, blessed, map point and way in, and records Jungle Camp's missing entry as an open question. Roam blesses a statue when its area-map "!" lights (R-070), and ends with `exploration_concluded`.
+Code: `python -m sxs roam` picks the zone with `Tree.next_zone` from the location tree (`resource/world/zones.json`, `sxs/policy/zones.py`, `python -m sxs zones`; zones with no power line read go last). Zones never read on the big map (e.g. Sunrise Isle) rank last; a zone with no entrance and no known way in is skipped with a named reason, never wandered to (run 9 lesson, R-150). The tree holds each zone's kingdom, CP, %, blessed, map point and way in, and records Jungle Camp's missing entry as an open question. Roam blesses a statue when its area-map "!" lights (R-070), and ends with `exploration_concluded`.
 *told* · R-065, R-070, R-076, R-127, R-130, R-132
 
 ### R-142 · While exploring, follow the zone's own Explore quest
@@ -109,6 +109,7 @@ When fog-walking (R-065) or finding a way to an out-of-the-way spot, look on the
 ### R-150 · Entering a new zone: start at the entrance, then work outward to the fog
 - On entering a new zone, don't start by searching for fog (mae, 2026-11-10 02:35). First find the entrance between the previous zone and the new one on the map (the crossing point, R-132; the location tree's way in, R-135), move the camera there, then walk to walkable tiles next to the unexplored fog from that entrance outward (never the fog itself, R-146).
 - Advance from revealed ground toward unrevealed ground, one step at a time; never skip to the middle of a zone (mae, 02:45). Code: in an unexplored zone, big-map walks wait until the fog edge around the player is worked out (`fogwalk.fog_worked`); guard fights only inside the zone being explored. Unless the zone already has revealed terrain inside, the first targets are right at the entrance. Why: the fog walk failed by tapping deep inside a zone, past the monster group guarding its entrance; fight that group first (R-139).
+- No entrance on the map and no known way in from an explored neighbour: roam skips that zone with a named reason instead of wandering (builder, run 9, 2026-11-10; `sxs/loops/roam.py`). A gate between zones is a way in (R-145).
 *told* · R-067, R-130, R-132, R-135, R-139, R-146
 
 ### R-067 · Areas join by land bridges: head for the connection, not the straight line
@@ -162,9 +163,12 @@ A stone pillar card "Gate of Power": "Requires: Power reaches 15.5K (Current: 8.
 - Damp Woods: an area-map walk to its label from Verdantglade II lands at about (184, 86), a fogged pocket with a stone mini-dungeon, ore baskets, a statue and the 15.5K gate. Behind it: ore baskets, a glowing crystal and a duck-shaped item, free to tap; they finish Damp Woods. The minimap barely shows them under shadow, so the bot can't find them from it yet ❓.
 *observed* · `world/gate_of_power.png`, `world/gate_of_power_open.png` · R-065, R-070, R-084
 
-### R-145 · Sealed Stone Gate: dismiss for now
-A gold "!" structure on Verdantglade V's north edge at about (135, 126) opens a "Sealed Stone Gate" card that can only be dismissed. It is **not** V's Goddess Statue (that is a separate gold statue, R-070). What opens it is unknown ❓ (asked mae). Another sits near (142, 149) on the Wildbloom Coast / Verdantglade VI side, where the minimap reads Verdantglade VI.
-*observed* · R-030, R-070, R-086
+### R-145 · Sealed Stone Gate: a rank-gated gate between zones; press the free Unlock
+- A gold "!" structure on Verdantglade V's north edge at about (135, 126) is the way from Verdantglade V into Verdantglade VI. It is **not** V's Goddess Statue (that is a separate gold statue, R-070).
+- Card: "This stone gate is sealed tight. To unlock, you need: Reach the Apprentice II rank (current: Apprentice II)", with a free Unlock button once the rank is met. Press Unlock (card rule `sealed_gate`, `resource/policy/cards.json`); it is free, not a spend. Short of the rank there is no button: dismiss.
+- Unlocked live 2026-11-10 about 03:32; Explore Verdantglade VI went 0 → 3%.
+- Another gate sits near (142, 149) on the Wildbloom Coast / Verdantglade VI side, where the minimap reads Verdantglade VI.
+*observed* · R-030, R-070, R-086, R-150
 
 ## Map objects and statues
 
