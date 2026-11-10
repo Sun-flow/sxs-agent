@@ -6,6 +6,9 @@ and description, so the UI detector can learn and auto-label them (docs/detector
                                                      [--found-in "Home > Vendor Booth"] [--tight]
                                                      crop a symbol from a reference screen into the catalogue
     python -m sxs items find [SCREEN ...]            match every catalogued symbol on screens (default: all)
+    python -m sxs items box KEY --cls CLS --box X Y W H [--item ID] [--name N] [--note T]
+                                                     add a confirmed detector box to a reference screen (the same
+                                                     as drawing it in the labeler), e.g. a button you came across
 
     resource/items/items.json    {"items": [item, ...]}, append only (the order sets detector class ids)
     resource/items/icons/*.png   one crop per sighting of an item: <id>.png, <id>_2.png, ...
@@ -21,6 +24,12 @@ An item is {"id", "name", "kind", "description", "uses", "named_by", "icons": [{
   a sighting of the look-alike resource, so the detector keeps the two apart. named_by says how sure the name is: "popup" (read from the item's own name and description
   popup, the goal for every item), "screen" (a label next to it, e.g. a shop or cart row), "mae", or "guess".
 - description: the popup text, word for word. uses: our own note (what it is for, rules that touch it).
+
+Buttons and other UI elements are not items: they are detector classes (resource/detect/classes.json). Box them
+with `items box KEY --cls btn_...` (or in the labeler). A button type with no class yet: append one to classes.json
+(group "buttons", kind "button", a name btn_<what>, an "about" line) and never rename or reorder existing ones. A
+button that is drawn as an item-like symbol (Material Realms "consume" badges such as the iron hammer, mae
+2026-11-10) is both: catalogue the symbol as kind "usage", and box it as item_icon with that item id.
 
 Standing rule (mae, 2026-11-10): whenever a thread sees a material or currency symbol that is not in this
 catalogue, it finds out what it is (tap the symbol, read the popup) and adds it here. Not every item matters to
@@ -140,6 +149,40 @@ def add(item_id: str, screen: str, box: list[int], name: str = "", kind: str = "
     return it
 
 
+def add_box(screen: str, cls: str, box: list[int], item: str = "", name: str = "", note: str = "") -> int:
+    """Append a confirmed box to docs/screens/labels.json for `screen`, keeping its other boxes. Returns 0 or 1."""
+    import cv2
+
+    from ..core import labels
+
+    img = cv2.imread(str(SCREENS / screen))
+    if img is None:
+        print(f"no such screen: {SCREENS / screen}", file=sys.stderr)
+        return 1
+    kinds = {c["name"]: c["kind"] for c in labels.classes()}
+    if cls not in kinds:
+        print(f"class {cls!r} is not in resource/detect/classes.json (append it there first)", file=sys.stderr)
+        return 1
+    boxes = labels.boxes_for(screen)
+    base = name or item or cls
+    n = 1
+    while (f"{base}_{n}" if not name else base) in {b["name"] for b in boxes}:
+        if name:
+            print(f"a box named {name} is already on {screen}", file=sys.stderr)
+            return 1
+        n += 1
+    x, y, w, h = box
+    new = {"name": name or f"{base}_{n}", "kind": kinds[cls], "x": x, "y": y, "w": w, "h": h, "note": note,
+           "template": False, "cls": cls}
+    if item:
+        new["item"] = item
+    problems = labels.set_boxes(screen, boxes + [new], (img.shape[1], img.shape[0]))
+    for pr in problems:
+        print(pr, file=sys.stderr)
+    print(f"{screen}: {new['name']} ({cls}{' ' + item if item else ''}) {box}")
+    return 1 if problems else 0
+
+
 def _templates():
     import cv2
 
@@ -217,7 +260,16 @@ def main(argv: list[str]) -> int:
     f = sub.add_parser("find", help="match catalogued symbols on reference screens")
     f.add_argument("names", nargs="*", help="screen file names without .png (default: all)")
     f.add_argument("--threshold", type=float, default=MATCH)
+    b = sub.add_parser("box", help="add a confirmed detector box (any class) to a reference screen")
+    b.add_argument("screen", help="docs/screens key, e.g. dailies/material_realms.png")
+    b.add_argument("--cls", required=True, help="detector class from resource/detect/classes.json")
+    b.add_argument("--box", nargs=4, type=int, required=True, metavar=("X", "Y", "W", "H"))
+    b.add_argument("--item", default="", help="item id, for --cls item_icon")
+    b.add_argument("--name", default="", help="box name (default: the item or class plus a number)")
+    b.add_argument("--note", default="")
     args = p.parse_args(argv)
+    if args.cmd == "box":
+        return add_box(args.screen, args.cls, args.box, args.item, args.name, args.note)
     if args.cmd == "add":
         it = add(args.id, args.screen, args.box, args.name, args.kind, args.desc, args.named_by, args.uses,
                  args.tight, args.found_in)
