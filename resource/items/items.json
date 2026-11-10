@@ -1,0 +1,330 @@
+{
+ "items": [
+  {
+   "id": "wood",
+   "name": "Wood",
+   "kind": "material",
+   "description": "",
+   "uses": "Home furniture upgrades; AFK Cart yield",
+   "named_by": "screen",
+   "icons": [
+    {
+     "file": "wood.png",
+     "screen": "shops/vendor_booth_general.png",
+     "box": [
+      81,
+      248,
+      108,
+      90
+     ],
+     "found_in": "Home > Vendor Booth > General"
+    }
+   ]
+  },
+  {
+   "id": "stellatie",
+   "name": "Stellatie",
+   "kind": "ticket",
+   "description": "",
+   "uses": "Prayer ticket (skill pulls); pulls only with --handler-approved",
+   "named_by": "screen",
+   "icons": [
+    {
+     "file": "stellatie.png",
+     "screen": "shops/vendor_booth_general.png",
+     "box": [
+      314,
+      239,
+      101,
+      106
+     ],
+     "found_in": "Home > Vendor Booth > General"
+    }
+   ]
+  },
+  {
+   "id": "stone",
+   "name": "Stone",
+   "kind": "material",
+   "description": "",
+   "uses": "Home furniture upgrades; AFK Cart yield",
+   "named_by": "screen",
+   "icons": [
+    {
+     "file": "stone.png",
+     "screen": "shops/vendor_booth_general.png",
+     "box": [
+      539,
+      247,
+      108,
+      83
+     ],
+     "found_in": "Home > Vendor Booth > General"
+    }
+   ]
+  },
+  {
+   "id": "raw_ore",
+   "name": "Raw Ore",
+   "kind": "material",
+   "description": "",
+   "uses": "Gear enhancement (bottleneck)",
+   "named_by": "screen",
+   "icons": [
+    {
+     "file": "raw_ore.png",
+     "screen": "shops/vendor_booth_general.png",
+     "box": [
+      86,
+      523,
+      95,
+      108
+     ],
+     "found_in": "Home > Vendor Booth > General"
+    }
+   ]
+  },
+  {
+   "id": "battle_essence",
+   "name": "Battle Essence",
+   "kind": "material",
+   "description": "",
+   "uses": "Skill levels",
+   "named_by": "screen",
+   "icons": [
+    {
+     "file": "battle_essence.png",
+     "screen": "shops/vendor_booth_general.png",
+     "box": [
+      312,
+      525,
+      102,
+      101
+     ],
+     "found_in": "Home > Vendor Booth > General"
+    }
+   ]
+  },
+  {
+   "id": "water",
+   "name": "Water",
+   "kind": "ingredient",
+   "description": "",
+   "uses": "Cooking ingredient (restorative dishes)",
+   "named_by": "screen",
+   "icons": [
+    {
+     "file": "water.png",
+     "screen": "shops/vendor_booth_general.png",
+     "box": [
+      317,
+      814,
+      93,
+      89
+     ],
+     "found_in": "Home > Vendor Booth > General"
+    }
+   ]
+  },
+  {
+   "id": "stamina",
+   "name": "Stamina",
+   "kind": "currency",
+   "description": "",
+   "uses": "Exploration/gathering energy; Vault x30 free daily (R-120)",
+   "named_by": "screen",
+   "icons": [
+    {
+     "file": "stamina.png",
+     "screen": "shops/vendor_booth_vault.png",
+     "box": [
+      92,
+      236,
+      84,
+      115
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "stamina_2.png",
+     "screen": "shops/vendor_booth_vault.png",
+     "box": [
+      595,
+      38,
+      29,
+      33
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
+    }
+   ]
+  },
+  {
+   "id": "gold_pickaxe",
+   "name": "Gold Pickaxe",
+   "kind": "key_item",
+   "description": "",
+   "uses": "Realm: Gilded Depths entry",
+   "named_by": "screen",
+   "icons": [
+    {
+     "file": "gold_pickaxe.png",
+     "screen": "shops/vendor_booth_vault.png",
+     "box": [
+      545,
+      247,
+      105,
+      109
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
+    }
+   ]
+  },
+  {
+   "id": "worn_knuckles",
+   "name": "Worn Knuckles",
+   "kind": "key_item",
+   "description": "",
+   "uses": "Realm: Dread Hollow entry",
+   "named_by": "screen",
+   "icons": [
+    {
+     "file": "worn_knuckles.png",
+     "screen": "shops/vendor_booth_vault.png",
+     "box": [
+      90,
+      530,
+      90,
+      98
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
+    }
+   ]
+  },
+  {
+   "id": "refined_ore",
+   "name": "Refined Ore",
+   "kind": "material",
+   "description": "",
+   "uses": "Advanced gear enhancement",
+   "named_by": "screen",
+   "icons": [
+    {
+     "file": "refined_ore.png",
+     "screen": "shops/vendor_booth_vault.png",
+     "box": [
+      316,
+      523,
+      94,
+      108
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
+    }
+   ]
+  },
+  {
+   "id": "golden_beetle",
+   "name": "Golden Beetle",
+   "kind": "consumable",
+   "description": "",
+   "uses": "Skips a puzzle",
+   "named_by": "screen",
+   "icons": [
+    {
+     "file": "golden_beetle.png",
+     "screen": "shops/vendor_booth_vault.png",
+     "box": [
+      545,
+      523,
+      90,
+      102
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
+    }
+   ]
+  },
+  {
+   "id": "shapeshifting_mirror",
+   "name": "Shapeshifting Mirror",
+   "kind": "consumable",
+   "description": "",
+   "uses": "Changes appearance; never used by the bot",
+   "named_by": "screen",
+   "icons": [
+    {
+     "file": "shapeshifting_mirror.png",
+     "screen": "shops/vendor_booth_vault.png",
+     "box": [
+      83,
+      801,
+      101,
+      116
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
+    }
+   ]
+  },
+  {
+   "id": "rename_card",
+   "name": "Rename Card",
+   "kind": "consumable",
+   "description": "",
+   "uses": "Changes the character name; never used by the bot",
+   "named_by": "screen",
+   "icons": [
+    {
+     "file": "rename_card.png",
+     "screen": "shops/vendor_booth_vault.png",
+     "box": [
+      306,
+      804,
+      110,
+      112
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
+    }
+   ]
+  },
+  {
+   "id": "rolla",
+   "name": "Rolla",
+   "kind": "currency",
+   "description": "",
+   "uses": "Common currency (R-019): enhancement, Rank Advancement; never paid Refresh",
+   "named_by": "screen",
+   "icons": [
+    {
+     "file": "rolla.png",
+     "screen": "shops/vendor_booth_vault.png",
+     "box": [
+      337,
+      38,
+      34,
+      32
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
+    }
+   ]
+  },
+  {
+   "id": "dawnium",
+   "name": "Dawnium",
+   "kind": "currency",
+   "description": "",
+   "uses": "Premium currency (R-018): never spend",
+   "named_by": "screen",
+   "icons": [
+    {
+     "file": "dawnium.png",
+     "screen": "shops/vendor_booth_vault.png",
+     "box": [
+      463,
+      37,
+      35,
+      33
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
+    }
+   ]
+  }
+ ]
+}
