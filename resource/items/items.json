@@ -99,9 +99,9 @@
    "id": "battle_essence",
    "name": "Battle Essence",
    "kind": "material",
-   "description": "",
-   "uses": "Skill levels",
-   "named_by": "screen",
+   "description": "Use it to level up skills. Concentrated wisdom from countless battles.",
+   "uses": "Skill levels Sources: Home AFK Yield, Realm:Dread Hollow, Verdantglade Monster Drop",
+   "named_by": "popup",
    "icons": [
     {
      "file": "battle_essence.png",
@@ -113,6 +113,17 @@
       101
      ],
      "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "battle_essence_2.png",
+     "screen": "items/realm_dread_hollow.png",
+     "box": [
+      474,
+      37,
+      34,
+      33
+     ],
+     "found_in": "Journal > Material Realms > Dread Hollow > Top bar"
     }
    ]
   },
@@ -184,7 +195,7 @@
    "id": "gold_pickaxe",
    "name": "Gold Pickaxe",
    "kind": "key_item",
-   "description": "Use it to mine gold ore in the Realm: Gilded Depths. A perfectly ordinary pickaxe that's surprisingly flimsy. It breaks after one use..",
+   "description": "Use it to mine gold ore in the Realm: Gilded Depths. A perfectly ordinary pickaxe that's surprisingly flimsy. It breaks after one use.",
    "uses": "Realm: Gilded Depths entry Sources: Shop Purchase, Commission",
    "named_by": "popup",
    "icons": [
@@ -209,6 +220,17 @@
       36
      ],
      "found_in": "Journal > Material Realms > Gilded Depths > Top bar"
+    },
+    {
+     "file": "gold_pickaxe_3.png",
+     "screen": "items/daily_dungeon_goals.png",
+     "box": [
+      250,
+      352,
+      76,
+      74
+     ],
+     "found_in": "Journal > Daily Dungeon > Goals"
     }
    ]
   },
@@ -216,9 +238,9 @@
    "id": "worn_knuckles",
    "name": "Worn Knuckles",
    "kind": "key_item",
-   "description": "",
-   "uses": "Realm: Dread Hollow entry",
-   "named_by": "screen",
+   "description": "Use them to fight monsters in the Realm: Dread Hollow. A perfectly ordinary pair of knuckles that's surprisingly delicate. It crumbles after one use.",
+   "uses": "Realm: Dread Hollow entry Sources: Shop Purchase, Commission",
+   "named_by": "popup",
    "icons": [
     {
      "file": "worn_knuckles.png",
@@ -230,6 +252,28 @@
       98
      ],
      "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "worn_knuckles_2.png",
+     "screen": "items/realm_dread_hollow.png",
+     "box": [
+      577,
+      38,
+      36,
+      32
+     ],
+     "found_in": "Journal > Material Realms > Dread Hollow > Top bar"
+    },
+    {
+     "file": "worn_knuckles_3.png",
+     "screen": "items/daily_dungeon_goals.png",
+     "box": [
+      250,
+      520,
+      76,
+      74
+     ],
+     "found_in": "Journal > Daily Dungeon > Goals"
     }
    ]
   },
@@ -420,6 +464,185 @@
       34
      ],
      "found_in": "Journal > Material Realms > Ironvein Pit > Top bar"
+    },
+    {
+     "file": "iron_hammer_2.png",
+     "screen": "items/daily_dungeon_goals.png",
+     "box": [
+      250,
+      184,
+      76,
+      74
+     ],
+     "found_in": "Journal > Daily Dungeon > Goals"
+    }
+   ]
+  },
+  {
+   "id": "realm_use_iron_hammer",
+   "name": "Ironvein Pit use button (Iron Hammer)",
+   "kind": "usage",
+   "description": "",
+   "uses": "",
+   "named_by": "mae",
+   "icons": [
+    {
+     "file": "realm_use_iron_hammer.png",
+     "screen": "items/realm_ironvein_pit.png",
+     "box": [
+      272,
+      828,
+      178,
+      184
+     ],
+     "found_in": "Journal > Material Realms > Ironvein Pit"
+    }
+   ]
+  },
+  {
+   "id": "realm_use_gold_pickaxe",
+   "name": "Gilded Depths use button (Gold Pickaxe)",
+   "kind": "usage",
+   "description": "",
+   "uses": "",
+   "named_by": "mae",
+   "icons": [
+    {
+     "file": "realm_use_gold_pickaxe.png",
+     "screen": "items/realm_gilded_depths.png",
+     "box": [
+      272,
+      828,
+      177,
+      184
+     ],
+     "found_in": "Journal > Material Realms > Gilded Depths"
+    }
+   ]
+  },
+  {
+   "id": "realm_use_worn_knuckles",
+   "name": "Dread Hollow use button (Worn Knuckles)",
+   "kind": "usage",
+   "description": "",
+   "uses": "",
+   "named_by": "mae",
+   "icons": [
+    {
+     "file": "realm_use_worn_knuckles.png",
+     "screen": "items/realm_dread_hollow.png",
+     "box": [
+      271,
+      828,
+      179,
+      184
+     ],
+     "found_in": "Journal > Material Realms > Dread Hollow"
+    }
+   ]
+  },
+  {
+   "id": "rolla_management_made_easy",
+   "name": "Rolla Management Made Easy",
+   "kind": "gift",
+   "description": "Give it as a gift to increase Affinity of a companion. Can't earn Rollas? Learn to spend it wisely! Perfect for companions who enjoy reading.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "rolla_management_made_easy.png",
+     "screen": "items/daily_dungeon_goals.png",
+     "box": [
+      166,
+      184,
+      76,
+      74
+     ],
+     "found_in": "Journal > Daily Dungeon > Goals"
+    }
+   ]
+  },
+  {
+   "id": "golden_leaf",
+   "name": "Golden Leaf",
+   "kind": "gift",
+   "description": "Give it as a gift to increase Affinity of a companion. A delicate leaf crafted in pure gold. Perfect for companions who value precious gifts.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "golden_leaf.png",
+     "screen": "items/daily_dungeon_goals.png",
+     "box": [
+      166,
+      352,
+      76,
+      74
+     ],
+     "found_in": "Journal > Daily Dungeon > Goals"
+    }
+   ]
+  },
+  {
+   "id": "towel",
+   "name": "Towel",
+   "kind": "gift",
+   "description": "Give it as a gift to increase Affinity of a companion. A new, neatly folded towel. Perfect for companions who value practical gifts.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "towel.png",
+     "screen": "items/daily_dungeon_goals.png",
+     "box": [
+      166,
+      520,
+      76,
+      74
+     ],
+     "found_in": "Journal > Daily Dungeon > Goals"
+    }
+   ]
+  },
+  {
+   "id": "sunflower",
+   "name": "Sunflower",
+   "kind": "gift",
+   "description": "Give it as a gift to increase Affinity of a companion. A radiant cluster of sunflowers. Perfect for companions who enjoy flowers.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "sunflower.png",
+     "screen": "items/daily_dungeon_goals.png",
+     "box": [
+      166,
+      688,
+      76,
+      74
+     ],
+     "found_in": "Journal > Daily Dungeon > Goals"
+    }
+   ]
+  },
+  {
+   "id": "sand_shovel",
+   "name": "Sand Shovel",
+   "kind": "key_item",
+   "description": "Use it to mine sand in the Realm: Dustfall Dune. A perfectly ordinary shovel that's surprisingly flimsy. It breaks after one use.",
+   "uses": "Realm: Dustfall Dune entry (one per run; realm not seen yet). Sources: Shop Purchase, Commission (locked)",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "sand_shovel.png",
+     "screen": "items/daily_dungeon_goals.png",
+     "box": [
+      250,
+      688,
+      76,
+      74
+     ],
+     "found_in": "Journal > Daily Dungeon > Goals"
     }
    ]
   }
