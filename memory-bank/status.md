@@ -5,7 +5,7 @@
 
 ## Game state (2026-11-05 05:05Z, mae's PC)
 
-- gromb2: Mage, Apprentice II, Lv 24/30, power 22.4K (skills Lv 17-18 after Quick Upgrade; Cart Stone and Wood Lv 5). Rolla ~72.7K, Dawnium ~1.85K (never spent by the bot), stamina ~234/300, Abundance Leaves 450, 1 Shapeshifting Mirror (unused).
+- gromb2: Mage, Apprentice II, Lv 24/30, power about 24.5K (2026-11-10: gear swap and enhance; skills Lv 17-18; Cart Stone and Wood Lv 5). Rolla ~72.7K, Dawnium ~1.85K (never spent by the bot), stamina ~234/300, Abundance Leaves 450, 1 Shapeshifting Mirror (unused).
 - Explored and blessed: Originisle; Verdantglade I-IV area quests done; Verdantglade III 100%; Auroradrasil 100% and blessed (Lost Goddess Statue, 2026-11-05). Drasilgard town visited (Chief, Hermes, Carol). Verdantglade V 100% (live, 2026-11-09; statue blessing not confirmed ❓). Zones at 100%: Originisle I–V, Verdantglade I–III and V, Moonveil Woods, Stone Ruins I, Highland Woods, Damp Woods, Auroradrasil. Sealed Stone Gate on V's north edge: need unknown (asked mae). Unexplored: Jungle Camp 12.6K, Zephyr Vale, Monolith Ruins I, Troll Lair 17K, Verdantglade VI, Wildbloom Coast 20.4K.
 - Rank: Apprentice III needs Lv 30, leaves 16/5, Bellflower 4/30 (source: Verdantglade Flower Harvest in Moonveil Woods; the plants in Drasilgard are decoration), Rolla 10.5K. Blocked on Lv 30.
 - Fantasia Ascent Moonveil Woods: Auto Challenge climbed to F24+ in the background (2026-11-04).
@@ -13,8 +13,8 @@
 
 ## Strengthening and the Cart (2026-11-05 early morning)
 
-- Strengthening done: power 22.4K. `python -m sxs upgrade` now always opens the Skill page (Quick Upgrade shows blue arrows, not a red "!"). At the end the Character screen's weapon slot showed a red "!" and chest/boots blue arrows: recheck with `gearswap` and the gear pass.
-- Cart: `python -m sxs cart` (also daily step `cart_upgrade`) raises Stone and Wood evenly (R-136). Both are Lv 5, capped: Lv 6 needs Blessing Lv 6 (the bed's Blessing Level). Costs are Wood + Stone + Rolla only. ❓ How the Blessing Level rises (blessing statues? R-035, R-070). Chrono Sand Unlock (free, R-137): `CartUpgrader.unlock_rows` presses it; first live run still to do.
+- Strengthening, live-validated (2026-11-09/10): gear swap weapon 1490 to 1960, head 1170 to 1820; enhance weapon +21 to +24, head +18 to +23, chest and boots +15 to +20; power 22.4K to about 24.5K. `python -m sxs upgrade` always opens the Skill page; the gear pass finds blue enhance pips and leaves out pieces short of their own material (the weapon's +25 needs red ore). To do: enhance lower-level pieces first (mae, R-092).
+- Cart: `python -m sxs cart` (also daily step `cart_upgrade`) raises Stone and Wood evenly (R-136). Both are Lv 5, capped: Lv 6 needs Blessing Lv 6 (the bed's Blessing Level). Costs are Wood + Stone + Rolla only. ❓ How the Blessing Level rises (blessing statues? R-035, R-070). Chrono Sand unlocked live (free, R-137).
 
 ## Works (all on main, PRs #1–#30)
 
@@ -32,7 +32,7 @@ Format: `- what — branch, PR, environment (started)`. Remove the line when it 
 
 - Exploration drivers per mae (2026-11-05): roam picks the lowest-CP unblessed zone, blesses statues whose area-map "!" is lit, ends with a fog walk; fog walk reaches objects through the big map, follows passable ground into fog, keeps to its zone (R-132), free pickups and fights only in unexplored areas (R-065), collectibles store (R-131) — `claude/project-thread-ieaqnz` (latest commits beyond #41), mae's PC. Open: (1) at the zoomed-out area map OCR merges neighbouring labels and loses percentages (closer zoom with pans written on `claude/project-thread-sesbe9`, not yet live); (2) Jungle Camp run (2026-11-05): approach from Drasilgard, big-map walks mostly "no_move", no % gained; the walk into Jungle Camp needs a better entry point; (3) progress readings with OCR noise in coordinates count as movement, so a stuck run can be extended; (4) the tutorial glow on the Companions "Invite" isn't found by the highlight finder (interrupt layer PR #40).
 
-- Zone borders, location tree, closer-zoom survey, Cart unlock (mae, 2026-11-09) — `claude/project-thread-sesbe9`, folded into PR #43, offline-tested only. First live run: `python -m sxs roam --max-areas 1` (check the survey log line lists % for the far zones, `python -m sxs zones` after), then `python -m sxs cart --max 0` (presses the free Chrono Sand Unlock, no upgrades). Commit `resource/world/zones.json` after live runs: it is the bot's map.
+- Zone borders, location tree, closer-zoom survey, Cart unlock (mae, 2026-11-09) — `claude/project-thread-sesbe9`, in #43 and #46; live in Verdantglade V (78 to 100%) and the Cart unlock. Commit `resource/world/zones.json` after live runs: it is the bot's map.
 
 - Loop diagrams (mae, 2026-11-09): `docs/loops/` has a Mermaid page per loop, a screen-by-screen table and `docs/loops/open-questions.md` (15 places where code, rules and mae's asks disagree; mae's 2026-11-09 answers applied: blue-pip gear enhance trigger, gather fights guards, `get_stronger` for explore, one tower climb a day from any loop, tutorial stops on class choices; none run live yet) — `claude/project-thread-aqcucg`, PR pending, cloud. Follow-up proposed in `docs/loops/README.md`: per-loop flow specs the loops read, so the diagrams become the source of truth.
 

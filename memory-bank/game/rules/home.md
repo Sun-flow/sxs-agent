@@ -43,8 +43,8 @@ Scene labels (e.g. "Class to Unlock") overlap the quest tracker region; filter t
 - When a Cart row shows an Unlock button (often with a red "!"), press it. Unlocking is free (mae). Chrono Sand was the first such row.
 - This is separate from upgrading: unlocking a row doesn't make it an upgrade target. Upgrades stay Stone and Wood only (R-136).
 - Rows still locked behind a level (Treats, Lv 45) show no Unlock button yet; check again on later runs.
-- Code: `CartUpgrader.unlock_rows` in `sxs/loops/cart.py` presses an exact "Unlock" before upgrading. If a confirmation shows any cost or spend word, it backs out and asks (needs a decision). Not yet watched live.
-*told* · node `cart` · R-020, R-136
+- Code: `CartUpgrader.unlock_rows` in `sxs/loops/cart.py` presses an exact "Unlock" before upgrading. If a confirmation shows any cost or spend word, it backs out and asks (needs a decision). Live-verified 2026-11-09 on Chrono Sand.
+*told, observed* · node `cart` · R-020, R-136
 
 ## The house
 
