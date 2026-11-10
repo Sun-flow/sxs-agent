@@ -43,8 +43,8 @@ Blue-aura pickups are rarer and give bonus ingredients. Take them before plain o
 *told* · R-124
 
 ### R-139 · A monster guarding a pickup: fight it, then resume the pickup
-When a monster blocks or guards a pickup, the gatherer calls the shared fight function, then goes back to the same pickup and collects it (mae, 2026-11-09). The fight follows the usual checks: HP at 70% (R-061) and the power limit (R-127).
-*told* · R-061, R-124, R-127
+When a monster blocks or guards a pickup, fight it first, then go back to the same pickup and collect it (mae, 2026-11-09). This holds in every loop that explores (quest, roam, fog walk, gather). A guard shows a red horned-skull marker over it (`resource/image/explore/guard_marker.png`); code: `unstick.attack_guard` and the shared `start_fight` in `sxs/actions/common.py` (R-073). The fight follows the usual checks: HP at 70% (R-061), the power limit (R-127), at most two retries.
+*told* · R-061, R-073, R-124, R-127
 
 ### R-109 · Always tap special nodes with a green timer circle
 Special nodes or encounters carry a green timer circle at their upper right and are high value: always tap them. A Grand Mine gives one free material collection. Chat announces "Grand Iron Mine" / "Grand Sand Mine" spawns in Verdantglade ❓ (where they appear is unknown).

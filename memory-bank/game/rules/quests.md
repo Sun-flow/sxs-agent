@@ -22,7 +22,7 @@ Do each quest the quest guide shows, in order.
 *observed* · `dailies/daily_quest.png` · node `quests` · R-079, R-095, R-099, R-111, R-114
 
 ### R-099 · Guidance quests are an ore source
-Menu > Quest > Guidance (the Quest tab): Helmet / Armor / Boots Enhancement I ("Enhance a helmet to +15": 80 Raw Ore, 50 Refined Ore), Cart Upgrade I (1K Rolla), Skill Mastery. Cart Upgrade I, II, III chain and claim instantly from the tracker gift (R-044). Steer toward them; the ore feeds gear (R-092). The Achievement tab's weekly achievements (Daily Dungeon, Crucible of Hieromon, Split Mirage) refresh Mondays 8:00 UTC-5 (R-024).
+Menu > Quest > Guidance (the Quest tab): Helmet / Armor / Boots Enhancement I ("Enhance a helmet to +15": 80 Raw Ore, 50 Refined Ore), Helmet and Armor Enhancement II (50 red ore each), Cart Upgrade I (1K Rolla), Skill Mastery. Cart Upgrade I, II, III chain and claim instantly from the tracker gift (R-044). Steer toward them; the ore feeds gear (R-092). The Achievement tab's weekly achievements (Daily Dungeon, Crucible of Hieromon, Split Mirage) refresh Mondays 8:00 UTC-5 (R-024).
 *observed* · node `quests` · R-024, R-092
 
 ## Tracking a target

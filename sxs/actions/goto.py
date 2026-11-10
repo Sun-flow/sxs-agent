@@ -29,7 +29,7 @@ AREA_MAP_ZOOM_OUT = (682, 1113)  # the "-" under the area map's zoom slider
 SCREEN_CENTRE = ui.SCREEN_CENTRE  # where the area-map point lands after the camera re-centres
 COORDS = re.compile(r"\(?(\d+) ?[,.] ?(\d+)\)?")  # OCR reads the comma as "." sometimes
 WALK_TIMEOUT_S = 60
-LABEL_DY = 0  # tap the label itself: area labels sit on the area they name
+LABEL_DY = -26  # just above the label: it sits on its zone, and a Portal can sit right under it (mae, 2026-11-10: Verdantglade VI; the tap opened the portal card)
 
 
 def squeeze(t: str) -> str:
@@ -80,9 +80,13 @@ def same_area(a: str, b: str) -> bool:
 def area_labels(det) -> dict[str, list[int]]:
     """Area-map OCR: name -> box, for lines that look like area names (not the legend or percentages)."""
     out = {}
-    for text, box in det.read_text([0, 120, 540, 1050]):
+    # Up to the zoom slider (x 655): labels on the right third, such as Damp Woods at the survey zoom, were cut off
+    # by the old x 540 limit (live 2026-11-10). The legend box (top right) is skipped.
+    for text, box in det.read_text([0, 120, 655, 1050]):
         t = text.replace("-", " ").strip(" |")
         if re.search(r"Exploration|%|\d\.\dK", t) or len(t) < 4:
+            continue
+        if box[0] > 530 and box[1] < 260:
             continue
         out[t] = box
     return out
@@ -111,12 +115,51 @@ def _widen(dev) -> bool:
     """A label wasn't on the area map: it opens centred on the camera, so a far area can sit off screen (seen
     2026-11-04: from Moonveil Woods, Verdantglade II and Damp Woods were cut off). Zoom out one step and let the
     labels settle, then the caller reads again. Returns True when it tried."""
-    dev.tap(*AREA_MAP_ZOOM_OUT)
-    time.sleep(1.5)
+    # One "-" wasn't enough (live 2026-11-10: Damp Woods never showed from Jungle Camp): the survey zoom shows the
+    # whole kingdom with readable labels.
+    survey_zoom(dev)
     return True
 
 
-def go_to(dev, det, target) -> str:
+SLIDER_DRAG = (682, 1090, 682, 1030)  # zoom knob from full zoom-out a quarter up (`world/area_map_survey_zoom.png`)
+
+
+def survey_zoom(dev) -> None:
+    """Area map open: zoom out fully, then one step closer by dragging the knob (mae, 2026-11-09: fully zoomed out the
+    labels merge; the "+" button jumps to the closest zoom). The whole kingdom then nearly fits the screen."""
+    for _ in range(4):
+        dev.tap(*AREA_MAP_ZOOM_OUT)
+        time.sleep(0.4)
+    dev.swipe(*SLIDER_DRAG, 600)
+    time.sleep(1.2)
+
+
+LABEL_PANS = [(300, 900, 300, 450), (450, 620, 150, 620), (300, 400, 300, 850), (300, 400, 300, 850),
+              (150, 620, 450, 620), (150, 620, 450, 620)]  # reveal south, east, north twice, west twice
+LEGEND_FILTER_CLOSE = (360, 1150)  # a tap on the map below the legend's filter panel closes it
+
+
+def open_area_map(dev, det) -> bool:
+    """Tap the minimap and wait for the area map. Live 2026-11-10: a second tap sent while the map was still opening
+    landed on the legend's search pill (the minimap sits under the legend) and opened the legend filter panel
+    ("Select All"), which the state detector doesn't know; then nothing opened the map. Now: one tap, wait, retap only
+    while still on the island map, and close the filter panel if it shows."""
+    dev.tap(*MINIMAP)
+    for i in range(6):
+        time.sleep(1.2)
+        state = det.detect().state
+        if state == "area_map":
+            return True
+        if any(re.search(r"Select All", t) for t, _ in det.read_text([300, 700, 300, 80])):
+            log.info("legend filter panel open: closing it")
+            dev.tap(*LEGEND_FILTER_CLOSE)
+            continue
+        if state == "world_map" and i == 3:
+            dev.tap(*MINIMAP)
+    return det.detect().state == "area_map"
+
+
+def go_to(dev, det, target, pan_for_target: bool = False) -> str:
     """target: an area name on the area map, or an (x, y) point there. Returns "arrived" (walked and stopped),
     "no_move" (coordinates didn't change: blocked or unreachable), "no_label", or "not_on_map"."""
     banner(log, "Go To", f"walk to {'the nearest object' if callable(target) else target} picked on the area map",
@@ -159,6 +202,15 @@ def go_to(dev, det, target) -> str:
         labels, hit = find()
         if not hit and _widen(dev):
             labels, hit = find()
+        # Still not in view: the kingdom is bigger than the screen even zoomed out (live 2026-11-10: Damp Woods sat
+        # off the bottom right while the map opened centred on Auroradrasil). Pan and look again.
+        for drag in (LABEL_PANS if not hit else ()):
+            dev.swipe(*drag, 1500)
+            time.sleep(1.2)
+            labels, hit = find()
+            if hit:
+                log.info("found %r after panning the area map", target)
+                break
         if not hit:
             log.warning("no %r on the area map (saw %s); frame %s", target, list(labels), save_unknown(dev, "goto"))
             dev.tap(*ui.BACK_ARROW)
@@ -171,6 +223,18 @@ def go_to(dev, det, target) -> str:
         # element now in the middle of the screen).
         time.sleep(0.5)
         point = target(dev.screenshot())
+        if point is None:
+            # The map opens at whatever zoom it was left at, so the target may just be off screen (live 2026-11-09:
+            # "no_target" for Verdantglade V while its dots were outside the view): look again zoomed out.
+            survey_zoom(dev)
+            point = target(dev.screenshot())
+        for drag in (LABEL_PANS if point is None and pan_for_target else ()):
+            # Off screen or under the dark bottom-left corner (live 2026-11-10: Jungle Camp's blue "!"): pan, look again.
+            dev.swipe(*drag, 1500)
+            time.sleep(1.2)
+            point = target(dev.screenshot())
+            if point is not None:
+                break
         if point is None:
             dev.tap(*ui.BACK_ARROW)
             time.sleep(1.5)

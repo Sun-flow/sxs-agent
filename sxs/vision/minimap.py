@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import sys
 from dataclasses import dataclass
+from typing import Optional
 
 import cv2
 import numpy as np
@@ -89,7 +90,7 @@ class Minimap:
 # V 150-187 across a passage in `world/explore_bellflower_picked.png`): 1-2 px thick, running straight along a row or
 # a column, often only across the walkable gap between two walls (2 tiles). Fog (unspotted) is grey too but dark and
 # blotchy; white icons are brighter, and their anti-aliased edges sit next to bright pixels: both are dropped.
-BORDER_S_MAX, BORDER_V = 40, (105, 200)
+BORDER_S_MAX, BORDER_V = 50, (105, 200)  # live frames blur the line: S 25-49 (2026-11-09, Verdantglade V)
 BORDER_BRIGHT_V = 205  # icon interiors (player, statues, trees): line pixels next to these are icon edges
 BORDER_SIDE_S = 50  # ground on either side of the line is green (saturated)
 BORDER_MIN_RUN = 12  # px: a straight light run at least this long (1.5 tiles) after bridging the dot gaps
@@ -100,7 +101,15 @@ BORDER_TILE_PX = 3  # line pixels inside a tile's 8x8 cell that make it a border
 def border_mask(frame: np.ndarray) -> np.ndarray:
     """Pixels of dotted zone-border lines inside the minimap circle (uint8 0/1, the minimap crop's size)."""
     cx, cy = CENTER
-    crop = frame[cy - RADIUS:cy + RADIUS, cx - RADIUS:cx + RADIUS]
+    out = dotted_lines(frame[cy - RADIUS:cy + RADIUS, cx - RADIUS:cx + RADIUS])
+    yy, xx = np.mgrid[0:out.shape[0], 0:out.shape[1]]
+    d2 = (xx - RADIUS) ** 2 + (yy - RADIUS) ** 2
+    out[(d2 > (RADIUS - 5) ** 2) | (d2 < (1.2 * TILE) ** 2)] = 0  # the ring rim, and the player's own marker
+    return out
+
+
+def dotted_lines(crop: np.ndarray) -> np.ndarray:
+    """Dotted zone-border line pixels in any crop of map drawing (minimap or area map), uint8 0/1."""
     hsv = cv2.cvtColor(crop, cv2.COLOR_BGR2HSV)
     light = ((hsv[..., 1] < BORDER_S_MAX) & (hsv[..., 2] >= BORDER_V[0]) & (hsv[..., 2] <= BORDER_V[1])).astype(np.uint8)
     bright = ((hsv[..., 1] < BORDER_S_MAX) & (hsv[..., 2] > BORDER_BRIGHT_V)).astype(np.uint8)
@@ -122,9 +131,6 @@ def border_mask(frame: np.ndarray) -> np.ndarray:
         before = np.roll(sat, k, axis=0 if horizontal else 1)
         after = np.roll(sat, -k, axis=0 if horizontal else 1)
         out |= lines & (1 - fat) & before & after
-    yy, xx = np.mgrid[0:out.shape[0], 0:out.shape[1]]
-    d2 = (xx - RADIUS) ** 2 + (yy - RADIUS) ** 2
-    out[(d2 > (RADIUS - 1.5 * TILE) ** 2) | (d2 < (1.2 * TILE) ** 2)] = 0  # the ring rim, and the player's own marker (its bright ring is dropped above)
     return out
 
 
@@ -141,7 +147,63 @@ def border_tiles(frame: np.ndarray, n: int) -> frozenset:
     return frozenset(out)
 
 
-def read(frame: np.ndarray) -> Minimap:
+LIGHT = {"walk_explored": "walk", "wall_explored": "wall"}  # a blessed zone's brightened tiles
+SHADED = {"walk_unexplored": "walk", "wall_unexplored": "wall"}  # a zone not yet blessed (striped, darker)
+SHADE_MIN_RUN = 4  # tiles: a straight light/shaded edge at least this long is a zone border
+
+
+def shade_border(grid: list[list[str]], centre: tuple[int, int], home_light: Optional[bool] = None) -> frozenset:
+    """mae, 2026-11-09: zone borders also show as the edge between a brightened (blessed, explored) zone and a
+    shaded one; such edges are regular and straight. Finds straight runs of SHADE_MIN_RUN+ tile pairs along a row or
+    column where one side is light and the other shaded (walls or ground, either side), and returns the
+    tiles on the far side from the player's own shading, so the planner sees a wall there. A ragged edge (the fog
+    frontier inside a zone) doesn't make a long straight run.
+
+    home_light: whether the zone we're exploring is the light one (blessed) or the shaded one. The caller usually
+    knows (the fog walk: shaded while the zone is unexplored). Guessed from the tiles round the player otherwise,
+    which goes wrong right at the edge (live 2026-11-09: standing on the line, the light side won the count)."""
+    n = len(grid)
+    pr, pc = centre
+    if home_light is None:
+        near = [grid[r][c] for r in range(max(0, pr - 2), min(n, pr + 3)) for c in range(max(0, pc - 2), min(n, pc + 3))]
+        home_light = sum(k in LIGHT for k in near) > sum(k in SHADED for k in near)
+    mine_light = home_light
+    # The player's marker and its white ring hide the tiles under and round it ("icon"/"unspotted"); they're our own
+    # zone's ground, and a border right under us must still count (live 2026-11-09, standing on V's south edge).
+    own = "walk_explored" if mine_light else "walk_unexplored"
+    grid = [[own if max(abs(r - pr), abs(c - pc)) <= 2 and k in ("icon", "unspotted") else k
+             for c, k in enumerate(row)] for r, row in enumerate(grid)]
+
+    def pair(a: str, b: str) -> Optional[tuple[int, int]]:
+        """(index of the light tile, of the shaded tile) within (a, b), or None."""
+        if a in LIGHT and b in SHADED:  # walls included: the edge runs through both
+            return 0, 1
+        if b in LIGHT and a in SHADED:
+            return 1, 0
+        return None
+
+    out = set()
+    for horizontal in (True, False):  # edges between rows r/r+1 (run along c), then between columns
+        for i in range(n - 1):
+            run: list[tuple[int, int]] = []
+            for j in range(n + 1):
+                hit = None
+                if j < n:
+                    t = [(i, j), (i + 1, j)] if horizontal else [(j, i), (j, i + 1)]
+                    p_ = pair(grid[t[0][0]][t[0][1]], grid[t[1][0]][t[1][1]])
+                    if p_:
+                        far = p_[1] if mine_light else p_[0]  # the side that isn't our zone's shading
+                        hit = t[far]
+                if hit:
+                    run.append(hit)
+                    continue
+                if len(run) >= SHADE_MIN_RUN:
+                    out.update(run)
+                run = []
+    return frozenset(out)
+
+
+def read(frame: np.ndarray, home_light: Optional[bool] = None) -> Minimap:
     cx, cy = CENTER
     n = (RADIUS * 2) // TILE
     half = n // 2
@@ -165,7 +227,7 @@ def read(frame: np.ndarray) -> Minimap:
             h, s, v = np.median(patch, axis=0).astype(int)
             row.append(classify_pixel(int(h), int(s), int(v)))
         grid.append(row)
-    return Minimap(grid, (half, half), border_tiles(frame, n))
+    return Minimap(grid, (half, half), border_tiles(frame, n) | shade_border(grid, (half, half), home_light))
 
 
 def render(mm: Minimap, scale: int = 12) -> np.ndarray:
@@ -207,6 +269,7 @@ if __name__ == "__main__":
 
 # --- path planning -------------------------------------------------------------------------------------------
 
+CLOSE_TILES = 4  # objects this many tiles away or nearer are tapped on screen, not reached by a big-map walk
 SCREEN_TILE = 104  # px per game tile on the island map at the default zoom (grid lines are this far apart)
 GOALS = ("item", "monster", "walk_unexplored", "fog_lead")  # what free exploration heads for (nearest first);
 # orange monster dots are fought (mae, 2026-11-04: "orange minimap icons are monsters and should be fought").
@@ -225,6 +288,9 @@ def fog_lead(mm: Minimap, r: int, c: int) -> bool:
                for dr, dc in ((1, 0), (-1, 0), (0, 1), (0, -1)))
 
 
+BORDER_BUFFER = 1  # tiles round a border line that are walls too: the line is drawn to within a tile (live 2026-11-09)
+
+
 def path_to_nearest(mm: Minimap, goals=GOALS, skip=frozenset(), cross_border: bool = False) -> list[tuple[int, int]]:
     """Breadth-first path over walkable tiles from the player to the nearest goal tile (unexplored walkable ground
     or a pickup). Goal tiles themselves count as walkable. Empty if nothing reachable.
@@ -235,6 +301,9 @@ def path_to_nearest(mm: Minimap, goals=GOALS, skip=frozenset(), cross_border: bo
 
     n = len(mm.grid)
     start = mm.centre
+    blocked = set() if cross_border else {(r + dr, c + dc) for r, c in mm.border
+                                          for dr in range(-BORDER_BUFFER, BORDER_BUFFER + 1)
+                                          for dc in range(-BORDER_BUFFER, BORDER_BUFFER + 1)} - {start}
     prev = {start: None}
     q = deque([start])
     while q:
@@ -252,7 +321,7 @@ def path_to_nearest(mm: Minimap, goals=GOALS, skip=frozenset(), cross_border: bo
             # The player's white ring reads as grey "unspotted" on the tiles around it (seen 2026-11-05 in
             # Verdantglade III: it walled the player in and no path was ever found), so they count as walkable.
             ring = max(abs(nr - start[0]), abs(nc - start[1])) <= 1
-            if not cross_border and (nr, nc) in mm.border:
+            if (nr, nc) in blocked:
                 continue
             if 0 <= nr < n and 0 <= nc < n and (nr, nc) not in prev and (mm.grid[nr][nc] in WALKABLE or ring):
                 prev[(nr, nc)] = cur
