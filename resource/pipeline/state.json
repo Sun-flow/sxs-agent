@@ -1,6 +1,6 @@
 {
     "State.Detect": {
-        "doc": "Entry for the 'where am I' detector. The DetectState custom action (sxs/state.py) runs each node in custom_action_param.order against the same frame and stops at the first hit, so put popups and overlays before the screens they cover. (A plain next-list is not used because MaaFramework batches OCR across next-list nodes, which misread several screens.)",
+        "doc": "Entry for the 'where am I' detector. The DetectState custom action (sxs/state.py) runs each node in custom_action_param.order against the same frame and stops at the first hit, so put popups and overlays before the screens they cover. (A plain next-list is not used because MaaFramework batches OCR across next-list nodes, which misread several screens.) `strips`: regions read with one OCR each; a plain OCR node whose roi lies inside a strip is matched against that read instead of running its own OCR (docs/vision-upgrade.md). `exact`: nodes that always run their own OCR.",
         "recognition": "DirectHit",
         "action": "Custom",
         "custom_action": "DetectState",
@@ -63,6 +63,19 @@
                 "State.Quests",
                 "State.Guild",
                 "State.Unknown"
+            ],
+            "strips": {
+                "page": [
+                    0,
+                    0,
+                    720,
+                    1280
+                ]
+            },
+            "exact": [
+                "State.AreaMap",
+                "State.GuildJoinList",
+                "State.GuildNoGuild"
             ]
         },
         "pre_delay": 0,

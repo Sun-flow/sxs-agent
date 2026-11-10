@@ -36,7 +36,7 @@ Format: `- what — branch, PR, environment (started)`. Remove the line when it 
 
 - Loop diagrams (mae, 2026-11-09): `docs/loops/` has a Mermaid page per loop, a screen-by-screen table and `docs/loops/open-questions.md` (15 places where code, rules and mae's asks disagree; mae's 2026-11-09 answers applied: blue-pip gear enhance trigger, gather fights guards, `get_stronger` for explore, one tower climb a day from any loop, tutorial stops on class choices; none run live yet) — `claude/project-thread-aqcucg`, PR pending, cloud. Follow-up proposed in `docs/loops/README.md`: per-loop flow specs the loops read, so the diagrams become the source of truth.
 
-- Vision upgrade assessment (mae, 2026-11-10): `docs/vision-upgrade.md` explains the screen check and its measured costs, proposes no-ML speed-ups (bench on mae's PC, shared strip reads, last-state-first, frame skip, foreground check on unknown) and a staged YOLO/RF-DETR detector path — `claude/project-thread-wuht8i`, PR pending, cloud. Waiting on mae's approval of Part 1.
+- Faster screen checks + detector design (mae, 2026-11-10): one whole-screen OCR per frame, frame cache, lighter foreground check, `SXS_INFERENCE`; `python -m sxs bench` shows median 2.5 s -> 0.9 s offline, 241/241 screens correct. `docs/vision-upgrade.md`, `docs/detector-design.md` (Roboflow plan, three models) — `claude/project-thread-wuht8i`, PR #48, cloud. Next: bench on mae's PC (`--inference directml` too), then a live roam with readouts by the RC builder.
 
 ## Next (in order)
 

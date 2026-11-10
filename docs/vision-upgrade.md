@@ -102,21 +102,45 @@ Together, 1-5 and 7 should bring a typical check (world map, home, battle) to ro
 worst case to under ~1 s on this container's CPU, without changing what any state means. That is the "faster,
 cheaper interface" step and needs no training.
 
-### Proposal to approve (Part 1)
+### What was built (mae approved, 2026-11-10)
 
-One PR, offline-tested, then one live readout run by the RC builder:
+mae: "immediately implement the proposed improvements". Built in `sxs/core/state.py` and `State.Detect` in
+`resource/pipeline/state.json`, tested offline on all 241 reference screens (`python -m sxs bench`):
 
-0. **Measure first on mae's PC.** Add a new bench command (proposed: `bench` loop) that times `detect()` on every reference screen and per
-   node, and prints the table above for her machine (CPU and DirectML). Offline only; no emulator needed.
-1. Shared-strip reads (#1) and tightened big ROIs (#5).
-2. Last-state-first with the overlay guard (#2), plus the unchanged-frame skip (#3) with a 2 s cap.
-3. Foreground check on unknown or every 10 s (#7).
-4. `Detection` gains `path` ("cache", "fast", "full") so the readouts show which route answered and how long it took.
-5. Pass condition: `tests/check_states_offline.py` still 100%, and median check time on mae's PC at least 5x lower
-   than step 0's number. Then the builder runs one short roam with readouts.
+- **One text read per frame instead of one per node.** Instead of the separate title and tab strips (#1), which
+  were only 1.1x faster because the costly nodes are elsewhere, the chain reads the whole screen once, the first
+  time an OCR node needs it, and matches every plain OCR node's regexes against the lines inside its roi.
+  - Three nodes that a whole-screen read misses keep their own OCR (`exact`: `AreaMap`, `GuildJoinList`,
+    `GuildNoGuild`).
+  - Templates and the `Or` node run as before, in the same priority order, so popups still win.
+- **Unchanged frame skip (#3).** A 45x80 grey fingerprint; if fewer than 3 cells moved and under 2 s passed, the
+  last detection comes back (~1 ms). The same pixels give the same answer, so this changes nothing but time.
+- **Foreground check (#7)** only when the chain says unknown, or every 10 s.
+- **`SXS_INFERENCE`** = `cpu`, `directml` or `auto` picks where OCR runs (#8). Unset keeps MaaFramework's
+  default. `python -m sxs bench --inference directml` compares the two on mae's PC.
+- **`Detection.path`** says how a check was answered: `cache`, `strip` (the shared read) or `node` (own run).
 
-Anchor crops (#4) follow once mae labels the common screens in the labeler, and the survey sleep cuts (#3, #9) go
-with the picker label reuse already queued.
+Results on this container's CPU, all 241 screens, old chain against new, same frames:
+
+| | old | new |
+|---|---|---|
+| median | 2489 ms | 882 ms |
+| mean | 2923 ms | 890 ms |
+| p90 | 5124 ms | 1302 ms |
+| worst | 7456 ms | 1820 ms |
+| unchanged frame | (full chain) | ~1 ms |
+
+The first run had 1 screen wrong out of 241 (`area_map_v3`, fixed by putting `AreaMap` in `exact`). The fix was
+rechecked on the area-map screens. Not done:
+
+- **Last-state-first (#2).** Every popup above the last state still has to be checked, and that is as costly as
+  the shared read.
+- **Anchor crops (#4).** These wait for mae's labeler pass.
+- **Survey sleep cuts (#9).** These go with the picker label reuse.
+
+The new check costs about one whole-screen read: 0.6-1.5 s here, depending on how much text is on screen. That is
+2.8x faster at the median and 4x at the worst. Beyond that, the next wins are DirectML (measure on mae's PC), and
+the detector's anchors replacing the read on the most common screens.
 
 ---
 

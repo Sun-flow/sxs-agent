@@ -11,6 +11,7 @@ Run from the repo root on the Windows PC (`.venv\Scripts\python`, shown below as
     python -m sxs bank | label             # unlabelled-screens bank (docs/screens/README.md)
     python -m sxs labeler                  # web page: name screens, box buttons/text/icons, save crops as templates
     python -m sxs report [--day DAY]       # the day's progress report from saved snapshots (no emulator)
+    python -m sxs bench [--one-per-state]  # screen-check timings on the reference screens, old way vs new (no emulator)
     python -m sxs state | screenshot | tap X Y | swipe ... | back | start | stop | capture NAME | watch
 
 Coordinates are in the 720×1280 portrait frame. No module calls a model.
@@ -96,6 +97,7 @@ Who calls whom: `daily` → `mall`, `vendor`, `gearswap`, `tower`, `guild`, `gat
 | Account numbers off a screen (top bar, profile, Journal, Cart, guild) | `vision/stats.py`; small badge labels: `ocr.zoomed_lines` |
 | Per-day records (`logs/runs.jsonl`, `logs/progress/`) | `core/records.py`: `note(source, values)` from any loop that sees a stat on the way |
 | Repo paths | `core/paths.py` (`RESOURCE`, `POLICY`, `SCREENS`, `CAPTURES`, `LOGS`) |
+| Screen-check speed (one text read per frame, frame cache, `SXS_INFERENCE`) | `core/state.py` docstring; timings with `core/bench.py`; why in `docs/vision-upgrade.md` |
 | Reference screenshots | `core/screens.py`: `folder_for(name)`, `find(name)`, `reference_screens()`, `load_expected()`, the bank |
 | A button, text line or icon mae boxed in the labeler | `vision/labels.py`: `roi(screen, box)`, `find(frame, screen, box)`, `tap_point(...)`; data in `core/labels.py` |
 
