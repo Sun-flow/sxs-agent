@@ -35,8 +35,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "green_riceball",
-     "draft": true
+     "item": "green_riceball"
     }
    ]
   },
@@ -100,8 +99,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     },
     {
      "name": "rolla_1",
@@ -113,8 +111,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
+     "item": "rolla"
     }
    ]
   },
@@ -200,8 +197,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     },
     {
      "name": "rolla_1",
@@ -213,8 +209,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
+     "item": "rolla"
     }
    ]
   },
@@ -300,8 +295,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "epic_auroral_badge",
-     "draft": true
+     "item": "epic_auroral_badge"
     }
    ]
   },
@@ -436,8 +430,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
+     "item": "raw_ore"
     },
     {
      "name": "rolla_1",
@@ -449,8 +442,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
+     "item": "rolla"
     },
     {
      "name": "refined_ore_1",
@@ -462,8 +454,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "refined_ore",
-     "draft": true
+     "item": "refined_ore"
     },
     {
      "name": "raw_ore_2",
@@ -475,8 +466,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
+     "item": "raw_ore"
     },
     {
      "name": "raw_ore_3",
@@ -488,8 +478,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
+     "item": "raw_ore"
     }
    ]
   },
@@ -575,8 +564,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rare_auroral_badge",
-     "draft": true
+     "item": "rare_auroral_badge"
     },
     {
      "name": "rare_auroral_badge_2",
@@ -588,8 +576,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rare_auroral_badge",
-     "draft": true
+     "item": "rare_auroral_badge"
     },
     {
      "name": "rolla_1",
@@ -601,8 +588,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
+     "item": "rolla"
     },
     {
      "name": "rolla_2",
@@ -614,8 +600,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
+     "item": "rolla"
     },
     {
      "name": "rolla_3",
@@ -627,8 +612,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
+     "item": "rolla"
     }
    ]
   },
@@ -667,8 +651,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "water_shot",
-     "draft": true
+     "item": "water_shot"
     },
     {
      "name": "ice_spike_1",
@@ -680,8 +663,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "ice_spike",
-     "draft": true
+     "item": "ice_spike"
     }
    ]
   },
@@ -701,8 +683,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "green_riceball",
-     "draft": true
+     "item": "green_riceball"
     }
    ]
   },
@@ -722,8 +703,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "green_riceball",
-     "draft": true
+     "item": "green_riceball"
     }
    ]
   },
@@ -743,8 +723,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "green_riceball",
-     "draft": true
+     "item": "green_riceball"
     }
    ]
   },
@@ -775,8 +754,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "bellflower",
-     "draft": true
+     "item": "bellflower"
     },
     {
      "name": "rolla_1",
@@ -788,8 +766,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
+     "item": "rolla"
     },
     {
      "name": "dawnium_1",
@@ -801,8 +778,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     },
     {
      "name": "rolla_2",
@@ -814,8 +790,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
+     "item": "rolla"
     }
    ]
   },
@@ -945,8 +920,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "gold_pickaxe",
-     "draft": true
+     "item": "gold_pickaxe"
     },
     {
      "name": "sand_shovel_1",
@@ -958,8 +932,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "sand_shovel",
-     "draft": true
+     "item": "sand_shovel"
     },
     {
      "name": "worn_knuckles_1",
@@ -971,8 +944,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "worn_knuckles",
-     "draft": true
+     "item": "worn_knuckles"
     },
     {
      "name": "iron_hammer_1",
@@ -984,8 +956,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "iron_hammer",
-     "draft": true
+     "item": "iron_hammer"
     },
     {
      "name": "rare_auroral_badge_1",
@@ -997,8 +968,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rare_auroral_badge",
-     "draft": true
+     "item": "rare_auroral_badge"
     }
    ]
   },
@@ -1059,8 +1029,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rare_auroral_badge",
-     "draft": true
+     "item": "rare_auroral_badge"
     },
     {
      "name": "rare_auroral_badge_2",
@@ -1072,8 +1041,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rare_auroral_badge",
-     "draft": true
+     "item": "rare_auroral_badge"
     },
     {
      "name": "epic_auroral_badge_1",
@@ -1085,8 +1053,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "epic_auroral_badge",
-     "draft": true
+     "item": "epic_auroral_badge"
     },
     {
      "name": "epic_auroral_badge_2",
@@ -1098,8 +1065,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "epic_auroral_badge",
-     "draft": true
+     "item": "epic_auroral_badge"
     },
     {
      "name": "iron_hammer_1",
@@ -1111,8 +1077,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "iron_hammer",
-     "draft": true
+     "item": "iron_hammer"
     }
    ]
   },
@@ -1198,8 +1163,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "battle_essence",
-     "draft": true
+     "item": "battle_essence"
     },
     {
      "name": "flame_jet_1",
@@ -1211,8 +1175,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "flame_jet",
-     "draft": true
+     "item": "flame_jet"
     },
     {
      "name": "cyclone_1",
@@ -1224,8 +1187,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "cyclone",
-     "draft": true
+     "item": "cyclone"
     },
     {
      "name": "heart_of_flame_1",
@@ -1237,8 +1199,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "heart_of_flame",
-     "draft": true
+     "item": "heart_of_flame"
     },
     {
      "name": "unstable_aura_1",
@@ -1250,8 +1211,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "unstable_aura",
-     "draft": true
+     "item": "unstable_aura"
     },
     {
      "name": "water_shot_1",
@@ -1263,8 +1223,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "water_shot",
-     "draft": true
+     "item": "water_shot"
     },
     {
      "name": "ice_spike_1",
@@ -1276,8 +1235,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "ice_spike",
-     "draft": true
+     "item": "ice_spike"
     }
    ]
   },
@@ -1352,8 +1310,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "water_shot",
-     "draft": true
+     "item": "water_shot"
     },
     {
      "name": "battle_essence_1",
@@ -1365,8 +1322,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "battle_essence",
-     "draft": true
+     "item": "battle_essence"
     },
     {
      "name": "flame_jet_1",
@@ -1378,8 +1334,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "flame_jet",
-     "draft": true
+     "item": "flame_jet"
     },
     {
      "name": "heart_of_flame_1",
@@ -1391,8 +1346,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "heart_of_flame",
-     "draft": true
+     "item": "heart_of_flame"
     },
     {
      "name": "unstable_aura_1",
@@ -1404,8 +1358,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "unstable_aura",
-     "draft": true
+     "item": "unstable_aura"
     },
     {
      "name": "cyclone_1",
@@ -1417,8 +1370,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "cyclone",
-     "draft": true
+     "item": "cyclone"
     },
     {
      "name": "ice_spike_1",
@@ -1430,8 +1382,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "ice_spike",
-     "draft": true
+     "item": "ice_spike"
     }
    ]
   },
@@ -1495,8 +1446,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "water_shot",
-     "draft": true
+     "item": "water_shot"
     },
     {
      "name": "battle_essence_1",
@@ -1508,8 +1458,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "battle_essence",
-     "draft": true
+     "item": "battle_essence"
     },
     {
      "name": "dawnium_1",
@@ -1521,8 +1470,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     },
     {
      "name": "rolla_1",
@@ -1534,8 +1482,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
+     "item": "rolla"
     },
     {
      "name": "cyclone_1",
@@ -1547,8 +1494,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "cyclone",
-     "draft": true
+     "item": "cyclone"
     },
     {
      "name": "flame_jet_1",
@@ -1560,8 +1506,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "flame_jet",
-     "draft": true
+     "item": "flame_jet"
     },
     {
      "name": "ice_spike_1",
@@ -1573,8 +1518,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "ice_spike",
-     "draft": true
+     "item": "ice_spike"
     }
    ]
   },
@@ -1616,8 +1560,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "water_shot",
-     "draft": true
+     "item": "water_shot"
     },
     {
      "name": "battle_essence_1",
@@ -1629,8 +1572,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "battle_essence",
-     "draft": true
+     "item": "battle_essence"
     },
     {
      "name": "ice_spike_1",
@@ -1642,8 +1584,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "ice_spike",
-     "draft": true
+     "item": "ice_spike"
     },
     {
      "name": "dawnium_1",
@@ -1655,8 +1596,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     },
     {
      "name": "rolla_1",
@@ -1668,8 +1608,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
+     "item": "rolla"
     },
     {
      "name": "cyclone_1",
@@ -1681,8 +1620,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "cyclone",
-     "draft": true
+     "item": "cyclone"
     },
     {
      "name": "flame_jet_1",
@@ -1694,8 +1632,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "flame_jet",
-     "draft": true
+     "item": "flame_jet"
     }
    ]
   },
@@ -3573,6 +3510,19 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "badge_red_bang"
+    },
+    {
+     "name": "stellatie_1",
+     "kind": "icon",
+     "x": 326,
+     "y": 688,
+     "w": 93,
+     "h": 93,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stellatie",
+     "draft": true
     }
    ]
   },
@@ -3625,6 +3575,19 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "badge_red_bang"
+    },
+    {
+     "name": "stellatie_1",
+     "kind": "icon",
+     "x": 326,
+     "y": 688,
+     "w": 93,
+     "h": 93,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stellatie",
+     "draft": true
     }
    ]
   },
@@ -3710,6 +3673,71 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "badge_red_bang"
+    },
+    {
+     "name": "bond_trinket_1",
+     "kind": "icon",
+     "x": 252,
+     "y": 184,
+     "w": 70,
+     "h": 69,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "bond_trinket",
+     "draft": true
+    },
+    {
+     "name": "bond_trinket_2",
+     "kind": "icon",
+     "x": 252,
+     "y": 352,
+     "w": 70,
+     "h": 69,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "bond_trinket",
+     "draft": true
+    },
+    {
+     "name": "bond_trinket_3",
+     "kind": "icon",
+     "x": 252,
+     "y": 688,
+     "w": 70,
+     "h": 69,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "bond_trinket",
+     "draft": true
+    },
+    {
+     "name": "bond_trinket_4",
+     "kind": "icon",
+     "x": 252,
+     "y": 856,
+     "w": 70,
+     "h": 69,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "bond_trinket",
+     "draft": true
+    },
+    {
+     "name": "bond_trinket_5",
+     "kind": "icon",
+     "x": 252,
+     "y": 520,
+     "w": 70,
+     "h": 69,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "bond_trinket",
+     "draft": true
     }
    ]
   },
@@ -3729,6 +3757,113 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "badge_red_bang"
+    },
+    {
+     "name": "bond_trinket_1",
+     "kind": "icon",
+     "x": 170,
+     "y": 184,
+     "w": 70,
+     "h": 69,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "bond_trinket",
+     "draft": true
+    },
+    {
+     "name": "bond_trinket_2",
+     "kind": "icon",
+     "x": 170,
+     "y": 352,
+     "w": 70,
+     "h": 69,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "bond_trinket",
+     "draft": true
+    },
+    {
+     "name": "bond_trinket_3",
+     "kind": "icon",
+     "x": 170,
+     "y": 688,
+     "w": 70,
+     "h": 69,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "bond_trinket",
+     "draft": true
+    },
+    {
+     "name": "bond_trinket_4",
+     "kind": "icon",
+     "x": 170,
+     "y": 856,
+     "w": 70,
+     "h": 69,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "bond_trinket",
+     "draft": true
+    },
+    {
+     "name": "bond_trinket_5",
+     "kind": "icon",
+     "x": 170,
+     "y": 520,
+     "w": 70,
+     "h": 69,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "bond_trinket",
+     "draft": true
+    }
+   ]
+  },
+  "guild/guild_donation.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "dawnium_1",
+     "kind": "icon",
+     "x": 580,
+     "y": 37,
+     "w": 31,
+     "h": 31,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "dawnium",
+     "draft": true
+    }
+   ]
+  },
+  "guild/guild_donation_paid.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "dawnium_1",
+     "kind": "icon",
+     "x": 580,
+     "y": 37,
+     "w": 31,
+     "h": 31,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "dawnium",
+     "draft": true
     }
    ]
   },
@@ -3879,6 +4014,53 @@
     }
    ]
   },
+  "home/cart.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "cart_gear_yield_1",
+     "kind": "icon",
+     "x": 93,
+     "y": 800,
+     "w": 60,
+     "h": 74,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "cart_gear_yield",
+     "draft": true
+    },
+    {
+     "name": "raw_ore_1",
+     "kind": "icon",
+     "x": 86,
+     "y": 648,
+     "w": 70,
+     "h": 77,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "raw_ore",
+     "draft": true
+    },
+    {
+     "name": "rolla_1",
+     "kind": "icon",
+     "x": 84,
+     "y": 426,
+     "w": 76,
+     "h": 69,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rolla",
+     "draft": true
+    }
+   ]
+  },
   "home/cart_furniture_upgrade.png": {
    "size": [
     720,
@@ -3895,6 +4077,110 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_page_title"
+    },
+    {
+     "name": "rolla_1",
+     "kind": "icon",
+     "x": 445,
+     "y": 944,
+     "w": 79,
+     "h": 80,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rolla",
+     "draft": true
+    },
+    {
+     "name": "raw_ore_1",
+     "kind": "icon",
+     "x": 529,
+     "y": 583,
+     "w": 53,
+     "h": 51,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "raw_ore",
+     "draft": true
+    },
+    {
+     "name": "raw_ore_2",
+     "kind": "icon",
+     "x": 529,
+     "y": 632,
+     "w": 53,
+     "h": 51,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "raw_ore",
+     "draft": true
+    },
+    {
+     "name": "raw_ore_3",
+     "kind": "icon",
+     "x": 316,
+     "y": 486,
+     "w": 53,
+     "h": 51,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "raw_ore",
+     "draft": true
+    },
+    {
+     "name": "raw_ore_4",
+     "kind": "icon",
+     "x": 316,
+     "y": 740,
+     "w": 53,
+     "h": 51,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "raw_ore",
+     "draft": true
+    },
+    {
+     "name": "raw_ore_5",
+     "kind": "icon",
+     "x": 316,
+     "y": 788,
+     "w": 53,
+     "h": 51,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "raw_ore",
+     "draft": true
+    },
+    {
+     "name": "raw_ore_6",
+     "kind": "icon",
+     "x": 529,
+     "y": 680,
+     "w": 53,
+     "h": 51,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "raw_ore",
+     "draft": true
+    },
+    {
+     "name": "raw_ore_7",
+     "kind": "icon",
+     "x": 529,
+     "y": 534,
+     "w": 53,
+     "h": 51,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "raw_ore",
+     "draft": true
     }
    ]
   },
@@ -3914,6 +4200,97 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "badge_red_bang"
+    },
+    {
+     "name": "raw_ore_1",
+     "kind": "icon",
+     "x": 86,
+     "y": 648,
+     "w": 70,
+     "h": 77,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "raw_ore",
+     "draft": true
+    },
+    {
+     "name": "battle_essence_1",
+     "kind": "icon",
+     "x": 82,
+     "y": 726,
+     "w": 76,
+     "h": 71,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "battle_essence",
+     "draft": true
+    },
+    {
+     "name": "rolla_1",
+     "kind": "icon",
+     "x": 84,
+     "y": 426,
+     "w": 76,
+     "h": 69,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rolla",
+     "draft": true
+    },
+    {
+     "name": "cart_gear_yield_1",
+     "kind": "icon",
+     "x": 93,
+     "y": 800,
+     "w": 60,
+     "h": 74,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "cart_gear_yield",
+     "draft": true
+    },
+    {
+     "name": "treats_1",
+     "kind": "icon",
+     "x": 91,
+     "y": 956,
+     "w": 61,
+     "h": 66,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "treats",
+     "draft": true
+    },
+    {
+     "name": "wood_1",
+     "kind": "icon",
+     "x": 80,
+     "y": 503,
+     "w": 84,
+     "h": 67,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "wood",
+     "draft": true
+    },
+    {
+     "name": "stone_1",
+     "kind": "icon",
+     "x": 80,
+     "y": 579,
+     "w": 84,
+     "h": 65,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stone",
+     "draft": true
     }
    ]
   },
@@ -3944,6 +4321,32 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_hud_portrait"
+    },
+    {
+     "name": "stamina_1",
+     "kind": "icon",
+     "x": 595,
+     "y": 38,
+     "w": 29,
+     "h": 33,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stamina",
+     "draft": true
+    },
+    {
+     "name": "dawnium_1",
+     "kind": "icon",
+     "x": 487,
+     "y": 37,
+     "w": 35,
+     "h": 33,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "dawnium",
+     "draft": true
     }
    ]
   },
@@ -3996,6 +4399,79 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_hud_portrait"
+    },
+    {
+     "name": "stamina_1",
+     "kind": "icon",
+     "x": 595,
+     "y": 38,
+     "w": 29,
+     "h": 33,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stamina",
+     "draft": true
+    },
+    {
+     "name": "dawnium_1",
+     "kind": "icon",
+     "x": 487,
+     "y": 37,
+     "w": 35,
+     "h": 33,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "dawnium",
+     "draft": true
+    }
+   ]
+  },
+  "home/journal.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "dawnium_1",
+     "kind": "icon",
+     "x": 450,
+     "y": 37,
+     "w": 35,
+     "h": 33,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "dawnium",
+     "draft": true
+    },
+    {
+     "name": "stamina_1",
+     "kind": "icon",
+     "x": 582,
+     "y": 38,
+     "w": 29,
+     "h": 33,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stamina",
+     "draft": true
+    },
+    {
+     "name": "rolla_1",
+     "kind": "icon",
+     "x": 324,
+     "y": 38,
+     "w": 34,
+     "h": 32,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rolla",
+     "draft": true
     }
    ]
   },
@@ -4015,6 +4491,19 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "badge_red_bang"
+    },
+    {
+     "name": "stamina_1",
+     "kind": "icon",
+     "x": 595,
+     "y": 38,
+     "w": 29,
+     "h": 33,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stamina",
+     "draft": true
     }
    ]
   },
@@ -4108,6 +4597,19 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_page_title"
+    },
+    {
+     "name": "dawnium_1",
+     "kind": "icon",
+     "x": 600,
+     "y": 37,
+     "w": 35,
+     "h": 33,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "dawnium",
+     "draft": true
     }
    ]
   },
@@ -4179,6 +4681,19 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_page_title"
+    },
+    {
+     "name": "dawnium_1",
+     "kind": "icon",
+     "x": 604,
+     "y": 37,
+     "w": 31,
+     "h": 31,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "dawnium",
+     "draft": true
     }
    ]
   },
@@ -4198,6 +4713,19 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_page_title"
+    },
+    {
+     "name": "dawnium_1",
+     "kind": "icon",
+     "x": 576,
+     "y": 37,
+     "w": 35,
+     "h": 33,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "dawnium",
+     "draft": true
     }
    ]
   },
@@ -6271,6 +6799,40 @@
     }
    ]
   },
+  "shops/purchase_iron_hammer.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "iron_hammer_1",
+     "kind": "icon",
+     "x": 306,
+     "y": 416,
+     "w": 112,
+     "h": 109,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "iron_hammer",
+     "draft": true
+    },
+    {
+     "name": "dawnium_1",
+     "kind": "icon",
+     "x": 580,
+     "y": 37,
+     "w": 31,
+     "h": 31,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "dawnium",
+     "draft": true
+    }
+   ]
+  },
   "world/area_map_blue_bang.png": {
    "size": [
     720,
@@ -6452,6 +7014,19 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_area_map_legend"
+    },
+    {
+     "name": "rolla_1",
+     "kind": "icon",
+     "x": 669,
+     "y": 942,
+     "w": 28,
+     "h": 26,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rolla",
+     "draft": true
     }
    ]
   },
@@ -6614,6 +7189,19 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_area_map_legend"
+    },
+    {
+     "name": "rolla_1",
+     "kind": "icon",
+     "x": 669,
+     "y": 942,
+     "w": 28,
+     "h": 26,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rolla",
+     "draft": true
     }
    ]
   },
@@ -6946,6 +7534,19 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_area_map_legend"
+    },
+    {
+     "name": "rolla_1",
+     "kind": "icon",
+     "x": 669,
+     "y": 942,
+     "w": 28,
+     "h": 26,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rolla",
+     "draft": true
     }
    ]
   },
@@ -6976,6 +7577,100 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_hud_portrait"
+    },
+    {
+     "name": "stamina_1",
+     "kind": "icon",
+     "x": 580,
+     "y": 36,
+     "w": 30,
+     "h": 32,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stamina",
+     "draft": true
+    }
+   ]
+  },
+  "world/blessing_level.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "stamina_1",
+     "kind": "icon",
+     "x": 580,
+     "y": 36,
+     "w": 30,
+     "h": 32,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stamina",
+     "draft": true
+    },
+    {
+     "name": "stellatie_1",
+     "kind": "icon",
+     "x": 118,
+     "y": 990,
+     "w": 53,
+     "h": 52,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stellatie",
+     "draft": true
+    }
+   ]
+  },
+  "world/dungeon_gate_moonveil.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "rolla_1",
+     "kind": "icon",
+     "x": 452,
+     "y": 39,
+     "w": 31,
+     "h": 29,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rolla",
+     "draft": true
+    },
+    {
+     "name": "dawnium_1",
+     "kind": "icon",
+     "x": 580,
+     "y": 37,
+     "w": 31,
+     "h": 31,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "dawnium",
+     "draft": true
+    },
+    {
+     "name": "stellatie_1",
+     "kind": "icon",
+     "x": 192,
+     "y": 819,
+     "w": 93,
+     "h": 93,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stellatie",
+     "draft": true
     }
    ]
   },
@@ -7039,6 +7734,32 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_hud_portrait"
+    },
+    {
+     "name": "stamina_1",
+     "kind": "icon",
+     "x": 580,
+     "y": 36,
+     "w": 30,
+     "h": 32,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stamina",
+     "draft": true
+    },
+    {
+     "name": "stellatie_1",
+     "kind": "icon",
+     "x": 22,
+     "y": 990,
+     "w": 53,
+     "h": 52,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stellatie",
+     "draft": true
     }
    ]
   },
@@ -7102,6 +7823,32 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_hud_portrait"
+    },
+    {
+     "name": "stamina_1",
+     "kind": "icon",
+     "x": 580,
+     "y": 36,
+     "w": 30,
+     "h": 32,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stamina",
+     "draft": true
+    },
+    {
+     "name": "stellatie_1",
+     "kind": "icon",
+     "x": 22,
+     "y": 990,
+     "w": 53,
+     "h": 52,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stellatie",
+     "draft": true
     }
    ]
   },
@@ -7165,6 +7912,32 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_hud_portrait"
+    },
+    {
+     "name": "stamina_1",
+     "kind": "icon",
+     "x": 580,
+     "y": 36,
+     "w": 30,
+     "h": 32,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stamina",
+     "draft": true
+    },
+    {
+     "name": "stellatie_1",
+     "kind": "icon",
+     "x": 22,
+     "y": 990,
+     "w": 53,
+     "h": 52,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stellatie",
+     "draft": true
     }
    ]
   },
@@ -7228,6 +8001,32 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_hud_portrait"
+    },
+    {
+     "name": "stellatie_1",
+     "kind": "icon",
+     "x": 22,
+     "y": 990,
+     "w": 53,
+     "h": 52,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stellatie",
+     "draft": true
+    },
+    {
+     "name": "stamina_1",
+     "kind": "icon",
+     "x": 581,
+     "y": 37,
+     "w": 28,
+     "h": 30,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stamina",
+     "draft": true
     }
    ]
   },
@@ -7324,6 +8123,32 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_hud_portrait"
+    },
+    {
+     "name": "stellatie_1",
+     "kind": "icon",
+     "x": 22,
+     "y": 990,
+     "w": 53,
+     "h": 52,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stellatie",
+     "draft": true
+    },
+    {
+     "name": "stamina_1",
+     "kind": "icon",
+     "x": 581,
+     "y": 37,
+     "w": 28,
+     "h": 30,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stamina",
+     "draft": true
     }
    ]
   },
@@ -7409,6 +8234,168 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_hud_portrait"
+    },
+    {
+     "name": "stellatie_1",
+     "kind": "icon",
+     "x": 22,
+     "y": 990,
+     "w": 53,
+     "h": 52,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stellatie",
+     "draft": true
+    },
+    {
+     "name": "stamina_1",
+     "kind": "icon",
+     "x": 581,
+     "y": 37,
+     "w": 28,
+     "h": 30,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stamina",
+     "draft": true
+    }
+   ]
+  },
+  "world/interact_ironvein_pit.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "rolla_1",
+     "kind": "icon",
+     "x": 452,
+     "y": 39,
+     "w": 31,
+     "h": 29,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rolla",
+     "draft": true
+    },
+    {
+     "name": "dawnium_1",
+     "kind": "icon",
+     "x": 580,
+     "y": 37,
+     "w": 31,
+     "h": 31,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "dawnium",
+     "draft": true
+    }
+   ]
+  },
+  "world/interact_obelisk.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "dawnium_1",
+     "kind": "icon",
+     "x": 604,
+     "y": 37,
+     "w": 31,
+     "h": 31,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "dawnium",
+     "draft": true
+    },
+    {
+     "name": "rolla_1",
+     "kind": "icon",
+     "x": 500,
+     "y": 39,
+     "w": 31,
+     "h": 29,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rolla",
+     "draft": true
+    }
+   ]
+  },
+  "world/interact_portal.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "dawnium_1",
+     "kind": "icon",
+     "x": 604,
+     "y": 37,
+     "w": 31,
+     "h": 31,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "dawnium",
+     "draft": true
+    },
+    {
+     "name": "rolla_1",
+     "kind": "icon",
+     "x": 500,
+     "y": 39,
+     "w": 31,
+     "h": 29,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rolla",
+     "draft": true
+    }
+   ]
+  },
+  "world/interact_temple.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "dawnium_1",
+     "kind": "icon",
+     "x": 604,
+     "y": 37,
+     "w": 31,
+     "h": 31,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "dawnium",
+     "draft": true
+    },
+    {
+     "name": "rolla_1",
+     "kind": "icon",
+     "x": 500,
+     "y": 39,
+     "w": 31,
+     "h": 29,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rolla",
+     "draft": true
     }
    ]
   },
@@ -7428,6 +8415,32 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_page_title"
+    },
+    {
+     "name": "raw_ore_1",
+     "kind": "icon",
+     "x": 474,
+     "y": 37,
+     "w": 34,
+     "h": 33,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "raw_ore",
+     "draft": true
+    },
+    {
+     "name": "iron_hammer_1",
+     "kind": "icon",
+     "x": 577,
+     "y": 36,
+     "w": 36,
+     "h": 34,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "iron_hammer",
+     "draft": true
     }
    ]
   },
@@ -7447,6 +8460,58 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_page_title"
+    },
+    {
+     "name": "raw_ore_1",
+     "kind": "icon",
+     "x": 111,
+     "y": 280,
+     "w": 47,
+     "h": 62,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "raw_ore",
+     "draft": true
+    },
+    {
+     "name": "chrono_sand_1",
+     "kind": "icon",
+     "x": 180,
+     "y": 290,
+     "w": 58,
+     "h": 52,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "chrono_sand",
+     "draft": true
+    },
+    {
+     "name": "battle_essence_1",
+     "kind": "icon",
+     "x": 253,
+     "y": 274,
+     "w": 57,
+     "h": 70,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "battle_essence",
+     "draft": true
+    },
+    {
+     "name": "rolla_1",
+     "kind": "icon",
+     "x": 35,
+     "y": 283,
+     "w": 51,
+     "h": 59,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rolla",
+     "draft": true
     }
    ]
   },
@@ -7532,6 +8597,19 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_area_map_legend"
+    },
+    {
+     "name": "rolla_1",
+     "kind": "icon",
+     "x": 669,
+     "y": 942,
+     "w": 28,
+     "h": 26,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rolla",
+     "draft": true
     }
    ]
   },
@@ -7628,6 +8706,19 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_area_map_legend"
+    },
+    {
+     "name": "rolla_1",
+     "kind": "icon",
+     "x": 669,
+     "y": 942,
+     "w": 28,
+     "h": 26,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rolla",
+     "draft": true
     }
    ]
   },
@@ -7825,6 +8916,19 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_hud_portrait"
+    },
+    {
+     "name": "stamina_1",
+     "kind": "icon",
+     "x": 580,
+     "y": 36,
+     "w": 30,
+     "h": 32,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stamina",
+     "draft": true
     }
    ]
   },
@@ -7877,6 +8981,19 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_hud_portrait"
+    },
+    {
+     "name": "stamina_1",
+     "kind": "icon",
+     "x": 580,
+     "y": 36,
+     "w": 30,
+     "h": 32,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stamina",
+     "draft": true
     }
    ]
   },
@@ -7929,6 +9046,19 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_hud_portrait"
+    },
+    {
+     "name": "stamina_1",
+     "kind": "icon",
+     "x": 580,
+     "y": 36,
+     "w": 30,
+     "h": 32,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stamina",
+     "draft": true
     }
    ]
   },
@@ -8168,6 +9298,19 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_hud_portrait"
+    },
+    {
+     "name": "stamina_1",
+     "kind": "icon",
+     "x": 580,
+     "y": 36,
+     "w": 30,
+     "h": 32,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stamina",
+     "draft": true
     }
    ]
   },
@@ -8187,6 +9330,19 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_tab_bar"
+    },
+    {
+     "name": "stamina_1",
+     "kind": "icon",
+     "x": 595,
+     "y": 38,
+     "w": 29,
+     "h": 33,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stamina",
+     "draft": true
     }
    ]
   },
@@ -8239,6 +9395,19 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_hud_portrait"
+    },
+    {
+     "name": "stamina_1",
+     "kind": "icon",
+     "x": 580,
+     "y": 36,
+     "w": 30,
+     "h": 32,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stamina",
+     "draft": true
     }
    ]
   },
@@ -8302,6 +9471,19 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_hud_portrait"
+    },
+    {
+     "name": "stamina_1",
+     "kind": "icon",
+     "x": 580,
+     "y": 36,
+     "w": 30,
+     "h": 32,
+     "note": "pre-labelled (item matcher)",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stamina",
+     "draft": true
     }
    ]
   }
