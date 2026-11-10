@@ -75,7 +75,7 @@ Templates in `resource/image/explore/`:
 - Never judge the zone from assumptions about the surroundings.
 - Check before and after any zone-level decision (finishing, crossing, choosing the next zone).
 - Known misread to watch for: at Verdantglade VI's gate the minimap read "Verdantglade VI" and the bot walked into Auroradrasil; cross-check with the big map when a zone-level decision depends on it.
-- Code: `fogwalk.zone_by_map` keeps the minimap name unless the big-map dot is clearly elsewhere (the dot's nearest label wins only with a 0.75 margin over the next). A joined big-map label ("…CoastHidden Camp") still counts for reading the current zone (never as a walk target, R-068); a clipped minimap read ("erdantglade") is matched to its zone.
+- Code: `fogwalk.zone_by_map` keeps the minimap name unless the big-map dot is clearly elsewhere (the dot's nearest label wins only with a 0.75 margin over the next). Clipped minimap reads ("erdantglade") and joined big-map labels ("…CoastHidden Camp") count as the home zone when they contain its name (never as walk targets, R-068).
 *told, observed* · node `area_map` · R-004, R-068, R-132, R-135
 
 ### R-004 · Minimap and coordinates give relative positions
@@ -108,7 +108,7 @@ When fog-walking (R-065) or finding a way to an out-of-the-way spot, look on the
 
 ### R-150 · Entering a new zone: start at the entrance, then work outward to the fog
 - On entering a new zone, don't start by searching for fog (mae, 2026-11-10 02:35). First find the entrance between the previous zone and the new one on the map (the crossing point, R-132; the location tree's way in, R-135), move the camera there, then walk to walkable tiles next to the unexplored fog from that entrance outward (never the fog itself, R-146).
-- Advance from revealed ground toward unrevealed ground, one step at a time; never skip to the middle of a zone (mae, 02:45). Unless the zone already has revealed terrain inside, the first targets are right at the entrance. Why: the fog walk failed by tapping deep inside a zone, past the monster group guarding its entrance; fight that group first (R-139).
+- Advance from revealed ground toward unrevealed ground, one step at a time; never skip to the middle of a zone (mae, 02:45). Code: in an unexplored zone, big-map walks wait until the fog edge around the player is worked out (`fogwalk.fog_worked`); guard fights only inside the zone being explored. Unless the zone already has revealed terrain inside, the first targets are right at the entrance. Why: the fog walk failed by tapping deep inside a zone, past the monster group guarding its entrance; fight that group first (R-139).
 *told* · R-067, R-130, R-132, R-135, R-139, R-146
 
 ### R-067 · Areas join by land bridges: head for the connection, not the straight line
@@ -151,8 +151,8 @@ Where recommended power is well above yours and fights end in losses (R-031), st
 *observed* · R-031, R-061, R-076, R-086
 
 ### R-151 · Boulder Blockade: a barrier that needs a drill bit; Hidden Camp is inaccessible for now
-- A "Boulder Blockade" card at Hidden Camp's edge is a barrier that opens only with a drill bit, the "Magic Drill" item (0/1 on 2026-11-10), which we get later (mae, 02:51). The card shows "Required Item" and "Insufficient items". Dismiss it.
-- Stop exploring Hidden Camp for now (mae, 02:52). The bot records such a block in the location tree and moves on instead of circling; roam skips Hidden Camp until a Magic Drill is in the bag, then comes back.
+- A "Boulder Blockade" card at Hidden Camp's edge is a barrier that opens only with a drill bit, the "Magic Drill" item (0/1 on 2026-11-10), which we get later (mae, 02:51). Card: "A colossal rock stands in your way. Use a Magic Drill to smash it"; Required Item: Magic Drill 0/1; button "Insufficient items to unlock." Dismiss it.
+- Stop exploring Hidden Camp for now (mae, 02:52). Any "Required Item / Insufficient items" card ends the walk as `blocked_item`, records the item, and marks the zone `blocked` in the location tree; roam skips it until the item is in the bag, then comes back. Behind Hidden Camp's blockade: pickups (coins, apple, chests) and a Lost Goddess Statue.
 *told, observed* · R-030, R-086, R-135
 
 ### R-086 · Gate of Power: a wall until power meets it, then press Open
@@ -169,6 +169,7 @@ A gold "!" structure on Verdantglade V's north edge at about (135, 126) opens a 
 ### R-030 · Map objects open a card with one action
 Tapping a map object (e.g. a Portal) opens a card with one button at (0.5, 0.70), e.g. "Activate"; using it adds Explore progress. Press only safe verbs: Activate, Collect, Claim, Open, Interact, Bless, Pray, Gather, Harvest, Mine, Examine, Read. **This never covers the Prayer gacha's Pray (R-093) or any spend button (R-043).** Card choices: R-042.
 - Unknown cards seen, dismissed until understood ❓: "Limpid Legion" in Drasilgard (R-134). "Boulder Blockade" is a barrier (R-151).
+- Spots whose card could only be dismissed (a statue not yet blessable, a gate, the Lucky Wheel after its free spin, Rankings) are saved per zone as `dismissed_spots` in the location tree and skipped on later runs.
 *observed* · `world/interact_portal.png` · node `interact` · R-042, R-043
 
 ### R-070 · Goddess Statues bless a fully explored area
