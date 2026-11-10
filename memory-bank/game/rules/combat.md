@@ -36,7 +36,7 @@ Read before any fight, when HP is low, after a loss, or inside a mini-dungeon, t
 *observed* · `battle/battle_prep.png`, `battle/battle.png` · node `battle_prep`, `battle` · R-031
 
 ### R-073 · Fight monsters that block the path
-- Fight a roaming monster standing between the player and a pickup first, then resume the pickup (R-139; shared `start_fight`). Spear wolves (Verdantglade): `resource/image/monsters/wolf_spear*.png`.
+- Fight a roaming monster standing between the player and a pickup first, then resume the pickup (R-139; shared `start_fight`). A monster very close to the player (about 2 tiles) can sit under the player's sprite: the tap opens the profile instead (R-080). Give up on a spot after 2 taps that start nothing. Spear wolves (Verdantglade): `resource/image/monsters/wolf_spear*.png`.
 *observed* · R-001, R-041, R-066
 
 ### R-127 · Take fights against up to 25% more CP than ours

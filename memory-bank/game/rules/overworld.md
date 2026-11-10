@@ -37,7 +37,7 @@ The non-quest exploration loop (mae; the quest-progression loop is settled):
 2. Explore it until its statue is blessed (R-065 goal, R-070). A zone counts as finished only when the quest tracker's % and the location map agree (builder, 2026-11-09); its zone is confirmed by the minimap name, then the big map (R-140).
 3. Repeat until no unblessed zone remains.
 4. Then look for any fog-walk ground not yet explored (R-130). Explore it if there is some; otherwise exploration is concluded for now.
-Next by this order (2026-11-05): Jungle Camp (12.6K); walking in from Drasilgard's south edge gained no %, so its entry point is unknown ❓.
+Next by this order (2026-11-05): Jungle Camp (12.6K). Walking in from Drasilgard's south edge gained no %; the way in is from Verdantglade III at about (142, 84) (builder, 2026-11-10; recorded in the location tree).
 Code: `python -m sxs roam` picks the zone with `Tree.next_zone` from the location tree (`resource/world/zones.json`, `sxs/policy/zones.py`, `python -m sxs zones`; zones with no power line read go last). The tree holds each zone's kingdom, CP, %, blessed, map point and way in, and records Jungle Camp's missing entry as an open question. Roam blesses a statue when its area-map "!" lights (R-070), and ends with `exploration_concluded`.
 *told* · R-065, R-070, R-076, R-127, R-130, R-132
 
@@ -172,6 +172,9 @@ Tapping a map object (e.g. a Portal) opens a card with one button at (0.5, 0.70)
 A "Statue of <name>" card (e.g. Statue of Lunar Sage in Verdantglade V) has a free Visit: it gives a permanent stat boost (Lunar Sage: HP +170), heals fully and counts toward exploration. Always press Visit. Policy: `resource/policy/cards.json` (match "Statue of ...").
 *observed* · R-030, R-042, R-070
 
+### R-147 · Wheel of Destiny: back out, never spin
+Tapping a structure in Jungle Camp opens "Wheel of Destiny", a ticket spinner (0 tickets on 2026-11-10). Back out. Never press "Tap to spin": it looks like spending. Spinning needs a free ticket and mae's say-so ❓ (ask mae).
+*observed* · R-030, R-043
 ### R-085 · Stone tile floor puzzle: step on every tile for chests
 Stone Ruins I: a 2x2 floor of stone tiles; each lights cyan when stepped on. All 4 lit spawns two chests (about 60 Dawnium each, plus Rolla, ore, gear, Abundance Leaf). Each chest pops a gear-swap prompt (swap button bottom right) that closes with the reward popup.
 *observed* · `world/world_map_tile_puzzle_chests.png`, `character/gear_swap_prompt.png` · node `gear_swap_prompt`

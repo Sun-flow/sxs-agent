@@ -14,7 +14,7 @@ Read before pressing any button that might spend, and on any class, social, acco
 - **Shop Refresh**: Vendor Booth (4K Rolla) (R-120), Daily Shop (R-019).
 - **Any shop item, in any shop, until mae has filled the Buy? column of `docs/shop-tables.md` and the shop has a buy list in the repo** (mae) (R-120). Read stock only via info cards (R-125).
 - **Extra material-dungeon attempts** (Dawnium; 2 free a day) (R-015).
-- **"Create Guild"** (R-102); **Link Account** or anything account-related (R-096).
+- **"Tap to spin"** on the Wheel of Destiny (R-147). **"Create Guild"** (R-102); **Link Account** or anything account-related (R-096).
 
 **Never do:**
 - **A 3rd guild donation in a day** (R-103).
