@@ -263,8 +263,9 @@ No box yet (36): `rotting_petal` (monster_material), `bellflower` (advancement_m
 - **Price buttons get their own class, `btn_price`** (mae, 2026-11-10). The yellow USD and Dawnium buttons in the
   Mall, Vendor Booth and purchase prompts look like `btn_primary`; left unlabelled the model would learn them as
   background and fire on them anyway. With their own class the bot can refuse them by class as well as by the text
-  check (hybrid design). The class is to be appended to `resource/detect/classes.json` by the vision thread (never
-  reorder); then box every price button on the shop screens as `btn_price`, never as `btn_primary`.
+  check (hybrid design). The vision thread appended it to `resource/detect/classes.json` as class 44 (PR #54), so
+  there are 44 element classes once that merges and the matrix above gains a `btn_price` row on the next
+  `--write`. Box every price button on the shop screens as `btn_price`, never as `btn_primary`.
 - **Splits.** Of the 23 element classes with boxes (not counting `item_icon`), 12 have no valid image and 17 have no test image. Roboflow can
   rebalance splits when a version is generated, but our upload sets them by folder. For the first run, either
   rebalance in Roboflow or have the export guarantee each class at least one screen in valid and test (vision
