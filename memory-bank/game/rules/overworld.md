@@ -70,12 +70,12 @@ Templates in `resource/image/explore/`:
 ## Reading the minimap
 
 ### R-140 · Confirm the player's zone by the minimap name first, then the big map
-- The zone name under the minimap always gives a valid description of the zone the player is in: read it **first** to confirm the zone (mae, 2026-11-10 00:52; this replaces her 2026-11-09 21:18 wording that only the big map counts).
+- The zone name under the minimap always gives a valid description of the zone the player is in and is the most accurate way to confirm it: read it **first** (mae, 2026-11-10 00:52 and 00:55; this replaces her 2026-11-09 21:18 wording that only the big map counts).
 - The big (area) map's player indicator (white dot) is the confirmation and the fallback, and gives the finer position: which sub-zone, and where inside it.
 - Never judge the zone from assumptions about the surroundings.
 - Check before and after any zone-level decision (finishing, crossing, choosing the next zone).
-- History: at Verdantglade VI's gate the minimap read "Verdantglade VI" and the bot walked into Auroradrasil; that led to the big-map rule, now relaxed.
-- Code today (needs updating to match ❓): the zone is the label nearest the big-map player dot, with a 0.75 margin over the next label, and the minimap name is used only as a hint to re-check.
+- Known misread to watch for: at Verdantglade VI's gate the minimap read "Verdantglade VI" and the bot walked into Auroradrasil; cross-check with the big map when a zone-level decision depends on it.
+- Code: `fogwalk.zone_by_map` keeps the minimap name unless the big-map dot is clearly elsewhere (the dot's nearest label wins only with a 0.75 margin over the next).
 *told, observed* · node `area_map` · R-004, R-068, R-132, R-135
 
 ### R-004 · Minimap and coordinates give relative positions
