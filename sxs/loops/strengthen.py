@@ -130,6 +130,7 @@ class Strengthener:
                 levels[i] = lv
         log.info("gear levels: %s", levels)
         taps, short = 0, False
+        capped: dict = {}  # slots left out: at their cap, or short of their own materials
         while levels and not short and taps < max_taps:
             target = (min(levels.values()) // GEAR_BAND + 1) * GEAR_BAND
             for i in [i for i in GEAR_PRIORITY if i in levels]:
@@ -140,17 +141,26 @@ class Strengthener:
                     self._tap(GEAR_ENHANCE, 1.2)
                     taps += 1
                     if self._short():
-                        short = True
+                        # Short for this piece only (live 2026-11-09: the weapon's +25 needs a red ore we had 299/300
+                        # of, while the other three pieces cost only blue ore and Rolla): leave it, band the rest.
+                        log.info("gear slot %d: insufficient materials at +%s; going on with the others", i, levels[i])
+                        capped[i] = levels.pop(i)
+                        short = not levels
                         break
                     lv = self._gear_level()
                     if lv is None or lv <= levels[i]:
-                        short = True  # nothing changed: stop rather than tap blindly
+                        # Nothing changed but materials aren't short: this piece is at its cap (live 2026-11-09: the
+                        # weapon at +24 stopped the whole pass while three pieces at +20 could still go up). Drop it
+                        # from the banding and carry on with the rest.
+                        log.info("gear slot %d stays at +%s: at its cap, banding the others", i, levels[i])
+                        capped[i] = levels.pop(i)
                         break
                     levels[i] = lv
-                if short:
+                if short or i not in levels:
                     break
         self._tap(ui.BACK_ARROW, 2)
-        log.info("gear enhanced: %s (%d taps%s)", levels, taps, ", materials short" if short else "")
+        log.info("gear enhanced: %s (%d taps%s)", {**levels, **capped}, taps,
+                 ", materials short" if short else (f", left at their level: {sorted(capped)}" if capped else ""))
 
     @staticmethod
     def _filled(frame, xy) -> bool:

@@ -64,6 +64,7 @@ RANK_ADVANCE = (360, 1088)
 RESONANCE = (620, 256)
 
 PASS_BUDGET_S = 90  # one pass (skills, gear, class, rank, relics)
+PASS_BUDGET_OVERRIDE = {"gear": 180}  # live 2026-11-09: enhancing four slots took 60 s, then Resonance and Goals ran out
 TAP_BUDGET = 25  # per button: far above any real need, so a dead button can't loop forever
 RELIC_BAND = 1
 
@@ -377,14 +378,15 @@ class Upgrader:
                 results[p] = "no_badge"
                 continue
             # Each pass is its own short task (mae, 2026-11-04: 1-2 minutes, cut it rather than bash on).
-            with task(p, PASS_BUDGET_S) as t:
+            budget = PASS_BUDGET_OVERRIDE.get(p, PASS_BUDGET_S)
+            with task(p, budget) as t:
                 try:
                     results[p] = self.goals(lit_pages or ()) if p == "goals" and not only else getattr(self, p)()
                 except Exception as e:  # noqa: BLE001  one pass must not take the loop down
                     log.warning("[%s] failed: %s; frame %s", p, e, save_unknown(self.dev, f"upgrade_{p}"))
                     results[p] = "error"
             if t.status:
-                log.warning("[%s] %s after %g s; next pass", p, t.status, PASS_BUDGET_S)
+                log.warning("[%s] %s after %g s; next pass", p, t.status, budget)
                 results[p] = t.status
             self.nav.go_home()
         log.info("upgrade: %s", results)
@@ -421,4 +423,4 @@ def _run(ctx, opts):
 
 
 LOOP = Loop("upgrade", "Upgrade", "apply every upgrade a red \"!\" on the Character screen offers", _run, _args,
-            budget=len(Upgrader.PASSES) * PASS_BUDGET_S)  # only badged passes run; each is capped at PASS_BUDGET_S
+            budget=len(Upgrader.PASSES) * PASS_BUDGET_S + sum(PASS_BUDGET_OVERRIDE.values()))  # only badged passes run; each is capped at PASS_BUDGET_S
