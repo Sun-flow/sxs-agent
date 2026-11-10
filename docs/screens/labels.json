@@ -1,3 +1,4992 @@
 {
- "screens": {}
+ "screens": {
+  "battle/battle.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "anchor_battle_round_1",
+     "kind": "region",
+     "x": 200,
+     "y": 10,
+     "w": 320,
+     "h": 60,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_battle_round",
+     "draft": true
+    }
+   ]
+  },
+  "character/character.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_blue_pip_1",
+     "kind": "badge",
+     "x": 646,
+     "y": 308,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "badge_blue_pip_2",
+     "kind": "badge",
+     "x": 117,
+     "y": 356,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "badge_blue_pip_3",
+     "kind": "badge",
+     "x": 535,
+     "y": 412,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "anchor_tab_bar_1",
+     "kind": "region",
+     "x": 0,
+     "y": 1185,
+     "w": 720,
+     "h": 95,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_tab_bar",
+     "draft": true
+    },
+    {
+     "name": "anchor_hud_portrait_1",
+     "kind": "region",
+     "x": 0,
+     "y": 0,
+     "w": 100,
+     "h": 110,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_hud_portrait",
+     "draft": true
+    }
+   ]
+  },
+  "character/character_pips_all4.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_blue_pip_1",
+     "kind": "badge",
+     "x": 646,
+     "y": 308,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "badge_blue_pip_2",
+     "kind": "badge",
+     "x": 117,
+     "y": 356,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "badge_blue_pip_3",
+     "kind": "badge",
+     "x": 683,
+     "y": 442,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "badge_blue_pip_4",
+     "kind": "badge",
+     "x": 646,
+     "y": 583,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "anchor_tab_bar_1",
+     "kind": "region",
+     "x": 0,
+     "y": 1185,
+     "w": 720,
+     "h": 95,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_tab_bar",
+     "draft": true
+    },
+    {
+     "name": "anchor_hud_portrait_1",
+     "kind": "region",
+     "x": 0,
+     "y": 0,
+     "w": 100,
+     "h": 110,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_hud_portrait",
+     "draft": true
+    }
+   ]
+  },
+  "character/class_goals.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 637,
+     "y": 184,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_2",
+     "kind": "badge",
+     "x": 637,
+     "y": 352,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_3",
+     "kind": "badge",
+     "x": 637,
+     "y": 520,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_4",
+     "kind": "badge",
+     "x": 637,
+     "y": 688,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_5",
+     "kind": "badge",
+     "x": 673,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "anchor_page_title_1",
+     "kind": "text",
+     "x": 0,
+     "y": 20,
+     "w": 440,
+     "h": 70,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_page_title",
+     "draft": true
+    }
+   ]
+  },
+  "character/class_hierarchy.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 332,
+     "y": 820,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_2",
+     "kind": "badge",
+     "x": 510,
+     "y": 820,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_3",
+     "kind": "badge",
+     "x": 492,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_blue_pip_1",
+     "kind": "badge",
+     "x": 21,
+     "y": 728,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "badge_blue_pip_2",
+     "kind": "badge",
+     "x": 199,
+     "y": 729,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "badge_blue_pip_3",
+     "kind": "badge",
+     "x": 198,
+     "y": 1050,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    }
+   ]
+  },
+  "character/class_info.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 673,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    }
+   ]
+  },
+  "character/class_page.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_blue_pip_1",
+     "kind": "badge",
+     "x": 430,
+     "y": 418,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    }
+   ]
+  },
+  "character/enhance_gear_short_weapon.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_blue_pip_1",
+     "kind": "badge",
+     "x": 315,
+     "y": 115,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "badge_blue_pip_2",
+     "kind": "badge",
+     "x": 443,
+     "y": 115,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "badge_blue_pip_3",
+     "kind": "badge",
+     "x": 572,
+     "y": 115,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "badge_blue_pip_4",
+     "kind": "badge",
+     "x": 402,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "anchor_page_title_1",
+     "kind": "text",
+     "x": 0,
+     "y": 20,
+     "w": 440,
+     "h": 70,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_page_title",
+     "draft": true
+    }
+   ]
+  },
+  "character/gear_goals.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 637,
+     "y": 184,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_2",
+     "kind": "badge",
+     "x": 637,
+     "y": 352,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_3",
+     "kind": "badge",
+     "x": 637,
+     "y": 520,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_4",
+     "kind": "badge",
+     "x": 673,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_blue_pip_1",
+     "kind": "badge",
+     "x": 402,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "anchor_page_title_1",
+     "kind": "text",
+     "x": 0,
+     "y": 20,
+     "w": 440,
+     "h": 70,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_page_title",
+     "draft": true
+    }
+   ]
+  },
+  "character/gear_resonance.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "anchor_page_title_1",
+     "kind": "text",
+     "x": 0,
+     "y": 20,
+     "w": 440,
+     "h": 70,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_page_title",
+     "draft": true
+    }
+   ]
+  },
+  "character/rank_advancement.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "anchor_page_title_1",
+     "kind": "text",
+     "x": 0,
+     "y": 20,
+     "w": 440,
+     "h": 70,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_page_title",
+     "draft": true
+    }
+   ]
+  },
+  "character/rank_level_goals.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 637,
+     "y": 184,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_2",
+     "kind": "badge",
+     "x": 637,
+     "y": 352,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_3",
+     "kind": "badge",
+     "x": 637,
+     "y": 520,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_4",
+     "kind": "badge",
+     "x": 637,
+     "y": 688,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_5",
+     "kind": "badge",
+     "x": 637,
+     "y": 856,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_6",
+     "kind": "badge",
+     "x": 331,
+     "y": 1084,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_7",
+     "kind": "badge",
+     "x": 531,
+     "y": 1084,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_8",
+     "kind": "badge",
+     "x": 673,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_blue_pip_1",
+     "kind": "badge",
+     "x": 402,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "anchor_page_title_1",
+     "kind": "text",
+     "x": 0,
+     "y": 20,
+     "w": 440,
+     "h": 70,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_page_title",
+     "draft": true
+    }
+   ]
+  },
+  "character/rank_power_goals.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_blue_pip_1",
+     "kind": "badge",
+     "x": 402,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "anchor_page_title_1",
+     "kind": "text",
+     "x": 0,
+     "y": 20,
+     "w": 440,
+     "h": 70,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_page_title",
+     "draft": true
+    }
+   ]
+  },
+  "character/skill_goals_quality.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "anchor_page_title_1",
+     "kind": "text",
+     "x": 0,
+     "y": 20,
+     "w": 440,
+     "h": 70,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_page_title",
+     "draft": true
+    }
+   ]
+  },
+  "character/skill_page.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 117,
+     "y": 216,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_2",
+     "kind": "badge",
+     "x": 298,
+     "y": 765,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_3",
+     "kind": "badge",
+     "x": 402,
+     "y": 1179,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_4",
+     "kind": "badge",
+     "x": 673,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_blue_pip_1",
+     "kind": "badge",
+     "x": 602,
+     "y": 38,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "badge_blue_pip_2",
+     "kind": "badge",
+     "x": 532,
+     "y": 241,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "badge_blue_pip_3",
+     "kind": "badge",
+     "x": 536,
+     "y": 389,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "badge_blue_pip_4",
+     "kind": "badge",
+     "x": 79,
+     "y": 484,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "badge_blue_pip_5",
+     "kind": "badge",
+     "x": 535,
+     "y": 571,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "anchor_tab_bar_1",
+     "kind": "region",
+     "x": 0,
+     "y": 1185,
+     "w": 720,
+     "h": 95,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_tab_bar",
+     "draft": true
+    }
+   ]
+  },
+  "character/skill_page_after_quick_upgrade.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 117,
+     "y": 216,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_2",
+     "kind": "badge",
+     "x": 298,
+     "y": 765,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_3",
+     "kind": "badge",
+     "x": 402,
+     "y": 1179,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_4",
+     "kind": "badge",
+     "x": 673,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_blue_pip_1",
+     "kind": "badge",
+     "x": 602,
+     "y": 38,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "badge_blue_pip_2",
+     "kind": "badge",
+     "x": 531,
+     "y": 241,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "badge_blue_pip_3",
+     "kind": "badge",
+     "x": 625,
+     "y": 232,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "badge_blue_pip_4",
+     "kind": "badge",
+     "x": 536,
+     "y": 389,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "badge_blue_pip_5",
+     "kind": "badge",
+     "x": 79,
+     "y": 484,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "anchor_tab_bar_1",
+     "kind": "region",
+     "x": 0,
+     "y": 1185,
+     "w": 720,
+     "h": 95,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_tab_bar",
+     "draft": true
+    }
+   ]
+  },
+  "character/technique_ascend.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 197,
+     "y": 109,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_2",
+     "kind": "badge",
+     "x": 482,
+     "y": 1049,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_3",
+     "kind": "badge",
+     "x": 673,
+     "y": 1179,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_blue_pip_1",
+     "kind": "badge",
+     "x": 406,
+     "y": 145,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "anchor_page_title_1",
+     "kind": "text",
+     "x": 0,
+     "y": 20,
+     "w": 440,
+     "h": 70,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_page_title",
+     "draft": true
+    }
+   ]
+  },
+  "character/technique_upgrade.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 673,
+     "y": 1179,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_blue_pip_1",
+     "kind": "badge",
+     "x": 407,
+     "y": 147,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_blue_pip",
+     "draft": true
+    },
+    {
+     "name": "anchor_page_title_1",
+     "kind": "text",
+     "x": 0,
+     "y": 20,
+     "w": 440,
+     "h": 70,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_page_title",
+     "draft": true
+    }
+   ]
+  },
+  "dailies/achievement_quest.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "anchor_page_title_1",
+     "kind": "text",
+     "x": 0,
+     "y": 20,
+     "w": 440,
+     "h": 70,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_page_title",
+     "draft": true
+    }
+   ]
+  },
+  "dailies/daily_quest.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 633,
+     "y": 186,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_2",
+     "kind": "badge",
+     "x": 266,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_3",
+     "kind": "badge",
+     "x": 537,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "anchor_page_title_1",
+     "kind": "text",
+     "x": 0,
+     "y": 20,
+     "w": 440,
+     "h": 70,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_page_title",
+     "draft": true
+    }
+   ]
+  },
+  "dailies/daily_signin.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 143,
+     "y": 243,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    }
+   ]
+  },
+  "dailies/fantasia_floors.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 668,
+     "y": 1061,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_2",
+     "kind": "badge",
+     "x": 402,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    }
+   ]
+  },
+  "dailies/fantasia_floors_auto.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 109,
+     "y": 357,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_2",
+     "kind": "badge",
+     "x": 673,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    }
+   ]
+  },
+  "dailies/fantasia_floors_f6.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 109,
+     "y": 154,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_2",
+     "kind": "badge",
+     "x": 668,
+     "y": 879,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_3",
+     "kind": "badge",
+     "x": 311,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_4",
+     "kind": "badge",
+     "x": 673,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    }
+   ]
+  },
+  "dailies/featured_events.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 658,
+     "y": 176,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_2",
+     "kind": "badge",
+     "x": 658,
+     "y": 437,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_3",
+     "kind": "badge",
+     "x": 658,
+     "y": 684,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_4",
+     "kind": "badge",
+     "x": 658,
+     "y": 931,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "anchor_page_title_1",
+     "kind": "text",
+     "x": 0,
+     "y": 20,
+     "w": 440,
+     "h": 70,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_page_title",
+     "draft": true
+    }
+   ]
+  },
+  "dailies/material_realms.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "anchor_page_title_1",
+     "kind": "text",
+     "x": 0,
+     "y": 20,
+     "w": 440,
+     "h": 70,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_page_title",
+     "draft": true
+    }
+   ]
+  },
+  "dailies/quest_list.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "anchor_page_title_1",
+     "kind": "text",
+     "x": 0,
+     "y": 20,
+     "w": 440,
+     "h": 70,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_page_title",
+     "draft": true
+    }
+   ]
+  },
+  "dialogs/companions_invite_tutorial.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "anchor_page_title_1",
+     "kind": "text",
+     "x": 0,
+     "y": 20,
+     "w": 440,
+     "h": 70,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_page_title",
+     "draft": true
+    }
+   ]
+  },
+  "dialogs/reward_popup.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 682,
+     "y": 972,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_2",
+     "kind": "badge",
+     "x": 383,
+     "y": 1151,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    }
+   ]
+  },
+  "guild/guild_conquest.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 379,
+     "y": 685,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_2",
+     "kind": "badge",
+     "x": 496,
+     "y": 865,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_3",
+     "kind": "badge",
+     "x": 311,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_4",
+     "kind": "badge",
+     "x": 673,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    }
+   ]
+  },
+  "guild/guild_conquest_boss.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 471,
+     "y": 947,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_2",
+     "kind": "badge",
+     "x": 311,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_3",
+     "kind": "badge",
+     "x": 673,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    }
+   ]
+  },
+  "guild/guild_conquest_defeated.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 379,
+     "y": 685,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_2",
+     "kind": "badge",
+     "x": 495,
+     "y": 865,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_3",
+     "kind": "badge",
+     "x": 311,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_4",
+     "kind": "badge",
+     "x": 673,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    }
+   ]
+  },
+  "guild/guild_conquest_goals.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 637,
+     "y": 184,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_2",
+     "kind": "badge",
+     "x": 637,
+     "y": 352,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_3",
+     "kind": "badge",
+     "x": 637,
+     "y": 520,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_4",
+     "kind": "badge",
+     "x": 637,
+     "y": 688,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_5",
+     "kind": "badge",
+     "x": 314,
+     "y": 1084,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_6",
+     "kind": "badge",
+     "x": 311,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_7",
+     "kind": "badge",
+     "x": 673,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    }
+   ]
+  },
+  "guild/guild_conquest_personal.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 312,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    }
+   ]
+  },
+  "guild/guild_island.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "anchor_tab_bar_1",
+     "kind": "region",
+     "x": 0,
+     "y": 1185,
+     "w": 720,
+     "h": 95,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_tab_bar",
+     "draft": true
+    }
+   ]
+  },
+  "guild/guild_island_afk_on.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "anchor_tab_bar_1",
+     "kind": "region",
+     "x": 0,
+     "y": 1185,
+     "w": 720,
+     "h": 95,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_tab_bar",
+     "draft": true
+    }
+   ]
+  },
+  "guild/guild_island_east.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "anchor_tab_bar_1",
+     "kind": "region",
+     "x": 0,
+     "y": 1185,
+     "w": 720,
+     "h": 95,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_tab_bar",
+     "draft": true
+    }
+   ]
+  },
+  "guild/guild_island_west.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "anchor_tab_bar_1",
+     "kind": "region",
+     "x": 0,
+     "y": 1185,
+     "w": 720,
+     "h": 95,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_tab_bar",
+     "draft": true
+    }
+   ]
+  },
+  "guild/guild_lobby.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 218,
+     "y": 1011,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_2",
+     "kind": "badge",
+     "x": 311,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    }
+   ]
+  },
+  "guild/guild_no_guild.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 383,
+     "y": 1161,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_2",
+     "kind": "badge",
+     "x": 100,
+     "y": 1202,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_3",
+     "kind": "badge",
+     "x": 660,
+     "y": 1202,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    }
+   ]
+  },
+  "home/cart_furniture_upgrade.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "anchor_page_title_1",
+     "kind": "text",
+     "x": 0,
+     "y": 20,
+     "w": 440,
+     "h": 70,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_page_title",
+     "draft": true
+    }
+   ]
+  },
+  "home/cart_lv3.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 642,
+     "y": 877,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    }
+   ]
+  },
+  "home/home.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "anchor_tab_bar_1",
+     "kind": "region",
+     "x": 0,
+     "y": 1185,
+     "w": 720,
+     "h": 95,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_tab_bar",
+     "draft": true
+    },
+    {
+     "name": "anchor_hud_portrait_1",
+     "kind": "region",
+     "x": 0,
+     "y": 0,
+     "w": 100,
+     "h": 110,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_hud_portrait",
+     "draft": true
+    }
+   ]
+  },
+  "home/home_cart.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 681,
+     "y": 972,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_2",
+     "kind": "badge",
+     "x": 383,
+     "y": 1151,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "anchor_tab_bar_1",
+     "kind": "region",
+     "x": 0,
+     "y": 1185,
+     "w": 720,
+     "h": 95,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_tab_bar",
+     "draft": true
+    },
+    {
+     "name": "anchor_hud_portrait_1",
+     "kind": "region",
+     "x": 0,
+     "y": 0,
+     "w": 100,
+     "h": 110,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_hud_portrait",
+     "draft": true
+    }
+   ]
+  },
+  "home/main_menu.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 262,
+     "y": 1030,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    }
+   ]
+  },
+  "home/notice_board.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 159,
+     "y": 136,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_2",
+     "kind": "badge",
+     "x": 385,
+     "y": 136,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_3",
+     "kind": "badge",
+     "x": 598,
+     "y": 136,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_4",
+     "kind": "badge",
+     "x": 210,
+     "y": 340,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_5",
+     "kind": "badge",
+     "x": 209,
+     "y": 469,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_6",
+     "kind": "badge",
+     "x": 209,
+     "y": 598,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    }
+   ]
+  },
+  "home/prayer.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "anchor_page_title_1",
+     "kind": "text",
+     "x": 0,
+     "y": 20,
+     "w": 440,
+     "h": 70,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_page_title",
+     "draft": true
+    }
+   ]
+  },
+  "home/prayer_affection.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 322,
+     "y": 1044,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_2",
+     "kind": "badge",
+     "x": 311,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_3",
+     "kind": "badge",
+     "x": 673,
+     "y": 1178,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "anchor_page_title_1",
+     "kind": "text",
+     "x": 0,
+     "y": 20,
+     "w": 440,
+     "h": 70,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_page_title",
+     "draft": true
+    }
+   ]
+  },
+  "home/prayer_result.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "anchor_page_title_1",
+     "kind": "text",
+     "x": 0,
+     "y": 20,
+     "w": 440,
+     "h": 70,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_page_title",
+     "draft": true
+    }
+   ]
+  },
+  "home/prayer_tickets.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "anchor_page_title_1",
+     "kind": "text",
+     "x": 0,
+     "y": 20,
+     "w": 440,
+     "h": 70,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_page_title",
+     "draft": true
+    }
+   ]
+  },
+  "world/area_map_blue_bang.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "map_item_1",
+     "kind": "icon",
+     "x": 355,
+     "y": 635,
+     "w": 12,
+     "h": 12,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_item",
+     "draft": true
+    },
+    {
+     "name": "map_monster_1",
+     "kind": "icon",
+     "x": 559,
+     "y": 745,
+     "w": 18,
+     "h": 17,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_building_1",
+     "kind": "icon",
+     "x": 433,
+     "y": 502,
+     "w": 19,
+     "h": 24,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_2",
+     "kind": "icon",
+     "x": 525,
+     "y": 501,
+     "w": 18,
+     "h": 24,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_3",
+     "kind": "icon",
+     "x": 555,
+     "y": 502,
+     "w": 25,
+     "h": 25,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_4",
+     "kind": "icon",
+     "x": 447,
+     "y": 507,
+     "w": 15,
+     "h": 18,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_5",
+     "kind": "icon",
+     "x": 457,
+     "y": 507,
+     "w": 16,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_6",
+     "kind": "icon",
+     "x": 468,
+     "y": 507,
+     "w": 16,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_7",
+     "kind": "icon",
+     "x": 492,
+     "y": 507,
+     "w": 17,
+     "h": 24,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_8",
+     "kind": "icon",
+     "x": 504,
+     "y": 507,
+     "w": 17,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_9",
+     "kind": "icon",
+     "x": 516,
+     "y": 507,
+     "w": 15,
+     "h": 18,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_10",
+     "kind": "icon",
+     "x": 413,
+     "y": 566,
+     "w": 23,
+     "h": 25,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_11",
+     "kind": "icon",
+     "x": 527,
+     "y": 797,
+     "w": 18,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_player_1",
+     "kind": "icon",
+     "x": 449,
+     "y": 586,
+     "w": 15,
+     "h": 16,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_player",
+     "draft": true
+    },
+    {
+     "name": "map_statue_bang_1",
+     "kind": "icon",
+     "x": 525,
+     "y": 779,
+     "w": 30,
+     "h": 32,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_statue_bang",
+     "draft": true
+    },
+    {
+     "name": "anchor_area_map_legend_1",
+     "kind": "region",
+     "x": 530,
+     "y": 30,
+     "w": 190,
+     "h": 240,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_area_map_legend",
+     "draft": true
+    }
+   ]
+  },
+  "world/area_map_legend_overlap.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "map_building_1",
+     "kind": "icon",
+     "x": 657,
+     "y": 280,
+     "w": 14,
+     "h": 15,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_2",
+     "kind": "icon",
+     "x": 687,
+     "y": 359,
+     "w": 18,
+     "h": 16,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_3",
+     "kind": "icon",
+     "x": 237,
+     "y": 393,
+     "w": 23,
+     "h": 32,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_4",
+     "kind": "icon",
+     "x": 352,
+     "y": 413,
+     "w": 13,
+     "h": 15,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_5",
+     "kind": "icon",
+     "x": 257,
+     "y": 419,
+     "w": 20,
+     "h": 24,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_6",
+     "kind": "icon",
+     "x": 350,
+     "y": 419,
+     "w": 18,
+     "h": 24,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_7",
+     "kind": "icon",
+     "x": 379,
+     "y": 419,
+     "w": 26,
+     "h": 26,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_8",
+     "kind": "icon",
+     "x": 272,
+     "y": 425,
+     "w": 14,
+     "h": 18,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_9",
+     "kind": "icon",
+     "x": 341,
+     "y": 425,
+     "w": 14,
+     "h": 18,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_10",
+     "kind": "icon",
+     "x": 236,
+     "y": 484,
+     "w": 25,
+     "h": 25,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_11",
+     "kind": "icon",
+     "x": 384,
+     "y": 663,
+     "w": 17,
+     "h": 16,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_12",
+     "kind": "icon",
+     "x": 351,
+     "y": 715,
+     "w": 18,
+     "h": 26,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_statue_bang_1",
+     "kind": "icon",
+     "x": 350,
+     "y": 697,
+     "w": 30,
+     "h": 32,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_statue_bang",
+     "draft": true
+    },
+    {
+     "name": "anchor_area_map_legend_1",
+     "kind": "region",
+     "x": 530,
+     "y": 30,
+     "w": 190,
+     "h": 240,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_area_map_legend",
+     "draft": true
+    }
+   ]
+  },
+  "world/area_map_lv22.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "anchor_area_map_legend_1",
+     "kind": "region",
+     "x": 530,
+     "y": 30,
+     "w": 190,
+     "h": 240,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_area_map_legend",
+     "draft": true
+    }
+   ]
+  },
+  "world/area_map_survey_zoom.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "anchor_area_map_legend_1",
+     "kind": "region",
+     "x": 530,
+     "y": 30,
+     "w": 190,
+     "h": 240,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_area_map_legend",
+     "draft": true
+    }
+   ]
+  },
+  "world/area_map_v3.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "map_item_1",
+     "kind": "icon",
+     "x": 468,
+     "y": 539,
+     "w": 12,
+     "h": 12,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_item",
+     "draft": true
+    },
+    {
+     "name": "map_item_2",
+     "kind": "icon",
+     "x": 354,
+     "y": 601,
+     "w": 14,
+     "h": 14,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_item",
+     "draft": true
+    },
+    {
+     "name": "map_item_3",
+     "kind": "icon",
+     "x": 212,
+     "y": 683,
+     "w": 12,
+     "h": 12,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_item",
+     "draft": true
+    },
+    {
+     "name": "map_item_4",
+     "kind": "icon",
+     "x": 514,
+     "y": 697,
+     "w": 14,
+     "h": 14,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_item",
+     "draft": true
+    },
+    {
+     "name": "map_item_5",
+     "kind": "icon",
+     "x": 196,
+     "y": 699,
+     "w": 12,
+     "h": 12,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_item",
+     "draft": true
+    },
+    {
+     "name": "map_item_6",
+     "kind": "icon",
+     "x": 450,
+     "y": 713,
+     "w": 14,
+     "h": 14,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_item",
+     "draft": true
+    },
+    {
+     "name": "map_monster_1",
+     "kind": "icon",
+     "x": 470,
+     "y": 102,
+     "w": 11,
+     "h": 11,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_2",
+     "kind": "icon",
+     "x": 467,
+     "y": 108,
+     "w": 15,
+     "h": 13,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_3",
+     "kind": "icon",
+     "x": 467,
+     "y": 118,
+     "w": 15,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_4",
+     "kind": "icon",
+     "x": 36,
+     "y": 393,
+     "w": 22,
+     "h": 14,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_5",
+     "kind": "icon",
+     "x": 355,
+     "y": 586,
+     "w": 12,
+     "h": 15,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_6",
+     "kind": "icon",
+     "x": 403,
+     "y": 586,
+     "w": 16,
+     "h": 15,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_7",
+     "kind": "icon",
+     "x": 327,
+     "y": 632,
+     "w": 26,
+     "h": 27,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_8",
+     "kind": "icon",
+     "x": 227,
+     "y": 666,
+     "w": 10,
+     "h": 12,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_9",
+     "kind": "icon",
+     "x": 224,
+     "y": 679,
+     "w": 19,
+     "h": 18,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_10",
+     "kind": "icon",
+     "x": 448,
+     "y": 694,
+     "w": 19,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_11",
+     "kind": "icon",
+     "x": 208,
+     "y": 695,
+     "w": 19,
+     "h": 18,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_building_1",
+     "kind": "icon",
+     "x": 92,
+     "y": 371,
+     "w": 25,
+     "h": 26,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_2",
+     "kind": "icon",
+     "x": 36,
+     "y": 391,
+     "w": 27,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_3",
+     "kind": "icon",
+     "x": 34,
+     "y": 419,
+     "w": 19,
+     "h": 24,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_4",
+     "kind": "icon",
+     "x": 127,
+     "y": 419,
+     "w": 17,
+     "h": 24,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_5",
+     "kind": "icon",
+     "x": 49,
+     "y": 425,
+     "w": 14,
+     "h": 18,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_6",
+     "kind": "icon",
+     "x": 58,
+     "y": 425,
+     "w": 16,
+     "h": 18,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_7",
+     "kind": "icon",
+     "x": 70,
+     "y": 425,
+     "w": 15,
+     "h": 18,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_8",
+     "kind": "icon",
+     "x": 93,
+     "y": 425,
+     "w": 17,
+     "h": 24,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_9",
+     "kind": "icon",
+     "x": 105,
+     "y": 425,
+     "w": 17,
+     "h": 18,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_10",
+     "kind": "icon",
+     "x": 118,
+     "y": 425,
+     "w": 14,
+     "h": 18,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_player_1",
+     "kind": "icon",
+     "x": 354,
+     "y": 664,
+     "w": 15,
+     "h": 16,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_player",
+     "draft": true
+    },
+    {
+     "name": "anchor_area_map_legend_1",
+     "kind": "region",
+     "x": 530,
+     "y": 30,
+     "w": 190,
+     "h": 240,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_area_map_legend",
+     "draft": true
+    }
+   ]
+  },
+  "world/auroradrasil_tutorial_highlight.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "anchor_minimap_ring_1",
+     "kind": "region",
+     "x": 524,
+     "y": 85,
+     "w": 184,
+     "h": 184,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_minimap_ring",
+     "draft": true
+    },
+    {
+     "name": "anchor_hud_portrait_1",
+     "kind": "region",
+     "x": 0,
+     "y": 0,
+     "w": 100,
+     "h": 110,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_hud_portrait",
+     "draft": true
+    }
+   ]
+  },
+  "world/explore_ore_mined.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_gift_1",
+     "kind": "badge",
+     "x": 231,
+     "y": 964,
+     "w": 36,
+     "h": 36,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_gift",
+     "draft": true
+    },
+    {
+     "name": "mm_icon_1",
+     "kind": "icon",
+     "x": 614,
+     "y": 139,
+     "w": 21,
+     "h": 18,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_icon",
+     "draft": true
+    },
+    {
+     "name": "badge_gold_ring_1",
+     "kind": "badge",
+     "x": 336,
+     "y": 616,
+     "w": 48,
+     "h": 48,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_gold_ring",
+     "draft": true
+    },
+    {
+     "name": "anchor_minimap_ring_1",
+     "kind": "region",
+     "x": 524,
+     "y": 85,
+     "w": 184,
+     "h": 184,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_minimap_ring",
+     "draft": true
+    },
+    {
+     "name": "anchor_hud_portrait_1",
+     "kind": "region",
+     "x": 0,
+     "y": 0,
+     "w": 100,
+     "h": 110,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_hud_portrait",
+     "draft": true
+    }
+   ]
+  },
+  "world/explore_ore_rocks.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "mm_monster_1",
+     "kind": "icon",
+     "x": 562,
+     "y": 204,
+     "w": 11,
+     "h": 11,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_monster",
+     "draft": true
+    },
+    {
+     "name": "mm_monster_2",
+     "kind": "icon",
+     "x": 548,
+     "y": 207,
+     "w": 14,
+     "h": 16,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_monster",
+     "draft": true
+    },
+    {
+     "name": "badge_gold_ring_1",
+     "kind": "badge",
+     "x": 336,
+     "y": 616,
+     "w": 48,
+     "h": 48,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_gold_ring",
+     "draft": true
+    },
+    {
+     "name": "anchor_minimap_ring_1",
+     "kind": "region",
+     "x": 524,
+     "y": 85,
+     "w": 184,
+     "h": 184,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_minimap_ring",
+     "draft": true
+    },
+    {
+     "name": "anchor_hud_portrait_1",
+     "kind": "region",
+     "x": 0,
+     "y": 0,
+     "w": 100,
+     "h": 110,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_hud_portrait",
+     "draft": true
+    }
+   ]
+  },
+  "world/explore_ore_rocks_near.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_gift_1",
+     "kind": "badge",
+     "x": 231,
+     "y": 964,
+     "w": 36,
+     "h": 36,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_gift",
+     "draft": true
+    },
+    {
+     "name": "mm_icon_1",
+     "kind": "icon",
+     "x": 614,
+     "y": 147,
+     "w": 21,
+     "h": 18,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_icon",
+     "draft": true
+    },
+    {
+     "name": "badge_gold_ring_1",
+     "kind": "badge",
+     "x": 336,
+     "y": 616,
+     "w": 48,
+     "h": 48,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_gold_ring",
+     "draft": true
+    },
+    {
+     "name": "anchor_minimap_ring_1",
+     "kind": "region",
+     "x": 524,
+     "y": 85,
+     "w": 184,
+     "h": 184,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_minimap_ring",
+     "draft": true
+    },
+    {
+     "name": "anchor_hud_portrait_1",
+     "kind": "region",
+     "x": 0,
+     "y": 0,
+     "w": 100,
+     "h": 110,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_hud_portrait",
+     "draft": true
+    }
+   ]
+  },
+  "world/explore_resource_tracker.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_gift_1",
+     "kind": "badge",
+     "x": 231,
+     "y": 964,
+     "w": 36,
+     "h": 36,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_gift",
+     "draft": true
+    },
+    {
+     "name": "badge_gold_ring_1",
+     "kind": "badge",
+     "x": 642,
+     "y": 132,
+     "w": 56,
+     "h": 56,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_gold_ring",
+     "draft": true
+    },
+    {
+     "name": "player_character_1",
+     "kind": "icon",
+     "x": 310,
+     "y": 583,
+     "w": 80,
+     "h": 120,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "player_character",
+     "draft": true
+    },
+    {
+     "name": "anchor_minimap_ring_1",
+     "kind": "region",
+     "x": 524,
+     "y": 85,
+     "w": 184,
+     "h": 184,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_minimap_ring",
+     "draft": true
+    },
+    {
+     "name": "anchor_hud_portrait_1",
+     "kind": "region",
+     "x": 0,
+     "y": 0,
+     "w": 100,
+     "h": 110,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_hud_portrait",
+     "draft": true
+    }
+   ]
+  },
+  "world/explore_resource_tracker2.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 167,
+     "y": 761,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_2",
+     "kind": "badge",
+     "x": 256,
+     "y": 898,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_3",
+     "kind": "badge",
+     "x": 681,
+     "y": 985,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_gift_1",
+     "kind": "badge",
+     "x": 231,
+     "y": 964,
+     "w": 36,
+     "h": 36,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_gift",
+     "draft": true
+    },
+    {
+     "name": "mm_icon_1",
+     "kind": "icon",
+     "x": 644,
+     "y": 188,
+     "w": 11,
+     "h": 11,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_icon",
+     "draft": true
+    },
+    {
+     "name": "badge_gold_ring_1",
+     "kind": "badge",
+     "x": 636,
+     "y": 126,
+     "w": 68,
+     "h": 68,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_gold_ring",
+     "draft": true
+    },
+    {
+     "name": "player_character_1",
+     "kind": "icon",
+     "x": 310,
+     "y": 583,
+     "w": 80,
+     "h": 120,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "player_character",
+     "draft": true
+    },
+    {
+     "name": "anchor_minimap_ring_1",
+     "kind": "region",
+     "x": 524,
+     "y": 85,
+     "w": 184,
+     "h": 184,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_minimap_ring",
+     "draft": true
+    },
+    {
+     "name": "anchor_hud_portrait_1",
+     "kind": "region",
+     "x": 0,
+     "y": 0,
+     "w": 100,
+     "h": 110,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_hud_portrait",
+     "draft": true
+    }
+   ]
+  },
+  "world/explore_stamina_boar.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "mm_item_1",
+     "kind": "icon",
+     "x": 612,
+     "y": 247,
+     "w": 8,
+     "h": 7,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_item",
+     "draft": true
+    },
+    {
+     "name": "mm_item_2",
+     "kind": "icon",
+     "x": 620,
+     "y": 247,
+     "w": 9,
+     "h": 6,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_item",
+     "draft": true
+    },
+    {
+     "name": "mm_monster_1",
+     "kind": "icon",
+     "x": 562,
+     "y": 204,
+     "w": 11,
+     "h": 11,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_monster",
+     "draft": true
+    },
+    {
+     "name": "mm_monster_2",
+     "kind": "icon",
+     "x": 548,
+     "y": 207,
+     "w": 14,
+     "h": 16,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_monster",
+     "draft": true
+    },
+    {
+     "name": "badge_gold_ring_1",
+     "kind": "badge",
+     "x": 498,
+     "y": 16,
+     "w": 64,
+     "h": 64,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_gold_ring",
+     "draft": true
+    },
+    {
+     "name": "anchor_minimap_ring_1",
+     "kind": "region",
+     "x": 524,
+     "y": 85,
+     "w": 184,
+     "h": 184,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_minimap_ring",
+     "draft": true
+    },
+    {
+     "name": "anchor_hud_portrait_1",
+     "kind": "region",
+     "x": 0,
+     "y": 0,
+     "w": 100,
+     "h": 110,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_hud_portrait",
+     "draft": true
+    }
+   ]
+  },
+  "world/ironvein_pit.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "anchor_page_title_1",
+     "kind": "text",
+     "x": 0,
+     "y": 20,
+     "w": 440,
+     "h": 70,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_page_title",
+     "draft": true
+    }
+   ]
+  },
+  "world/map_exploration.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "anchor_page_title_1",
+     "kind": "text",
+     "x": 0,
+     "y": 20,
+     "w": 440,
+     "h": 70,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_page_title",
+     "draft": true
+    }
+   ]
+  },
+  "world/world_area_map.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "map_monster_1",
+     "kind": "icon",
+     "x": 321,
+     "y": 392,
+     "w": 12,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_2",
+     "kind": "icon",
+     "x": 256,
+     "y": 426,
+     "w": 18,
+     "h": 17,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_3",
+     "kind": "icon",
+     "x": 271,
+     "y": 425,
+     "w": 15,
+     "h": 18,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_4",
+     "kind": "icon",
+     "x": 280,
+     "y": 425,
+     "w": 17,
+     "h": 18,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_5",
+     "kind": "icon",
+     "x": 292,
+     "y": 426,
+     "w": 13,
+     "h": 17,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_6",
+     "kind": "icon",
+     "x": 242,
+     "y": 444,
+     "w": 20,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_7",
+     "kind": "icon",
+     "x": 302,
+     "y": 444,
+     "w": 23,
+     "h": 16,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_8",
+     "kind": "icon",
+     "x": 235,
+     "y": 445,
+     "w": 13,
+     "h": 15,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_9",
+     "kind": "icon",
+     "x": 283,
+     "y": 447,
+     "w": 18,
+     "h": 13,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_10",
+     "kind": "icon",
+     "x": 446,
+     "y": 850,
+     "w": 20,
+     "h": 20,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_11",
+     "kind": "icon",
+     "x": 495,
+     "y": 866,
+     "w": 19,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_12",
+     "kind": "icon",
+     "x": 468,
+     "y": 870,
+     "w": 19,
+     "h": 13,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_13",
+     "kind": "icon",
+     "x": 482,
+     "y": 872,
+     "w": 11,
+     "h": 10,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_14",
+     "kind": "icon",
+     "x": 217,
+     "y": 938,
+     "w": 22,
+     "h": 20,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_15",
+     "kind": "icon",
+     "x": 249,
+     "y": 938,
+     "w": 15,
+     "h": 20,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_16",
+     "kind": "icon",
+     "x": 260,
+     "y": 938,
+     "w": 15,
+     "h": 20,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_17",
+     "kind": "icon",
+     "x": 190,
+     "y": 959,
+     "w": 14,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_18",
+     "kind": "icon",
+     "x": 241,
+     "y": 960,
+     "w": 13,
+     "h": 18,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_19",
+     "kind": "icon",
+     "x": 279,
+     "y": 959,
+     "w": 28,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_20",
+     "kind": "icon",
+     "x": 249,
+     "y": 962,
+     "w": 26,
+     "h": 16,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_21",
+     "kind": "icon",
+     "x": 198,
+     "y": 963,
+     "w": 13,
+     "h": 15,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_22",
+     "kind": "icon",
+     "x": 206,
+     "y": 963,
+     "w": 14,
+     "h": 18,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_23",
+     "kind": "icon",
+     "x": 218,
+     "y": 963,
+     "w": 14,
+     "h": 15,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_24",
+     "kind": "icon",
+     "x": 227,
+     "y": 963,
+     "w": 12,
+     "h": 15,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_25",
+     "kind": "icon",
+     "x": 233,
+     "y": 963,
+     "w": 14,
+     "h": 15,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_player_1",
+     "kind": "icon",
+     "x": 432,
+     "y": 596,
+     "w": 16,
+     "h": 16,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_player",
+     "draft": true
+    },
+    {
+     "name": "anchor_area_map_legend_1",
+     "kind": "region",
+     "x": 530,
+     "y": 30,
+     "w": 190,
+     "h": 240,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_area_map_legend",
+     "draft": true
+    }
+   ]
+  },
+  "world/world_area_map_stone_ruins.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "map_item_1",
+     "kind": "icon",
+     "x": 102,
+     "y": 890,
+     "w": 14,
+     "h": 15,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_item",
+     "draft": true
+    },
+    {
+     "name": "map_item_2",
+     "kind": "icon",
+     "x": 166,
+     "y": 907,
+     "w": 14,
+     "h": 12,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_item",
+     "draft": true
+    },
+    {
+     "name": "map_item_3",
+     "kind": "icon",
+     "x": 214,
+     "y": 939,
+     "w": 14,
+     "h": 14,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_item",
+     "draft": true
+    },
+    {
+     "name": "map_item_4",
+     "kind": "icon",
+     "x": 246,
+     "y": 970,
+     "w": 15,
+     "h": 15,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_item",
+     "draft": true
+    },
+    {
+     "name": "map_monster_1",
+     "kind": "icon",
+     "x": 21,
+     "y": 496,
+     "w": 18,
+     "h": 17,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_2",
+     "kind": "icon",
+     "x": 36,
+     "y": 495,
+     "w": 15,
+     "h": 17,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_3",
+     "kind": "icon",
+     "x": 48,
+     "y": 495,
+     "w": 14,
+     "h": 17,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_4",
+     "kind": "icon",
+     "x": 57,
+     "y": 496,
+     "w": 13,
+     "h": 16,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_5",
+     "kind": "icon",
+     "x": 67,
+     "y": 514,
+     "w": 23,
+     "h": 16,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_6",
+     "kind": "icon",
+     "x": 1,
+     "y": 515,
+     "w": 12,
+     "h": 15,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_7",
+     "kind": "icon",
+     "x": 33,
+     "y": 515,
+     "w": 17,
+     "h": 15,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_8",
+     "kind": "icon",
+     "x": 13,
+     "y": 517,
+     "w": 11,
+     "h": 16,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_9",
+     "kind": "icon",
+     "x": 22,
+     "y": 517,
+     "w": 17,
+     "h": 13,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_10",
+     "kind": "icon",
+     "x": 48,
+     "y": 517,
+     "w": 18,
+     "h": 13,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_11",
+     "kind": "icon",
+     "x": 68,
+     "y": 788,
+     "w": 27,
+     "h": 20,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_12",
+     "kind": "icon",
+     "x": 103,
+     "y": 905,
+     "w": 12,
+     "h": 15,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_13",
+     "kind": "icon",
+     "x": 212,
+     "y": 920,
+     "w": 18,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_14",
+     "kind": "icon",
+     "x": 260,
+     "y": 936,
+     "w": 18,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_15",
+     "kind": "icon",
+     "x": 361,
+     "y": 970,
+     "w": 14,
+     "h": 13,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_16",
+     "kind": "icon",
+     "x": 4,
+     "y": 1008,
+     "w": 12,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_17",
+     "kind": "icon",
+     "x": 14,
+     "y": 1008,
+     "w": 15,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_18",
+     "kind": "icon",
+     "x": 25,
+     "y": 1008,
+     "w": 15,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_19",
+     "kind": "icon",
+     "x": 7,
+     "y": 1030,
+     "w": 11,
+     "h": 17,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_20",
+     "kind": "icon",
+     "x": 44,
+     "y": 1029,
+     "w": 14,
+     "h": 18,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_21",
+     "kind": "icon",
+     "x": 53,
+     "y": 1029,
+     "w": 18,
+     "h": 18,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_22",
+     "kind": "icon",
+     "x": 0,
+     "y": 1033,
+     "w": 11,
+     "h": 14,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_23",
+     "kind": "icon",
+     "x": 18,
+     "y": 1033,
+     "w": 13,
+     "h": 14,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_24",
+     "kind": "icon",
+     "x": 27,
+     "y": 1033,
+     "w": 13,
+     "h": 14,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "anchor_area_map_legend_1",
+     "kind": "region",
+     "x": 530,
+     "y": 30,
+     "w": 190,
+     "h": 240,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_area_map_legend",
+     "draft": true
+    }
+   ]
+  },
+  "world/world_map.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "anchor_minimap_ring_1",
+     "kind": "region",
+     "x": 524,
+     "y": 85,
+     "w": 184,
+     "h": 184,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_minimap_ring",
+     "draft": true
+    },
+    {
+     "name": "anchor_hud_portrait_1",
+     "kind": "region",
+     "x": 0,
+     "y": 0,
+     "w": 100,
+     "h": 110,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_hud_portrait",
+     "draft": true
+    }
+   ]
+  },
+  "world/world_map_explore.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_gold_ring_1",
+     "kind": "badge",
+     "x": 329,
+     "y": 609,
+     "w": 62,
+     "h": 62,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_gold_ring",
+     "draft": true
+    },
+    {
+     "name": "anchor_minimap_ring_1",
+     "kind": "region",
+     "x": 524,
+     "y": 85,
+     "w": 184,
+     "h": 184,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_minimap_ring",
+     "draft": true
+    },
+    {
+     "name": "anchor_hud_portrait_1",
+     "kind": "region",
+     "x": 0,
+     "y": 0,
+     "w": 100,
+     "h": 110,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_hud_portrait",
+     "draft": true
+    }
+   ]
+  },
+  "world/world_map_monsters.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "mm_item_1",
+     "kind": "icon",
+     "x": 579,
+     "y": 165,
+     "w": 9,
+     "h": 9,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_item",
+     "draft": true
+    },
+    {
+     "name": "mm_item_2",
+     "kind": "icon",
+     "x": 636,
+     "y": 181,
+     "w": 9,
+     "h": 9,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_item",
+     "draft": true
+    },
+    {
+     "name": "mm_item_3",
+     "kind": "icon",
+     "x": 645,
+     "y": 181,
+     "w": 7,
+     "h": 9,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_item",
+     "draft": true
+    },
+    {
+     "name": "mm_item_4",
+     "kind": "icon",
+     "x": 628,
+     "y": 189,
+     "w": 9,
+     "h": 9,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_item",
+     "draft": true
+    },
+    {
+     "name": "mm_item_5",
+     "kind": "icon",
+     "x": 636,
+     "y": 189,
+     "w": 9,
+     "h": 9,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_item",
+     "draft": true
+    },
+    {
+     "name": "anchor_minimap_ring_1",
+     "kind": "region",
+     "x": 524,
+     "y": 85,
+     "w": 184,
+     "h": 184,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_minimap_ring",
+     "draft": true
+    },
+    {
+     "name": "anchor_hud_portrait_1",
+     "kind": "region",
+     "x": 0,
+     "y": 0,
+     "w": 100,
+     "h": 110,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_hud_portrait",
+     "draft": true
+    }
+   ]
+  },
+  "world/world_map_moonveil_entry.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_gold_ring_1",
+     "kind": "badge",
+     "x": 256,
+     "y": 460,
+     "w": 56,
+     "h": 56,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_gold_ring",
+     "draft": true
+    },
+    {
+     "name": "anchor_minimap_ring_1",
+     "kind": "region",
+     "x": 524,
+     "y": 85,
+     "w": 184,
+     "h": 184,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_minimap_ring",
+     "draft": true
+    },
+    {
+     "name": "anchor_hud_portrait_1",
+     "kind": "region",
+     "x": 0,
+     "y": 0,
+     "w": 100,
+     "h": 110,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_hud_portrait",
+     "draft": true
+    }
+   ]
+  },
+  "world/world_map_player_pointer.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 681,
+     "y": 985,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_gold_ring_1",
+     "kind": "badge",
+     "x": 276,
+     "y": 26,
+     "w": 48,
+     "h": 48,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_gold_ring",
+     "draft": true
+    },
+    {
+     "name": "anchor_minimap_ring_1",
+     "kind": "region",
+     "x": 524,
+     "y": 85,
+     "w": 184,
+     "h": 184,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_minimap_ring",
+     "draft": true
+    },
+    {
+     "name": "anchor_hud_portrait_1",
+     "kind": "region",
+     "x": 0,
+     "y": 0,
+     "w": 100,
+     "h": 110,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_hud_portrait",
+     "draft": true
+    }
+   ]
+  },
+  "world/world_map_tile_puzzle_chests.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "mm_icon_1",
+     "kind": "icon",
+     "x": 628,
+     "y": 211,
+     "w": 24,
+     "h": 20,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_icon",
+     "draft": true
+    },
+    {
+     "name": "player_character_1",
+     "kind": "icon",
+     "x": 445,
+     "y": 595,
+     "w": 80,
+     "h": 120,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "player_character",
+     "draft": true
+    },
+    {
+     "name": "anchor_minimap_ring_1",
+     "kind": "region",
+     "x": 524,
+     "y": 85,
+     "w": 184,
+     "h": 184,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_minimap_ring",
+     "draft": true
+    },
+    {
+     "name": "anchor_hud_portrait_1",
+     "kind": "region",
+     "x": 0,
+     "y": 0,
+     "w": 100,
+     "h": 110,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_hud_portrait",
+     "draft": true
+    }
+   ]
+  },
+  "world/world_map_tracker_gift.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 386,
+     "y": 348,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_2",
+     "kind": "badge",
+     "x": 287,
+     "y": 449,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_3",
+     "kind": "badge",
+     "x": 263,
+     "y": 898,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_red_bang_4",
+     "kind": "badge",
+     "x": 681,
+     "y": 985,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "badge_gift_1",
+     "kind": "badge",
+     "x": 238,
+     "y": 964,
+     "w": 36,
+     "h": 36,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_gift",
+     "draft": true
+    },
+    {
+     "name": "mm_item_1",
+     "kind": "icon",
+     "x": 612,
+     "y": 206,
+     "w": 8,
+     "h": 8,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_item",
+     "draft": true
+    },
+    {
+     "name": "mm_item_2",
+     "kind": "icon",
+     "x": 645,
+     "y": 214,
+     "w": 8,
+     "h": 7,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_item",
+     "draft": true
+    },
+    {
+     "name": "mm_monster_1",
+     "kind": "icon",
+     "x": 595,
+     "y": 156,
+     "w": 10,
+     "h": 9,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_monster",
+     "draft": true
+    },
+    {
+     "name": "mm_monster_2",
+     "kind": "icon",
+     "x": 613,
+     "y": 213,
+     "w": 7,
+     "h": 9,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_monster",
+     "draft": true
+    },
+    {
+     "name": "mm_monster_3",
+     "kind": "icon",
+     "x": 668,
+     "y": 221,
+     "w": 8,
+     "h": 9,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_monster",
+     "draft": true
+    },
+    {
+     "name": "mm_building_1",
+     "kind": "icon",
+     "x": 621,
+     "y": 162,
+     "w": 10,
+     "h": 11,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_building",
+     "draft": true
+    },
+    {
+     "name": "mm_icon_1",
+     "kind": "icon",
+     "x": 611,
+     "y": 117,
+     "w": 10,
+     "h": 15,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_icon",
+     "draft": true
+    },
+    {
+     "name": "mm_icon_2",
+     "kind": "icon",
+     "x": 629,
+     "y": 117,
+     "w": 13,
+     "h": 18,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_icon",
+     "draft": true
+    },
+    {
+     "name": "mm_icon_3",
+     "kind": "icon",
+     "x": 619,
+     "y": 120,
+     "w": 13,
+     "h": 18,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_icon",
+     "draft": true
+    },
+    {
+     "name": "mm_icon_4",
+     "kind": "icon",
+     "x": 610,
+     "y": 130,
+     "w": 10,
+     "h": 17,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_icon",
+     "draft": true
+    },
+    {
+     "name": "mm_icon_5",
+     "kind": "icon",
+     "x": 629,
+     "y": 129,
+     "w": 15,
+     "h": 26,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_icon",
+     "draft": true
+    },
+    {
+     "name": "mm_icon_6",
+     "kind": "icon",
+     "x": 637,
+     "y": 136,
+     "w": 7,
+     "h": 8,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_icon",
+     "draft": true
+    },
+    {
+     "name": "mm_icon_7",
+     "kind": "icon",
+     "x": 610,
+     "y": 146,
+     "w": 7,
+     "h": 9,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_icon",
+     "draft": true
+    },
+    {
+     "name": "player_character_1",
+     "kind": "icon",
+     "x": 238,
+     "y": 455,
+     "w": 80,
+     "h": 120,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "player_character",
+     "draft": true
+    },
+    {
+     "name": "anchor_minimap_ring_1",
+     "kind": "region",
+     "x": 524,
+     "y": 85,
+     "w": 184,
+     "h": 184,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_minimap_ring",
+     "draft": true
+    },
+    {
+     "name": "anchor_hud_portrait_1",
+     "kind": "region",
+     "x": 0,
+     "y": 0,
+     "w": 100,
+     "h": 110,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_hud_portrait",
+     "draft": true
+    }
+   ]
+  },
+  "world/world_overview.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "anchor_tab_bar_1",
+     "kind": "region",
+     "x": 0,
+     "y": 1185,
+     "w": 720,
+     "h": 95,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_tab_bar",
+     "draft": true
+    }
+   ]
+  },
+  "world/zone_edge_verdantglade_v.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 682,
+     "y": 985,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "player_character_1",
+     "kind": "icon",
+     "x": 312,
+     "y": 515,
+     "w": 80,
+     "h": 120,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "player_character",
+     "draft": true
+    },
+    {
+     "name": "anchor_minimap_ring_1",
+     "kind": "region",
+     "x": 524,
+     "y": 85,
+     "w": 184,
+     "h": 184,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_minimap_ring",
+     "draft": true
+    },
+    {
+     "name": "anchor_hud_portrait_1",
+     "kind": "region",
+     "x": 0,
+     "y": 0,
+     "w": 100,
+     "h": 110,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_hud_portrait",
+     "draft": true
+    }
+   ]
+  },
+  "world/zone_edge_verdantglade_v_on_line.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "badge_red_bang_1",
+     "kind": "badge",
+     "x": 682,
+     "y": 985,
+     "w": 30,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "badge_red_bang",
+     "draft": true
+    },
+    {
+     "name": "mm_monster_1",
+     "kind": "icon",
+     "x": 685,
+     "y": 163,
+     "w": 8,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_monster",
+     "draft": true
+    },
+    {
+     "name": "player_character_1",
+     "kind": "icon",
+     "x": 331,
+     "y": 557,
+     "w": 80,
+     "h": 120,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "player_character",
+     "draft": true
+    },
+    {
+     "name": "anchor_minimap_ring_1",
+     "kind": "region",
+     "x": 524,
+     "y": 85,
+     "w": 184,
+     "h": 184,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_minimap_ring",
+     "draft": true
+    },
+    {
+     "name": "anchor_hud_portrait_1",
+     "kind": "region",
+     "x": 0,
+     "y": 0,
+     "w": 100,
+     "h": 110,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "anchor_hud_portrait",
+     "draft": true
+    }
+   ]
+  }
+ }
 }

@@ -14,7 +14,7 @@ Read before pressing any button that might spend, and on any class, social, acco
 - **Shop Refresh**: Vendor Booth (4K Rolla) (R-120), Daily Shop (R-019).
 - **Any shop item, in any shop, until mae has filled the Buy? column of `docs/shop-tables.md` and the shop has a buy list in the repo** (mae) (R-120). Read stock only via info cards (R-125).
 - **Extra material-dungeon attempts** (Dawnium; 2 free a day) (R-015).
-- **"Create Guild"** (R-102); **Link Account** or anything account-related (R-096).
+- **"Tap to spin"** on a Lucky Wheel / Wheel of Destiny, except its one free first spin while the zone is below 100% and no cost shows (mae) (R-147). **"Create Guild"** (R-102); **Link Account** or anything account-related (R-096).
 
 **Never do:**
 - **A 3rd guild donation in a day** (R-103).
@@ -28,6 +28,8 @@ Read before pressing any button that might spend, and on any class, social, acco
 - **Spend stamina while exploring**: in explored, blessed areas, respawned monsters and most interactables cost stamina; don't tap them (even on a reference-crop match) unless a loop is deliberately farming, e.g. battle essence for skills (mae) (R-065, R-131).
 - **Change the character's appearance**: never press Complete on Carol's Reshape (costs a Shapeshifting Mirror); the look is mae's choice (R-134).
 - **Pick a "Choose Your Reward" option when both are valid**: ask mae; only a lone Class Mismatch lets the bot take the other (R-129).
+- **Decide the player's zone from assumptions about the surroundings**: read the minimap name first, then the big map's player indicator (mae) (R-140). **Walk label-to-label between zones**: leave by the way you came in (R-068).
+- **Tap on fog** as an exploration target: tap walkable ground next to it instead (mae) (R-146).
 
 **Allowed (the only exceptions):**
 - **Healing food and healing dishes**: buy or craft with Rolla (approved, no limit), eat freely; conserve **permanent dishes** (R-138).
@@ -45,7 +47,7 @@ Read before pressing any button that might spend, and on any class, social, acco
 ### R-042 · Answer cards by a goal-dependent policy, not a fixed tap
 Policy: `resource/policy/cards.json`, `sxs/policy/decide.py`; nav-graph edges mirror it in `when`. The `never` regex in that file blocks the R-043 buttons (Buy, Purchase, Refresh, Spend, Dawnium, Pray, Recharge, Top up, Catch Up, Advanced Trial, Create Guild, Change Class, USD/$, hammer) whatever the card; `sxs.loops.pray` doesn't use the decider.
 - Defeated: OK (home). Travel prompt: OK when exploring or doing dailies, Cancel when only going home. Portal: Activate.
-- Mini-dungeon card: Explore only if the goal is explore and HP is fine, else dismiss. Dungeon floor: Next Floor if HP is fine, else the back arrow.
+- Mini-dungeon card: Explore only if the goal is explore and HP is fine, else dismiss. Dungeon floor: heal from the portrait if HP is low, then Next Floor (R-091); never leave for low HP.
 - Unknown card: dismiss and log.
 *told* · R-043, R-091
 

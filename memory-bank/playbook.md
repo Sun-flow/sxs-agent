@@ -1,7 +1,16 @@
 # Builder playbook
 
-> **Last updated**: 2026-11-05
+> **Last updated**: 2026-11-10
 > How a game-playing ("builder") session works. Read after `status.md`. Where things stand and what's next is in `status.md`; never-do rules are in `game/rules/policy.md`.
+
+## First rule: announce every run, then keep mae posted
+
+**mae (2026-11-10 02:38): this was agreed before but builders have not kept to it. Do it for every test and every loop, no exceptions.**
+
+- **Before anything runs on the emulator**, post in your thread what you are about to run: the loop or command, its goal, the target zone or task, and the stop condition.
+- **While it runs**, post regular readouts (about every 2 minutes, at least at each runner check): current loop, current step, zone from the minimap, progress %, last action. No personal info.
+- **When it ends**, post the `[Result X]` line and what happened.
+- mae must be able to tell at any moment what the system is working on. A silent run is a broken run.
 
 ## The job
 

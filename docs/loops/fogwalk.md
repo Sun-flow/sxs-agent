@@ -1,7 +1,7 @@
 # Fog Walk loop (one zone to 100%)
 
 Code: `sxs/loops/fogwalk.py` (`walk`). Command: `python -m sxs fogwalk [--area NAME] [--farm] [--minutes N]`.
-Called by [roam.md](roam.md). Rules: R-065, R-066, R-130, R-131, R-132, R-068, R-061.
+Called by [roam.md](roam.md). Rules: R-065, R-066, R-130, R-131, R-132, R-068, R-061, R-146, R-150.
 
 **Goal:** bring one zone to 100% exploration: collect green dots, fight orange dots, open yellow structures, reveal
 fog (R-065). In an unexplored zone fights and pickups are free; in an explored (blessed) zone they cost stamina and
@@ -20,8 +20,11 @@ flowchart TD
     TW -->|failed| NOM(["not_on_map"])
     M -->|yes| A
     TW -->|ok| A{"--area given and walk_there?"}
-    A -->|yes| GO[["goto the zone by area map"]] --> FREE
-    A -->|no| FREE{"Zone shows a % on the area map?"}
+    A -->|yes| GO[["goto the zone by area map"]] --> NZ
+    A -->|no| NZ{"Just walked in from another zone?"}
+    NZ -->|yes| ENT["R-150: find the entrance between the two zones on the big map<br/>(crossing point, location tree's way in), centre the camera there"]
+    ENT --> OUT["Walk to ground next to the fog, working outward from the entrance<br/>(never tap the fog itself, R-146)"] --> FREE
+    NZ -->|no| FREE{"Zone shows a % on the area map?"}
     FREE -->|"yes: unexplored"| F1["Fights on, pickups on (free)"]
     FREE -->|"no: explored or blessed"| F2{"--farm?"}
     F2 -->|yes| F3["Fights on, pickups only above 75 stamina"]
@@ -34,6 +37,9 @@ flowchart TD
     class NOM look
     class GO sub
 ```
+
+The new-zone entry step (R-150, mae 2026-11-10) is being built: today the walk goes straight to the main loop and
+looks for fog first.
 
 ## Main loop: on the island map (`world_map`), checked in this order
 

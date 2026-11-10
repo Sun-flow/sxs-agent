@@ -26,6 +26,19 @@ arrow for the pages, tap outside for the cards, Home for the profile).
 **Q13. Vendor Booth pans fast.** It swipes in 500 ms; R-126 says fast swipes often don't register on home and to use
 slow 1 s drags over the ground, as the Cart sweep does.
 
+**Q16. Explore fights hurt after two heal tries.** `_on_battle_prep` in `sxs/loops/explore.py` heals up to twice,
+then taps Start Battle even when the prep bar is still under 70%. R-061 says never fight under 70%; the shared
+`start_fight` (used by gather) backs out instead. *Recommend:* call `start_fight`; if it returns
+False, end the run `low_hp`.
+
+**Q18. Two quest-ring followers.** Explore's `_follow_marker` and Fog Walk's `quest_step` do the same job differently;
+`quest_step` is the live-proven one (R-142). *Recommend:* one shared action in `sxs/actions/` that both call, keeping
+Explore's pan/toggle retries for when no ring shows.
+
+**Q19. Mermaid labels starting "1. " draw as "Unsupported markdown: list"** in Mermaid 11 (seen in a local render of
+explore.md; other pages use the same style, e.g. runner.md and the README legend). Explore now uses "Step 1 ·".
+*Recommend:* check one page on GitHub; if it shows the error, switch the others too.
+
 ## Gaps: screens or cards with no defined action
 
 **Q14. Cards without a rule** are dismissed and logged: Auroradrasil's "1 More Floor(s)", "Dungeon Room Map" and
@@ -45,7 +58,10 @@ isn't detected, the zone counts as finished.
 - R-061 notes explore heals at 80% after a fight, while the rule is 70% before one; both thresholds are in the code
   (`HEAL_BELOW` in `sxs/loops/explore.py`, `FIGHT_MIN_HP` in `sxs/actions/heal.py`).
 
-## Settled (mae, 2026-11-09)
+## Settled (mae, 2026-11-09 and 11-10)
+
+**Q17. Explore's unstick reads the zone from the minimap name.** Not a problem (mae, 2026-11-10): the name under the
+minimap is the most accurate way to confirm the player's zone; R-140 is being reworded to say so. No change.
 
 **Q1. Unlock every free Cart production row.** *Built in PR #43, not run live yet:* `CartUpgrader.unlock_rows`
 presses any row's exact "Unlock" before the upgrades and backs out of any cost or spend word (R-137). See

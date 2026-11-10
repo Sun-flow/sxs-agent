@@ -41,6 +41,7 @@ every screen, the bank first. On a screen:
 - **Drag to draw a box** around anything that matters, name it (`claim_button`), and pick what it is: button,
   text (a line to read with OCR), icon, badge or region. Add a note on how to handle it if useful.
 - **Fill in the screen**: name, folder, state, what it is (the same fields as the bank table).
+- **Detector class** (menu under each box) says which UI-detector class the box is (`resource/detect/classes.json`); only boxes with a class go into the training set (`python -m sxs dataset`). Dashed boxes are drafts from `python -m sxs prelabel`: fix them and press **Confirm** (or `C`; moving or resizing also confirms), **Confirm all drafts**, or delete them. Tick "only screens with draft boxes to check" to work through them.
 - **Save** writes the boxes to `docs/screens/labels.json`, cuts a crop of each box ticked "save crop as template"
   into `resource/image/labels/<screen>/<box>.png` with a row in its `manifest.json`, and writes the screen's row in
   `unlabeled/README.md` (bank) or its state and notes in `expected.json` (filed screens).

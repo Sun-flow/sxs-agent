@@ -8,6 +8,10 @@ A box is {"name": "upgrade_button", "kind": "button", "x", "y", "w", "h", "note"
 pixels of the screen file (reference frames are 720x1280, so these are frame coordinates). Kinds say what the
 box is for: a button to tap, text to read with OCR, an icon or badge to match, or a region to watch.
 
+For the UI detector (docs/detector-design.md) a box can also carry "cls", one of the detector classes in
+resource/detect/classes.json, and "draft": true when the pre-labeller drew it and mae has not confirmed it yet.
+Only boxes with a cls go into a training dataset (`python -m sxs dataset`); drafts only when asked.
+
 The template path in the manifest is relative to resource/image/, so a pipeline node can use it as `template` and
 code can use `sxs/vision/labels.py`. Needs Pillow only (no OpenCV, no MaaFramework).
 """
@@ -26,10 +30,18 @@ from .paths import RESOURCE, SCREENS
 LABELS_FILE = SCREENS / "labels.json"
 IMAGE = RESOURCE / "image"
 CROPS = IMAGE / "labels"
+CLASSES_FILE = RESOURCE / "detect" / "classes.json"
 MANIFEST = CROPS / "manifest.json"
 KINDS = ("button", "text", "icon", "badge", "region", "other")
 TEMPLATE_KINDS = ("button", "icon", "badge")  # ticked as templates by default in the UI
 NAME = re.compile(r"^[a-z][a-z0-9_]*$")
+
+
+def classes() -> list[dict]:
+    """The detector classes, in id order: [{"name", "group", "kind", "about"}]."""
+    if not CLASSES_FILE.exists():
+        return []
+    return json.loads(CLASSES_FILE.read_text(encoding="utf-8")).get("classes", [])
 
 
 def load() -> dict:
@@ -50,6 +62,7 @@ def screen_key(path: Path) -> str:
 def clean_boxes(boxes: list, size: tuple[int, int]) -> tuple[list[dict], list[str]]:
     """Validate boxes from the UI: names, kinds, clamp to the image. Returns (boxes, problems)."""
     w, h = size
+    known = {c["name"] for c in classes()}
     out, problems, seen = [], [], set()
     for i, b in enumerate(boxes):
         name = str(b.get("name", "")).strip()
@@ -65,9 +78,18 @@ def clean_boxes(boxes: list, size: tuple[int, int]) -> tuple[list[dict], list[st
         if x1 - x0 < 2 or y1 - y0 < 2:
             problems.append(f"box {name}: too small")
             continue
+        cls = str(b.get("cls") or "").strip()
+        if cls and cls not in known:
+            problems.append(f"box {name}: class {cls!r} is not in resource/detect/classes.json")
+            cls = ""
         seen.add(name)
-        out.append({"name": name, "kind": kind, "x": x0, "y": y0, "w": x1 - x0, "h": y1 - y0,
-                    "note": str(b.get("note", "")).strip(), "template": bool(b.get("template"))})
+        box = {"name": name, "kind": kind, "x": x0, "y": y0, "w": x1 - x0, "h": y1 - y0,
+               "note": str(b.get("note", "")).strip(), "template": bool(b.get("template"))}
+        if cls:
+            box["cls"] = cls
+        if b.get("draft"):
+            box["draft"] = True
+        out.append(box)
     return out, problems
 
 
@@ -114,7 +136,7 @@ def export_crops(key: str) -> list[str]:
     entries = [e for e in _load_manifest() if e["source"] != key]
     written = []
     src = SCREENS / key
-    boxes = [b for b in boxes_for(key) if b.get("template")]
+    boxes = [b for b in boxes_for(key) if b.get("template") and not b.get("draft")]
     if boxes and src.exists():
         folder.mkdir(parents=True, exist_ok=True)
         with Image.open(src) as im:

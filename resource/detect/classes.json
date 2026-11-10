@@ -1,0 +1,257 @@
+{
+ "doc": "Detector classes (docs/detector-design.md). The order is the class id in exported datasets: append new classes, never reorder or rename one in use. kind is the labeler box kind the class implies. Classes in group minimap are trained on enlarged minimap crops (MINIMAP_CROP in sxs/detect/dataset.py), not on the full frame. Classes in group screen are anchors for model-first state detection (docs/detector-design.md, hybrid).",
+ "classes": [
+  {
+   "name": "card_chest",
+   "group": "cards",
+   "kind": "region",
+   "about": "Chest card (open on contact or Open button)"
+  },
+  {
+   "name": "card_statue_visit",
+   "group": "cards",
+   "kind": "region",
+   "about": "\"Statue of <name>\" Visit card (R-144)"
+  },
+  {
+   "name": "card_goddess_statue",
+   "group": "cards",
+   "kind": "region",
+   "about": "Goddess / Lost Statue bless card (R-070)"
+  },
+  {
+   "name": "card_sealed_gate",
+   "group": "cards",
+   "kind": "region",
+   "about": "Sealed Stone Gate card with Unlock (R-145)"
+  },
+  {
+   "name": "card_boulder",
+   "group": "cards",
+   "kind": "region",
+   "about": "Boulder Blockade / Required Item card (R-151)"
+  },
+  {
+   "name": "card_wheel",
+   "group": "cards",
+   "kind": "region",
+   "about": "Wheel of Destiny card (R-147)"
+  },
+  {
+   "name": "card_dungeon_gate",
+   "group": "cards",
+   "kind": "region",
+   "about": "Dungeon or tower gate card"
+  },
+  {
+   "name": "card_interact",
+   "group": "cards",
+   "kind": "region",
+   "about": "Any other one-button map card"
+  },
+  {
+   "name": "btn_primary",
+   "group": "buttons",
+   "kind": "button",
+   "about": "Yellow action button (Claim, Open, Bless, Start ...)"
+  },
+  {
+   "name": "btn_close_x",
+   "group": "buttons",
+   "kind": "button",
+   "about": "Close X on a panel or popup"
+  },
+  {
+   "name": "btn_back_arrow",
+   "group": "buttons",
+   "kind": "button",
+   "about": "Back arrow top left"
+  },
+  {
+   "name": "btn_tap_to_spin",
+   "group": "buttons",
+   "kind": "button",
+   "about": "\"Tap to spin\" on the Wheel of Destiny"
+  },
+  {
+   "name": "btn_claim",
+   "group": "buttons",
+   "kind": "button",
+   "about": "Claim / Claim All buttons"
+  },
+  {
+   "name": "btn_quick_heal",
+   "group": "buttons",
+   "kind": "button",
+   "about": "Top-left portrait (Quick Heal, R-078)"
+  },
+  {
+   "name": "badge_red_bang",
+   "group": "badges",
+   "kind": "badge",
+   "about": "Red \"!\" badge on a button or slot"
+  },
+  {
+   "name": "badge_blue_pip",
+   "group": "badges",
+   "kind": "badge",
+   "about": "Blue up-arrow pip (enhance, R-088)"
+  },
+  {
+   "name": "badge_gold_ring",
+   "group": "badges",
+   "kind": "badge",
+   "about": "Gold quest-pointer ring (R-142)"
+  },
+  {
+   "name": "badge_gift",
+   "group": "badges",
+   "kind": "badge",
+   "about": "Tracker gift box"
+  },
+  {
+   "name": "map_player",
+   "group": "area_map",
+   "kind": "icon",
+   "about": "Our white dot on the area map"
+  },
+  {
+   "name": "map_item",
+   "group": "area_map",
+   "kind": "icon",
+   "about": "Green pickup dot on the area map"
+  },
+  {
+   "name": "map_monster",
+   "group": "area_map",
+   "kind": "icon",
+   "about": "Orange monster dot on the area map"
+  },
+  {
+   "name": "map_building",
+   "group": "area_map",
+   "kind": "icon",
+   "about": "Gold structure icon on the area map"
+  },
+  {
+   "name": "map_statue_bang",
+   "group": "area_map",
+   "kind": "icon",
+   "about": "Blue \"!\" statue badge on the area map (R-148)"
+  },
+  {
+   "name": "map_chest",
+   "group": "area_map",
+   "kind": "icon",
+   "about": "Small yellow chest icon on the area map"
+  },
+  {
+   "name": "map_zone_label",
+   "group": "area_map",
+   "kind": "text",
+   "about": "A zone's name label (box only; OCR reads it)"
+  },
+  {
+   "name": "map_pct_line",
+   "group": "area_map",
+   "kind": "text",
+   "about": "A zone's \"Exploration: N%\" line"
+  },
+  {
+   "name": "player_character",
+   "group": "world",
+   "kind": "icon",
+   "about": "Our own character on the island map (never a target)"
+  },
+  {
+   "name": "monster",
+   "group": "world",
+   "kind": "icon",
+   "about": "A monster on the island map"
+  },
+  {
+   "name": "npc_alert",
+   "group": "world",
+   "kind": "badge",
+   "about": "NPC alert bubble"
+  },
+  {
+   "name": "tracker_box",
+   "group": "world",
+   "kind": "region",
+   "about": "Quest tracker panel"
+  },
+  {
+   "name": "mm_item",
+   "group": "minimap",
+   "kind": "icon",
+   "about": "Green pickup dot on the minimap"
+  },
+  {
+   "name": "mm_monster",
+   "group": "minimap",
+   "kind": "icon",
+   "about": "Orange/red monster dot on the minimap"
+  },
+  {
+   "name": "mm_building",
+   "group": "minimap",
+   "kind": "icon",
+   "about": "Gold building icon on the minimap"
+  },
+  {
+   "name": "mm_icon",
+   "group": "minimap",
+   "kind": "icon",
+   "about": "White icon on the minimap (statue, NPC, portal); not our own centre dot"
+  },
+  {
+   "name": "anchor_minimap_ring",
+   "group": "screen",
+   "kind": "region",
+   "about": "The round minimap, top right (island map)"
+  },
+  {
+   "name": "anchor_tab_bar",
+   "group": "screen",
+   "kind": "region",
+   "about": "Bottom navigation bar (Character / Home / World ...)"
+  },
+  {
+   "name": "anchor_hud_portrait",
+   "group": "screen",
+   "kind": "region",
+   "about": "Top-left portrait with level and power"
+  },
+  {
+   "name": "anchor_battle_round",
+   "group": "screen",
+   "kind": "region",
+   "about": "Battle round counter at the top"
+  },
+  {
+   "name": "anchor_dialogue_box",
+   "group": "screen",
+   "kind": "region",
+   "about": "Speaker box of a dialogue"
+  },
+  {
+   "name": "anchor_popup_panel",
+   "group": "screen",
+   "kind": "region",
+   "about": "Any popup panel over a dimmed screen"
+  },
+  {
+   "name": "anchor_page_title",
+   "group": "screen",
+   "kind": "text",
+   "about": "Title bar of a full-screen page (text read says which)"
+  },
+  {
+   "name": "anchor_area_map_legend",
+   "group": "screen",
+   "kind": "region",
+   "about": "Legend box on the area map"
+  }
+ ]
+}
