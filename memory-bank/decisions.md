@@ -1,6 +1,6 @@
 # Decision Log
 
-> **Last updated**: 2026-11-09
+> **Last updated**: 2026-11-10
 > Decisions with lasting consequences (tech choices, structure, conventions, scope calls) and why they were made, so later sessions don't undo them by accident. One entry per decision, newest first; update `Status` when superseded; never delete an entry. Details and sources for the 2026-11-02 entries are in `docs/step1-emulator-and-game.md`.
 
 Entry format:
@@ -14,6 +14,12 @@ Entry format:
 ```
 
 ---
+
+### [2026-11-10] Screen checks: one OCR read per frame now; a trained UI detector works alongside it (hybrid)
+- **Decision**: `StateDetector.detect()` reads the whole screen once per frame and matches every plain OCR State node against that read (PR #48). The next step is a UI detector (YOLO26 Nano and RF-DETR Nano trained head to head on one private Roboflow dataset, keep the winner), labelled in our labeler with detector classes from `resource/detect/classes.json`. Once trained, it runs first for screens whose anchors it sees with high confidence; the text check still decides spend-risk screens (cards, shops, prayer, confirms), unsure frames and unknown screens. Minimap objects are detector classes too, trained on an enlarged minimap crop and on the full frame to compare; minimap terrain stays with the colour code.
+- **Rationale**: mae (2026-11-10): faster, cheaper processing first, then "why don't they work together?" Measured on her PC: old check 6.4 s median, new 1.3 s (1.0 s on DirectML). A model pass is ~40-60 ms, but only text gives wording safety (an allowed button verb), one-line new screens, unknown-stays-unknown, and numbers.
+- **Alternatives considered**: model-only state detection (no wording safety, confident on unseen screens); per-strip reads (only 1.1x); last-state-first (still has to check every popup above it); Roboflow 3.0 / YOLOLite (Roboflow licence and lock-in); full-frame-only minimap dots (2-10 px, near the detector's limit).
+- **Status**: Accepted (mae 2026-11-10); detector not trained yet
 
 ### [2026-11-09] The location tree is committed data the bot writes: `resource/world/zones.json`
 - **Decision**: zones, their CP, exploration %, blessed flag, links (walked / map_adjacent / inside) and known ways in live in one JSON file under `resource/world/`, read and written by `sxs/policy/zones.py`. Roam surveys and fog-walk zone changes update it at runtime; builders commit it with their session. Roam picks targets and entry neighbours from it, not from one area-map reading.

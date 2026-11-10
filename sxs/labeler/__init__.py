@@ -4,7 +4,9 @@
 
 Opens http://127.0.0.1:8765 in the browser. The left column lists every screen in docs/screens/ (the unlabelled
 bank first). Pick one, drag on it to draw a box, name the box and say what it is (button, text, icon, badge,
-region). Fill in the screen's name, state and notes. Save writes:
+region), and, for the UI detector, which detector class it is (resource/detect/classes.json). Boxes the
+pre-labeller drew (`python -m sxs prelabel`) show dashed as drafts: fix them and press Confirm (moving or resizing
+one confirms it too). Fill in the screen's name, state and notes. Save writes:
 
 - the boxes to docs/screens/labels.json, and a crop of every box ticked "template" to resource/image/labels/
   (sxs/core/labels.py has the format; sxs/vision/labels.py finds them on a frame);
@@ -70,7 +72,9 @@ def _image_size(p: Path) -> tuple[int, int]:
 def list_screens() -> list[dict]:
     expected = screens.load_expected()
     rows = {r["file"]: r for r in screens.bank_rows()}
-    boxed = {k: len(v.get("boxes", [])) for k, v in labels.load()["screens"].items()}
+    stored = labels.load()["screens"]
+    boxed = {k: len(v.get("boxes", [])) for k, v in stored.items()}
+    drafts = {k: sum(1 for b in v.get("boxes", []) if b.get("draft")) for k, v in stored.items()}
     out = []
     for p in sorted(SCREENS.rglob("*.png")):
         key = labels.screen_key(p)
@@ -80,7 +84,7 @@ def list_screens() -> list[dict]:
         out.append({"key": key, "folder": folder, "file": p.name, "banked": banked,
                     "state": row.get("state", "") if banked else expected["states"].get(p.stem, ""),
                     "labelled": bool(row.get("state")) if banked else p.stem in expected["states"],
-                    "boxes": boxed.get(key, 0)})
+                    "boxes": boxed.get(key, 0), "drafts": drafts.get(key, 0)})
     out.sort(key=lambda s: (not s["banked"], s["folder"], s["file"]))
     return out
 
@@ -149,7 +153,7 @@ class Handler(BaseHTTPRequestHandler):
                 self._send(200, PAGE.read_bytes(), "text/html; charset=utf-8")
             elif url.path == "/api/screens":
                 self._json({"screens": list_screens(), "states": _known_states(), "kinds": labels.KINDS,
-                            "template_kinds": labels.TEMPLATE_KINDS})
+                            "template_kinds": labels.TEMPLATE_KINDS, "classes": labels.classes()})
             elif url.path == "/api/screen":
                 self._json(screen_detail(parse_qs(url.query)["key"][0]))
             elif url.path.startswith("/img/"):

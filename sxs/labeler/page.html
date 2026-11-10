@@ -44,6 +44,7 @@
   .box.sel { border-color:var(--sel); }
   .box .row { display:flex; gap:6px; margin-bottom:4px; }
   .box .row input[type=text] { flex:1; min-width:0; }
+  .box .row select[data-k=cls] { flex:1; min-width:0; }
   .box .xy { color:var(--dim); font-size:11px; }
   #msg { margin-top:8px; font-size:12px; white-space:pre-wrap; }
   #msg.err { color:var(--warn); } #msg.ok { color:var(--ok); }
@@ -57,6 +58,7 @@
   <header>
     <input id="filter" placeholder="Filter screens" autocomplete="off">
     <label><input type="checkbox" id="onlyTodo"> only screens with no state yet</label>
+    <label><input type="checkbox" id="onlyDrafts"> only screens with draft boxes to check</label>
   </header>
   <div id="items"></div>
 </aside>
@@ -82,18 +84,21 @@
 
   <div class="bar">
     <button class="primary" id="save">Save</button>
+    <button id="confirmAll" title="Mark every draft box on this screen as checked">Confirm all drafts</button>
     <button id="file" title="Runs python -m sxs label: moves every banked screen with a State into its folder">File labelled screens</button>
   </div>
   <div id="msg"></div>
   <div id="hint">Drag on the screen to draw a box. Click a box to select it, drag it to move it, drag its corner to
     resize it. <kbd>Del</kbd> removes the selected box, <kbd>Ctrl+S</kbd> saves, <kbd>[</kbd> and <kbd>]</kbd> go to
-    the previous or next screen. Colours: blue button, green text, purple icon, red badge, orange region.</div>
+    the previous or next screen. Colours: blue button, green text, purple icon, red badge, orange region. Dashed boxes
+    are drafts the pre-labeller drew: fix them and press Confirm, or remove them. <kbd>C</kbd> confirms the selected
+    box. The class menu says which detector class a box is (only boxes with a class train the detector).</div>
 </aside>
 
 <script>
 const $ = s => document.querySelector(s);
 const img = $('#img'), cv = $('#canvas'), ctx = cv.getContext('2d');
-let screens = [], kinds = [], tmplKinds = [], cur = null, boxes = [], sel = -1, dirty = false, size = [720, 1280];
+let screens = [], kinds = [], tmplKinds = [], classes = [], cur = null, boxes = [], sel = -1, dirty = false, size = [720, 1280];
 let drag = null;
 
 async function api(path, body) {
@@ -108,7 +113,7 @@ function setDirty(v) { dirty = v; $('#save').textContent = v ? 'Save *' : 'Save'
 
 async function loadList(keepKey) {
   const j = await api('/api/screens');
-  screens = j.screens; kinds = j.kinds; tmplKinds = j.template_kinds;
+  screens = j.screens; kinds = j.kinds; tmplKinds = j.template_kinds; classes = j.classes || [];
   $('#states').innerHTML = j.states.map(s => `<option value="${s}">`).join('');
   renderList();
   const key = keepKey || (screens[0] && screens[0].key);
@@ -116,16 +121,17 @@ async function loadList(keepKey) {
 }
 
 function renderList() {
-  const q = $('#filter').value.toLowerCase(), todo = $('#onlyTodo').checked;
+  const q = $('#filter').value.toLowerCase(), todo = $('#onlyTodo').checked, dr = $('#onlyDrafts').checked;
   let html = '', group = null;
   for (const s of screens) {
     if (q && !s.key.toLowerCase().includes(q) && !(s.state || '').includes(q)) continue;
     if (todo && s.labelled) continue;
+    if (dr && !s.drafts) continue;
     const g = s.banked ? 'unlabeled (the bank)' : s.folder;
     if (g !== group) { html += `<div class="group">${g}</div>`; group = g; }
     html += `<div class="item${cur && cur.key === s.key ? ' cur' : ''}" data-key="${s.key}">
       <span class="dot${s.labelled ? ' done' : ''}" title="${s.labelled ? 'has a state' : 'no state yet'}"></span>
-      <span class="f">${s.file.replace('.png','')}</span>${s.boxes ? `<span class="n">${s.boxes}▢</span>` : ''}</div>`;
+      <span class="f">${s.file.replace('.png','')}</span>${s.drafts ? `<span class="n" title="draft boxes to check">${s.drafts}?</span>` : ''}${s.boxes ? `<span class="n">${s.boxes}▢</span>` : ''}</div>`;
   }
   $('#items').innerHTML = html || '<div class="muted" style="padding:10px">Nothing matches.</div>';
 }
@@ -133,6 +139,7 @@ function renderList() {
 $('#items').addEventListener('click', e => { const it = e.target.closest('.item'); if (it) open(it.dataset.key); });
 $('#filter').addEventListener('input', renderList);
 $('#onlyTodo').addEventListener('change', renderList);
+$('#onlyDrafts').addEventListener('change', renderList);
 
 async function open(key) {
   if (dirty && cur && !confirm('Unsaved changes on ' + cur.key + '. Leave without saving?')) return;
@@ -175,8 +182,8 @@ window.addEventListener('mousemove', e => {
   if (!drag) { if (cur) { const [x, y] = toImg(e); const [, m] = hit(x, y); cv.style.cursor = m === 'resize' ? 'nwse-resize' : m ? 'move' : 'crosshair'; } return; }
   const [x, y] = toImg(e);
   if (drag.mode === 'new') drag.cur = [x, y];
-  else if (drag.mode === 'move') { const b = boxes[drag.i]; b.x = drag.b.x + x - drag.x0; b.y = drag.b.y + y - drag.y0; setDirty(true); }
-  else { const b = boxes[drag.i]; b.w = Math.max(4, drag.b.w + x - drag.x0); b.h = Math.max(4, drag.b.h + y - drag.y0); setDirty(true); }
+  else if (drag.mode === 'move') { const b = boxes[drag.i]; b.x = drag.b.x + x - drag.x0; b.y = drag.b.y + y - drag.y0; b.draft = false; setDirty(true); }
+  else { const b = boxes[drag.i]; b.w = Math.max(4, drag.b.w + x - drag.x0); b.h = Math.max(4, drag.b.h + y - drag.y0); b.draft = false; setDirty(true); }
   draw();
 });
 window.addEventListener('mouseup', () => {
@@ -203,8 +210,10 @@ function draw() {
   boxes.forEach((b, i) => {
     const c = i === sel ? '#ffd34d' : COLORS[b.kind] || '#aab';
     ctx.strokeStyle = c; ctx.lineWidth = i === sel ? lw * 1.6 : lw;
-    ctx.fillStyle = c + '22'; ctx.fillRect(b.x, b.y, b.w, b.h); ctx.strokeRect(b.x, b.y, b.w, b.h);
-    const label = (b.name || '(unnamed)') + ' · ' + b.kind, tw = ctx.measureText(label).width;
+    if (b.draft) ctx.setLineDash([10, 6]);
+    ctx.fillStyle = c + (b.draft ? '11' : '22'); ctx.fillRect(b.x, b.y, b.w, b.h); ctx.strokeRect(b.x, b.y, b.w, b.h);
+    ctx.setLineDash([]);
+    const label = (b.draft ? 'draft · ' : '') + (b.cls || b.name || '(unnamed)') + ' · ' + b.kind, tw = ctx.measureText(label).width;
     const ly = b.y - fs - 4 < 0 ? b.y + b.h : b.y - fs - 4;
     ctx.fillStyle = '#000b'; ctx.fillRect(b.x, ly, tw + 8, fs + 4);
     ctx.fillStyle = c; ctx.fillText(label, b.x + 4, ly + fs - 1);
@@ -225,6 +234,8 @@ function renderBoxes() {
     <div class="box${i === sel ? ' sel' : ''}" data-i="${i}">
       <div class="row"><input type="text" data-k="name" value="${esc(b.name)}" placeholder="name, e.g. upgrade_button">
         <select data-k="kind">${kinds.map(k => `<option${k === b.kind ? ' selected' : ''}>${k}</option>`).join('')}</select></div>
+      <div class="row"><select data-k="cls" title="detector class (resource/detect/classes.json)"><option value="">no detector class</option>${classes.map(c => `<option value="${c.name}"${c.name === b.cls ? ' selected' : ''} title="${esc(c.about)}">${c.group} · ${c.name}</option>`).join('')}</select>
+        ${b.draft ? `<button data-confirm="${i}" title="The box is right: keep it">Confirm</button>` : ''}</div>
       <div class="row"><input type="text" data-k="note" value="${esc(b.note)}" placeholder="what to do with it (optional)"></div>
       <div class="row" style="justify-content:space-between;align-items:center">
         <label class="muted"><input type="checkbox" data-k="template"${b.template ? ' checked' : ''}> save crop as template</label>
@@ -233,8 +244,9 @@ function renderBoxes() {
     </div>`).join('');
 }
 $('#boxes').addEventListener('click', e => {
-  const del = e.target.dataset.del;
+  const del = e.target.dataset.del, conf = e.target.dataset.confirm;
   if (del !== undefined) { boxes.splice(+del, 1); sel = -1; setDirty(true); renderBoxes(); draw(); return; }
+  if (conf !== undefined) { boxes[+conf].draft = false; setDirty(true); renderBoxes(); draw(); return; }
   const card = e.target.closest('.box');
   if (card && sel !== +card.dataset.i) { sel = +card.dataset.i; document.querySelectorAll('#boxes .box').forEach(el => el.classList.toggle('sel', +el.dataset.i === sel)); draw(); }
 });
@@ -242,12 +254,20 @@ $('#boxes').addEventListener('input', e => {
   const card = e.target.closest('.box'), k = e.target.dataset.k; if (!card || !k) return;
   const b = boxes[+card.dataset.i];
   if (k === 'template') b.template = e.target.checked;
+  else if (k === 'cls') {
+    b.cls = e.target.value; b.draft = false;
+    const c = classes.find(c => c.name === b.cls);
+    if (c) { b.kind = c.kind; if (!b.name) b.name = uniqueName(b.cls); }
+    renderBoxes();
+  }
   else if (k === 'kind') { b.kind = e.target.value; b.template = tmplKinds.includes(b.kind); card.querySelector('[data-k=template]').checked = b.template; }
   else b[k] = k === 'name' ? e.target.value.toLowerCase().replace(/[^a-z0-9_]+/g, '_') : e.target.value;
   if (k === 'name' && e.target.value !== b.name) e.target.value = b.name;
   setDirty(true); draw();
 });
 for (const k of ['name','folder','state','what']) $('#f_' + k).addEventListener('input', () => setDirty(true));
+function uniqueName(base) { let n = 1; while (boxes.some(b => b.name === `${base}_${n}`)) n++; return `${base}_${n}`; }
+$('#confirmAll').addEventListener('click', () => { let n = 0; boxes.forEach(b => { if (b.draft) { b.draft = false; n++; } }); if (n) { setDirty(true); renderBoxes(); draw(); } msg(n ? `${n} draft(s) confirmed; Save to keep.` : 'No drafts on this screen.', 'ok'); });
 
 // --- save / file -------------------------------------------------------------------------------------------------
 async function save() {
@@ -278,6 +298,7 @@ window.addEventListener('keydown', e => {
   if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); save(); return; }
   if (typing) return;
   if ((e.key === 'Delete' || e.key === 'Backspace') && sel >= 0) { boxes.splice(sel, 1); sel = -1; setDirty(true); renderBoxes(); draw(); }
+  if ((e.key === 'c' || e.key === 'C') && sel >= 0 && boxes[sel].draft) { boxes[sel].draft = false; setDirty(true); renderBoxes(); draw(); }
   if (e.key === ']' || e.key === '[') {
     const vis = [...document.querySelectorAll('#items .item')].map(el => el.dataset.key);
     const i = vis.indexOf(cur && cur.key), j = i + (e.key === ']' ? 1 : -1);

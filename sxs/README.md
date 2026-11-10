@@ -11,6 +11,8 @@ Run from the repo root on the Windows PC (`.venv\Scripts\python`, shown below as
     python -m sxs bank | label             # unlabelled-screens bank (docs/screens/README.md)
     python -m sxs labeler                  # web page: name screens, box buttons/text/icons, save crops as templates
     python -m sxs report [--day DAY]       # the day's progress report from saved snapshots (no emulator)
+    python -m sxs prelabel [--ocr]         # draft detector boxes on the reference screens (no emulator)
+    python -m sxs dataset [--zip]          # YOLO dataset for Roboflow, account name and chat blacked out (no emulator)
     python -m sxs bench [--one-per-state]  # screen-check timings on the reference screens, old way vs new (no emulator)
     python -m sxs state | screenshot | tap X Y | swipe ... | back | start | stop | capture NAME | watch
 
@@ -20,6 +22,7 @@ Coordinates are in the 720×1280 portrait frame. No module calls a model.
 |---|---|---|
 | `core/` | Device, state detector, navigator, paths, shared screen coordinates (`ui.py`), daily marks, run and progress records (`records.py`), the loop contract (`loop.py`) | Knows nothing about any one game system |
 | `vision/` | Reading the screen: OCR helpers, HP bar, HUD numbers, account stats (`stats.py`), player label, tracker, pickups, badges, minimap, gift | Never taps |
+| `detect/` | UI detector data (docs/detector-design.md): `prelabel.py` drafts boxes from the existing detectors, `dataset.py` exports the YOLO dataset with names blacked out | Never taps; no model yet |
 | `policy/` | Decisions from `resource/policy/*.json`: card/popup decider, free-claim presser; `fights.py` (1.25x power rule), `zones.py` (location tree in `resource/world/zones.json`: next zone, crossing check, ways in) | The spend blocklists live here (**safeguard**) |
 | `actions/` | Small reusable steps that tap: heal, close rewards / step dialogue, go to an area, unstick, camera, watchdog | No loop of its own, except `goto` |
 | `loops/` | Goal-driven loops, one module each, each exposing `LOOP` | Registered in `loops/__init__.py` |
