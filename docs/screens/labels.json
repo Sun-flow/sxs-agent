@@ -2248,6 +2248,2076 @@
     }
    ]
   },
+  "items/cart.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "btn_claim_1",
+     "kind": "button",
+     "x": 210,
+     "y": 1068,
+     "w": 300,
+     "h": 62,
+     "note": "Cart Claim All",
+     "template": false,
+     "cls": "btn_claim"
+    },
+    {
+     "name": "wood_1",
+     "kind": "icon",
+     "x": 80,
+     "y": 503,
+     "w": 84,
+     "h": 67,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "wood"
+    },
+    {
+     "name": "stone_1",
+     "kind": "icon",
+     "x": 80,
+     "y": 579,
+     "w": 84,
+     "h": 65,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stone"
+    },
+    {
+     "name": "raw_ore_1",
+     "kind": "icon",
+     "x": 86,
+     "y": 648,
+     "w": 70,
+     "h": 77,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "raw_ore"
+    },
+    {
+     "name": "battle_essence_1",
+     "kind": "icon",
+     "x": 82,
+     "y": 726,
+     "w": 76,
+     "h": 71,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "battle_essence"
+    },
+    {
+     "name": "rolla_1",
+     "kind": "icon",
+     "x": 84,
+     "y": 426,
+     "w": 76,
+     "h": 69,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rolla"
+    },
+    {
+     "name": "chrono_sand_1",
+     "kind": "icon",
+     "x": 76,
+     "y": 883,
+     "w": 90,
+     "h": 54,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "chrono_sand"
+    },
+    {
+     "name": "cart_gear_yield_1",
+     "kind": "icon",
+     "x": 93,
+     "y": 800,
+     "w": 60,
+     "h": 74,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "cart_gear_yield"
+    },
+    {
+     "name": "treats_1",
+     "kind": "icon",
+     "x": 91,
+     "y": 956,
+     "w": 61,
+     "h": 66,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "treats"
+    }
+   ]
+  },
+  "items/daily_dungeon_goals.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "gold_pickaxe_1",
+     "kind": "icon",
+     "x": 250,
+     "y": 352,
+     "w": 76,
+     "h": 74,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "gold_pickaxe"
+    },
+    {
+     "name": "worn_knuckles_1",
+     "kind": "icon",
+     "x": 250,
+     "y": 520,
+     "w": 76,
+     "h": 74,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "worn_knuckles"
+    },
+    {
+     "name": "iron_hammer_1",
+     "kind": "icon",
+     "x": 250,
+     "y": 184,
+     "w": 76,
+     "h": 74,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "iron_hammer"
+    },
+    {
+     "name": "rolla_management_made_easy_1",
+     "kind": "icon",
+     "x": 166,
+     "y": 184,
+     "w": 76,
+     "h": 74,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rolla_management_made_easy"
+    },
+    {
+     "name": "golden_leaf_1",
+     "kind": "icon",
+     "x": 166,
+     "y": 352,
+     "w": 76,
+     "h": 74,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "golden_leaf"
+    },
+    {
+     "name": "towel_1",
+     "kind": "icon",
+     "x": 166,
+     "y": 520,
+     "w": 76,
+     "h": 74,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "towel"
+    },
+    {
+     "name": "sunflower_1",
+     "kind": "icon",
+     "x": 166,
+     "y": 688,
+     "w": 76,
+     "h": 74,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "sunflower"
+    },
+    {
+     "name": "sand_shovel_1",
+     "kind": "icon",
+     "x": 250,
+     "y": 688,
+     "w": 76,
+     "h": 74,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "sand_shovel"
+    }
+   ]
+  },
+  "items/enhance_gear.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "btn_primary_1",
+     "kind": "button",
+     "x": 210,
+     "y": 1052,
+     "w": 300,
+     "h": 64,
+     "note": "Enhance (spends materials)",
+     "template": false,
+     "cls": "btn_primary"
+    },
+    {
+     "name": "raw_ore_1",
+     "kind": "icon",
+     "x": 167,
+     "y": 924,
+     "w": 79,
+     "h": 80,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "raw_ore"
+    },
+    {
+     "name": "refined_ore_1",
+     "kind": "icon",
+     "x": 320,
+     "y": 924,
+     "w": 80,
+     "h": 80,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "refined_ore"
+    },
+    {
+     "name": "rolla_1",
+     "kind": "icon",
+     "x": 477,
+     "y": 924,
+     "w": 79,
+     "h": 80,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rolla"
+    }
+   ]
+  },
+  "items/fantasia_ascent_goals.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "destiny_fruit_1",
+     "kind": "icon",
+     "x": 168,
+     "y": 184,
+     "w": 72,
+     "h": 72,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "destiny_fruit"
+    }
+   ]
+  },
+  "items/fantasia_ascent_moonveil.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "stellatie_1",
+     "kind": "icon",
+     "x": 166,
+     "y": 704,
+     "w": 64,
+     "h": 63,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stellatie"
+    },
+    {
+     "name": "raw_ore_1",
+     "kind": "icon",
+     "x": 20,
+     "y": 144,
+     "w": 64,
+     "h": 64,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "raw_ore"
+    },
+    {
+     "name": "gold_pickaxe_1",
+     "kind": "icon",
+     "x": 94,
+     "y": 144,
+     "w": 64,
+     "h": 64,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "gold_pickaxe"
+    },
+    {
+     "name": "worn_knuckles_1",
+     "kind": "icon",
+     "x": 94,
+     "y": 880,
+     "w": 64,
+     "h": 64,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "worn_knuckles"
+    },
+    {
+     "name": "refined_ore_1",
+     "kind": "icon",
+     "x": 166,
+     "y": 144,
+     "w": 64,
+     "h": 64,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "refined_ore"
+    }
+   ]
+  },
+  "items/growth_trial.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "stellatie_1",
+     "kind": "icon",
+     "x": 106,
+     "y": 306,
+     "w": 68,
+     "h": 58,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stellatie"
+    },
+    {
+     "name": "stellatie_2",
+     "kind": "icon",
+     "x": 366,
+     "y": 306,
+     "w": 68,
+     "h": 58,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stellatie"
+    },
+    {
+     "name": "rare_auroral_badge_1",
+     "kind": "icon",
+     "x": 453,
+     "y": 306,
+     "w": 67,
+     "h": 58,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rare_auroral_badge"
+    },
+    {
+     "name": "bond_trinket_1",
+     "kind": "icon",
+     "x": 540,
+     "y": 306,
+     "w": 68,
+     "h": 58,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "bond_trinket"
+    },
+    {
+     "name": "random_class_i_skill_chest_1",
+     "kind": "icon",
+     "x": 192,
+     "y": 306,
+     "w": 68,
+     "h": 58,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "random_class_i_skill_chest"
+    },
+    {
+     "name": "random_legendary_relic_chest_verdant_1",
+     "kind": "icon",
+     "x": 280,
+     "y": 306,
+     "w": 68,
+     "h": 58,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "random_legendary_relic_chest_verdant"
+    },
+    {
+     "name": "legendary_fantomon_selection_chest_1",
+     "kind": "icon",
+     "x": 626,
+     "y": 296,
+     "w": 68,
+     "h": 68,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "legendary_fantomon_selection_chest"
+    },
+    {
+     "name": "unknown_1_1",
+     "kind": "icon",
+     "x": 28,
+     "y": 354,
+     "w": 56,
+     "h": 60,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "unknown_1"
+    },
+    {
+     "name": "unknown_1_2",
+     "kind": "icon",
+     "x": 54,
+     "y": 558,
+     "w": 104,
+     "h": 104,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "unknown_1"
+    }
+   ]
+  },
+  "items/growth_trial_2.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "stellatie_1",
+     "kind": "icon",
+     "x": 276,
+     "y": 934,
+     "w": 68,
+     "h": 68,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stellatie"
+    },
+    {
+     "name": "abundance_leaf_1",
+     "kind": "icon",
+     "x": 276,
+     "y": 591,
+     "w": 68,
+     "h": 67,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "abundance_leaf"
+    },
+    {
+     "name": "t2_stone_casket_1",
+     "kind": "icon",
+     "x": 276,
+     "y": 762,
+     "w": 68,
+     "h": 68,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "t2_stone_casket"
+    }
+   ]
+  },
+  "items/growth_trial_3.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "t2_wood_casket_1",
+     "kind": "icon",
+     "x": 362,
+     "y": 934,
+     "w": 68,
+     "h": 68,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "t2_wood_casket"
+    },
+    {
+     "name": "t2_rolla_casket_1",
+     "kind": "icon",
+     "x": 276,
+     "y": 1104,
+     "w": 68,
+     "h": 66,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "t2_rolla_casket"
+    }
+   ]
+  },
+  "items/growth_trial_day2.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "t3_battle_essence_casket_1",
+     "kind": "icon",
+     "x": 276,
+     "y": 934,
+     "w": 68,
+     "h": 68,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "t3_battle_essence_casket"
+    }
+   ]
+  },
+  "items/growth_trial_day3.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "random_epic_gift_1",
+     "kind": "icon",
+     "x": 192,
+     "y": 591,
+     "w": 68,
+     "h": 67,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "random_epic_gift"
+    },
+    {
+     "name": "blazing_legends_1",
+     "kind": "icon",
+     "x": 192,
+     "y": 762,
+     "w": 68,
+     "h": 68,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "blazing_legends"
+    },
+    {
+     "name": "golden_ingot_1",
+     "kind": "icon",
+     "x": 192,
+     "y": 934,
+     "w": 68,
+     "h": 68,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "golden_ingot"
+    }
+   ]
+  },
+  "items/growth_trial_day4.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "destiny_fruit_1",
+     "kind": "icon",
+     "x": 276,
+     "y": 1104,
+     "w": 68,
+     "h": 66,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "destiny_fruit"
+    },
+    {
+     "name": "alloy_gear_1",
+     "kind": "icon",
+     "x": 276,
+     "y": 762,
+     "w": 68,
+     "h": 68,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "alloy_gear"
+    }
+   ]
+  },
+  "items/growth_trial_day5.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "alloy_gear_1",
+     "kind": "icon",
+     "x": 276,
+     "y": 762,
+     "w": 68,
+     "h": 68,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "alloy_gear"
+    }
+   ]
+  },
+  "items/growth_trial_day6.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "bond_trinket_1",
+     "kind": "icon",
+     "x": 192,
+     "y": 591,
+     "w": 68,
+     "h": 67,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "bond_trinket"
+    }
+   ]
+  },
+  "items/guild_shop.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "stellatie_1",
+     "kind": "icon",
+     "x": 84,
+     "y": 236,
+     "w": 102,
+     "h": 100,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stellatie"
+    },
+    {
+     "name": "rare_auroral_badge_1",
+     "kind": "icon",
+     "x": 80,
+     "y": 540,
+     "w": 108,
+     "h": 84,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rare_auroral_badge"
+    },
+    {
+     "name": "guild_token_1",
+     "kind": "icon",
+     "x": 596,
+     "y": 37,
+     "w": 38,
+     "h": 33,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "guild_token"
+    },
+    {
+     "name": "lucky_ticket_1",
+     "kind": "icon",
+     "x": 307,
+     "y": 236,
+     "w": 106,
+     "h": 100,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "lucky_ticket"
+    },
+    {
+     "name": "bond_trinket_1",
+     "kind": "icon",
+     "x": 532,
+     "y": 236,
+     "w": 108,
+     "h": 100,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "bond_trinket"
+    },
+    {
+     "name": "resilient_sprout_1",
+     "kind": "icon",
+     "x": 306,
+     "y": 549,
+     "w": 105,
+     "h": 75,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "resilient_sprout"
+    },
+    {
+     "name": "hopeful_bud_1",
+     "kind": "icon",
+     "x": 536,
+     "y": 549,
+     "w": 104,
+     "h": 75,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "hopeful_bud"
+    },
+    {
+     "name": "stone_sheep_1",
+     "kind": "icon",
+     "x": 84,
+     "y": 837,
+     "w": 99,
+     "h": 73,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stone_sheep"
+    },
+    {
+     "name": "cotton_sheep_1",
+     "kind": "icon",
+     "x": 312,
+     "y": 836,
+     "w": 101,
+     "h": 74,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "cotton_sheep"
+    },
+    {
+     "name": "steely_chicken_1",
+     "kind": "icon",
+     "x": 549,
+     "y": 835,
+     "w": 84,
+     "h": 75,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "steely_chicken"
+    }
+   ]
+  },
+  "items/guild_shop_2.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "resilient_sprout_1",
+     "kind": "icon",
+     "x": 536,
+     "y": 635,
+     "w": 104,
+     "h": 75,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "resilient_sprout"
+    },
+    {
+     "name": "stone_sheep_1",
+     "kind": "icon",
+     "x": 80,
+     "y": 923,
+     "w": 108,
+     "h": 77,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stone_sheep"
+    },
+    {
+     "name": "steely_chicken_1",
+     "kind": "icon",
+     "x": 319,
+     "y": 921,
+     "w": 85,
+     "h": 79,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "steely_chicken"
+    },
+    {
+     "name": "dawn_chicken_1",
+     "kind": "icon",
+     "x": 80,
+     "y": 619,
+     "w": 108,
+     "h": 91,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "dawn_chicken"
+    },
+    {
+     "name": "t3_livestock_selection_chest_1",
+     "kind": "icon",
+     "x": 306,
+     "y": 632,
+     "w": 108,
+     "h": 78,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "t3_livestock_selection_chest"
+    }
+   ]
+  },
+  "items/home_top_bar.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "stamina_1",
+     "kind": "icon",
+     "x": 580,
+     "y": 36,
+     "w": 30,
+     "h": 32,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stamina"
+    },
+    {
+     "name": "rolla_1",
+     "kind": "icon",
+     "x": 326,
+     "y": 39,
+     "w": 31,
+     "h": 29,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rolla"
+    },
+    {
+     "name": "dawnium_1",
+     "kind": "icon",
+     "x": 454,
+     "y": 37,
+     "w": 31,
+     "h": 31,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "dawnium"
+    }
+   ]
+  },
+  "items/map_exploration.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "raw_ore_1",
+     "kind": "icon",
+     "x": 111,
+     "y": 280,
+     "w": 47,
+     "h": 62,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "raw_ore"
+    },
+    {
+     "name": "battle_essence_1",
+     "kind": "icon",
+     "x": 253,
+     "y": 274,
+     "w": 57,
+     "h": 70,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "battle_essence"
+    },
+    {
+     "name": "rolla_1",
+     "kind": "icon",
+     "x": 35,
+     "y": 283,
+     "w": 51,
+     "h": 59,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rolla"
+    },
+    {
+     "name": "chrono_sand_1",
+     "kind": "icon",
+     "x": 180,
+     "y": 290,
+     "w": 58,
+     "h": 52,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "chrono_sand"
+    }
+   ]
+  },
+  "items/profile.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "green_riceball_1",
+     "kind": "icon",
+     "x": 601,
+     "y": 40,
+     "w": 37,
+     "h": 29,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "green_riceball"
+    }
+   ]
+  },
+  "items/quests_daily.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "stellatie_1",
+     "kind": "icon",
+     "x": 233,
+     "y": 183,
+     "w": 66,
+     "h": 66,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stellatie"
+    },
+    {
+     "name": "stellatie_2",
+     "kind": "icon",
+     "x": 145,
+     "y": 711,
+     "w": 66,
+     "h": 66,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stellatie"
+    },
+    {
+     "name": "stamina_1",
+     "kind": "icon",
+     "x": 145,
+     "y": 887,
+     "w": 66,
+     "h": 66,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stamina"
+    },
+    {
+     "name": "gold_pickaxe_1",
+     "kind": "icon",
+     "x": 233,
+     "y": 535,
+     "w": 66,
+     "h": 66,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "gold_pickaxe"
+    },
+    {
+     "name": "worn_knuckles_1",
+     "kind": "icon",
+     "x": 145,
+     "y": 359,
+     "w": 66,
+     "h": 66,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "worn_knuckles"
+    },
+    {
+     "name": "rolla_1",
+     "kind": "icon",
+     "x": 145,
+     "y": 183,
+     "w": 66,
+     "h": 66,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rolla"
+    },
+    {
+     "name": "dawnium_1",
+     "kind": "icon",
+     "x": 57,
+     "y": 183,
+     "w": 66,
+     "h": 66,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "dawnium"
+    },
+    {
+     "name": "iron_hammer_1",
+     "kind": "icon",
+     "x": 145,
+     "y": 535,
+     "w": 66,
+     "h": 66,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "iron_hammer"
+    },
+    {
+     "name": "sand_shovel_1",
+     "kind": "icon",
+     "x": 233,
+     "y": 887,
+     "w": 66,
+     "h": 66,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "sand_shovel"
+    },
+    {
+     "name": "rare_auroral_badge_1",
+     "kind": "icon",
+     "x": 145,
+     "y": 1063,
+     "w": 66,
+     "h": 66,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rare_auroral_badge"
+    }
+   ]
+  },
+  "items/quests_weekly.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "rare_auroral_badge_1",
+     "kind": "icon",
+     "x": 145,
+     "y": 535,
+     "w": 66,
+     "h": 66,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rare_auroral_badge"
+    },
+    {
+     "name": "blessing_card_1",
+     "kind": "icon",
+     "x": 233,
+     "y": 183,
+     "w": 66,
+     "h": 66,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "blessing_card"
+    },
+    {
+     "name": "random_epic_gift_1",
+     "kind": "icon",
+     "x": 145,
+     "y": 711,
+     "w": 66,
+     "h": 66,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "random_epic_gift"
+    }
+   ]
+  },
+  "items/random_epic_gift_contents.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "blazing_legends_1",
+     "kind": "icon",
+     "x": 134,
+     "y": 642,
+     "w": 94,
+     "h": 96,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "blazing_legends"
+    },
+    {
+     "name": "flavors_of_kanstein_1",
+     "kind": "icon",
+     "x": 254,
+     "y": 642,
+     "w": 94,
+     "h": 96,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "flavors_of_kanstein"
+    },
+    {
+     "name": "golden_ingot_1",
+     "kind": "icon",
+     "x": 374,
+     "y": 642,
+     "w": 94,
+     "h": 96,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "golden_ingot"
+    },
+    {
+     "name": "luminous_jade_1",
+     "kind": "icon",
+     "x": 494,
+     "y": 642,
+     "w": 94,
+     "h": 96,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "luminous_jade"
+    },
+    {
+     "name": "silken_dreams_1",
+     "kind": "icon",
+     "x": 134,
+     "y": 774,
+     "w": 94,
+     "h": 96,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "silken_dreams"
+    },
+    {
+     "name": "feather_quill_1",
+     "kind": "icon",
+     "x": 254,
+     "y": 774,
+     "w": 94,
+     "h": 96,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "feather_quill"
+    },
+    {
+     "name": "mandrake_1",
+     "kind": "icon",
+     "x": 374,
+     "y": 774,
+     "w": 94,
+     "h": 96,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "mandrake"
+    },
+    {
+     "name": "sakura_1",
+     "kind": "icon",
+     "x": 494,
+     "y": 774,
+     "w": 94,
+     "h": 96,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "sakura"
+    }
+   ]
+  },
+  "items/rank_advancement.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "btn_primary_1",
+     "kind": "button",
+     "x": 210,
+     "y": 1060,
+     "w": 300,
+     "h": 64,
+     "note": "Advance (rank up: spends materials)",
+     "template": false,
+     "cls": "btn_primary"
+    },
+    {
+     "name": "rotting_petal_1",
+     "kind": "icon",
+     "x": 167,
+     "y": 900,
+     "w": 79,
+     "h": 80,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rotting_petal"
+    },
+    {
+     "name": "bellflower_1",
+     "kind": "icon",
+     "x": 320,
+     "y": 900,
+     "w": 80,
+     "h": 80,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "bellflower"
+    }
+   ]
+  },
+  "items/realm_dread_hollow.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "realm_use_worn_knuckles_1",
+     "kind": "icon",
+     "x": 272,
+     "y": 828,
+     "w": 178,
+     "h": 184,
+     "note": "realm use button: consumes one worn_knuckles",
+     "template": false,
+     "cls": "item_icon",
+     "item": "realm_use_worn_knuckles"
+    },
+    {
+     "name": "btn_back_arrow_1",
+     "kind": "button",
+     "x": 16,
+     "y": 1180,
+     "w": 116,
+     "h": 76,
+     "note": "",
+     "template": false,
+     "cls": "btn_back_arrow"
+    },
+    {
+     "name": "battle_essence_1",
+     "kind": "icon",
+     "x": 474,
+     "y": 37,
+     "w": 34,
+     "h": 33,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "battle_essence"
+    },
+    {
+     "name": "worn_knuckles_1",
+     "kind": "icon",
+     "x": 577,
+     "y": 38,
+     "w": 36,
+     "h": 32,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "worn_knuckles"
+    },
+    {
+     "name": "realm_use_worn_knuckles_2",
+     "kind": "icon",
+     "x": 271,
+     "y": 828,
+     "w": 179,
+     "h": 184,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "realm_use_worn_knuckles"
+    }
+   ]
+  },
+  "items/realm_gilded_depths.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "realm_use_gold_pickaxe_1",
+     "kind": "icon",
+     "x": 272,
+     "y": 828,
+     "w": 178,
+     "h": 184,
+     "note": "realm use button: consumes one gold_pickaxe",
+     "template": false,
+     "cls": "item_icon",
+     "item": "realm_use_gold_pickaxe"
+    },
+    {
+     "name": "btn_back_arrow_1",
+     "kind": "button",
+     "x": 16,
+     "y": 1180,
+     "w": 116,
+     "h": 76,
+     "note": "",
+     "template": false,
+     "cls": "btn_back_arrow"
+    },
+    {
+     "name": "gold_pickaxe_1",
+     "kind": "icon",
+     "x": 579,
+     "y": 38,
+     "w": 37,
+     "h": 36,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "gold_pickaxe"
+    },
+    {
+     "name": "realm_use_gold_pickaxe_2",
+     "kind": "icon",
+     "x": 272,
+     "y": 828,
+     "w": 177,
+     "h": 184,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "realm_use_gold_pickaxe"
+    }
+   ]
+  },
+  "items/realm_ironvein_pit.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "realm_use_iron_hammer_1",
+     "kind": "icon",
+     "x": 272,
+     "y": 828,
+     "w": 178,
+     "h": 184,
+     "note": "realm use button: consumes one iron_hammer",
+     "template": false,
+     "cls": "item_icon",
+     "item": "realm_use_iron_hammer"
+    },
+    {
+     "name": "btn_back_arrow_1",
+     "kind": "button",
+     "x": 16,
+     "y": 1180,
+     "w": 116,
+     "h": 76,
+     "note": "",
+     "template": false,
+     "cls": "btn_back_arrow"
+    },
+    {
+     "name": "raw_ore_1",
+     "kind": "icon",
+     "x": 474,
+     "y": 37,
+     "w": 34,
+     "h": 33,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "raw_ore"
+    },
+    {
+     "name": "iron_hammer_1",
+     "kind": "icon",
+     "x": 577,
+     "y": 36,
+     "w": 36,
+     "h": 34,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "iron_hammer"
+    }
+   ]
+  },
+  "items/skill_page.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "battle_essence_1",
+     "kind": "icon",
+     "x": 602,
+     "y": 38,
+     "w": 38,
+     "h": 32,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "battle_essence"
+    }
+   ]
+  },
+  "items/spooky_shop.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "tricksy_candy_1",
+     "kind": "icon",
+     "x": 606,
+     "y": 41,
+     "w": 38,
+     "h": 28,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "tricksy_candy"
+    },
+    {
+     "name": "wheel_ticket_1",
+     "kind": "icon",
+     "x": 85,
+     "y": 414,
+     "w": 94,
+     "h": 86,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "wheel_ticket"
+    },
+    {
+     "name": "wheel_ticket_2",
+     "kind": "icon",
+     "x": 544,
+     "y": 411,
+     "w": 94,
+     "h": 89,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "wheel_ticket"
+    },
+    {
+     "name": "bond_sigil_1",
+     "kind": "icon",
+     "x": 312,
+     "y": 405,
+     "w": 100,
+     "h": 95,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "bond_sigil"
+    },
+    {
+     "name": "bond_sigil_2",
+     "kind": "icon",
+     "x": 83,
+     "y": 687,
+     "w": 100,
+     "h": 99,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "bond_sigil"
+    },
+    {
+     "name": "moonveil_howl_1",
+     "kind": "icon",
+     "x": 306,
+     "y": 691,
+     "w": 108,
+     "h": 95,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "moonveil_howl"
+    },
+    {
+     "name": "moonveil_howl_2",
+     "kind": "icon",
+     "x": 532,
+     "y": 690,
+     "w": 108,
+     "h": 96,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "moonveil_howl"
+    },
+    {
+     "name": "nightwolf_ears_1",
+     "kind": "icon",
+     "x": 93,
+     "y": 976,
+     "w": 81,
+     "h": 94,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "nightwolf_ears"
+    },
+    {
+     "name": "graywolf_mask_1",
+     "kind": "icon",
+     "x": 306,
+     "y": 978,
+     "w": 108,
+     "h": 83,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "graywolf_mask"
+    },
+    {
+     "name": "twilight_wolfmane_1",
+     "kind": "icon",
+     "x": 532,
+     "y": 972,
+     "w": 108,
+     "h": 98,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "twilight_wolfmane"
+    }
+   ]
+  },
+  "items/spooky_shop_2.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "sunflower_1",
+     "kind": "icon",
+     "x": 95,
+     "y": 667,
+     "w": 77,
+     "h": 93,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "sunflower"
+    },
+    {
+     "name": "focus_essence_1",
+     "kind": "icon",
+     "x": 556,
+     "y": 385,
+     "w": 66,
+     "h": 95,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "focus_essence"
+    },
+    {
+     "name": "brown_egg_1",
+     "kind": "icon",
+     "x": 326,
+     "y": 673,
+     "w": 77,
+     "h": 86,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "brown_egg"
+    },
+    {
+     "name": "fresh_essence_1",
+     "kind": "icon",
+     "x": 560,
+     "y": 674,
+     "w": 61,
+     "h": 86,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "fresh_essence"
+    },
+    {
+     "name": "magic_wool_1",
+     "kind": "icon",
+     "x": 80,
+     "y": 955,
+     "w": 108,
+     "h": 85,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "magic_wool"
+    }
+   ]
+  },
+  "items/t3_livestock_chest_contents.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "lunar_heart_1",
+     "kind": "icon",
+     "x": 132,
+     "y": 720,
+     "w": 96,
+     "h": 96,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "lunar_heart"
+    },
+    {
+     "name": "lunar_sheep_1",
+     "kind": "icon",
+     "x": 252,
+     "y": 720,
+     "w": 96,
+     "h": 96,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "lunar_sheep"
+    },
+    {
+     "name": "lunar_chicken_1",
+     "kind": "icon",
+     "x": 372,
+     "y": 720,
+     "w": 96,
+     "h": 96,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "lunar_chicken"
+    }
+   ]
+  },
+  "items/vendor_booth_general.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "wood_1",
+     "kind": "icon",
+     "x": 80,
+     "y": 247,
+     "w": 108,
+     "h": 89,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "wood"
+    },
+    {
+     "name": "stone_1",
+     "kind": "icon",
+     "x": 306,
+     "y": 248,
+     "w": 108,
+     "h": 82,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stone"
+    },
+    {
+     "name": "stone_2",
+     "kind": "icon",
+     "x": 532,
+     "y": 255,
+     "w": 108,
+     "h": 75,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stone"
+    },
+    {
+     "name": "raw_ore_1",
+     "kind": "icon",
+     "x": 88,
+     "y": 524,
+     "w": 90,
+     "h": 100,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "raw_ore"
+    },
+    {
+     "name": "battle_essence_1",
+     "kind": "icon",
+     "x": 532,
+     "y": 525,
+     "w": 108,
+     "h": 99,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "battle_essence"
+    },
+    {
+     "name": "water_1",
+     "kind": "icon",
+     "x": 532,
+     "y": 814,
+     "w": 108,
+     "h": 90,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "water"
+    },
+    {
+     "name": "chrono_sand_1",
+     "kind": "icon",
+     "x": 306,
+     "y": 531,
+     "w": 108,
+     "h": 80,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "chrono_sand"
+    },
+    {
+     "name": "chrono_sand_2",
+     "kind": "icon",
+     "x": 80,
+     "y": 813,
+     "w": 106,
+     "h": 81,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "chrono_sand"
+    },
+    {
+     "name": "chrono_sand_3",
+     "kind": "icon",
+     "x": 306,
+     "y": 813,
+     "w": 108,
+     "h": 81,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "chrono_sand"
+    }
+   ]
+  },
+  "items/vendor_booth_goals.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "rare_auroral_badge_1",
+     "kind": "icon",
+     "x": 166,
+     "y": 184,
+     "w": 76,
+     "h": 74,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rare_auroral_badge"
+    },
+    {
+     "name": "epic_auroral_badge_1",
+     "kind": "icon",
+     "x": 166,
+     "y": 352,
+     "w": 76,
+     "h": 74,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "epic_auroral_badge"
+    }
+   ]
+  },
+  "items/vendor_booth_vault.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "stamina_1",
+     "kind": "icon",
+     "x": 94,
+     "y": 236,
+     "w": 78,
+     "h": 100,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "stamina"
+    },
+    {
+     "name": "gold_pickaxe_1",
+     "kind": "icon",
+     "x": 80,
+     "y": 529,
+     "w": 108,
+     "h": 95,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "gold_pickaxe"
+    },
+    {
+     "name": "gold_pickaxe_2",
+     "kind": "icon",
+     "x": 306,
+     "y": 529,
+     "w": 108,
+     "h": 95,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "gold_pickaxe"
+    },
+    {
+     "name": "refined_ore_1",
+     "kind": "icon",
+     "x": 547,
+     "y": 524,
+     "w": 91,
+     "h": 100,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "refined_ore"
+    },
+    {
+     "name": "rare_auroral_badge_1",
+     "kind": "icon",
+     "x": 306,
+     "y": 244,
+     "w": 108,
+     "h": 92,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rare_auroral_badge"
+    },
+    {
+     "name": "mandrake_1",
+     "kind": "icon",
+     "x": 316,
+     "y": 810,
+     "w": 90,
+     "h": 100,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "mandrake"
+    },
+    {
+     "name": "destiny_fruit_1",
+     "kind": "icon",
+     "x": 547,
+     "y": 239,
+     "w": 90,
+     "h": 97,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "destiny_fruit"
+    },
+    {
+     "name": "epic_auroral_badge_1",
+     "kind": "icon",
+     "x": 81,
+     "y": 810,
+     "w": 104,
+     "h": 100,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "epic_auroral_badge"
+    },
+    {
+     "name": "quest_scroll_1",
+     "kind": "icon",
+     "x": 532,
+     "y": 812,
+     "w": 108,
+     "h": 95,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "quest_scroll"
+    }
+   ]
+  },
+  "items/vendor_booth_vault_2.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "golden_beetle_1",
+     "kind": "icon",
+     "x": 86,
+     "y": 958,
+     "w": 86,
+     "h": 98,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "golden_beetle"
+    },
+    {
+     "name": "shapeshifting_mirror_1",
+     "kind": "icon",
+     "x": 309,
+     "y": 958,
+     "w": 104,
+     "h": 100,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "shapeshifting_mirror"
+    },
+    {
+     "name": "rename_card_1",
+     "kind": "icon",
+     "x": 532,
+     "y": 958,
+     "w": 108,
+     "h": 100,
+     "note": "",
+     "template": false,
+     "cls": "item_icon",
+     "item": "rename_card"
+    }
+   ]
+  },
   "world/area_map_blue_bang.png": {
    "size": [
     720,

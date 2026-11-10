@@ -4,9 +4,9 @@
    "id": "wood",
    "name": "Wood",
    "kind": "material",
-   "description": "",
-   "uses": "Home furniture upgrades; AFK Cart yield",
-   "named_by": "screen",
+   "description": "Use them to upgrade furniture in your home. High-quality timber, felled and neatly processed.",
+   "uses": "Home furniture upgrades; AFK Cart yield Sources: Home AFK Yield, Commission",
+   "named_by": "popup",
    "icons": [
     {
      "file": "wood.png",
@@ -18,16 +18,39 @@
       90
      ],
      "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "wood_2.png",
+     "screen": "items/vendor_booth_general.png",
+     "box": [
+      80,
+      247,
+      108,
+      89
+     ],
+     "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "wood_3.png",
+     "screen": "items/cart.png",
+     "box": [
+      80,
+      503,
+      84,
+      67
+     ],
+     "found_in": "Home > Cart (yield rows; icon tap shows a yield tooltip, not a card)"
     }
-   ]
+   ],
+   "group": "building_material"
   },
   {
    "id": "stellatie",
    "name": "Stellatie",
    "kind": "ticket",
-   "description": "",
-   "uses": "Prayer ticket (skill pulls); pulls only with --handler-approved",
-   "named_by": "screen",
+   "description": "Use it for Goddess Prayer to gain skills. Legends say the Goddess scattered stars across the universe at creation, each one full of endless possibilities. Find these shooting stars to gain the power to protect our world.",
+   "uses": "Prayer ticket (skill pulls); pulls only with --handler-approved Sources: Shop Purchase, Commission",
+   "named_by": "popup",
    "icons": [
     {
      "file": "stellatie.png",
@@ -39,16 +62,94 @@
       106
      ],
      "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "stellatie_2.png",
+     "screen": "items/quests_daily.png",
+     "box": [
+      233,
+      183,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Daily (rewards)"
+    },
+    {
+     "file": "stellatie_3.png",
+     "screen": "items/quests_daily.png",
+     "box": [
+      145,
+      711,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Daily (rewards)"
+    },
+    {
+     "file": "stellatie_4.png",
+     "screen": "items/guild_shop.png",
+     "box": [
+      84,
+      236,
+      102,
+      100
+     ],
+     "found_in": "Guild > Shop"
+    },
+    {
+     "file": "stellatie_5.png",
+     "screen": "items/fantasia_ascent_moonveil.png",
+     "box": [
+      166,
+      704,
+      64,
+      63
+     ],
+     "found_in": "Journal > Fantasia Ascent > Moonveil Woods (floor rewards)"
+    },
+    {
+     "file": "stellatie_6.png",
+     "screen": "items/growth_trial.png",
+     "box": [
+      106,
+      306,
+      68,
+      58
+     ],
+     "found_in": "Thrilling Events > Growth Trial"
+    },
+    {
+     "file": "stellatie_7.png",
+     "screen": "items/growth_trial.png",
+     "box": [
+      366,
+      306,
+      68,
+      58
+     ],
+     "found_in": "Thrilling Events > Growth Trial"
+    },
+    {
+     "file": "stellatie_8.png",
+     "screen": "items/growth_trial_2.png",
+     "box": [
+      276,
+      934,
+      68,
+      68
+     ],
+     "found_in": "Thrilling Events > Growth Trial"
     }
-   ]
+   ],
+   "group": "prayer_ticket"
   },
   {
    "id": "stone",
    "name": "Stone",
    "kind": "material",
-   "description": "",
-   "uses": "Home furniture upgrades; AFK Cart yield",
-   "named_by": "screen",
+   "description": "Use them to upgrade furniture in your home. Solid stone quarried and shaped into square bricks.",
+   "uses": "Home furniture upgrades; AFK Cart yield Sources: Home AFK Yield, Commission",
+   "named_by": "popup",
    "icons": [
     {
      "file": "stone.png",
@@ -60,16 +161,50 @@
       83
      ],
      "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "stone_2.png",
+     "screen": "items/vendor_booth_general.png",
+     "box": [
+      306,
+      248,
+      108,
+      82
+     ],
+     "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "stone_3.png",
+     "screen": "items/vendor_booth_general.png",
+     "box": [
+      532,
+      255,
+      108,
+      75
+     ],
+     "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "stone_4.png",
+     "screen": "items/cart.png",
+     "box": [
+      80,
+      579,
+      84,
+      65
+     ],
+     "found_in": "Home > Cart (yield rows; icon tap shows a yield tooltip, not a card)"
     }
-   ]
+   ],
+   "group": "building_material"
   },
   {
    "id": "raw_ore",
    "name": "Raw Ore",
    "kind": "material",
-   "description": "",
-   "uses": "Gear enhancement (bottleneck)",
-   "named_by": "screen",
+   "description": "Use them for gear enhancement. This grayish-blue ore is the result of initial iron ore refinement.",
+   "uses": "Gear enhancement (bottleneck) Sources: Fantasia Ascent, Realm: Ironvein Pit, Commission, Verdantglade Iron Mining",
+   "named_by": "popup",
    "icons": [
     {
      "file": "raw_ore.png",
@@ -81,16 +216,83 @@
       108
      ],
      "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "raw_ore_2.png",
+     "screen": "items/realm_ironvein_pit.png",
+     "box": [
+      474,
+      37,
+      34,
+      33
+     ],
+     "found_in": "Journal > Material Realms > Ironvein Pit > Top bar"
+    },
+    {
+     "file": "raw_ore_3.png",
+     "screen": "items/map_exploration.png",
+     "box": [
+      111,
+      280,
+      47,
+      62
+     ],
+     "found_in": "Journal > Map Exploration > Resource Hunt (gather priority choice; not tapped)"
+    },
+    {
+     "file": "raw_ore_4.png",
+     "screen": "items/vendor_booth_general.png",
+     "box": [
+      88,
+      524,
+      90,
+      100
+     ],
+     "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "raw_ore_5.png",
+     "screen": "items/cart.png",
+     "box": [
+      86,
+      648,
+      70,
+      77
+     ],
+     "found_in": "Home > Cart (yield rows; icon tap shows a yield tooltip, not a card)"
+    },
+    {
+     "file": "raw_ore_6.png",
+     "screen": "items/enhance_gear.png",
+     "box": [
+      167,
+      924,
+      79,
+      80
+     ],
+     "found_in": "Character > Gear > Enhance (cost)"
+    },
+    {
+     "file": "raw_ore_7.png",
+     "screen": "items/fantasia_ascent_moonveil.png",
+     "box": [
+      20,
+      144,
+      64,
+      64
+     ],
+     "found_in": "Journal > Fantasia Ascent > Moonveil Woods (floor rewards)"
     }
-   ]
+   ],
+   "group": "ore"
   },
   {
    "id": "battle_essence",
    "name": "Battle Essence",
    "kind": "material",
-   "description": "",
-   "uses": "Skill levels",
-   "named_by": "screen",
+   "description": "Use it to level up skills. Concentrated wisdom from countless battles.",
+   "uses": "Skill levels Sources: Home AFK Yield, Realm:Dread Hollow, Verdantglade Monster Drop",
+   "named_by": "popup",
    "icons": [
     {
      "file": "battle_essence.png",
@@ -102,16 +304,72 @@
       101
      ],
      "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "battle_essence_2.png",
+     "screen": "items/realm_dread_hollow.png",
+     "box": [
+      474,
+      37,
+      34,
+      33
+     ],
+     "found_in": "Journal > Material Realms > Dread Hollow > Top bar"
+    },
+    {
+     "file": "battle_essence_3.png",
+     "screen": "items/vendor_booth_general.png",
+     "box": [
+      532,
+      525,
+      108,
+      99
+     ],
+     "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "battle_essence_4.png",
+     "screen": "items/map_exploration.png",
+     "box": [
+      253,
+      274,
+      57,
+      70
+     ],
+     "found_in": "Journal > Map Exploration > Resource Hunt (gather priority choice; not tapped) [dimmed art: matched by eye to the vendor icon, not popup-read]"
+    },
+    {
+     "file": "battle_essence_5.png",
+     "screen": "items/cart.png",
+     "box": [
+      82,
+      726,
+      76,
+      71
+     ],
+     "found_in": "Home > Cart (yield rows; icon tap shows a yield tooltip, not a card)"
+    },
+    {
+     "file": "battle_essence_6.png",
+     "screen": "items/skill_page.png",
+     "box": [
+      602,
+      38,
+      38,
+      32
+     ],
+     "found_in": "Character > Skill > Top bar"
     }
-   ]
+   ],
+   "group": "essence"
   },
   {
    "id": "water",
    "name": "Water",
    "kind": "ingredient",
-   "description": "",
-   "uses": "Cooking ingredient (restorative dishes)",
-   "named_by": "screen",
+   "description": "An ingredient for Verdantglade restorative dishes. Crystal clear water. Essential for cooking.",
+   "uses": "Cooking ingredient (restorative dishes) Sources: Shop Purchase",
+   "named_by": "popup",
    "icons": [
     {
      "file": "water.png",
@@ -123,16 +381,28 @@
       89
      ],
      "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "water_2.png",
+     "screen": "items/vendor_booth_general.png",
+     "box": [
+      532,
+      814,
+      108,
+      90
+     ],
+     "found_in": "Home > Vendor Booth > General"
     }
-   ]
+   ],
+   "group": "cooking_ingredient"
   },
   {
    "id": "stamina",
    "name": "Stamina",
    "kind": "currency",
-   "description": "",
+   "description": "Spend Stamina in Terrain Quest's Blessed Lands to mine ores and defeat monsters for resources. Restores 5 Stamina per hour. Passive recovery stops at 300 Stamina. You can hold up to 1,200 Stamina.",
    "uses": "Exploration/gathering energy; Vault x30 free daily (R-120)",
-   "named_by": "screen",
+   "named_by": "popup",
    "icons": [
     {
      "file": "stamina.png",
@@ -155,16 +425,50 @@
       33
      ],
      "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "stamina_3.png",
+     "screen": "items/home_top_bar.png",
+     "box": [
+      580,
+      36,
+      30,
+      32
+     ],
+     "found_in": "Home > Top bar"
+    },
+    {
+     "file": "stamina_4.png",
+     "screen": "items/quests_daily.png",
+     "box": [
+      145,
+      887,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Daily (rewards)"
+    },
+    {
+     "file": "stamina_5.png",
+     "screen": "items/vendor_booth_vault.png",
+     "box": [
+      94,
+      236,
+      78,
+      100
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
     }
-   ]
+   ],
+   "group": "stamina"
   },
   {
    "id": "gold_pickaxe",
    "name": "Gold Pickaxe",
    "kind": "key_item",
-   "description": "",
-   "uses": "Realm: Gilded Depths entry",
-   "named_by": "screen",
+   "description": "Use it to mine gold ore in the Realm: Gilded Depths. A perfectly ordinary pickaxe that's surprisingly flimsy. It breaks after one use.",
+   "uses": "Realm: Gilded Depths entry Sources: Shop Purchase, Commission",
+   "named_by": "popup",
    "icons": [
     {
      "file": "gold_pickaxe.png",
@@ -176,16 +480,83 @@
       109
      ],
      "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "gold_pickaxe_2.png",
+     "screen": "items/realm_gilded_depths.png",
+     "box": [
+      579,
+      38,
+      37,
+      36
+     ],
+     "found_in": "Journal > Material Realms > Gilded Depths > Top bar"
+    },
+    {
+     "file": "gold_pickaxe_3.png",
+     "screen": "items/daily_dungeon_goals.png",
+     "box": [
+      250,
+      352,
+      76,
+      74
+     ],
+     "found_in": "Journal > Daily Dungeon > Goals"
+    },
+    {
+     "file": "gold_pickaxe_4.png",
+     "screen": "items/quests_daily.png",
+     "box": [
+      233,
+      535,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Daily (rewards)"
+    },
+    {
+     "file": "gold_pickaxe_5.png",
+     "screen": "items/vendor_booth_vault.png",
+     "box": [
+      80,
+      529,
+      108,
+      95
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "gold_pickaxe_6.png",
+     "screen": "items/vendor_booth_vault.png",
+     "box": [
+      306,
+      529,
+      108,
+      95
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "gold_pickaxe_7.png",
+     "screen": "items/fantasia_ascent_moonveil.png",
+     "box": [
+      94,
+      144,
+      64,
+      64
+     ],
+     "found_in": "Journal > Fantasia Ascent > Moonveil Woods (floor rewards)"
     }
-   ]
+   ],
+   "group": "realm_key"
   },
   {
    "id": "worn_knuckles",
    "name": "Worn Knuckles",
    "kind": "key_item",
-   "description": "",
-   "uses": "Realm: Dread Hollow entry",
-   "named_by": "screen",
+   "description": "Use them to fight monsters in the Realm: Dread Hollow. A perfectly ordinary pair of knuckles that's surprisingly delicate. It crumbles after one use.",
+   "uses": "Realm: Dread Hollow entry Sources: Shop Purchase, Commission",
+   "named_by": "popup",
    "icons": [
     {
      "file": "worn_knuckles.png",
@@ -197,16 +568,61 @@
       98
      ],
      "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "worn_knuckles_2.png",
+     "screen": "items/realm_dread_hollow.png",
+     "box": [
+      577,
+      38,
+      36,
+      32
+     ],
+     "found_in": "Journal > Material Realms > Dread Hollow > Top bar"
+    },
+    {
+     "file": "worn_knuckles_3.png",
+     "screen": "items/daily_dungeon_goals.png",
+     "box": [
+      250,
+      520,
+      76,
+      74
+     ],
+     "found_in": "Journal > Daily Dungeon > Goals"
+    },
+    {
+     "file": "worn_knuckles_4.png",
+     "screen": "items/quests_daily.png",
+     "box": [
+      145,
+      359,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Daily (rewards)"
+    },
+    {
+     "file": "worn_knuckles_5.png",
+     "screen": "items/fantasia_ascent_moonveil.png",
+     "box": [
+      94,
+      880,
+      64,
+      64
+     ],
+     "found_in": "Journal > Fantasia Ascent > Moonveil Woods (floor rewards)"
     }
-   ]
+   ],
+   "group": "realm_key"
   },
   {
    "id": "refined_ore",
    "name": "Refined Ore",
    "kind": "material",
-   "description": "",
-   "uses": "Advanced gear enhancement",
-   "named_by": "screen",
+   "description": "Use them for gear enhancement. This reddish-gold metal ore is obtained by dismantling advanced gear.",
+   "uses": "Advanced gear enhancement Sources: Fantasia Ascent",
+   "named_by": "popup",
    "icons": [
     {
      "file": "refined_ore.png",
@@ -218,16 +634,50 @@
       108
      ],
      "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "refined_ore_2.png",
+     "screen": "items/vendor_booth_vault.png",
+     "box": [
+      547,
+      524,
+      91,
+      100
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "refined_ore_3.png",
+     "screen": "items/enhance_gear.png",
+     "box": [
+      320,
+      924,
+      80,
+      80
+     ],
+     "found_in": "Character > Gear > Enhance (cost)"
+    },
+    {
+     "file": "refined_ore_4.png",
+     "screen": "items/fantasia_ascent_moonveil.png",
+     "box": [
+      166,
+      144,
+      64,
+      64
+     ],
+     "found_in": "Journal > Fantasia Ascent > Moonveil Woods (floor rewards)"
     }
-   ]
+   ],
+   "group": "ore"
   },
   {
    "id": "golden_beetle",
    "name": "Golden Beetle",
    "kind": "consumable",
-   "description": "",
-   "uses": "Skips a puzzle",
-   "named_by": "screen",
+   "description": "Use it to skip a puzzle. These lucky beetles are blessed by the Goddess and loved by her messenger. Offer one up and watch as a clever fox solves the puzzle for you.",
+   "uses": "Skips a puzzle Sources: Shop Purchase, Pilgrimage Pass. Never spend Golden Beetles (mae, 2026-11-10); puzzle areas are skipped for now",
+   "named_by": "popup",
    "icons": [
     {
      "file": "golden_beetle.png",
@@ -239,16 +689,28 @@
       102
      ],
      "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "golden_beetle_2.png",
+     "screen": "items/vendor_booth_vault_2.png",
+     "box": [
+      86,
+      958,
+      86,
+      98
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
     }
-   ]
+   ],
+   "group": "utility_item"
   },
   {
    "id": "shapeshifting_mirror",
    "name": "Shapeshifting Mirror",
    "kind": "consumable",
-   "description": "",
+   "description": "Visit Black Cat Carol in Drasilgard to customize your appearance. A magical mirror created by Carol, the Verdantglade witch. Her proudest work that she can't use it on herself.",
    "uses": "Changes appearance; never used by the bot",
-   "named_by": "screen",
+   "named_by": "popup",
    "icons": [
     {
      "file": "shapeshifting_mirror.png",
@@ -260,16 +722,28 @@
       116
      ],
      "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "shapeshifting_mirror_2.png",
+     "screen": "items/vendor_booth_vault_2.png",
+     "box": [
+      309,
+      958,
+      104,
+      100
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
     }
-   ]
+   ],
+   "group": "utility_item"
   },
   {
    "id": "rename_card",
    "name": "Rename Card",
    "kind": "consumable",
-   "description": "",
+   "description": "Use it to change your adventurer's name. Ready for a new identity? This small card lets you pick a fresh name.",
    "uses": "Changes the character name; never used by the bot",
-   "named_by": "screen",
+   "named_by": "popup",
    "icons": [
     {
      "file": "rename_card.png",
@@ -281,16 +755,28 @@
       112
      ],
      "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "rename_card_2.png",
+     "screen": "items/vendor_booth_vault_2.png",
+     "box": [
+      532,
+      958,
+      108,
+      100
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
     }
-   ]
+   ],
+   "group": "utility_item"
   },
   {
    "id": "rolla",
    "name": "Rolla",
    "kind": "currency",
-   "description": "",
-   "uses": "Common currency (R-019): enhancement, Rank Advancement; never paid Refresh",
-   "named_by": "screen",
+   "description": "Use them for gear enhance, ascension, and buying items from the shop. Metal coins from Kanstein, featuring iconic staff and sword design.",
+   "uses": "Common currency (R-019): enhancement, Rank Advancement; never paid Refresh Sources: Shop Purchase, Home AFK Yield, Realm: Gilded Depths, Commission (locked), Verdantglade Gold Mining",
+   "named_by": "popup",
    "icons": [
     {
      "file": "rolla.png",
@@ -302,16 +788,72 @@
       32
      ],
      "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "rolla_2.png",
+     "screen": "items/home_top_bar.png",
+     "box": [
+      326,
+      39,
+      31,
+      29
+     ],
+     "found_in": "Home > Top bar"
+    },
+    {
+     "file": "rolla_3.png",
+     "screen": "items/map_exploration.png",
+     "box": [
+      35,
+      283,
+      51,
+      59
+     ],
+     "found_in": "Journal > Map Exploration > Resource Hunt (gather priority choice; not tapped)"
+    },
+    {
+     "file": "rolla_4.png",
+     "screen": "items/quests_daily.png",
+     "box": [
+      145,
+      183,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Daily (rewards)"
+    },
+    {
+     "file": "rolla_5.png",
+     "screen": "items/cart.png",
+     "box": [
+      84,
+      426,
+      76,
+      69
+     ],
+     "found_in": "Home > Cart (yield rows; icon tap shows a yield tooltip, not a card)"
+    },
+    {
+     "file": "rolla_6.png",
+     "screen": "items/enhance_gear.png",
+     "box": [
+      477,
+      924,
+      79,
+      80
+     ],
+     "found_in": "Character > Gear > Enhance (cost)"
     }
-   ]
+   ],
+   "group": "currency_token"
   },
   {
    "id": "dawnium",
    "name": "Dawnium",
    "kind": "currency",
-   "description": "",
+   "description": "A currency for shop purchases, obtainable through exchanging Luminium at a 1:1 ratio. Magical stars that sparkle with light, carrying people's hopes and dreams.",
    "uses": "Premium currency (R-018): never spend",
-   "named_by": "screen",
+   "named_by": "popup",
    "icons": [
     {
      "file": "dawnium.png",
@@ -323,8 +865,2429 @@
       33
      ],
      "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "dawnium_2.png",
+     "screen": "items/home_top_bar.png",
+     "box": [
+      454,
+      37,
+      31,
+      31
+     ],
+     "found_in": "Home > Top bar"
+    },
+    {
+     "file": "dawnium_3.png",
+     "screen": "items/quests_daily.png",
+     "box": [
+      57,
+      183,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Daily (rewards)"
     }
-   ]
+   ],
+   "group": "currency_token"
+  },
+  {
+   "id": "green_riceball",
+   "name": "Green Riceball",
+   "kind": "consumable",
+   "description": "Eat it to restore HP. Soft and delectable rice cakes made from washed and pounded green grains.",
+   "uses": "Sources: Shop Purchase, Dish Cooking",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "green_riceball.png",
+     "screen": "items/profile.png",
+     "box": [
+      601,
+      40,
+      37,
+      29
+     ],
+     "found_in": "Island map > Profile"
+    }
+   ],
+   "group": "dish"
+  },
+  {
+   "id": "iron_hammer",
+   "name": "Iron Hammer",
+   "kind": "key_item",
+   "description": "Use it to mine iron ore in the Realm: Ironvein Pit. A perfectly ordinary iron hammer that's surprisingly flimsy. It breaks after one use.",
+   "uses": "Realm: Ironvein Pit entry (one per run). Sources: Shop Purchase, Commission (locked)",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "iron_hammer.png",
+     "screen": "items/realm_ironvein_pit.png",
+     "box": [
+      577,
+      36,
+      36,
+      34
+     ],
+     "found_in": "Journal > Material Realms > Ironvein Pit > Top bar"
+    },
+    {
+     "file": "iron_hammer_2.png",
+     "screen": "items/daily_dungeon_goals.png",
+     "box": [
+      250,
+      184,
+      76,
+      74
+     ],
+     "found_in": "Journal > Daily Dungeon > Goals"
+    },
+    {
+     "file": "iron_hammer_3.png",
+     "screen": "items/quests_daily.png",
+     "box": [
+      145,
+      535,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Daily (rewards)"
+    }
+   ],
+   "group": "realm_key"
+  },
+  {
+   "id": "realm_use_iron_hammer",
+   "name": "Ironvein Pit use button (Iron Hammer)",
+   "kind": "usage",
+   "description": "",
+   "uses": "",
+   "named_by": "mae",
+   "icons": [
+    {
+     "file": "realm_use_iron_hammer.png",
+     "screen": "items/realm_ironvein_pit.png",
+     "box": [
+      272,
+      828,
+      178,
+      184
+     ],
+     "found_in": "Journal > Material Realms > Ironvein Pit"
+    }
+   ],
+   "group": "realm_use_button"
+  },
+  {
+   "id": "realm_use_gold_pickaxe",
+   "name": "Gilded Depths use button (Gold Pickaxe)",
+   "kind": "usage",
+   "description": "",
+   "uses": "",
+   "named_by": "mae",
+   "icons": [
+    {
+     "file": "realm_use_gold_pickaxe.png",
+     "screen": "items/realm_gilded_depths.png",
+     "box": [
+      272,
+      828,
+      177,
+      184
+     ],
+     "found_in": "Journal > Material Realms > Gilded Depths"
+    }
+   ],
+   "group": "realm_use_button"
+  },
+  {
+   "id": "realm_use_worn_knuckles",
+   "name": "Dread Hollow use button (Worn Knuckles)",
+   "kind": "usage",
+   "description": "",
+   "uses": "",
+   "named_by": "mae",
+   "icons": [
+    {
+     "file": "realm_use_worn_knuckles.png",
+     "screen": "items/realm_dread_hollow.png",
+     "box": [
+      271,
+      828,
+      179,
+      184
+     ],
+     "found_in": "Journal > Material Realms > Dread Hollow"
+    }
+   ],
+   "group": "realm_use_button"
+  },
+  {
+   "id": "rolla_management_made_easy",
+   "name": "Rolla Management Made Easy",
+   "kind": "gift",
+   "description": "Give it as a gift to increase Affinity of a companion. Can't earn Rollas? Learn to spend it wisely! Perfect for companions who enjoy reading.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "rolla_management_made_easy.png",
+     "screen": "items/daily_dungeon_goals.png",
+     "box": [
+      166,
+      184,
+      76,
+      74
+     ],
+     "found_in": "Journal > Daily Dungeon > Goals"
+    }
+   ],
+   "group": "companion_gift"
+  },
+  {
+   "id": "golden_leaf",
+   "name": "Golden Leaf",
+   "kind": "gift",
+   "description": "Give it as a gift to increase Affinity of a companion. A delicate leaf crafted in pure gold. Perfect for companions who value precious gifts.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "golden_leaf.png",
+     "screen": "items/daily_dungeon_goals.png",
+     "box": [
+      166,
+      352,
+      76,
+      74
+     ],
+     "found_in": "Journal > Daily Dungeon > Goals"
+    }
+   ],
+   "group": "companion_gift"
+  },
+  {
+   "id": "towel",
+   "name": "Towel",
+   "kind": "gift",
+   "description": "Give it as a gift to increase Affinity of a companion. A new, neatly folded towel. Perfect for companions who value practical gifts.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "towel.png",
+     "screen": "items/daily_dungeon_goals.png",
+     "box": [
+      166,
+      520,
+      76,
+      74
+     ],
+     "found_in": "Journal > Daily Dungeon > Goals"
+    }
+   ],
+   "group": "companion_gift"
+  },
+  {
+   "id": "sunflower",
+   "name": "Sunflower",
+   "kind": "gift",
+   "description": "Give it as a gift to increase Affinity of a companion. A radiant cluster of sunflowers. Perfect for companions who enjoy flowers.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "sunflower.png",
+     "screen": "items/daily_dungeon_goals.png",
+     "box": [
+      166,
+      688,
+      76,
+      74
+     ],
+     "found_in": "Journal > Daily Dungeon > Goals"
+    },
+    {
+     "file": "sunflower_2.png",
+     "screen": "items/spooky_shop_2.png",
+     "box": [
+      95,
+      667,
+      77,
+      93
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    }
+   ],
+   "group": "companion_gift"
+  },
+  {
+   "id": "sand_shovel",
+   "name": "Sand Shovel",
+   "kind": "key_item",
+   "description": "Use it to mine sand in the Realm: Dustfall Dune. A perfectly ordinary shovel that's surprisingly flimsy. It breaks after one use.",
+   "uses": "Realm: Dustfall Dune entry (one per run; realm not seen yet). Sources: Shop Purchase, Commission (locked)",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "sand_shovel.png",
+     "screen": "items/daily_dungeon_goals.png",
+     "box": [
+      250,
+      688,
+      76,
+      74
+     ],
+     "found_in": "Journal > Daily Dungeon > Goals"
+    },
+    {
+     "file": "sand_shovel_2.png",
+     "screen": "items/quests_daily.png",
+     "box": [
+      233,
+      887,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Daily (rewards)"
+    }
+   ],
+   "group": "realm_key"
+  },
+  {
+   "id": "rare_auroral_badge",
+   "name": "Rare Auroral Badge",
+   "kind": "ticket",
+   "description": "Use 10 to get a capsule from the Rare Aeonic Gacha.",
+   "uses": "Gacha ticket (Rare Aeonic Gacha, 10 per capsule): a pull, never used by the bot. Sources: Shop Purchase (locked), Commission (locked)",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "rare_auroral_badge.png",
+     "screen": "items/quests_daily.png",
+     "box": [
+      145,
+      1063,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Daily (rewards)"
+    },
+    {
+     "file": "rare_auroral_badge_2.png",
+     "screen": "items/quests_weekly.png",
+     "box": [
+      145,
+      535,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Weekly (rewards)"
+    },
+    {
+     "file": "rare_auroral_badge_3.png",
+     "screen": "items/vendor_booth_vault.png",
+     "box": [
+      306,
+      244,
+      108,
+      92
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "rare_auroral_badge_4.png",
+     "screen": "items/vendor_booth_goals.png",
+     "box": [
+      166,
+      184,
+      76,
+      74
+     ],
+     "found_in": "Home > Vendor Booth > Goals"
+    },
+    {
+     "file": "rare_auroral_badge_5.png",
+     "screen": "items/guild_shop.png",
+     "box": [
+      80,
+      540,
+      108,
+      84
+     ],
+     "found_in": "Guild > Shop"
+    },
+    {
+     "file": "rare_auroral_badge_6.png",
+     "screen": "items/growth_trial.png",
+     "box": [
+      453,
+      306,
+      67,
+      58
+     ],
+     "found_in": "Thrilling Events > Growth Trial"
+    }
+   ],
+   "group": "prayer_ticket"
+  },
+  {
+   "id": "blessing_card",
+   "name": "Blessing Card",
+   "kind": "other",
+   "description": "Regular Blessing Card Don't forget to leave a Blessing Card during your visit!",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "blessing_card.png",
+     "screen": "items/quests_weekly.png",
+     "box": [
+      233,
+      183,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Weekly (rewards)"
+    }
+   ],
+   "group": "utility_item"
+  },
+  {
+   "id": "random_epic_gift",
+   "name": "Random Epic Gift",
+   "kind": "gift",
+   "description": "Open it to get a Epic gift of a random type. Randomly receive 1 of the following items",
+   "uses": "Chest of one random Epic companion gift (8 shown in its card)",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "random_epic_gift.png",
+     "screen": "items/quests_weekly.png",
+     "box": [
+      145,
+      711,
+      66,
+      66
+     ],
+     "found_in": "Menu > Quest > Weekly (rewards)"
+    },
+    {
+     "file": "random_epic_gift_2.png",
+     "screen": "items/growth_trial_day3.png",
+     "box": [
+      192,
+      591,
+      68,
+      67
+     ],
+     "found_in": "Thrilling Events > Growth Trial > Day 3"
+    }
+   ],
+   "group": "chest"
+  },
+  {
+   "id": "blazing_legends",
+   "name": "Blazing Legends",
+   "kind": "gift",
+   "description": "Give it as a gift to increase Affinity of a companion. An exciting tale of adventure! A bestselling classic in Kanstein. Perfect for companions who enjoy reading.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "blazing_legends.png",
+     "screen": "items/random_epic_gift_contents.png",
+     "box": [
+      134,
+      642,
+      94,
+      96
+     ],
+     "found_in": "Menu > Quest > Weekly > Random Epic Gift card (contents)"
+    },
+    {
+     "file": "blazing_legends_2.png",
+     "screen": "items/growth_trial_day3.png",
+     "box": [
+      192,
+      762,
+      68,
+      68
+     ],
+     "found_in": "Thrilling Events > Growth Trial > Day 3"
+    }
+   ],
+   "group": "companion_gift"
+  },
+  {
+   "id": "flavors_of_kanstein",
+   "name": "Flavors of Kanstein",
+   "kind": "gift",
+   "description": "Give it as a gift to increase Affinity of a companion. A journey through our world's culinary wonders. Perfect for companions who enjoy reading.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "flavors_of_kanstein.png",
+     "screen": "items/random_epic_gift_contents.png",
+     "box": [
+      254,
+      642,
+      94,
+      96
+     ],
+     "found_in": "Menu > Quest > Weekly > Random Epic Gift card (contents)"
+    }
+   ],
+   "group": "companion_gift"
+  },
+  {
+   "id": "golden_ingot",
+   "name": "Golden Ingot",
+   "kind": "gift",
+   "description": "Give it as a gift to increase Affinity of a companion. A precious metal of guaranteed worth. Perfect for companions who value precious gifts.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "golden_ingot.png",
+     "screen": "items/random_epic_gift_contents.png",
+     "box": [
+      374,
+      642,
+      94,
+      96
+     ],
+     "found_in": "Menu > Quest > Weekly > Random Epic Gift card (contents)"
+    },
+    {
+     "file": "golden_ingot_2.png",
+     "screen": "items/growth_trial_day3.png",
+     "box": [
+      192,
+      934,
+      68,
+      68
+     ],
+     "found_in": "Thrilling Events > Growth Trial > Day 3"
+    }
+   ],
+   "group": "companion_gift"
+  },
+  {
+   "id": "luminous_jade",
+   "name": "Luminous Jade",
+   "kind": "gift",
+   "description": "Give it as a gift to increase Affinity of a companion. A pendant of smooth, gleaming jade. Perfect for companions who value precious gifts.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "luminous_jade.png",
+     "screen": "items/random_epic_gift_contents.png",
+     "box": [
+      494,
+      642,
+      94,
+      96
+     ],
+     "found_in": "Menu > Quest > Weekly > Random Epic Gift card (contents)"
+    }
+   ],
+   "group": "companion_gift"
+  },
+  {
+   "id": "silken_dreams",
+   "name": "Silken Dreams",
+   "kind": "gift",
+   "description": "Give it as a gift to increase Affinity of a companion. A finely stitched pillow for restful nights. Perfect for companions who value practical gifts.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "silken_dreams.png",
+     "screen": "items/random_epic_gift_contents.png",
+     "box": [
+      134,
+      774,
+      94,
+      96
+     ],
+     "found_in": "Menu > Quest > Weekly > Random Epic Gift card (contents)"
+    }
+   ],
+   "group": "companion_gift"
+  },
+  {
+   "id": "feather_quill",
+   "name": "Feather Quill",
+   "kind": "gift",
+   "description": "Give it as a gift to increase Affinity of a companion. A refined quill for beautiful writing. Perfect for companions who value practical gifts.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "feather_quill.png",
+     "screen": "items/random_epic_gift_contents.png",
+     "box": [
+      254,
+      774,
+      94,
+      96
+     ],
+     "found_in": "Menu > Quest > Weekly > Random Epic Gift card (contents)"
+    }
+   ],
+   "group": "companion_gift"
+  },
+  {
+   "id": "mandrake",
+   "name": "Mandrake",
+   "kind": "gift",
+   "description": "Give it as a gift to increase Affinity of a companion. A pristine cluster of mandrakes. Perfect for companions who enjoy flowers.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "mandrake.png",
+     "screen": "items/random_epic_gift_contents.png",
+     "box": [
+      374,
+      774,
+      94,
+      96
+     ],
+     "found_in": "Menu > Quest > Weekly > Random Epic Gift card (contents)"
+    },
+    {
+     "file": "mandrake_2.png",
+     "screen": "items/vendor_booth_vault.png",
+     "box": [
+      316,
+      810,
+      90,
+      100
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
+    }
+   ],
+   "group": "companion_gift"
+  },
+  {
+   "id": "sakura",
+   "name": "Sakura",
+   "kind": "gift",
+   "description": "Give it as a gift to increase Affinity of a companion. A touching bouquet of sakura blossoms. Perfect for companions who enjoy flowers.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "sakura.png",
+     "screen": "items/random_epic_gift_contents.png",
+     "box": [
+      494,
+      774,
+      94,
+      96
+     ],
+     "found_in": "Menu > Quest > Weekly > Random Epic Gift card (contents)"
+    }
+   ],
+   "group": "companion_gift"
+  },
+  {
+   "id": "chrono_sand",
+   "name": "Chrono Sand",
+   "kind": "material",
+   "description": "Use it to enhance Relics. This fine sand are from the purification of sand ores.",
+   "uses": "Sources: Home AFK Yield, Realm:Dustfall Dune, Commission, Verdantglade Sand Mining",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "chrono_sand.png",
+     "screen": "items/vendor_booth_general.png",
+     "box": [
+      306,
+      531,
+      108,
+      80
+     ],
+     "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "chrono_sand_2.png",
+     "screen": "items/vendor_booth_general.png",
+     "box": [
+      80,
+      813,
+      106,
+      81
+     ],
+     "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "chrono_sand_3.png",
+     "screen": "items/vendor_booth_general.png",
+     "box": [
+      306,
+      813,
+      108,
+      81
+     ],
+     "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "chrono_sand_4.png",
+     "screen": "items/map_exploration.png",
+     "box": [
+      180,
+      290,
+      58,
+      52
+     ],
+     "found_in": "Journal > Map Exploration > Resource Hunt (gather priority choice; not tapped) [dimmed art: matched by eye to the vendor icon, not popup-read]"
+    },
+    {
+     "file": "chrono_sand_5.png",
+     "screen": "items/cart.png",
+     "box": [
+      76,
+      883,
+      90,
+      54
+     ],
+     "found_in": "Home > Cart (yield rows; icon tap shows a yield tooltip, not a card)"
+    }
+   ],
+   "group": "relic_material"
+  },
+  {
+   "id": "destiny_fruit",
+   "name": "Destiny Fruit",
+   "kind": "consumable",
+   "description": "Search the world map for mysterious rewards. Remember, uncollected destiny resources will disappear after a while. Mystical fruits from the Arborisfatum that light your path to fated encounters.",
+   "uses": "The fruit counter in the island-map top bar (R-019). Sources: Commission (locked)",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "destiny_fruit.png",
+     "screen": "items/vendor_booth_vault.png",
+     "box": [
+      547,
+      239,
+      90,
+      97
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "destiny_fruit_2.png",
+     "screen": "items/fantasia_ascent_goals.png",
+     "box": [
+      168,
+      184,
+      72,
+      72
+     ],
+     "found_in": "Journal > Fantasia Ascent > Goals"
+    },
+    {
+     "file": "destiny_fruit_3.png",
+     "screen": "items/growth_trial_day4.png",
+     "box": [
+      276,
+      1104,
+      68,
+      66
+     ],
+     "found_in": "Thrilling Events > Growth Trial > Day 4"
+    }
+   ],
+   "group": "utility_item"
+  },
+  {
+   "id": "epic_auroral_badge",
+   "name": "Epic Auroral Badge",
+   "kind": "ticket",
+   "description": "Use 10 to get a capsule from the Epic Aeonic Gacha.",
+   "uses": "Gacha ticket (Epic Aeonic Gacha, 10 per capsule): a pull, never used by the bot",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "epic_auroral_badge.png",
+     "screen": "items/vendor_booth_vault.png",
+     "box": [
+      81,
+      810,
+      104,
+      100
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "epic_auroral_badge_2.png",
+     "screen": "items/vendor_booth_goals.png",
+     "box": [
+      166,
+      352,
+      76,
+      74
+     ],
+     "found_in": "Home > Vendor Booth > Goals"
+    }
+   ],
+   "group": "prayer_ticket"
+  },
+  {
+   "id": "quest_scroll",
+   "name": "Quest Scroll",
+   "kind": "consumable",
+   "description": "Gives you extra quest attempts after hitting your daily limit. Skilled adventurers are always in demand. Whose quest will you take on next?",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "quest_scroll.png",
+     "screen": "items/vendor_booth_vault.png",
+     "box": [
+      532,
+      812,
+      108,
+      95
+     ],
+     "found_in": "Home > Vendor Booth > Vault"
+    }
+   ],
+   "group": "utility_item"
+  },
+  {
+   "id": "cart_gear_yield",
+   "name": "Gear (Cart yield)",
+   "kind": "gear",
+   "description": "",
+   "uses": "Cart row with a ? icon: tooltip 'Base Gear Yield' (random gear drops), +2/h",
+   "named_by": "screen",
+   "icons": [
+    {
+     "file": "cart_gear_yield.png",
+     "screen": "items/cart.png",
+     "box": [
+      93,
+      800,
+      60,
+      74
+     ],
+     "found_in": "Home > Cart (yield rows; icon tap shows a yield tooltip, not a card)"
+    }
+   ],
+   "group": "cart_yield"
+  },
+  {
+   "id": "treats",
+   "name": "Treats",
+   "kind": "other",
+   "description": "",
+   "uses": "Cart row 'Treats', unlocks at Lv. 45",
+   "named_by": "screen",
+   "icons": [
+    {
+     "file": "treats.png",
+     "screen": "items/cart.png",
+     "box": [
+      91,
+      956,
+      61,
+      66
+     ],
+     "found_in": "Home > Cart (yield rows; icon tap shows a yield tooltip, not a card)"
+    }
+   ],
+   "group": "cart_yield"
+  },
+  {
+   "id": "rotting_petal",
+   "name": "Rotting Petal",
+   "kind": "material",
+   "description": "A material dropped by Stink Bombs. A decayed petal from a floral monster.",
+   "uses": "Sources: Verdantglade Monster Drop",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "rotting_petal.png",
+     "screen": "items/rank_advancement.png",
+     "box": [
+      167,
+      900,
+      79,
+      80
+     ],
+     "found_in": "Character > Rank Advancement (cost)"
+    }
+   ],
+   "group": "monster_material"
+  },
+  {
+   "id": "bellflower",
+   "name": "Bellflower",
+   "kind": "material",
+   "description": "Use it for rank advancement. Delicate bell-shaped flowers dangle from the grass releasing a subtle, fresh scent.",
+   "uses": "Sources: Verdantglade Flower Harvest",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "bellflower.png",
+     "screen": "items/rank_advancement.png",
+     "box": [
+      320,
+      900,
+      80,
+      80
+     ],
+     "found_in": "Character > Rank Advancement (cost)"
+    }
+   ],
+   "group": "advancement_material"
+  },
+  {
+   "id": "guild_token",
+   "name": "Guild Token",
+   "kind": "currency",
+   "description": "Exchange them for items in the Guild Shop. Honorary coins that commemorate guild contributions and collective glory.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "guild_token.png",
+     "screen": "items/guild_shop.png",
+     "box": [
+      596,
+      37,
+      38,
+      33
+     ],
+     "found_in": "Guild > Shop"
+    }
+   ],
+   "group": "currency_token"
+  },
+  {
+   "id": "lucky_ticket",
+   "name": "Lucky Ticket",
+   "kind": "ticket",
+   "description": "Use it to spin the Wheel of Destiny for rewards. A lucky ticket that transforms into random treasures when the ancient wheel spins.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "lucky_ticket.png",
+     "screen": "items/guild_shop.png",
+     "box": [
+      307,
+      236,
+      106,
+      100
+     ],
+     "found_in": "Guild > Shop"
+    }
+   ],
+   "group": "wheel_ticket"
+  },
+  {
+   "id": "bond_trinket",
+   "name": "Bond Trinket",
+   "kind": "ticket",
+   "description": "Use it at Arborisfatum to summon Fantomons. Hang this magical trinket on Arborisfatum to form lasting bonds with Fantomons.",
+   "uses": "Sources: Shop Purchase, Commission",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "bond_trinket.png",
+     "screen": "items/guild_shop.png",
+     "box": [
+      532,
+      236,
+      108,
+      100
+     ],
+     "found_in": "Guild > Shop"
+    },
+    {
+     "file": "bond_trinket_2.png",
+     "screen": "items/growth_trial.png",
+     "box": [
+      540,
+      306,
+      68,
+      58
+     ],
+     "found_in": "Thrilling Events > Growth Trial"
+    },
+    {
+     "file": "bond_trinket_3.png",
+     "screen": "items/growth_trial_day6.png",
+     "box": [
+      192,
+      591,
+      68,
+      67
+     ],
+     "found_in": "Thrilling Events > Growth Trial > Day 6"
+    }
+   ],
+   "group": "summon_ticket"
+  },
+  {
+   "id": "resilient_sprout",
+   "name": "Resilient Sprout",
+   "kind": "material",
+   "description": "Plant it in your Guild Garden to produce oil used to activate Fantomon Aptitudes. A humble seedling, yet with sturdy leaves and stem. It thrives even in the harshest of soils.",
+   "uses": "Guild AFK (Garden/Sheepfold/Roost). Requires Plant Implement Level; Space Required 1; Planting EXP 1. Card has a Reward Preview. Sources: Guild Shop",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "resilient_sprout.png",
+     "screen": "items/guild_shop.png",
+     "box": [
+      306,
+      549,
+      105,
+      75
+     ],
+     "found_in": "Guild > Shop"
+    },
+    {
+     "file": "resilient_sprout_2.png",
+     "screen": "items/guild_shop_2.png",
+     "box": [
+      536,
+      635,
+      104,
+      75
+     ],
+     "found_in": "Guild > Shop"
+    }
+   ],
+   "group": "seedling"
+  },
+  {
+   "id": "hopeful_bud",
+   "name": "Hopeful Bud",
+   "kind": "material",
+   "description": "Plant it in your Guild Garden to produce oil used to activate Fantomon Aptitudes. A seedling ready to bloom. The copper glow on its leaves holds infinite hope.",
+   "uses": "Guild AFK (Garden/Sheepfold/Roost). Requires Plant Implement Level; Space Required 4; Planting EXP 3. Card has a Reward Preview. Sources: Guild Shop",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "hopeful_bud.png",
+     "screen": "items/guild_shop.png",
+     "box": [
+      536,
+      549,
+      104,
+      75
+     ],
+     "found_in": "Guild > Shop"
+    }
+   ],
+   "group": "seedling"
+  },
+  {
+   "id": "stone_sheep",
+   "name": "Stone Sheep",
+   "kind": "material",
+   "description": "Raise it in your Guild Sheepfold to produce wool used to activate Fantomon Aptitudes. A stone-gray sheep, sturdy and steady. The resilient wool protects it from even the harshest cold.",
+   "uses": "Guild AFK (Garden/Sheepfold/Roost). Requires Herd Implement Level; Space Required 1; Herding EXP 1. Card has a Reward Preview. Sources: Guild Shop",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "stone_sheep.png",
+     "screen": "items/guild_shop.png",
+     "box": [
+      84,
+      837,
+      99,
+      73
+     ],
+     "found_in": "Guild > Shop"
+    },
+    {
+     "file": "stone_sheep_2.png",
+     "screen": "items/guild_shop_2.png",
+     "box": [
+      80,
+      923,
+      108,
+      77
+     ],
+     "found_in": "Guild > Shop"
+    }
+   ],
+   "group": "livestock"
+  },
+  {
+   "id": "cotton_sheep",
+   "name": "Cotton Sheep",
+   "kind": "material",
+   "description": "Raise it in your Guild Sheepfold to produce wool used to activate Fantomon Aptitudes. A sun-toned sheep, soft and gentle. Its warmth always calms the soul.",
+   "uses": "Guild AFK (Garden/Sheepfold/Roost). Requires Herd Implement Level; Space Required 4; Herding EXP 3. Card has a Reward Preview. Sources: Guild Shop",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "cotton_sheep.png",
+     "screen": "items/guild_shop.png",
+     "box": [
+      312,
+      836,
+      101,
+      74
+     ],
+     "found_in": "Guild > Shop"
+    }
+   ],
+   "group": "livestock"
+  },
+  {
+   "id": "steely_chicken",
+   "name": "Steely Chicken",
+   "kind": "material",
+   "description": "Raise it in your Guild Roost to produce eggs used to activate Fantomon Aptitudes. A rust-colored chicken, strong and steady-tough enough to survive in the wild.",
+   "uses": "Guild AFK (Garden/Sheepfold/Roost). Requires Breed Implement Level; Space Required 1; Breeding EXP 1. Card has a Reward Preview. Sources: Guild Shop",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "steely_chicken.png",
+     "screen": "items/guild_shop.png",
+     "box": [
+      549,
+      835,
+      84,
+      75
+     ],
+     "found_in": "Guild > Shop"
+    },
+    {
+     "file": "steely_chicken_2.png",
+     "screen": "items/guild_shop_2.png",
+     "box": [
+      319,
+      921,
+      85,
+      79
+     ],
+     "found_in": "Guild > Shop"
+    }
+   ],
+   "group": "livestock"
+  },
+  {
+   "id": "dawn_chicken",
+   "name": "Dawn Chicken",
+   "kind": "material",
+   "description": "Raise it in your Guild Roost to produce eggs used to activate Fantomon Aptitudes. A bronze-glinted chicken, full of energy, its crow crisp enough to awaken the slumbering dawn.",
+   "uses": "Guild AFK (Roost). Requires Breed Implement Level; Space Required 4; Breeding EXP 3. Sources: Guild Shop",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "dawn_chicken.png",
+     "screen": "items/guild_shop_2.png",
+     "box": [
+      80,
+      619,
+      108,
+      91
+     ],
+     "found_in": "Guild > Shop"
+    }
+   ],
+   "group": "livestock"
+  },
+  {
+   "id": "t3_livestock_selection_chest",
+   "name": "T3 Livestock Selection Chest",
+   "kind": "gift",
+   "description": "Open it to choose a Lunar Heart, Lunar Sheep or Lunar Chicken. Choose 1 of the following items",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "t3_livestock_selection_chest.png",
+     "screen": "items/guild_shop_2.png",
+     "box": [
+      306,
+      632,
+      108,
+      78
+     ],
+     "found_in": "Guild > Shop"
+    }
+   ],
+   "group": "chest"
+  },
+  {
+   "id": "lunar_heart",
+   "name": "Lunar Heart",
+   "kind": "material",
+   "description": "Plant it in your Guild Garden to produce oil used to activate Fantomon Aptitudes. A seedling glowing in silver, its leaves kissed by moonlight and its bud imbued with lunar magic.",
+   "uses": "Guild AFK. Requires Plant Implement Level 2; Space Required 9; Planting EXP 8. Sources: Guild Shop",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "lunar_heart.png",
+     "screen": "items/t3_livestock_chest_contents.png",
+     "box": [
+      132,
+      720,
+      96,
+      96
+     ],
+     "found_in": "Guild > Shop > T3 Livestock Selection Chest card (contents)"
+    }
+   ],
+   "group": "seedling"
+  },
+  {
+   "id": "lunar_sheep",
+   "name": "Lunar Sheep",
+   "kind": "material",
+   "description": "Raise it in your Guild Sheepfold to produce wool used to activate Fantomon Aptitudes. A moon-kissed sheep, silky and graceful, perfectly one with the night.",
+   "uses": "Guild AFK. Requires Herd Implement Level; Space Required 9; Herding EXP 8. Sources: Guild Shop",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "lunar_sheep.png",
+     "screen": "items/t3_livestock_chest_contents.png",
+     "box": [
+      252,
+      720,
+      96,
+      96
+     ],
+     "found_in": "Guild > Shop > T3 Livestock Selection Chest card (contents)"
+    }
+   ],
+   "group": "livestock"
+  },
+  {
+   "id": "lunar_chicken",
+   "name": "Lunar Chicken",
+   "kind": "material",
+   "description": "Raise it in your Guild Roost to produce eggs used to activate Fantomon Aptitudes. A moon-kissed chicken, keen and graceful, perfectly one with the night.",
+   "uses": "Guild AFK. Requires Breed Implement Level; Space Required 9; Breeding EXP 8. Sources: Guild Shop",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "lunar_chicken.png",
+     "screen": "items/t3_livestock_chest_contents.png",
+     "box": [
+      372,
+      720,
+      96,
+      96
+     ],
+     "found_in": "Guild > Shop > T3 Livestock Selection Chest card (contents)"
+    }
+   ],
+   "group": "livestock"
+  },
+  {
+   "id": "random_class_i_skill_chest",
+   "name": "Random Class I Skill Chest",
+   "kind": "gift",
+   "description": "Open it to get a random Class I Legendary skill for your current class. Randomly receive 1 of the following items",
+   "uses": "Skill chest (8 Legendary Class I skills shown in its card)",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "random_class_i_skill_chest.png",
+     "screen": "items/growth_trial.png",
+     "box": [
+      192,
+      306,
+      68,
+      58
+     ],
+     "found_in": "Thrilling Events > Growth Trial"
+    }
+   ],
+   "group": "chest"
+  },
+  {
+   "id": "random_legendary_relic_chest_verdant",
+   "name": "Random Legendary Relic Chest - Verdant",
+   "kind": "gift",
+   "description": "Open it to get a random Legendary Relic from Verdantglade. Randomly receive 1 of the following items",
+   "uses": "Relic chest (12 Legendary Verdantglade relics shown in its card)",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "random_legendary_relic_chest_verdant.png",
+     "screen": "items/growth_trial.png",
+     "box": [
+      280,
+      306,
+      68,
+      58
+     ],
+     "found_in": "Thrilling Events > Growth Trial"
+    }
+   ],
+   "group": "chest"
+  },
+  {
+   "id": "legendary_fantomon_selection_chest",
+   "name": "Legendary Fantomon Selection Chest",
+   "kind": "gift",
+   "description": "Open it to get a Legendary Fantomon of your choice. Choose 1 of the following items",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "legendary_fantomon_selection_chest.png",
+     "screen": "items/growth_trial.png",
+     "box": [
+      626,
+      296,
+      68,
+      68
+     ],
+     "found_in": "Thrilling Events > Growth Trial"
+    }
+   ],
+   "group": "chest"
+  },
+  {
+   "id": "abundance_leaf",
+   "name": "Abundance Leaf",
+   "kind": "currency",
+   "description": "Exchange them for items with the Verdantglade merchant. Dancing leaves used as currency by the Dryasons.",
+   "uses": "Sources: Commission",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "abundance_leaf.png",
+     "screen": "items/growth_trial_2.png",
+     "box": [
+      276,
+      591,
+      68,
+      67
+     ],
+     "found_in": "Thrilling Events > Growth Trial"
+    }
+   ],
+   "group": "currency_token"
+  },
+  {
+   "id": "t2_stone_casket",
+   "name": "T2 Stone Casket",
+   "kind": "gift",
+   "description": "Use it to get 210 stones. Provides essential wood for cart repairs. Receive the following items",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "t2_stone_casket.png",
+     "screen": "items/growth_trial_2.png",
+     "box": [
+      276,
+      762,
+      68,
+      68
+     ],
+     "found_in": "Thrilling Events > Growth Trial"
+    }
+   ],
+   "group": "chest"
+  },
+  {
+   "id": "t2_wood_casket",
+   "name": "T2 Wood Casket",
+   "kind": "gift",
+   "description": "Use it to get 210 wood. Provides essential wood for cart repairs. Receive the following items",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "t2_wood_casket.png",
+     "screen": "items/growth_trial_3.png",
+     "box": [
+      362,
+      934,
+      68,
+      68
+     ],
+     "found_in": "Thrilling Events > Growth Trial"
+    }
+   ],
+   "group": "chest"
+  },
+  {
+   "id": "t2_rolla_casket",
+   "name": "T2 Rolla Casket",
+   "kind": "gift",
+   "description": "Use it to get 4200 Rollas. Even a small caskey of Rollas can be a great aid. Receive the following items",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "t2_rolla_casket.png",
+     "screen": "items/growth_trial_3.png",
+     "box": [
+      276,
+      1104,
+      68,
+      66
+     ],
+     "found_in": "Thrilling Events > Growth Trial"
+    }
+   ],
+   "group": "chest"
+  },
+  {
+   "id": "growth_trial_points",
+   "name": "Growth Trial points (event tracker)",
+   "kind": "other",
+   "description": "",
+   "uses": "Not a resource: completion tracker for the Growth Trial event (mae, 07:32). No card when tapped.",
+   "named_by": "mae",
+   "icons": [
+    {
+     "file": "growth_trial_points.png",
+     "screen": "items/growth_trial.png",
+     "box": [
+      28,
+      354,
+      56,
+      60
+     ],
+     "found_in": "Thrilling Events > Growth Trial (points track; no card when tapped)"
+    },
+    {
+     "file": "growth_trial_points_2.png",
+     "screen": "items/growth_trial.png",
+     "box": [
+      54,
+      558,
+      104,
+      104
+     ],
+     "found_in": "Thrilling Events > Growth Trial (quest points)"
+    }
+   ],
+   "group": "event_tracker"
+  },
+  {
+   "id": "alloy_gear",
+   "name": "Alloy Gear",
+   "kind": "currency",
+   "description": "Exchange them for items with the Cinder Ridge merchant. Small gears made of precious alloys, currency of the Tauroids.",
+   "uses": "Sources: Commission",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "alloy_gear.png",
+     "screen": "items/growth_trial_day4.png",
+     "box": [
+      276,
+      762,
+      68,
+      68
+     ],
+     "found_in": "Thrilling Events > Growth Trial > Day 4"
+    },
+    {
+     "file": "alloy_gear_2.png",
+     "screen": "items/growth_trial_day5.png",
+     "box": [
+      276,
+      762,
+      68,
+      68
+     ],
+     "found_in": "Thrilling Events > Growth Trial > Day 5"
+    }
+   ],
+   "group": "currency_token"
+  },
+  {
+   "id": "t3_battle_essence_casket",
+   "name": "T3 Battle Essence Casket",
+   "kind": "gift",
+   "description": "Use it to get 660 Battle Essences. Contains faint memories of past battles. Receive the following items",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "t3_battle_essence_casket.png",
+     "screen": "items/growth_trial_day2.png",
+     "box": [
+      276,
+      934,
+      68,
+      68
+     ],
+     "found_in": "Thrilling Events > Growth Trial > Day 2"
+    }
+   ],
+   "group": "chest"
+  },
+  {
+   "id": "tricksy_candy",
+   "name": "Tricksy Candy",
+   "kind": "currency",
+   "description": "Can be exchanged for items in the limited-time event shop. Any unused items will be automatically removed when the event ends. Please use them before the event concludes. Trick or Treat. Make your choice.",
+   "uses": "Haunted Carnival event currency (Spooky Shop); removed when the event ends",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "tricksy_candy.png",
+     "screen": "items/spooky_shop.png",
+     "box": [
+      606,
+      41,
+      38,
+      28
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    }
+   ],
+   "group": "currency_token"
+  },
+  {
+   "id": "wheel_ticket",
+   "name": "Wheel Ticket",
+   "kind": "ticket",
+   "description": "Use this to spin the event wheel for rewards. Use this ticket to spin the wheel for a chance at rare items, Companions, or resources. Go on, try your luck!",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "wheel_ticket.png",
+     "screen": "items/spooky_shop.png",
+     "box": [
+      85,
+      414,
+      94,
+      86
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    },
+    {
+     "file": "wheel_ticket_2.png",
+     "screen": "items/spooky_shop.png",
+     "box": [
+      544,
+      411,
+      94,
+      89
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    }
+   ],
+   "group": "wheel_ticket"
+  },
+  {
+   "id": "bond_sigil",
+   "name": "Bond Sigil",
+   "kind": "ticket",
+   "description": "Use it at Arborisfatum for limited-time summon to obtain exclusive Fantomons. A rare contract token. Hang it upon Arborisfatum to forge a pact with a Fantomon and have it fight by your side.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "bond_sigil.png",
+     "screen": "items/spooky_shop.png",
+     "box": [
+      312,
+      405,
+      100,
+      95
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    },
+    {
+     "file": "bond_sigil_2.png",
+     "screen": "items/spooky_shop.png",
+     "box": [
+      83,
+      687,
+      100,
+      99
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    }
+   ],
+   "group": "summon_ticket"
+  },
+  {
+   "id": "moonveil_howl",
+   "name": "Moonveil Howl",
+   "kind": "other",
+   "description": "Equip it in the Visage Wardrobe to change your outfit. Not hunting anyone tonight. The moon is calling.",
+   "uses": "Visage cosmetic (Outfit), Style Scores +70; event shop item, never bought",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "moonveil_howl.png",
+     "screen": "items/spooky_shop.png",
+     "box": [
+      306,
+      691,
+      108,
+      95
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    },
+    {
+     "file": "moonveil_howl_2.png",
+     "screen": "items/spooky_shop.png",
+     "box": [
+      532,
+      690,
+      108,
+      96
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    }
+   ],
+   "group": "cosmetic"
+  },
+  {
+   "id": "nightwolf_ears",
+   "name": "Nightwolf Ears",
+   "kind": "other",
+   "description": "Equip it in the Visage Wardrobe to change your headwear. Who's unwrapping candy back there? I can hear you!",
+   "uses": "Visage cosmetic (Headwear), Style Scores +70; event shop item, never bought",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "nightwolf_ears.png",
+     "screen": "items/spooky_shop.png",
+     "box": [
+      93,
+      976,
+      81,
+      94
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    }
+   ],
+   "group": "cosmetic"
+  },
+  {
+   "id": "graywolf_mask",
+   "name": "Graywolf Mask",
+   "kind": "other",
+   "description": "Equip it in the Visage Wardrobe to change your face accessory. Fangs are ready. The howl? Two more tries should do it.",
+   "uses": "Visage cosmetic (Facewear), Style Scores +70; event shop item, never bought",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "graywolf_mask.png",
+     "screen": "items/spooky_shop.png",
+     "box": [
+      306,
+      978,
+      108,
+      83
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    }
+   ],
+   "group": "cosmetic"
+  },
+  {
+   "id": "twilight_wolfmane",
+   "name": "Twilight Wolfmane",
+   "kind": "other",
+   "description": "Equip it in the Visage Wardrobe to change your hairstyle. Awooo in wolf, that means: Where's the candy?",
+   "uses": "Visage cosmetic (Hairstyle), Style Scores +70; event shop item, never bought",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "twilight_wolfmane.png",
+     "screen": "items/spooky_shop.png",
+     "box": [
+      532,
+      972,
+      108,
+      98
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    }
+   ],
+   "group": "cosmetic"
+  },
+  {
+   "id": "focus_essence",
+   "name": "Focus Essence",
+   "kind": "material",
+   "description": "Activates Aptitudes for Support Fantomons. A bottle of plant oil with a rich, invigorating aroma. Crafted from Blossoms of Hope.",
+   "uses": "Sources: Fantomon Summon, Guild Planting, Alchemy Pot Combination, Commercium-Trading House Purchase",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "focus_essence.png",
+     "screen": "items/spooky_shop_2.png",
+     "box": [
+      556,
+      385,
+      66,
+      95
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    }
+   ],
+   "group": "fantomon_material"
+  },
+  {
+   "id": "brown_egg",
+   "name": "Brown Egg",
+   "kind": "material",
+   "description": "Activates Aptitudes for Tank Fantomons. This plain ol' brown egg is still with a speck of dirt on its shell. Smells faintly of the countryside.",
+   "uses": "Sources: Fantomon Summon, Guild Breeding, Commercium-Trading House Purchase",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "brown_egg.png",
+     "screen": "items/spooky_shop_2.png",
+     "box": [
+      326,
+      673,
+      77,
+      86
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    }
+   ],
+   "group": "fantomon_material"
+  },
+  {
+   "id": "fresh_essence",
+   "name": "Fresh Essence",
+   "kind": "material",
+   "description": "Activates Aptitudes for Support Fantomons. A bottle of plant oil with a light, refreshing scent. Distilled from Buds of Resilience.",
+   "uses": "Sources: Fantomon Summon, Guild Planting, Commercium-Trading House Purchase",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "fresh_essence.png",
+     "screen": "items/spooky_shop_2.png",
+     "box": [
+      560,
+      674,
+      61,
+      86
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    }
+   ],
+   "group": "fantomon_material"
+  },
+  {
+   "id": "magic_wool",
+   "name": "Magic Wool",
+   "kind": "material",
+   "description": "Activates Aptitudes for DPS Fantomons. This bundle of wool gives off a faint magical hum. It's pretty ordinary, but there's a touch of mana to it.",
+   "uses": "Sources: Fantomon Summon, Guild Sheepfold, Commercium-Trading House Purchase",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "magic_wool.png",
+     "screen": "items/spooky_shop_2.png",
+     "box": [
+      80,
+      955,
+      108,
+      85
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    }
+   ],
+   "group": "fantomon_material"
+  },
+  {
+   "id": "dews_blessing_shard",
+   "name": "Dew's Blessing Shard",
+   "kind": "material",
+   "description": "Materials for crafting and ascending Dew's Blessing. Skill Effect: Increases the caster's Water Affinity.",
+   "uses": "Charm Shard, Common. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "dews_blessing_shard.png",
+     "screen": "items/skill_shards.png",
+     "box": [
+      52,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Shard"
+    }
+   ],
+   "group": "skill_shard"
+  },
+  {
+   "id": "tough_soul_shard",
+   "name": "Tough Soul Shard",
+   "kind": "material",
+   "description": "Materials for crafting and ascending Tough Soul. Skill Effect: Increases the caster's HP.",
+   "uses": "Charm Shard, Common. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "tough_soul_shard.png",
+     "screen": "items/skill_shards.png",
+     "box": [
+      180,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Shard"
+    }
+   ],
+   "group": "skill_shard"
+  },
+  {
+   "id": "tempest_sphere_shard",
+   "name": "Tempest Sphere Shard",
+   "kind": "material",
+   "description": "Materials for crafting and ascending Tempest Sphere. Skill Effect: Deals Wind DMG 5 times to 1 enemy within 3 to 5 grids of the caster.",
+   "uses": "Technique Shard, Common. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "tempest_sphere_shard.png",
+     "screen": "items/skill_shards.png",
+     "box": [
+      308,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Shard"
+    }
+   ],
+   "group": "skill_shard"
+  },
+  {
+   "id": "iron_thorn_shard",
+   "name": "Iron Thorn Shard",
+   "kind": "material",
+   "description": "Materials for crafting and ascending Iron Thorn. Skill Effect: Selects a grid within 3 grids of the caster. Deals Wind DMG once to all enemies within 1 grid of the target grid, with a 30% base chance to inflict Immobilize for 1 turn.",
+   "uses": "Technique Shard, Common. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "iron_thorn_shard.png",
+     "screen": "items/skill_shards.png",
+     "box": [
+      436,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Shard"
+    }
+   ],
+   "group": "skill_shard"
+  },
+  {
+   "id": "heart_of_flame_shard",
+   "name": "Heart of Flame Shard",
+   "kind": "material",
+   "description": "Materials for crafting and ascending Heart of Flame. Skill Effect: Increases the caster's Fire Affinity.",
+   "uses": "Charm Shard, Common. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "heart_of_flame_shard.png",
+     "screen": "items/skill_shards.png",
+     "box": [
+      564,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Shard"
+    }
+   ],
+   "group": "skill_shard"
+  },
+  {
+   "id": "flame_jet_shard",
+   "name": "Flame Jet Shard",
+   "kind": "material",
+   "description": "Materials for crafting and ascending Flame Jet. Skill Effect: Deals Fire DMG 3 times to all enemies in a 1x3 grid area in front of the caster.",
+   "uses": "Technique Shard, Common. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "flame_jet_shard.png",
+     "screen": "items/skill_shards.png",
+     "box": [
+      52,
+      970,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Shard"
+    }
+   ],
+   "group": "skill_shard"
+  },
+  {
+   "id": "water_assault_shard",
+   "name": "Water Assault Shard",
+   "kind": "material",
+   "description": "Materials for crafting and ascending Water Assault. Skill Effect: Deals Water DMG once to all enemies in a 3x4 grid area in front of the caster. DMG decreases by 25% for each subsequent hit on the same target. (Large targets may take multiple hits.).",
+   "uses": "Technique Shard, Common. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "water_assault_shard.png",
+     "screen": "items/skill_shards.png",
+     "box": [
+      180,
+      970,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Shard"
+    }
+   ],
+   "group": "skill_shard"
+  },
+  {
+   "id": "healing_touch_shard",
+   "name": "Healing Touch Shard",
+   "kind": "material",
+   "description": "Materials for crafting and ascending Healing Touch. Skill Effect: Heals an ally with the lowest HP percentage within 7 grids of the caster once and dispels 1 random ailment or debuff from the target.",
+   "uses": "Technique Shard, Common. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "healing_touch_shard.png",
+     "screen": "items/skill_shards.png",
+     "box": [
+      308,
+      970,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Shard"
+    }
+   ],
+   "group": "skill_shard"
+  },
+  {
+   "id": "insight_shard",
+   "name": "Insight Shard",
+   "kind": "material",
+   "description": "Materials for crafting and ascending Insight. Skill Effect: Increases the caster's Effect Hit Rate.",
+   "uses": "Charm Shard, Common. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "insight_shard.png",
+     "screen": "items/skill_shards.png",
+     "box": [
+      436,
+      970,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Shard"
+    }
+   ],
+   "group": "skill_shard"
+  },
+  {
+   "id": "curse_resonance_shard",
+   "name": "Curse Resonance Shard",
+   "kind": "material",
+   "description": "Materials for crafting and ascending Curse Resonance. Skill Effect: For each ailment or debuff the target carries, Technique DMG dealt by the caster to that target increases. Stacks up to 3 times.",
+   "uses": "Charm Shard, Common. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "curse_resonance_shard.png",
+     "screen": "items/skill_shards.png",
+     "box": [
+      564,
+      970,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Shard"
+    }
+   ],
+   "group": "skill_shard"
+  },
+  {
+   "id": "winds_whisper_shard",
+   "name": "Wind's Whisper Shard",
+   "kind": "material",
+   "description": "Materials for crafting and ascending Wind's Whisper. Skill Effect: Increases the caster's Wind Affinity.",
+   "uses": "Charm Shard, Common. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "winds_whisper_shard.png",
+     "screen": "items/skill_shards_2.png",
+     "box": [
+      52,
+      1035,
+      100,
+      95
+     ],
+     "found_in": "Character > Skill > Shard"
+    }
+   ],
+   "group": "skill_shard"
+  },
+  {
+   "id": "flame_jet",
+   "name": "Flame Jet",
+   "kind": "other",
+   "description": "Deals Fire DMG 3 times to all enemies in a 1x3 grid area in front of the caster.",
+   "uses": "Technique, Rare. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "flame_jet.png",
+     "screen": "items/skill_loadout.png",
+     "box": [
+      42,
+      216,
+      104,
+      104
+     ],
+     "found_in": "Character > Skill (loadout and Technique tab)"
+    }
+   ],
+   "group": "technique"
+  },
+  {
+   "id": "unstable_aura",
+   "name": "Unstable Aura",
+   "kind": "other",
+   "description": "When the caster's Technique deals DMG to an enemy, there's a 25% chance to trigger Aura, dealing additional Wind DMG once, with a 60% base chance to knock them back by 1 grid.",
+   "uses": "Charm, Rare. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "unstable_aura.png",
+     "screen": "items/skill_loadout.png",
+     "box": [
+      576,
+      216,
+      104,
+      104
+     ],
+     "found_in": "Character > Skill (loadout and Technique tab)"
+    }
+   ],
+   "group": "charm"
+  },
+  {
+   "id": "blazing_fire_ring",
+   "name": "Blazing Fire Ring",
+   "kind": "other",
+   "description": "Deals Fire DMG once to all enemies within 2 grids of the caster.",
+   "uses": "Technique, Legendary. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "blazing_fire_ring.png",
+     "screen": "items/skill_loadout.png",
+     "box": [
+      42,
+      332,
+      104,
+      104
+     ],
+     "found_in": "Character > Skill (loadout and Technique tab)"
+    }
+   ],
+   "group": "technique"
+  },
+  {
+   "id": "heart_of_flame",
+   "name": "Heart of Flame",
+   "kind": "other",
+   "description": "Increases the caster's Fire Affinity.",
+   "uses": "Charm, Rare / Stats. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "heart_of_flame.png",
+     "screen": "items/skill_loadout.png",
+     "box": [
+      576,
+      332,
+      104,
+      104
+     ],
+     "found_in": "Character > Skill (loadout and Technique tab)"
+    }
+   ],
+   "group": "charm"
+  },
+  {
+   "id": "fireball",
+   "name": "Fireball",
+   "kind": "other",
+   "description": "Selects a grid within 5 grids of the caster. Deals Fire DMG once to all enemies within a 1-grid square area of the target grid.",
+   "uses": "Technique, Epic. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "fireball.png",
+     "screen": "items/skill_loadout.png",
+     "box": [
+      42,
+      448,
+      104,
+      104
+     ],
+     "found_in": "Character > Skill (loadout and Technique tab)"
+    }
+   ],
+   "group": "technique"
+  },
+  {
+   "id": "elemental_body",
+   "name": "Elemental Body",
+   "kind": "other",
+   "description": "Increases the caster's Elemental RES.",
+   "uses": "Charm, Epic / Stats. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "elemental_body.png",
+     "screen": "items/skill_loadout.png",
+     "box": [
+      576,
+      448,
+      104,
+      104
+     ],
+     "found_in": "Character > Skill (loadout and Technique tab)"
+    }
+   ],
+   "group": "charm"
+  },
+  {
+   "id": "cyclone",
+   "name": "Cyclone",
+   "kind": "other",
+   "description": "Selects a grid within 6 grids of the caster. Deals Wind DMG once to all enemies within 2 grids of the target grid, knocking them airborne and pulling them to the target grid.",
+   "uses": "Technique, Epic. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "cyclone.png",
+     "screen": "items/skill_loadout.png",
+     "box": [
+      42,
+      564,
+      104,
+      104
+     ],
+     "found_in": "Character > Skill (loadout and Technique tab)"
+    }
+   ],
+   "group": "technique"
+  },
+  {
+   "id": "elemental_mystery",
+   "name": "Elemental Mystery",
+   "kind": "other",
+   "description": "Increases the caster's Elemental Mastery.",
+   "uses": "Charm, Rare / Stats. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "elemental_mystery.png",
+     "screen": "items/skill_loadout.png",
+     "box": [
+      576,
+      564,
+      104,
+      104
+     ],
+     "found_in": "Character > Skill (loadout and Technique tab)"
+    }
+   ],
+   "group": "charm"
+  },
+  {
+   "id": "stonechief_summon",
+   "name": "Stonechief Summon",
+   "kind": "other",
+   "description": "Summons a Stonechief in front of the caster that immediately acts. The summon inherits a percentage of the caster's stats and remains for up to 5 turns. (Zero Initial CD)",
+   "uses": "Technique, Epic / Summon. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "stonechief_summon.png",
+     "screen": "items/skill_loadout.png",
+     "box": [
+      52,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill (loadout and Technique tab)"
+    }
+   ],
+   "group": "technique"
+  },
+  {
+   "id": "ice_spike",
+   "name": "Ice Spike",
+   "kind": "other",
+   "description": "Deals Water DMG once to all enemies in a 1x5 grid area in front of the caster, with a 40% base chance to inflict Frozen for 1 turn.",
+   "uses": "Technique, Epic. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "ice_spike.png",
+     "screen": "items/skill_loadout.png",
+     "box": [
+      180,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill (loadout and Technique tab)"
+    }
+   ],
+   "group": "technique"
+  },
+  {
+   "id": "water_shot",
+   "name": "Water Shot",
+   "kind": "other",
+   "description": "Deals Water DMG once to 1 enemy within 4 grids of the caster.",
+   "uses": "Technique, Rare. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "water_shot.png",
+     "screen": "items/skill_loadout.png",
+     "box": [
+      308,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill (loadout and Technique tab)"
+    }
+   ],
+   "group": "technique"
+  },
+  {
+   "id": "iron_thorn",
+   "name": "Iron Thorn",
+   "kind": "other",
+   "description": "Selects a grid within 3 grids of the caster. Deals Wind DMG once to all enemies within 1 grid of the target grid, with a 30% base chance to inflict Immobilize for 1 turn.",
+   "uses": "Technique, Rare / Ailment. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "iron_thorn.png",
+     "screen": "items/skill_loadout.png",
+     "box": [
+      436,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill (loadout and Technique tab)"
+    }
+   ],
+   "group": "technique"
+  },
+  {
+   "id": "dews_blessing",
+   "name": "Dew's Blessing",
+   "kind": "other",
+   "description": "Increases the caster's Water Affinity.",
+   "uses": "Charm, Epic / Stats. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "dews_blessing.png",
+     "screen": "items/skill_charm_tab.png",
+     "box": [
+      52,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Charm tab"
+    }
+   ],
+   "group": "charm"
+  },
+  {
+   "id": "tough_soul",
+   "name": "Tough Soul",
+   "kind": "other",
+   "description": "Increases the caster's HP.",
+   "uses": "Charm, Epic / Stats. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "tough_soul.png",
+     "screen": "items/skill_charm_tab.png",
+     "box": [
+      180,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Charm tab"
+    }
+   ],
+   "group": "charm"
+  },
+  {
+   "id": "winds_whisper",
+   "name": "Wind's Whisper",
+   "kind": "other",
+   "description": "Increases the caster's Wind Affinity.",
+   "uses": "Charm, Rare / Stats. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "winds_whisper.png",
+     "screen": "items/skill_charm_tab.png",
+     "box": [
+      308,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Charm tab"
+    }
+   ],
+   "group": "charm"
+  },
+  {
+   "id": "crystal_armor",
+   "name": "Crystal Armor",
+   "kind": "other",
+   "description": "Increases the caster's DEF.",
+   "uses": "Charm, Rare / Stats. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "crystal_armor.png",
+     "screen": "items/skill_charm_tab_all.png",
+     "box": [
+      436,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Charm tab (All)"
+    }
+   ],
+   "group": "charm"
+  },
+  {
+   "id": "blade_tempest",
+   "name": "Blade Tempest",
+   "kind": "other",
+   "description": "Each time the caster's Technique deals DMG to an enemy, there's a 40% chance to trigger Sword Gale that deals additional Wind DMG once.",
+   "uses": "Charm, Rare. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "blade_tempest.png",
+     "screen": "items/skill_charm_tab_all.png",
+     "box": [
+      564,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Charm tab (All)"
+    }
+   ],
+   "group": "charm"
+  },
+  {
+   "id": "wind_blade_slash",
+   "name": "Wind Blade Slash",
+   "kind": "other",
+   "description": "Deals Wind DMG once to all enemies in a 1x4 grid area in front of the caster, with a 50% base chance to knock them back by 1 grid.",
+   "uses": "Technique, Epic. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "wind_blade_slash.png",
+     "screen": "items/skill_technique_tab_all.png",
+     "box": [
+      564,
+      850,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Technique tab (All)"
+    }
+   ],
+   "group": "technique"
+  },
+  {
+   "id": "quadrant_slash",
+   "name": "Quadrant Slash",
+   "kind": "other",
+   "description": "Deals Physical DMG once to all enemies within 1 grid of the caster.",
+   "uses": "Technique, Epic. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "quadrant_slash.png",
+     "screen": "items/skill_technique_tab_all.png",
+     "box": [
+      52,
+      970,
+      99,
+      100
+     ],
+     "found_in": "Character > Skill > Technique tab (All)"
+    }
+   ],
+   "group": "technique"
+  },
+  {
+   "id": "edge_strike",
+   "name": "Edge Strike",
+   "kind": "other",
+   "description": "Deals Physical DMG once to 1 enemy within 1 grid of the caster.",
+   "uses": "Technique, Rare. Sources: Skill Prayer",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "edge_strike.png",
+     "screen": "items/skill_technique_tab_all.png",
+     "box": [
+      180,
+      970,
+      100,
+      100
+     ],
+     "found_in": "Character > Skill > Technique tab (All)"
+    }
+   ],
+   "group": "technique"
   }
  ]
 }
