@@ -1,14 +1,16 @@
 """Draft detector boxes on the reference screens from the detectors the bot already has, for mae to fix in the
 labeler instead of drawing every box (docs/detector-design.md, step 2).
 
-    python -m sxs prelabel [NAME ...] [--ocr] [--dry-run]
+    python -m sxs prelabel [NAME ...] [--ocr] [--items] [--dry-run]
 
 For each screen in docs/screens/ (not icons/, minimap/, unlabeled/) with an expected state, runs the matching
 colour/template detectors and writes their boxes into docs/screens/labels.json as drafts ("draft": true, with a
 detector class). It never touches a box mae made or confirmed: old drafts on a screen are replaced, and a new draft
 that overlaps a confirmed box of the same class is skipped. --ocr also boxes area-map zone labels and % lines and
 Claim / "Tap to spin" buttons by their text (needs MaaFramework and the OCR models). Point detectors give centres
-only, so their boxes use a typical size per class: drafts are meant to be checked.
+only, so their boxes use a typical size per class: drafts are meant to be checked. --items boxes every symbol from
+the item catalogue (resource/items, matched at many sizes) as item_icon with the item's id; a run without --items
+replaces those drafts too, so keep passing it once item drafts matter.
 """
 
 from __future__ import annotations
@@ -188,19 +190,29 @@ def merge(existing: list[dict], drafts: list[dict], size: tuple[int, int]) -> li
         if x1 - x0 < 4 or y1 - y0 < 4:
             continue
         d = dict(d, x=x0, y=y0, w=x1 - x0, h=y1 - y0)
-        if any(b.get("cls") == d["cls"] and _iou(b, d) > 0.3 for b in out):
+        if any(b.get("cls") == d["cls"] and b.get("item") == d.get("item") and _iou(b, d) > 0.3 for b in out):
             continue
+        base = d.get("item") or d["cls"]
         n = 1
-        while f"{d['cls']}_{n}" in names:
+        while f"{base}_{n}" in names:
             n += 1
-        name = f"{d['cls']}_{n}"
+        name = f"{base}_{n}"
         names.add(name)
         out.append({"name": name, "kind": kind.get(d["cls"], "other"), "x": d["x"], "y": d["y"], "w": d["w"],
-                    "h": d["h"], "note": "pre-labelled", "template": False, "cls": d["cls"], "draft": True})
+                    "h": d["h"], "note": "pre-labelled", "template": False, "cls": d["cls"], "draft": True,
+                    **({"item": d["item"]} if d.get("item") else {})})
     return out
 
 
-def run(names: Optional[set] = None, ocr: bool = False, dry_run: bool = False) -> dict:
+def item_drafts(frame: np.ndarray, templates=None) -> list[dict]:
+    """item_icon drafts for every catalogued symbol found on the frame (resource/items, sxs/detect/items.py)."""
+    from . import items
+
+    return [{"cls": "item_icon", "item": h["item"], "x": h["x"], "y": h["y"], "w": h["w"], "h": h["h"]}
+            for h in items.find(frame, templates=templates)]
+
+
+def run(names: Optional[set] = None, ocr: bool = False, dry_run: bool = False, with_items: bool = False) -> dict:
     """Pre-label the reference screens. Returns {screen key: number of drafts written}."""
     det = None
     if ocr:
@@ -208,6 +220,11 @@ def run(names: Optional[set] = None, ocr: bool = False, dry_run: bool = False) -
         from ..core.state import StateDetector
 
         det = StateDetector(ImageDevice())
+    tpl = None
+    if with_items:
+        from . import items
+
+        tpl = items._templates()
     expected = screens.load_expected()["states"]
     report = {}
     for path in screens.reference_screens():
@@ -222,6 +239,8 @@ def run(names: Optional[set] = None, ocr: bool = False, dry_run: bool = False) -
         drafts = colour_drafts(frame, state) + anchor_drafts(state)
         if det is not None:
             drafts += ocr_drafts(det, frame, state)
+        if tpl:
+            drafts += item_drafts(frame, tpl)
         key = labels.screen_key(path)
         size = (frame.shape[1], frame.shape[0])
         boxes = merge(labels.boxes_for(key), drafts, size)
@@ -239,9 +258,11 @@ def main(argv: list[str]) -> int:
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("names", nargs="*", help="only these screens (file names without .png)")
     p.add_argument("--ocr", action="store_true", help="also box zone labels and buttons by their text (MaaFramework)")
+    p.add_argument("--items", action="store_true",
+                   help="also box every catalogued item/currency symbol (resource/items; ~10 s a screen)")
     p.add_argument("--dry-run", action="store_true", help="count the drafts, write nothing")
     args = p.parse_args(argv)
-    report = run(set(args.names) or None, args.ocr, args.dry_run)
+    report = run(set(args.names) or None, args.ocr, args.dry_run, args.items)
     by_cls: dict[str, int] = {}
     for key in report:
         for b in labels.boxes_for(key) if not args.dry_run else []:

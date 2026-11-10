@@ -69,6 +69,12 @@ def _image_size(p: Path) -> tuple[int, int]:
         return im.size
 
 
+def _items() -> list[dict]:
+    from ..detect import items
+
+    return items.load()["items"]
+
+
 def list_screens() -> list[dict]:
     expected = screens.load_expected()
     rows = {r["file"]: r for r in screens.bank_rows()}
@@ -153,7 +159,8 @@ class Handler(BaseHTTPRequestHandler):
                 self._send(200, PAGE.read_bytes(), "text/html; charset=utf-8")
             elif url.path == "/api/screens":
                 self._json({"screens": list_screens(), "states": _known_states(), "kinds": labels.KINDS,
-                            "template_kinds": labels.TEMPLATE_KINDS, "classes": labels.classes()})
+                            "template_kinds": labels.TEMPLATE_KINDS, "classes": labels.classes(),
+                            "items": [{"id": i["id"], "name": i.get("name", "")} for i in _items()]})
             elif url.path == "/api/screen":
                 self._json(screen_detail(parse_qs(url.query)["key"][0]))
             elif url.path.startswith("/img/"):

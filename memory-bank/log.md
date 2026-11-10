@@ -3,6 +3,11 @@
 > **Last updated**: 2026-11-10
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
 
+### 2026-11-10 · Item and currency symbol catalogue (Claude Code, cloud)
+- mae wants the detector to name item, material and currency symbols, each read from its own popup, and set a standing rule: any unrecognised material or currency symbol gets identified and catalogued. A new RC thread "Map item and currency symbols" collects them on the emulator.
+- Built: `resource/items/` (`items.json` + `icons/`, 15 items seeded from the Vendor Booth screens, names from shop rows, popups still to read), `python -m sxs items [add|find]`, detector class `item_icon` with an `item` id on labeler boxes ("which item?" menu), `prelabel --items` auto-drafts by multi-scale template matching, `dataset --items each|one`. Checks in `tests/check_detect_data.py`.
+- Open: popup reads for every item; `prelabel --items` on mae's labels worktree once she has confirmed the current drafts (to avoid a labels.json conflict).
+
 ### 2026-11-10 · UI detector step 1: classes, pre-labels, dataset export (Claude Code, cloud)
 - mae agreed: YOLO26n vs RF-DETR Nano on one Roboflow dataset; minimap objects in the model (crop + full frame, training decides); hybrid with the text check (model-first for confident anchors, text for spend-risk/unsure/unknown). Bench on mae's PC (PR #48 code): old 6.4 s -> new 1.3 s median, DirectML 1.0 s (run order may favour DirectML); recommended `SXS_INFERENCE=directml`.
 - Built: `resource/detect/classes.json` (42 classes: cards, buttons, badges, area map, world, minimap, screen anchors); labeler class menu, dashed drafts with Confirm / Confirm all / `C`, "only screens with drafts" filter; `python -m sxs prelabel [--ocr]` (365 drafts on 76 reference screens, committed in docs/screens/labels.json); `python -m sxs dataset [--zip] [--minimap both|crop|full]` (HUD name strip always blacked out, name lines and chat lines with SXS_ACCOUNT_NAME, private screens skipped); `tests/check_detect_data.py`.
