@@ -215,6 +215,8 @@ MAP_LABELS_ROI = [0, 120, 720, 1060]  # area-map zone labels (legend and kingdom
 
 QUEST_LOCATE_X = 330  # the locate (target) icon right of the tracker's progress line
 QUEST_TARGET_DY = 80  # the quest ring floats this far above its target
+_LOCATE_MISSES = 0  # locate taps since the last quest ring was seen (each tap toggles tracking)
+APPROACH_DY = 75 # the ground tile just below a map object, walked to when a tap on the object itself did nothing
 QUEST_FAILS_MAX = 3  # quest-pointer steps without the counter moving before the walk stops using it
 
 
@@ -254,10 +256,21 @@ def quest_step(dev, det, fight: bool) -> bool:
     prog = det.find("Explore.Progress")
     if not prog:
         return False
+    global _LOCATE_MISSES
     ring = find_quest_ring(dev.screenshot())
     if ring is None:
+        if _LOCATE_MISSES >= 1:
+            # Live 2026-11-10: three locate taps in a row, 15 s apart, none showing a ring (the camera had drifted
+            # off our character); each tap flips tracking, so tapping again only turns it back off. Once a tap
+            # brought no ring, leave the pointer until a ring is seen again.
+            return False
         ui.tap(dev, (QUEST_LOCATE_X, ui.centre(prog.box)[1]), 2)  # tracking was off: turn it on
         ring = find_quest_ring(dev.screenshot())
+        if ring is None:
+            _LOCATE_MISSES += 1
+            log.info("locate tap showed no quest ring: not tapping it again until one shows")
+            return False
+    _LOCATE_MISSES = 0
     for _ in range(2):
         if ring is None:
             return False
@@ -279,9 +292,41 @@ def quest_step(dev, det, fight: bool) -> bool:
         if fight and attack_guard(dev, det):
             return True
         log.info("quest pointer: tapping the target under the ring at %s", (cx, cy))
-        ui.tap(dev, off_me(det, (cx, cy + QUEST_TARGET_DY)), 10)
+        tap_object(dev, det, (cx, cy + QUEST_TARGET_DY))
         return True
     return False
+
+
+def tap_object(dev, det, point: tuple[int, int], wait: float = 4) -> str:
+    """Tap a map object (monster, pot, pickup). Live 2026-11-10 (Verdantglade VII, mae: "stuck at a monster fight
+    again"): a tap on a monster several tiles away did nothing at all, the character didn't even walk, and the quest
+    step tapped it again and again; from the tile beside it the same tap started the fight at once (62 -> 64 -> 67%).
+    So when a tap leaves us on the map at the same coordinates, walk to the tile just below the object first, then
+    tap it again. Returns "left_map" (a fight or card opened), "moved", "approached" or "nothing"."""
+    before = goto.coords(det)
+    tapped = off_me(det, point)
+    dev.tap(*tapped)
+    time.sleep(wait)
+    after = goto.coords(det)
+    if after is None:
+        return "left_map"
+    if before is None or after != before:
+        return "moved"
+    beside = off_me(det, (point[0], min(900, point[1] + APPROACH_DY)))
+    log.info("tap on the object at %s didn't move us: walking beside it (%s) first", point, beside)
+    dev.tap(*beside)
+    for _ in range(6):  # walk until the coordinates stop changing
+        time.sleep(1.5)
+        now = goto.coords(det)
+        if now is None:
+            return "left_map"  # walking there started the fight (a monster that charges)
+        if now == after:
+            break
+        after = now
+    # The camera doesn't follow the walk, so the object stays where it was on screen.
+    dev.tap(*off_me(det, point))
+    time.sleep(wait)
+    return "left_map" if goto.coords(det) is None else "approached"
 
 
 WHEEL_SPIN = (360, 1100)  # "Tap to spin" on the Wheel of Destiny
@@ -392,6 +437,8 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
            "else to the fog edge; fight and open cards on the way",
            f"{minutes:g} minutes, no fog in view after 4 pans, no new tile reached in "
            f"{STILL_LIMIT} walk taps, a lost fight, or an unfamiliar screen")
+    global _LOCATE_MISSES
+    _LOCATE_MISSES = 0
     decider, ctx = Decider(det), Context(goal="explore")
     deadline = time.monotonic() + minutes * 60
     unknown = UnknownScreens(in_a_row=5)
@@ -739,6 +786,9 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                     last_plan = frame
                     # Only taps aimed at an object feed the store (a walk can be interrupted by anything).
                     tapped = (frame, target, goal) if goal and target else None
+                    if goal_direct and goal == "monster":
+                        tap_object(dev, det, target, wait=3)  # walks beside it when the tap alone does nothing
+                        continue
                     dev.tap(*off_me(det, target, frame))
                     time.sleep(3)
                     continue
