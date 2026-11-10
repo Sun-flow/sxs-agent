@@ -344,9 +344,36 @@ def lucky_wheel_free(det) -> bool:
 ME_RADIUS = 70  # px round our character on screen: a tap there opens our profile ("Mage", Class Level 8)
 
 
+# Island-map HUD buttons a walk tap must never land on (x0, y0, x1, y1 at 720x1280). Live 2026-11-10: a walk tap
+# toward a monster at (671, 376) hit the "Timed Packs" button and opened a paid pack popup.
+HUD_KEEP_OUT = (
+    (0, 0, 330, 200),      # portrait, name, power
+    (0, 200, 110, 260),    # flag button under the portrait
+    (500, 0, 720, 450),    # minimap, zone name and coordinates, Timed Packs
+    (0, 700, 90, 820),     # Team / Apply button on the left edge
+    (0, 950, 720, 1280),   # quest tracker, chat strip, bottom buttons
+)
+HUD_MARGIN = 12
+
+
+def off_hud(point: tuple[int, int]) -> tuple[int, int]:
+    """Move a walk tap out of any HUD button area, to the nearest edge of that area that is open map."""
+    x, y = int(point[0]), int(point[1])
+    for _ in range(3):  # leaving one area can land in another (rare); settle in a few moves
+        hit = next((r for r in HUD_KEEP_OUT if r[0] <= x <= r[2] and r[1] <= y <= r[3]), None)
+        if hit is None:
+            break
+        x0, y0, x1, y1 = hit
+        options = [(x0 - HUD_MARGIN, y), (x1 + HUD_MARGIN, y), (x, y0 - HUD_MARGIN), (x, y1 + HUD_MARGIN)]
+        options = [(a, b) for a, b in options if 20 <= a <= 700 and 20 <= b <= 1260]
+        x, y = min(options, key=lambda p: abs(p[0] - x) + abs(p[1] - y))
+    return x, y
+
+
 def off_me(det, point: tuple[int, int], frame=None) -> tuple[int, int]:
     """A walk tap that would land on our own character opens the profile (live 2026-11-09 and -10, again and
     again). Push such a point out of ME_RADIUS, away from the character, so the tap still walks that way."""
+    point = off_hud(point)
     me = player_on_screen(det, frame if frame is not None else det.device.screenshot())
     if me is None:
         return point

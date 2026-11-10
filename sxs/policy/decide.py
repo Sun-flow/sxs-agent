@@ -21,6 +21,7 @@ POLICY_PATH = REPO_ROOT / "resource" / "policy" / "cards.json"
 CARD_ROI = [0, 250, 720, 820]  # where popups and cards sit
 BACK_ARROW = (60, 1216)
 OUTSIDE = (360, 60)  # above the card; taps at the bottom edge sometimes land on nothing and do not close it
+BELOW_CARD = (360, 1120)  # under the card: closes the paid pack popups, which ignore a tap above (2026-11-10)
 
 
 @dataclass
@@ -73,7 +74,7 @@ class Decider:
                 continue
             pick = rule["choose"]
             if pick == "dismiss":
-                point = BACK_ARROW if rule.get("dismiss_by") == "back" else OUTSIDE
+                point = {"back": BACK_ARROW, "below": BELOW_CARD}.get(rule.get("dismiss_by"), OUTSIDE)
                 return Choice(rule["kind"], "dismiss", point, rule["why"])
             if pick == "cancel":
                 pick = "^Cancel$"

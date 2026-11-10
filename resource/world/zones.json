@@ -8,8 +8,8 @@
    "blessed": true,
    "notes": "Free 4-player story dungeon (R-133); Lost Goddess Statue blessed 2026-11-05.",
    "map_point": [
-    982,
-    325
+    1001,
+    304
    ],
    "last_seen": "2026-11-10",
    "entries": []
@@ -42,8 +42,8 @@
    "kind": "town",
    "notes": "Town: Chief, Hermes, Carol, portal (R-134).",
    "map_point": [
-    1051,
-    510
+    1069,
+    489
    ],
    "last_seen": "2026-11-10",
    "entries": []
@@ -54,7 +54,7 @@
    "pct": 0,
    "cp": 23.0,
    "map_point": [
-    553,
+    554,
     232
    ],
    "last_seen": "2026-11-10"
@@ -95,8 +95,8 @@
    "pct": 100,
    "notes": "Entered from Verdantglade III (142,84) or Drasilgard (138,84). The last 7% was the Lucky Wheel (blue !): its first spin is free while the zone is unexplored (mae). Lost Goddess Statue unlocked 2026-11-10.",
    "map_point": [
-    1122,
-    737
+    1139,
+    718
    ],
    "last_seen": "2026-11-10",
    "entries": [
@@ -134,7 +134,11 @@
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-10",
    "pct": 0,
-   "last_seen": "2026-11-10"
+   "last_seen": "2026-11-10",
+   "map_point": [
+    229,
+    708
+   ]
   },
   "Moonveil Woods": {
    "kingdom": "Verdantglade",
@@ -153,8 +157,8 @@
    "first_seen": "2026-11-09",
    "pct": 0,
    "map_point": [
-    982,
-    -24
+    999,
+    526
    ],
    "last_seen": "2026-11-10"
   },
@@ -163,7 +167,7 @@
    "first_seen": "2026-11-09",
    "pct": 0,
    "map_point": [
-    526,
+    527,
     646
    ],
    "last_seen": "2026-11-10"
@@ -285,8 +289,8 @@
    "pct": 100,
    "failed_via": {},
    "map_point": [
-    590,
-    432
+    591,
+    431
    ],
    "last_seen": "2026-11-10",
    "entries": [
@@ -314,17 +318,25 @@
   "Verdantglade VII": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-10",
-   "pct": 67,
+   "pct": 0,
    "cp": 23.6,
    "last_seen": "2026-11-10",
-   "notes": "Main-quest zone (Explore Verdantglade VII). Next to Verdantglade VI; its statue sits at about (102,113). 2026-11-10: monsters there are fought from the tile beside them (a tap from afar does nothing)."
+   "notes": "Main-quest zone (Explore Verdantglade VII). Next to Verdantglade VI; its statue sits at about (102,113). 2026-11-10: monsters there are fought from the tile beside them (a tap from afar does nothing). blocked: Value near None (no rule; dismissed) blocked: Voucher near None (no rule; dismissed)",
+   "map_point": [
+    265,
+    608
+   ]
   },
   "Verdantglade VIII": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-10",
    "pct": 0,
    "cp": 27.0,
-   "last_seen": "2026-11-10"
+   "last_seen": "2026-11-10",
+   "map_point": [
+    825,
+    579
+   ]
   },
   "Wildbloom Coast": {
    "kingdom": "Verdantglade",
@@ -342,8 +354,8 @@
     }
    ],
    "map_point": [
-    1197,
-    1
+    1215,
+    553
    ],
    "last_seen": "2026-11-10",
    "blessed": true
@@ -1169,6 +1181,26 @@
    "b": "Verdantglade VII",
    "how": "walked",
    "note": "walked in 2026-11-10"
+  },
+  {
+   "a": "Hidden Camp",
+   "b": "Rabbit Vault",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins II",
+   "b": "Verdantglade VII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Rabbit Vault",
+   "b": "Verdantglade VIII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Stone Ruins I",
+   "b": "Verdantglade VIII",
+   "how": "map_adjacent"
   }
  ],
  "gaps": [
