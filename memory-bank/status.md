@@ -1,6 +1,6 @@
 # Status
 
-> **Last updated**: 2026-11-09
+> **Last updated**: 2026-11-10
 > Where the work stands now. Past sessions: `log.md`. How a builder works: `playbook.md`.
 
 ## Game state (2026-11-05 05:05Z, mae's PC)
@@ -30,14 +30,9 @@
 
 Format: `- what — branch, PR, environment (started)`. Remove the line when it merges or is dropped.
 
-- Exploration drivers per mae (2026-11-05): roam picks the lowest-CP unblessed zone, blesses statues whose area-map "!" is lit, ends with a fog walk; fog walk reaches objects through the big map, follows passable ground into fog, keeps to its zone (R-132), free pickups and fights only in unexplored areas (R-065), collectibles store (R-131) — `claude/project-thread-ieaqnz` (latest commits beyond #41), mae's PC. Open: (1) at the zoomed-out area map OCR merges neighbouring labels and loses percentages (closer zoom with pans written on `claude/project-thread-sesbe9`, not yet live); (2) Jungle Camp run (2026-11-05): approach from Drasilgard, big-map walks mostly "no_move", no % gained; the walk into Jungle Camp needs a better entry point; (3) progress readings with OCR noise in coordinates count as movement, so a stuck run can be extended; (4) the tutorial glow on the Companions "Invite" isn't found by the highlight finder (interrupt layer PR #40).
-
-- Zone borders, location tree, closer-zoom survey, Cart unlock (mae, 2026-11-09) — `claude/project-thread-sesbe9`, folded into PR #43, offline-tested only. First live run: `python -m sxs roam --max-areas 1` (check the survey log line lists % for the far zones, `python -m sxs zones` after), then `python -m sxs cart --max 0` (presses the free Chrono Sand Unlock, no upgrades). Commit `resource/world/zones.json` after live runs: it is the bot's map.
-
-- Loop diagrams (mae, 2026-11-09): `docs/loops/` has a Mermaid page per loop, a screen-by-screen table and `docs/loops/open-questions.md` (15 places where code, rules and mae's asks disagree; mae's 2026-11-09 answers applied: blue-pip gear enhance trigger, gather fights guards, `get_stronger` for explore, one tower climb a day from any loop, tutorial stops on class choices; none run live yet) — `claude/project-thread-aqcucg`, PR pending, cloud. Follow-up proposed in `docs/loops/README.md`: per-loop flow specs the loops read, so the diagrams become the source of truth.
-
-- Roam to the next zones (2026-11-10, 2 runs, 0% gained): Damp Woods' label isn't read at most zooms (walks to it fail); merged labels ("Wildbloom CoastHidden Camp") become targets; from inside Auroradrasil (an enclosed clearing inside Verdantglade V) big-map walks to far labels don't move the character, and walks keep ending there; a "Rankings" structure card has no rule. The quest pointer got out of Auroradrasil before (Verdantglade VI's quest is active now).
-- Jungle Camp blessed (2026-11-10): the last 7% was the Lucky Wheel's free first spin (blue "!", mae); Lost Goddess Statue unlocked.
+- Exploration builder (2026-11-09/10) — `claude/project-thread-sesbe9` (latest d53e47c and later; earlier parts in #43/#46), mae's PC. Game state 2026-11-10 ~04:40Z: Lv 30, power 28.5K, Blessing Lv 7 (Cart max 7; Stone/Wood at 6), blessed Verdantglade V, VI, Jungle Camp, Wildbloom Coast; Damp Woods explored; Hidden Camp blocked (Boulder Blockade needs a Magic Drill); Troll Lair 42% (17K); Zephyr Vale, Monolith Ruins I, Rabbit Vault, Stagnant Jungle, Grotto Peninsula (23K) at 0%; quest "Explore Verdantglade VII" at 60%. Location tree: `python -m sxs zones` (`resource/world/zones.json`, now with per-zone `objectives`, `dismissed_spots`, `blocked`).
+- mae (04:44): keep exploring, alternating main-quest areas (Verdantglade VII) and side areas (Zephyr Vale, Monolith Ruins I, Troll Lair...); side areas are more trouble: log every issue as it happens. Readout rule: announce each run (command, goal, stop condition), readouts ~2 min, [Result] at the end. Use `scripts/tap_trace.py roam AREA MIN` to trace taps when a stuck point repeats.
+- Open stuck points: the statue-bless walk (`roam.nearest_badge`) picked our own spot when the lit statue was off-screen (VI blessed by hand); Troll Lair's label overlaps Verdantglade IV's and three no-% readings flip it to 100% (reset to 42%); survey OCR still garbles names at the survey zoom; Sunrise Isle never read.
 
 ## Next (in order)
 
