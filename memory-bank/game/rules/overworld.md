@@ -172,7 +172,7 @@ Tapping a map object (e.g. a Portal) opens a card with one button at (0.5, 0.70)
 ### R-148 · A blue "!" on the area map marks interactable statues: tap them to finish the zone
 - Some zones hold interactable statues, marked on the area map with a blue "!" icon (mae, 2026-11-10). They are the "Statue of <name>" statues of R-144 (mae, 2026-11-10 02:18): tap each one and press Visit on its card. They count toward the zone's exploration % (reach them through the area map, R-068).
 - Detector: `area_map.blue_badges`; reference `world/area_map_blue_bang.png` (lossless on purpose). The card reads "heroes and witches share daily visit attempts"; after a visit it shows "Visited Today".
-- A blue "!" can also sit on the Lucky Wheel (R-147), which is never spun. In Jungle Camp (stuck at 93%, R-135) the only blue "!" found so far is the Lucky Wheel's, so the missing 7% is still open ❓ (asked mae; not spun).
+- A blue "!" can also sit on a Lucky Wheel with its free spin waiting (R-147). In Jungle Camp (stuck at 93%, R-135) the only blue "!" found so far is the Lucky Wheel's; its free spin is probably the missing 7% ❓ (not spun yet).
 - A blue "!" is not the red "!" of a blessable Goddess Statue (R-070) or the gold "!" of a structure (R-145).
 *told, observed* · `world/area_map_blue_bang.png` · node `area_map` · R-002, R-065, R-068, R-070, R-135, R-144, R-147
 
@@ -184,8 +184,10 @@ A "Statue of <name>" card (e.g. Statue of Lunar Sage in Verdantglade V) has a fr
 A map structure opens a "Rankings" card. It has nothing for the bot: back out and press nothing (builder, 2026-11-10).
 *observed* · R-030
 
-### R-147 · Lucky Wheel ("Wheel of Destiny"): back out, never spin
-The Lucky Wheel structure in Jungle Camp opens "Wheel of Destiny". "Tap to spin" spends Lucky Wheel tickets (0 on 2026-11-10): never press it. Close with the back arrow (card rule `lucky_wheel`). Spinning would need a free ticket and mae's say-so ❓ (ask mae).
+### R-147 · Lucky Wheel ("Wheel of Destiny"): one free spin per wheel while its zone is unexplored
+- The Lucky Wheel structure (e.g. in Jungle Camp) opens "Wheel of Destiny". The first spin on each wheel is free and can be done while its zone is still below 100%; once the zone is explored, spins cost Lucky Wheel tickets (mae, 2026-11-10 02:26).
+- Press "Tap to spin" **exactly once per wheel**, only when the zone is not yet 100% and the card shows no ticket or currency cost. Never spin again after that, and never when a cost shows. Close with the back arrow (card rule `lucky_wheel`).
+- A blue "!" on the area map can mark a wheel with its free spin waiting (R-148).
 *observed* · `world/lucky_wheel.png` · R-030, R-043
 
 ### R-085 · Stone tile floor puzzle: step on every tile for chests
