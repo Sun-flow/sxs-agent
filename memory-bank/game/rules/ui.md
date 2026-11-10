@@ -70,7 +70,7 @@ Menus unlock with tutorial progress and the game announces it. Each node's `unlo
 *observed* · `shops/vendor_booth_general.png` · R-043, R-120, R-114
 
 ### R-154 · Identify every unrecognized item or currency symbol
-- Whenever you see a material, currency or item symbol you don't already recognize, find out what it is: tap the symbol for its read-only info card (name and description, R-125), then add it to the items and currency database, resource/items/items.json with icon crops in resource/items/icons/ (an items helper is being built by the vision thread; mae, 2026-11-10 06:24).
+- Whenever you see a material, currency or item symbol you don't already recognize, find out what it is: tap the symbol for its read-only info card (name and description, R-125), then add it to the items and currency database, resource/items/items.json with icon crops in resource/items/icons/, always through the items helper's add command, never by hand (vision branch claude/project-thread-wuht8i). A symbol nobody can name yet gets the id "unknown" (stored as unknown_N) for mae to name (mae, 2026-11-10 06:24).
 - It applies to every session, builders and the item-map work alike. Most symbols don't matter to the bot's decisions, but every one is a class for the Roboflow detector's training data.
 - Tap only the icon, never a price or spend button (R-043).
 *told* · R-018, R-019, R-043, R-125, R-131
