@@ -1,7 +1,7 @@
 """Draft detector boxes on the reference screens from the detectors the bot already has, for mae to fix in the
 labeler instead of drawing every box (docs/detector-design.md, step 2).
 
-    python -m sxs prelabel [NAME ...] [--ocr] [--items] [--dry-run]
+    python -m sxs prelabel [NAME ...] [--ocr] [--items] [--only CLASSES] [--redraft CLASSES] [--dry-run]
 
 For each screen in docs/screens/ (not icons/, minimap/, unlabeled/) with an expected state, runs the matching
 colour/template detectors and writes their boxes into docs/screens/labels.json as drafts ("draft": true, with a
@@ -10,7 +10,9 @@ that overlaps a confirmed box of the same class is skipped. --ocr also boxes are
 Claim / "Tap to spin" buttons by their text (needs MaaFramework and the OCR models). Point detectors give centres
 only, so their boxes use a typical size per class: drafts are meant to be checked. --items boxes every symbol from
 the item catalogue (resource/items, matched at many sizes) as item_icon with the item's id; a run without --items
-replaces those drafts too, so keep passing it once item drafts matter.
+replaces those drafts too, so keep passing it once item drafts matter. --only limits a run to some classes or
+groups (so drafts mae deleted for other classes do not come back), and --redraft turns her confirmed boxes of some
+classes back into drafts first, kept where they are, to check them again (mae, 2026-11-10: the map markers).
 """
 
 from __future__ import annotations
@@ -191,10 +193,12 @@ def _iou(a: dict, b: dict) -> float:
     return inter / union if union else 0.0
 
 
-def merge(existing: list[dict], drafts: list[dict], size: tuple[int, int]) -> list[dict]:
-    """Keep mae's boxes, replace the old drafts, skip drafts that overlap a kept box of the same class."""
+def merge(existing: list[dict], drafts: list[dict], size: tuple[int, int], keep_drafts: frozenset = frozenset()
+          ) -> list[dict]:
+    """Keep mae's boxes, replace the old drafts, skip drafts that overlap a kept box of the same class.
+    Drafts of a class in keep_drafts (boxes turned back into drafts by --redraft) are kept too."""
     kind = {c["name"]: c["kind"] for c in labels.classes()}
-    kept = [b for b in existing if not b.get("draft")]
+    kept = [b for b in existing if not b.get("draft") or b.get("cls") in keep_drafts]
     names = {b["name"] for b in kept}
     out = list(kept)
     W, H = size
@@ -226,8 +230,39 @@ def item_drafts(frame: np.ndarray, templates=None) -> list[dict]:
             for h in items.find(frame, templates=templates)]
 
 
-def run(names: Optional[set] = None, ocr: bool = False, dry_run: bool = False, with_items: bool = False) -> dict:
-    """Pre-label the reference screens. Returns {screen key: number of drafts written}."""
+def class_set(spec: str) -> frozenset:
+    """Class names from a comma list of class names and/or groups (classes.json "group"), e.g. "area_map,minimap"."""
+    want = {w.strip() for w in spec.split(",") if w.strip()}
+    cls = labels.classes()
+    got = {c["name"] for c in cls if c["name"] in want or c["group"] in want}
+    unknown = want - {c["name"] for c in cls} - {c["group"] for c in cls}
+    if unknown:
+        raise ValueError(f"not a class or group: {', '.join(sorted(unknown))}")
+    return frozenset(got)
+
+
+def redraft(classes: frozenset, dry_run: bool = False) -> dict:
+    """Turn every confirmed box of these classes back into a draft (same place and size) on every screen, so mae
+    checks them again in the labeler. Returns {screen key: boxes turned}."""
+    data = labels.load()
+    report = {}
+    for key, entry in data["screens"].items():
+        n = 0
+        for b in entry.get("boxes", []):
+            if b.get("cls") in classes and not b.get("draft"):
+                b["draft"] = True
+                n += 1
+        if n:
+            report[key] = n
+    if report and not dry_run:
+        labels.save(data)
+    return report
+
+
+def run(names: Optional[set] = None, ocr: bool = False, dry_run: bool = False, with_items: bool = False,
+        only: Optional[frozenset] = None, keep_drafts: frozenset = frozenset()) -> dict:
+    """Pre-label the reference screens. Returns {screen key: number of drafts written}.
+    only: draft just these classes (other classes' drafts are left as they are)."""
     det = None
     if ocr:
         from ..core.replay import ImageDevice
@@ -257,7 +292,11 @@ def run(names: Optional[set] = None, ocr: bool = False, dry_run: bool = False, w
             drafts += item_drafts(frame, tpl)
         key = labels.screen_key(path)
         size = (frame.shape[1], frame.shape[0])
-        boxes = merge(labels.boxes_for(key), drafts, size)
+        keep = keep_drafts
+        if only is not None:
+            drafts = [d for d in drafts if d["cls"] in only]
+            keep = keep | frozenset(b.get("cls") for b in labels.boxes_for(key) if b.get("cls") not in only)
+        boxes = merge(labels.boxes_for(key), drafts, size, keep)
         new = sum(1 for b in boxes if b.get("draft"))
         old = labels.boxes_for(key)
         if new or any(b.get("draft") for b in old):
@@ -274,9 +313,19 @@ def main(argv: list[str]) -> int:
     p.add_argument("--ocr", action="store_true", help="also box zone labels and buttons by their text (MaaFramework)")
     p.add_argument("--items", action="store_true",
                    help="also box every catalogued item/currency symbol (resource/items; ~10 s a screen)")
+    p.add_argument("--only", default="", help="draft only these classes or groups, e.g. area_map,minimap "
+                   "(drafts of other classes are left alone; mae's rejections of them are not undone)")
+    p.add_argument("--redraft", default="",
+                   help="first turn every confirmed box of these classes or groups back into a draft for re-checking")
     p.add_argument("--dry-run", action="store_true", help="count the drafts, write nothing")
     args = p.parse_args(argv)
-    report = run(set(args.names) or None, args.ocr, args.dry_run, args.items)
+    keep = frozenset()
+    if args.redraft:
+        keep = class_set(args.redraft)
+        turned = redraft(keep, args.dry_run)
+        print(f"turned back into drafts: {sum(turned.values())} box(es) on {len(turned)} screen(s)")
+    only = class_set(args.only) if args.only else None
+    report = run(set(args.names) or None, args.ocr, args.dry_run, args.items, only, keep)
     by_cls: dict[str, int] = {}
     for key in report:
         for b in labels.boxes_for(key) if not args.dry_run else []:
