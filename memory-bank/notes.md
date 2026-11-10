@@ -28,3 +28,5 @@
   [Goal: reason for running this loop]
   [End condition: when this loop ends]
   ```
+- Tooling gap (2026-11-10): `python -m sxs goto X Y` takes area-map screen pixels, not game coordinates; rules quote game coordinates.
+- Exploration rules R-065, R-130, R-146 and R-150 describe the scrapped Fog Walk (mae, 2026-11-10 23:48); the clear-zone redesign thread will rewrite them.

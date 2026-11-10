@@ -2,6 +2,10 @@
 
 Older entries moved from `memory-bank/log.md`, newest first.
 
+### 2026-11-09 · Screen labeling UI (Claude Code, cloud)
+- mae asked for a simple UI to tag screenshots by clicking areas, so the bot can learn to recognise them. New `python -m sxs labeler` (`sxs/labeler/`, stdlib HTTP server + one HTML page, 127.0.0.1 only): screens list (bank first), drag boxes, name and kind (button/text/icon/badge/region), note, "save crop as template"; screen name/folder/state/what. Saves to `docs/screens/labels.json`, crops to `resource/image/labels/<screen>/<box>.png` + manifest (`sxs/core/labels.py`), bank rows or `expected.json`; "File labelled screens" runs `label`, which now moves boxes and crops with the screen. `sxs/vision/labels.py` finds a boxed crop on a frame (`python -m sxs see labels`). `tests/check_labeler.py`.
+- Open: not run on mae's PC yet; no boxes drawn yet.
+
 ### 2026-11-09 · Zone borders, location tree, closer-zoom map survey, Cart unlock (Claude Code, mae's PC via Remote Control, offline only)
 - Branch `claude/project-thread-sesbe9` (off main d1d7339). No live run: the new code needs one (ask mae first).
 - R-132 before the crossing: `minimap.border_mask/border_tiles` find the dotted zone line on the minimap (1-2 px light grey, S < 40, V 105-200, straight runs of 12+ px with green on both sides; icon edges dropped). Border tiles are walls for `path_to_nearest` unless `cross_border`; the fog walk allows crossing only while standing outside the zone it was sent to (walking in from roam's neighbour). Tuned on `world/explore_bellflower_picked.png` (passage east of the player) and four border-free frames.

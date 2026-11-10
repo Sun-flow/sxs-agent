@@ -33,7 +33,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 
 ## Adding or changing a rule
 
-- New rule: next free ID (**next free: R-159**), under the right `##` heading of the right file, plus a row in the ID index below.
+- New rule: next free ID (**next free: R-164**), under the right `##` heading of the right file, plus a row in the ID index below.
 - Never reuse or renumber an ID. When merging a rule into another, delete it, add it to the retired table, and repoint citations.
 - Run `python3 scripts/check-rules.py`: it checks that every cited ID resolves, retired IDs aren't cited, every file is listed here, and image paths exist.
 
@@ -171,6 +171,11 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-156 | `combat.md` | Monster group cards: Challenge when the power fits |
 | R-157 | `economy.md` | Timed Packs popups are paid: dismiss with a tap below the card |
 | R-158 | `ui.md` | Walk taps keep out of the HUD; stray taps open cards to close |
+| R-159 | `overworld.md` | Gate of Elements: open it with companions' affinity |
+| R-160 | `overworld.md` | A zone's % can hide under a neighbour's label: zoom in before trusting it |
+| R-161 | `overworld.md` | A statue that isn't ready doesn't put its spot off limits |
+| R-162 | `quests.md` | Tracker OCR reads IX as "1X": normalise before comparing zone names |
+| R-163 | `overworld.md` | Zone facts, 2026-11-10 evening: VIII, Monolith Ruins I, Bubble Lake, new zones |
 
 ## Retired IDs
 
