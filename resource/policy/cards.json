@@ -176,6 +176,25 @@
             "why": "Unlocking a Goddess Statue once the area is 100% explored blesses the land (+1 Blessing Level, which feeds the Bed's AFK EXP). Free; it's the follow-up quest 'The Goddess's Grace'."
         },
         {
+            "kind": "monster_challenge",
+            "match": "Rcmd Power",
+            "choose": "^Challenge$",
+            "when": {
+                "goal": [
+                    "explore"
+                ],
+                "hp_ok": true,
+                "power_ok": true
+            },
+            "why": "A monster group's card on the map (seen 2026-11-10: 'Limpid Legion', Rcmd Power 28.5K, Current Power 28.5K, Drop Preview, Challenge). Free; fight it when our power is within the 1.25x rule (fights.py) and HP is fine: clearing monsters counts toward Explore quests."
+        },
+        {
+            "kind": "monster_challenge",
+            "match": "Rcmd Power",
+            "choose": "dismiss",
+            "why": "A monster group too strong for us (beyond the 1.25x rule), HP low, or not exploring: leave it."
+        },
+        {
             "kind": "mini_dungeon",
             "match": "(Ruins|Cave|Tower|Dungeon|Pit|Mine|Lair|Den|Fortress)$|First Clear Rewards",
             "choose": "^(Explore|Enter|Challenge)$",

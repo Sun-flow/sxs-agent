@@ -45,6 +45,17 @@ class Choice:
     why: str
 
 
+RCMD = re.compile(r"Rcmd Power:?\s*([\d.]+)\s*K.*?Current Power:?\s*([\d.]+)\s*K", re.I)
+
+
+def power_ok(card: Card) -> bool:
+    """A card showing "Rcmd Power: 28.5K (Current Power: 28.5K)" is worth fighting by the 1.25x rule (sxs/policy/
+    fights.py, mae 2026-11-04). Unreadable numbers: no."""
+    from .fights import within_reach
+    m = RCMD.search(card.title + " " + card.body)
+    return bool(m) and within_reach(float(m.group(1)), float(m.group(2)))
+
+
 class Decider:
     def __init__(self, det: StateDetector):
         self.det = det
@@ -71,6 +82,8 @@ class Decider:
             if "hp_ok" in when and ctx.hp_ok != when["hp_ok"]:
                 continue
             if not (re.search(rule["match"], card.title) or re.search(rule["match"], card.body)):
+                continue
+            if when.get("power_ok") and not power_ok(card):
                 continue
             pick = rule["choose"]
             if pick == "dismiss":
