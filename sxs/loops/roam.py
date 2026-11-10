@@ -378,6 +378,7 @@ class Roamer:
         for a in areas:
             if len(goto.squeeze(a.name)) < 5 or (kingdom and goto.squeeze(a.name) == goto.squeeze(kingdom)):
                 continue  # the kingdom title, or an OCR scrap
+            joined = not self.tree.key(a.name)
             known = self.tree.key(a.name) or self.label_prefix_zone(a.name)
             near = [k for k in self.tree.zones
                     if difflib.SequenceMatcher(None, goto.squeeze(k), goto.squeeze(a.name)).ratio() >= MISREAD_RATIO]
@@ -386,11 +387,15 @@ class Roamer:
                 # 2026-11-09), not a new zone.
                 continue
             if not known and (not NAME_RE.match(a.name) or re.search(r"Explor|%", a.name)
-                              or len(goto.squeeze(a.name)) < 7):
+                              or len(goto.squeeze(a.name)) < 7 or a.pct is None):
+                # A new zone needs its own "Exploration: N%" line under it (live 2026-11-10: "Monpiitht", an OCR
+                # misread of Monolith Ruins I, became a zone and roam walked off to explore it).
                 log.info("not adding %r to the location tree: doesn't read as a zone name", a.name)
                 continue  # live 2026-11-09: "/erdanto", "Exploratio", "ildbloom Coastdden Camp" went in
             pct = ... if a.unsure else a.pct
             z = self.tree.zones.get(known) if known else None
+            if joined and z and isinstance(pct, int) and pct < (z.get("pct") or 0):
+                pct = ...  # a joined label's % may be its neighbour's (Hidden Camp's 0% under Wildbloom's name)
             if pct is None and z and (z.get("pct") or 0) < 100:
                 # No % line read for a zone we know is unfinished: OCR drops lines, so one reading isn't proof
                 # (live 2026-11-09: Verdantglade V at 78% was declared finished). Count it; trust it the second time.
@@ -659,7 +664,15 @@ class Roamer:
             if not self._to_world():
                 return "not_on_map"
             areas, _, _ = self.survey()
-            now = next((a for a in areas if same(a.name, target.name)), None)
+            now = next((a for a in areas if same(a.name, target.name)), None) or                 next((a for a in areas if self.label_prefix_zone(a.name) == self.tree.key(target.name)
+                      and a.pct is not None), None)
+            if now is None and self.tree.get(target.name):
+                # The label wasn't read as itself (live 2026-11-10: "Wildbloom CoastHidden Camp", runs 5-7 each
+                # stopped here). A label read never ends the run: the location tree, updated by this survey, decides.
+                z = self.tree.get(target.name)
+                now = Area(target.name, [0, 0, 0, 0], None if self.tree.explored(target.name) else z.get("pct"),
+                           z.get("cp"))
+                log.info("%s's label not read as itself; using the location tree (%s%%)", target.name, z.get("pct"))
             if now is None:
                 # Label not read this time (clipped by the edge, or OCR): not evidence that it's finished.
                 # Label not read: only this run, it says nothing about the area itself.
