@@ -575,6 +575,10 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
             return tree.key(home_area) or home_area
         if tree.key(name):
             return tree.key(name)
+        if home_area and clean and goto.close_name(clean, home_area):
+            # Live 2026-11-10 (Troll Lair): the minimap read "Croll Lair", the big map's label "roILall", and the walk
+            # thought it had left. A name one OCR slip from the zone being explored (and no other zone) is that zone.
+            return tree.key(home_area) or home_area
         if name not in seen_names:
             seen_names[name] = zone_by_map(dev, det, home_area or "") or name
             if seen_names[name] != name:

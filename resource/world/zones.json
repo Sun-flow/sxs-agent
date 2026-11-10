@@ -8,11 +8,21 @@
    "blessed": true,
    "notes": "Free 4-player story dungeon (R-133); Lost Goddess Statue blessed 2026-11-05.",
    "map_point": [
-    404,
-    380
+    325,
+    544
    ],
    "last_seen": "2026-11-10",
    "entries": []
+  },
+  "Bubble Lake": {
+   "kingdom": "Verdantglade Verdant",
+   "first_seen": "2026-11-10",
+   "pct": 0,
+   "map_point": [
+    222,
+    663
+   ],
+   "last_seen": "2026-11-10"
   },
   "Damp Woods": {
    "kingdom": "Verdantglade",
@@ -42,8 +52,8 @@
    "kind": "town",
    "notes": "Town: Chief, Hermes, Carol, portal (R-134).",
    "map_point": [
-    463,
-    835
+    394,
+    733
    ],
    "last_seen": "2026-11-10",
    "entries": []
@@ -54,8 +64,8 @@
    "pct": 0,
    "cp": 23.0,
    "map_point": [
-    248,
-    4
+    176,
+    167
    ],
    "last_seen": "2026-11-10"
   },
@@ -82,8 +92,8 @@
    "pct": 100,
    "notes": "Entered past a bracketed wolf-boss pack (R-041); ground pickups by a cooking pot finish it (R-066).",
    "map_point": [
-    860,
-    354
+    485,
+    517
    ],
    "last_seen": "2026-11-10",
    "entries": []
@@ -95,8 +105,8 @@
    "pct": 100,
    "notes": "Entered from Verdantglade III (142,84) or Drasilgard (138,84). The last 7% was the Lucky Wheel (blue !): its first spin is free while the zone is unexplored (mae). Lost Goddess Statue unlocked 2026-11-10.",
    "map_point": [
-    537,
-    794
+    161,
+    956
    ],
    "last_seen": "2026-11-10",
    "entries": [
@@ -125,8 +135,8 @@
    "pct": 0,
    "cp": 25.5,
    "map_point": [
-    -217,
-    591
+    -79,
+    452
    ],
    "last_seen": "2026-11-10"
   },
@@ -135,8 +145,8 @@
    "first_seen": "2026-11-05",
    "pct": 0,
    "map_point": [
-    -78,
-    479
+    361,
+    480
    ],
    "last_seen": "2026-11-10",
    "entries": [],
@@ -153,8 +163,8 @@
    "pct": 0,
    "last_seen": "2026-11-10",
    "map_point": [
-    -77,
-    478
+    63,
+    340
    ],
    "notes": "Entered from Verdantglade VII at (88-91,106-107). 2026-11-10: walk found no objects, only the puzzle.",
    "blocked": "Box puzzle (Fonik, God of Puzzles, at about (88,104)); mae 2026-11-10: never spend Golden Beetles, skip puzzle areas until puzzles are solved in code"
@@ -165,10 +175,10 @@
    "pct": 100,
    "notes": "Dungeon gate unlocked by quest; Bellflower field at minimap (169, 94-95) (R-123).",
    "map_point": [
-    947,
-    818
+    549,
+    754
    ],
-   "last_seen": "2026-11-09",
+   "last_seen": "2026-11-10",
    "entries": []
   },
   "Rabbit Vault": {
@@ -176,8 +186,8 @@
    "first_seen": "2026-11-09",
    "pct": 0,
    "map_point": [
-    396,
-    29
+    325,
+    193
    ],
    "last_seen": "2026-11-10"
   },
@@ -186,8 +196,8 @@
    "first_seen": "2026-11-09",
    "pct": 0,
    "map_point": [
-    222,
-    418
+    149,
+    581
    ],
    "last_seen": "2026-11-10"
   },
@@ -222,14 +232,18 @@
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
    "cp": 17.0,
-   "pct": 42,
-   "notes": "Border label 'Troll Lair 17K' at a corner of its dotted line (R-132).",
+   "pct": 100,
+   "notes": "Border label 'Troll Lair 17K' at a corner of its dotted line (R-132). Really 100% (the area-map label reads Troll Lair 17K Exploration 100% under the Verdantglade IV label; OCR gives rolLall/ronLall). Lost Goddess Statue (Home EXP +1%, Battle Essence +1%) unlocked by hand 2026-11-10 at about (155,103).",
    "map_point": [
     738,
     824
    ],
    "last_seen": "2026-11-10",
-   "entries": []
+   "entries": [],
+   "failed_via": {
+    "Verdantglade IV": "2026-11-10 (fog walk no_objects)"
+   },
+   "blessed": true
   },
   "Verdantglade I": {
    "kingdom": "Verdantglade",
@@ -249,8 +263,8 @@
    "first_seen": "2026-11-04",
    "pct": 0,
    "map_point": [
-    968,
-    616
+    460,
+    918
    ],
    "last_seen": "2026-11-10",
    "entries": [],
@@ -281,6 +295,17 @@
    "pct": 100,
    "entries": []
   },
+  "Verdantglade IX": {
+   "kingdom": "Verdantglade Verdant",
+   "first_seen": "2026-11-10",
+   "pct": 0,
+   "cp": 30.0,
+   "map_point": [
+    289,
+    1133
+   ],
+   "last_seen": "2026-11-10"
+  },
   "Verdantglade V": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
@@ -298,8 +323,8 @@
     }
    ],
    "map_point": [
-    623,
-    278
+    248,
+    440
    ],
    "last_seen": "2026-11-10",
    "blessed": true
@@ -310,8 +335,8 @@
    "pct": 100,
    "failed_via": {},
    "map_point": [
-    333,
-    473
+    212,
+    368
    ],
    "last_seen": "2026-11-10",
    "entries": [
@@ -344,8 +369,8 @@
    "last_seen": "2026-11-10",
    "notes": "Main-quest zone (Explore Verdantglade VII). Next to Verdantglade VI; its Goddess Statue is at (102,113), unlocked 2026-11-10 (Blessing Lv 8). 2026-11-10: monsters there are fought from the tile beside them (a tap from afar does nothing). blocked: Value near None (no rule; dismissed) blocked: Voucher near None (no rule; dismissed)",
    "map_point": [
-    221,
-    655
+    96,
+    239
    ],
    "objectives": [
     {
@@ -367,8 +392,8 @@
    "cp": 27.0,
    "last_seen": "2026-11-10",
    "map_point": [
-    222,
-    654
+    151,
+    820
    ],
    "failed_via": {
     "Drasilgard": "2026-11-10 (fog walk stuck)"
@@ -420,8 +445,8 @@
     }
    ],
    "map_point": [
-    610,
-    54
+    236,
+    215
    ],
    "last_seen": "2026-11-10",
    "blessed": true
@@ -1484,6 +1509,26 @@
    "b": "Verdantglade VIII",
    "how": "walked",
    "note": "VII (102,110) south border; monster group guards the crossing (2026-11-10); entered Verdantglade VIII at (106, 103); entered Verdantglade VIII at (112, 93); entered Verdantglade VIII at (111, 91); entered Verdantglade VIII at (110, 85); entered Verdantglade VIII at (114, 91)"
+  },
+  {
+   "a": "Grotto Peninsula",
+   "b": "Verdantglade VII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Grotto Peninsula",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins II",
+   "b": "Verdantglade VI",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade VII",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
   }
  ],
  "gaps": [
