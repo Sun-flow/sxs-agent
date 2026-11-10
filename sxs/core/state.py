@@ -13,7 +13,9 @@ Speed (docs/vision-upgrade.md, mae 2026-11-10). Running each OCR node on its own
   their own recognition;
 - returns the last detection again when the frame has not visibly changed and less than SAME_FRAME_S passed
   (`path` "cache"): the same pixels give the same answer;
-- checks which app is in front only when the chain says unknown, or every FOREGROUND_S seconds.
+- asks the emulator which app is in front only when the chain says unknown (a crashed game shows the launcher,
+  so go_home can relaunch it). mae, 2026-11-10: no check on known screens. This is the app inside the emulator,
+  not the emulator window on the desktop.
 find(), find_all() and read_text() are unchanged: they run exactly the node they name.
 """
 
@@ -41,7 +43,6 @@ ENTRY = "State.Detect"
 NOT_RUNNING = "not_running"
 UNKNOWN = "unknown"
 SAME_FRAME_S = 2.0  # reuse the last detection for an unchanged frame at most this long
-FOREGROUND_S = 10.0  # check the foreground app at least this often (and whenever the state is unknown)
 THUMB = (45, 80)  # fingerprint size (w, h): one cell per 16x16 px of the 720x1280 frame
 CELL_DIFF, CELLS_CHANGED = 24, 3  # a frame changed when this many cells moved by more than CELL_DIFF grey levels
 
@@ -155,7 +156,6 @@ class StateDetector:
         self._last: Optional[Detection] = None
         self._last_print = None
         self._last_at = 0.0
-        self._foreground_at = -FOREGROUND_S
 
     def _ocr_specs(self) -> dict:
         """Plain OCR State nodes (no colour filter, replace or only_rec) that a strip read can answer."""
@@ -180,10 +180,6 @@ class StateDetector:
         now = time.monotonic()
         ms = lambda: int((time.perf_counter() - start) * 1000)  # noqa: E731
         foreground = None
-        if now - self._foreground_at >= FOREGROUND_S:
-            foreground = self._foreground(now)
-            if foreground != PACKAGE:
-                return Detection(NOT_RUNNING, "", foreground=foreground, elapsed_ms=ms())
         frame = self.device.screenshot()
         self._action.frame = self.last_frame = frame
         fp = fingerprint(frame)
@@ -192,11 +188,10 @@ class StateDetector:
         self.tasker.post_task(ENTRY).wait()
         hit = self._action.hit
         if hit is None:
-            if foreground is None:  # unknown: is the game still in front?
-                foreground = self._foreground(time.monotonic())
-                if foreground != PACKAGE:
-                    self.last_frame = None
-                    return Detection(NOT_RUNNING, "", foreground=foreground, elapsed_ms=ms())
+            foreground = self.device.foreground_package()  # unknown: is the game still the app in front?
+            if foreground != PACKAGE:
+                self.last_frame = None
+                return Detection(NOT_RUNNING, "", foreground=foreground, elapsed_ms=ms())
             det = Detection(UNKNOWN, "", foreground=foreground, elapsed_ms=ms(), path="node")
         elif hit[1] is None:  # answered from a strip read
             node, _, box, text = hit
@@ -211,10 +206,6 @@ class StateDetector:
                             elapsed_ms=ms(), path="node")
         self._last, self._last_print, self._last_at = det, fp, time.monotonic()
         return det
-
-    def _foreground(self, now: float) -> Optional[str]:
-        self._foreground_at = now
-        return self.device.foreground_package()
 
     def forget(self) -> None:
         """Drop the cached detection (the next detect() runs the chain even on an unchanged frame)."""

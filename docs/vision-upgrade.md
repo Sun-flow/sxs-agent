@@ -115,7 +115,7 @@ mae: "immediately implement the proposed improvements". Built in `sxs/core/state
   - Templates and the `Or` node run as before, in the same priority order, so popups still win.
 - **Unchanged frame skip (#3).** A 45x80 grey fingerprint; if fewer than 3 cells moved and under 2 s passed, the
   last detection comes back (~1 ms). The same pixels give the same answer, so this changes nothing but time.
-- **Foreground check (#7)** only when the chain says unknown, or every 10 s.
+- **Foreground check (#7)** only when the chain says unknown (mae, 2026-11-10: none on known screens). It asks which app is in front *inside the emulator*, so a crashed game (launcher showing) is still relaunched by `go_home`.
 - **`SXS_INFERENCE`** = `cpu`, `directml` or `auto` picks where OCR runs (#8). Unset keeps MaaFramework's
   default. `python -m sxs bench --inference directml` compares the two on mae's PC.
 - **`Detection.path`** says how a check was answered: `cache`, `strip` (the shared read) or `node` (own run).
