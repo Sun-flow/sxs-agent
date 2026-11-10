@@ -29,6 +29,17 @@
       89
      ],
      "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "wood_3.png",
+     "screen": "items/cart.png",
+     "box": [
+      80,
+      503,
+      84,
+      67
+     ],
+     "found_in": "Home > Cart (yield rows; icon tap shows a yield tooltip, not a card)"
     }
    ]
   },
@@ -115,6 +126,17 @@
       75
      ],
      "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "stone_4.png",
+     "screen": "items/cart.png",
+     "box": [
+      80,
+      579,
+      84,
+      65
+     ],
+     "found_in": "Home > Cart (yield rows; icon tap shows a yield tooltip, not a card)"
     }
    ]
   },
@@ -169,6 +191,17 @@
       100
      ],
      "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "raw_ore_5.png",
+     "screen": "items/cart.png",
+     "box": [
+      86,
+      648,
+      70,
+      77
+     ],
+     "found_in": "Home > Cart (yield rows; icon tap shows a yield tooltip, not a card)"
     }
    ]
   },
@@ -223,6 +256,17 @@
       70
      ],
      "found_in": "Journal > Map Exploration > Resource Hunt (gather priority choice; not tapped) [dimmed art: matched by eye to the vendor icon, not popup-read]"
+    },
+    {
+     "file": "battle_essence_5.png",
+     "screen": "items/cart.png",
+     "box": [
+      82,
+      726,
+      76,
+      71
+     ],
+     "found_in": "Home > Cart (yield rows; icon tap shows a yield tooltip, not a card)"
     }
    ]
   },
@@ -632,6 +676,17 @@
       66
      ],
      "found_in": "Menu > Quest > Daily (rewards)"
+    },
+    {
+     "file": "rolla_5.png",
+     "screen": "items/cart.png",
+     "box": [
+      84,
+      426,
+      76,
+      69
+     ],
+     "found_in": "Home > Cart (yield rows; icon tap shows a yield tooltip, not a card)"
     }
    ]
   },
@@ -961,6 +1016,17 @@
       92
      ],
      "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "rare_auroral_badge_4.png",
+     "screen": "items/vendor_booth_goals.png",
+     "box": [
+      166,
+      184,
+      76,
+      74
+     ],
+     "found_in": "Home > Vendor Booth > Goals"
     }
    ]
   },
@@ -1236,6 +1302,17 @@
       52
      ],
      "found_in": "Journal > Map Exploration > Resource Hunt (gather priority choice; not tapped) [dimmed art: matched by eye to the vendor icon, not popup-read]"
+    },
+    {
+     "file": "chrono_sand_5.png",
+     "screen": "items/cart.png",
+     "box": [
+      76,
+      883,
+      90,
+      54
+     ],
+     "found_in": "Home > Cart (yield rows; icon tap shows a yield tooltip, not a card)"
     }
    ]
   },
@@ -1278,6 +1355,17 @@
       100
      ],
      "found_in": "Home > Vendor Booth > Vault"
+    },
+    {
+     "file": "epic_auroral_badge_2.png",
+     "screen": "items/vendor_booth_goals.png",
+     "box": [
+      166,
+      352,
+      76,
+      74
+     ],
+     "found_in": "Home > Vendor Booth > Goals"
     }
    ]
   },
@@ -1299,6 +1387,48 @@
       95
      ],
      "found_in": "Home > Vendor Booth > Vault"
+    }
+   ]
+  },
+  {
+   "id": "cart_gear_yield",
+   "name": "Gear (Cart yield)",
+   "kind": "gear",
+   "description": "",
+   "uses": "Cart row with a ? icon: tooltip 'Base Gear Yield' (random gear drops), +2/h",
+   "named_by": "screen",
+   "icons": [
+    {
+     "file": "cart_gear_yield.png",
+     "screen": "items/cart.png",
+     "box": [
+      93,
+      800,
+      60,
+      74
+     ],
+     "found_in": "Home > Cart (yield rows; icon tap shows a yield tooltip, not a card)"
+    }
+   ]
+  },
+  {
+   "id": "treats",
+   "name": "Treats",
+   "kind": "other",
+   "description": "",
+   "uses": "Cart row 'Treats', unlocks at Lv. 45",
+   "named_by": "screen",
+   "icons": [
+    {
+     "file": "treats.png",
+     "screen": "items/cart.png",
+     "box": [
+      91,
+      956,
+      61,
+      66
+     ],
+     "found_in": "Home > Cart (yield rows; icon tap shows a yield tooltip, not a card)"
     }
    ]
   }

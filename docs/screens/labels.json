@@ -2248,6 +2248,25 @@
     }
    ]
   },
+  "items/cart.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "btn_claim_1",
+     "kind": "button",
+     "x": 210,
+     "y": 1068,
+     "w": 300,
+     "h": 62,
+     "note": "Cart Claim All",
+     "template": false,
+     "cls": "btn_claim"
+    }
+   ]
+  },
   "items/realm_dread_hollow.png": {
    "size": [
     720,
