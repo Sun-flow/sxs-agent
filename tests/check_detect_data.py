@@ -76,6 +76,11 @@ def check_items() -> None:
         labels.set_boxes("shops/vault.png", [
             {"name": "d", "kind": "icon", "x": 463, "y": 37, "w": 35, "h": 33, "cls": "item_icon", "item": "dawnium"},
             {"name": "e", "kind": "icon", "x": 545, "y": 523, "w": 90, "h": 102, "cls": "item_icon"}], (720, 1280))
+        check(items.add_box("shops/vault.png", "btn_close_x", [650, 20, 40, 40]) == 0
+              and labels.boxes_for("shops/vault.png")[-1]["cls"] == "btn_close_x"
+              and len(labels.boxes_for("shops/vault.png")) == 3, "items box adds a confirmed box, keeps the others")
+        check(items.add_box("shops/vault.png", "btn_nope", [10, 10, 40, 40]) == 1, "items box refuses an unknown class")
+        labels.set_boxes("shops/vault.png", labels.boxes_for("shops/vault.png")[:2], (720, 1280))
         s = dataset.export(tmp / "ds", name_ocr=False)
         yaml = (tmp / "ds" / "data.yaml").read_text()
         n = len(labels.classes())
