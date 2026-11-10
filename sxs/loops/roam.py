@@ -476,7 +476,10 @@ class Roamer:
                     self.tree.save()
                 return None
             log.info("the walk to %s's label ended in %s; trying a connected area", target.name, now or "?")
-        done = [a for a in areas if a.pct is None and not a.unsure and not same(a.name, target.name)]
+        # Only zones the location tree knows, explored (live 2026-11-10: the kingdom's title "Verdantglade" and a
+        # clipped "Verdant" were picked as the neighbour to walk in from).
+        done = [a for a in areas if a.pct is None and not a.unsure and not same(a.name, target.name)
+                and self.tree.key(a.name) and self.tree.explored(a.name)]
         if not done:
             goto.go_to(self.dev, self.det, target.name)
             return None

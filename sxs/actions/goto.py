@@ -111,8 +111,9 @@ def _widen(dev) -> bool:
     """A label wasn't on the area map: it opens centred on the camera, so a far area can sit off screen (seen
     2026-11-04: from Moonveil Woods, Verdantglade II and Damp Woods were cut off). Zoom out one step and let the
     labels settle, then the caller reads again. Returns True when it tried."""
-    dev.tap(*AREA_MAP_ZOOM_OUT)
-    time.sleep(1.5)
+    # One "-" wasn't enough (live 2026-11-10: Damp Woods never showed from Jungle Camp): the survey zoom shows the
+    # whole kingdom with readable labels.
+    survey_zoom(dev)
     return True
 
 

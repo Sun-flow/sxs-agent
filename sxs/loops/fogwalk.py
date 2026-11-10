@@ -624,7 +624,10 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                         log.info("area-map walk to the nearest %s: %s", "/".join(kinds), why)
                         if why == "no_target" and free and not goto.same_area(goto.area_name_here(det), home_area):
                             log.info("no object found from outside %s; walking back first", home_area)
-                            goto.go_to(dev, det, home_area)
+                            back = goto.go_to(dev, det, home_area)
+                            if back != "arrived":
+                                log.warning("STUCK %s: can't walk back into it (%s)", home_area, back)
+                                return "not_in_zone"
                             continue
                         if why == "no_target" and free and not objects_done:
                             # Nothing left on the minimap or the big map for this zone: what's left is under fog
@@ -768,5 +771,5 @@ def _run(ctx, opts):
 
 
 # Ends that mean the area ran out of things to do, not that something went wrong.
-OK = {"no_fog", "timeout", "power_gate", "stuck", "no_objects", "object_unreachable", "zone_done"}
+OK = {"no_fog", "timeout", "power_gate", "stuck", "no_objects", "object_unreachable", "zone_done", "not_in_zone"}
 LOOP = Loop("fogwalk", "Fog Walk", "explore one side area: minimap targets, then the fog edge", _run, _args, ok=OK)
