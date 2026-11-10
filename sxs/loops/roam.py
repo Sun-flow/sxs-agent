@@ -93,6 +93,9 @@ class Area:
         return ui.centre(self.box)
 
 
+NO_ENTRANCE = Area("__no_entrance__", [0, 0, 0, 0])  # approach(): the zone has no entrance to walk to
+
+
 def same(a: str, b: str) -> bool:
     """Area names from two area-map readings. Labels near the edge come back clipped on the left ("tglade III"
     for "Verdantglade III"), so a suffix of 6+ letters also counts; trailing numerals must still agree."""
@@ -489,6 +492,10 @@ class Roamer:
             progress(("entrance", target.name))
             why = goto.go_to(self.dev, self.det, self.entrance_picker(target.name), pan_for_target=True)
             log.info("walk to %s's entrance (explored ground nearest it): %s", target.name, why)
+            if why == "no_target" and not self.tree.neighbours(target.name, ("walked",)):
+                # R-150: no entrance on the map and no known way in: don't wander toward it.
+                self.give_up(target.name, "no entrance found on the big map and no known way in")
+                return NO_ENTRANCE
             if why == "arrived":
                 # The entrance is on the neighbour's ground: the fog walk may stand there and cross into the target
                 # (live 2026-11-10: without this it "went back" to Wildbloom Coast by a big-map jump at once).
@@ -655,6 +662,9 @@ class Roamer:
                 return "exploration_concluded" if why == "no_fog" else "all_explored"
             log.info("exploring %s (%s%%, %sK)", target.name, target.pct, target.gate)
             via = self.approach(areas, target)
+            if via is NO_ENTRANCE:
+                log.info("skipping %s for now: no entrance found (R-150)", target.name)
+                continue
             left = (deadline - time.monotonic()) / 60
             why = fogwalk.walk(self.dev, self.det, minutes=min(walk_minutes, max(1.0, left)), area=target.name,
                                allowed={via.name} if via else None, walk_there=False)

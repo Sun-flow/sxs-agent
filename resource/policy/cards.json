@@ -112,6 +112,12 @@
             "why": "Live 2026-11-09 (Verdantglade V, Statue of Lunar Sage): Visit is free, gives a permanent stat boost (HP +170), heals fully and counts toward exploration."
         },
         {
+            "kind": "sealed_gate",
+            "match": "^Sealed Stone Gate$",
+            "choose": "^Unlock$",
+            "why": "Live 2026-11-10: the gate between Verdantglade V and VI opens free once its requirement is met (Reach the Apprentice II rank). With the requirement unmet there is no Unlock button and the card is dismissed. Opening it started Explore Verdantglade VI (0 -> 3%)."
+        },
+        {
             "kind": "lucky_wheel",
             "match": "Wheel of Destiny|All items have an equal drop rate",
             "choose": "dismiss",
