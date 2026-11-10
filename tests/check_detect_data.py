@@ -96,14 +96,15 @@ def check_items() -> None:
         s = dataset.export(tmp / "ds", name_ocr=False)
         yaml = (tmp / "ds" / "data.yaml").read_text()
         n = len(labels.classes())
+        icon = [c["name"] for c in labels.classes()].index("item_icon")
         lab = (tmp / "ds" / dataset.split_of("shops/vault.png") / "labels" / "shops_vault.txt").read_text().split("\n")
         got = sorted(int(ln.split()[0]) for ln in lab if ln)
-        check("item_dawnium" in yaml and got == sorted([n, n - 1]),
+        check("item_dawnium" in yaml and got == sorted([n, icon]),
               "--items each: item_<id> classes after the fixed ones; an unnamed item box stays item_icon")
         dataset.export(tmp / "ds1", name_ocr=False, items="one")
         lab1 = (tmp / "ds1" / dataset.split_of("shops/vault.png") / "labels" / "shops_vault.txt").read_text()
         check("item_dawnium" not in (tmp / "ds1" / "data.yaml").read_text()
-              and {int(ln.split()[0]) for ln in lab1.split("\n") if ln} == {n - 1}, "--items one: all item_icon")
+              and {int(ln.split()[0]) for ln in lab1.split("\n") if ln} == {icon}, "--items one: all item_icon")
         check(s["classes"].get("item_dawnium") == 1, "summary counts item classes")
         d = items.load()
         d["aliases"] = {"old_beetle": "unknown_1"}
