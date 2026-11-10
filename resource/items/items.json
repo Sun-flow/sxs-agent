@@ -105,6 +105,39 @@
       63
      ],
      "found_in": "Journal > Fantasia Ascent > Moonveil Woods (floor rewards)"
+    },
+    {
+     "file": "stellatie_6.png",
+     "screen": "items/growth_trial.png",
+     "box": [
+      106,
+      306,
+      68,
+      58
+     ],
+     "found_in": "Thrilling Events > Growth Trial"
+    },
+    {
+     "file": "stellatie_7.png",
+     "screen": "items/growth_trial.png",
+     "box": [
+      366,
+      306,
+      68,
+      58
+     ],
+     "found_in": "Thrilling Events > Growth Trial"
+    },
+    {
+     "file": "stellatie_8.png",
+     "screen": "items/growth_trial_2.png",
+     "box": [
+      276,
+      934,
+      68,
+      68
+     ],
+     "found_in": "Thrilling Events > Growth Trial"
     }
    ]
   },
@@ -1148,6 +1181,17 @@
       84
      ],
      "found_in": "Guild > Shop"
+    },
+    {
+     "file": "rare_auroral_badge_6.png",
+     "screen": "items/growth_trial.png",
+     "box": [
+      453,
+      306,
+      67,
+      58
+     ],
+     "found_in": "Thrilling Events > Growth Trial"
     }
    ]
   },
@@ -1666,6 +1710,17 @@
       100
      ],
      "found_in": "Guild > Shop"
+    },
+    {
+     "file": "bond_trinket_2.png",
+     "screen": "items/growth_trial.png",
+     "box": [
+      540,
+      306,
+      68,
+      58
+     ],
+     "found_in": "Thrilling Events > Growth Trial"
     }
    ]
   },
@@ -1909,6 +1964,185 @@
       96
      ],
      "found_in": "Guild > Shop > T3 Livestock Selection Chest card (contents)"
+    }
+   ]
+  },
+  {
+   "id": "random_class_i_skill_chest",
+   "name": "Random Class I Skill Chest",
+   "kind": "gift",
+   "description": "Open it to get a random Class I Legendary skill for your current class. Randomly receive 1 of the following items",
+   "uses": "Skill chest (8 Legendary Class I skills shown in its card)",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "random_class_i_skill_chest.png",
+     "screen": "items/growth_trial.png",
+     "box": [
+      192,
+      306,
+      68,
+      58
+     ],
+     "found_in": "Thrilling Events > Growth Trial"
+    }
+   ]
+  },
+  {
+   "id": "random_legendary_relic_chest_verdant",
+   "name": "Random Legendary Relic Chest - Verdant",
+   "kind": "gift",
+   "description": "Open it to get a random Legendary Relic from Verdantglade. Randomly receive 1 of the following items",
+   "uses": "Relic chest (12 Legendary Verdantglade relics shown in its card)",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "random_legendary_relic_chest_verdant.png",
+     "screen": "items/growth_trial.png",
+     "box": [
+      280,
+      306,
+      68,
+      58
+     ],
+     "found_in": "Thrilling Events > Growth Trial"
+    }
+   ]
+  },
+  {
+   "id": "legendary_fantomon_selection_chest",
+   "name": "Legendary Fantomon Selection Chest",
+   "kind": "gift",
+   "description": "Open it to get a Legendary Fantomon of your choice. Choose 1 of the following items",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "legendary_fantomon_selection_chest.png",
+     "screen": "items/growth_trial.png",
+     "box": [
+      626,
+      296,
+      68,
+      68
+     ],
+     "found_in": "Thrilling Events > Growth Trial"
+    }
+   ]
+  },
+  {
+   "id": "abundance_leaf",
+   "name": "Abundance Leaf",
+   "kind": "currency",
+   "description": "Exchange them for items with the Verdantglade merchant. Dancing leaves used as currency by the Dryasons.",
+   "uses": "Sources: Commission",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "abundance_leaf.png",
+     "screen": "items/growth_trial_2.png",
+     "box": [
+      276,
+      591,
+      68,
+      67
+     ],
+     "found_in": "Thrilling Events > Growth Trial"
+    }
+   ]
+  },
+  {
+   "id": "t2_stone_casket",
+   "name": "T2 Stone Casket",
+   "kind": "gift",
+   "description": "Use it to get 210 stones. Provides essential wood for cart repairs. Receive the following items",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "t2_stone_casket.png",
+     "screen": "items/growth_trial_2.png",
+     "box": [
+      276,
+      762,
+      68,
+      68
+     ],
+     "found_in": "Thrilling Events > Growth Trial"
+    }
+   ]
+  },
+  {
+   "id": "t2_wood_casket",
+   "name": "T2 Wood Casket",
+   "kind": "gift",
+   "description": "Use it to get 210 wood. Provides essential wood for cart repairs. Receive the following items",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "t2_wood_casket.png",
+     "screen": "items/growth_trial_3.png",
+     "box": [
+      362,
+      934,
+      68,
+      68
+     ],
+     "found_in": "Thrilling Events > Growth Trial"
+    }
+   ]
+  },
+  {
+   "id": "t2_rolla_casket",
+   "name": "T2 Rolla Casket",
+   "kind": "gift",
+   "description": "Use it to get 4200 Rollas. Even a small caskey of Rollas can be a great aid. Receive the following items",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "t2_rolla_casket.png",
+     "screen": "items/growth_trial_3.png",
+     "box": [
+      276,
+      1104,
+      68,
+      66
+     ],
+     "found_in": "Thrilling Events > Growth Trial"
+    }
+   ]
+  },
+  {
+   "id": "unknown_1",
+   "name": "",
+   "kind": "other",
+   "description": "",
+   "uses": "Growth Trial points coin (the 40 on the track; quests give 10-15)",
+   "named_by": "",
+   "icons": [
+    {
+     "file": "unknown_1.png",
+     "screen": "items/growth_trial.png",
+     "box": [
+      28,
+      354,
+      56,
+      60
+     ],
+     "found_in": "Thrilling Events > Growth Trial (points track; no card when tapped)"
+    },
+    {
+     "file": "unknown_1_2.png",
+     "screen": "items/growth_trial.png",
+     "box": [
+      54,
+      558,
+      104,
+      104
+     ],
+     "found_in": "Thrilling Events > Growth Trial (quest points)"
     }
    ]
   }
