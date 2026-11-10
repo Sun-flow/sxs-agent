@@ -83,7 +83,7 @@
    "name": "btn_quick_heal",
    "group": "buttons",
    "kind": "button",
-   "about": "Top-left portrait (Quick Heal, R-078)"
+   "about": "The \"Quick Heal\" button on the 'badly wounded' dialog (combat.md), not the HUD portrait (that is anchor_hud_portrait; tapping it also heals, R-078)"
   },
   {
    "name": "badge_red_bang",
@@ -258,6 +258,12 @@
    "group": "items",
    "kind": "icon",
    "about": "An item, material or currency symbol from resource/items (box field item names which)"
+  },
+  {
+   "name": "btn_price",
+   "group": "buttons",
+   "kind": "button",
+   "about": "Yellow price button that spends money or Dawnium (USD packs, Mall, Vendor Booth Vault, purchase prompts): never tap (mae, 2026-11-10); never label these btn_primary"
   }
  ]
 }
