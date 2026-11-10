@@ -33,7 +33,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 
 ## Adding or changing a rule
 
-- New rule: next free ID (**next free: R-155**), under the right `##` heading of the right file, plus a row in the ID index below.
+- New rule: next free ID (**next free: R-159**), under the right `##` heading of the right file, plus a row in the ID index below.
 - Never reuse or renumber an ID. When merging a rule into another, delete it, add it to the retired table, and repoint citations.
 - Run `python3 scripts/check-rules.py`: it checks that every cited ID resolves, retired IDs aren't cited, every file is listed here, and image paths exist.
 
@@ -167,6 +167,10 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-152 | `overworld.md` | A Portal sits under the Verdantglade VI label on the big map |
 | R-153 | `overworld.md` | Puzzle areas: skip them for now; never spend Golden Beetles |
 | R-154 | `ui.md` | Identify every unrecognized item or currency symbol |
+| R-155 | `overworld.md` | Map objects and monsters start only from a tap on them from the next tile |
+| R-156 | `combat.md` | Monster group cards: Challenge when the power fits |
+| R-157 | `economy.md` | Timed Packs popups are paid: dismiss with a tap below the card |
+| R-158 | `ui.md` | Walk taps keep out of the HUD; stray taps open cards to close |
 
 ## Retired IDs
 

@@ -17,6 +17,7 @@ Read before pressing any button that might spend, and on any class, social, acco
 - **"Tap to spin"** on a Lucky Wheel / Wheel of Destiny, except its one free first spin while the zone is below 100% and no cost shows (mae) (R-147). **"Create Guild"** (R-102); **Link Account** or anything account-related (R-096).
 
 **Never do:**
+- **Timed Packs** popups (e.g. "Exploration Kit", $0.99): dismiss with a tap below the card (R-157). **Replace** on a charm card (R-158).
 - **Spend a Golden Beetle** (it skips a puzzle); puzzle areas are skipped for now (mae) (R-153).
 - **A 3rd guild donation in a day** (R-103).
 - **Choose a class or press "Change Class"**: mae's call (R-054, R-117).
