@@ -39,3 +39,4 @@ Then run `python -m sxs label`. Each row that has a State moves into its folder 
 | `lost_goddess_statue_auroradrasil.png` | | | | Lost Goddess Statue card (Auroradrasil 100%): Unlock, rewards Home EXP/Stone Yield +1% |
 | `lost_goddess_statue_blessed.png` | | | | After Unlock: Divine Power Awakens, Tap to Continue |
 | `area_map_statue_badge_auroradrasil.png` | | | | Area map: small statue icon with red "!" in Auroradrasil (find_badges misses this size); gold ore "!" in Verdantglade V |
+| `exploration_kit_pack.png` | | | | Paid pack popup "Exploration Kit" ($0.99, Value 700%), opened by the Timed Packs HUD button; never buy, close by a tap below the card (360, 1120) |
