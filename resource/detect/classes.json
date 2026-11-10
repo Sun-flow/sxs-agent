@@ -83,7 +83,7 @@
    "name": "btn_quick_heal",
    "group": "buttons",
    "kind": "button",
-   "about": "Top-left portrait (Quick Heal, R-078)"
+   "about": "The \"Quick Heal\" button on the 'badly wounded' dialog (combat.md), not the HUD portrait (that is anchor_hud_portrait; tapping it also heals, R-078)"
   },
   {
    "name": "badge_red_bang",

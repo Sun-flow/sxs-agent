@@ -1,4 +1,7 @@
 {
+ "aliases": {
+  "unknown_1": "growth_trial_points"
+ },
  "items": [
   {
    "id": "wood",

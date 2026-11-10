@@ -42,6 +42,18 @@ def point_at(tmp: Path) -> None:
     items.ITEMS_FILE, items.ICONS = items.ITEMS_DIR / "items.json", items.ITEMS_DIR / "icons"
 
 
+def check_splits() -> None:
+    keys = {f"s/{i}.png": {"a"} for i in range(12)}
+    keys.update({"s/x.png": {"a", "b"}, "s/y.png": {"b"}, "s/z.png": {"b"}, "s/w.png": {"c"}, "s/v.png": {"c"}})
+    sp = dataset.balanced_splits(keys)
+    for c in ("a", "b"):
+        got = {sp[k] for k, cs in keys.items() if c in cs}
+        check({"train", "valid", "test"} <= got, f"balanced split: class {c} in train, valid and test ({sorted(got)})")
+    check(sp == dataset.balanced_splits(dict(reversed(list(keys.items())))), "balanced split is deterministic")
+    check({sp["s/w.png"], sp["s/v.png"]} == {dataset.split_of("s/w.png"), dataset.split_of("s/v.png")},
+          "a class on 2 screens keeps its hash split")
+
+
 def check_items() -> None:
     real = items.load()["items"]
     check(len(real) >= 10 and all(items.ID.match(i["id"]) and i["kind"] in items.KINDS and i["icons"] for i in real),
@@ -93,12 +105,19 @@ def check_items() -> None:
         check("item_dawnium" not in (tmp / "ds1" / "data.yaml").read_text()
               and {int(ln.split()[0]) for ln in lab1.split("\n") if ln} == {n - 1}, "--items one: all item_icon")
         check(s["classes"].get("item_dawnium") == 1, "summary counts item classes")
+        d = items.load()
+        d["aliases"] = {"old_beetle": "unknown_1"}
+        items.save(d)
+        good, probs = labels.clean_boxes([{"name": "z", "kind": "icon", "x": 5, "y": 5, "w": 20, "h": 20,
+                                           "cls": "item_icon", "item": "old_beetle"}], (720, 1280))
+        check(good[0].get("item") == "unknown_1" and not probs, "an aliased (renamed) item id resolves to the new id")
         sg = dataset.export(tmp / "dsg", name_ocr=False, items="group")
         check(sg["classes"].get("item_currency") == 1, "--items group: one class per material type (kind when no group)")
 
 
 def main() -> int:
     check_items()
+    check_splits()
     cls = labels.classes()
     names = [c["name"] for c in cls]
     check(len(names) == len(set(names)) and len(names) >= 30, f"{len(names)} unique detector classes")
