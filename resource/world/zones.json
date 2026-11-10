@@ -8,8 +8,8 @@
    "blessed": true,
    "notes": "Free 4-player story dungeon (R-133); Lost Goddess Statue blessed 2026-11-05.",
    "map_point": [
-    663,
-    923
+    497,
+    875
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -21,8 +21,8 @@
    "pct": 100,
    "notes": "15.5 is the Gate of Power inside (R-086), not an area-map gate. An area-map walk to its label from Verdantglade II lands at about (184, 86); items behind the gate finish it. 2026-11-10: walked in at (184,82); no object, no fog edge, label shows no % line: taken as explored.",
    "map_point": [
-    732,
-    782
+    1134,
+    1008
    ],
    "last_seen": "2026-11-09",
    "entries": [
@@ -42,19 +42,30 @@
    "kind": "town",
    "notes": "Town: Chief, Hermes, Carol, portal (R-134).",
    "map_point": [
-    736,
-    533
+    566,
+    1061
    ],
    "last_seen": "2026-11-09",
    "entries": []
+  },
+  "Grotto Peninsula": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-09",
+   "pct": 0,
+   "cp": 23.0,
+   "map_point": [
+    347,
+    499
+   ],
+   "last_seen": "2026-11-09"
   },
   "Hidden Camp": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
    "pct": 0,
    "map_point": [
-    597,
-    339
+    1033,
+    588
    ],
    "last_seen": "2026-11-09",
    "entries": [],
@@ -71,8 +82,8 @@
    "pct": 100,
    "notes": "Entered past a bracketed wolf-boss pack (R-041); ground pickups by a cooking pot finish it (R-066).",
    "map_point": [
-    1128,
-    322
+    578,
+    629
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -84,8 +95,8 @@
    "pct": 100,
    "notes": "Entered from Verdantglade III (142,84) or Drasilgard (138,84). The last 7% was the Lucky Wheel (blue !): its first spin is free while the zone is unexplored (mae). Lost Goddess Statue unlocked 2026-11-10.",
    "map_point": [
-    499,
-    1079
+    943,
+    1288
    ],
    "last_seen": "2026-11-09",
    "entries": [
@@ -113,8 +124,8 @@
    "first_seen": "2026-11-05",
    "pct": 0,
    "map_point": [
-    188,
-    766
+    328,
+    974
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -125,8 +136,8 @@
    "pct": 100,
    "notes": "Dungeon gate unlocked by quest; Bellflower field at minimap (169, 94-95) (R-123).",
    "map_point": [
-    1191,
-    560
+    947,
+    818
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -136,8 +147,8 @@
    "first_seen": "2026-11-09",
    "pct": 0,
    "map_point": [
-    359,
-    313
+    496,
+    522
    ],
    "last_seen": "2026-11-09"
   },
@@ -146,8 +157,8 @@
    "first_seen": "2026-11-09",
    "pct": 0,
    "map_point": [
-    184,
-    703
+    321,
+    912
    ],
    "last_seen": "2026-11-09"
   },
@@ -185,8 +196,8 @@
    "pct": 42,
    "notes": "Border label 'Troll Lair 17K' at a corner of its dotted line (R-132).",
    "map_point": [
-    1005,
-    1096
+    1145,
+    1049
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -197,8 +208,8 @@
    "pct": 100,
    "notes": "Area quests done.",
    "map_point": [
-    582,
-    565
+    1083,
+    482
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -208,8 +219,8 @@
    "first_seen": "2026-11-04",
    "pct": 100,
    "map_point": [
-    911,
-    714
+    1086,
+    782
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -221,8 +232,8 @@
    "pct": 100,
    "notes": "No way in on foot from Moonveil Woods (fog south of about (168, 94) never moves); entered with the quest's Go travel (R-084, R-089).",
    "map_point": [
-    1104,
-    722
+    553,
+    1027
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -232,8 +243,8 @@
    "first_seen": "2026-11-04",
    "notes": "Area quests done; % not read since.",
    "map_point": [
-    551,
-    1049
+    1078,
+    1086
    ],
    "last_seen": "2026-11-09",
    "pct": 100,
@@ -256,8 +267,8 @@
     }
    ],
    "map_point": [
-    584,
-    564
+    1028,
+    773
    ],
    "last_seen": "2026-11-09",
    "blessed": true
@@ -265,13 +276,11 @@
   "Verdantglade VI": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
-   "pct": 87,
-   "failed_via": {
-    "Auroradrasil": "2026-11-09 (fog walk no_fog)"
-   },
+   "pct": 100,
+   "failed_via": {},
    "map_point": [
-    247,
-    490
+    384,
+    700
    ],
    "last_seen": "2026-11-09",
    "entries": [
@@ -282,10 +291,19 @@
       135,
       126
      ]
+    },
+    {
+     "via": "Auroradrasil",
+     "day": "2026-11-09",
+     "xy": [
+      118,
+      130
+     ]
     }
    ],
    "notes": "(was blocked: Sealed Stone Gate, opened 2026-11-10) near None (no rule; dismissed) blocked: Mage near None (no rule; dismissed)",
-   "dismissed_spots": []
+   "dismissed_spots": [],
+   "blessed": true
   },
   "Wildbloom Coast": {
    "kingdom": "Verdantglade",
@@ -303,8 +321,8 @@
     }
    ],
    "map_point": [
-    577,
-    340
+    1012,
+    588
    ],
    "last_seen": "2026-11-09",
    "blessed": true
@@ -315,8 +333,8 @@
    "pct": 0,
    "notes": "Its border label runs sideways along a vertical dotted line, no power shown (R-132).",
    "map_point": [
-    1031,
-    986
+    1155,
+    938
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -382,7 +400,8 @@
   {
    "a": "Auroradrasil",
    "b": "Verdantglade VI",
-   "how": "map_adjacent"
+   "how": "walked",
+   "note": "entered Verdantglade VI at (118, 130)"
   },
   {
    "a": "Damp Woods",
@@ -1072,6 +1091,26 @@
   {
    "a": "Monolith Ruins I",
    "b": "Stagnant Jungle",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Stagnant Jungle",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Highland Woods",
+   "b": "Rabbit Vault",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Rabbit Vault",
+   "b": "Grotto Peninsula",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Stagnant Jungle",
+   "b": "Verdantglade III",
    "how": "map_adjacent"
   }
  ],
