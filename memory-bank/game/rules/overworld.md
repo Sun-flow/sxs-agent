@@ -75,7 +75,7 @@ Templates in `resource/image/explore/`:
 - Never judge the zone from assumptions about the surroundings.
 - Check before and after any zone-level decision (finishing, crossing, choosing the next zone).
 - Known misread to watch for: at Verdantglade VI's gate the minimap read "Verdantglade VI" and the bot walked into Auroradrasil; cross-check with the big map when a zone-level decision depends on it.
-- Code: `fogwalk.zone_by_map` keeps the minimap name unless the big-map dot is clearly elsewhere (the dot's nearest label wins only with a 0.75 margin over the next). Clipped minimap reads ("erdantglade") and joined big-map labels ("…CoastHidden Camp") count as the home zone when they contain its name (never as walk targets, R-068).
+- Code: `fogwalk.zone_by_map` keeps the minimap name unless the big-map dot is clearly elsewhere (the dot's nearest label wins only with a 0.75 margin over the next). Clipped minimap reads ("erdantglade") count as the home zone when they contain its name. A joined big-map label ("Wildbloom CoastHidden Camp") counts for the zone it starts with, and its % never lowers that zone's value; an unclean label never ends a run, the location tree decides (it ended runs 5–7 early). Joined labels are never walk targets (R-068).
 *told, observed* · node `area_map` · R-004, R-068, R-132, R-135
 
 ### R-004 · Minimap and coordinates give relative positions
@@ -138,11 +138,13 @@ At home, tapping the tracker for a quest elsewhere asks "Travel to <Area> now?";
 - Unfinished areas show "Exploration: N%" and any power gate ("12K") under the label; finished ones show only the name. Gates seen: Highland Woods 9.6K, Verdantglade III 12K. Skip areas gated above your power (R-084).
 - Lost Statue icon: `resource/image/areamap/lost_statue.png` at 0.8.
 - The legend's search pill opens a filter panel (Trial Stone, Portal, Statue, … Select All). A second minimap tap while the map is opening can hit it; a tap on the map below the panel closes it (`goto.open_area_map` handles this).
+- Chests show as a small yellow chest icon (reference `icons/area_map_chest.png`); walking onto one opens it. Wildbloom Coast's gave Abundance Leaf ×60, Rolla 2.5K, Stellatie ×2, a hat, Refined Ore ×33, Raw Ore ×213 (2026-11-10).
+- The location tree adds a new zone only when its own "Exploration: N%" line is read under the name (OCR junk like "Monpiitht", "Friend Request", "Expletatio" was removed).
 - Detection (`State.AreaMap`) accepts any of the first legend lines: a zone label showing through the translucent legend can break a single "Lost Statue" match (`world/area_map_legend_overlap.png`).
 - Edge labels are clipped on the left ("tglade III"); `sxs/loops/roam.py` accepts a 6+ letter suffix with matching numerals.
 - Survey (code: `sxs/loops/roam.py`): zoom out fully (OCR merges labels and drops % there), then drag the zoom slider from (682, 1090) to (682, 1030) for one step closer; the "+" button jumps straight to the closest zoom, so don't use it. Read a 3×3 grid of slow 300 px pans, merging readings by name; the grid runs only when no zone with work left is in view. Some labels sit off-screen even at survey zoom (Damp Woods): pan to find them. Never tap area-map points below y≈1080 (back arrow and kingdom buttons): pan first. A stray tap on the big map once opened the Class page (2026-11-10): back out and re-open the map. Reference `world/area_map_survey_zoom.png`.
 - A 100% area with a red "!" probably has its statue waiting ❓. Sunrise Isle is at the bottom right of the Verdantglade map; its % isn't read ❓.
-*observed* · `world/world_area_map.png`, `world/area_map_lv22.png`, `world/area_map_survey_zoom.png`, `world/area_map_legend_overlap.png` · node `area_map` · R-068, R-070, R-084, R-086
+*observed* · `world/world_area_map.png`, `world/area_map_lv22.png`, `world/area_map_survey_zoom.png`, `world/area_map_legend_overlap.png`, `icons/area_map_chest.png` · node `area_map` · R-068, R-070, R-084, R-086
 
 ## Power walls and gates
 
@@ -161,7 +163,7 @@ A stone pillar card "Gate of Power": "Requires: Power reaches 15.5K (Current: 8.
 *observed* · `world/gate_of_power.png`, `world/gate_of_power_open.png` · R-065, R-070, R-084
 
 ### R-145 · Sealed Stone Gate: dismiss for now
-A gold "!" structure on Verdantglade V's north edge at about (135, 126) opens a "Sealed Stone Gate" card that can only be dismissed. It is **not** V's Goddess Statue (that is a separate gold statue, R-070). What opens it is unknown ❓ (asked mae).
+A gold "!" structure on Verdantglade V's north edge at about (135, 126) opens a "Sealed Stone Gate" card that can only be dismissed. It is **not** V's Goddess Statue (that is a separate gold statue, R-070). What opens it is unknown ❓ (asked mae). Another sits near (142, 149) on the Wildbloom Coast / Verdantglade VI side, where the minimap reads Verdantglade VI.
 *observed* · R-030, R-070, R-086
 
 ## Map objects and statues
@@ -169,7 +171,7 @@ A gold "!" structure on Verdantglade V's north edge at about (135, 126) opens a 
 ### R-030 · Map objects open a card with one action
 Tapping a map object (e.g. a Portal) opens a card with one button at (0.5, 0.70), e.g. "Activate"; using it adds Explore progress. Press only safe verbs: Activate, Collect, Claim, Open, Interact, Bless, Pray, Gather, Harvest, Mine, Examine, Read. **This never covers the Prayer gacha's Pray (R-093) or any spend button (R-043).** Card choices: R-042.
 - Unknown cards seen, dismissed until understood ❓: "Limpid Legion" in Drasilgard (R-134). "Boulder Blockade" is a barrier (R-151).
-- Spots whose card could only be dismissed (a statue not yet blessable, a gate, the Lucky Wheel after its free spin, Rankings) are saved per zone as `dismissed_spots` in the location tree and skipped on later runs.
+- Spots whose card could only be dismissed (a statue not yet blessable, a gate, the Lucky Wheel after its free spin, Rankings) are saved per zone as `dismissed_spots` in the location tree and skipped on later runs. Skip only that spot, never every structure (skipping all of them once made the bot walk past Wildbloom's chest).
 *observed* · `world/interact_portal.png` · node `interact` · R-042, R-043
 
 ### R-070 · Goddess Statues bless a fully explored area
