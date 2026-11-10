@@ -258,6 +258,12 @@
    "group": "items",
    "kind": "icon",
    "about": "An item, material or currency symbol from resource/items (box field item names which)"
+  },
+  {
+   "name": "btn_price",
+   "group": "buttons",
+   "kind": "button",
+   "about": "Yellow price button that spends money or Dawnium (USD packs, Mall, Vendor Booth Vault, purchase prompts): never tap (mae, 2026-11-10); never label these btn_primary"
   }
  ]
 }
