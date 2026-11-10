@@ -107,7 +107,7 @@ def tighten(img, box: list[int], thr: int = 45) -> list[int]:
 
 
 def add(item_id: str, screen: str, box: list[int], name: str = "", kind: str = "other", desc: str = "",
-        named_by: str = "", uses: str = "", tight: bool = False, found_in: str = "") -> dict:
+        named_by: str = "", uses: str = "", tight: bool = False, found_in: str = "", group: str = "") -> dict:
     """Crop `box` from docs/screens/<screen> into the catalogue, creating the item or adding a sighting.
     item_id "unknown" makes a new unknown_N. Fields given replace empty ones on an existing item."""
     import cv2
@@ -133,9 +133,11 @@ def add(item_id: str, screen: str, box: list[int], name: str = "", kind: str = "
     if it is None:
         it = {"id": item_id, "name": name, "kind": kind, "description": desc, "uses": uses, "named_by": named_by,
               "icons": []}
+        if group:
+            it["group"] = group
         data["items"].append(it)
     else:
-        for k, v in (("name", name), ("description", desc), ("uses", uses), ("named_by", named_by)):
+        for k, v in (("name", name), ("description", desc), ("uses", uses), ("named_by", named_by), ("group", group)):
             if v and not it.get(k):
                 it[k] = v
         if kind != "other" and it.get("kind") in ("", "other"):
@@ -255,6 +257,7 @@ def main(argv: list[str]) -> int:
     a.add_argument("--desc", default="", help="the popup's description, word for word")
     a.add_argument("--uses", default="", help="our note: what it is for")
     a.add_argument("--named-by", default="", choices=[n for n in NAMED_BY if n])
+    a.add_argument("--group", default="", help="finer material type, e.g. ore, realm_key (reuse existing ones)")
     a.add_argument("--found-in", default="", help='menu path, e.g. "Home > Vendor Booth > Vault"')
     a.add_argument("--tight", action="store_true", help="shrink the box to the symbol")
     f = sub.add_parser("find", help="match catalogued symbols on reference screens")
@@ -272,7 +275,7 @@ def main(argv: list[str]) -> int:
         return add_box(args.screen, args.cls, args.box, args.item, args.name, args.note)
     if args.cmd == "add":
         it = add(args.id, args.screen, args.box, args.name, args.kind, args.desc, args.named_by, args.uses,
-                 args.tight, args.found_in)
+                 args.tight, args.found_in, args.group)
         ic = it["icons"][-1]
         print(f"{it['id']}: {it['name'] or '(unnamed)'} · {it['kind']} · icon {ic['file']} {ic['box']}")
         return 0
@@ -295,7 +298,7 @@ def main(argv: list[str]) -> int:
         return 0
     items = sorted(load()["items"], key=lambda i: (not i.get("name"), i["kind"], i["id"]))
     for it in items:
-        print(f"{it['id']:<24} {it.get('name') or '(unnamed)':<24} {it['kind']:<11} "
+        print(f"{it['id']:<24} {it.get('name') or '(unnamed)':<24} {it['kind']:<11} {it.get('group', '-'):<18} "
               f"{it.get('named_by') or '-':<7} {len(it['icons'])} icon(s)  {it.get('uses', '')}")
     print(f"{len(items)} item(s); {sum(1 for i in items if not i.get('name'))} unnamed; "
           f"{sum(1 for i in items if i.get('named_by') != 'popup')} without a popup read")
