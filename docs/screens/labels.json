@@ -1715,8 +1715,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stamina",
-     "draft": true
+     "item": "stamina"
     },
     {
      "name": "rolla_1",
@@ -1728,8 +1727,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
+     "item": "rolla"
     },
     {
      "name": "dawnium_1",
@@ -1741,8 +1739,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     },
     {
      "name": "sand_shovel_1",
@@ -1754,8 +1751,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "sand_shovel",
-     "draft": true
+     "item": "sand_shovel"
     },
     {
      "name": "dawnium_2",
@@ -1767,8 +1763,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     },
     {
      "name": "stellatie_1",
@@ -1780,8 +1775,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stellatie_2",
@@ -1793,8 +1787,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "rare_auroral_badge_1",
@@ -1806,8 +1799,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rare_auroral_badge",
-     "draft": true
+     "item": "rare_auroral_badge"
     },
     {
      "name": "dawnium_3",
@@ -1819,8 +1811,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     },
     {
      "name": "dawnium_4",
@@ -1832,8 +1823,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     },
     {
      "name": "dawnium_5",
@@ -1845,8 +1835,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     },
     {
      "name": "worn_knuckles_1",
@@ -1858,8 +1847,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "worn_knuckles",
-     "draft": true
+     "item": "worn_knuckles"
     },
     {
      "name": "gold_pickaxe_1",
@@ -1871,8 +1859,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "gold_pickaxe",
-     "draft": true
+     "item": "gold_pickaxe"
     },
     {
      "name": "iron_hammer_1",
@@ -1884,8 +1871,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "iron_hammer",
-     "draft": true
+     "item": "iron_hammer"
     },
     {
      "name": "dawnium_6",
@@ -1897,8 +1883,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     }
    ]
   },
@@ -1929,8 +1914,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stellatie_2",
@@ -1942,8 +1926,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stellatie_3",
@@ -1955,8 +1938,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stellatie_4",
@@ -1968,8 +1950,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stellatie_5",
@@ -1981,8 +1962,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stellatie_6",
@@ -1994,8 +1974,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stellatie_7",
@@ -2007,8 +1986,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stellatie_8",
@@ -2020,8 +1998,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stellatie_9",
@@ -2033,8 +2010,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stellatie_10",
@@ -2046,8 +2022,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stellatie_11",
@@ -2059,8 +2034,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stellatie_12",
@@ -2072,8 +2046,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stellatie_13",
@@ -2085,8 +2058,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stellatie_14",
@@ -2098,8 +2070,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stellatie_15",
@@ -2111,8 +2082,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stellatie_16",
@@ -2124,8 +2094,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stellatie_17",
@@ -2137,8 +2106,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     }
    ]
   },
@@ -2158,8 +2126,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stellatie_2",
@@ -2171,8 +2138,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stellatie_3",
@@ -2184,8 +2150,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stellatie_4",
@@ -2197,8 +2162,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stellatie_5",
@@ -2210,8 +2174,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stellatie_6",
@@ -2221,10 +2184,9 @@
      "w": 73,
      "h": 77,
      "note": "pre-labelled (item matcher)",
-     "template": false,
+     "template": true,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     }
    ]
   },
@@ -2266,8 +2228,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
+     "item": "raw_ore"
     },
     {
      "name": "raw_ore_2",
@@ -2279,8 +2240,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
+     "item": "raw_ore"
     },
     {
      "name": "refined_ore_1",
@@ -2292,8 +2252,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "refined_ore",
-     "draft": true
+     "item": "refined_ore"
     },
     {
      "name": "refined_ore_2",
@@ -2305,8 +2264,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "refined_ore",
-     "draft": true
+     "item": "refined_ore"
     },
     {
      "name": "gold_pickaxe_1",
@@ -2318,8 +2276,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "gold_pickaxe",
-     "draft": true
+     "item": "gold_pickaxe"
     },
     {
      "name": "worn_knuckles_1",
@@ -2331,8 +2288,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "worn_knuckles",
-     "draft": true
+     "item": "worn_knuckles"
     },
     {
      "name": "refined_ore_3",
@@ -2344,8 +2300,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "refined_ore",
-     "draft": true
+     "item": "refined_ore"
     },
     {
      "name": "raw_ore_3",
@@ -2357,8 +2312,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
+     "item": "raw_ore"
     },
     {
      "name": "raw_ore_4",
@@ -2370,8 +2324,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
+     "item": "raw_ore"
     },
     {
      "name": "refined_ore_4",
@@ -2383,8 +2336,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "refined_ore",
-     "draft": true
+     "item": "refined_ore"
     },
     {
      "name": "refined_ore_5",
@@ -2396,8 +2348,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "refined_ore",
-     "draft": true
+     "item": "refined_ore"
     },
     {
      "name": "raw_ore_5",
@@ -2409,8 +2360,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
+     "item": "raw_ore"
     },
     {
      "name": "raw_ore_6",
@@ -2422,8 +2372,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
+     "item": "raw_ore"
     },
     {
      "name": "stellatie_1",
@@ -2435,8 +2384,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "refined_ore_6",
@@ -2448,8 +2396,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "refined_ore",
-     "draft": true
+     "item": "refined_ore"
     },
     {
      "name": "worn_knuckles_2",
@@ -2461,8 +2408,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "worn_knuckles",
-     "draft": true
+     "item": "worn_knuckles"
     },
     {
      "name": "worn_knuckles_3",
@@ -2474,8 +2420,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "worn_knuckles",
-     "draft": true
+     "item": "worn_knuckles"
     },
     {
      "name": "worn_knuckles_4",
@@ -2487,8 +2432,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "worn_knuckles",
-     "draft": true
+     "item": "worn_knuckles"
     }
    ]
   },
@@ -2519,8 +2463,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "refined_ore",
-     "draft": true
+     "item": "refined_ore"
     },
     {
      "name": "refined_ore_2",
@@ -2532,8 +2475,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "refined_ore",
-     "draft": true
+     "item": "refined_ore"
     },
     {
      "name": "raw_ore_1",
@@ -2545,8 +2487,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
+     "item": "raw_ore"
     },
     {
      "name": "raw_ore_2",
@@ -2558,8 +2499,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
+     "item": "raw_ore"
     },
     {
      "name": "refined_ore_3",
@@ -2571,8 +2511,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "refined_ore",
-     "draft": true
+     "item": "refined_ore"
     },
     {
      "name": "stellatie_1",
@@ -2584,8 +2523,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "refined_ore_4",
@@ -2597,8 +2535,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "refined_ore",
-     "draft": true
+     "item": "refined_ore"
     },
     {
      "name": "raw_ore_3",
@@ -2610,8 +2547,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
+     "item": "raw_ore"
     },
     {
      "name": "raw_ore_4",
@@ -2623,8 +2559,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
+     "item": "raw_ore"
     },
     {
      "name": "raw_ore_5",
@@ -2636,8 +2571,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
+     "item": "raw_ore"
     },
     {
      "name": "refined_ore_5",
@@ -2649,8 +2583,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "refined_ore",
-     "draft": true
+     "item": "refined_ore"
     }
    ]
   },
@@ -2703,8 +2636,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
+     "item": "raw_ore"
     },
     {
      "name": "refined_ore_1",
@@ -2716,8 +2648,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "refined_ore",
-     "draft": true
+     "item": "refined_ore"
     },
     {
      "name": "gold_pickaxe_1",
@@ -2729,8 +2660,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "gold_pickaxe",
-     "draft": true
+     "item": "gold_pickaxe"
     },
     {
      "name": "raw_ore_2",
@@ -2742,8 +2672,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
+     "item": "raw_ore"
     },
     {
      "name": "refined_ore_2",
@@ -2755,8 +2684,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "refined_ore",
-     "draft": true
+     "item": "refined_ore"
     },
     {
      "name": "refined_ore_3",
@@ -2768,8 +2696,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "refined_ore",
-     "draft": true
+     "item": "refined_ore"
     },
     {
      "name": "refined_ore_4",
@@ -2781,8 +2708,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "refined_ore",
-     "draft": true
+     "item": "refined_ore"
     },
     {
      "name": "refined_ore_5",
@@ -2794,8 +2720,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "refined_ore",
-     "draft": true
+     "item": "refined_ore"
     },
     {
      "name": "stellatie_1",
@@ -2807,8 +2732,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "raw_ore_3",
@@ -2820,8 +2744,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
+     "item": "raw_ore"
     },
     {
      "name": "raw_ore_4",
@@ -2833,8 +2756,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
+     "item": "raw_ore"
     },
     {
      "name": "gold_pickaxe_2",
@@ -2846,8 +2768,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "gold_pickaxe",
-     "draft": true
+     "item": "gold_pickaxe"
     },
     {
      "name": "gold_pickaxe_3",
@@ -2859,8 +2780,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "gold_pickaxe",
-     "draft": true
+     "item": "gold_pickaxe"
     },
     {
      "name": "raw_ore_5",
@@ -2872,8 +2792,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
+     "item": "raw_ore"
     },
     {
      "name": "gold_pickaxe_4",
@@ -2885,8 +2804,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "gold_pickaxe",
-     "draft": true
+     "item": "gold_pickaxe"
     }
    ]
   },
@@ -2969,8 +2887,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "abundance_leaf",
-     "draft": true
+     "item": "abundance_leaf"
     },
     {
      "name": "stellatie_1",
@@ -2982,8 +2899,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stellatie_2",
@@ -2995,8 +2911,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "random_class_i_skill_chest_1",
@@ -3008,8 +2923,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "random_class_i_skill_chest",
-     "draft": true
+     "item": "random_class_i_skill_chest"
     },
     {
      "name": "rare_auroral_badge_1",
@@ -3021,8 +2935,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rare_auroral_badge",
-     "draft": true
+     "item": "rare_auroral_badge"
     },
     {
      "name": "random_legendary_relic_chest_verdant_1",
@@ -3034,8 +2947,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "random_legendary_relic_chest_verdant",
-     "draft": true
+     "item": "random_legendary_relic_chest_verdant"
     },
     {
      "name": "bond_trinket_1",
@@ -3047,8 +2959,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "bond_trinket",
-     "draft": true
+     "item": "bond_trinket"
     },
     {
      "name": "growth_trial_points_1",
@@ -3060,8 +2971,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "growth_trial_points",
-     "draft": true
+     "item": "growth_trial_points"
     },
     {
      "name": "growth_trial_points_2",
@@ -3073,8 +2983,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "growth_trial_points",
-     "draft": true
+     "item": "growth_trial_points"
     },
     {
      "name": "growth_trial_points_3",
@@ -3086,8 +2995,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "growth_trial_points",
-     "draft": true
+     "item": "growth_trial_points"
     },
     {
      "name": "stellatie_3",
@@ -3099,8 +3007,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stellatie_4",
@@ -3112,8 +3019,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stellatie_5",
@@ -3125,8 +3031,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "t2_rolla_casket_1",
@@ -3138,8 +3043,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "t2_rolla_casket",
-     "draft": true
+     "item": "t2_rolla_casket"
     },
     {
      "name": "t3_battle_essence_casket_1",
@@ -3151,8 +3055,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "t3_battle_essence_casket",
-     "draft": true
+     "item": "t3_battle_essence_casket"
     },
     {
      "name": "legendary_fantomon_selection_chest_1",
@@ -3164,8 +3067,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "legendary_fantomon_selection_chest",
-     "draft": true
+     "item": "legendary_fantomon_selection_chest"
     },
     {
      "name": "t2_stone_casket_1",
@@ -3177,8 +3079,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "t2_stone_casket",
-     "draft": true
+     "item": "t2_stone_casket"
     },
     {
      "name": "growth_trial_points_4",
@@ -3190,8 +3091,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "growth_trial_points",
-     "draft": true
+     "item": "growth_trial_points"
     },
     {
      "name": "stellatie_6",
@@ -3203,8 +3103,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "dawnium_1",
@@ -3216,8 +3115,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     },
     {
      "name": "growth_trial_points_5",
@@ -3229,8 +3127,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "growth_trial_points",
-     "draft": true
+     "item": "growth_trial_points"
     }
    ]
   },
@@ -3280,8 +3177,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     },
     {
      "name": "dawnium_2",
@@ -3293,8 +3189,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     },
     {
      "name": "rolla_1",
@@ -3306,8 +3201,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
+     "item": "rolla"
     }
    ]
   },
@@ -3346,8 +3240,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "water_shot",
-     "draft": true
+     "item": "water_shot"
     },
     {
      "name": "ice_spike_1",
@@ -3359,8 +3252,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "ice_spike",
-     "draft": true
+     "item": "ice_spike"
     }
    ]
   },
@@ -3402,8 +3294,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stamina",
-     "draft": true
+     "item": "stamina"
     },
     {
      "name": "dawnium_1",
@@ -3415,8 +3306,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     }
    ]
   },
@@ -3521,8 +3411,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     }
    ]
   },
@@ -3586,8 +3475,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     }
    ]
   },
@@ -3684,8 +3572,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "bond_trinket",
-     "draft": true
+     "item": "bond_trinket"
     },
     {
      "name": "bond_trinket_2",
@@ -3697,8 +3584,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "bond_trinket",
-     "draft": true
+     "item": "bond_trinket"
     },
     {
      "name": "bond_trinket_3",
@@ -3710,8 +3596,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "bond_trinket",
-     "draft": true
+     "item": "bond_trinket"
     },
     {
      "name": "bond_trinket_4",
@@ -3723,8 +3608,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "bond_trinket",
-     "draft": true
+     "item": "bond_trinket"
     },
     {
      "name": "bond_trinket_5",
@@ -3736,8 +3620,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "bond_trinket",
-     "draft": true
+     "item": "bond_trinket"
     }
    ]
   },
@@ -3768,8 +3651,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "bond_trinket",
-     "draft": true
+     "item": "bond_trinket"
     },
     {
      "name": "bond_trinket_2",
@@ -3781,8 +3663,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "bond_trinket",
-     "draft": true
+     "item": "bond_trinket"
     },
     {
      "name": "bond_trinket_3",
@@ -3794,8 +3675,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "bond_trinket",
-     "draft": true
+     "item": "bond_trinket"
     },
     {
      "name": "bond_trinket_4",
@@ -3807,8 +3687,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "bond_trinket",
-     "draft": true
+     "item": "bond_trinket"
     },
     {
      "name": "bond_trinket_5",
@@ -3820,8 +3699,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "bond_trinket",
-     "draft": true
+     "item": "bond_trinket"
     }
    ]
   },
@@ -3841,8 +3719,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     }
    ]
   },
@@ -3862,8 +3739,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     }
    ]
   },
@@ -4030,8 +3906,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "cart_gear_yield",
-     "draft": true
+     "item": "cart_gear_yield"
     },
     {
      "name": "raw_ore_1",
@@ -4043,8 +3918,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
+     "item": "raw_ore"
     },
     {
      "name": "rolla_1",
@@ -4056,8 +3930,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
+     "item": "rolla"
     }
    ]
   },
@@ -4088,99 +3961,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
-    },
-    {
-     "name": "raw_ore_1",
-     "kind": "icon",
-     "x": 529,
-     "y": 583,
-     "w": 53,
-     "h": 51,
-     "note": "pre-labelled (item matcher)",
-     "template": false,
-     "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
-    },
-    {
-     "name": "raw_ore_2",
-     "kind": "icon",
-     "x": 529,
-     "y": 632,
-     "w": 53,
-     "h": 51,
-     "note": "pre-labelled (item matcher)",
-     "template": false,
-     "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
-    },
-    {
-     "name": "raw_ore_3",
-     "kind": "icon",
-     "x": 316,
-     "y": 486,
-     "w": 53,
-     "h": 51,
-     "note": "pre-labelled (item matcher)",
-     "template": false,
-     "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
-    },
-    {
-     "name": "raw_ore_4",
-     "kind": "icon",
-     "x": 316,
-     "y": 740,
-     "w": 53,
-     "h": 51,
-     "note": "pre-labelled (item matcher)",
-     "template": false,
-     "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
-    },
-    {
-     "name": "raw_ore_5",
-     "kind": "icon",
-     "x": 316,
-     "y": 788,
-     "w": 53,
-     "h": 51,
-     "note": "pre-labelled (item matcher)",
-     "template": false,
-     "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
-    },
-    {
-     "name": "raw_ore_6",
-     "kind": "icon",
-     "x": 529,
-     "y": 680,
-     "w": 53,
-     "h": 51,
-     "note": "pre-labelled (item matcher)",
-     "template": false,
-     "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
-    },
-    {
-     "name": "raw_ore_7",
-     "kind": "icon",
-     "x": 529,
-     "y": 534,
-     "w": 53,
-     "h": 51,
-     "note": "pre-labelled (item matcher)",
-     "template": false,
-     "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
+     "item": "rolla"
     }
    ]
   },
@@ -4211,8 +3992,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
+     "item": "raw_ore"
     },
     {
      "name": "battle_essence_1",
@@ -4224,8 +4004,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "battle_essence",
-     "draft": true
+     "item": "battle_essence"
     },
     {
      "name": "rolla_1",
@@ -4237,8 +4016,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
+     "item": "rolla"
     },
     {
      "name": "cart_gear_yield_1",
@@ -4250,8 +4028,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "cart_gear_yield",
-     "draft": true
+     "item": "cart_gear_yield"
     },
     {
      "name": "treats_1",
@@ -4263,8 +4040,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "treats",
-     "draft": true
+     "item": "treats"
     },
     {
      "name": "wood_1",
@@ -4276,8 +4052,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "wood",
-     "draft": true
+     "item": "wood"
     },
     {
      "name": "stone_1",
@@ -4289,8 +4064,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stone",
-     "draft": true
+     "item": "stone"
     }
    ]
   },
@@ -4332,8 +4106,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stamina",
-     "draft": true
+     "item": "stamina"
     },
     {
      "name": "dawnium_1",
@@ -4345,8 +4118,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     }
    ]
   },
@@ -4410,8 +4182,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stamina",
-     "draft": true
+     "item": "stamina"
     },
     {
      "name": "dawnium_1",
@@ -4423,8 +4194,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     }
    ]
   },
@@ -4444,8 +4214,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     },
     {
      "name": "stamina_1",
@@ -4457,8 +4226,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stamina",
-     "draft": true
+     "item": "stamina"
     },
     {
      "name": "rolla_1",
@@ -4470,8 +4238,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
+     "item": "rolla"
     }
    ]
   },
@@ -4502,8 +4269,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stamina",
-     "draft": true
+     "item": "stamina"
     }
    ]
   },
@@ -4608,8 +4374,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     }
    ]
   },
@@ -4692,8 +4457,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     }
    ]
   },
@@ -4724,8 +4488,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     }
    ]
   },
@@ -6815,8 +6578,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "iron_hammer",
-     "draft": true
+     "item": "iron_hammer"
     },
     {
      "name": "dawnium_1",
@@ -6828,8 +6590,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     }
    ]
   },
@@ -7025,8 +6786,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
+     "item": "rolla"
     }
    ]
   },
@@ -7200,8 +6960,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
+     "item": "rolla"
     }
    ]
   },
@@ -7426,94 +7185,6 @@
      "cls": "map_building"
     },
     {
-     "name": "map_building_3",
-     "kind": "icon",
-     "x": 34,
-     "y": 419,
-     "w": 19,
-     "h": 24,
-     "note": "pre-labelled",
-     "template": false,
-     "cls": "map_building"
-    },
-    {
-     "name": "map_building_4",
-     "kind": "icon",
-     "x": 127,
-     "y": 419,
-     "w": 17,
-     "h": 24,
-     "note": "pre-labelled",
-     "template": false,
-     "cls": "map_building"
-    },
-    {
-     "name": "map_building_5",
-     "kind": "icon",
-     "x": 49,
-     "y": 425,
-     "w": 14,
-     "h": 18,
-     "note": "pre-labelled",
-     "template": false,
-     "cls": "map_building"
-    },
-    {
-     "name": "map_building_6",
-     "kind": "icon",
-     "x": 58,
-     "y": 425,
-     "w": 16,
-     "h": 18,
-     "note": "pre-labelled",
-     "template": false,
-     "cls": "map_building"
-    },
-    {
-     "name": "map_building_7",
-     "kind": "icon",
-     "x": 70,
-     "y": 425,
-     "w": 15,
-     "h": 18,
-     "note": "pre-labelled",
-     "template": false,
-     "cls": "map_building"
-    },
-    {
-     "name": "map_building_8",
-     "kind": "icon",
-     "x": 93,
-     "y": 425,
-     "w": 17,
-     "h": 24,
-     "note": "pre-labelled",
-     "template": false,
-     "cls": "map_building"
-    },
-    {
-     "name": "map_building_9",
-     "kind": "icon",
-     "x": 105,
-     "y": 425,
-     "w": 17,
-     "h": 18,
-     "note": "pre-labelled",
-     "template": false,
-     "cls": "map_building"
-    },
-    {
-     "name": "map_building_10",
-     "kind": "icon",
-     "x": 118,
-     "y": 425,
-     "w": 14,
-     "h": 18,
-     "note": "pre-labelled",
-     "template": false,
-     "cls": "map_building"
-    },
-    {
      "name": "map_player_1",
      "kind": "icon",
      "x": 354,
@@ -7534,19 +7205,6 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_area_map_legend"
-    },
-    {
-     "name": "rolla_1",
-     "kind": "icon",
-     "x": 669,
-     "y": 942,
-     "w": 28,
-     "h": 26,
-     "note": "pre-labelled (item matcher)",
-     "template": false,
-     "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
     }
    ]
   },
@@ -7588,8 +7246,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stamina",
-     "draft": true
+     "item": "stamina"
     }
    ]
   },
@@ -7609,8 +7266,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stamina",
-     "draft": true
+     "item": "stamina"
     },
     {
      "name": "stellatie_1",
@@ -7622,8 +7278,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     }
    ]
   },
@@ -7643,8 +7298,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
+     "item": "rolla"
     },
     {
      "name": "dawnium_1",
@@ -7656,8 +7310,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     },
     {
      "name": "stellatie_1",
@@ -7669,8 +7322,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     }
    ]
   },
@@ -7745,8 +7397,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stamina",
-     "draft": true
+     "item": "stamina"
     },
     {
      "name": "stellatie_1",
@@ -7758,8 +7409,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     }
    ]
   },
@@ -7834,8 +7484,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stamina",
-     "draft": true
+     "item": "stamina"
     },
     {
      "name": "stellatie_1",
@@ -7847,8 +7496,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     }
    ]
   },
@@ -7923,8 +7571,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stamina",
-     "draft": true
+     "item": "stamina"
     },
     {
      "name": "stellatie_1",
@@ -7936,8 +7583,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     }
    ]
   },
@@ -8012,8 +7658,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stamina_1",
@@ -8025,8 +7670,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stamina",
-     "draft": true
+     "item": "stamina"
     }
    ]
   },
@@ -8134,8 +7778,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stamina_1",
@@ -8147,8 +7790,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stamina",
-     "draft": true
+     "item": "stamina"
     }
    ]
   },
@@ -8245,8 +7887,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stellatie",
-     "draft": true
+     "item": "stellatie"
     },
     {
      "name": "stamina_1",
@@ -8258,8 +7899,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stamina",
-     "draft": true
+     "item": "stamina"
     }
    ]
   },
@@ -8279,8 +7919,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
+     "item": "rolla"
     },
     {
      "name": "dawnium_1",
@@ -8292,8 +7931,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     }
    ]
   },
@@ -8313,8 +7951,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     },
     {
      "name": "rolla_1",
@@ -8326,8 +7963,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
+     "item": "rolla"
     }
    ]
   },
@@ -8347,8 +7983,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     },
     {
      "name": "rolla_1",
@@ -8360,8 +7995,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
+     "item": "rolla"
     }
    ]
   },
@@ -8381,8 +8015,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "dawnium",
-     "draft": true
+     "item": "dawnium"
     },
     {
      "name": "rolla_1",
@@ -8394,8 +8027,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
+     "item": "rolla"
     }
    ]
   },
@@ -8426,8 +8058,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
+     "item": "raw_ore"
     },
     {
      "name": "iron_hammer_1",
@@ -8439,8 +8070,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "iron_hammer",
-     "draft": true
+     "item": "iron_hammer"
     }
    ]
   },
@@ -8471,8 +8101,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "raw_ore",
-     "draft": true
+     "item": "raw_ore"
     },
     {
      "name": "chrono_sand_1",
@@ -8484,8 +8113,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "chrono_sand",
-     "draft": true
+     "item": "chrono_sand"
     },
     {
      "name": "battle_essence_1",
@@ -8497,8 +8125,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "battle_essence",
-     "draft": true
+     "item": "battle_essence"
     },
     {
      "name": "rolla_1",
@@ -8510,8 +8137,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
+     "item": "rolla"
     }
    ]
   },
@@ -8533,45 +8159,12 @@
      "cls": "map_monster"
     },
     {
-     "name": "map_monster_10",
-     "kind": "icon",
-     "x": 446,
-     "y": 850,
-     "w": 20,
-     "h": 20,
-     "note": "pre-labelled",
-     "template": false,
-     "cls": "map_monster"
-    },
-    {
-     "name": "map_monster_11",
-     "kind": "icon",
-     "x": 495,
-     "y": 866,
-     "w": 19,
-     "h": 19,
-     "note": "pre-labelled",
-     "template": false,
-     "cls": "map_monster"
-    },
-    {
      "name": "map_monster_12",
      "kind": "icon",
      "x": 468,
      "y": 870,
      "w": 19,
      "h": 13,
-     "note": "pre-labelled",
-     "template": false,
-     "cls": "map_monster"
-    },
-    {
-     "name": "map_monster_13",
-     "kind": "icon",
-     "x": 482,
-     "y": 872,
-     "w": 11,
-     "h": 10,
      "note": "pre-labelled",
      "template": false,
      "cls": "map_monster"
@@ -8597,19 +8190,6 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_area_map_legend"
-    },
-    {
-     "name": "rolla_1",
-     "kind": "icon",
-     "x": 669,
-     "y": 942,
-     "w": 28,
-     "h": 26,
-     "note": "pre-labelled (item matcher)",
-     "template": false,
-     "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
     }
    ]
   },
@@ -8706,19 +8286,6 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_area_map_legend"
-    },
-    {
-     "name": "rolla_1",
-     "kind": "icon",
-     "x": 669,
-     "y": 942,
-     "w": 28,
-     "h": 26,
-     "note": "pre-labelled (item matcher)",
-     "template": false,
-     "cls": "item_icon",
-     "item": "rolla",
-     "draft": true
     }
    ]
   },
@@ -8927,8 +8494,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stamina",
-     "draft": true
+     "item": "stamina"
     }
    ]
   },
@@ -8992,8 +8558,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stamina",
-     "draft": true
+     "item": "stamina"
     }
    ]
   },
@@ -9057,8 +8622,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stamina",
-     "draft": true
+     "item": "stamina"
     }
    ]
   },
@@ -9309,8 +8873,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stamina",
-     "draft": true
+     "item": "stamina"
     }
    ]
   },
@@ -9341,8 +8904,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stamina",
-     "draft": true
+     "item": "stamina"
     }
    ]
   },
@@ -9406,8 +8968,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stamina",
-     "draft": true
+     "item": "stamina"
     }
    ]
   },
@@ -9482,8 +9043,7 @@
      "note": "pre-labelled (item matcher)",
      "template": false,
      "cls": "item_icon",
-     "item": "stamina",
-     "draft": true
+     "item": "stamina"
     }
    ]
   }

@@ -2,6 +2,21 @@
  "tag": "labeled screen regions",
  "entries": [
   {
+   "screen": "daily_signin_received",
+   "box": "stellatie_6",
+   "kind": "icon",
+   "roi": [
+    451,
+    889,
+    73,
+    77
+   ],
+   "template": "labels/daily_signin_received/stellatie_6.png",
+   "source": "dailies/daily_signin_received.png",
+   "note": "pre-labelled (item matcher)",
+   "date": "2026-11-10"
+  },
+  {
    "screen": "explore_resource_tracker2",
    "box": "badge_gold_ring_1",
    "kind": "badge",
