@@ -1,7 +1,12 @@
 # Session Log
 
-> **Last updated**: 2026-11-09
+> **Last updated**: 2026-11-10
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
+
+### 2026-11-10 · Vision upgrade assessment (Claude Code, cloud)
+- mae asked how screen checks work and whether a Roboflow/YOLO UI detector would help. New `docs/vision-upgrade.md`. Measured offline (cloud CPU, reference screens): a check is up to 52 OCR nodes in sequence, ~60-110 ms each and 330-560 ms for the big ROIs (MainMenu, TapToContinue, ClassPage); world map ~2.8 s, unknown ~5.5 s, late pages ~7 s; template nodes 3-11 ms; all 53 sampled screens correct. 14 nodes OCR the same title strip.
+- Proposal for mae to approve: a bench command on her PC, shared title/tab strip reads, last-state-first with an overlay guard, unchanged-frame skip, foreground check only on unknown, tighter big ROIs, try DirectML. Detector (YOLO26n or Apache RF-DETR Nano via MaaFramework `NeuralNetworkDetect`) is stage 3-5: for finding cards, buttons, map icons, our marker, label boxes; not for %/CP text or minimap dots.
+- Open: mae's approval of Part 1; numbers on her PC.
 
 ### 2026-11-09 · Loop diagrams (Claude Code, cloud)
 - mae asked for the decision flow in a human-readable, editable form. New `docs/loops/`: one page per loop (runner and interrupts, daily, explore, roam, fogwalk, gather, cart, upgrade and strengthen, gearswap, tower, guild, small loops) with goal, end condition, ok statuses, numbered Mermaid flowcharts of the step and check order, sub-loops called, and per-screen actions; `states.md` maps every detector state to the loops that act on it and to `go_home`; all 27 diagrams render (mermaid-cli).
@@ -64,9 +69,3 @@
 
 ### 2026-11-04 (evening) · Game docs: fight odds, exploration kinds, gear replace, short loops (Claude Code, cloud)
 - mae: take fights against up to 25% more CP (new R-127); two exploration kinds, quest-progression and fog-walking (R-065); a gear "!" means replace, as its own task (R-088); loops run 1-2 min with progress-based exits (`memory-bank/notes.md`). Merged main after the restructure (#30).
-
-### 2026-11-04 (evening) · Package restructure and loop contract (Claude Code, cloud)
-- mae approved structural proposals 1–5 (21:25). Branch `claude/project-thread-kb6hi9` from main: `sxs/` is now `core/` (device, state, nav, replay, marks, paths, `ui.py` coordinates, `loop.py` contract), `vision/` (ocr, hp, hud, player, tracker, pickups, gift, badges, minimap), `policy/` (decide, claims), `actions/` (heal, rewards, goto, common pass-through, watchdog, unstick, camera), `loops/` (one module per loop, REGISTRY in `__init__.py`). `explore.py` became an `Explorer` class with one method per screen. Every loop exposes `LOOP` and runs as `python -m sxs <loop>`, logs `[Result X] status` and prints one JSON readout. `scripts/explore.py` renamed `scripts/probe.py`. New `tests/check_loops.py`; `tests/check_repo.py` flags the old `python -m sxs.X` form. Bellflower reference moved to `docs/screens/icons/`. Spending safeguards unchanged (pray gates now return `refused: ...`, exit 2).
-- mae's go on screenshots (21:42): `docs/screens/` split into home, character, world, battle, dailies, guild, shops, dialogs, system (plus icons, minimap); the detector test's EXPECTED moved to `docs/screens/expected.json`; new `sxs/core/screens.py`; `python -m sxs bank` copies `captures/unknown/` into `docs/screens/unlabeled/` with a row each, and `python -m sxs label` files the rows mae fills in. The 9 unreferenced screens start the bank. About 200 references rewritten; `tests/check_repo.py` fails on a screen left at the top level or a missing `docs/screens/...png`.
-- mae's short-run rule (21:45): the runner now stops every loop at its budget (120 s default, `--budget`) and on 60 s without progress (`--stall`, fed by `progress()` from the Heartbeat and the collector); daily gives each step its own 120 s `task()`. `--minutes` defaults lowered to 2 in explore, fogwalk, roam, tower and gather.
-- Open: live shakedown (thread "Test the restructured bot live"); mae labels the bank.

@@ -1,6 +1,6 @@
 # Status
 
-> **Last updated**: 2026-11-09
+> **Last updated**: 2026-11-10
 > Where the work stands now. Past sessions: `log.md`. How a builder works: `playbook.md`.
 
 ## Game state (2026-11-05 05:05Z, mae's PC)
@@ -35,6 +35,8 @@ Format: `- what — branch, PR, environment (started)`. Remove the line when it 
 - Zone borders, location tree, closer-zoom survey, Cart unlock (mae, 2026-11-09) — `claude/project-thread-sesbe9`, folded into PR #43, offline-tested only. First live run: `python -m sxs roam --max-areas 1` (check the survey log line lists % for the far zones, `python -m sxs zones` after), then `python -m sxs cart --max 0` (presses the free Chrono Sand Unlock, no upgrades). Commit `resource/world/zones.json` after live runs: it is the bot's map.
 
 - Loop diagrams (mae, 2026-11-09): `docs/loops/` has a Mermaid page per loop, a screen-by-screen table and `docs/loops/open-questions.md` (15 places where code, rules and mae's asks disagree; mae's 2026-11-09 answers applied: blue-pip gear enhance trigger, gather fights guards, `get_stronger` for explore, one tower climb a day from any loop, tutorial stops on class choices; none run live yet) — `claude/project-thread-aqcucg`, PR pending, cloud. Follow-up proposed in `docs/loops/README.md`: per-loop flow specs the loops read, so the diagrams become the source of truth.
+
+- Vision upgrade assessment (mae, 2026-11-10): `docs/vision-upgrade.md` explains the screen check and its measured costs, proposes no-ML speed-ups (bench on mae's PC, shared strip reads, last-state-first, frame skip, foreground check on unknown) and a staged YOLO/RF-DETR detector path — `claude/project-thread-wuht8i`, PR pending, cloud. Waiting on mae's approval of Part 1.
 
 ## Next (in order)
 
