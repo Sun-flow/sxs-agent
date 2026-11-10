@@ -8,8 +8,8 @@
    "blessed": true,
    "notes": "Free 4-player story dungeon (R-133); Lost Goddess Statue blessed 2026-11-05.",
    "map_point": [
-    326,
-    864
+    125,
+    825
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -21,8 +21,8 @@
    "pct": 100,
    "notes": "15.5 is the Gate of Power inside (R-086), not an area-map gate. An area-map walk to its label from Verdantglade II lands at about (184, 86); items behind the gate finish it. 2026-11-10: walked in at (184,82); no object, no fog edge, label shows no % line: taken as explored.",
    "map_point": [
-    1038,
-    1266
+    1161,
+    1268
    ],
    "last_seen": "2026-11-09",
    "entries": [
@@ -42,8 +42,8 @@
    "kind": "town",
    "notes": "Town: Chief, Hermes, Carol, portal (R-134).",
    "map_point": [
-    73,
-    1052
+    516,
+    1053
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -82,8 +82,8 @@
    "pct": 100,
    "notes": "Entered past a bracketed wolf-boss pack (R-041); ground pickups by a cooking pot finish it (R-066).",
    "map_point": [
-    472,
-    605
+    589,
+    799
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -95,8 +95,8 @@
    "pct": 100,
    "notes": "Entered from Verdantglade III (142,84) or Drasilgard (138,84). The last 7% was the Lucky Wheel (blue !): its first spin is free while the zone is unexplored (mae). Lost Goddess Statue unlocked 2026-11-10.",
    "map_point": [
-    149,
-    1043
+    586,
+    1279
    ],
    "last_seen": "2026-11-09",
    "entries": [
@@ -124,7 +124,7 @@
    "first_seen": "2026-11-05",
    "pct": 0,
    "map_point": [
-    484,
+    465,
     761
    ],
    "last_seen": "2026-11-09",
@@ -146,8 +146,8 @@
    "pct": 100,
    "notes": "Dungeon gate unlocked by quest; Bellflower field at minimap (169, 94-95) (R-123).",
    "map_point": [
-    535,
-    842
+    974,
+    1079
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -186,8 +186,8 @@
    "pct": 100,
    "notes": "Border label 'Troll Lair 17K' at a corner of its dotted line (R-132).",
    "map_point": [
-    666,
-    1040
+    468,
+    1000
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -198,8 +198,8 @@
    "pct": 100,
    "notes": "Area quests done.",
    "map_point": [
-    991,
-    740
+    722,
+    1605
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -209,8 +209,8 @@
    "first_seen": "2026-11-04",
    "pct": 100,
    "map_point": [
-    761,
-    1240
+    1110,
+    1041
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -222,8 +222,8 @@
    "pct": 100,
    "notes": "No way in on foot from Moonveil Woods (fog south of about (168, 94) never moves); entered with the quest's Go travel (R-084, R-089).",
    "map_point": [
-    446,
-    1004
+    885,
+    1242
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -257,8 +257,8 @@
     }
    ],
    "map_point": [
-    234,
-    529
+    678,
+    1292
    ],
    "last_seen": "2026-11-09",
    "blessed": true
@@ -271,8 +271,8 @@
     "Auroradrasil": "2026-11-04"
    },
    "map_point": [
-    214,
-    690
+    336,
+    691
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -281,17 +281,31 @@
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
    "cp": 20.4,
-   "pct": 92,
-   "entries": []
+   "pct": 0,
+   "entries": [
+    {
+     "via": "Sunrise Isle",
+     "day": "2026-11-09",
+     "xy": [
+      145,
+      140
+     ]
+    }
+   ],
+   "map_point": [
+    363,
+    539
+   ],
+   "last_seen": "2026-11-09"
   },
   "Zephyr Vale": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
-   "pct": 100,
+   "pct": 0,
    "notes": "Its border label runs sideways along a vertical dotted line, no power shown (R-132).",
    "map_point": [
-    362,
-    926
+    477,
+    888
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -851,6 +865,22 @@
    "b": "Damp Woods",
    "how": "walked",
    "note": "entered Sunrise Isle at (190, 80)"
+  },
+  {
+   "a": "Wildbloom Coast",
+   "b": "Sunrise Isle",
+   "how": "walked",
+   "note": "entered Wildbloom Coast at (145, 140)"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Verdantglade V",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade VI",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
   }
  ],
  "gaps": [
