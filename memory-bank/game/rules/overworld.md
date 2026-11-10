@@ -37,7 +37,7 @@ The non-quest exploration loop (mae; the quest-progression loop is settled):
 2. Explore it until its statue is blessed (R-065 goal, R-070). A zone counts as finished only when the quest tracker's % and the location map agree (builder, 2026-11-09); its zone is confirmed by the minimap name, then the big map (R-140).
 3. Repeat until no unblessed zone remains.
 4. Then look for any fog-walk ground not yet explored (R-130). Explore it if there is some; otherwise exploration is concluded for now.
-Next by this order (2026-11-05): Jungle Camp (12.6K). Ways in: from Verdantglade III at about (142, 84) and from Drasilgard at about (138, 84) (builder, 2026-11-10; in the location tree). Live 0 → 93%, then stuck: no objects left and no fog-adjacent ground in the zone, so the last 7% is unknown ❓. When objects run out, the fog walk sweeps the zone's fog edges (R-146) before giving up. Its Lost Goddess Statue (orange Ψ-like map icon) gives Home EXP +1% and Home Raw Ore +1%.
+Next by this order (2026-11-05): Jungle Camp (12.6K). Ways in: from Verdantglade III at about (142, 84) and from Drasilgard at about (138, 84) (builder, 2026-11-10; in the location tree). Live 0 → 93%, then stuck: no objects left and no fog-adjacent ground in the zone, and the last 7% is the blue-"!" statues (mae, R-148). When objects run out, the fog walk sweeps the zone's fog edges (R-146) before giving up. Its Lost Goddess Statue (orange Ψ-like map icon) gives Home EXP +1% and Home Raw Ore +1%.
 Code: `python -m sxs roam` picks the zone with `Tree.next_zone` from the location tree (`resource/world/zones.json`, `sxs/policy/zones.py`, `python -m sxs zones`; zones with no power line read go last). The tree holds each zone's kingdom, CP, %, blessed, map point and way in, and records Jungle Camp's missing entry as an open question. Roam blesses a statue when its area-map "!" lights (R-070), and ends with `exploration_concluded`.
 *told* · R-065, R-070, R-076, R-127, R-130, R-132
 
@@ -168,6 +168,12 @@ Tapping a map object (e.g. a Portal) opens a card with one button at (0.5, 0.70)
 - **Already blessed**: "A starlit statue silently guards this Blessed Land", Regional Relics, no button. Dismiss and walk around it (kind `blessed_statue`).
 - Goddess, Witch and Hero statues can each be used once a day; whether these are the blessing statues is unknown ❓.
 *observed, reported* · `world/interact_goddess_statue.png`, `world/interact_goddess_statue_blessed.png`, `world/blessing_level.png`, `world/lost_goddess_statue.png`, `world/lost_goddess_statue_auroradrasil_mae.png`, `unlabeled/lost_goddess_statue_auroradrasil.png`, `unlabeled/lost_goddess_statue_blessed.png`, `unlabeled/area_map_statue_badge_auroradrasil.png` · R-002, R-065, R-074
+
+### R-148 · A blue "!" on the area map marks interactable statues: tap them to finish the zone
+- Some zones hold interactable statues, marked on the area map with a blue "!" icon (mae, 2026-11-10). They count toward the zone's exploration %: tap each one (reach it through the area map, R-068).
+- Jungle Camp's missing 7% (stuck at 93%, R-135) is these statues. Reference crop to come from the builder ❓.
+- A blue "!" is not the red "!" of a blessable Goddess Statue (R-070) or the gold "!" of a structure (R-145).
+*told* · node `area_map` · R-002, R-065, R-068, R-070, R-135
 
 ### R-144 · "Statue of <name>": press Visit
 A "Statue of <name>" card (e.g. Statue of Lunar Sage in Verdantglade V) has a free Visit: it gives a permanent stat boost (Lunar Sage: HP +170), heals fully and counts toward exploration. Always press Visit. Policy: `resource/policy/cards.json` (match "Statue of ...").
