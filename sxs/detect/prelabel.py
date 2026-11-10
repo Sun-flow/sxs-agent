@@ -61,8 +61,22 @@ def area_map_objects(frame: np.ndarray) -> list[dict]:
             if lo <= area <= hi and max(bw, bh) <= 32 and area >= 0.35 * bw * bh and max(bw, bh) <= 2.2 * min(bw, bh):
                 pad = 3
                 out.append({"cls": MAP_KINDS[kind], "x": bx - pad, "y": by - pad, "w": bw + 2 * pad, "h": bh + 2 * pad})
+    out = [b for b in out if not _in_text_row(b, out)]
     out += [_point_box("map_statue_bang", (x, y - am.STATUE_BELOW)) for x, y in am.blue_badges(frame)]
     return out
+
+
+ROW = (6, 30, 3)  # same line within dy px, neighbours within dx px, how many make a text row
+
+
+def _in_text_row(b: dict, boxes: list[dict]) -> bool:
+    """True when ROW[2] or more blobs of the same class sit beside it on one line: letters of a coloured label
+    (red CP numbers, zone names), not map icons. mae removed 44 of 61 monster drafts (2026-11-10); with ROW the
+    drafts on her four area maps keep all 17 monsters she confirmed and the extras drop from 44 to 22."""
+    cx, cy = b["x"] + b["w"] / 2, b["y"] + b["h"] / 2
+    near = sum(1 for o in boxes if o is not b and o["cls"] == b["cls"]
+               and abs(o["y"] + o["h"] / 2 - cy) <= ROW[0] and abs(o["x"] + o["w"] / 2 - cx) <= ROW[1])
+    return near >= ROW[2]
 
 
 def minimap_objects(frame: np.ndarray) -> list[dict]:
