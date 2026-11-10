@@ -378,7 +378,7 @@ class Roamer:
         for a in areas:
             if len(goto.squeeze(a.name)) < 5 or (kingdom and goto.squeeze(a.name) == goto.squeeze(kingdom)):
                 continue  # the kingdom title, or an OCR scrap
-            known = self.tree.key(a.name)
+            known = self.tree.key(a.name) or self.label_prefix_zone(a.name)
             near = [k for k in self.tree.zones
                     if difflib.SequenceMatcher(None, goto.squeeze(k), goto.squeeze(a.name)).ratio() >= MISREAD_RATIO]
             if not known and near:
@@ -485,6 +485,11 @@ class Roamer:
             why = goto.go_to(self.dev, self.det, self.entrance_picker(target.name), pan_for_target=True)
             log.info("walk to %s's entrance (explored ground nearest it): %s", target.name, why)
             if why == "arrived":
+                # The entrance is on the neighbour's ground: the fog walk may stand there and cross into the target
+                # (live 2026-11-10: without this it "went back" to Wildbloom Coast by a big-map jump at once).
+                now = goto.area_name_here(self.det)
+                if now and not same(now, target.name):
+                    return Area(self.tree.key(now) or now, [0, 0, 0, 0])
                 return None
         # Try the plain big-map walk to the zone's label first: most zones can be walked into from where we are
         # (live 2026-11-09: from Verdantglade VI the walk "via Verdantglade IV" landed in Auroradrasil instead).
@@ -530,6 +535,19 @@ class Roamer:
                 and not goto.same_area(here, via.name)):
             goto.go_to(self.dev, self.det, via.name)
         return via
+
+    def label_prefix_zone(self, label: str) -> Optional[str]:
+        """The known zone a joined label starts with ("Wildboom CoastHidden" -> Wildbloom Coast, live 2026-11-10: its
+        92% was dropped as a misread and roam gave the zone up)."""
+        sq = goto.squeeze(label)
+        best = None
+        for k in self.tree.zones:
+            kk = goto.squeeze(k)
+            if (len(kk) >= 6 and len(sq) >= len(kk) + 3 and not re.fullmatch(r"[ivx]+", sq[len(kk):])
+                    and difflib.SequenceMatcher(None, kk, sq[:len(kk)]).ratio() >= 0.85):
+                if best is None or len(kk) > len(goto.squeeze(best)):
+                    best = k
+        return best
 
     def entrance_picker(self, name: str):
         """Area-map picker: the explored-ground point nearest `name`'s label (R-150)."""
