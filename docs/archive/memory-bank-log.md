@@ -2,6 +2,11 @@
 
 Older entries moved from `memory-bank/log.md`, newest first.
 
+### 2026-11-05 (night) · Fog walk rework, Drasilgard, Auroradrasil (Claude Code, mae's PC via Remote Control)
+- PRs #35, #37, #39 merged from `claude/project-thread-ieaqnz`: budget is a stuck check (extends while progressing), Choose Your Reward (R-129), fog walk per mae's minimap notes (objects first, fog leads, big-map walk to dots, zone edges R-132, free pickups and fights only in unexplored areas R-065, collectibles store R-131, player found by its head), area map state.
+- Live: Verdantglade III explored and its quests claimed; Temple Ruins cleared (Iron Thorn); Verdantglade V 42 to 71%; Drasilgard Chief and Hermes (Kingdom Shop, Abundance Leaves) mapped; Auroradrasil cleared with the NPC companions (B rank); gearswap swapped head, chest and boots (boots 143 to 1860 power).
+- Open: OCR noise in coordinates counts as progress (budget extends while stuck); tutorial glow on the Companions Invite isn't found by the highlight finder; more Drasilgard NPCs unmapped; social cards now accept team-up requests (needs a live check).
+
 ### 2026-11-05 (night) · Interrupts: task switching on state change (Claude Code, cloud)
 - mae (01:56) asked for a detector that moves between tasks (explore and tutorial) when the screen changes. New `sxs/core/interrupts.py` (InterruptingDetector, Interrupt, LoopStop, resume_with) and `sxs/actions/interrupts.py` (table: choose_reward, rating_popup, chat, tutorial on world_map/home). The runner wraps every loop's detector; readouts gain `[Interrupt]` / `[Resume X]` lines and an `interrupts` list. Explore's own reward-choice branch removed; the tutorial loop owns its row; Fog Walk walks back to its area after a handler. `StateDetector.last_frame` added. `tests/check_interrupts.py`; design `docs/interrupts.md`.
 - Builder captures (cherry-picked): the Auroradrasil outline (caught) and the Companions "Invite" filled glow. New `companions` state; `find_highlight(glow=True)` for the filled style on that screen only (furniture popups and the main menu look the same); inviting followed (mae 02:23: social features and invites are fine; `INVITE_COMPANIONS = True`).

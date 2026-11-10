@@ -2,25 +2,61 @@
 
 mae, 2026-11-10: "let's start designing a roboflow implementation ... recommend me the three best choices with pro
 and con lists for each." Background and the case for a detector: `docs/vision-upgrade.md` (Part 2). This note is
-the plan. Nothing here is built yet; the screen-check speed-ups (Part 1) are.
+the plan. Built so far: the screen-check speed-ups (Part 1, PR #48), and step 1 below (class list in the labeler,
+pre-labeller, dataset exporter).
 
 ## What the detector is for
 
-One pass over a frame that returns boxes with a class and a score, wherever the element sits. It finds things; it
-does not read text and it does not replace the State chain.
+One pass over a frame that returns boxes with a class and a score, wherever the element sits. The class list is
+`resource/detect/classes.json` (42 classes, 2026-11-10; ids follow its order, so new classes are appended):
 
-First classes (about 30; grow from there):
+| Group | Classes | For |
+|---|---|---|
+| cards | `card_chest`, `card_statue_visit`, `card_goddess_statue`, `card_sealed_gate`, `card_boulder`, `card_wheel`, `card_dungeon_gate`, `card_interact` | Which card is up, before the card rules |
+| buttons | `btn_primary`, `btn_close_x`, `btn_back_arrow`, `btn_tap_to_spin`, `btn_claim`, `btn_quick_heal` | Where to tap |
+| badges | `badge_red_bang`, `badge_blue_pip`, `badge_gold_ring`, `badge_gift` | What needs attention |
+| area_map | `map_player`, `map_item`, `map_monster`, `map_building`, `map_statue_bang`, `map_chest`, `map_zone_label`, `map_pct_line` | Big-map targets; label boxes for clean OCR |
+| world | `player_character`, `monster`, `npc_alert`, `tracker_box` | Never tap ourselves; fights; NPCs |
+| minimap | `mm_item`, `mm_monster`, `mm_building`, `mm_icon` | Minimap objects (mae, 2026-11-10), see below |
+| screen | `anchor_minimap_ring`, `anchor_tab_bar`, `anchor_hud_portrait`, `anchor_battle_round`, `anchor_dialogue_box`, `anchor_popup_panel`, `anchor_page_title`, `anchor_area_map_legend` | Model-first screen checks, see below |
 
-| Group | Classes |
-|---|---|
-| Cards (one class per card type) | `card_chest`, `card_statue_visit`, `card_goddess_statue`, `card_sealed_gate`, `card_boulder`, `card_wheel`, `card_dungeon_gate`, `card_interact` (any other one-button card) |
-| Buttons | `btn_primary` (the yellow action button), `btn_close_x`, `btn_back_arrow`, `btn_tap_to_spin`, `btn_claim`, `btn_quick_heal` (top-left portrait) |
-| Badges | `badge_red_bang`, `badge_blue_pip`, `badge_gold_ring` (quest pointer), `badge_blue_bang` (statue on the area map), `badge_gift` |
-| Area map | `map_player`, `map_chest`, `map_statue`, `map_wheel`, `map_gate`, `map_zone_label` (box only; OCR reads it), `map_pct_line` |
-| World view | `player_character` (so we never tap ourselves), `monster`, `npc_alert`, `tracker_box` |
+Still not detector work: numbers and quest text (OCR), and the minimap's terrain tiles. Explored, fog and walls are
+per tile, not objects, and `sxs/vision/minimap.py` reads them in ~25 ms.
 
-Not detector classes: minimap tiles and dots (4-8 px; `sxs/vision/minimap.py` stays), numbers and quest text (OCR),
-whole screens (the State chain, now one text read per check).
+### Minimap objects (mae, 2026-11-10)
+
+The minimap dots are 2-10 px on the 720x1280 frame (measured on the pre-labelled screens). A detector that shrinks
+the frame to ~640 px sees them at 1-5 px, below its finest 8 px grid. So the dataset carries them two ways, and
+training decides:
+
+- **Enlarged minimap crop.** The 172x172 crop around the minimap at 3x (516x516). This is no extra screenshot: it is
+  cut from the frame we already have. At runtime it is one extra model pass on a small image (estimated 10-15 ms on
+  CPU), run only when a loop needs the minimap (fog walk steps), not on every screen check.
+- **Full frame.** The same boxes on the full frame. This works only if the model runs at full resolution (about 3-4x
+  the cost a pass).
+
+`python -m sxs dataset --minimap both|crop|full` picks which (default both).
+
+### Working with the screen check (hybrid, mae 2026-11-10)
+
+mae: "why don't they work together?" They should. The model is faster: one ~40-60 ms pass against a ~1 s text read
+(1.0-1.3 s median on her PC after #48). The text check keeps four things the model can't give:
+
+- wording safety: a card counts only if its button says an allowed verb, so a "Purchase" card stays unknown;
+- one-line additions for new screens, where the model needs 20+ examples and a retrain;
+- unknown screens staying unknown, where a model tends to name the closest class it knows;
+- reading numbers.
+
+The plan for `StateDetector.detect()` once a model exists:
+
+1. Run the model on the frame (cached by the frame fingerprint). When a screen's anchor classes are present with
+   high confidence (for example `anchor_minimap_ring` + `anchor_hud_portrait` and no `anchor_popup_panel` = world map),
+   that is the state, `path` "model".
+2. When the model is unsure, or the screen is a spend-risk one (cards, shops, prayer, confirm dialogs), the text
+   check decides as today.
+3. Unknown stays the text check's call.
+4. A screen moves to model-first only after the offline check shows model and text agree on every reference screen
+   of that state.
 
 ## The three best choices
 
@@ -96,7 +132,7 @@ captures/ + docs/screens/         frames the loops saved, reference screens
       |  python -m sxs labeler    mae draws boxes (classes from a fixed list), plus pre-labels to fix
       v
 docs/screens/labels.json          boxes per screen (already stored here)
-      |  export-dataset command (new) YOLO-format zip; masks the account-name strip; train/valid/test split
+      |  python -m sxs dataset --zip   YOLO format; account name and chat blacked out; train/valid/test split
       v
 Roboflow project (private)        upload via the roboflow Python SDK (API key in an env var, never committed)
       |  Train: YOLO26n, RF-DETR Nano   free-tier credits first; augmentations off except brightness/blur
@@ -109,18 +145,27 @@ loops / pipeline nodes            detect.find(frame, "card_chest"); later Neural
 
 Steps in order:
 
-1. **Class list in the labeler.** Add the class names above as the labeler's box kinds, so boxes carry a class, not
-   free text. Boxes already drawn keep working as templates.
-2. **Pre-labelling.** A script runs the detectors we already have on each banked frame and writes draft boxes for
-   mae to correct rather than draw:
-   - `area_map.objects` for map objects
-   - `badges` for red "!" and blue pips
-   - the tutorial highlight
-   - OCR line boxes for zone labels
-   - templates for buttons
-3. **Exporter.** a new `export-dataset` command writes a YOLO-format zip (images plus one `.txt` per image).
-   - It **blacks out the account-name and chat strips** before export (PII out of anything uploaded).
-   - It splits about 80/10/10 by screen, never by box.
+1. **Class list in the labeler.** *Built.* Each box has a "detector class" menu (from `resource/detect/classes.json`),
+   stored as `cls` on the box in `docs/screens/labels.json`. Boxes already drawn keep working as templates.
+2. **Pre-labelling.** *Built.* `python -m sxs prelabel [--ocr]` (`sxs/detect/prelabel.py`) runs the detectors we
+   already have on every reference screen with an expected state, and writes **draft** boxes. The labeler shows
+   drafts dashed: fix one and press Confirm (or `C`), move or resize it (which confirms it), or delete it. Re-running
+   replaces only drafts and never touches a confirmed box. Sources:
+   - area-map masks for map objects, and blue "!" statues
+   - the minimap colour rules for minimap objects
+   - badges for red "!" and blue pips
+   - the gift template, the gold quest ring, the character sprite
+   - fixed screen anchors per state
+   - with `--ocr`, area-map label and % line boxes, and Claim / Tap to spin buttons by text
+   First run (2026-11-10, no OCR): 365 drafts on 76 screens.
+3. **Exporter.** *Built.* `python -m sxs dataset [--zip] [--drafts] [--minimap both|crop|full]`
+   (`sxs/detect/dataset.py`) writes YOLO format: images and labels per split, plus `data.yaml`. Only boxes with a
+   class go in, and only confirmed boxes unless `--drafts`.
+   - Every frame has the HUD name strip blacked out.
+   - With `SXS_ACCOUNT_NAME` set (environment only), every OCR line reading as the name, and every chat line, is
+     blacked out too.
+   - Chat, guild, friends, profile and ranking screens are left out unless `--include-private`.
+   - The split is about 80/10/10 by screen, never by box. Checked by `tests/check_detect_data.py`.
 4. **Roboflow.** One private project and one dataset version per export. Keep augmentation light (brightness, small
    blur, JPEG noise), because the UI never rotates or flips.
 5. **Train both models** on the same version. Record mAP, per-class recall and CPU time in this file.
