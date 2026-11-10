@@ -179,13 +179,12 @@ flowchart TD
 
 ### Where the code doesn't match this page yet (2026-11-10)
 
-Checked against `sxs/loops/explore.py` on `main` and on PR #46. Details and recommendations: open-questions.md Q16-Q19.
+Checked against `sxs/loops/explore.py` on `main` and on PR #46. Details and recommendations: open-questions.md Q16, Q18, Q19.
 
 | Box | Code today | Change that would make it fit |
 |---|---|---|
 | Step 4 guard | Not on `main`; PR #46 adds it (`guard_marker`, then `attack_guard`, at most 6 taps a run) | Merge #46 |
 | Battle prep, "yes, 2 heals tried" | `_on_battle_prep` taps Start Battle anyway, under 70% HP | Call the shared `start_fight` (`sxs/actions/common.py`); when it returns False end `low_hp` (Q16) |
-| Unstick round 1 "walk to the quest's area" | Decides "am I there?" from the name under the minimap (`goto.area_name_here`) | Use the big-map dot, `zone_by_map` (R-140); move it from `fogwalk.py` to `sxs/actions/goto.py` (Q17) |
 | Step 5 find the marker | Its own ring follower (`Explore.Marker`, offsets 100/60/140/30 px) beside Fog Walk's live-proven `quest_step` (`find_quest_ring`, 80 px, sees edge rings at y≈50) | One shared quest-ring action for both loops (R-142) (Q18) |
 | Read the screen | Interrupts (tutorial, Choose Your Reward, rating, chat) run inside `detect()`; Explore registers no `resume_with` | None needed; the marker leads back. Shown as a note on the box |
 

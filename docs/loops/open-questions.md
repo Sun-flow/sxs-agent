@@ -31,11 +31,6 @@ then taps Start Battle even when the prep bar is still under 70%. R-061 says nev
 `start_fight` (used by gather) backs out instead. *Recommend:* call `start_fight`; if it returns
 False, end the run `low_hp`.
 
-**Q17. Explore's unstick reads the zone from the minimap name.** Unstick round 1 compares `goto.area_name_here`
-(the name under the minimap) with the quest's area. R-140: the zone comes only from the big-map player dot.
-*Recommend:* move `zone_by_map` from `sxs/loops/fogwalk.py` to `sxs/actions/goto.py` and use it here, with the
-minimap name as the hint.
-
 **Q18. Two quest-ring followers.** Explore's `_follow_marker` and Fog Walk's `quest_step` do the same job differently;
 `quest_step` is the live-proven one (R-142). *Recommend:* one shared action in `sxs/actions/` that both call, keeping
 Explore's pan/toggle retries for when no ring shows.
@@ -63,7 +58,10 @@ isn't detected, the zone counts as finished.
 - R-061 notes explore heals at 80% after a fight, while the rule is 70% before one; both thresholds are in the code
   (`HEAL_BELOW` in `sxs/loops/explore.py`, `FIGHT_MIN_HP` in `sxs/actions/heal.py`).
 
-## Settled (mae, 2026-11-09)
+## Settled (mae, 2026-11-09 and 11-10)
+
+**Q17. Explore's unstick reads the zone from the minimap name.** Not a problem (mae, 2026-11-10): the name under the
+minimap is the most accurate way to confirm the player's zone; R-140 is being reworded to say so. No change.
 
 **Q1. Unlock every free Cart production row.** *Built in PR #43, not run live yet:* `CartUpgrader.unlock_rows`
 presses any row's exact "Unlock" before the upgrades and backs out of any cost or spend word (R-137). See
