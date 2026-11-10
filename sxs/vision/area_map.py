@@ -128,8 +128,15 @@ def nearest(frame: np.ndarray, kinds=("item", "monster", "building"), max_px: in
         lines[ly:ly + lh, lx:lx + lw] = 0
         cands = [(k, p) for k, p in cands if not crosses_border(lines, (px, py), p)]
         if labels and home:
-            from ..actions.goto import same_area
-            if any(same_area(t, home) for t in labels):
+            from ..actions.goto import close_name, same_area as _same
+
+            def same_area(a, b):  # OCR clips labels ("Jungle Car" for Jungle Camp, live 2026-11-10)
+                return _same(a, b) or close_name(a, b) or (len(a) >= 6 and b.lower().startswith(a.lower()[:-1]))
+            if not any(same_area(t, home) for t in labels):
+                # Our zone's label wasn't read: nothing can be told apart, so pick nothing rather than anything
+                # (the same day a walk "to the nearest object" kept ending in Drasilgard).
+                return None
+            if True:
                 def d(t, p):
                     return ((labels[t][0] - p[0]) ** 2 + (labels[t][1] - p[1]) ** 2) ** 0.5
 

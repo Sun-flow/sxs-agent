@@ -69,10 +69,8 @@
    "first_seen": "2026-11-05",
    "cp": 12.6,
    "pct": 93,
-   "failed_via": {
-    "Drasilgard": "2026-11-05 (walked in from the south edge; big-map walks mostly no_move, no % gained)"
-   },
-   "notes": "Next by R-135 order. Entry point unknown. blocked: 198 near None (no rule; dismissed)",
+   "failed_via": {},
+   "notes": "Next by R-135 order. Entry point unknown. blocked: 198 near None (no rule; dismissed) blocked: Lost Goddess Statue near None (no rule; dismissed)",
    "map_point": [
     537,
     793
@@ -84,6 +82,14 @@
      "day": "2026-11-09",
      "xy": [
       142,
+      84
+     ]
+    },
+    {
+     "via": "Drasilgard",
+     "day": "2026-11-09",
+     "xy": [
+      138,
       84
      ]
     }
@@ -276,8 +282,8 @@
   {
    "a": "Drasilgard",
    "b": "Jungle Camp",
-   "how": "map_adjacent",
-   "note": "walking in from Drasilgard's south edge gained no % (2026-11-05)"
+   "how": "walked",
+   "note": "walking in from Drasilgard's south edge gained no % (2026-11-05); entered Jungle Camp at (138, 84)"
   },
   {
    "a": "Verdantglade V",

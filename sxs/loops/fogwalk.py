@@ -368,6 +368,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
     stood_on: set = set()  # map coordinates the character has stood on this run
     map_tries = 0
     guard_taps = 0
+    objects_done = False  # no object left on either map: only fog edges remain (then stop)
     direct_taps: dict = {}  # map spot -> direct taps at a near object there (a repeat means it isn't taken that way)
     quest_fails = 0  # quest-pointer steps in a row that didn't move the zone's Explore counter
     buildings_ok = True  # structures are goals until one's card can only be dismissed (a blocker)
@@ -460,6 +461,11 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                     # The name under the minimap changed; the big map's player dot (R-140) confirmed we left.
                     # Wandered into a neighbouring area: walk back with the area map rather than exploring the wrong one.
                     strayed = True
+                    # A big-map walk that ends in another zone means the picker can't tell this zone's objects apart
+                    # here: no more big-map walks this run (live 2026-11-10: Jungle Camp -> Drasilgard, three times).
+                    if map_tries:
+                        log.info("a big-map walk left %s: no more big-map walks this run", home_area)
+                        map_tries = AREA_MAP_TRIES
                     if last_plan is not None:  # the frame the crossing tap was planned on, for tuning the border check
                         try:
                             from ..core.paths import CAPTURES
@@ -545,11 +551,11 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 # neighbour we walk in from (roam's `allowed`), the border into that zone may be crossed (roam already
                 # checked its power, R-127).
                 cross = bool(home_area and name and not goto.same_area(name, home_area))
-                target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen if buildings_ok else None, items_ok=items_ok,
-                                        player=player, monsters_ok=fight,
-                                        visited_xy=stood_on, outside_xy=outside, cross_border=cross,
-                                        home_light=not free, shaded_walk=not free)
-                if target is None and recentre_on_player(dev, det, frame):
+                target = None if objects_done else minimap_target(
+                    det, frame, player_xy=xy, buildings_seen=buildings_seen if buildings_ok else None, items_ok=items_ok,
+                    player=player, monsters_ok=fight, visited_xy=stood_on, outside_xy=outside, cross_border=cross,
+                    home_light=not free, shaded_walk=not free)
+                if target is None and not objects_done and recentre_on_player(dev, det, frame):
                     frame = dev.screenshot()
                     player = player_on_screen(det, frame)
                     target = minimap_target(det, frame, player_xy=xy, buildings_seen=buildings_seen if buildings_ok else None, items_ok=items_ok,
@@ -607,7 +613,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 if target is None:
                     # Nothing on the minimap: anything we've met before and can see on screen (R-131; the store's
                     # explored gate decides whether it's worth tapping here).
-                    if map_tries < AREA_MAP_TRIES:
+                    if map_tries < AREA_MAP_TRIES and not objects_done:
                         # mae, 2026-11-05: open the big map, tap the nearest dot or structure (the camera centres on
                         # it), close the map and tap the middle of the screen, where the element now is.
                         map_tries += 1
@@ -620,20 +626,21 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                             log.info("no object found from outside %s; walking back first", home_area)
                             goto.go_to(dev, det, home_area)
                             continue
-                        if why == "no_target" and free:
-                            # Nothing left on the minimap or the big map for this zone: say so instead of pacing
-                            # (live 2026-11-09). The roam loop records it as this zone's stuck point.
-                            log.warning("STUCK %s: no dot, monster or structure left in this zone on the minimap or "
-                                        "the big map, and the %% isn't 100: the rest is behind something we don't "
-                                        "handle yet (a gate card, a puzzle, fog the map doesn't show)", home_area)
-                            return "no_objects"
+                        if why == "no_target" and free and not objects_done:
+                            # Nothing left on the minimap or the big map for this zone: what's left is under fog
+                            # (live 2026-11-10: Jungle Camp at 93% stopped here without a single fog-edge step).
+                            # Sweep the zone's fog edges (R-146: walkable ground next to fog), then stop.
+                            log.info("no object left in %s on either map: sweeping its fog edges", home_area)
+                            objects_done = True
                         if why == "arrived":
                             here_xy = goto.coords(det)
                             if here_xy and any(max(abs(here_xy[0] - a[0]), abs(here_xy[1] - a[1])) <= 2
                                                for a in map_arrivals):
                                 log.warning("STUCK %s: the big-map walk keeps ending at %s; the object there isn't "
-                                            "taken by walking onto it", home_area, here_xy)
-                                return "object_unreachable"
+                                            "taken by walking onto it (a statue icon reads as a monster dot): "
+                                            "sweeping fog edges instead", home_area, here_xy)
+                                objects_done = True
+                                continue
                             if here_xy:
                                 map_arrivals.append(here_xy)
                             continue
@@ -652,6 +659,11 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 if target is None:
                     no_fog += 1
                     if no_fog >= 4:
+                        if objects_done:
+                            log.warning("STUCK %s: no object on either map and no walkable fog edge in view, and the "
+                                        "%% isn't 100: the rest is behind something we don't handle yet (a gate "
+                                        "card, a puzzle)", home_area)
+                            return "no_objects"
                         return "no_fog"
                     dev.swipe(*random.choice([(360, 800, 360, 450), (360, 400, 360, 750),
                                               (550, 600, 200, 600), (200, 600, 550, 600)]), 500)

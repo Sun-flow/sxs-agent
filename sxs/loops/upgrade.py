@@ -237,6 +237,7 @@ class Upgrader:
     def gear(self) -> dict:
         """Banded enhancement, then Resonance and Enhancement Goals."""
         self.st.enhance_gear()
+        progress(("gear", "resonance"))
         if not self._character():
             return {"gear": "unknown_screen"}
         self._tap(GEAR_SLOTS[0], 2)
