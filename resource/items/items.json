@@ -83,6 +83,17 @@
       66
      ],
      "found_in": "Menu > Quest > Daily (rewards)"
+    },
+    {
+     "file": "stellatie_4.png",
+     "screen": "items/guild_shop.png",
+     "box": [
+      84,
+      236,
+      102,
+      100
+     ],
+     "found_in": "Guild > Shop"
     }
    ]
   },
@@ -278,6 +289,17 @@
       71
      ],
      "found_in": "Home > Cart (yield rows; icon tap shows a yield tooltip, not a card)"
+    },
+    {
+     "file": "battle_essence_6.png",
+     "screen": "items/skill_page.png",
+     "box": [
+      602,
+      38,
+      38,
+      32
+     ],
+     "found_in": "Character > Skill > Top bar"
     }
    ]
   },
@@ -1060,6 +1082,17 @@
       74
      ],
      "found_in": "Home > Vendor Booth > Goals"
+    },
+    {
+     "file": "rare_auroral_badge_5.png",
+     "screen": "items/guild_shop.png",
+     "box": [
+      80,
+      540,
+      108,
+      84
+     ],
+     "found_in": "Guild > Shop"
     }
    ]
   },
@@ -1504,6 +1537,312 @@
       80
      ],
      "found_in": "Character > Rank Advancement (cost)"
+    }
+   ]
+  },
+  {
+   "id": "guild_token",
+   "name": "Guild Token",
+   "kind": "currency",
+   "description": "Exchange them for items in the Guild Shop. Honorary coins that commemorate guild contributions and collective glory.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "guild_token.png",
+     "screen": "items/guild_shop.png",
+     "box": [
+      596,
+      37,
+      38,
+      33
+     ],
+     "found_in": "Guild > Shop"
+    }
+   ]
+  },
+  {
+   "id": "lucky_ticket",
+   "name": "Lucky Ticket",
+   "kind": "ticket",
+   "description": "Use it to spin the Wheel of Destiny for rewards. A lucky ticket that transforms into random treasures when the ancient wheel spins.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "lucky_ticket.png",
+     "screen": "items/guild_shop.png",
+     "box": [
+      307,
+      236,
+      106,
+      100
+     ],
+     "found_in": "Guild > Shop"
+    }
+   ]
+  },
+  {
+   "id": "bond_trinket",
+   "name": "Bond Trinket",
+   "kind": "ticket",
+   "description": "Use it at Arborisfatum to summon Fantomons. Hang this magical trinket on Arborisfatum to form lasting bonds with Fantomons.",
+   "uses": "Sources: Shop Purchase, Commission",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "bond_trinket.png",
+     "screen": "items/guild_shop.png",
+     "box": [
+      532,
+      236,
+      108,
+      100
+     ],
+     "found_in": "Guild > Shop"
+    }
+   ]
+  },
+  {
+   "id": "resilient_sprout",
+   "name": "Resilient Sprout",
+   "kind": "material",
+   "description": "Plant it in your Guild Garden to produce oil used to activate Fantomon Aptitudes. A humble seedling, yet with sturdy leaves and stem. It thrives even in the harshest of soils.",
+   "uses": "Guild AFK (Garden/Sheepfold/Roost). Requires Plant Implement Level; Space Required 1; Planting EXP 1. Card has a Reward Preview. Sources: Guild Shop",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "resilient_sprout.png",
+     "screen": "items/guild_shop.png",
+     "box": [
+      306,
+      549,
+      105,
+      75
+     ],
+     "found_in": "Guild > Shop"
+    },
+    {
+     "file": "resilient_sprout_2.png",
+     "screen": "items/guild_shop_2.png",
+     "box": [
+      536,
+      635,
+      104,
+      75
+     ],
+     "found_in": "Guild > Shop"
+    }
+   ]
+  },
+  {
+   "id": "hopeful_bud",
+   "name": "Hopeful Bud",
+   "kind": "material",
+   "description": "Plant it in your Guild Garden to produce oil used to activate Fantomon Aptitudes. A seedling ready to bloom. The copper glow on its leaves holds infinite hope.",
+   "uses": "Guild AFK (Garden/Sheepfold/Roost). Requires Plant Implement Level; Space Required 4; Planting EXP 3. Card has a Reward Preview. Sources: Guild Shop",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "hopeful_bud.png",
+     "screen": "items/guild_shop.png",
+     "box": [
+      536,
+      549,
+      104,
+      75
+     ],
+     "found_in": "Guild > Shop"
+    }
+   ]
+  },
+  {
+   "id": "stone_sheep",
+   "name": "Stone Sheep",
+   "kind": "material",
+   "description": "Raise it in your Guild Sheepfold to produce wool used to activate Fantomon Aptitudes. A stone-gray sheep, sturdy and steady. The resilient wool protects it from even the harshest cold.",
+   "uses": "Guild AFK (Garden/Sheepfold/Roost). Requires Herd Implement Level; Space Required 1; Herding EXP 1. Card has a Reward Preview. Sources: Guild Shop",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "stone_sheep.png",
+     "screen": "items/guild_shop.png",
+     "box": [
+      84,
+      837,
+      99,
+      73
+     ],
+     "found_in": "Guild > Shop"
+    },
+    {
+     "file": "stone_sheep_2.png",
+     "screen": "items/guild_shop_2.png",
+     "box": [
+      80,
+      923,
+      108,
+      77
+     ],
+     "found_in": "Guild > Shop"
+    }
+   ]
+  },
+  {
+   "id": "cotton_sheep",
+   "name": "Cotton Sheep",
+   "kind": "material",
+   "description": "Raise it in your Guild Sheepfold to produce wool used to activate Fantomon Aptitudes. A sun-toned sheep, soft and gentle. Its warmth always calms the soul.",
+   "uses": "Guild AFK (Garden/Sheepfold/Roost). Requires Herd Implement Level; Space Required 4; Herding EXP 3. Card has a Reward Preview. Sources: Guild Shop",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "cotton_sheep.png",
+     "screen": "items/guild_shop.png",
+     "box": [
+      312,
+      836,
+      101,
+      74
+     ],
+     "found_in": "Guild > Shop"
+    }
+   ]
+  },
+  {
+   "id": "steely_chicken",
+   "name": "Steely Chicken",
+   "kind": "material",
+   "description": "Raise it in your Guild Roost to produce eggs used to activate Fantomon Aptitudes. A rust-colored chicken, strong and steady-tough enough to survive in the wild.",
+   "uses": "Guild AFK (Garden/Sheepfold/Roost). Requires Breed Implement Level; Space Required 1; Breeding EXP 1. Card has a Reward Preview. Sources: Guild Shop",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "steely_chicken.png",
+     "screen": "items/guild_shop.png",
+     "box": [
+      549,
+      835,
+      84,
+      75
+     ],
+     "found_in": "Guild > Shop"
+    },
+    {
+     "file": "steely_chicken_2.png",
+     "screen": "items/guild_shop_2.png",
+     "box": [
+      319,
+      921,
+      85,
+      79
+     ],
+     "found_in": "Guild > Shop"
+    }
+   ]
+  },
+  {
+   "id": "dawn_chicken",
+   "name": "Dawn Chicken",
+   "kind": "material",
+   "description": "Raise it in your Guild Roost to produce eggs used to activate Fantomon Aptitudes. A bronze-glinted chicken, full of energy, its crow crisp enough to awaken the slumbering dawn.",
+   "uses": "Guild AFK (Roost). Requires Breed Implement Level; Space Required 4; Breeding EXP 3. Sources: Guild Shop",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "dawn_chicken.png",
+     "screen": "items/guild_shop_2.png",
+     "box": [
+      80,
+      619,
+      108,
+      91
+     ],
+     "found_in": "Guild > Shop"
+    }
+   ]
+  },
+  {
+   "id": "t3_livestock_selection_chest",
+   "name": "T3 Livestock Selection Chest",
+   "kind": "gift",
+   "description": "Open it to choose a Lunar Heart, Lunar Sheep or Lunar Chicken. Choose 1 of the following items",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "t3_livestock_selection_chest.png",
+     "screen": "items/guild_shop_2.png",
+     "box": [
+      306,
+      632,
+      108,
+      78
+     ],
+     "found_in": "Guild > Shop"
+    }
+   ]
+  },
+  {
+   "id": "lunar_heart",
+   "name": "Lunar Heart",
+   "kind": "material",
+   "description": "Plant it in your Guild Garden to produce oil used to activate Fantomon Aptitudes. A seedling glowing in silver, its leaves kissed by moonlight and its bud imbued with lunar magic.",
+   "uses": "Guild AFK. Requires Plant Implement Level 2; Space Required 9; Planting EXP 8. Sources: Guild Shop",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "lunar_heart.png",
+     "screen": "items/t3_livestock_chest_contents.png",
+     "box": [
+      132,
+      720,
+      96,
+      96
+     ],
+     "found_in": "Guild > Shop > T3 Livestock Selection Chest card (contents)"
+    }
+   ]
+  },
+  {
+   "id": "lunar_sheep",
+   "name": "Lunar Sheep",
+   "kind": "material",
+   "description": "Raise it in your Guild Sheepfold to produce wool used to activate Fantomon Aptitudes. A moon-kissed sheep, silky and graceful, perfectly one with the night.",
+   "uses": "Guild AFK. Requires Herd Implement Level; Space Required 9; Herding EXP 8. Sources: Guild Shop",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "lunar_sheep.png",
+     "screen": "items/t3_livestock_chest_contents.png",
+     "box": [
+      252,
+      720,
+      96,
+      96
+     ],
+     "found_in": "Guild > Shop > T3 Livestock Selection Chest card (contents)"
+    }
+   ]
+  },
+  {
+   "id": "lunar_chicken",
+   "name": "Lunar Chicken",
+   "kind": "material",
+   "description": "Raise it in your Guild Roost to produce eggs used to activate Fantomon Aptitudes. A moon-kissed chicken, keen and graceful, perfectly one with the night.",
+   "uses": "Guild AFK. Requires Breed Implement Level; Space Required 9; Breeding EXP 8. Sources: Guild Shop",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "lunar_chicken.png",
+     "screen": "items/t3_livestock_chest_contents.png",
+     "box": [
+      372,
+      720,
+      96,
+      96
+     ],
+     "found_in": "Guild > Shop > T3 Livestock Selection Chest card (contents)"
     }
    ]
   }
