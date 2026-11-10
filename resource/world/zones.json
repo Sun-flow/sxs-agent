@@ -8,10 +8,10 @@
    "blessed": true,
    "notes": "Free 4-player story dungeon (R-133); Lost Goddess Statue blessed 2026-11-05.",
    "map_point": [
-    497,
-    875
+    1123,
+    602
    ],
-   "last_seen": "2026-11-09",
+   "last_seen": "2026-11-10",
    "entries": []
   },
   "Damp Woods": {
@@ -42,10 +42,10 @@
    "kind": "town",
    "notes": "Town: Chief, Hermes, Carol, portal (R-134).",
    "map_point": [
-    566,
-    1061
+    1192,
+    788
    ],
-   "last_seen": "2026-11-09",
+   "last_seen": "2026-11-10",
    "entries": []
   },
   "Grotto Peninsula": {
@@ -54,10 +54,10 @@
    "pct": 0,
    "cp": 23.0,
    "map_point": [
-    347,
-    499
+    973,
+    801
    ],
-   "last_seen": "2026-11-09"
+   "last_seen": "2026-11-10"
   },
   "Hidden Camp": {
    "kingdom": "Verdantglade",
@@ -95,10 +95,10 @@
    "pct": 100,
    "notes": "Entered from Verdantglade III (142,84) or Drasilgard (138,84). The last 7% was the Lucky Wheel (blue !): its first spin is free while the zone is unexplored (mae). Lost Goddess Statue unlocked 2026-11-10.",
    "map_point": [
-    943,
-    1288
+    1092,
+    764
    ],
-   "last_seen": "2026-11-09",
+   "last_seen": "2026-11-10",
    "entries": [
     {
      "via": "Verdantglade III",
@@ -119,16 +119,45 @@
    ],
    "blessed": true
   },
+  "Leafy Corrido": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-10",
+   "pct": 0,
+   "cp": 25.5,
+   "map_point": [
+    196,
+    876
+   ],
+   "last_seen": "2026-11-10"
+  },
   "Monolith Ruins I": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
    "pct": 0,
    "map_point": [
-    328,
-    974
+    647,
+    702
    ],
-   "last_seen": "2026-11-09",
-   "entries": []
+   "last_seen": "2026-11-10",
+   "entries": [],
+   "dismissed_spots": [
+    [
+     103,
+     113
+    ]
+   ]
+  },
+  "Monolith Ruins II": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-10",
+   "pct": 0,
+   "last_seen": "2026-11-10",
+   "map_point": [
+    665,
+    702
+   ],
+   "notes": "Entered from Verdantglade VII at (88-91,106-107). 2026-11-10: walk found no objects, only the puzzle.",
+   "blocked": "Box puzzle (Fonik, God of Puzzles, at about (88,104)); mae 2026-11-10: never spend Golden Beetles, skip puzzle areas until puzzles are solved in code"
   },
   "Moonveil Woods": {
    "kingdom": "Verdantglade",
@@ -147,20 +176,20 @@
    "first_seen": "2026-11-09",
    "pct": 0,
    "map_point": [
-    496,
-    522
+    1121,
+    826
    ],
-   "last_seen": "2026-11-09"
+   "last_seen": "2026-11-10"
   },
   "Stagnant Jungle": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-09",
    "pct": 0,
    "map_point": [
-    321,
-    912
+    948,
+    640
    ],
-   "last_seen": "2026-11-09"
+   "last_seen": "2026-11-10"
   },
   "Stone Ruins I": {
    "kingdom": "Verdantglade",
@@ -205,25 +234,27 @@
   "Verdantglade I": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-04",
-   "pct": 100,
+   "pct": 69,
    "notes": "Area quests done.",
    "map_point": [
-    1083,
-    482
+    602,
+    563
    ],
-   "last_seen": "2026-11-09",
-   "entries": []
+   "last_seen": "2026-11-10",
+   "entries": [],
+   "cp": 23.5
   },
   "Verdantglade II": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-04",
-   "pct": 100,
+   "pct": 0,
    "map_point": [
-    1086,
-    782
+    968,
+    616
    ],
-   "last_seen": "2026-11-09",
-   "entries": []
+   "last_seen": "2026-11-10",
+   "entries": [],
+   "cp": 27.0
   },
   "Verdantglade III": {
    "kingdom": "Verdantglade",
@@ -267,10 +298,10 @@
     }
    ],
    "map_point": [
-    1028,
-    773
+    1177,
+    249
    ],
-   "last_seen": "2026-11-09",
+   "last_seen": "2026-11-10",
    "blessed": true
   },
   "Verdantglade VI": {
@@ -279,10 +310,10 @@
    "pct": 100,
    "failed_via": {},
    "map_point": [
-    384,
-    700
+    1010,
+    427
    ],
-   "last_seen": "2026-11-09",
+   "last_seen": "2026-11-10",
    "entries": [
     {
      "via": "Damp Woods",
@@ -305,6 +336,41 @@
    "dismissed_spots": [],
    "blessed": true
   },
+  "Verdantglade VII": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-10",
+   "pct": 100,
+   "cp": 27.0,
+   "last_seen": "2026-11-10",
+   "notes": "Main-quest zone (Explore Verdantglade VII). Next to Verdantglade VI; its Goddess Statue is at (102,113), unlocked 2026-11-10 (Blessing Lv 8). 2026-11-10: monsters there are fought from the tile beside them (a tap from afar does nothing). blocked: Value near None (no rule; dismissed) blocked: Voucher near None (no rule; dismissed)",
+   "map_point": [
+    695,
+    602
+   ],
+   "objectives": [
+    {
+     "title": "Verdantglade VII",
+     "xy": [
+      82,
+      112
+     ],
+     "done": false,
+     "day": "2026-11-09"
+    }
+   ],
+   "blessed": true
+  },
+  "Verdantglade VIII": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-10",
+   "pct": 0,
+   "cp": 27.0,
+   "last_seen": "2026-11-10",
+   "map_point": [
+    948,
+    877
+   ]
+  },
   "Wildbloom Coast": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
@@ -321,10 +387,10 @@
     }
    ],
    "map_point": [
-    1012,
-    588
+    1172,
+    25
    ],
-   "last_seen": "2026-11-09",
+   "last_seen": "2026-11-10",
    "blessed": true
   },
   "Zephyr Vale": {
@@ -333,8 +399,8 @@
    "pct": 0,
    "notes": "Its border label runs sideways along a vertical dotted line, no power shown (R-132).",
    "map_point": [
-    1155,
-    938
+    569,
+    1063
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -1111,6 +1177,273 @@
   {
    "a": "Stagnant Jungle",
    "b": "Verdantglade III",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Auroradrasil",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Grotto Peninsula",
+   "b": "Monolith Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Highland Woods",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Auroradrasil",
+   "b": "Grotto Peninsula",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Highland Woods",
+   "b": "Stagnant Jungle",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Hidden Camp",
+   "b": "Jungle Camp",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade VI",
+   "b": "Verdantglade VII",
+   "how": "walked",
+   "note": "walked in 2026-11-10"
+  },
+  {
+   "a": "Hidden Camp",
+   "b": "Rabbit Vault",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins II",
+   "b": "Verdantglade VII",
+   "how": "walked",
+   "note": "VII (88,106) borders Monolith Ruins II: seen on screen at (91,107), 2026-11-10 (first logged as Monolith Ruins I: the minimap name lost its last I)"
+  },
+  {
+   "a": "Rabbit Vault",
+   "b": "Verdantglade VIII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Stone Ruins I",
+   "b": "Verdantglade VIII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Highland Woods",
+   "b": "Jungle Camp",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Verdantglade VIII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins I",
+   "b": "Verdantglade VIII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade III",
+   "b": "Verdantglade VIII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Monolith Ruins II",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Verdantglade VII",
+   "how": "walked"
+  },
+  {
+   "a": "Grotto Peninsula",
+   "b": "Jungle Camp",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Grotto Peninsula",
+   "b": "Monolith Ruins II",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Highland Woods",
+   "b": "Monolith Ruins II",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Highland Woods",
+   "b": "Verdantglade VII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Rabbit Vault",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins II",
+   "b": "Rabbit Vault",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade I",
+   "b": "Verdantglade VII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade V",
+   "b": "Verdantglade VII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Hidden Camp",
+   "b": "Verdantglade VIII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins I",
+   "b": "Monolith Ruins II",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins I",
+   "b": "Leafy Corrido",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins II",
+   "b": "Leafy Corrido",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Hidden Camp",
+   "b": "Stagnant Jungle",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Monolith Ruins II",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins II",
+   "b": "Verdantglade III",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins II",
+   "b": "Zephyr Vale",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Moonveil Woods",
+   "b": "Verdantglade VIII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Stone Ruins I",
+   "b": "Verdantglade VII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade II",
+   "b": "Verdantglade VIII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Hidden Camp",
+   "b": "Verdantglade II",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Verdantglade VII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins II",
+   "b": "Stone Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins II",
+   "b": "Verdantglade I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins II",
+   "b": "Verdantglade V",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Grotto Peninsula",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Verdantglade VIII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Grotto Peninsula",
+   "b": "Hidden Camp",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Grotto Peninsula",
+   "b": "Stagnant Jungle",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Grotto Peninsula",
+   "b": "Verdantglade II",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Grotto Peninsula",
+   "b": "Verdantglade VIII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins I",
+   "b": "Verdantglade VII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Damp Woods",
+   "b": "Rabbit Vault",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Grotto Peninsula",
+   "b": "Moonveil Woods",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Moonveil Woods",
+   "b": "Rabbit Vault",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Moonveil Woods",
+   "b": "Stagnant Jungle",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Stagnant Jungle",
+   "b": "Verdantglade II",
    "how": "map_adjacent"
   }
  ],

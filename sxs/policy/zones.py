@@ -136,12 +136,16 @@ class Tree:
         if k is None:
             k = name.strip()
             self.zones[k] = {"kingdom": kingdom or "", "first_seen": today}
+        elif self._fuller(name, k):
+            k = self.rename(k, name.strip())
         z = self.zones[k]
         if kingdom and not z.get("kingdom"):
             z["kingdom"] = kingdom
         if pct is not ...:
             new = 100 if pct is None else int(pct)
-            if z.get("kind") != "town":
+            # A blessed zone is explored for good: a lower % is another zone's line read under its name (live
+            # 2026-11-10: Verdantglade VII's 62% landed on the blessed Verdantglade VI).
+            if z.get("kind") != "town" and not (z.get("blessed") and new < 100):
                 z["pct"] = new
         if cp is not ... and cp is not None:
             old = z.get("cp")
@@ -152,6 +156,31 @@ class Tree:
             z["map_point"] = [int(point[0]), int(point[1])]
         z["last_seen"] = today
         return k
+
+    @staticmethod
+    def _fuller(new: str, stored: str) -> bool:
+        """`new` is the same name read whole where `stored` was clipped on the left ("erdantglade VII" stored, then
+        "Verdantglade VII" read): a label at the map edge loses its first letters (2026-11-10)."""
+        x, y = squeeze(new), squeeze(stored)
+        return len(x) > len(y) and x.endswith(y) and new.strip()[:1].isupper()
+
+    def rename(self, old: str, new: str) -> str:
+        """Move a zone's record to a better-read name, links and failed_via entries included."""
+        if old == new or new in self.zones:
+            return new if new in self.zones else old
+        self.zones[new] = self.zones.pop(old)
+        for ln in self.links:
+            for end in ("a", "b"):
+                if ln.get(end) == old:
+                    ln[end] = new
+        for z in self.zones.values():
+            fv = z.get("failed_via")
+            if isinstance(fv, dict) and old in fv:
+                fv[new] = fv.pop(old)
+            for e in z.get("entries") or []:
+                if isinstance(e, dict) and e.get("via") == old:
+                    e["via"] = new
+        return new
 
     def mark_blessed(self, name: str) -> None:
         k = self.key(name)

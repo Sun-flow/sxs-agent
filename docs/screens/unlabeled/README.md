@@ -39,3 +39,6 @@ Then run `python -m sxs label`. Each row that has a State moves into its folder 
 | `lost_goddess_statue_auroradrasil.png` | | | | Lost Goddess Statue card (Auroradrasil 100%): Unlock, rewards Home EXP/Stone Yield +1% |
 | `lost_goddess_statue_blessed.png` | | | | After Unlock: Divine Power Awakens, Tap to Continue |
 | `area_map_statue_badge_auroradrasil.png` | | | | Area map: small statue icon with red "!" in Auroradrasil (find_badges misses this size); gold ore "!" in Verdantglade V |
+| `exploration_kit_pack.png` | | | | Paid pack popup "Exploration Kit" ($0.99, Value 700%), opened by the Timed Packs HUD button; never buy, close by a tap below the card (360, 1120) |
+| `puzzle_fonik_choice.png` | | | | Monolith Ruins II box puzzle: Fonik, God of Puzzles ("Present a Golden Beetle..."): Help me solve this! / Reset the puzzle. / Leave. Fog walk takes Leave (Golden Beetle use is mae's call) |
+| `monster_card_limpid_legion.png` | | | | Monster group card on the map: "Limpid Legion", Rcmd Power 28.5K (Current Power 28.5K), Drop Preview, Challenge (free); rule monster_challenge (1.25x power rule) |
