@@ -24,7 +24,7 @@ Walk to each green minimap dot and interact with what it marks, beat roaming mon
 - Big-map walks skip objects across a dotted line or nearer another zone's label (a walk from Verdantglade V once ended in Zephyr Vale).
 - Zones can border several others and have several ways in and out (mae): a crossing point is a valid way in, not an error. The location tree keeps an `entries` list per zone (one per neighbour); any walk back into a zone counts as a way in, and the bot tries the most recent working way in first (R-067, R-135).
 - Seen: Verdantglade IV (explored) lies directly south of Verdantglade V, line at about y 107 for x 143–147; Zephyr Vale borders V to the east.
-- Auroradrasil is its own zone, not part of Verdantglade V (mae), even though it sits inside V on the map; it has its own Lost Goddess Statue (R-070). Travelling to finish a zone must land on that zone's own ground, not on a neighbour inside it.
+- Auroradrasil is its own zone, not part of Verdantglade V (mae), even though it sits inside V on the map; it has its own Lost Goddess Statue (R-070). Travelling to finish a zone must land on that zone's own ground, not on a neighbour inside it. Trap: from inside Auroradrasil, big-map walks to far labels don't move the character; leave by the tracked quest's pointer first (live-proven, 2026-11-10).
 *told, observed* · `world/zone_boundary_troll_lair_mae.png`, `world/zone_boundary_zephyr_vale_mae.png`, `minimap/legend_zone_boundary_mae.png`, `world/zone_edge_verdantglade_v.png`, `world/zone_edge_verdantglade_v_on_line.png` · R-065, R-066, R-127, R-130
 
 ### R-065 · When stuck or between quests, walk the fog edge
@@ -115,7 +115,7 @@ Connections can be far off the straight line (Verdantglade II to Moonveil Woods 
 2. Tap the destination; the camera centres there.
 3. Close the map and tap the ground: the player auto-paths, around walls and through land bridges and unseen gaps.
 The same route reaches any target, not just areas (mae): find it on the area map (a dot, a structure), tap it there to centre the camera on it, close the map, then tap the now-visible element on screen to walk to it. No player-relative pathfinding is needed: the character auto-paths to any tapped spot even when it is off screen, so the bot finds endpoints and never manages the route (mae). The camera only has to see the thing to tap it. With several targets in view, tap each on screen in turn without reopening the map; reopen it only when nothing targetable is left in view (mae).
-Zoom differs each opening: pick places by OCR'd label, never fixed positions. **No label-to-label shortcut walks between zones**: to leave a zone, walk back out the way you came in (builder, 2026-11-09; R-132). Match labels exactly, trailing numerals included ("Verdantglade III" is not "Verdantglade I"; a V/VI mix-up once landed the bot in Auroradrasil). At full zoom-out OCR merges neighbouring labels ("Wildbloom Coahlidden Camp", "14.8K Monolith Ruins") and drops percentages: zoom out one step at most when reading zones. A label in fog can't be reached this way (`no_move`): travel from home (R-089). Code: `python -m sxs goto "Area Name"` or `python -m sxs goto X Y`.
+Zoom differs each opening: pick places by OCR'd label (never a merged OCR label like "Wildbloom CoastHidden Camp": roam targets the location tree's zone name), never fixed positions. **No label-to-label shortcut walks between zones**: to leave a zone, walk back out the way you came in (builder, 2026-11-09; R-132). Match labels exactly, trailing numerals included ("Verdantglade III" is not "Verdantglade I"; a V/VI mix-up once landed the bot in Auroradrasil). At full zoom-out OCR merges neighbouring labels ("Wildbloom Coahlidden Camp", "14.8K Monolith Ruins") and drops percentages: zoom out one step at most when reading zones. A label in fog can't be reached this way (`no_move`): travel from home (R-089). Code: `python -m sxs goto "Area Name"` or `python -m sxs goto X Y`.
 *told, observed* · `world/world_area_map.png`, `world/world_map_moonveil_entry.png`, `world/world_area_map_stone_ruins.png` · node `area_map` · R-065, R-067, R-076, R-089, R-130, R-140
 
 ### R-089 · Travel from home through the quest tracker
@@ -135,7 +135,7 @@ At home, tapping the tracker for a quest elsewhere asks "Travel to <Area> now?";
 - The legend's search pill opens a filter panel (Trial Stone, Portal, Statue, … Select All). A second minimap tap while the map is opening can hit it; a tap on the map below the panel closes it (`goto.open_area_map` handles this).
 - Detection (`State.AreaMap`) accepts any of the first legend lines: a zone label showing through the translucent legend can break a single "Lost Statue" match (`world/area_map_legend_overlap.png`).
 - Edge labels are clipped on the left ("tglade III"); `sxs/loops/roam.py` accepts a 6+ letter suffix with matching numerals.
-- Survey (code: `sxs/loops/roam.py`): zoom out fully (OCR merges labels and drops % there), then drag the zoom slider from (682, 1090) to (682, 1030) for one step closer; the "+" button jumps straight to the closest zoom, so don't use it. Read a 3×3 grid of slow 300 px pans, merging readings by name. Reference `world/area_map_survey_zoom.png`.
+- Survey (code: `sxs/loops/roam.py`): zoom out fully (OCR merges labels and drops % there), then drag the zoom slider from (682, 1090) to (682, 1030) for one step closer; the "+" button jumps straight to the closest zoom, so don't use it. Read a 3×3 grid of slow 300 px pans, merging readings by name; the grid runs only when no zone with work left is in view. Some labels sit off-screen even at survey zoom (Damp Woods): pan to find them. Never tap area-map points below y≈1080 (back arrow and kingdom buttons): pan first. Reference `world/area_map_survey_zoom.png`.
 - A 100% area with a red "!" probably has its statue waiting ❓. Sunrise Isle is at the bottom right of the Verdantglade map; its % isn't read ❓.
 *observed* · `world/world_area_map.png`, `world/area_map_lv22.png`, `world/area_map_survey_zoom.png`, `world/area_map_legend_overlap.png` · node `area_map` · R-068, R-070, R-084, R-086
 
@@ -171,13 +171,18 @@ Tapping a map object (e.g. a Portal) opens a card with one button at (0.5, 0.70)
 
 ### R-148 · A blue "!" on the area map marks interactable statues: tap them to finish the zone
 - Some zones hold interactable statues, marked on the area map with a blue "!" icon (mae, 2026-11-10). They are the "Statue of <name>" statues of R-144 (mae, 2026-11-10 02:18): tap each one and press Visit on its card. They count toward the zone's exploration % (reach them through the area map, R-068).
-- Jungle Camp's missing 7% (stuck at 93%, R-135) is these statues. Reference crop to come from the builder ❓.
+- Detector: `area_map.blue_badges`; reference `world/area_map_blue_bang.png` (lossless on purpose). The card reads "heroes and witches share daily visit attempts"; after a visit it shows "Visited Today".
+- A blue "!" can also sit on the Lucky Wheel (R-147), which is never spun. In Jungle Camp (stuck at 93%, R-135) the only blue "!" found so far is the Lucky Wheel's, so the missing 7% is still open ❓ (asked mae; not spun).
 - A blue "!" is not the red "!" of a blessable Goddess Statue (R-070) or the gold "!" of a structure (R-145).
-*told* · node `area_map` · R-002, R-065, R-068, R-070, R-135, R-144
+*told, observed* · `world/area_map_blue_bang.png` · node `area_map` · R-002, R-065, R-068, R-070, R-135, R-144, R-147
 
 ### R-144 · "Statue of <name>": press Visit
 A "Statue of <name>" card (e.g. Statue of Lunar Sage in Verdantglade V) has a free Visit: it gives a permanent stat boost (Lunar Sage: HP +170), heals fully and counts toward exploration. Always press Visit. The card shows "daily visit attempts". On the area map these statues carry a blue "!" and count toward exploration % (R-148). Policy: `resource/policy/cards.json` (match "Statue of ...").
 *observed* · R-030, R-042, R-070, R-148
+
+### R-149 · "Rankings" structure: back out, press nothing
+A map structure opens a "Rankings" card. It has nothing for the bot: back out and press nothing (builder, 2026-11-10).
+*observed* · R-030
 
 ### R-147 · Lucky Wheel ("Wheel of Destiny"): back out, never spin
 The Lucky Wheel structure in Jungle Camp opens "Wheel of Destiny". "Tap to spin" spends Lucky Wheel tickets (0 on 2026-11-10): never press it. Close with the back arrow (card rule `lucky_wheel`). Spinning would need a free ticket and mae's say-so ❓ (ask mae).
