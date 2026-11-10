@@ -159,7 +159,8 @@ def open_area_map(dev, det) -> bool:
     return det.detect().state == "area_map"
 
 
-ME_AT_CENTRE_PX = 70  # our character's point (just above its label) this close to the centre means a tap there hits us
+EDGE_X, EDGE_TOP, EDGE_BOTTOM = 110, 260, 1000  # area-map taps outside this box are dragged to the middle first
+ME_AT_CENTRE_PX = 70 # our character's point (just above its label) this close to the centre means a tap there hits us
 
 
 def _me_at_centre(dev, det) -> bool:
@@ -249,6 +250,18 @@ def go_to(dev, det, target, pan_for_target: bool = False) -> str:
             dev.tap(*ui.BACK_ARROW)
             time.sleep(1.5)
             return "no_target"
+        if not (EDGE_X <= point[0] <= 720 - EDGE_X and EDGE_TOP <= point[1] <= EDGE_BOTTOM):
+            # Live 2026-11-10 (Verdantglade VII's statue at (671, 575), twice): a tap near the map's edge didn't
+            # centre the camera on it and the walk went nowhere; the same statue tapped mid-screen worked at once.
+            # Drag the map so the target comes to the middle, then pick again on the new view.
+            dx, dy = SCREEN_CENTRE[0] - point[0], SCREEN_CENTRE[1] - point[1]
+            sx, sy = SCREEN_CENTRE[0] - dx // 2, SCREEN_CENTRE[1] - dy // 2
+            dev.swipe(sx, sy, sx + dx, sy + dy, 1500)
+            time.sleep(1.2)
+            again = target(dev.screenshot())
+            if again is not None:
+                log.info("target near the map edge at %s: dragged it to %s", point, again)
+                point = again
     else:
         point = tuple(target)
     log.info("area map: centring on %s", point)

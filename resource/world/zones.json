@@ -8,8 +8,8 @@
    "blessed": true,
    "notes": "Free 4-player story dungeon (R-133); Lost Goddess Statue blessed 2026-11-05.",
    "map_point": [
-    540,
-    1119
+    1139,
+    274
    ],
    "last_seen": "2026-11-10",
    "entries": []
@@ -42,8 +42,8 @@
    "kind": "town",
    "notes": "Town: Chief, Hermes, Carol, portal (R-134).",
    "map_point": [
-    503,
-    536
+    1210,
+    459
    ],
    "last_seen": "2026-11-10",
    "entries": []
@@ -54,8 +54,8 @@
    "pct": 0,
    "cp": 23.0,
    "map_point": [
-    392,
-    745
+    992,
+    -98
    ],
    "last_seen": "2026-11-10"
   },
@@ -119,13 +119,24 @@
    ],
    "blessed": true
   },
+  "Leafy Corrido": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-10",
+   "pct": 0,
+   "cp": 25.5,
+   "map_point": [
+    346,
+    786
+   ],
+   "last_seen": "2026-11-10"
+  },
   "Monolith Ruins I": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
    "pct": 0,
    "map_point": [
-    404,
-    961
+    483,
+    673
    ],
    "last_seen": "2026-11-10",
    "entries": []
@@ -136,8 +147,8 @@
    "pct": 0,
    "last_seen": "2026-11-10",
    "map_point": [
-    404,
-    648
+    484,
+    673
    ]
   },
   "Moonveil Woods": {
@@ -157,8 +168,8 @@
    "first_seen": "2026-11-09",
    "pct": 0,
    "map_point": [
-    540,
-    770
+    1140,
+    -76
    ],
    "last_seen": "2026-11-10"
   },
@@ -167,8 +178,8 @@
    "first_seen": "2026-11-09",
    "pct": 0,
    "map_point": [
-    365,
-    1156
+    966,
+    311
    ],
    "last_seen": "2026-11-10"
   },
@@ -228,13 +239,14 @@
   "Verdantglade II": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-04",
-   "pct": 100,
+   "pct": 0,
    "map_point": [
-    1086,
-    782
+    968,
+    616
    ],
-   "last_seen": "2026-11-09",
-   "entries": []
+   "last_seen": "2026-11-10",
+   "entries": [],
+   "cp": 27.0
   },
   "Verdantglade III": {
    "kingdom": "Verdantglade",
@@ -290,8 +302,8 @@
    "pct": 100,
    "failed_via": {},
    "map_point": [
-    429,
-    945
+    1029,
+    100
    ],
    "last_seen": "2026-11-10",
    "entries": [
@@ -319,13 +331,13 @@
   "Verdantglade VII": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-10",
-   "pct": 87,
+   "pct": 100,
    "cp": 23.6,
    "last_seen": "2026-11-10",
-   "notes": "Main-quest zone (Explore Verdantglade VII). Next to Verdantglade VI; its statue sits at about (102,113). 2026-11-10: monsters there are fought from the tile beside them (a tap from afar does nothing). blocked: Value near None (no rule; dismissed) blocked: Voucher near None (no rule; dismissed)",
+   "notes": "Main-quest zone (Explore Verdantglade VII). Next to Verdantglade VI; its Goddess Statue is at (102,113), unlocked 2026-11-10 (Blessing Lv 8). 2026-11-10: monsters there are fought from the tile beside them (a tap from afar does nothing). blocked: Value near None (no rule; dismissed) blocked: Voucher near None (no rule; dismissed)",
    "map_point": [
-    441,
-    548
+    743,
+    274
    ],
    "objectives": [
     {
@@ -338,16 +350,7 @@
      "day": "2026-11-09"
     }
    ],
-   "entries": [
-    {
-     "via": "Monolith Ruins I",
-     "day": "2026-11-09",
-     "xy": [
-      92,
-      116
-     ]
-    }
-   ]
+   "blessed": true
   },
   "Verdantglade VIII": {
    "kingdom": "Verdantglade",
@@ -356,8 +359,8 @@
    "cp": 27.0,
    "last_seen": "2026-11-10",
    "map_point": [
-    365,
-    1392
+    967,
+    548
    ]
   },
   "Wildbloom Coast": {
@@ -1295,10 +1298,90 @@
    "how": "map_adjacent"
   },
   {
-   "a": "Verdantglade VII",
-   "b": "Monolith Ruins I",
+   "a": "Hidden Camp",
+   "b": "Verdantglade VIII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins I",
+   "b": "Monolith Ruins II",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins I",
+   "b": "Leafy Corrido",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins II",
+   "b": "Leafy Corrido",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Hidden Camp",
+   "b": "Stagnant Jungle",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Monolith Ruins II",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins II",
+   "b": "Verdantglade III",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins II",
+   "b": "Zephyr Vale",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Moonveil Woods",
+   "b": "Verdantglade VIII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Stone Ruins I",
+   "b": "Verdantglade VII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade II",
+   "b": "Verdantglade VIII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Hidden Camp",
+   "b": "Verdantglade II",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Verdantglade VII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins II",
+   "b": "Stone Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins II",
+   "b": "Verdantglade I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins II",
+   "b": "Verdantglade V",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins I",
+   "b": "Verdantglade VII",
    "how": "walked",
-   "note": "entered Verdantglade VII at (92, 116)"
+   "note": "a walk from VII at (88,106) crossed into Monolith Ruins I (2026-11-10)"
   }
  ],
  "gaps": [
