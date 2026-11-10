@@ -192,8 +192,10 @@ def nearest(frame: np.ndarray, kinds=("item", "monster", "building"), max_px: in
         lx, ly, lw, lh = LEGEND
         lines[ly:ly + lh, lx:lx + lw] = 0
         cands = [(k, p) for k, p in cands if not crosses_border(lines, (px, py), p)]
-        if callable(labels) and home and cands:
-            labels = labels()  # read the labels (OCR, ~3 s) only when there is a candidate to check
+        if callable(labels):
+            # Read the labels (OCR, ~3 s) only when there is a candidate to check. Left as the function, the check
+            # below iterated it (crash, live 2026-11-10: "'function' object is not iterable").
+            labels = labels() if home and cands else None
         if labels and home:
             from ..actions.goto import close_name, same_area as _same
 

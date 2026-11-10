@@ -8,8 +8,8 @@
    "blessed": true,
    "notes": "Free 4-player story dungeon (R-133); Lost Goddess Statue blessed 2026-11-05.",
    "map_point": [
-    1117,
-    358
+    1123,
+    602
    ],
    "last_seen": "2026-11-10",
    "entries": []
@@ -42,8 +42,8 @@
    "kind": "town",
    "notes": "Town: Chief, Hermes, Carol, portal (R-134).",
    "map_point": [
-    1183,
-    1122
+    1192,
+    788
    ],
    "last_seen": "2026-11-10",
    "entries": []
@@ -54,8 +54,8 @@
    "pct": 0,
    "cp": 23.0,
    "map_point": [
-    965,
-    557
+    973,
+    801
    ],
    "last_seen": "2026-11-10"
   },
@@ -125,7 +125,7 @@
    "pct": 0,
    "cp": 25.5,
    "map_point": [
-    195,
+    196,
     876
    ],
    "last_seen": "2026-11-10"
@@ -135,8 +135,8 @@
    "first_seen": "2026-11-05",
    "pct": 0,
    "map_point": [
-    681,
-    336
+    647,
+    702
    ],
    "last_seen": "2026-11-10",
    "entries": [],
@@ -153,8 +153,8 @@
    "pct": 0,
    "last_seen": "2026-11-10",
    "map_point": [
-    660,
-    458
+    665,
+    702
    ],
    "notes": "Entered from Verdantglade VII at (88-91,106-107). 2026-11-10: walk found no objects, only the puzzle.",
    "blocked": "Box puzzle (Fonik, God of Puzzles, at about (88,104)): the zone stays 0% until it's solved; a Golden Beetle makes Fonik solve it (mae's call)"
@@ -176,8 +176,8 @@
    "first_seen": "2026-11-09",
    "pct": 0,
    "map_point": [
-    1115,
-    583
+    1121,
+    826
    ],
    "last_seen": "2026-11-10"
   },
@@ -186,8 +186,8 @@
    "first_seen": "2026-11-09",
    "pct": 0,
    "map_point": [
-    942,
-    396
+    948,
+    640
    ],
    "last_seen": "2026-11-10"
   },
@@ -310,8 +310,8 @@
    "pct": 100,
    "failed_via": {},
    "map_point": [
-    1004,
-    182
+    1010,
+    427
    ],
    "last_seen": "2026-11-10",
    "entries": [
@@ -345,7 +345,7 @@
    "notes": "Main-quest zone (Explore Verdantglade VII). Next to Verdantglade VI; its Goddess Statue is at (102,113), unlocked 2026-11-10 (Blessing Lv 8). 2026-11-10: monsters there are fought from the tile beside them (a tap from afar does nothing). blocked: Value near None (no rule; dismissed) blocked: Voucher near None (no rule; dismissed)",
    "map_point": [
     695,
-    358
+    602
    ],
    "objectives": [
     {
@@ -367,8 +367,8 @@
    "cp": 27.0,
    "last_seen": "2026-11-10",
    "map_point": [
-    941,
-    633
+    948,
+    877
    ]
   },
   "Wildbloom Coast": {
@@ -1264,7 +1264,7 @@
   {
    "a": "Drasilgard",
    "b": "Verdantglade VII",
-   "how": "map_adjacent"
+   "how": "walked"
   },
   {
    "a": "Grotto Peninsula",
@@ -1419,6 +1419,31 @@
   {
    "a": "Monolith Ruins I",
    "b": "Verdantglade VII",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Damp Woods",
+   "b": "Rabbit Vault",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Grotto Peninsula",
+   "b": "Moonveil Woods",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Moonveil Woods",
+   "b": "Rabbit Vault",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Moonveil Woods",
+   "b": "Stagnant Jungle",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Stagnant Jungle",
+   "b": "Verdantglade II",
    "how": "map_adjacent"
   }
  ],
