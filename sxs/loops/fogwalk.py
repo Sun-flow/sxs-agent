@@ -228,18 +228,34 @@ QUEST_FAILS_MAX = 3  # quest-pointer steps without the counter moving before the
 
 def quest_counter(det, zone: str) -> Optional[int]:
     """The tracked quest's counter when it is "Explore <zone> N/100", else None."""
+    m = _explore_quest(det)
+    if not m or not goto.same_area(m[0], zone):
+        return None
+    return m[1]
+
+
+def _explore_quest(det) -> Optional[tuple[str, int]]:
+    """The tracker's "Explore <zone> N/100" as (zone, N). OCR reads the numeral I as 1 or l before V/X
+    ("ExploreVerdantglade1X26/100", live 2026-11-10): put the I back so IX doesn't read as another zone."""
     prog = det.find("Explore.Progress")
     m = re.search(r"Explore\s*(.+?)\s*(\d+)\s*/\s*100", prog.text if prog else "")
-    if not m or not goto.same_area(m.group(1), zone):
+    if not m:
         return None
-    return int(m.group(2))
+    name = re.sub(r"[1l|](?=[VX]\b)", "I", m.group(1).strip())
+    name = re.sub(r"(?<=[a-z])(?=[IVX]+$)", " ", name)  # "VerdantgladeIX" -> "Verdantglade IX"
+    return name, int(m.group(2))
 
 
 def quest_moved_on(det, zone: str) -> bool:
     """The tracker shows another zone's Explore quest: this zone's quest was finished and claimed."""
-    prog = det.find("Explore.Progress")
-    m = re.search(r"Explore\s*(.+?)\s*(\d+)\s*/\s*100", prog.text if prog else "")
-    return bool(m) and not goto.same_area(m.group(1), zone)
+    for i in range(2):  # twice: one misread must not end a walk (live 2026-11-10: "Verdantglade1X" ended IX at 17%)
+        m = _explore_quest(det)
+        if not m or goto.same_area(m[0], zone) or goto.close_name(m[0], zone):
+            return False
+        if i == 0:
+            time.sleep(0.5)
+    log.info("tracker reads %r, not %s", m, zone)
+    return True
 
 
 MARKER_TEMPLATES = ("marker.png", "marker_dim.png")  # resource/image/explore/: the gold quest ring
