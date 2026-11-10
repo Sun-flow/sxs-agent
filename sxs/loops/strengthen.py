@@ -20,7 +20,7 @@ from typing import Optional
 from ..core import records, ui
 from ..core.device import Device
 from ..core.state import StateDetector
-from ..core.loop import Loop
+from ..core.loop import Loop, progress
 from ..core.nav import Navigator
 from ..vision.stats import read_cart
 
@@ -154,6 +154,7 @@ class Strengthener:
                 while levels[i] < target and taps < max_taps:
                     self._tap(GEAR_ENHANCE, 1.2)
                     taps += 1
+                    progress(("enhance", i, taps))  # the Upgrade Loop's 60 s watchdog stopped a working gear pass
                     if self._short():
                         time.sleep(2.5)  # let the banner fade, or the next piece reads as short too
                         # Short for this piece only (live 2026-11-09: the weapon's +25 needs a red ore we had 299/300
@@ -174,6 +175,7 @@ class Strengthener:
                 if short or i not in levels:
                     break
         self._tap(ui.BACK_ARROW, 2)
+        progress(("enhanced", taps))
         log.info("gear enhanced: %s (%d taps%s)", {**levels, **capped}, taps,
                  ", materials short" if short else (f", left at their level: {sorted(capped)}" if capped else ""))
 
