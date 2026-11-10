@@ -28,7 +28,7 @@ Read before pressing any button that might spend, and on any class, social, acco
 - **Spend stamina while exploring**: in explored, blessed areas, respawned monsters and most interactables cost stamina; don't tap them (even on a reference-crop match) unless a loop is deliberately farming, e.g. battle essence for skills (mae) (R-065, R-131).
 - **Change the character's appearance**: never press Complete on Carol's Reshape (costs a Shapeshifting Mirror); the look is mae's choice (R-134).
 - **Pick a "Choose Your Reward" option when both are valid**: ask mae; only a lone Class Mismatch lets the bot take the other (R-129).
-- **Decide the player's zone from the minimap name or the surroundings**: only the big map's player indicator says where the player is (mae) (R-140). **Walk label-to-label between zones**: leave by the way you came in (R-068).
+- **Decide the player's zone from assumptions about the surroundings**: read the minimap name first, then the big map's player indicator (mae) (R-140). **Walk label-to-label between zones**: leave by the way you came in (R-068).
 - **Switch loops to dodge a guard or a stuck point**: every exploring loop fights guards itself (mae) (R-141).
 - **Tap on fog** as an exploration target: tap walkable ground next to it instead (mae) (R-146).
 

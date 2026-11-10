@@ -34,7 +34,7 @@ Exploration comes in two kinds (mae), and loops should handle both: **quest-prog
 ### R-135 · Non-quest exploration order: lowest-CP unblessed zone first
 The non-quest exploration loop (mae; the quest-progression loop is settled):
 1. Pick the lowest-CP zone not yet blessed (within the fight limit, R-127).
-2. Explore it until its statue is blessed (R-065 goal, R-070). A zone counts as finished only when the quest tracker's % and the location map agree (builder, 2026-11-09); its zone is confirmed by the player indicator on the big map (R-140).
+2. Explore it until its statue is blessed (R-065 goal, R-070). A zone counts as finished only when the quest tracker's % and the location map agree (builder, 2026-11-09); its zone is confirmed by the minimap name, then the big map (R-140).
 3. Repeat until no unblessed zone remains.
 4. Then look for any fog-walk ground not yet explored (R-130). Explore it if there is some; otherwise exploration is concluded for now.
 Next by this order (2026-11-05): Jungle Camp (12.6K); walking in from Drasilgard's south edge gained no %, so its entry point is unknown ❓.
@@ -69,11 +69,13 @@ Templates in `resource/image/explore/`:
 
 ## Reading the minimap
 
-### R-140 · Know where the player is only from the big map's player indicator
-- The player's current location and zone come **only** from the player indicator on the big (area) map (mae, 2026-11-09). Never from the zone name under the minimap, and never from assumptions about the surroundings.
-- Why: at Verdantglade VI's gate the minimap name read "Verdantglade VI" while the player was still in V, and the bot walked into Auroradrasil.
-- The bot must detect the player indicator on the big map and use it to confirm the zone before and after any zone-level decision (finishing, crossing, choosing the next zone).
-- Code: the zone is the label nearest the big-map player dot, with a 0.75 margin over the next label; the minimap name is only a hint to re-check.
+### R-140 · Confirm the player's zone by the minimap name first, then the big map
+- The zone name under the minimap always gives a valid description of the zone the player is in: read it **first** to confirm the zone (mae, 2026-11-10 00:52; this replaces her 2026-11-09 21:18 wording that only the big map counts).
+- The big (area) map's player indicator (white dot) is the confirmation and the fallback, and gives the finer position: which sub-zone, and where inside it.
+- Never judge the zone from assumptions about the surroundings.
+- Check before and after any zone-level decision (finishing, crossing, choosing the next zone).
+- History: at Verdantglade VI's gate the minimap read "Verdantglade VI" and the bot walked into Auroradrasil; that led to the big-map rule, now relaxed.
+- Code today (needs updating to match ❓): the zone is the label nearest the big-map player dot, with a 0.75 margin over the next label, and the minimap name is used only as a hint to re-check.
 *told, observed* · node `area_map` · R-004, R-068, R-132, R-135
 
 ### R-004 · Minimap and coordinates give relative positions

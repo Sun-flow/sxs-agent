@@ -153,7 +153,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-137 | `home.md` | Unlock every available Cart production row |
 | R-138 | `combat.md` | Two kinds of dish: healing dishes are free to use, permanent dishes are conserved |
 | R-139 | `gathering.md` | A monster guarding a pickup: fight it, then resume the pickup |
-| R-140 | `overworld.md` | Know where the player is only from the big map's player indicator |
+| R-140 | `overworld.md` | Confirm the player's zone by the minimap name first, then the big map |
 | R-141 | `combat.md` | Every exploring loop fights guards itself; never switch loops to get past one |
 | R-142 | `overworld.md` | While exploring, follow the zone's own Explore quest |
 | R-143 | `overworld.md` | In an unblessed zone the whole minimap is shaded: the % comes from objects |
