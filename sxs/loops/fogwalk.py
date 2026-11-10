@@ -112,6 +112,8 @@ OUTSIDE_RADIUS = 3  # map tiles around a spot found to be in another zone that a
 LAST_DIST = 99  # tiles along the path to what minimap_target headed for
 DIRECT_TAPS_MAX = 2  # direct taps on the same near object before giving up on it
 GUARD_TAPS_MAX = 6  # taps on monsters under guard markers per walk
+LAST_GOAL_XY: Optional[tuple] = None  # map coordinates of the last minimap_target() goal tile
+GOAL_TAPS_MAX = 3  # walk taps toward one goal tile before it counts as one we can't reach this way
 LAST_GOAL: Optional[str] = None  # what the last minimap_target() headed for: "monster", "building" or None
 
 
@@ -145,8 +147,8 @@ def minimap_target(det, frame: np.ndarray, lookahead: int = 4, player_xy=None,
 
     R-132 (mae, 2026-11-09): a zone's dotted border on the minimap is a wall for the plan unless cross_border (the
     caller allows it only when walking in from a finished neighbour into the zone it was sent to)."""
-    global LAST_GOAL, LAST_DIST
-    LAST_GOAL, LAST_DIST = None, 99
+    global LAST_GOAL, LAST_DIST, LAST_GOAL_XY
+    LAST_GOAL, LAST_DIST, LAST_GOAL_XY = None, 99, None
     mm = minimap.read(frame, home_light)
     # mae, 2026-11-05: exploration % comes from what you do, not where you walk: collect green dots, fight orange
     # ones, complete yellow structures; then the area's statue appears. So objects come first, in that order of
@@ -188,6 +190,8 @@ def minimap_target(det, frame: np.ndarray, lookahead: int = 4, player_xy=None,
     if len(path) < 2:
         return None
     LAST_DIST = len(path) - 1
+    if player_xy is not None:
+        LAST_GOAL_XY = minimap.world_tile(mm, path[-1], player_xy)
     if mm.grid[path[-1][0]][path[-1][1]] == "item":
         LAST_GOAL = "item"
     if mm.grid[path[-1][0]][path[-1][1]] == "monster":
@@ -496,6 +500,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
         return not free or fog_misses >= 2
     wheel_spun = False  # one free Lucky Wheel spin per walk, in an unexplored zone only
     objects_done = False  # no object left on either map: only fog edges remain (then stop)
+    goal_taps: dict = {}  # minimap goal tile (map coordinates) -> walk taps aimed at it
     direct_taps: dict = {}  # map spot -> direct taps at a near object there (a repeat means it isn't taken that way)
     quest_fails = 0  # quest-pointer steps in a row that didn't move the zone's Explore counter
     buildings_ok = True  # structures are goals until one's card can only be dismissed (a blocker)
@@ -807,6 +812,17 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                             if here_xy:
                                 map_arrivals.append(here_xy)
                             continue
+                if target and goal and LAST_GOAL_XY is not None:
+                    # Live 2026-11-10 (Verdantglade VII, 87%): a "monster 6 tiles away" on the minimap pulled the walk
+                    # back and forth between (83,110) and (85,108) for 2 minutes while the monster on screen stood
+                    # elsewhere. A goal tile that several taps don't reach is left for this walk.
+                    g = tuple(LAST_GOAL_XY)
+                    goal_taps[g] = goal_taps.get(g, 0) + 1
+                    if goal_taps[g] > GOAL_TAPS_MAX:
+                        log.warning("STUCK %s: %d walk taps toward the %s at map %s didn't reach it; leaving it",
+                                    home_area, GOAL_TAPS_MAX, goal, g)
+                        outside.add(g)
+                        continue
                 if target:
                     log.info("walking toward unexplored ground at %s (map %s)", target, spot)
                     last_tap = spot
@@ -883,6 +899,12 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 ui.tap(dev, ui.BACK_ARROW, 2)  # left open by a big-map walk that didn't move us: close it
             elif d.state == "home":
                 return f"left_area:{d.state}"
+            elif d.state in ("battle", "loading"):
+                # An auto battle (a mini-dungeon floor, "Round 3/25") or a loading screen: wait. Live 2026-11-10
+                # (Ironvein Pit): the battle went to the card decider, which read the damage numbers as card titles
+                # ("1159", "1140") and tapped the round counter to "dismiss" them.
+                time.sleep(3)
+                progress(("battle", d.text or ""))
             elif free and not wheel_spun and lucky_wheel_free(det):
                 # mae, 2026-11-10: each Lucky Wheel's first spin is free while its zone is unexplored (once explored a
                 # spin costs). Jungle Camp's last 7% was this spin. Pressed only when the button shows no cost.
