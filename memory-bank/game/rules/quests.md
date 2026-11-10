@@ -32,6 +32,7 @@ The target icon on the tracker (about (0.40, 0.79); yellow on, grey off) toggles
 - Hidden under the top-left avatar or level badge: drag the map.
 - Covering the area name and coordinates under the minimap (breaks `world_map` detection): nudge the camera.
 - Next to the player: a tap can open the character panel instead; aim off the sprite or move first (R-080).
+- The locate icon toggles Tracking: tap it once when no ring shows, and not again until a ring has been seen (builder, 2026-11-10; R-142).
 *told, observed* · nodes `quests`, `world_map` · R-044, R-074, R-080
 
 ## Progressing a quest

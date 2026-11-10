@@ -40,6 +40,7 @@ Never the ring or icon over the character (R-123). Bellflower template: mae's pi
 
 ### R-122 · Prefer pickups with a blue aura
 Blue-aura pickups are rarer and give bonus ingredients. Take them before plain ones in reach.
+- A glowing pot with a blue aura (Verdantglade VII, by the statue) is a Refined Ore pickup (EXP x14, Refined Ore x59), not a monster (mae, 2026-11-10 05:07).
 *told* · R-124
 
 ### R-139 · A monster guarding a pickup: fight it, then resume the pickup

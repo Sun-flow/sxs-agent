@@ -44,6 +44,11 @@ When weighing a fight or challenge, accept monsters with up to 25% more CP (powe
 - The same 1.25x test decides which areas roam picks (recommended power, R-065) and which tower floors to challenge (R-079). Gates of Power keep their own rule (R-086). Code: `sxs/policy/fights.py`.
 *told, observed* · R-061, R-065, R-073, R-079, R-084, R-086
 
+### R-156 · Monster group cards: Challenge when the power fits
+- A monster group card (e.g. "Limpid Legion": Rcmd Power 28.5K, Drop Preview, a free Challenge button) is fought like any guard: press **Challenge** while exploring when HP is fine (R-061) and the Rcmd Power is within the 1.25x rule (R-127); otherwise dismiss it (builder, 2026-11-10).
+- Card rule `monster_challenge` (`resource/policy/cards.json`).
+*observed* · `unlabeled/monster_card_limpid_legion.png` · R-030, R-061, R-127, R-139
+
 ### R-112 · Background fights: start, minimise, move on
 - A fight with the "run in background" icon (square, arrow into its lower-left corner) needs no watching. On Conquest it's at (0.10, 0.95); tap to minimise, do other things, come back for the result. Template `resource/image/state/background_fight.png`.
 - Fantasia Ascent's Auto Challenge also runs in the background (R-079).
@@ -67,6 +72,7 @@ When weighing a fight or challenge, accept monsters with up to 25% more CP (powe
 ### R-071 · Mines: mini-dungeons with first-clear rewards
 - Mine cards (e.g. "Ironvein Pit") show First Clear Rewards (Refined Ore 100, Raw Ore 640) and Explore at (0.5, 0.80). Battles up to 25 rounds.
 - Card policy: a mini-dungeon is any card named *Ruins, Cave, Tower, Dungeon, Pit, Mine, Lair, Den or Fortress, or showing "First Clear Rewards".
+- Mini-dungeon battles ("Round 3/25", Ironvein Pit in Verdantglade VII) are automatic: wait them out. Damage numbers are not card titles (builder, 2026-11-10).
 *observed* · `world/interact_ironvein_pit.png` · R-040, R-042
 
 ### R-091 · Heal between floors; a defeat ends the run
