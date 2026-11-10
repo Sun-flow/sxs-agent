@@ -9,6 +9,7 @@
     python -m sxs zones                      the location tree: zones, CP, %, blessed, connections, open questions
     python -m sxs prelabel [--ocr]           draft detector boxes on the reference screens for mae to check in the labeler
     python -m sxs dataset [--zip]            export the labelled boxes as a YOLO dataset (account name blacked out)
+    python -m sxs items [add|find]           the item and currency symbol catalogue (resource/items/)
     python -m sxs bench [--one-per-state]    time the screen check on the reference screens, old way vs new (no emulator)
 
     python -m sxs screenshot [out.png]       save the current frame
@@ -93,6 +94,10 @@ def main(argv: list[str] | None = None) -> int:
         from .policy.zones import main as zones_main
 
         return zones_main(argv[1:])
+    if argv and argv[0] == "items":  # the item and currency symbol catalogue (resource/items/), no device needed
+        from .detect import items
+
+        return items.main(argv[1:])
     if argv and argv[0] in ("prelabel", "dataset"):  # UI detector data (docs/detector-design.md), no device needed
         from .detect import dataset, prelabel
 
