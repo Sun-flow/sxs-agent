@@ -37,7 +37,7 @@ The non-quest exploration loop (mae; the quest-progression loop is settled):
 2. Explore it until its statue is blessed (R-065 goal, R-070). A zone counts as finished only when the quest tracker's % and the location map agree (builder, 2026-11-09); its zone is confirmed by the minimap name, then the big map (R-140).
 3. Repeat until no unblessed zone remains.
 4. Then look for any fog-walk ground not yet explored (R-130). Explore it if there is some; otherwise exploration is concluded for now.
-Next by this order (2026-11-05): Jungle Camp (12.6K). Ways in: from Verdantglade III at about (142, 84) and from Drasilgard at about (138, 84) (builder, 2026-11-10; in the location tree). Live 0 → 93%, then stuck: no objects left and no fog-adjacent ground in the zone, and the last 7% is the blue-"!" statues (mae, R-148). When objects run out, the fog walk sweeps the zone's fog edges (R-146) before giving up. Its Lost Goddess Statue (orange Ψ-like map icon) gives Home EXP +1% and Home Raw Ore +1%.
+Next by this order (2026-11-05): Jungle Camp (12.6K). Ways in: from Verdantglade III at about (142, 84) and from Drasilgard at about (138, 84) (builder, 2026-11-10; in the location tree). Live 0 → 93%, then the free Lucky Wheel spin (R-147, R-148) took it to 100%; blessed 2026-11-10. When objects run out, the fog walk sweeps the zone's fog edges (R-146) before giving up. Its Lost Goddess Statue (orange Ψ-like map icon) gives Home EXP +1% and Home Raw Ore +1%.
 Code: `python -m sxs roam` picks the zone with `Tree.next_zone` from the location tree (`resource/world/zones.json`, `sxs/policy/zones.py`, `python -m sxs zones`; zones with no power line read go last). The tree holds each zone's kingdom, CP, %, blessed, map point and way in, and records Jungle Camp's missing entry as an open question. Roam blesses a statue when its area-map "!" lights (R-070), and ends with `exploration_concluded`.
 *told* · R-065, R-070, R-076, R-127, R-130, R-132
 
@@ -172,7 +172,7 @@ Tapping a map object (e.g. a Portal) opens a card with one button at (0.5, 0.70)
 ### R-148 · A blue "!" on the area map marks interactable statues: tap them to finish the zone
 - Some zones hold interactable statues, marked on the area map with a blue "!" icon (mae, 2026-11-10). They are the "Statue of <name>" statues of R-144 (mae, 2026-11-10 02:18): tap each one and press Visit on its card. They count toward the zone's exploration % (reach them through the area map, R-068).
 - Detector: `area_map.blue_badges`; reference `world/area_map_blue_bang.png` (lossless on purpose). The card reads "heroes and witches share daily visit attempts"; after a visit it shows "Visited Today".
-- A blue "!" can also sit on a Lucky Wheel with its free spin waiting (R-147). In Jungle Camp (stuck at 93%, R-135) the only blue "!" found so far is the Lucky Wheel's; its free spin is probably the missing 7% ❓ (not spun yet).
+- A blue "!" can also sit on a Lucky Wheel with its free spin waiting (R-147). In Jungle Camp the only blue "!" was the Lucky Wheel's; its free spin finished the zone (93% → 100%, 2026-11-10).
 - A blue "!" is not the red "!" of a blessable Goddess Statue (R-070) or the gold "!" of a structure (R-145).
 *told, observed* · `world/area_map_blue_bang.png` · node `area_map` · R-002, R-065, R-068, R-070, R-135, R-144, R-147
 
