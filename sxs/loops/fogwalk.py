@@ -555,6 +555,13 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
     def map_zone(name: str) -> str:
         # R-140 (amended 2026-11-10): a name under the minimap that the tree knows is the zone; only unknown names
         # are checked on the big map.
+        clean = re.sub(r"[\s.,:;'|]+$", "", name or "")
+        hs, cs = (re.sub(r"[^a-z]", "", goto.squeeze(t)) for t in (home_area or "", clean))
+        if hs and cs and hs != cs and hs.startswith(cs) and len(hs) - len(cs) == 1 and hs[-1] == "i":
+            # Live 2026-11-10 (Monolith Ruins II, twice): the minimap's "Monolith Ruins II" read as "Monolith Ruins
+            # I ." and the big map's label as "Monolith Ruin", so the walk thought it had left the zone and walked
+            # out and back. A name one trailing "I" short of the zone being explored is that zone.
+            return tree.key(home_area) or home_area
         if tree.key(name):
             return tree.key(name)
         if name not in seen_names:
