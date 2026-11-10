@@ -1084,6 +1084,17 @@
       74
      ],
      "found_in": "Journal > Daily Dungeon > Goals"
+    },
+    {
+     "file": "sunflower_2.png",
+     "screen": "items/spooky_shop_2.png",
+     "box": [
+      95,
+      667,
+      77,
+      93
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
     }
    ]
   },
@@ -2251,6 +2262,270 @@
       68
      ],
      "found_in": "Thrilling Events > Growth Trial > Day 2"
+    }
+   ]
+  },
+  {
+   "id": "tricksy_candy",
+   "name": "Tricksy Candy",
+   "kind": "currency",
+   "description": "Can be exchanged for items in the limited-time event shop. Any unused items will be automatically removed when the event ends. Please use them before the event concludes. Trick or Treat. Make your choice.",
+   "uses": "Haunted Carnival event currency (Spooky Shop); removed when the event ends",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "tricksy_candy.png",
+     "screen": "items/spooky_shop.png",
+     "box": [
+      606,
+      41,
+      38,
+      28
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    }
+   ]
+  },
+  {
+   "id": "wheel_ticket",
+   "name": "Wheel Ticket",
+   "kind": "ticket",
+   "description": "Use this to spin the event wheel for rewards. Use this ticket to spin the wheel for a chance at rare items, Companions, or resources. Go on, try your luck!",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "wheel_ticket.png",
+     "screen": "items/spooky_shop.png",
+     "box": [
+      85,
+      414,
+      94,
+      86
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    },
+    {
+     "file": "wheel_ticket_2.png",
+     "screen": "items/spooky_shop.png",
+     "box": [
+      544,
+      411,
+      94,
+      89
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    }
+   ]
+  },
+  {
+   "id": "bond_sigil",
+   "name": "Bond Sigil",
+   "kind": "ticket",
+   "description": "Use it at Arborisfatum for limited-time summon to obtain exclusive Fantomons. A rare contract token. Hang it upon Arborisfatum to forge a pact with a Fantomon and have it fight by your side.",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "bond_sigil.png",
+     "screen": "items/spooky_shop.png",
+     "box": [
+      312,
+      405,
+      100,
+      95
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    },
+    {
+     "file": "bond_sigil_2.png",
+     "screen": "items/spooky_shop.png",
+     "box": [
+      83,
+      687,
+      100,
+      99
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    }
+   ]
+  },
+  {
+   "id": "moonveil_howl",
+   "name": "Moonveil Howl",
+   "kind": "other",
+   "description": "Equip it in the Visage Wardrobe to change your outfit. Not hunting anyone tonight. The moon is calling.",
+   "uses": "Visage cosmetic (Outfit), Style Scores +70; event shop item, never bought",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "moonveil_howl.png",
+     "screen": "items/spooky_shop.png",
+     "box": [
+      306,
+      691,
+      108,
+      95
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    },
+    {
+     "file": "moonveil_howl_2.png",
+     "screen": "items/spooky_shop.png",
+     "box": [
+      532,
+      690,
+      108,
+      96
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    }
+   ]
+  },
+  {
+   "id": "nightwolf_ears",
+   "name": "Nightwolf Ears",
+   "kind": "other",
+   "description": "Equip it in the Visage Wardrobe to change your headwear. Who's unwrapping candy back there? I can hear you!",
+   "uses": "Visage cosmetic (Headwear), Style Scores +70; event shop item, never bought",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "nightwolf_ears.png",
+     "screen": "items/spooky_shop.png",
+     "box": [
+      93,
+      976,
+      81,
+      94
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    }
+   ]
+  },
+  {
+   "id": "graywolf_mask",
+   "name": "Graywolf Mask",
+   "kind": "other",
+   "description": "Equip it in the Visage Wardrobe to change your face accessory. Fangs are ready. The howl? Two more tries should do it.",
+   "uses": "Visage cosmetic (Facewear), Style Scores +70; event shop item, never bought",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "graywolf_mask.png",
+     "screen": "items/spooky_shop.png",
+     "box": [
+      306,
+      978,
+      108,
+      83
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    }
+   ]
+  },
+  {
+   "id": "twilight_wolfmane",
+   "name": "Twilight Wolfmane",
+   "kind": "other",
+   "description": "Equip it in the Visage Wardrobe to change your hairstyle. Awooo in wolf, that means: Where's the candy?",
+   "uses": "Visage cosmetic (Hairstyle), Style Scores +70; event shop item, never bought",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "twilight_wolfmane.png",
+     "screen": "items/spooky_shop.png",
+     "box": [
+      532,
+      972,
+      108,
+      98
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    }
+   ]
+  },
+  {
+   "id": "focus_essence",
+   "name": "Focus Essence",
+   "kind": "material",
+   "description": "Activates Aptitudes for Support Fantomons. A bottle of plant oil with a rich, invigorating aroma. Crafted from Blossoms of Hope.",
+   "uses": "Sources: Fantomon Summon, Guild Planting, Alchemy Pot Combination, Commercium-Trading House Purchase",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "focus_essence.png",
+     "screen": "items/spooky_shop_2.png",
+     "box": [
+      556,
+      385,
+      66,
+      95
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    }
+   ]
+  },
+  {
+   "id": "brown_egg",
+   "name": "Brown Egg",
+   "kind": "material",
+   "description": "Activates Aptitudes for Tank Fantomons. This plain ol' brown egg is still with a speck of dirt on its shell. Smells faintly of the countryside.",
+   "uses": "Sources: Fantomon Summon, Guild Breeding, Commercium-Trading House Purchase",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "brown_egg.png",
+     "screen": "items/spooky_shop_2.png",
+     "box": [
+      326,
+      673,
+      77,
+      86
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    }
+   ]
+  },
+  {
+   "id": "fresh_essence",
+   "name": "Fresh Essence",
+   "kind": "material",
+   "description": "Activates Aptitudes for Support Fantomons. A bottle of plant oil with a light, refreshing scent. Distilled from Buds of Resilience.",
+   "uses": "Sources: Fantomon Summon, Guild Planting, Commercium-Trading House Purchase",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "fresh_essence.png",
+     "screen": "items/spooky_shop_2.png",
+     "box": [
+      560,
+      674,
+      61,
+      86
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
+    }
+   ]
+  },
+  {
+   "id": "magic_wool",
+   "name": "Magic Wool",
+   "kind": "material",
+   "description": "Activates Aptitudes for DPS Fantomons. This bundle of wool gives off a faint magical hum. It's pretty ordinary, but there's a touch of mana to it.",
+   "uses": "Sources: Fantomon Summon, Guild Sheepfold, Commercium-Trading House Purchase",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "magic_wool.png",
+     "screen": "items/spooky_shop_2.png",
+     "box": [
+      80,
+      955,
+      108,
+      85
+     ],
+     "found_in": "Thrilling Events > Haunted Carnival > Spooky Shop"
     }
    ]
   }
