@@ -29,7 +29,7 @@ AREA_MAP_ZOOM_OUT = (682, 1113)  # the "-" under the area map's zoom slider
 SCREEN_CENTRE = ui.SCREEN_CENTRE  # where the area-map point lands after the camera re-centres
 COORDS = re.compile(r"\(?(\d+) ?[,.] ?(\d+)\)?")  # OCR reads the comma as "." sometimes
 WALK_TIMEOUT_S = 60
-LABEL_DY = 0  # tap the label itself: area labels sit on the area they name
+LABEL_DY = -26  # just above the label: it sits on its zone, and a Portal can sit right under it (mae, 2026-11-10: Verdantglade VI; the tap opened the portal card)
 
 
 def squeeze(t: str) -> str:

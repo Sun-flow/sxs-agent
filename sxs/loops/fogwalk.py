@@ -161,7 +161,11 @@ def minimap_target(det, frame: np.ndarray, lookahead: int = 4, player_xy=None,
     if mm.border:
         log.debug("zone border on the minimap at %d tiles (%s)", len(mm.border), "crossing allowed" if cross_border
                   else "a wall: finish this zone first")
-    path = minimap.path_to_nearest(mm, goals=objects, skip=off, cross_border=cross_border) if objects else []
+    # Our own marker and ring read as an orange "monster" right next to us (live 2026-11-10: "monster 1 tiles
+    # away", then the tap opened our profile, over and over): tiles touching the centre are never object goals.
+    pr, pc = mm.centre
+    ring = {(pr + dr, pc + dc) for dr in (-1, 0, 1) for dc in (-1, 0, 1)}
+    path = minimap.path_to_nearest(mm, goals=objects, skip=off | ring, cross_border=cross_border) if objects else []
     if len(path) < 2 and player_xy is not None and buildings_seen is not None:
         skip = off | {tile for tile in mm.tiles("building") if minimap.world_tile(mm, tile, player_xy) in buildings_seen}
         path = minimap.path_to_nearest(mm, goals=("building",), skip=skip, cross_border=cross_border)
@@ -258,14 +262,24 @@ def quest_step(dev, det, fight: bool) -> bool:
         if ring is None:
             return False
         cx, cy = ring
-        if cx < 70 or cx > 650 or cy < 150 or cy > 900:  # an edge ring: tapping it pans the camera to the target
+        if cy < 130 and cx < 300:
+            # An edge ring over the HUD (name, power, portrait): a tap there opens the profile or class page (live
+            # 2026-11-10, a "Mage" card and the Class page). Leave the quest pointer for now.
+            log.info("quest ring under the HUD at %s: not tapping it", ring)
+            return False
+        me = player_on_screen(det, dev.screenshot())
+        on_me = me is not None and (cx - me[0]) ** 2 + (cy - me[1]) ** 2 < 90 ** 2
+        # Traced live 2026-11-10 (scripts/tap_trace.py, tap 37): with us at the screen edge, the quest ring floated
+        # over our own character at x 667; taken for an edge ring, the tap hit us and opened the profile. A ring on us
+        # marks a target next to us, not an off-screen one.
+        if not on_me and (cx < 70 or cx > 650 or cy < 150 or cy > 900):  # an edge ring: tapping it pans the camera
             ui.tap(dev, (cx, cy), 2)
             ring = find_quest_ring(dev.screenshot())
             continue
         if fight and attack_guard(dev, det):
             return True
         log.info("quest pointer: tapping the target under the ring at %s", (cx, cy))
-        ui.tap(dev, (cx, cy + QUEST_TARGET_DY), 10)
+        ui.tap(dev, off_me(det, (cx, cy + QUEST_TARGET_DY)), 10)
         return True
     return False
 
@@ -280,6 +294,25 @@ def lucky_wheel_free(det) -> bool:
         return False
     button = " ".join(t for t, _ in det.read_text([180, 1060, 360, 80]))
     return bool(re.fullmatch(r"\s*Tap to spin\s*", button))
+
+
+ME_RADIUS = 70  # px round our character on screen: a tap there opens our profile ("Mage", Class Level 8)
+
+
+def off_me(det, point: tuple[int, int], frame=None) -> tuple[int, int]:
+    """A walk tap that would land on our own character opens the profile (live 2026-11-09 and -10, again and
+    again). Push such a point out of ME_RADIUS, away from the character, so the tap still walks that way."""
+    me = player_on_screen(det, frame if frame is not None else det.device.screenshot())
+    if me is None:
+        return point
+    dx, dy = point[0] - me[0], point[1] - me[1]
+    d = (dx * dx + dy * dy) ** 0.5
+    if d >= ME_RADIUS:
+        return point
+    if d < 1:
+        dx, dy, d = 0, 1, 1  # straight on top of us: step down a little
+    k = (ME_RADIUS + 15) / d
+    return int(me[0] + dx * k), int(me[1] + dy * k)
 
 
 def zone_here(dev, det, tree: Optional[Tree] = None) -> str:
@@ -417,6 +450,20 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
     last_zone: Optional[str] = None  # area name read on the previous map step
     last_plan = None  # the frame the last minimap walk tap was planned on
     seen_names: dict = {}  # name under the minimap -> zone the big map's player dot put us in (R-140)
+
+    def note_objective(title: str, action: str, xy) -> None:
+        k = tree.key(home_area or "")
+        t = (title or "").strip()
+        if not k or len(t) < 4 or not xy or re.search(r"^\d+$|Mage|Settings|Friend|Request|Chat", t):
+            return
+        objs = tree.zones[k].setdefault("objectives", [])
+        for o in objs:
+            if o["title"] == t and max(abs(o["xy"][0] - xy[0]), abs(o["xy"][1] - xy[1])) <= 2:
+                if action != "dismiss":
+                    o["done"] = True
+                return
+        objs.append({"title": t, "xy": list(xy), "done": action != "dismiss", "day": server_day()})
+        tree.save()
 
     def in_home(zone: str) -> bool:
         """True when `zone` is the zone being explored, also when OCR joined two labels ("Wildbloom CoastHidden Camo"
@@ -692,7 +739,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                     last_plan = frame
                     # Only taps aimed at an object feed the store (a walk can be interrupted by anything).
                     tapped = (frame, target, goal) if goal and target else None
-                    dev.tap(*target)
+                    dev.tap(*off_me(det, target, frame))
                     time.sleep(3)
                     continue
                 me = player_on_screen(det, frame)
@@ -715,7 +762,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 no_fog = 0
                 log.info("walking to fog edge at %s", target)
                 last_tap = to_world(xy, player_on_screen(det, frame), target)
-                dev.tap(*target)
+                dev.tap(*off_me(det, target, frame))
                 time.sleep(3)
             elif d.state == "battle_prep" and tapped and tapped[2] == "monster" and not saved_fight:
                 collectibles.save(tapped[0], tapped[1], "monster", "monster", home_area or "")
@@ -770,6 +817,9 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
             else:
                 # Cards, dialogs and unknown popups: the same rules as the quest loop.
                 card, choice = decider.decide(ctx)
+                # mae, 2026-11-10: keep a list of every objective a zone has (statues, chests, wheels, portals,
+                # gates...) in the location tree, so what a walk missed shows up there.
+                note_objective(card.title, choice.action, goto.coords(det))
                 if (tapped and tapped[2] == "building" and card.title and card.title != last_card
                         and choice.action != "dismiss"):  # a card we act on: not a social popup or an unknown one
                     collectibles.save(tapped[0], tapped[1], card.title, "interactable", home_area or "")

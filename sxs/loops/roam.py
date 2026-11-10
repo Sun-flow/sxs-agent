@@ -640,6 +640,10 @@ class Roamer:
                 continue  # blessed something: read the map again
             if area:
                 target = next((a for a in areas if same(a.name, area)), None)
+                if target is not None and self.tree.key(area):
+                    # The tree's name, never the label as read (live 2026-11-10: "erdantglade VI" became the zone
+                    # being explored, so every zone check failed and the walk drifted out).
+                    target = Area(self.tree.key(area), target.box, target.pct, target.gate, target.unsure)
                 if self.tree.explored(area) or (self.tree.get(area) is None and target and target.pct is None
                                                  and not target.unsure):
                     log.info("%s is explored (location tree): finished", area)

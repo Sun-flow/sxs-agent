@@ -8,8 +8,8 @@
    "blessed": true,
    "notes": "Free 4-player story dungeon (R-133); Lost Goddess Statue blessed 2026-11-05.",
    "map_point": [
-    32,
-    381
+    663,
+    923
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -42,8 +42,8 @@
    "kind": "town",
    "notes": "Town: Chief, Hermes, Carol, portal (R-134).",
    "map_point": [
-    82,
-    569
+    736,
+    533
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -53,18 +53,16 @@
    "first_seen": "2026-11-05",
    "pct": 0,
    "map_point": [
-    385,
-    550
+    597,
+    339
    ],
    "last_seen": "2026-11-09",
    "entries": [],
-   "cp": 20.4,
    "failed_via": {
     "Troll Lair": "2026-11-09 (fog walk not_in_zone)"
    },
    "notes": "blocked: Boulder Blockade near None (no rule; dismissed)",
-   "blocked": "Boulder Blockade needs Magic Drill (0/1)",
-   "blessed": true
+   "blocked": "Boulder Blockade needs Magic Drill (0/1)"
   },
   "Highland Woods": {
    "kingdom": "Verdantglade",
@@ -73,8 +71,8 @@
    "pct": 100,
    "notes": "Entered past a bracketed wolf-boss pack (R-041); ground pickups by a cooking pot finish it (R-066).",
    "map_point": [
-    175,
-    355
+    1128,
+    322
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -86,8 +84,8 @@
    "pct": 100,
    "notes": "Entered from Verdantglade III (142,84) or Drasilgard (138,84). The last 7% was the Lucky Wheel (blue !): its first spin is free while the zone is unexplored (mae). Lost Goddess Statue unlocked 2026-11-10.",
    "map_point": [
-    154,
-    794
+    499,
+    1079
    ],
    "last_seen": "2026-11-09",
    "entries": [
@@ -115,12 +113,11 @@
    "first_seen": "2026-11-05",
    "pct": 0,
    "map_point": [
-    355,
-    319
+    188,
+    766
    ],
    "last_seen": "2026-11-09",
-   "entries": [],
-   "cp": 50.5
+   "entries": []
   },
   "Moonveil Woods": {
    "kingdom": "Verdantglade",
@@ -128,11 +125,31 @@
    "pct": 100,
    "notes": "Dungeon gate unlocked by quest; Bellflower field at minimap (169, 94-95) (R-123).",
    "map_point": [
-    238,
-    593
+    1191,
+    560
    ],
    "last_seen": "2026-11-09",
    "entries": []
+  },
+  "Rabbit Vault": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-09",
+   "pct": 0,
+   "map_point": [
+    359,
+    313
+   ],
+   "last_seen": "2026-11-09"
+  },
+  "Stagnant Jungle": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-09",
+   "pct": 0,
+   "map_point": [
+    184,
+    703
+   ],
+   "last_seen": "2026-11-09"
   },
   "Stone Ruins I": {
    "kingdom": "Verdantglade",
@@ -165,11 +182,11 @@
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
    "cp": 17.0,
-   "pct": 100,
+   "pct": 42,
    "notes": "Border label 'Troll Lair 17K' at a corner of its dotted line (R-132).",
    "map_point": [
-    358,
-    557
+    1005,
+    1096
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -180,8 +197,8 @@
    "pct": 100,
    "notes": "Area quests done.",
    "map_point": [
-    377,
-    254
+    582,
+    565
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -191,8 +208,8 @@
    "first_seen": "2026-11-04",
    "pct": 100,
    "map_point": [
-    376,
-    554
+    911,
+    714
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -204,8 +221,8 @@
    "pct": 100,
    "notes": "No way in on foot from Moonveil Woods (fog south of about (168, 94) never moves); entered with the quest's Go travel (R-084, R-089).",
    "map_point": [
-    148,
-    755
+    1104,
+    722
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -215,8 +232,8 @@
    "first_seen": "2026-11-04",
    "notes": "Area quests done; % not read since.",
    "map_point": [
-    291,
-    594
+    551,
+    1049
    ],
    "last_seen": "2026-11-09",
    "pct": 100,
@@ -226,7 +243,7 @@
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
    "cp": 14.8,
-   "pct": 0,
+   "pct": 100,
    "notes": "Auroradrasil sits inside it on the map but is its own zone (R-132): walks to finish V must land on V's own ground. (was blocked: Sealed Stone Gate, opened 2026-11-10) at the north edge, about (135, 126) (no rule; dismissed)",
    "entries": [
     {
@@ -239,8 +256,8 @@
     }
    ],
    "map_point": [
-    240,
-    280
+    584,
+    564
    ],
    "last_seen": "2026-11-09",
    "blessed": true
@@ -248,13 +265,13 @@
   "Verdantglade VI": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
-   "pct": 0,
+   "pct": 87,
    "failed_via": {
-    "Auroradrasil": "2026-11-04"
+    "Auroradrasil": "2026-11-09 (fog walk no_fog)"
    },
    "map_point": [
-    355,
-    699
+    247,
+    490
    ],
    "last_seen": "2026-11-09",
    "entries": [
@@ -267,13 +284,13 @@
      ]
     }
    ],
-   "notes": "(was blocked: Sealed Stone Gate, opened 2026-11-10) near None (no rule; dismissed)",
+   "notes": "(was blocked: Sealed Stone Gate, opened 2026-11-10) near None (no rule; dismissed) blocked: Mage near None (no rule; dismissed)",
    "dismissed_spots": []
   },
   "Wildbloom Coast": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
-   "cp": 204.0,
+   "cp": 20.4,
    "pct": 100,
    "entries": [
     {
@@ -286,8 +303,8 @@
     }
    ],
    "map_point": [
-    231,
-    55
+    577,
+    340
    ],
    "last_seen": "2026-11-09",
    "blessed": true
@@ -298,8 +315,8 @@
    "pct": 0,
    "notes": "Its border label runs sideways along a vertical dotted line, no power shown (R-132).",
    "map_point": [
-    382,
-    715
+    1031,
+    986
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -920,6 +937,141 @@
   {
    "a": "Verdantglade II",
    "b": "Verdantglade III",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade II",
+   "b": "Verdantglade IV",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade II",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Highland Woods",
+   "b": "Moonveil Woods",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Stone Ruins I",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade II",
+   "b": "Verdantglade VI",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade II",
+   "b": "Rabbit Vault",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade IV",
+   "b": "Rabbit Vault",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Damp Woods",
+   "b": "Highland Woods",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Highland Woods",
+   "b": "Verdantglade III",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins I",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Rabbit Vault",
+   "b": "Verdantglade VI",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Wildbloom Coast",
+   "b": "Zephyr Vale",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Troll Lair",
+   "b": "Verdantglade I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Auroradrasil",
+   "b": "Stagnant Jungle",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Stagnant Jungle",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Rabbit Vault",
+   "b": "Stone Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Rabbit Vault",
+   "b": "Verdantglade I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Rabbit Vault",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade V",
+   "b": "Stagnant Jungle",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Auroradrasil",
+   "b": "Hidden Camp",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Rabbit Vault",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade I",
+   "b": "Stagnant Jungle",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Verdantglade I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Hidden Camp",
+   "b": "Stone Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins I",
+   "b": "Stagnant Jungle",
    "how": "map_adjacent"
   }
  ],
