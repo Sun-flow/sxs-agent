@@ -35,8 +35,8 @@ R-061: retry a lost fight at most twice, then get stronger or stop and ask.
 ## One quest: what happens on each screen
 
 `Explorer.step()` reads the screen and runs one handler (`_on_<screen>`); boxes are grouped by the handler that owns
-them. The groups are handlers inside the one Explore loop, not other loops: it never switches loop types to get
-unstuck (R-141). `tower.climb` is the only other loop it hands over to. Every handler goes back to reading the
+them. The groups are handlers inside the one Explore loop, not separate loops. It hands over to other loops in two
+places: `tower.climb` on tower screens, and `get_stronger` after repeated losses (outer loop). Every handler goes back to reading the
 screen until one returns a stop reason. Layout by mae (2026-11-10). Step 4, the guard check, is in PR #46.
 
 ```mermaid

@@ -27,8 +27,8 @@ arrow for the pages, tap outside for the cards, Home for the profile).
 slow 1 s drags over the ground, as the Cart sweep does.
 
 **Q16. Explore fights hurt after two heal tries.** `_on_battle_prep` in `sxs/loops/explore.py` heals up to twice,
-then taps Start Battle even when the prep bar is still under 70%. R-061 says never fight under 70%, and R-141 says
-exploring loops use the shared `start_fight`, which backs out instead. *Recommend:* call `start_fight`; if it returns
+then taps Start Battle even when the prep bar is still under 70%. R-061 says never fight under 70%; the shared
+`start_fight` (used by gather) backs out instead. *Recommend:* call `start_fight`; if it returns
 False, end the run `low_hp`.
 
 **Q17. Explore's unstick reads the zone from the minimap name.** Unstick round 1 compares `goto.area_name_here`
