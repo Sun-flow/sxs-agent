@@ -66,6 +66,7 @@ with tempfile.TemporaryDirectory() as d:
     t2 = Tree.load()
     t2.path = Path(d) / "zones.json"
     t2.zones["Jungle Camp"].pop("entries", None)
+    t2.zones["Jungle Camp"]["blessed"] = False  # a blessed zone keeps 100% (R-140); test an unblessed one
     t2.observe("Jungle Camp", pct=12, today="2026-11-09")
     t2.record_entry("Jungle Camp", "Verdantglade V", True, "2026-11-09", xy=(201, 80))
     t2.record_entry("Jungle Camp", "Drasilgard", True, "2026-11-09", xy=(120, 60))
