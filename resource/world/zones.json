@@ -42,8 +42,8 @@
    "kind": "town",
    "notes": "Town: Chief, Hermes, Carol, portal (R-134).",
    "map_point": [
-    453,
-    1038
+    751,
+    1614
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -73,8 +73,8 @@
    "pct": 100,
    "notes": "Entered past a bracketed wolf-boss pack (R-041); ground pickups by a cooking pot finish it (R-066).",
    "map_point": [
-    554,
-    828
+    1150,
+    827
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -86,8 +86,8 @@
    "pct": 100,
    "notes": "Entered from Verdantglade III (142,84) or Drasilgard (138,84). The last 7% was the Lucky Wheel (blue !): its first spin is free while the zone is unexplored (mae). Lost Goddess Statue unlocked 2026-11-10.",
    "map_point": [
-    833,
-    1009
+    827,
+    1266
    ],
    "last_seen": "2026-11-09",
    "entries": [
@@ -115,8 +115,8 @@
    "first_seen": "2026-11-05",
    "pct": 0,
    "map_point": [
-    429,
-    790
+    1025,
+    789
    ],
    "last_seen": "2026-11-09",
    "entries": [],
@@ -128,8 +128,8 @@
    "pct": 100,
    "notes": "Dungeon gate unlocked by quest; Bellflower field at minimap (169, 94-95) (R-123).",
    "map_point": [
-    1088,
-    684
+    1212,
+    1064
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -174,12 +174,12 @@
   "Troll Lair": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
-   "cp": 17.0,
+   "cp": 1.0,
    "pct": 100,
    "notes": "Border label 'Troll Lair 17K' at a corner of its dotted line (R-132).",
    "map_point": [
-    1034,
-    770
+    1027,
+    1601
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -201,8 +201,8 @@
    "first_seen": "2026-11-04",
    "pct": 100,
    "map_point": [
-    376,
-    554
+    1123,
+    1227
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -258,13 +258,13 @@
   "Verdantglade VI": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
-   "pct": 15,
+   "pct": 18,
    "failed_via": {
     "Auroradrasil": "2026-11-04"
    },
    "map_point": [
-    272,
-    678
+    271,
+    677
    ],
    "last_seen": "2026-11-09",
    "entries": [
@@ -308,8 +308,8 @@
    "pct": 0,
    "notes": "Its border label runs sideways along a vertical dotted line, no power shown (R-132).",
    "map_point": [
-    442,
-    914
+    1039,
+    915
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -970,6 +970,11 @@
   {
    "a": "Damp Woods",
    "b": "Highland Woods",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Highland Woods",
+   "b": "Verdantglade III",
    "how": "map_adjacent"
   }
  ],

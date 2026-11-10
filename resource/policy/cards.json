@@ -118,6 +118,20 @@
             "why": "Live 2026-11-10: the gate between Verdantglade V and VI opens free once its requirement is met (Reach the Apprentice II rank). With the requirement unmet there is no Unlock button and the card is dismissed. Opening it started Explore Verdantglade VI (0 -> 3%)."
         },
         {
+            "kind": "gear_item_card",
+            "match": "^[A-Z][\\w' ]+\\+\\d+$",
+            "choose": "dismiss",
+            "dismiss_by": "back",
+            "why": "Live 2026-11-10 (Verdantglade VI): a gear card ('Beasthide Armor+21') opened during a fog walk; a tap above it landed on the Character screen behind and opened the Class page. Back out instead; gear choices belong to gearswap."
+        },
+        {
+            "kind": "class_card",
+            "match": "^(Mage|Warrior|Rogue|Ranger|Cleric|Knight)$",
+            "choose": "dismiss",
+            "dismiss_by": "back",
+            "why": "Live 2026-11-10: the Class page's class card showed up mid-walk after a stray tap. Never change class (policy); back out."
+        },
+        {
             "kind": "lucky_wheel",
             "match": "Wheel of Destiny|All items have an equal drop rate",
             "choose": "dismiss",
