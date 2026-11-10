@@ -112,6 +112,8 @@ OUTSIDE_RADIUS = 3  # map tiles around a spot found to be in another zone that a
 LAST_DIST = 99  # tiles along the path to what minimap_target headed for
 DIRECT_TAPS_MAX = 2  # direct taps on the same near object before giving up on it
 GUARD_TAPS_MAX = 6  # taps on monsters under guard markers per walk
+LAST_GOAL_XY: Optional[tuple] = None  # map coordinates of the last minimap_target() goal tile
+GOAL_TAPS_MAX = 3  # walk taps toward one goal tile before it counts as one we can't reach this way
 LAST_GOAL: Optional[str] = None  # what the last minimap_target() headed for: "monster", "building" or None
 
 
@@ -145,8 +147,8 @@ def minimap_target(det, frame: np.ndarray, lookahead: int = 4, player_xy=None,
 
     R-132 (mae, 2026-11-09): a zone's dotted border on the minimap is a wall for the plan unless cross_border (the
     caller allows it only when walking in from a finished neighbour into the zone it was sent to)."""
-    global LAST_GOAL, LAST_DIST
-    LAST_GOAL, LAST_DIST = None, 99
+    global LAST_GOAL, LAST_DIST, LAST_GOAL_XY
+    LAST_GOAL, LAST_DIST, LAST_GOAL_XY = None, 99, None
     mm = minimap.read(frame, home_light)
     # mae, 2026-11-05: exploration % comes from what you do, not where you walk: collect green dots, fight orange
     # ones, complete yellow structures; then the area's statue appears. So objects come first, in that order of
@@ -188,6 +190,8 @@ def minimap_target(det, frame: np.ndarray, lookahead: int = 4, player_xy=None,
     if len(path) < 2:
         return None
     LAST_DIST = len(path) - 1
+    if player_xy is not None:
+        LAST_GOAL_XY = minimap.world_tile(mm, path[-1], player_xy)
     if mm.grid[path[-1][0]][path[-1][1]] == "item":
         LAST_GOAL = "item"
     if mm.grid[path[-1][0]][path[-1][1]] == "monster":
@@ -215,6 +219,8 @@ MAP_LABELS_ROI = [0, 120, 720, 1060]  # area-map zone labels (legend and kingdom
 
 QUEST_LOCATE_X = 330  # the locate (target) icon right of the tracker's progress line
 QUEST_TARGET_DY = 80  # the quest ring floats this far above its target
+_LOCATE_MISSES = 0  # locate taps since the last quest ring was seen (each tap toggles tracking)
+APPROACH_DY = 75 # the ground tile just below a map object, walked to when a tap on the object itself did nothing
 QUEST_FAILS_MAX = 3  # quest-pointer steps without the counter moving before the walk stops using it
 
 
@@ -254,10 +260,21 @@ def quest_step(dev, det, fight: bool) -> bool:
     prog = det.find("Explore.Progress")
     if not prog:
         return False
+    global _LOCATE_MISSES
     ring = find_quest_ring(dev.screenshot())
     if ring is None:
+        if _LOCATE_MISSES >= 1:
+            # Live 2026-11-10: three locate taps in a row, 15 s apart, none showing a ring (the camera had drifted
+            # off our character); each tap flips tracking, so tapping again only turns it back off. Once a tap
+            # brought no ring, leave the pointer until a ring is seen again.
+            return False
         ui.tap(dev, (QUEST_LOCATE_X, ui.centre(prog.box)[1]), 2)  # tracking was off: turn it on
         ring = find_quest_ring(dev.screenshot())
+        if ring is None:
+            _LOCATE_MISSES += 1
+            log.info("locate tap showed no quest ring: not tapping it again until one shows")
+            return False
+    _LOCATE_MISSES = 0
     for _ in range(2):
         if ring is None:
             return False
@@ -279,9 +296,41 @@ def quest_step(dev, det, fight: bool) -> bool:
         if fight and attack_guard(dev, det):
             return True
         log.info("quest pointer: tapping the target under the ring at %s", (cx, cy))
-        ui.tap(dev, off_me(det, (cx, cy + QUEST_TARGET_DY)), 10)
+        tap_object(dev, det, (cx, cy + QUEST_TARGET_DY))
         return True
     return False
+
+
+def tap_object(dev, det, point: tuple[int, int], wait: float = 4) -> str:
+    """Tap a map object (monster, pot, pickup). Live 2026-11-10 (Verdantglade VII, mae: "stuck at a monster fight
+    again"): a tap on a monster several tiles away did nothing at all, the character didn't even walk, and the quest
+    step tapped it again and again; from the tile beside it the same tap started the fight at once (62 -> 64 -> 67%).
+    So when a tap leaves us on the map at the same coordinates, walk to the tile just below the object first, then
+    tap it again. Returns "left_map" (a fight or card opened), "moved", "approached" or "nothing"."""
+    before = goto.coords(det)
+    tapped = off_me(det, point)
+    dev.tap(*tapped)
+    time.sleep(wait)
+    after = goto.coords(det)
+    if after is None:
+        return "left_map"
+    if before is None or after != before:
+        return "moved"
+    beside = off_me(det, (point[0], min(900, point[1] + APPROACH_DY)))
+    log.info("tap on the object at %s didn't move us: walking beside it (%s) first", point, beside)
+    dev.tap(*beside)
+    for _ in range(6):  # walk until the coordinates stop changing
+        time.sleep(1.5)
+        now = goto.coords(det)
+        if now is None:
+            return "left_map"  # walking there started the fight (a monster that charges)
+        if now == after:
+            break
+        after = now
+    # The camera doesn't follow the walk, so the object stays where it was on screen.
+    dev.tap(*off_me(det, point))
+    time.sleep(wait)
+    return "left_map" if goto.coords(det) is None else "approached"
 
 
 WHEEL_SPIN = (360, 1100)  # "Tap to spin" on the Wheel of Destiny
@@ -299,9 +348,36 @@ def lucky_wheel_free(det) -> bool:
 ME_RADIUS = 70  # px round our character on screen: a tap there opens our profile ("Mage", Class Level 8)
 
 
+# Island-map HUD buttons a walk tap must never land on (x0, y0, x1, y1 at 720x1280). Live 2026-11-10: a walk tap
+# toward a monster at (671, 376) hit the "Timed Packs" button and opened a paid pack popup.
+HUD_KEEP_OUT = (
+    (0, 0, 330, 200),      # portrait, name, power
+    (0, 200, 110, 260),    # flag button under the portrait
+    (500, 0, 720, 450),    # minimap, zone name and coordinates, Timed Packs
+    (0, 700, 90, 820),     # Team / Apply button on the left edge
+    (0, 950, 720, 1280),   # quest tracker, chat strip, bottom buttons
+)
+HUD_MARGIN = 12
+
+
+def off_hud(point: tuple[int, int]) -> tuple[int, int]:
+    """Move a walk tap out of any HUD button area, to the nearest edge of that area that is open map."""
+    x, y = int(point[0]), int(point[1])
+    for _ in range(3):  # leaving one area can land in another (rare); settle in a few moves
+        hit = next((r for r in HUD_KEEP_OUT if r[0] <= x <= r[2] and r[1] <= y <= r[3]), None)
+        if hit is None:
+            break
+        x0, y0, x1, y1 = hit
+        options = [(x0 - HUD_MARGIN, y), (x1 + HUD_MARGIN, y), (x, y0 - HUD_MARGIN), (x, y1 + HUD_MARGIN)]
+        options = [(a, b) for a, b in options if 20 <= a <= 700 and 20 <= b <= 1260]
+        x, y = min(options, key=lambda p: abs(p[0] - x) + abs(p[1] - y))
+    return x, y
+
+
 def off_me(det, point: tuple[int, int], frame=None) -> tuple[int, int]:
     """A walk tap that would land on our own character opens the profile (live 2026-11-09 and -10, again and
     again). Push such a point out of ME_RADIUS, away from the character, so the tap still walks that way."""
+    point = off_hud(point)
     me = player_on_screen(det, frame if frame is not None else det.device.screenshot())
     if me is None:
         return point
@@ -392,6 +468,8 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
            "else to the fog edge; fight and open cards on the way",
            f"{minutes:g} minutes, no fog in view after 4 pans, no new tile reached in "
            f"{STILL_LIMIT} walk taps, a lost fight, or an unfamiliar screen")
+    global _LOCATE_MISSES
+    _LOCATE_MISSES = 0
     decider, ctx = Decider(det), Context(goal="explore")
     deadline = time.monotonic() + minutes * 60
     unknown = UnknownScreens(in_a_row=5)
@@ -422,6 +500,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
         return not free or fog_misses >= 2
     wheel_spun = False  # one free Lucky Wheel spin per walk, in an unexplored zone only
     objects_done = False  # no object left on either map: only fog edges remain (then stop)
+    goal_taps: dict = {}  # minimap goal tile (map coordinates) -> walk taps aimed at it
     direct_taps: dict = {}  # map spot -> direct taps at a near object there (a repeat means it isn't taken that way)
     quest_fails = 0  # quest-pointer steps in a row that didn't move the zone's Explore counter
     buildings_ok = True  # structures are goals until one's card can only be dismissed (a blocker)
@@ -476,6 +555,13 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
     def map_zone(name: str) -> str:
         # R-140 (amended 2026-11-10): a name under the minimap that the tree knows is the zone; only unknown names
         # are checked on the big map.
+        clean = re.sub(r"[\s.,:;'|]+$", "", name or "")
+        hs, cs = (re.sub(r"[^a-z]", "", goto.squeeze(t)) for t in (home_area or "", clean))
+        if hs and cs and hs != cs and hs.startswith(cs) and len(hs) - len(cs) == 1 and hs[-1] == "i":
+            # Live 2026-11-10 (Monolith Ruins II, twice): the minimap's "Monolith Ruins II" read as "Monolith Ruins
+            # I ." and the big map's label as "Monolith Ruin", so the walk thought it had left the zone and walked
+            # out and back. A name one trailing "I" short of the zone being explored is that zone.
+            return tree.key(home_area) or home_area
         if tree.key(name):
             return tree.key(name)
         if name not in seen_names:
@@ -733,12 +819,26 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                             if here_xy:
                                 map_arrivals.append(here_xy)
                             continue
+                if target and goal and LAST_GOAL_XY is not None:
+                    # Live 2026-11-10 (Verdantglade VII, 87%): a "monster 6 tiles away" on the minimap pulled the walk
+                    # back and forth between (83,110) and (85,108) for 2 minutes while the monster on screen stood
+                    # elsewhere. A goal tile that several taps don't reach is left for this walk.
+                    g = tuple(LAST_GOAL_XY)
+                    goal_taps[g] = goal_taps.get(g, 0) + 1
+                    if goal_taps[g] > GOAL_TAPS_MAX:
+                        log.warning("STUCK %s: %d walk taps toward the %s at map %s didn't reach it; leaving it",
+                                    home_area, GOAL_TAPS_MAX, goal, g)
+                        outside.add(g)
+                        continue
                 if target:
                     log.info("walking toward unexplored ground at %s (map %s)", target, spot)
                     last_tap = spot
                     last_plan = frame
                     # Only taps aimed at an object feed the store (a walk can be interrupted by anything).
                     tapped = (frame, target, goal) if goal and target else None
+                    if goal_direct and goal == "monster":
+                        tap_object(dev, det, target, wait=3)  # walks beside it when the tap alone does nothing
+                        continue
                     dev.tap(*off_me(det, target, frame))
                     time.sleep(3)
                     continue
@@ -806,6 +906,34 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 ui.tap(dev, ui.BACK_ARROW, 2)  # left open by a big-map walk that didn't move us: close it
             elif d.state == "home":
                 return f"left_area:{d.state}"
+            elif d.state == "dialogue_choice":
+                # Live 2026-11-10 (Monolith Ruins II): a box puzzle's NPC, Fonik ("Present a Golden Beetle, and I
+                # shall unveil its truth": Help me solve this! / Reset the puzzle. / Leave). The card decider tapped
+                # above it five times (it doesn't close) and the walk stopped. Using the rare Golden Beetle is mae's
+                # call: take "Leave", note the puzzle as the zone's objective, and walk around it.
+                lines = det.read_text([60, 300, 600, 750])
+                leave = [b for t, b in lines if re.fullmatch(r"\s*Leave\.?\s*", t)]
+                texts = " / ".join(t for t, _ in lines)
+                if not leave:
+                    log.warning("dialogue choice with no Leave option (%s); stopping", texts)
+                    return "needs_decision"
+                puzzle = bool(re.search(r"puzzle|Golden Beetle", texts + " " + " ".join(
+                    t for t, _ in det.read_text([0, 1150, 720, 130])), re.I))
+                log.info("dialogue choice (%s): taking Leave%s", texts, " (a puzzle: noted, walking around it)"
+                         if puzzle else "")
+                if puzzle:
+                    note_objective("Puzzle (Fonik: Golden Beetle solves it)", "dismiss", goto.coords(det) or last_tap)
+                if last_tap:
+                    outside.add(tuple(last_tap))
+                    if last_tap not in bumped:
+                        bumped.append(last_tap)
+                ui.tap(dev, ui.centre(leave[0]), 2)
+            elif d.state in ("battle", "loading"):
+                # An auto battle (a mini-dungeon floor, "Round 3/25") or a loading screen: wait. Live 2026-11-10
+                # (Ironvein Pit): the battle went to the card decider, which read the damage numbers as card titles
+                # ("1159", "1140") and tapped the round counter to "dismiss" them.
+                time.sleep(3)
+                progress(("battle", d.text or ""))
             elif free and not wheel_spun and lucky_wheel_free(det):
                 # mae, 2026-11-10: each Lucky Wheel's first spin is free while its zone is unexplored (once explored a
                 # spin costs). Jungle Camp's last 7% was this spin. Pressed only when the button shows no cost.

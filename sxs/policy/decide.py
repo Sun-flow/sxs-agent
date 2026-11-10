@@ -21,6 +21,7 @@ POLICY_PATH = REPO_ROOT / "resource" / "policy" / "cards.json"
 CARD_ROI = [0, 250, 720, 820]  # where popups and cards sit
 BACK_ARROW = (60, 1216)
 OUTSIDE = (360, 60)  # above the card; taps at the bottom edge sometimes land on nothing and do not close it
+BELOW_CARD = (360, 1120)  # under the card: closes the paid pack popups, which ignore a tap above (2026-11-10)
 
 
 @dataclass
@@ -42,6 +43,17 @@ class Choice:
     action: str  # "tap" or "dismiss"
     point: tuple[int, int]
     why: str
+
+
+RCMD = re.compile(r"Rcmd Power:?\s*([\d.]+)\s*K.*?Current Power:?\s*([\d.]+)\s*K", re.I)
+
+
+def power_ok(card: Card) -> bool:
+    """A card showing "Rcmd Power: 28.5K (Current Power: 28.5K)" is worth fighting by the 1.25x rule (sxs/policy/
+    fights.py, mae 2026-11-04). Unreadable numbers: no."""
+    from .fights import within_reach
+    m = RCMD.search(card.title + " " + card.body)
+    return bool(m) and within_reach(float(m.group(1)), float(m.group(2)))
 
 
 class Decider:
@@ -71,9 +83,11 @@ class Decider:
                 continue
             if not (re.search(rule["match"], card.title) or re.search(rule["match"], card.body)):
                 continue
+            if when.get("power_ok") and not power_ok(card):
+                continue
             pick = rule["choose"]
             if pick == "dismiss":
-                point = BACK_ARROW if rule.get("dismiss_by") == "back" else OUTSIDE
+                point = {"back": BACK_ARROW, "below": BELOW_CARD}.get(rule.get("dismiss_by"), OUTSIDE)
                 return Choice(rule["kind"], "dismiss", point, rule["why"])
             if pick == "cancel":
                 pick = "^Cancel$"

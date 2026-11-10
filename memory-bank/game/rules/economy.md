@@ -28,3 +28,9 @@ Rolla (gold coin, top bar, "1.38K") pays for gear enhancement (R-023), Rank Adva
 - Each pack page has a free gift box top left, red "!" above-right while claimable; one tap claims it (mae allows). Daily Gift (4 h refresh), Weekly Gift (5 d), Welcome Benefit (once), plus boxes on Halloween Charmer and Little Devil. Claim each once per refresh; tap nothing else.
 - Code: `python -m sxs mall`, daily step `mall_gifts`.
 *told, observed* · `shops/mall_premium_picks.png`, `shops/mall_premium_picks_2.png`, `shops/mall_welcome_gift.png`, `shops/mall_welcome_benefit.png`, `shops/mall_halloween_charmer.png`, `shops/mall_daily_deals.png`, `shops/mall_weekly_deals.png` · node `mall` · R-043, R-063
+
+### R-157 · Timed Packs popups are paid: dismiss with a tap below the card
+- The island map's Timed Packs HUD button, about (650, 380), opens a paid pack popup, e.g. "Exploration Kit" ($0.99, Value 700%). **Never buy** (R-043, R-126).
+- A tap above the card does **not** close it; a tap below it, (360, 1120), does. Card rule `paid_pack`, dismiss_by "below" (builder, 2026-11-10).
+- A walk tap that hit the button opened it: walk taps keep out of the HUD (R-158).
+*observed* · `unlabeled/exploration_kit_pack.png` · node `timed_pack` · R-043, R-121, R-126, R-158

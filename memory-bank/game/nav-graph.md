@@ -1,6 +1,6 @@
 # Navigation graph
 
-> **Last updated**: 2026-11-04
+> **Last updated**: 2026-11-10
 > Generated from `memory-bank/game/nav-graph.json` by `python3 scripts/nav-graph.py render`. Don't edit by hand.
 
 Solid arrows are observed in game; dashed arrows are told or reported and still need confirming.
@@ -36,6 +36,7 @@ flowchart TD
     mail["Mail"]
     arena["Arena"]
     cart["Cart"]
+    furniture_upgrade["Furniture Upgrade"]
     home_house(["Home house"])
     bed["Bed"]
     tap_to_continue["Tap to Continue result"]
@@ -83,6 +84,12 @@ flowchart TD
     guild_conquest["Conquest"]
     guild_conquest_result["Conquest result"]
     mall["Mall (Premium Picks)"]
+    drasilgard["Drasilgard (town)"]
+    hermes_menu["Hermes, Smiling Merchant"]
+    kingdom_shop["Kingdom Shop (Drasilgard)"]
+    carol_menu["Carol the Black Cat"]
+    reshape["Reshape (appearance)"]
+    timed_pack["Timed Packs popup (paid pack)"]
     home -->|"tap: Bottom nav bar (y 0.97): Character"| character
     world_map -.->|"tap: Bottom nav bar (y 0.97): Character"| character
     home -->|"tap: Bottom nav bar (y 0.97): Travel Journal"| travel_journal
@@ -118,6 +125,8 @@ flowchart TD
     home -->|"tap: The cart on the home scene (scroll left first)"| cart
     cart -->|"tap: Claim All"| reward_popup
     cart -->|"tap: Above the panel"| home
+    cart -->|"tap: A row's upgrade arrow (only after claiming)"| furniture_upgrade
+    furniture_upgrade -->|"tap: Above the panel"| cart
     home -->|"swipe: Scroll the home scene up"| home_house
     home_house -->|"tap: The bed"| bed
     character -->|"tap: Skill button"| skill_loadout
@@ -187,6 +196,12 @@ flowchart TD
     guild_conquest_result -->|"tap: Tap to Continue"| guild_conquest
     main_menu -->|"tap: Mall card"| mall
     mall -.->|"tap: Back arrow, bottom left"| main_menu
+    drasilgard -->|"tap: Hermes (cat-eared NPC, mushroom-roof shop, east)"| hermes_menu
+    hermes_menu -->|"tap: Show me your wares."| kingdom_shop
+    drasilgard -->|"tap: Carol (wizard-hat cat NPC by the dome house, west)"| carol_menu
+    carol_menu -->|"tap: Transform!"| reshape
+    world_map -->|"tap: Timed Packs HUD button"| timed_pack
+    timed_pack -->|"tap: Below the card"| world_map
 ```
 
 ## Screens
@@ -195,7 +210,7 @@ flowchart TD
 |---|---|---|---|---|---|
 | `home` | Home | hub | observed |  | Scene scrolls horizontally; the Cart (AFK income) and cherry tree are on the left (R-020). The chat strip at y 0.82-0.90 opens server_chat: avoid it. After Originisle: top-right 'Thrilling Events' and 'Starter Pack' (shop; never buy) buttons (R-126). If home shows only sky (no Cart bubble, no Statue) and swipes do nothing, restart the game (R-100). Friend Request toasts near the tracker: leave alone (R-057). |
 | `main_menu` | Menu | menu | observed |  | Also has Photo (0.14,0.85), Notice (0.30,0.85), User Center (0.47,0.85), Settings (0.64,0.85), a 'Coming soon' card (0.72,0.75). Shows the server clock (R-024). From Lv 10 a Friends button is added and the row shifts: Friends (0.14,0.85), Photo (0.32), Notice (0.49), User Center (0.67), Settings (0.85). Later a second row (Friends, Gallery, Photo, Notice, User Center, Settings) plus Quest and Mall cards; the event banner opens paid packs: never (R-053). |
-| `quests` | Quests | menu | observed |  | Tabs Quest (0.40,0.95) and Achievement (0.78,0.95). Each row has 'Go >>' at x 0.83 that jumps to the relevant screen (R-022). |
+| `quests` | Quests | menu | observed |  | Menu > Quest opens Daily Quest (tabs Daily | Weekly | Quest | Achievement, R-128). Each row has 'Go >>' at x 0.83 that jumps to the relevant screen (R-022). |
 | `quest_detail` | Quest detail | popup | observed |  | Quest detail card: Details, Goal, Rewards and a Go or Track button (R-044). |
 | `world_overview` | World (island picker) | world | observed |  | Pick an island to walk on. Shows each island's exploration score and rank (e.g. 'Originisle 82, Ahead of 59.7% of Players'). Bottom-left button opens Exploration Goals. |
 | `world_map` | World map (island) | world | observed |  | Walkable island map with minimap, fog and pickups (R-002, R-004, R-021, R-022). Shows a fruit counter instead of Rolla in the top bar. |
@@ -213,7 +228,7 @@ flowchart TD
 | `agreement` | User Agreement | popup | observed |  | First launch only. Needs a human; the bot must stop and ask. |
 | `character` | Character | menu | observed |  | Gear slots; gear slot -> item card (Replace / Enhance) -> Enhance Gear (R-023). Red badges on gear slots, Skill, Class and the rank badge mean upgrades ready (R-080). Rank badge about (0.82, 0.72). |
 | `loadout_edit` | Loadout (Edit) | menu | observed |  | Not detected yet. Reached from the Combat Veteran quest's Go button. Techniques left, 4 charm slots right (x≈0.87, y≈0.21/0.30/0.39/0.48; 4th locked at Lv 13). Opens on Technique tab; Charm tab (0.56, 0.62). |
-| `server_chat` | Server Chat | overlay | observed |  | Close with the down arrow (0.06,0.96). Never type here. |
+| `server_chat` | Server Chat | overlay | observed |  | Opened by a stray tap on the chat strip of any screen; detector state `chat`. Close with the down chevron (42,1226). Never type here (R-027). |
 | `travel_journal` | Journal (Travel Journal) | menu | observed | any mode unlocked (toast 'Unlock any mode to unlock Travel Journal') | Cards: Fantasia Ascent (0.78, 0.23), Map Exploration, Material Realms, Weekly Events, two Unavailable (R-094). Map Exploration: pick a material and Go to track it (R-108). |
 | `guild` | Guild island | menu | observed | Character Lv. 15 (toast on the locked tab) | Bottom label 'Guild'; pans sideways. West: Guild Lobby, Gate of Expedition. East: Power Station, Forge, Warehouse (locked), Shop (not used yet). Bottom-right widget shows AFK status (R-110, R-113). Unlocked at Lv 20 with a tutorial; joined karsa_1515. |
 | `shop` | Shop | menu | reported |  | Free daily stamina, Daily Shop, Vault (Dawnium) (R-107, R-018). Entry point unknown. |
@@ -221,7 +236,8 @@ flowchart TD
 | `vendor` | Vendor Booth | menu | reported | account level 18 (R-011) | Entry point unknown. |
 | `mail` | Mail | menu | reported |  | Entry point unknown. |
 | `arena` | Arena | menu | reported |  | Solo Arena and 3v3 Tournament (R-001). Entry point unknown. |
-| `cart` | Cart | popup | observed |  | Hourly income per resource, each with a level and an upgrade arrow (R-020). |
+| `cart` | Cart | popup | observed |  | Hourly income per resource, each with a level and an upgrade arrow (R-020). Upgrade only Stone and Wood (R-136). |
+| `furniture_upgrade` | Furniture Upgrade | popup | observed |  | One Cart row's upgrade: tabs per row at y≈0.12, level line at y≈0.34, costs at y≈0.77–0.80, 'Upgrade ×1' at (0.5, 0.865). Capped by Blessing Level (R-136). |
 | `home_house` | Home house | hub | observed |  | Two-storey house above the home scene (scroll the home scene up). Furniture slots, some locked by level (one 'Unlocks at Lv. 7'). |
 | `bed` | Bed | popup | observed |  | AFK EXP and production panel with 'Today's Free Speedup' (R-035). An icon over the bed means AFK EXP to collect: a daily task, or sooner when close to levelling (R-101). |
 | `tap_to_continue` | Tap to Continue result | overlay | observed |  | Full-screen result such as 'UNLOCKED Bed, EXP/Hr 50'. |
@@ -240,10 +256,10 @@ flowchart TD
 | `class_ascend` | Class ascend | menu | observed |  | Class trait stats and class skill grid; Ascend button at (0.5, 0.86) (R-054). |
 | `prayer` | Prayer (skill gacha) | menu | observed | Statue furniture on home | Pray x1 / x10 with prayer tickets; tabs Prayer / Exchange / Goals. The bot never taps Pray (R-093). Statue at about (0.07, 0.63) on the default home camera. Banners Standard (Stellatie) and Affection (tokens). Goals tab: Total Standard Prayers milestones pay Iron Hammers. Pulls only via mae's sxs.loops.pray (R-093). |
 | `prayer_result` | Prayer result | popup | observed |  | Skills and shards from a pull. |
-| `apply_requests` | Apply (social requests) | popup | observed |  | Tabs Friends / Team Up / Challenge / Room; incoming requests with x / check, Decline All / Agree All. Leave untouched (R-057). |
+| `apply_requests` | Apply (social requests) | popup | observed |  | Tabs Friends / Team Up / Challenge / Room; incoming requests with x / check, Decline All / Agree All. The bot may answer them (R-057). |
 | `area_map` | Area map (full map) | overlay | observed |  | Full map of the current area, opened by tapping the minimap. Legend: Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone; areas show exploration % and power gates. Tapping a spot centres the camera there (R-068, R-076). The white box is the camera viewport. sxs/actions/goto.py drives it. |
 | `puzzle_energy_circuits` | Energy Circuits puzzle | popup | observed |  | Ancient Fortress slab-swap puzzle; not automated (R-072). |
-| `team` | Team panel | popup | observed |  | Players 1/9, Team Goal, World Call / Invite / Nearby. Social; left alone (R-077). |
+| `team` | Team panel | popup | observed |  | Players 1/9, Team Goal, World Call / Invite / Nearby. The bot may invite and team up (R-077). |
 | `blessing_level` | Blessing level | popup | observed |  | Shown after unlocking a Goddess Statue (R-070). |
 | `fantasia_ascent` | Fantasia Ascent: tower list | menu | observed |  | One card per tower, 'Current: Fn/110'. State `tower_list` in sxs/loops/tower.py. Turn on Auto Challenge (unlocks after F3); a loss turns it off. Losses are not retried: one run per day, as a daily (R-079). |
 | `fantasia_floors` | Fantasia Ascent: floors | menu | observed |  | F1 at the bottom; tabs 'Fantasia Ascent' and 'Goals'. Current floor shows recommended power (F1 6.5K). State `tower_floors`. |
@@ -257,7 +273,7 @@ flowchart TD
 | `material_realms` | Material Realms | menu | observed |  | Realm list; Ironvein Pit first, 3 locked (R-095). |
 | `ironvein_pit` | Ironvein Pit (mining) | menu | observed |  | Hammer (0.5, 0.72), Iron Mined counter, tabs Ironvein Pit / Rankings / Goals. Needs Iron Hammers (R-095). |
 | `purchase_iron_hammer` | Purchase Iron Hammer | popup | observed |  | 60 Dawnium each: never buy. Cancel (0.32, 0.65). |
-| `featured` | Thrilling Events: Featured | menu | observed |  | Dawnstar Prelude (never), Growth Trial, Daily Sign-in, Link Account (never) (R-096). |
+| `featured` | Thrilling Events: Featured | menu | observed |  | Order changes with events; find cards by title. Dawnstar Prelude (never), Growth Trial, Daily Sign-in, Link Account (never), event cards (R-096). |
 | `daily_signin` | Daily Sign-in | menu | observed |  | 30-tile calendar; today's green Claim; never Catch Up (R-097). |
 | `growth_trial` | Growth Trial | menu | observed |  | Day 1-7 trial quests, points to a chest track; never Advanced Trial (R-098). |
 | `guild_no_guild` | Guild: no guild yet | menu | observed |  | Join Guild Go>> (0.71, 0.38), Create Guild <<Go (0.29, 0.77): never create (R-102). |
@@ -269,6 +285,12 @@ flowchart TD
 | `guild_conquest` | Conquest | menu | observed |  | Shared boss per floor; Daily Challenge Attempts N/2; floor chest (0.49, 0.57); Challenge (0.50, 0.77); tabs Rankings, Goals (R-111). |
 | `guild_conquest_result` | Conquest result | popup | observed |  | Damage dealt, participation rewards; Tap to Continue. |
 | `mall` | Mall (Premium Picks) | menu | observed |  | Shop. Every pack is USD: never tap one. Only the free gift box at the top left of each page (red "!" above right) may be tapped, once per refresh: Daily Gift 4 h, Weekly Gift 5 d, Welcome Benefit once, event boxes (R-121). Bottom tabs Event / Monthly Pass / Top Up (never Top Up). Code sxs/loops/mall.py, state mall. |
+| `drasilgard` | Drasilgard (town) | world | observed | story | Story town (R-134). Village Chief (north): story only. Hermes (east): Kingdom Shop. Carol the Black Cat (west, by the dome house): Reshape. Portal east of the stone ring: Teleport. Notice board stall and 'G' dome house are decoration; stone ring gives no card. Yellow-star markers NE unmapped. |
+| `hermes_menu` | Hermes, Smiling Merchant | popup | observed |  | First talk: intro plus a free welcome gift popup. Then 'Show me your wares.' / Chat / Leave. |
+| `kingdom_shop` | Kingdom Shop (Drasilgard) | menu | observed |  | Pays Abundance Leaves. Shop Level 1/4, tabs Lv.1-Lv.4. Stock in docs/shop-tables.md. Buy nothing until mae fills Buy? (R-043, R-114). |
+| `carol_menu` | Carol the Black Cat | popup | observed |  | First meeting gives a free Shapeshifting Mirror. Menu Transform! / Chat / Let me think about it. |
+| `reshape` | Reshape (appearance) | menu | observed |  | Tabs General, Hair, Face, Trait. Complete costs 1 Shapeshifting Mirror: never press, mae's choice (R-134). |
+| `timed_pack` | Timed Packs popup (paid pack) | popup | observed |  | Paid pack, e.g. Exploration Kit $0.99. Never buy (R-043, R-157). No detector state yet. Closes only with a tap below the card (360,1120). |
 
 ## Actions
 
@@ -315,6 +337,8 @@ flowchart TD
 | Home | Cart | tap The cart on the home scene (scroll left first) | observed | Its coin bubble collects directly instead (R-020). |
 | Cart | Reward popup | tap Claim All at [0.5, 0.86] | observed |  |
 | Cart | Home | tap Above the panel at [0.5, 0.05] | observed | Popups close on a tap above them, not below (R-060). |
+| Cart | Furniture Upgrade | tap A row's upgrade arrow (only after claiming) | observed | R-136 |
+| Furniture Upgrade | Cart | tap Above the panel at [0.5, 0.05] | observed | Assumed to close like other popups (R-060) ❓ |
 | Home | Home house | swipe Scroll the home scene up | observed |  |
 | Home house | Bed | tap The bed | observed |  |
 | Tap to Continue result | previous screen | tap Anywhere ('Tap to Continue') at [0.5, 0.95] | reported | Exact tap point not given; bottom of screen assumed. |
@@ -393,3 +417,9 @@ flowchart TD
 | Conquest result | Conquest | tap Tap to Continue | observed |  |
 | Menu | Mall (Premium Picks) | tap Mall card at [0.72, 0.65] | observed |  |
 | Mall (Premium Picks) | Menu | tap Back arrow, bottom left at [0.08, 0.95] | reported | Assumed, like other menu pages. |
+| Drasilgard (town) | Hermes, Smiling Merchant | tap Hermes (cat-eared NPC, mushroom-roof shop, east) | observed | Walk up to him and tap to talk. |
+| Hermes, Smiling Merchant | Kingdom Shop (Drasilgard) | tap Show me your wares. | observed |  |
+| Drasilgard (town) | Carol the Black Cat | tap Carol (wizard-hat cat NPC by the dome house, west) | observed |  |
+| Carol the Black Cat | Reshape (appearance) | tap Transform! | observed | Look only; back out without Complete. |
+| World map (island) | Timed Packs popup (paid pack) | tap Timed Packs HUD button at [0.9, 0.3] | observed | About (650,380) px. Walk taps keep out of it (R-158). |
+| Timed Packs popup (paid pack) | World map (island) | tap Below the card at [0.5, 0.875] | observed | A tap above the card does not close it (R-157). |

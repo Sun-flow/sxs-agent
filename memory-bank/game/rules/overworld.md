@@ -29,6 +29,7 @@ Walk to each green minimap dot and interact with what it marks, beat roaming mon
 
 ### R-065 · When stuck or between quests, walk the fog edge
 Exploration comes in two kinds (mae), and loops should handle both: **quest-progression** (follow the tracker's Explore and unlock quests, R-044) and **fog-walking** (clear side areas that aren't tied to progression but are within our CP range, e.g. Damp Woods). Side areas have no quest but give resources and levels; walking into the fog edge reveals new areas. **Explore outward from the connected area the character is in; never jump back across the map** (mae). Code: `python -m sxs roam` (`--area`, `--minutes`, `--max-areas`). It picks an unexplored area with recommended power up to 1.25x ours (R-127, R-084), enters from a connected explored neighbour (R-067), explores it with the Fog Walk (`sxs/loops/fogwalk.py`; stays in its current area when that borders the target) and blesses the statue (R-070). **Fog-walk goal** (mae): at all times aim for 100% exploration of the unexplored area: collect every green dot, fight or interact with every orange dot, complete every yellow structure or mini-dungeon (R-071). Only then does the Goddess Statue or Lost Goddess Statue become available to bless the area (R-070). Exploring itself never spends stamina (mae). In unexplored areas, monsters and interactables are free: fight and collect them. In explored, blessed areas, monsters respawn and they and most interactables cost stamina: skip them unless a loop is deliberately farming (battle essence for skills, gathering, R-107).
+- Confirmed live: in explored, blessed zones monsters show a stamina mark and tapping one costs 5 stamina (white rabbits in Verdantglade VII, 2026-11-10).
 *told, observed* · R-044, R-066, R-067, R-070, R-071, R-084, R-127, R-130, R-131
 
 ### R-135 · Non-quest exploration order: lowest-CP unblessed zone first
@@ -41,6 +42,7 @@ Next by this order (2026-11-05): Jungle Camp (12.6K). Ways in: from Verdantglade
 Code: `python -m sxs roam` picks the zone with `Tree.next_zone` from the location tree (`resource/world/zones.json`, `sxs/policy/zones.py`, `python -m sxs zones`; zones with no power line read go last). Zones never read on the big map (e.g. Sunrise Isle) rank last; a zone with no entrance and no known way in is skipped with a named reason, never wandered to (run 9 lesson, R-150). The tree holds each zone's kingdom, CP, %, blessed, map point and way in, and records Jungle Camp's missing entry as an open question. Roam blesses a statue when its area-map "!" lights (R-070), and ends with `exploration_concluded`.
 - Big-map reads (2026-11-10): Grotto Peninsula 23K, Rabbit Vault and Stagnant Jungle, all 0%. Troll Lair's label overlaps Verdantglade IV's, and three no-% readings once flipped it to 100% (reset to 42%) ❓. Sunrise Isle has never been read.
 - Direction (mae, 2026-11-10 04:44): alternate main-quest areas (the next Explore quest, Verdantglade VII) with side areas (Zephyr Vale, Monolith Ruins I, Troll Lair and others); side areas cause more trouble, so log every issue as it comes up.
+- Verdantglade VII (23.6K) explored and blessed 2026-11-10; statue at (102, 113); its Portal activated. VII borders Monolith Ruins II at about (88–91, 106–107) (the minimap name lost its last "I", "Monolith Ruins I .", so it was first logged as Monolith Ruins I). New zones read: Verdantglade VIII 27K (main quest; reached from Drasilgard near (129, 100)), Leafy Corridor 25.5K, Monolith Ruins II (no CP shown; puzzle, R-153).
 *told* · R-065, R-070, R-076, R-127, R-130, R-132
 
 ### R-142 · While exploring, follow the zone's own Explore quest
@@ -82,6 +84,7 @@ Templates in `resource/image/explore/`:
 - Known misread to watch for: at Verdantglade VI's gate the minimap read "Verdantglade VI" and the bot walked into Auroradrasil; cross-check with the big map when a zone-level decision depends on it.
 - Code: `fogwalk.zone_by_map` keeps the minimap name unless the big-map dot is clearly elsewhere (the dot's nearest label wins only with a 0.75 margin over the next). Clipped minimap reads ("erdantglade") count as the home zone when they contain its name. A joined big-map label ("Wildbloom CoastHidden Camp") counts for the zone it starts with, and its % never lowers that zone's value; an unclean label never ends a run, the location tree decides (it ended runs 5–7 early). Joined labels are never walk targets (R-068).
 - The zone check runs on every step of a walk and course-corrects back toward the target zone (mae, 2026-11-10 04:18). Roam always names the target by the location tree's zone name; a clipped label ("erdantglade VI") once broke the per-step check.
+- Survey OCR can read one zone's % line under a neighbour's name (VIII's "0%, 27K" under VII). A blessed zone's 100% is never lowered. A different trailing roman numeral is a different zone (VII is not a misread of VI), but a name one trailing "I" short of the zone being explored is that zone (Monolith Ruins II read as "Monolith Ruins I .") (builder, 2026-11-10).
 *told, observed* · node `area_map` · R-004, R-068, R-132, R-135
 
 ### R-004 · Minimap and coordinates give relative positions
@@ -128,6 +131,7 @@ Connections can be far off the straight line (Verdantglade II to Moonveil Woods 
 3. Close the map and tap the ground: the player auto-paths, around walls and through land bridges and unseen gaps.
 The same route reaches any target, not just areas (mae): find it on the area map (a dot, a structure), tap it there to centre the camera on it, close the map, then tap the now-visible element on screen to walk to it. No player-relative pathfinding is needed: the character auto-paths to any tapped spot even when it is off screen, so the bot finds endpoints and never manages the route (mae). The camera only has to see the thing to tap it. With several targets in view, tap each on screen in turn without reopening the map; reopen it only when nothing targetable is left in view (mae).
 Zoom differs each opening: pick places by OCR'd label (never a merged OCR label like "Wildbloom CoastHidden Camp": roam targets the location tree's zone name), never fixed positions. **No label-to-label shortcut walks between zones**: to leave a zone, walk back out the way you came in (builder, 2026-11-09; R-132). Match labels exactly, trailing numerals included ("Verdantglade III" is not "Verdantglade I"; a V/VI mix-up once landed the bot in Auroradrasil). At full zoom-out OCR merges neighbouring labels ("Wildbloom Coahlidden Camp", "14.8K Monolith Ruins") and drops percentages: zoom out one step at most when reading zones. A label in fog can't be reached this way (`no_move`): travel from home (R-089). Code: `python -m sxs goto "Area Name"` or `python -m sxs goto X Y`.
+- A target tapped near the area map's edge (e.g. (671, 575)) doesn't centre the camera, so the walk goes nowhere. Drag edge targets (x < 110 or > 610, y < 260 or > 1000) to the middle first. After the map's back arrow, check the map really closed: the first back may only clear the selection (builder, 2026-11-10).
 *told, observed* · `world/world_area_map.png`, `world/world_map_moonveil_entry.png`, `world/world_area_map_stone_ruins.png` · node `area_map` · R-065, R-067, R-076, R-089, R-130, R-140
 
 ### R-152 · A Portal sits under the Verdantglade VI label on the big map
@@ -190,7 +194,13 @@ Tapping a map object (e.g. a Portal) opens a card with one button at (0.5, 0.70)
 - Spots whose card could only be dismissed (a statue not yet blessable, a gate, the Lucky Wheel after its free spin, Rankings) are saved per zone as `dismissed_spots` in the location tree and skipped on later runs. Skip only that spot, never every structure (skipping all of them once made the bot walk past Wildbloom's chest).
 - Gear item cards and class cards close with the back arrow; a tap above them opened the Class page (card rules in `resource/policy/cards.json`).
 - Every card met while walking is recorded as an objective of its zone in the location tree (`objectives`: card title, spot, done or not; mae, 2026-11-10 04:18).
+- "Limpid Legion" turned out to be a monster group card: R-156.
 *observed* · `world/interact_portal.png` · node `interact` · R-042, R-043
+
+### R-155 · Map objects and monsters start only from a tap on them from the next tile
+- A map object or monster starts (card or fight) only when tapped while the character stands on an adjacent tile. A tap on one about 6 tiles away does nothing: the character doesn't even move (builder, 2026-11-10).
+- Code: `fogwalk.tap_object`: if the character is still standing after the tap, walk to the tile below the object and tap it again.
+*observed* · R-030, R-068, R-073, R-139
 
 ### R-070 · Goddess Statues bless a fully explored area
 - **Goddess Statue**: needs "Reach 100% exploration in <area>"; Unlock gives Blessing Level +1 (level 2 raised Max Cart Level 1→2 and AFK EXP 50→500; Verdantglade V's, a gold statue with a red "!" near its north-east edge at about (154, 135), raised it 5→6, Max Cart Level 5→6, AFK EXP 592→608, 2026-11-10; Verdantglade VI's raised it 6→7, Max Cart Level 7, AFK EXP 620→636, 2026-11-10): bless every area. "The Goddess's Grace I/II" follows each Explore quest; reach it via the statue pointer (R-074).
@@ -200,6 +210,7 @@ Tapping a map object (e.g. a Portal) opens a card with one button at (0.5, 0.70)
 - Match both with `^(Lost )?Goddess Statue$`.
 - **Already blessed**: "A starlit statue silently guards this Blessed Land", Regional Relics, no button. Dismiss and walk around it (kind `blessed_statue`).
 - Goddess, Witch and Hero statues can each be used once a day; whether these are the blessing statues is unknown ❓.
+- Goddess Statue card at zone 100%: "Activate this dim statue ... Blessed Land ... Blessing Level", requirement "Reach 100% exploration in <zone>", free Unlock. Verdantglade VII's (at (102, 113)) raised Blessing Level 7 → 8, Max Cart Level 7 → 8, AFK EXP 636 → 657 (2026-11-10). A blessed statue's card ("A starlit statue silently guards this Blessed Land" plus Regional Relics, no button): close it.
 *observed, reported* · `world/interact_goddess_statue.png`, `world/interact_goddess_statue_blessed.png`, `world/blessing_level.png`, `world/lost_goddess_statue.png`, `world/lost_goddess_statue_auroradrasil_mae.png`, `unlabeled/lost_goddess_statue_auroradrasil.png`, `unlabeled/lost_goddess_statue_blessed.png`, `unlabeled/area_map_statue_badge_auroradrasil.png` · R-002, R-065, R-074
 
 ### R-148 · A blue "!" on the area map marks interactable statues: tap them to finish the zone
@@ -231,6 +242,13 @@ Stone Ruins I: a 2x2 floor of stone tiles; each lights cyan when stepped on. All
 ### R-072 · Energy Circuits puzzle: not automated
 Ancient Fortress, "Energy Circuits": 3 slabs in a row; tap two to swap until all nodes link (swapping the end slabs solved the one seen). Reset is top right. The bot doesn't solve these yet.
 *observed* · `world/puzzle_energy_circuits.png` · node `puzzle_energy_circuits`
+
+### R-153 · Puzzle areas: skip them for now; never spend Golden Beetles
+- Skip puzzle areas for now (mae, 2026-11-10 06:25), e.g. the Fonik box puzzle that gates Monolith Ruins II. The exploration loops treat a puzzle as a blocker and move on.
+- **Never spend Golden Beetles** (a Golden Beetle skips a puzzle, R-125). mae would rather the bot solve puzzles itself: writing puzzle solvers is a future task.
+- R-085 (tile floor, solved by hand) and R-072 (Energy Circuits) record the puzzles seen so far.
+- Monolith Ruins II: a four-box puzzle watched by Fonik, God of Puzzles, at about (88, 104). Fonik's dialogue offers "Help me solve this!", "Reset the puzzle." and "Leave": the bot takes **Leave**, logs the puzzle as a zone objective, marks the zone `blocked`, and the zone stays at 0% (builder, 2026-11-10; `unlabeled/puzzle_fonik_choice.png`). Akane's tutorial offers a Golden Beetle: it is still never spent.
+*told* · R-043, R-072, R-085, R-125, R-151
 
 ## Target unreachable or quest not moving
 

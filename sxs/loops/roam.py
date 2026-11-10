@@ -65,6 +65,13 @@ SURVEY_ZOOM_OUT = 4  # "-" taps: enough to reach full zoom-out from any opening
 # jumps to the closest zoom (labels clipped to "/erdanto", % lines lost), so drag the slider knob up a little instead.
 NAME_RE = re.compile(r"^[A-Z][a-z]+(?: [A-Z][a-z]+)*(?: [IVX]+)?$")  # a zone name as printed ("Monolith Ruins I")
 MISREAD_RATIO = 0.7  # a new name this similar to a known zone's is a misread of it
+
+
+def numerals_differ(a: str, b: str) -> bool:
+    """Both names end in a roman numeral and the numerals differ (Verdantglade VI vs VII)."""
+    na = re.search(r"(?<=[a-z]{4})([ivx]+)$", goto.squeeze(a))
+    nb = re.search(r"(?<=[a-z]{4})([ivx]+)$", goto.squeeze(b))
+    return bool(na and nb and na.group(1) != nb.group(1))
 ENCLOSURE = "Auroradrasil"  # enclosed: walks from inside to far labels don't move the character (2026-11-10)
 FINISHED_READS = 3  # surveys in a row with no % line before a zone the tree has under 100% counts as finished (2 let Troll Lair, whose label sits on Verdantglade IV's, flip to 100%)
 PAN_FROM = (300, 620)  # drag start for survey pans: on the map, clear of the legend and the zoom slider
@@ -383,8 +390,11 @@ class Roamer:
                 continue  # the kingdom title, or an OCR scrap
             joined = not self.tree.key(a.name)
             known = self.tree.key(a.name) or self.label_prefix_zone(a.name)
+            # A different trailing numeral is a different zone, however alike the rest (live 2026-11-10: "Verdantglade
+            # VII" was dropped as a misread of Verdantglade VI, so VII never entered the tree).
             near = [k for k in self.tree.zones
-                    if difflib.SequenceMatcher(None, goto.squeeze(k), goto.squeeze(a.name)).ratio() >= MISREAD_RATIO]
+                    if difflib.SequenceMatcher(None, goto.squeeze(k), goto.squeeze(a.name)).ratio() >= MISREAD_RATIO
+                    and not numerals_differ(k, a.name)]
             if not known and near:
                 # Close to a zone we know but not it: an OCR misread ("Verdantgladeto", "Iden Camp", live
                 # 2026-11-09), not a new zone.
