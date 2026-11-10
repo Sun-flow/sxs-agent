@@ -37,7 +37,7 @@ Format: `- what — branch, PR, environment (started)`. Remove the line when it 
 - Loop diagrams (mae, 2026-11-09): `docs/loops/` has a Mermaid page per loop, a screen-by-screen table and `docs/loops/open-questions.md` (15 places where code, rules and mae's asks disagree; mae's 2026-11-09 answers applied: blue-pip gear enhance trigger, gather fights guards, `get_stronger` for explore, one tower climb a day from any loop, tutorial stops on class choices; none run live yet) — `claude/project-thread-aqcucg`, PR pending, cloud. Follow-up proposed in `docs/loops/README.md`: per-loop flow specs the loops read, so the diagrams become the source of truth.
 
 - Roam to the next zones (2026-11-10, 2 runs, 0% gained): Damp Woods' label isn't read at most zooms (walks to it fail); merged labels ("Wildbloom CoastHidden Camp") become targets; from inside Auroradrasil (an enclosed clearing inside Verdantglade V) big-map walks to far labels don't move the character, and walks keep ending there; a "Rankings" structure card has no rule. The quest pointer got out of Auroradrasil before (Verdantglade VI's quest is active now).
-- Jungle Camp stuck at 93% (2026-11-10): no object left on either map, no walkable fog edge found from the camp; its Lost Goddess Statue needs 100%; Lucky Wheel there not spun (0 tickets). Asked mae where the last 7% is; roam moved on.
+- Jungle Camp blessed (2026-11-10): the last 7% was the Lucky Wheel's free first spin (blue "!", mae); Lost Goddess Statue unlocked.
 
 ## Next (in order)
 

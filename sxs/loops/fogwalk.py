@@ -270,6 +270,18 @@ def quest_step(dev, det, fight: bool) -> bool:
     return False
 
 
+WHEEL_SPIN = (360, 1100)  # "Tap to spin" on the Wheel of Destiny
+
+
+def lucky_wheel_free(det) -> bool:
+    """The Wheel of Destiny is open and its spin button shows no cost (just "Tap to spin")."""
+    title = " ".join(t for t, _ in det.read_text([150, 130, 420, 70]))
+    if "Wheel of Destiny" not in title:
+        return False
+    button = " ".join(t for t, _ in det.read_text([180, 1060, 360, 80]))
+    return bool(re.fullmatch(r"\s*Tap to spin\s*", button))
+
+
 def zone_here(dev, det, tree: Optional[Tree] = None) -> str:
     """The zone the player is in. R-140 as amended by mae (2026-11-10): the name under the minimap is always a valid
     description of the zone and is the first check. The big map's player dot (`zone_by_map`) is the fallback, for
@@ -368,6 +380,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
     stood_on: set = set()  # map coordinates the character has stood on this run
     map_tries = 0
     guard_taps = 0
+    wheel_spun = False  # one free Lucky Wheel spin per walk, in an unexplored zone only
     objects_done = False  # no object left on either map: only fog edges remain (then stop)
     direct_taps: dict = {}  # map spot -> direct taps at a near object there (a repeat means it isn't taken that way)
     quest_fails = 0  # quest-pointer steps in a row that didn't move the zone's Explore counter
@@ -722,6 +735,14 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                 ui.tap(dev, ui.BACK_ARROW, 2)  # left open by a big-map walk that didn't move us: close it
             elif d.state == "home":
                 return f"left_area:{d.state}"
+            elif free and not wheel_spun and lucky_wheel_free(det):
+                # mae, 2026-11-10: each Lucky Wheel's first spin is free while its zone is unexplored (once explored a
+                # spin costs). Jungle Camp's last 7% was this spin. Pressed only when the button shows no cost.
+                log.info("Lucky Wheel in an unexplored zone, no cost shown: taking the free spin")
+                wheel_spun = True
+                ui.tap(dev, WHEEL_SPIN, 8)
+                ui.tap(dev, ui.BELOW_POPUP, 2)  # "YOU RECEIVED"
+                progress(("wheel_spin", home_area))
             else:
                 # Cards, dialogs and unknown popups: the same rules as the quest loop.
                 card, choice = decider.decide(ctx)
