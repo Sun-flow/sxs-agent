@@ -6,7 +6,7 @@
 ## Game state (2026-11-05 05:05Z, mae's PC)
 
 - gromb2: Mage, Apprentice II, Lv 30/30 (cap; bed EXP claim took Lv 24 to 30), power about 28.4K (2026-11-10: gear swap and enhance, boots 2050 to 2110; rank Goals claimed; skills Lv 17-18; Cart Stone and Wood Lv 5). Rolla ~72.7K, Dawnium ~1.85K (never spent by the bot), stamina ~234/300, Abundance Leaves 450, 1 Shapeshifting Mirror (unused).
-- Explored and blessed: Originisle; Verdantglade I-IV area quests done; Verdantglade III 100%; Auroradrasil 100% and blessed (Lost Goddess Statue, 2026-11-05). Drasilgard town visited (Chief, Hermes, Carol). Verdantglade V 100% and blessed (2026-11-10: its statue was the Sealed Stone Gate, R-145; Blessing Level 5 → 6, AFK EXP 592 → 608). Zones at 100%: Originisle I–V, Verdantglade I–III and V, Moonveil Woods, Stone Ruins I, Highland Woods, Damp Woods, Auroradrasil. Unexplored: Jungle Camp 12.6K (way in from Verdantglade III at about (142, 84); Wheel of Destiny inside, never spin, R-147), Zephyr Vale, Monolith Ruins I, Troll Lair 17K, Verdantglade VI, Wildbloom Coast 20.4K.
+- Explored and blessed: Originisle; Verdantglade I-IV area quests done; Verdantglade III 100%; Auroradrasil 100% and blessed (Lost Goddess Statue, 2026-11-05). Drasilgard town visited (Chief, Hermes, Carol). Verdantglade V 100% and blessed (2026-11-10: its Goddess Statue near the north-east edge, R-070; Blessing Level 5 → 6, AFK EXP 592 → 608). Sealed Stone Gate on V's north edge: need unknown (asked mae, R-145). Zones at 100%: Originisle I–V, Verdantglade I–III and V, Moonveil Woods, Stone Ruins I, Highland Woods, Damp Woods, Auroradrasil. Jungle Camp 12.6K at 93% (ways in from Verdantglade III (142, 84) and Drasilgard (138, 84); Lucky Wheel inside, never spin, R-147). Unexplored:, Zephyr Vale, Monolith Ruins I, Troll Lair 17K, Verdantglade VI, Wildbloom Coast 20.4K.
 - Rank: Apprentice III now only needs Bellflowers, 4/30 (source: Verdantglade Flower Harvest in Moonveil Woods; the plants in Drasilgard are decoration). Lv 30, leaves 16/5 and Rolla 10.5K are met.
 - Fantasia Ascent Moonveil Woods: Auto Challenge climbed to F24+ in the background (2026-11-04).
 - Social features open (R-057): NPC companions Akane, Qin, Killian were invited for Auroradrasil (rank B).
@@ -14,7 +14,7 @@
 ## Strengthening and the Cart (2026-11-05 early morning)
 
 - Strengthening, live-validated (2026-11-09/10): gear swap weapon 1490 to 1960, head 1170 to 1820; enhance weapon +21 to +24, head +18 to +23, chest and boots +15 to +20; power 22.4K to about 24.5K. `python -m sxs upgrade` always opens the Skill page; the gear pass finds blue enhance pips and leaves out pieces short of their own material (the weapon's +25 needs red ore; enough is now in hand). To do: enhance lower-level pieces first (mae, R-092).
-- Cart: `python -m sxs cart` (also daily step `cart_upgrade`) raises Stone and Wood evenly (R-136). Both are Lv 5; Blessing Level is now 6, so they can reach Lv 6. Costs are Wood + Stone + Rolla only. Blessing Level rises when a zone's statue is blessed (R-035, R-145). Chrono Sand unlocked live (free, R-137).
+- Cart: `python -m sxs cart` (also daily step `cart_upgrade`) raises Stone and Wood evenly (R-136). Both are Lv 5; Blessing Level is now 6, so they can reach Lv 6. Costs are Wood + Stone + Rolla only. Blessing Level rises when a zone's Goddess Statue is unlocked (R-035, R-070). Chrono Sand unlocked live (free, R-137).
 
 ## Works (all on main, PRs #1–#30)
 

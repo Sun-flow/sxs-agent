@@ -37,7 +37,7 @@ The non-quest exploration loop (mae; the quest-progression loop is settled):
 2. Explore it until its statue is blessed (R-065 goal, R-070). A zone counts as finished only when the quest tracker's % and the location map agree (builder, 2026-11-09); its zone is confirmed by the minimap name, then the big map (R-140).
 3. Repeat until no unblessed zone remains.
 4. Then look for any fog-walk ground not yet explored (R-130). Explore it if there is some; otherwise exploration is concluded for now.
-Next by this order (2026-11-05): Jungle Camp (12.6K). Walking in from Drasilgard's south edge gained no %; the way in is from Verdantglade III at about (142, 84) (builder, 2026-11-10; recorded in the location tree).
+Next by this order (2026-11-05): Jungle Camp (12.6K). Ways in: from Verdantglade III at about (142, 84) and from Drasilgard at about (138, 84) (builder, 2026-11-10; in the location tree). Live 0 → 93%; the last 7% is unknown so far ❓. Its Lost Goddess Statue (orange Ψ-like map icon) gives Home EXP +1% and Home Raw Ore +1%.
 Code: `python -m sxs roam` picks the zone with `Tree.next_zone` from the location tree (`resource/world/zones.json`, `sxs/policy/zones.py`, `python -m sxs zones`; zones with no power line read go last). The tree holds each zone's kingdom, CP, %, blessed, map point and way in, and records Jungle Camp's missing entry as an open question. Roam blesses a statue when its area-map "!" lights (R-070), and ends with `exploration_concluded`.
 *told* · R-065, R-070, R-076, R-127, R-130, R-132
 
@@ -132,10 +132,12 @@ At home, tapping the tracker for a quest elsewhere asks "Travel to <Area> now?";
 - Legend: Portal, Lost Statue, Gold Ore, Steel Ore, Sandstone. Ore nodes cost 5 stamina each.
 - Unfinished areas show "Exploration: N%" and any power gate ("12K") under the label; finished ones show only the name. Gates seen: Highland Woods 9.6K, Verdantglade III 12K. Skip areas gated above your power (R-084).
 - Lost Statue icon: `resource/image/areamap/lost_statue.png` at 0.8.
+- The legend's search pill opens a filter panel (Trial Stone, Portal, Statue, … Select All). A second minimap tap while the map is opening can hit it; a tap on the map below the panel closes it (`goto.open_area_map` handles this).
+- Detection (`State.AreaMap`) accepts any of the first legend lines: a zone label showing through the translucent legend can break a single "Lost Statue" match (`world/area_map_legend_overlap.png`).
 - Edge labels are clipped on the left ("tglade III"); `sxs/loops/roam.py` accepts a 6+ letter suffix with matching numerals.
 - Survey (code: `sxs/loops/roam.py`): zoom out fully (OCR merges labels and drops % there), then drag the zoom slider from (682, 1090) to (682, 1030) for one step closer; the "+" button jumps straight to the closest zoom, so don't use it. Read a 3×3 grid of slow 300 px pans, merging readings by name. Reference `world/area_map_survey_zoom.png`.
 - A 100% area with a red "!" probably has its statue waiting ❓. Sunrise Isle is at the bottom right of the Verdantglade map; its % isn't read ❓.
-*observed* · `world/world_area_map.png`, `world/area_map_lv22.png`, `world/area_map_survey_zoom.png` · node `area_map` · R-068, R-070, R-084, R-086
+*observed* · `world/world_area_map.png`, `world/area_map_lv22.png`, `world/area_map_survey_zoom.png`, `world/area_map_legend_overlap.png` · node `area_map` · R-068, R-070, R-084, R-086
 
 ## Power walls and gates
 
@@ -148,10 +150,9 @@ A stone pillar card "Gate of Power": "Requires: Power reaches 15.5K (Current: 8.
 - Damp Woods: an area-map walk to its label from Verdantglade II lands at about (184, 86), a fogged pocket with a stone mini-dungeon, ore baskets, a statue and the 15.5K gate. Behind it: ore baskets, a glowing crystal and a duck-shaped item, free to tap; they finish Damp Woods. The minimap barely shows them under shadow, so the bot can't find them from it yet ❓.
 *observed* · `world/gate_of_power.png`, `world/gate_of_power_open.png` · R-065, R-070, R-084
 
-### R-145 · Sealed Stone Gate: a zone's Goddess Statue before it unlocks
-- Verdantglade V's Goddess Statue is the gold "!" structure on its north edge at about (135, 126). While the zone was below 100% its card read "Sealed Stone Gate" and could only be dismissed.
-- Once the zone was explored, Unlock was free: Blessing Level 5 → 6, AFK EXP 592 → 608 (2026-11-10). Treat a Sealed Stone Gate as the zone's statue: dismiss it until the zone reaches 100% (R-065), then unlock and bless it (R-070).
-*observed* · R-030, R-035, R-065, R-070
+### R-145 · Sealed Stone Gate: dismiss for now
+A gold "!" structure on Verdantglade V's north edge at about (135, 126) opens a "Sealed Stone Gate" card that can only be dismissed. It is **not** V's Goddess Statue (that is a separate gold statue, R-070). What opens it is unknown ❓ (asked mae).
+*observed* · R-030, R-070, R-086
 
 ## Map objects and statues
 
@@ -160,8 +161,8 @@ Tapping a map object (e.g. a Portal) opens a card with one button at (0.5, 0.70)
 *observed* · `world/interact_portal.png` · node `interact` · R-042, R-043
 
 ### R-070 · Goddess Statues bless a fully explored area
-- **Goddess Statue**: needs "Reach 100% exploration in <area>"; Unlock gives Blessing Level +1 (level 2 raised Max Cart Level 1→2 and AFK EXP 50→500): bless every area. "The Goddess's Grace I/II" follows each Explore quest; reach it via the statue pointer (R-074).
-- **Lost Goddess Statue** ("Activate this dim statue..."): same requirement; Unlock at (0.5, 0.81); gives +1% Home EXP and +1% of one home yield (Highland Woods Wood, Moonveil Woods Rolla, Damp Woods Stone), then Tap to Continue.
+- **Goddess Statue**: needs "Reach 100% exploration in <area>"; Unlock gives Blessing Level +1 (level 2 raised Max Cart Level 1→2 and AFK EXP 50→500; Verdantglade V's, a gold statue with a red "!" near its north-east edge at about (154, 135), raised it 5→6, Max Cart Level 5→6, AFK EXP 592→608, 2026-11-10): bless every area. "The Goddess's Grace I/II" follows each Explore quest; reach it via the statue pointer (R-074).
+- **Lost Goddess Statue** ("Activate this dim statue..."; on the area map an orange Ψ-like icon): same requirement; Unlock at (0.5, 0.81); gives +1% Home EXP and +1% of one home yield (Highland Woods Wood, Moonveil Woods Rolla, Damp Woods Stone), then Tap to Continue.
 - Two sizes, both bless the area (mae): the large Goddess Statue gives greater rewards than the smaller Lost Goddess Statue. Non-progression side areas often hold a Lost Goddess Statue, usable once the zone is explored. A red "!" over a statue means it can be blessed now: go and unlock it. The "!" also shows on the area map (about 17 px, smaller than menu badges; a gold-ore icon can carry the same "!", told apart by its big yellow block, and that is not a statue): tap it there, close the map, tap the screen centre, and the statue's card opens (R-068). Auroradrasil's Lost Goddess Statue ("Reach 100% exploration in Auroradrasil") gave Home EXP Yield Boost +1% and Home Stone Yield Boost +1%, then "Divine Power Awakens Your Potential", Tap to Continue.
 - Match both with `^(Lost )?Goddess Statue$`.
 - **Already blessed**: "A starlit statue silently guards this Blessed Land", Regional Relics, no button. Dismiss and walk around it (kind `blessed_statue`).
@@ -172,9 +173,10 @@ Tapping a map object (e.g. a Portal) opens a card with one button at (0.5, 0.70)
 A "Statue of <name>" card (e.g. Statue of Lunar Sage in Verdantglade V) has a free Visit: it gives a permanent stat boost (Lunar Sage: HP +170), heals fully and counts toward exploration. Always press Visit. Policy: `resource/policy/cards.json` (match "Statue of ...").
 *observed* · R-030, R-042, R-070
 
-### R-147 · Wheel of Destiny: back out, never spin
-Tapping a structure in Jungle Camp opens "Wheel of Destiny", a ticket spinner (0 tickets on 2026-11-10). Back out. Never press "Tap to spin": it looks like spending. Spinning needs a free ticket and mae's say-so ❓ (ask mae).
-*observed* · R-030, R-043
+### R-147 · Lucky Wheel ("Wheel of Destiny"): back out, never spin
+The Lucky Wheel structure in Jungle Camp opens "Wheel of Destiny". "Tap to spin" spends Lucky Wheel tickets (0 on 2026-11-10): never press it. Close with the back arrow (card rule `lucky_wheel`). Spinning would need a free ticket and mae's say-so ❓ (ask mae).
+*observed* · `world/lucky_wheel.png` · R-030, R-043
+
 ### R-085 · Stone tile floor puzzle: step on every tile for chests
 Stone Ruins I: a 2x2 floor of stone tiles; each lights cyan when stepped on. All 4 lit spawns two chests (about 60 Dawnium each, plus Rolla, ore, gear, Abundance Leaf). Each chest pops a gear-swap prompt (swap button bottom right) that closes with the reward popup.
 *observed* · `world/world_map_tile_puzzle_chests.png`, `character/gear_swap_prompt.png` · node `gear_swap_prompt`
