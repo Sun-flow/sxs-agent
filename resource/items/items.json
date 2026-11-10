@@ -1234,6 +1234,17 @@
       66
      ],
      "found_in": "Menu > Quest > Weekly (rewards)"
+    },
+    {
+     "file": "random_epic_gift_2.png",
+     "screen": "items/growth_trial_day3.png",
+     "box": [
+      192,
+      591,
+      68,
+      67
+     ],
+     "found_in": "Thrilling Events > Growth Trial > Day 3"
     }
    ]
   },
@@ -1255,6 +1266,17 @@
       96
      ],
      "found_in": "Menu > Quest > Weekly > Random Epic Gift card (contents)"
+    },
+    {
+     "file": "blazing_legends_2.png",
+     "screen": "items/growth_trial_day3.png",
+     "box": [
+      192,
+      762,
+      68,
+      68
+     ],
+     "found_in": "Thrilling Events > Growth Trial > Day 3"
     }
    ]
   },
@@ -1297,6 +1319,17 @@
       96
      ],
      "found_in": "Menu > Quest > Weekly > Random Epic Gift card (contents)"
+    },
+    {
+     "file": "golden_ingot_2.png",
+     "screen": "items/growth_trial_day3.png",
+     "box": [
+      192,
+      934,
+      68,
+      68
+     ],
+     "found_in": "Thrilling Events > Growth Trial > Day 3"
     }
    ]
   },
@@ -1510,6 +1543,17 @@
       72
      ],
      "found_in": "Journal > Fantasia Ascent > Goals"
+    },
+    {
+     "file": "destiny_fruit_3.png",
+     "screen": "items/growth_trial_day4.png",
+     "box": [
+      276,
+      1104,
+      68,
+      66
+     ],
+     "found_in": "Thrilling Events > Growth Trial > Day 4"
     }
    ]
   },
@@ -1721,6 +1765,17 @@
       58
      ],
      "found_in": "Thrilling Events > Growth Trial"
+    },
+    {
+     "file": "bond_trinket_3.png",
+     "screen": "items/growth_trial_day6.png",
+     "box": [
+      192,
+      591,
+      68,
+      67
+     ],
+     "found_in": "Thrilling Events > Growth Trial > Day 6"
     }
    ]
   },
@@ -2143,6 +2198,59 @@
       104
      ],
      "found_in": "Thrilling Events > Growth Trial (quest points)"
+    }
+   ]
+  },
+  {
+   "id": "alloy_gear",
+   "name": "Alloy Gear",
+   "kind": "currency",
+   "description": "Exchange them for items with the Cinder Ridge merchant. Small gears made of precious alloys, currency of the Tauroids.",
+   "uses": "Sources: Commission",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "alloy_gear.png",
+     "screen": "items/growth_trial_day4.png",
+     "box": [
+      276,
+      762,
+      68,
+      68
+     ],
+     "found_in": "Thrilling Events > Growth Trial > Day 4"
+    },
+    {
+     "file": "alloy_gear_2.png",
+     "screen": "items/growth_trial_day5.png",
+     "box": [
+      276,
+      762,
+      68,
+      68
+     ],
+     "found_in": "Thrilling Events > Growth Trial > Day 5"
+    }
+   ]
+  },
+  {
+   "id": "t3_battle_essence_casket",
+   "name": "T3 Battle Essence Casket",
+   "kind": "gift",
+   "description": "Use it to get 660 Battle Essences. Contains faint memories of past battles. Receive the following items",
+   "uses": "",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "t3_battle_essence_casket.png",
+     "screen": "items/growth_trial_day2.png",
+     "box": [
+      276,
+      934,
+      68,
+      68
+     ],
+     "found_in": "Thrilling Events > Growth Trial > Day 2"
     }
    ]
   }
