@@ -177,12 +177,19 @@ flowchart TD
     class TW sub
 ```
 
+**Entering a new zone (R-150, mae 2026-11-10; being built).** When the quest leads into a zone the character hasn't
+explored (the first unstick round's walk to the quest's area, or the marker leading across a zone line), the first
+move is not a fog search: find the entrance between the old and new zone on the big map, centre the camera there,
+then walk to ground next to the fog working outward from the entrance (never the fog itself, R-146). The quest
+marker takes over again once it shows. The same step opens the Fog Walk ([fogwalk.md](fogwalk.md)).
+
 ### Where the code doesn't match this page yet (2026-11-10)
 
 Checked against `sxs/loops/explore.py` on `main` and on PR #46. Details and recommendations: open-questions.md Q16, Q18, Q19.
 
 | Box | Code today | Change that would make it fit |
 |---|---|---|
+| New-zone entry (R-150) | Not built: no entrance step | Builder is adding it (shared with Fog Walk) |
 | Step 4 guard | Not on `main`; PR #46 adds it (`guard_marker`, then `attack_guard`, at most 6 taps a run) | Merge #46 |
 | Battle prep, "yes, 2 heals tried" | `_on_battle_prep` taps Start Battle anyway, under 70% HP | Call the shared `start_fight` (`sxs/actions/common.py`); when it returns False end `low_hp` (Q16) |
 | Step 5 find the marker | Its own ring follower (`Explore.Marker`, offsets 100/60/140/30 px) beside Fog Walk's live-proven `quest_step` (`find_quest_ring`, 80 px, sees edge rings at y≈50) | One shared quest-ring action for both loops (R-142) (Q18) |

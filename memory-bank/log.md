@@ -8,6 +8,7 @@
 - Code gaps listed under the diagram and as open-questions Q16-Q19: explore fights under 70% after two heal tries (use `start_fight`), two quest-ring followers (R-142, share one), "1. " labels on other pages. Code structure already mirrors the groups (one `_on_<screen>` per group); no reorganisation needed. Docs only, no code changed.
 - mae (00:55): remove R-141; overarching routines may switch loops (she only meant: don't change task focus without asking). Sent to the docs thread, which owns #46.
 - mae (00:56): the name under the minimap is the most accurate zone source; R-140 must not forbid it (sent to the docs thread; Q17 settled, no change).
+- R-150 (mae 02:35, rule on #46): new-zone entry step added to `docs/loops/fogwalk.md` and `explore.md` (find the entrance on the big map, centre the camera, walk to ground beside fog outward from it); marked as being built.
 
 ### 2026-11-09 · Loop diagrams (Claude Code, cloud)
 - mae asked for the decision flow in a human-readable, editable form. New `docs/loops/`: one page per loop (runner and interrupts, daily, explore, roam, fogwalk, gather, cart, upgrade and strengthen, gearswap, tower, guild, small loops) with goal, end condition, ok statuses, numbered Mermaid flowcharts of the step and check order, sub-loops called, and per-screen actions; `states.md` maps every detector state to the loops that act on it and to `go_home`; all 27 diagrams render (mermaid-cli).
