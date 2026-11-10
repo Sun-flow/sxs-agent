@@ -6,139 +6,341 @@
    "first_seen": "2026-11-05",
    "pct": 100,
    "blessed": true,
-   "notes": "Free 4-player story dungeon (R-133); Lost Goddess Statue blessed 2026-11-05."
+   "notes": "Free 4-player story dungeon (R-133); Lost Goddess Statue blessed 2026-11-05.",
+   "map_point": [
+    497,
+    875
+   ],
+   "last_seen": "2026-11-09",
+   "entries": []
   },
   "Damp Woods": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-04",
    "cp": 15.5,
-   "pct": 0,
-   "notes": "15.5 is the Gate of Power inside (R-086), not an area-map gate. An area-map walk to its label from Verdantglade II lands at about (184, 86); items behind the gate finish it."
+   "pct": 100,
+   "notes": "15.5 is the Gate of Power inside (R-086), not an area-map gate. An area-map walk to its label from Verdantglade II lands at about (184, 86); items behind the gate finish it. 2026-11-10: walked in at (184,82); no object, no fog edge, label shows no % line: taken as explored.",
+   "map_point": [
+    1134,
+    1008
+   ],
+   "last_seen": "2026-11-09",
+   "entries": [
+    {
+     "via": "Jungle Camp",
+     "day": "2026-11-09",
+     "xy": [
+      184,
+      82
+     ]
+    }
+   ]
   },
   "Drasilgard": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
    "kind": "town",
-   "notes": "Town: Chief, Hermes, Carol, portal (R-134)."
+   "notes": "Town: Chief, Hermes, Carol, portal (R-134).",
+   "map_point": [
+    566,
+    1061
+   ],
+   "last_seen": "2026-11-09",
+   "entries": []
+  },
+  "Grotto Peninsula": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-09",
+   "pct": 0,
+   "cp": 23.0,
+   "map_point": [
+    347,
+    499
+   ],
+   "last_seen": "2026-11-09"
   },
   "Hidden Camp": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
-   "pct": 0
+   "pct": 0,
+   "map_point": [
+    1033,
+    588
+   ],
+   "last_seen": "2026-11-09",
+   "entries": [],
+   "failed_via": {
+    "Troll Lair": "2026-11-09 (fog walk not_in_zone)"
+   },
+   "notes": "blocked: Boulder Blockade near None (no rule; dismissed)",
+   "blocked": "Boulder Blockade needs Magic Drill (0/1)"
   },
   "Highland Woods": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-04",
    "cp": 9.6,
    "pct": 100,
-   "notes": "Entered past a bracketed wolf-boss pack (R-041); ground pickups by a cooking pot finish it (R-066)."
+   "notes": "Entered past a bracketed wolf-boss pack (R-041); ground pickups by a cooking pot finish it (R-066).",
+   "map_point": [
+    578,
+    629
+   ],
+   "last_seen": "2026-11-09",
+   "entries": []
   },
   "Jungle Camp": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
    "cp": 12.6,
-   "pct": 0,
-   "failed_via": {
-    "Drasilgard": "2026-11-05 (walked in from the south edge; big-map walks mostly no_move, no % gained)"
-   },
-   "notes": "Next by R-135 order. Entry point unknown."
+   "pct": 100,
+   "notes": "Entered from Verdantglade III (142,84) or Drasilgard (138,84). The last 7% was the Lucky Wheel (blue !): its first spin is free while the zone is unexplored (mae). Lost Goddess Statue unlocked 2026-11-10.",
+   "map_point": [
+    943,
+    1288
+   ],
+   "last_seen": "2026-11-09",
+   "entries": [
+    {
+     "via": "Verdantglade III",
+     "day": "2026-11-09",
+     "xy": [
+      142,
+      84
+     ]
+    },
+    {
+     "via": "Drasilgard",
+     "day": "2026-11-09",
+     "xy": [
+      138,
+      84
+     ]
+    }
+   ],
+   "blessed": true
   },
   "Monolith Ruins I": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
-   "pct": 0
+   "pct": 0,
+   "map_point": [
+    328,
+    974
+   ],
+   "last_seen": "2026-11-09",
+   "entries": []
   },
   "Moonveil Woods": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-04",
    "pct": 100,
-   "notes": "Dungeon gate unlocked by quest; Bellflower field at minimap (169, 94-95) (R-123)."
+   "notes": "Dungeon gate unlocked by quest; Bellflower field at minimap (169, 94-95) (R-123).",
+   "map_point": [
+    947,
+    818
+   ],
+   "last_seen": "2026-11-09",
+   "entries": []
+  },
+  "Rabbit Vault": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-09",
+   "pct": 0,
+   "map_point": [
+    496,
+    522
+   ],
+   "last_seen": "2026-11-09"
+  },
+  "Stagnant Jungle": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-09",
+   "pct": 0,
+   "map_point": [
+    321,
+    912
+   ],
+   "last_seen": "2026-11-09"
   },
   "Stone Ruins I": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-04",
    "pct": 100,
-   "notes": "2x2 stone-tile puzzle spawns two chests (R-089 area)."
+   "notes": "2x2 stone-tile puzzle spawns two chests (R-089 area).",
+   "map_point": [
+    733,
+    482
+   ],
+   "last_seen": "2026-11-09",
+   "entries": []
   },
   "Sunrise Isle": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-04",
-   "notes": "Bottom right of the Verdantglade map; its % isn't read (R-076)."
+   "notes": "Bottom right of the Verdantglade map; its % isn't read (R-076).",
+   "entries": [
+    {
+     "via": "Damp Woods",
+     "day": "2026-11-09",
+     "xy": [
+      190,
+      80
+     ]
+    }
+   ]
   },
   "Troll Lair": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
    "cp": 17.0,
-   "pct": 0,
-   "notes": "Border label 'Troll Lair 17K' at a corner of its dotted line (R-132)."
+   "pct": 42,
+   "notes": "Border label 'Troll Lair 17K' at a corner of its dotted line (R-132).",
+   "map_point": [
+    1145,
+    1049
+   ],
+   "last_seen": "2026-11-09",
+   "entries": []
   },
   "Verdantglade I": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-04",
    "pct": 100,
-   "notes": "Area quests done."
+   "notes": "Area quests done.",
+   "map_point": [
+    1083,
+    482
+   ],
+   "last_seen": "2026-11-09",
+   "entries": []
   },
   "Verdantglade II": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-04",
-   "pct": 100
+   "pct": 100,
+   "map_point": [
+    1086,
+    782
+   ],
+   "last_seen": "2026-11-09",
+   "entries": []
   },
   "Verdantglade III": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-04",
    "cp": 12.0,
    "pct": 100,
-   "notes": "No way in on foot from Moonveil Woods (fog south of about (168, 94) never moves); entered with the quest's Go travel (R-084, R-089)."
+   "notes": "No way in on foot from Moonveil Woods (fog south of about (168, 94) never moves); entered with the quest's Go travel (R-084, R-089).",
+   "map_point": [
+    553,
+    1027
+   ],
+   "last_seen": "2026-11-09",
+   "entries": []
   },
   "Verdantglade IV": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-04",
-   "notes": "Area quests done; % not read since."
+   "notes": "Area quests done; % not read since.",
+   "map_point": [
+    1078,
+    1086
+   ],
+   "last_seen": "2026-11-09",
+   "pct": 100,
+   "entries": []
   },
   "Verdantglade V": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
    "cp": 14.8,
-   "pct": 78,
-   "notes": "Auroradrasil sits inside it on the map but is its own zone (R-132): walks to finish V must land on V's own ground."
+   "pct": 100,
+   "notes": "Auroradrasil sits inside it on the map but is its own zone (R-132): walks to finish V must land on V's own ground. (was blocked: Sealed Stone Gate, opened 2026-11-10) at the north edge, about (135, 126) (no rule; dismissed)",
+   "entries": [
+    {
+     "via": "Verdantglade IV",
+     "day": "2026-11-09",
+     "xy": [
+      143,
+      108
+     ]
+    }
+   ],
+   "map_point": [
+    1028,
+    773
+   ],
+   "last_seen": "2026-11-09",
+   "blessed": true
   },
   "Verdantglade VI": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
-   "pct": 0,
-   "failed_via": {
-    "Auroradrasil": "2026-11-04"
-   }
+   "pct": 100,
+   "failed_via": {},
+   "map_point": [
+    384,
+    700
+   ],
+   "last_seen": "2026-11-09",
+   "entries": [
+    {
+     "via": "Damp Woods",
+     "day": "2026-11-09",
+     "xy": [
+      135,
+      126
+     ]
+    },
+    {
+     "via": "Auroradrasil",
+     "day": "2026-11-09",
+     "xy": [
+      118,
+      130
+     ]
+    }
+   ],
+   "notes": "(was blocked: Sealed Stone Gate, opened 2026-11-10) near None (no rule; dismissed) blocked: Mage near None (no rule; dismissed)",
+   "dismissed_spots": [],
+   "blessed": true
   },
   "Wildbloom Coast": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
    "cp": 20.4,
-   "pct": 0
+   "pct": 100,
+   "entries": [
+    {
+     "via": "Sunrise Isle",
+     "day": "2026-11-09",
+     "xy": [
+      145,
+      140
+     ]
+    }
+   ],
+   "map_point": [
+    1012,
+    588
+   ],
+   "last_seen": "2026-11-09",
+   "blessed": true
   },
   "Zephyr Vale": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
    "pct": 0,
-   "notes": "Its border label runs sideways along a vertical dotted line, no power shown (R-132)."
+   "notes": "Its border label runs sideways along a vertical dotted line, no power shown (R-132).",
+   "map_point": [
+    1155,
+    938
+   ],
+   "last_seen": "2026-11-09",
+   "entries": []
   }
  },
  "links": [
-  {
-   "a": "Verdantglade I",
-   "b": "Highland Woods",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Verdantglade I",
-   "b": "Stone Ruins I",
-   "how": "map_adjacent"
-  },
-  {
-   "a": "Stone Ruins I",
-   "b": "Verdantglade II",
-   "how": "map_adjacent"
-  },
   {
    "a": "Verdantglade II",
    "b": "Moonveil Woods",
@@ -166,12 +368,753 @@
   {
    "a": "Drasilgard",
    "b": "Jungle Camp",
-   "how": "map_adjacent",
-   "note": "walking in from Drasilgard's south edge gained no % (2026-11-05)"
+   "how": "walked",
+   "note": "walking in from Drasilgard's south edge gained no % (2026-11-05); entered Jungle Camp at (138, 84)"
+  },
+  {
+   "a": "Verdantglade V",
+   "b": "Verdantglade IV",
+   "how": "walked",
+   "note": "a fog walk crossed south from V into IV at about (143, 107) and walked back (2026-11-09); the edge runs along Vs south side, IV is light (explored); entered Verdantglade V at (143, 108)"
+  },
+  {
+   "a": "Verdantglade V",
+   "b": "Zephyr Vale",
+   "how": "walked"
+  },
+  {
+   "a": "Auroradrasil",
+   "b": "Drasilgard",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Auroradrasil",
+   "b": "Verdantglade I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Auroradrasil",
+   "b": "Verdantglade II",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Auroradrasil",
+   "b": "Verdantglade VI",
+   "how": "walked",
+   "note": "entered Verdantglade VI at (118, 130)"
+  },
+  {
+   "a": "Damp Woods",
+   "b": "Drasilgard",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Damp Woods",
+   "b": "Jungle Camp",
+   "how": "walked",
+   "note": "entered Damp Woods at (184, 82)"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Verdantglade II",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins I",
+   "b": "Verdantglade VI",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins I",
+   "b": "Zephyr Vale",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Moonveil Woods",
+   "b": "Troll Lair",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Troll Lair",
+   "b": "Verdantglade IV",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade I",
+   "b": "Verdantglade VI",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Highland Woods",
+   "b": "Monolith Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins I",
+   "b": "Verdantglade V",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Moonveil Woods",
+   "b": "Verdantglade I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Troll Lair",
+   "b": "Zephyr Vale",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade I",
+   "b": "Verdantglade II",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade III",
+   "b": "Zephyr Vale",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade IV",
+   "b": "Zephyr Vale",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Damp Woods",
+   "b": "Verdantglade IV",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Verdantglade IV",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Highland Woods",
+   "b": "Zephyr Vale",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade I",
+   "b": "Verdantglade III",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Verdantglade III",
+   "how": "walked"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Verdantglade III",
+   "how": "walked",
+   "note": "entered Jungle Camp at (142, 84)"
+  },
+  {
+   "a": "Auroradrasil",
+   "b": "Highland Woods",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Auroradrasil",
+   "b": "Monolith Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Auroradrasil",
+   "b": "Zephyr Vale",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Highland Woods",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Monolith Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Troll Lair",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Zephyr Vale",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Highland Woods",
+   "b": "Verdantglade IV",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Highland Woods",
+   "b": "Verdantglade V",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Troll Lair",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins I",
+   "b": "Verdantglade IV",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade V",
+   "b": "Verdantglade VI",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Hidden Camp",
+   "b": "Monolith Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Hidden Camp",
+   "b": "Troll Lair",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Hidden Camp",
+   "b": "Zephyr Vale",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Moonveil Woods",
+   "b": "Verdantglade VI",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Troll Lair",
+   "b": "Verdantglade VI",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade VI",
+   "b": "Zephyr Vale",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Damp Woods",
+   "b": "Troll Lair",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Damp Woods",
+   "b": "Verdantglade III",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Damp Woods",
+   "b": "Zephyr Vale",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Highland Woods",
+   "b": "Verdantglade II",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins I",
+   "b": "Verdantglade II",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Troll Lair",
+   "b": "Verdantglade II",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade II",
+   "b": "Verdantglade V",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade II",
+   "b": "Zephyr Vale",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Highland Woods",
+   "b": "Stone Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Moonveil Woods",
+   "b": "Stone Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Stone Ruins I",
+   "b": "Zephyr Vale",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Stone Ruins I",
+   "b": "Troll Lair",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Hidden Camp",
+   "b": "Highland Woods",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Hidden Camp",
+   "b": "Moonveil Woods",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Hidden Camp",
+   "b": "Verdantglade VI",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Moonveil Woods",
+   "b": "Verdantglade IV",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Moonveil Woods",
+   "b": "Verdantglade V",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade III",
+   "b": "Verdantglade IV",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade III",
+   "b": "Verdantglade V",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade III",
+   "b": "Verdantglade VI",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade IV",
+   "b": "Verdantglade VI",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Stone Ruins I",
+   "b": "Verdantglade III",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Troll Lair",
+   "b": "Verdantglade III",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Troll Lair",
+   "b": "Verdantglade V",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Auroradrasil",
+   "b": "Troll Lair",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Auroradrasil",
+   "b": "Verdantglade IV",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Damp Woods",
+   "b": "Moonveil Woods",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Highland Woods",
+   "b": "Verdantglade I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Verdantglade II",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins I",
+   "b": "Stone Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins I",
+   "b": "Verdantglade I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Stone Ruins I",
+   "b": "Verdantglade I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade I",
+   "b": "Zephyr Vale",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Auroradrasil",
+   "b": "Damp Woods",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Damp Woods",
+   "b": "Verdantglade V",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Hidden Camp",
+   "b": "Verdantglade V",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Hidden Camp",
+   "b": "Verdantglade I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Verdantglade IV",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade I",
+   "b": "Verdantglade V",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Auroradrasil",
+   "b": "Stone Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Moonveil Woods",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Stone Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Damp Woods",
+   "b": "Verdantglade I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Stone Ruins I",
+   "b": "Verdantglade V",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Hidden Camp",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Stone Ruins I",
+   "b": "Verdantglade VI",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Highland Woods",
+   "b": "Verdantglade VI",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins I",
+   "b": "Moonveil Woods",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Moonveil Woods",
+   "b": "Zephyr Vale",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Stone Ruins I",
+   "b": "Verdantglade II",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Stone Ruins I",
+   "b": "Verdantglade IV",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Auroradrasil",
+   "b": "Verdantglade III",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Sunrise Isle",
+   "b": "Damp Woods",
+   "how": "walked",
+   "note": "entered Sunrise Isle at (190, 80)"
+  },
+  {
+   "a": "Wildbloom Coast",
+   "b": "Sunrise Isle",
+   "how": "walked",
+   "note": "entered Wildbloom Coast at (145, 140)"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Verdantglade V",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade VI",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade V",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Auroradrasil",
+   "b": "Jungle Camp",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Damp Woods",
+   "b": "Monolith Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Damp Woods",
+   "b": "Stone Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Damp Woods",
+   "b": "Verdantglade VI",
+   "how": "walked",
+   "note": "entered Verdantglade VI at (135, 126)"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Verdantglade V",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Verdantglade VI",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Hidden Camp",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Monolith Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Moonveil Woods",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Stone Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Verdantglade VI",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins I",
+   "b": "Verdantglade III",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade I",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade II",
+   "b": "Verdantglade III",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade II",
+   "b": "Verdantglade IV",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade II",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Highland Woods",
+   "b": "Moonveil Woods",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Stone Ruins I",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade II",
+   "b": "Verdantglade VI",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade II",
+   "b": "Rabbit Vault",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade IV",
+   "b": "Rabbit Vault",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Damp Woods",
+   "b": "Highland Woods",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Highland Woods",
+   "b": "Verdantglade III",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins I",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Rabbit Vault",
+   "b": "Verdantglade VI",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Wildbloom Coast",
+   "b": "Zephyr Vale",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Troll Lair",
+   "b": "Verdantglade I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Auroradrasil",
+   "b": "Stagnant Jungle",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Stagnant Jungle",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Rabbit Vault",
+   "b": "Stone Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Rabbit Vault",
+   "b": "Verdantglade I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Rabbit Vault",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade V",
+   "b": "Stagnant Jungle",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Auroradrasil",
+   "b": "Hidden Camp",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Rabbit Vault",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade I",
+   "b": "Stagnant Jungle",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Verdantglade I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Hidden Camp",
+   "b": "Stone Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins I",
+   "b": "Stagnant Jungle",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Stagnant Jungle",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Highland Woods",
+   "b": "Rabbit Vault",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Rabbit Vault",
+   "b": "Grotto Peninsula",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Stagnant Jungle",
+   "b": "Verdantglade III",
+   "how": "map_adjacent"
   }
  ],
  "gaps": [
-  "Jungle Camp: entry point unknown; the walk in from Drasilgard's south edge gained no % (2026-11-05). Next by the R-135 order, so the next survey's map neighbours are the ones to try.",
   "Connections of Verdantglade IV, V, VI, Drasilgard, Zephyr Vale, Monolith Ruins I, Troll Lair, Wildbloom Coast and Hidden Camp are not mapped yet; the first closer-zoom survey fills map points and map neighbours.",
   "Originisle (explored and blessed) is not in the tree yet.",
   "Blessed or not is unknown for most explored Verdantglade zones (null); the roam loop sets it when it unlocks a statue."

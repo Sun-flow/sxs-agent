@@ -43,15 +43,15 @@ Scene labels (e.g. "Class to Unlock") overlap the quest tracker region; filter t
 - When a Cart row shows an Unlock button (often with a red "!"), press it. Unlocking is free (mae). Chrono Sand was the first such row.
 - This is separate from upgrading: unlocking a row doesn't make it an upgrade target. Upgrades stay Stone and Wood only (R-136).
 - Rows still locked behind a level (Treats, Lv 45) show no Unlock button yet; check again on later runs.
-- Code: `CartUpgrader.unlock_rows` in `sxs/loops/cart.py` presses an exact "Unlock" before upgrading. If a confirmation shows any cost or spend word, it backs out and asks (needs a decision). Not yet watched live.
-*told* · node `cart` · R-020, R-136
+- Code: `CartUpgrader.unlock_rows` in `sxs/loops/cart.py` presses an exact "Unlock" before upgrading. If a confirmation shows any cost or spend word, it backs out and asks (needs a decision). Live-verified 2026-11-09 on Chrono Sand.
+*told, observed* · node `cart` · R-020, R-136
 
 ## The house
 
 ### R-035 · Use the bed's free speed-up once a day
 - The bed ("Sleep to earn AFK EXP...") shows Blessing Level, EXP/Hr, EXP Reserve and more.
 - "Today's Free Speedup": one free a day. It is its **own task, not a daily step** (mae, 2026-11-09). Save it until the day's exploration is complete (the content wall, not reached yet), so it adds the most; it will be called on purpose later in the day. Collecting the bed's stored EXP is separate (R-101).
-- Furniture slots unlock by level (Lv 7: Alchemy Pot, R-047). Blessing statues likely raise Blessing Level ❓ (R-070). Blessing Level caps the Cart's row levels (R-136).
+- Furniture slots unlock by level (Lv 7: Alchemy Pot, R-047). Unlocking a zone's Goddess Statue raises Blessing Level by 1 (Verdantglade V: 5 → 6, which raised Max Cart Level 5 → 6 and AFK EXP 592 → 608; Verdantglade VI: 6 → 7, Max Cart Level 7, AFK EXP 620 → 636; R-070). Blessing 7 lets Stone and Wood go to Lv 7. Blessing Level caps the Cart's row levels (R-136).
 *observed* · `home/home_house.png`, `home/bed.png`, `home/furniture_unlock.png`, `dialogs/unlocked.png` · node `home_house`, `bed` · R-101
 
 ### R-101 · Collect bed EXP daily, and when close to levelling

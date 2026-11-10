@@ -9,6 +9,15 @@
    "date": "2026-11-04",
    "stamina": null,
    "n": 0
+  },
+  {
+   "file": "monster_monster_verdantglade_vi_0.png",
+   "name": "monster",
+   "kind": "monster",
+   "area": "Verdantglade VI",
+   "date": "2026-11-09",
+   "stamina": null,
+   "n": 0
   }
  ]
 }

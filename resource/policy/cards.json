@@ -1,6 +1,6 @@
 {
     "doc": "How sxs/policy/decide.py chooses on popups and cards. Rules are tried in order; the first whose 'when' holds and whose 'match' regex finds the card's title or body wins. 'choose' is a regex for the button to press, or 'dismiss' (back arrow or tap outside), or 'cancel' (the dialog's Cancel button). Goals: explore (finish the current Explore quest), daily (daily loop), idle (just get home). Add a rule whenever a new card shows up; anything no rule covers is dismissed and logged as unknown. A dismiss taps outside the card unless the rule says \"dismiss_by\": \"back\" (the bottom-left back arrow).",
-    "buttons": "^(OK|Accept|Join|Agree|Cancel|Confirm|Explore|Enter|Challenge|Activate|Collect|Claim|Claim All|Open|Interact|Bless|Pray|Gather|Harvest|Mine|Examine|Read|Next Floor|Leave|Retreat|Exit|Continue|Start Battle|Buy|Purchase|Refresh|Spend|Unlock|Upgrade|Enhance|Equip|Replace|Remove|Go|Return to Home|Quick Heal.*|Track|Stop Tracking)$",
+    "buttons": "^(OK|Accept|Join|Agree|Cancel|Confirm|Explore|Enter|Challenge|Activate|Collect|Claim|Claim All|Open|Interact|Bless|Pray|Gather|Harvest|Mine|Examine|Read|Next Floor|Leave|Retreat|Exit|Continue|Start Battle|Buy|Purchase|Refresh|Spend|Unlock|Upgrade|Enhance|Equip|Replace|Remove|Go|Return to Home|Quick Heal.*|Track|Stop Tracking|Visit)$",
     "never": "^(Buy|Purchase|Refresh|Spend|Pray|Pray x\\d+|Recharge|Top ?[Uu]p|Catch ?[Uu]p|Advanced Trial|Create Guild|Change Class)$|Dawnium|USD|\\$|[Hh]ammer",
     "never_doc": "Buttons never pressed by any card rule (mae: no spending, no pulls outside sxs.loops.pray --handler-approved, no class or guild choices). 'buttons' still lists some spend words so they are read as buttons, not as the card's title; this list is what keeps them untapped.",
     "rules": [
@@ -104,6 +104,46 @@
             "match": "^Portal$",
             "choose": "^Activate$",
             "why": "Activating a portal is free, counts toward exploration and unlocks fast travel."
+        },
+        {
+            "kind": "statue_visit",
+            "match": "^Statue of .+$",
+            "choose": "^Visit$",
+            "why": "Live 2026-11-09 (Verdantglade V, Statue of Lunar Sage): Visit is free, gives a permanent stat boost (HP +170), heals fully and counts toward exploration."
+        },
+        {
+            "kind": "sealed_gate",
+            "match": "^Sealed Stone Gate$",
+            "choose": "^Unlock$",
+            "why": "Live 2026-11-10: the gate between Verdantglade V and VI opens free once its requirement is met (Reach the Apprentice II rank). With the requirement unmet there is no Unlock button and the card is dismissed. Opening it started Explore Verdantglade VI (0 -> 3%)."
+        },
+        {
+            "kind": "gear_item_card",
+            "match": "^[A-Z][\\w' ]+\\+\\d+$",
+            "choose": "dismiss",
+            "dismiss_by": "back",
+            "why": "Live 2026-11-10 (Verdantglade VI): a gear card ('Beasthide Armor+21') opened during a fog walk; a tap above it landed on the Character screen behind and opened the Class page. Back out instead; gear choices belong to gearswap."
+        },
+        {
+            "kind": "class_card",
+            "match": "^(Mage|Warrior|Rogue|Ranger|Cleric|Knight)$",
+            "choose": "dismiss",
+            "dismiss_by": "back",
+            "why": "Live 2026-11-10: the Class page's class card showed up mid-walk after a stray tap. Never change class (policy); back out."
+        },
+        {
+            "kind": "lucky_wheel",
+            "match": "Wheel of Destiny|All items have an equal drop rate",
+            "choose": "dismiss",
+            "dismiss_by": "back",
+            "why": "Live 2026-11-10 (Jungle Camp's Lucky Wheel): 'Tap to spin' uses Lucky Wheel tickets (we have 0); never spin unasked. A tap outside doesn't close this full screen: use the back arrow."
+        },
+        {
+            "kind": "rankings",
+            "match": "^Rankings$",
+            "choose": "dismiss",
+            "dismiss_by": "back",
+            "why": "Live 2026-11-10 (Damp Woods): a structure opens a Rankings board. Nothing to do there while exploring; back out, press nothing."
         },
         {
             "kind": "obelisk",
