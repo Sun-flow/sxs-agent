@@ -154,7 +154,6 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-138 | `combat.md` | Two kinds of dish: healing dishes are free to use, permanent dishes are conserved |
 | R-139 | `gathering.md` | A monster guarding a pickup: fight it, then resume the pickup |
 | R-140 | `overworld.md` | Confirm the player's zone by the minimap name first, then the big map |
-| R-141 | `combat.md` | Every exploring loop fights guards itself; never switch loops to get past one |
 | R-142 | `overworld.md` | While exploring, follow the zone's own Explore quest |
 | R-143 | `overworld.md` | In an unblessed zone the whole minimap is shaded: the % comes from objects |
 | R-144 | `overworld.md` | "Statue of <name>": press Visit |
@@ -163,7 +162,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 
 ## Retired IDs
 
-Merged into another rule during the 2026-11-04 consolidation. Cite the new ID.
+Merged into another rule (most during the 2026-11-04 consolidation; R-141 on 2026-11-10, when mae withdrew its loop-switching ban). Cite the new ID.
 
 | Old | Now |
 |---|---|
@@ -194,3 +193,4 @@ Merged into another rule during the 2026-11-04 consolidation. Cite the new ID.
 | R-083 | R-044 |
 | R-087 | R-066 |
 | R-090 | R-031 |
+| R-141 | R-139 |

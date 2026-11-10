@@ -21,7 +21,7 @@
 - **Stuck checks**: every loop checks regularly whether it's stuck (no progress, same screen or card repeating: heartbeat, watchdogs) and ends early with a named reason: if the progress signal hasn't moved within a short window, exit with a stuck or unknown result instead of retrying for minutes. A stuck case that recurs means make the loop more robust, not restart it.
 - **Unknown state**: unfamiliar screens are an explicit `UNKNOWN` (`sxs/core/state.py`). Try a known recovery (back arrow, close, tap the HUD) a bounded number of times, otherwise end early and report, with the frame saved to `captures/unknown/`.
 - **Composable**: loops call each other and resume (explore hands Fantasia Ascent screens to `sxs.loops.tower`, then carries on).
-- **No loop switching to get unstuck** (mae, 2026-11-09): calling a sub-loop and resuming is fine, but a loop never hands over to a different loop type to get past a stuck point. Shared logic such as guard fighting (R-141) lives in every loop that needs it.
+- **Don't change mae's chosen task without consent** (mae, 2026-11-10): overarching routines may compose and switch loops freely (including to get past a stuck point), but the bot doesn't switch the task or goal mae set without asking her. Guard-first fighting lives in every exploring loop (R-139). Handler groups in the loop diagrams keep their names.
 - **Banner**: every loop logs this when it starts, and the builder posts it to mae:
   ```
   [Running XXX Loop]
