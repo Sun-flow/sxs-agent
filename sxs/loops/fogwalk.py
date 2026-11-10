@@ -418,6 +418,14 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
     last_plan = None  # the frame the last minimap walk tap was planned on
     seen_names: dict = {}  # name under the minimap -> zone the big map's player dot put us in (R-140)
 
+    def in_home(zone: str) -> bool:
+        """True when `zone` is the zone being explored, also when OCR joined two labels ("Wildbloom CoastHidden Camo"
+        for Hidden Camp, live 2026-11-10: the walk left the zone it was in to 'go back' to it)."""
+        if not home_area or not zone:
+            return False
+        h, z = goto.squeeze(home_area), goto.squeeze(zone)
+        return goto.same_area(zone, home_area) or (len(h) >= 6 and h[:-1] in z)
+
     def map_zone(name: str) -> str:
         # R-140 (amended 2026-11-10): a name under the minimap that the tree knows is the zone; only unknown names
         # are checked on the big map.
@@ -482,7 +490,7 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                     home_area = name
                 elif (name and not goto.same_area(name, home_area) and not strayed
                       and not any(goto.same_area(name, a) or goto.squeeze(name)[:7] == goto.squeeze(a)[:7] for a in allowed)
-                      and not goto.same_area(map_zone(name), home_area)):
+                      and not in_home(map_zone(name))):
                     # The name under the minimap changed; the big map's player dot (R-140) confirmed we left.
                     # Wandered into a neighbouring area: walk back with the area map rather than exploring the wrong one.
                     strayed = True
@@ -779,6 +787,18 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
                             tree.save()
                     log.info("card %r opened from the tap at map %s: walking around that spot from now on",
                              card.title, last_tap)
+                if choice.action == "dismiss" and re.search(r"Required Item|Insufficient items", card.body or ""):
+                    # A blocker that needs an item we don't have (Boulder Blockade: a Magic Drill). The zone waits for
+                    # it; say so instead of circling (live 2026-11-10, Hidden Camp).
+                    need = re.search(r"Use an? ([A-Z][\w ]+?) to", card.body or "")
+                    why = f"{card.title.strip()} needs {need.group(1) if need else 'an item'}"
+                    log.warning("STUCK %s: %s", home_area, why)
+                    k = tree.key(home_area or "")
+                    if k:
+                        tree.zones[k]["blocked"] = why
+                        tree.save()
+                    ui.tap(dev, choice.point, 2)
+                    return "blocked_item"
                 if choice.action == "dismiss" and card.title:
                     dismissed[card.title] = dismissed.get(card.title, 0) + 1
                     if dismissed[card.title] == 2 and buildings_ok:
@@ -818,5 +838,5 @@ def _run(ctx, opts):
 
 
 # Ends that mean the area ran out of things to do, not that something went wrong.
-OK = {"no_fog", "timeout", "power_gate", "stuck", "no_objects", "object_unreachable", "zone_done", "not_in_zone"}
+OK = {"no_fog", "timeout", "power_gate", "stuck", "no_objects", "object_unreachable", "zone_done", "not_in_zone", "blocked_item"}
 LOOP = Loop("fogwalk", "Fog Walk", "explore one side area: minimap targets, then the fog edge", _run, _args, ok=OK)

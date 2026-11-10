@@ -210,7 +210,10 @@ class Tree:
         """R-132 then R-135: the zone we stand in if it's unfinished and in reach; else the lowest-CP zone not blessed
         and in reach (zones with no CP read go last)."""
         skip = {squeeze(s) for s in skip}
-        ok = lambda k: squeeze(k) not in skip and fights.within_reach(self.zones[k].get("cp"), power)  # noqa: E731
+        # A zone whose way in needs an item we don't have (live 2026-11-10: Hidden Camp's Boulder Blockade needs a
+        # Magic Drill) waits until someone clears `blocked`.
+        ok = lambda k: (squeeze(k) not in skip and not self.zones[k].get("blocked")  # noqa: E731
+                        and fights.within_reach(self.zones[k].get("cp"), power))
         h = self.key(here)
         if h and self.zones[h].get("kind", "zone") == "zone" and not self.explored(h) and ok(h):
             return h
