@@ -4,9 +4,9 @@
    "id": "wood",
    "name": "Wood",
    "kind": "material",
-   "description": "",
-   "uses": "Home furniture upgrades; AFK Cart yield",
-   "named_by": "screen",
+   "description": "Use them to upgrade furniture in your home. High-quality timber, felled and neatly processed.",
+   "uses": "Home furniture upgrades; AFK Cart yield Sources: Home AFK Yield, Commission",
+   "named_by": "popup",
    "icons": [
     {
      "file": "wood.png",
@@ -16,6 +16,17 @@
       248,
       108,
       90
+     ],
+     "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "wood_2.png",
+     "screen": "items/vendor_booth_general.png",
+     "box": [
+      80,
+      247,
+      108,
+      89
      ],
      "found_in": "Home > Vendor Booth > General"
     }
@@ -68,9 +79,9 @@
    "id": "stone",
    "name": "Stone",
    "kind": "material",
-   "description": "",
-   "uses": "Home furniture upgrades; AFK Cart yield",
-   "named_by": "screen",
+   "description": "Use them to upgrade furniture in your home. Solid stone quarried and shaped into square bricks.",
+   "uses": "Home furniture upgrades; AFK Cart yield Sources: Home AFK Yield, Commission",
+   "named_by": "popup",
    "icons": [
     {
      "file": "stone.png",
@@ -80,6 +91,28 @@
       247,
       108,
       83
+     ],
+     "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "stone_2.png",
+     "screen": "items/vendor_booth_general.png",
+     "box": [
+      306,
+      248,
+      108,
+      82
+     ],
+     "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "stone_3.png",
+     "screen": "items/vendor_booth_general.png",
+     "box": [
+      532,
+      255,
+      108,
+      75
      ],
      "found_in": "Home > Vendor Booth > General"
     }
@@ -125,6 +158,17 @@
       62
      ],
      "found_in": "Journal > Map Exploration > Resource Hunt (gather priority choice; not tapped)"
+    },
+    {
+     "file": "raw_ore_4.png",
+     "screen": "items/vendor_booth_general.png",
+     "box": [
+      88,
+      524,
+      90,
+      100
+     ],
+     "found_in": "Home > Vendor Booth > General"
     }
    ]
   },
@@ -157,6 +201,28 @@
       33
      ],
      "found_in": "Journal > Material Realms > Dread Hollow > Top bar"
+    },
+    {
+     "file": "battle_essence_3.png",
+     "screen": "items/vendor_booth_general.png",
+     "box": [
+      532,
+      525,
+      108,
+      99
+     ],
+     "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "battle_essence_4.png",
+     "screen": "items/map_exploration.png",
+     "box": [
+      253,
+      274,
+      57,
+      70
+     ],
+     "found_in": "Journal > Map Exploration > Resource Hunt (gather priority choice; not tapped) [dimmed art: matched by eye to the vendor icon, not popup-read]"
     }
    ]
   },
@@ -164,9 +230,9 @@
    "id": "water",
    "name": "Water",
    "kind": "ingredient",
-   "description": "",
-   "uses": "Cooking ingredient (restorative dishes)",
-   "named_by": "screen",
+   "description": "An ingredient for Verdantglade restorative dishes. Crystal clear water. Essential for cooking.",
+   "uses": "Cooking ingredient (restorative dishes) Sources: Shop Purchase",
+   "named_by": "popup",
    "icons": [
     {
      "file": "water.png",
@@ -176,6 +242,17 @@
       814,
       93,
       89
+     ],
+     "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "water_2.png",
+     "screen": "items/vendor_booth_general.png",
+     "box": [
+      532,
+      814,
+      108,
+      90
      ],
      "found_in": "Home > Vendor Booth > General"
     }
@@ -768,48 +845,6 @@
    ]
   },
   {
-   "id": "unknown_1",
-   "name": "",
-   "kind": "other",
-   "description": "",
-   "uses": "",
-   "named_by": "",
-   "icons": [
-    {
-     "file": "unknown_1.png",
-     "screen": "items/map_exploration.png",
-     "box": [
-      180,
-      290,
-      58,
-      52
-     ],
-     "found_in": "Journal > Map Exploration > Resource Hunt (gather priority choice; not tapped)"
-    }
-   ]
-  },
-  {
-   "id": "unknown_2",
-   "name": "",
-   "kind": "other",
-   "description": "",
-   "uses": "",
-   "named_by": "",
-   "icons": [
-    {
-     "file": "unknown_2.png",
-     "screen": "items/map_exploration.png",
-     "box": [
-      253,
-      274,
-      57,
-      70
-     ],
-     "found_in": "Journal > Map Exploration > Resource Hunt (gather priority choice; not tapped)"
-    }
-   ]
-  },
-  {
    "id": "rare_auroral_badge",
    "name": "Rare Auroral Badge",
    "kind": "ticket",
@@ -1048,6 +1083,60 @@
       96
      ],
      "found_in": "Menu > Quest > Weekly > Random Epic Gift card (contents)"
+    }
+   ]
+  },
+  {
+   "id": "chrono_sand",
+   "name": "Chrono Sand",
+   "kind": "material",
+   "description": "Use it to enhance Relics. This fine sand are from the purification of sand ores.",
+   "uses": "Sources: Home AFK Yield, Realm:Dustfall Dune, Commission, Verdantglade Sand Mining",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "chrono_sand.png",
+     "screen": "items/vendor_booth_general.png",
+     "box": [
+      306,
+      531,
+      108,
+      80
+     ],
+     "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "chrono_sand_2.png",
+     "screen": "items/vendor_booth_general.png",
+     "box": [
+      80,
+      813,
+      106,
+      81
+     ],
+     "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "chrono_sand_3.png",
+     "screen": "items/vendor_booth_general.png",
+     "box": [
+      306,
+      813,
+      108,
+      81
+     ],
+     "found_in": "Home > Vendor Booth > General"
+    },
+    {
+     "file": "chrono_sand_4.png",
+     "screen": "items/map_exploration.png",
+     "box": [
+      180,
+      290,
+      58,
+      52
+     ],
+     "found_in": "Journal > Map Exploration > Resource Hunt (gather priority choice; not tapped) [dimmed art: matched by eye to the vendor icon, not popup-read]"
     }
    ]
   }
