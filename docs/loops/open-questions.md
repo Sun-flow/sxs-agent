@@ -26,6 +26,24 @@ arrow for the pages, tap outside for the cards, Home for the profile).
 **Q13. Vendor Booth pans fast.** It swipes in 500 ms; R-126 says fast swipes often don't register on home and to use
 slow 1 s drags over the ground, as the Cart sweep does.
 
+**Q16. Explore fights hurt after two heal tries.** `_on_battle_prep` in `sxs/loops/explore.py` heals up to twice,
+then taps Start Battle even when the prep bar is still under 70%. R-061 says never fight under 70%, and R-141 says
+exploring loops use the shared `start_fight`, which backs out instead. *Recommend:* call `start_fight`; if it returns
+False, end the run `low_hp`.
+
+**Q17. Explore's unstick reads the zone from the minimap name.** Unstick round 1 compares `goto.area_name_here`
+(the name under the minimap) with the quest's area. R-140: the zone comes only from the big-map player dot.
+*Recommend:* move `zone_by_map` from `sxs/loops/fogwalk.py` to `sxs/actions/goto.py` and use it here, with the
+minimap name as the hint.
+
+**Q18. Two quest-ring followers.** Explore's `_follow_marker` and Fog Walk's `quest_step` do the same job differently;
+`quest_step` is the live-proven one (R-142). *Recommend:* one shared action in `sxs/actions/` that both call, keeping
+Explore's pan/toggle retries for when no ring shows.
+
+**Q19. Mermaid labels starting "1. " draw as "Unsupported markdown: list"** in Mermaid 11 (seen in a local render of
+explore.md; other pages use the same style, e.g. runner.md and the README legend). Explore now uses "Step 1 ·".
+*Recommend:* check one page on GitHub; if it shows the error, switch the others too.
+
 ## Gaps: screens or cards with no defined action
 
 **Q14. Cards without a rule** are dismissed and logged: Auroradrasil's "1 More Floor(s)", "Dungeon Room Map" and
