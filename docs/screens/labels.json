@@ -296,6 +296,54 @@
      "template": false,
      "cls": "item_icon",
      "item": "epic_auroral_badge"
+    },
+    {
+     "name": "btn_claim_1",
+     "kind": "button",
+     "x": 518,
+     "y": 191,
+     "w": 140,
+     "h": 56,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "btn_claim",
+     "draft": true
+    },
+    {
+     "name": "btn_claim_2",
+     "kind": "button",
+     "x": 519,
+     "y": 362,
+     "w": 139,
+     "h": 53,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "btn_claim",
+     "draft": true
+    },
+    {
+     "name": "btn_claim_3",
+     "kind": "button",
+     "x": 518,
+     "y": 527,
+     "w": 140,
+     "h": 56,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "btn_claim",
+     "draft": true
+    },
+    {
+     "name": "btn_claim_4",
+     "kind": "button",
+     "x": 518,
+     "y": 695,
+     "w": 140,
+     "h": 56,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "btn_claim",
+     "draft": true
     }
    ]
   },
@@ -613,6 +661,42 @@
      "template": false,
      "cls": "item_icon",
      "item": "rolla"
+    },
+    {
+     "name": "btn_claim_1",
+     "kind": "button",
+     "x": 518,
+     "y": 191,
+     "w": 140,
+     "h": 56,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "btn_claim",
+     "draft": true
+    },
+    {
+     "name": "btn_claim_2",
+     "kind": "button",
+     "x": 519,
+     "y": 362,
+     "w": 139,
+     "h": 53,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "btn_claim",
+     "draft": true
+    },
+    {
+     "name": "btn_claim_3",
+     "kind": "button",
+     "x": 518,
+     "y": 527,
+     "w": 140,
+     "h": 56,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "btn_claim",
+     "draft": true
     }
    ]
   },
@@ -969,6 +1053,66 @@
      "template": false,
      "cls": "item_icon",
      "item": "rare_auroral_badge"
+    },
+    {
+     "name": "btn_claim_1",
+     "kind": "button",
+     "x": 518,
+     "y": 192,
+     "w": 140,
+     "h": 55,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "btn_claim",
+     "draft": true
+    },
+    {
+     "name": "btn_claim_2",
+     "kind": "button",
+     "x": 518,
+     "y": 360,
+     "w": 140,
+     "h": 55,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "btn_claim",
+     "draft": true
+    },
+    {
+     "name": "btn_claim_3",
+     "kind": "button",
+     "x": 518,
+     "y": 527,
+     "w": 140,
+     "h": 56,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "btn_claim",
+     "draft": true
+    },
+    {
+     "name": "btn_claim_4",
+     "kind": "button",
+     "x": 518,
+     "y": 695,
+     "w": 140,
+     "h": 56,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "btn_claim",
+     "draft": true
+    },
+    {
+     "name": "btn_claim_5",
+     "kind": "button",
+     "x": 518,
+     "y": 863,
+     "w": 140,
+     "h": 56,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "btn_claim",
+     "draft": true
     }
    ]
   },
@@ -1884,6 +2028,18 @@
      "template": false,
      "cls": "item_icon",
      "item": "dawnium"
+    },
+    {
+     "name": "btn_claim_1",
+     "kind": "button",
+     "x": 502,
+     "y": 192,
+     "w": 150,
+     "h": 58,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "btn_claim",
+     "draft": true
     }
    ]
   },
@@ -3621,6 +3777,54 @@
      "template": false,
      "cls": "item_icon",
      "item": "bond_trinket"
+    },
+    {
+     "name": "btn_claim_1",
+     "kind": "button",
+     "x": 518,
+     "y": 192,
+     "w": 140,
+     "h": 55,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "btn_claim",
+     "draft": true
+    },
+    {
+     "name": "btn_claim_2",
+     "kind": "button",
+     "x": 518,
+     "y": 359,
+     "w": 140,
+     "h": 56,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "btn_claim",
+     "draft": true
+    },
+    {
+     "name": "btn_claim_3",
+     "kind": "button",
+     "x": 518,
+     "y": 527,
+     "w": 140,
+     "h": 56,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "btn_claim",
+     "draft": true
+    },
+    {
+     "name": "btn_claim_4",
+     "kind": "button",
+     "x": 518,
+     "y": 695,
+     "w": 140,
+     "h": 56,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "btn_claim",
+     "draft": true
     }
    ]
   },
@@ -3931,6 +4135,18 @@
      "template": false,
      "cls": "item_icon",
      "item": "rolla"
+    },
+    {
+     "name": "btn_claim_1",
+     "kind": "button",
+     "x": 268,
+     "y": 1071,
+     "w": 184,
+     "h": 56,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "btn_claim",
+     "draft": true
     }
    ]
   },
@@ -4065,6 +4281,18 @@
      "template": false,
      "cls": "item_icon",
      "item": "stone"
+    },
+    {
+     "name": "btn_claim_1",
+     "kind": "button",
+     "x": 267,
+     "y": 1068,
+     "w": 185,
+     "h": 60,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "btn_claim",
+     "draft": true
     }
    ]
   },
@@ -6609,7 +6837,8 @@
      "h": 12,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_item"
+     "cls": "map_item",
+     "draft": true
     },
     {
      "name": "map_monster_1",
@@ -6620,7 +6849,8 @@
      "h": 17,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_monster"
+     "cls": "map_monster",
+     "draft": true
     },
     {
      "name": "map_building_1",
@@ -6631,7 +6861,8 @@
      "h": 24,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_building"
+     "cls": "map_building",
+     "draft": true
     },
     {
      "name": "map_building_2",
@@ -6642,7 +6873,8 @@
      "h": 24,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_building"
+     "cls": "map_building",
+     "draft": true
     },
     {
      "name": "map_building_3",
@@ -6653,7 +6885,8 @@
      "h": 25,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_building"
+     "cls": "map_building",
+     "draft": true
     },
     {
      "name": "map_building_4",
@@ -6664,7 +6897,8 @@
      "h": 18,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_building"
+     "cls": "map_building",
+     "draft": true
     },
     {
      "name": "map_building_5",
@@ -6675,7 +6909,8 @@
      "h": 19,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_building"
+     "cls": "map_building",
+     "draft": true
     },
     {
      "name": "map_building_6",
@@ -6686,7 +6921,8 @@
      "h": 19,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_building"
+     "cls": "map_building",
+     "draft": true
     },
     {
      "name": "map_building_7",
@@ -6697,7 +6933,8 @@
      "h": 24,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_building"
+     "cls": "map_building",
+     "draft": true
     },
     {
      "name": "map_building_8",
@@ -6708,7 +6945,8 @@
      "h": 19,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_building"
+     "cls": "map_building",
+     "draft": true
     },
     {
      "name": "map_building_9",
@@ -6719,7 +6957,8 @@
      "h": 18,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_building"
+     "cls": "map_building",
+     "draft": true
     },
     {
      "name": "map_building_10",
@@ -6730,7 +6969,8 @@
      "h": 25,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_building"
+     "cls": "map_building",
+     "draft": true
     },
     {
      "name": "map_building_11",
@@ -6741,7 +6981,8 @@
      "h": 30,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_building"
+     "cls": "map_building",
+     "draft": true
     },
     {
      "name": "map_player_1",
@@ -6752,7 +6993,8 @@
      "h": 16,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_player"
+     "cls": "map_player",
+     "draft": true
     },
     {
      "name": "map_statue_bang_1",
@@ -6763,7 +7005,8 @@
      "h": 32,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_statue_bang"
+     "cls": "map_statue_bang",
+     "draft": true
     },
     {
      "name": "anchor_area_map_legend_1",
@@ -6787,6 +7030,54 @@
      "template": false,
      "cls": "item_icon",
      "item": "rolla"
+    },
+    {
+     "name": "map_zone_label_1",
+     "kind": "text",
+     "x": 354,
+     "y": 262,
+     "w": 107,
+     "h": 25,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_2",
+     "kind": "text",
+     "x": 427,
+     "y": 497,
+     "w": 120,
+     "h": 32,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_3",
+     "kind": "text",
+     "x": 530,
+     "y": 786,
+     "w": 109,
+     "h": 33,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_pct_line_1",
+     "kind": "text",
+     "x": 533,
+     "y": 833,
+     "w": 102,
+     "h": 20,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_pct_line",
+     "draft": true
     }
    ]
   },
@@ -6805,7 +7096,8 @@
      "h": 15,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_building"
+     "cls": "map_building",
+     "draft": true
     },
     {
      "name": "map_building_2",
@@ -6816,7 +7108,8 @@
      "h": 16,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_building"
+     "cls": "map_building",
+     "draft": true
     },
     {
      "name": "map_building_3",
@@ -6827,7 +7120,8 @@
      "h": 32,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_building"
+     "cls": "map_building",
+     "draft": true
     },
     {
      "name": "map_building_4",
@@ -6838,7 +7132,8 @@
      "h": 15,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_building"
+     "cls": "map_building",
+     "draft": true
     },
     {
      "name": "map_building_5",
@@ -6849,7 +7144,8 @@
      "h": 24,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_building"
+     "cls": "map_building",
+     "draft": true
     },
     {
      "name": "map_building_6",
@@ -6860,7 +7156,8 @@
      "h": 24,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_building"
+     "cls": "map_building",
+     "draft": true
     },
     {
      "name": "map_building_7",
@@ -6871,7 +7168,8 @@
      "h": 26,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_building"
+     "cls": "map_building",
+     "draft": true
     },
     {
      "name": "map_building_8",
@@ -6882,7 +7180,8 @@
      "h": 18,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_building"
+     "cls": "map_building",
+     "draft": true
     },
     {
      "name": "map_building_9",
@@ -6893,7 +7192,8 @@
      "h": 18,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_building"
+     "cls": "map_building",
+     "draft": true
     },
     {
      "name": "map_building_10",
@@ -6904,7 +7204,8 @@
      "h": 25,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_building"
+     "cls": "map_building",
+     "draft": true
     },
     {
      "name": "map_building_11",
@@ -6915,7 +7216,8 @@
      "h": 16,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_building"
+     "cls": "map_building",
+     "draft": true
     },
     {
      "name": "map_building_12",
@@ -6926,7 +7228,8 @@
      "h": 26,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_building"
+     "cls": "map_building",
+     "draft": true
     },
     {
      "name": "map_statue_bang_1",
@@ -6937,7 +7240,8 @@
      "h": 32,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_statue_bang"
+     "cls": "map_statue_bang",
+     "draft": true
     },
     {
      "name": "anchor_area_map_legend_1",
@@ -6961,6 +7265,66 @@
      "template": false,
      "cls": "item_icon",
      "item": "rolla"
+    },
+    {
+     "name": "map_zone_label_1",
+     "kind": "text",
+     "x": 177,
+     "y": 177,
+     "w": 108,
+     "h": 31,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_2",
+     "kind": "text",
+     "x": 252,
+     "y": 415,
+     "w": 118,
+     "h": 33,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_3",
+     "kind": "text",
+     "x": 497,
+     "y": 442,
+     "w": 212,
+     "h": 41,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_4",
+     "kind": "text",
+     "x": 350,
+     "y": 699,
+     "w": 115,
+     "h": 41,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_pct_line_1",
+     "kind": "text",
+     "x": 365,
+     "y": 749,
+     "w": 94,
+     "h": 24,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_pct_line",
+     "draft": true
     }
    ]
   },
@@ -6980,6 +7344,114 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_area_map_legend"
+    },
+    {
+     "name": "map_zone_label_1",
+     "kind": "text",
+     "x": 410,
+     "y": 482,
+     "w": 153,
+     "h": 29,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_2",
+     "kind": "text",
+     "x": 165,
+     "y": 611,
+     "w": 132,
+     "h": 25,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_3",
+     "kind": "text",
+     "x": 493,
+     "y": 769,
+     "w": 117,
+     "h": 31,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_4",
+     "kind": "text",
+     "x": 403,
+     "y": 863,
+     "w": 170,
+     "h": 33,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_5",
+     "kind": "text",
+     "x": 246,
+     "y": 915,
+     "w": 132,
+     "h": 25,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_6",
+     "kind": "text",
+     "x": 113,
+     "y": 1122,
+     "w": 174,
+     "h": 29,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_7",
+     "kind": "text",
+     "x": 500,
+     "y": 1158,
+     "w": 104,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_pct_line_1",
+     "kind": "text",
+     "x": 137,
+     "y": 1167,
+     "w": 123,
+     "h": 28,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_pct_line",
+     "draft": true
+    },
+    {
+     "name": "map_pct_line_2",
+     "kind": "text",
+     "x": 570,
+     "y": 1179,
+     "w": 24,
+     "h": 17,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_pct_line",
+     "draft": true
     }
    ]
   },
@@ -6999,6 +7471,174 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_area_map_legend"
+    },
+    {
+     "name": "map_zone_label_1",
+     "kind": "text",
+     "x": 377,
+     "y": 358,
+     "w": 238,
+     "h": 34,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_pct_line_1",
+     "kind": "text",
+     "x": 505,
+     "y": 377,
+     "w": 105,
+     "h": 36,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_pct_line",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_2",
+     "kind": "text",
+     "x": 397,
+     "y": 403,
+     "w": 100,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_3",
+     "kind": "text",
+     "x": 58,
+     "y": 507,
+     "w": 156,
+     "h": 37,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_pct_line_2",
+     "kind": "text",
+     "x": 83,
+     "y": 534,
+     "w": 128,
+     "h": 31,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_pct_line",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_4",
+     "kind": "text",
+     "x": 399,
+     "y": 582,
+     "w": 167,
+     "h": 35,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_5",
+     "kind": "text",
+     "x": 412,
+     "y": 615,
+     "w": 255,
+     "h": 50,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_pct_line_3",
+     "kind": "text",
+     "x": 545,
+     "y": 642,
+     "w": 99,
+     "h": 31,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_pct_line",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_6",
+     "kind": "text",
+     "x": 207,
+     "y": 687,
+     "w": 108,
+     "h": 25,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_pct_line_4",
+     "kind": "text",
+     "x": 563,
+     "y": 774,
+     "w": 93,
+     "h": 21,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_pct_line",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_7",
+     "kind": "text",
+     "x": 262,
+     "y": 870,
+     "w": 132,
+     "h": 34,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_8",
+     "kind": "text",
+     "x": 447,
+     "y": 895,
+     "w": 171,
+     "h": 32,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_9",
+     "kind": "text",
+     "x": 341,
+     "y": 1091,
+     "w": 113,
+     "h": 37,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_pct_line_5",
+     "kind": "text",
+     "x": 348,
+     "y": 1139,
+     "w": 98,
+     "h": 25,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_pct_line",
+     "draft": true
     }
    ]
   },
@@ -7017,7 +7657,8 @@
      "h": 12,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_item"
+     "cls": "map_item",
+     "draft": true
     },
     {
      "name": "map_item_2",
@@ -7028,7 +7669,8 @@
      "h": 14,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_item"
+     "cls": "map_item",
+     "draft": true
     },
     {
      "name": "map_item_3",
@@ -7039,7 +7681,8 @@
      "h": 12,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_item"
+     "cls": "map_item",
+     "draft": true
     },
     {
      "name": "map_item_4",
@@ -7050,7 +7693,8 @@
      "h": 14,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_item"
+     "cls": "map_item",
+     "draft": true
     },
     {
      "name": "map_item_5",
@@ -7061,7 +7705,8 @@
      "h": 12,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_item"
+     "cls": "map_item",
+     "draft": true
     },
     {
      "name": "map_item_6",
@@ -7072,7 +7717,8 @@
      "h": 14,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_item"
+     "cls": "map_item",
+     "draft": true
     },
     {
      "name": "map_monster_4",
@@ -7083,7 +7729,8 @@
      "h": 14,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_monster"
+     "cls": "map_monster",
+     "draft": true
     },
     {
      "name": "map_monster_5",
@@ -7094,7 +7741,8 @@
      "h": 15,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_monster"
+     "cls": "map_monster",
+     "draft": true
     },
     {
      "name": "map_monster_6",
@@ -7105,7 +7753,8 @@
      "h": 15,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_monster"
+     "cls": "map_monster",
+     "draft": true
     },
     {
      "name": "map_monster_7",
@@ -7116,7 +7765,8 @@
      "h": 27,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_monster"
+     "cls": "map_monster",
+     "draft": true
     },
     {
      "name": "map_monster_8",
@@ -7127,7 +7777,8 @@
      "h": 12,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_monster"
+     "cls": "map_monster",
+     "draft": true
     },
     {
      "name": "map_monster_9",
@@ -7138,7 +7789,8 @@
      "h": 18,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_monster"
+     "cls": "map_monster",
+     "draft": true
     },
     {
      "name": "map_monster_10",
@@ -7149,7 +7801,8 @@
      "h": 19,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_monster"
+     "cls": "map_monster",
+     "draft": true
     },
     {
      "name": "map_monster_11",
@@ -7160,7 +7813,8 @@
      "h": 18,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_monster"
+     "cls": "map_monster",
+     "draft": true
     },
     {
      "name": "map_building_1",
@@ -7171,7 +7825,8 @@
      "h": 26,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_building"
+     "cls": "map_building",
+     "draft": true
     },
     {
      "name": "map_building_2",
@@ -7182,7 +7837,8 @@
      "h": 19,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_building"
+     "cls": "map_building",
+     "draft": true
     },
     {
      "name": "map_player_1",
@@ -7193,7 +7849,8 @@
      "h": 16,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_player"
+     "cls": "map_player",
+     "draft": true
     },
     {
      "name": "anchor_area_map_legend_1",
@@ -7205,6 +7862,162 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_area_map_legend"
+    },
+    {
+     "name": "map_monster_1",
+     "kind": "icon",
+     "x": 470,
+     "y": 102,
+     "w": 11,
+     "h": 11,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_2",
+     "kind": "icon",
+     "x": 467,
+     "y": 108,
+     "w": 15,
+     "h": 13,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_3",
+     "kind": "icon",
+     "x": 467,
+     "y": 118,
+     "w": 15,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_building_3",
+     "kind": "icon",
+     "x": 34,
+     "y": 419,
+     "w": 19,
+     "h": 24,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_building_4",
+     "kind": "icon",
+     "x": 127,
+     "y": 419,
+     "w": 17,
+     "h": 24,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_building",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_1",
+     "kind": "text",
+     "x": 30,
+     "y": 417,
+     "w": 118,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_pct_line_1",
+     "kind": "text",
+     "x": 27,
+     "y": 445,
+     "w": 122,
+     "h": 24,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_pct_line",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_2",
+     "kind": "text",
+     "x": 273,
+     "y": 447,
+     "w": 175,
+     "h": 33,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_pct_line_2",
+     "kind": "text",
+     "x": 297,
+     "y": 495,
+     "w": 126,
+     "h": 29,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_pct_line",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_3",
+     "kind": "text",
+     "x": 481,
+     "y": 655,
+     "w": 175,
+     "h": 33,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_pct_line_3",
+     "kind": "text",
+     "x": 501,
+     "y": 701,
+     "w": 134,
+     "h": 31,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_pct_line",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_4",
+     "kind": "text",
+     "x": 129,
+     "y": 703,
+     "w": 111,
+     "h": 33,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_pct_line_4",
+     "kind": "text",
+     "x": 136,
+     "y": 749,
+     "w": 98,
+     "h": 24,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_pct_line",
+     "draft": true
     }
    ]
   },
@@ -7352,7 +8165,8 @@
      "h": 18,
      "note": "pre-labelled",
      "template": false,
-     "cls": "mm_icon"
+     "cls": "mm_icon",
+     "draft": true
     },
     {
      "name": "badge_gold_ring_1",
@@ -7428,7 +8242,8 @@
      "h": 11,
      "note": "pre-labelled",
      "template": false,
-     "cls": "mm_monster"
+     "cls": "mm_monster",
+     "draft": true
     },
     {
      "name": "mm_monster_2",
@@ -7439,7 +8254,8 @@
      "h": 16,
      "note": "pre-labelled",
      "template": false,
-     "cls": "mm_monster"
+     "cls": "mm_monster",
+     "draft": true
     },
     {
      "name": "badge_gold_ring_1",
@@ -7526,7 +8342,8 @@
      "h": 18,
      "note": "pre-labelled",
      "template": false,
-     "cls": "mm_icon"
+     "cls": "mm_icon",
+     "draft": true
     },
     {
      "name": "badge_gold_ring_1",
@@ -7791,6 +8608,18 @@
      "template": false,
      "cls": "item_icon",
      "item": "stamina"
+    },
+    {
+     "name": "mm_icon_1",
+     "kind": "icon",
+     "x": 644,
+     "y": 188,
+     "w": 11,
+     "h": 11,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "mm_icon",
+     "draft": true
     }
    ]
   },
@@ -7809,7 +8638,8 @@
      "h": 7,
      "note": "pre-labelled",
      "template": true,
-     "cls": "mm_item"
+     "cls": "mm_item",
+     "draft": true
     },
     {
      "name": "mm_item_2",
@@ -7820,7 +8650,8 @@
      "h": 6,
      "note": "pre-labelled",
      "template": false,
-     "cls": "mm_item"
+     "cls": "mm_item",
+     "draft": true
     },
     {
      "name": "mm_monster_1",
@@ -7831,7 +8662,8 @@
      "h": 11,
      "note": "pre-labelled",
      "template": false,
-     "cls": "mm_monster"
+     "cls": "mm_monster",
+     "draft": true
     },
     {
      "name": "mm_monster_2",
@@ -7842,7 +8674,8 @@
      "h": 16,
      "note": "pre-labelled",
      "template": false,
-     "cls": "mm_monster"
+     "cls": "mm_monster",
+     "draft": true
     },
     {
      "name": "badge_gold_ring_1",
@@ -8156,7 +8989,8 @@
      "h": 19,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_monster"
+     "cls": "map_monster",
+     "draft": true
     },
     {
      "name": "map_monster_12",
@@ -8167,7 +9001,8 @@
      "h": 13,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_monster"
+     "cls": "map_monster",
+     "draft": true
     },
     {
      "name": "map_player_1",
@@ -8178,7 +9013,8 @@
      "h": 16,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_player"
+     "cls": "map_player",
+     "draft": true
     },
     {
      "name": "anchor_area_map_legend_1",
@@ -8190,6 +9026,270 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_area_map_legend"
+    },
+    {
+     "name": "map_monster_2",
+     "kind": "icon",
+     "x": 256,
+     "y": 426,
+     "w": 18,
+     "h": 17,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_3",
+     "kind": "icon",
+     "x": 292,
+     "y": 426,
+     "w": 13,
+     "h": 17,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_4",
+     "kind": "icon",
+     "x": 242,
+     "y": 444,
+     "w": 20,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_5",
+     "kind": "icon",
+     "x": 302,
+     "y": 444,
+     "w": 23,
+     "h": 16,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_6",
+     "kind": "icon",
+     "x": 235,
+     "y": 445,
+     "w": 13,
+     "h": 15,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_7",
+     "kind": "icon",
+     "x": 283,
+     "y": 447,
+     "w": 18,
+     "h": 13,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_8",
+     "kind": "icon",
+     "x": 446,
+     "y": 850,
+     "w": 20,
+     "h": 20,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_9",
+     "kind": "icon",
+     "x": 495,
+     "y": 866,
+     "w": 19,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_10",
+     "kind": "icon",
+     "x": 482,
+     "y": 872,
+     "w": 11,
+     "h": 10,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_11",
+     "kind": "icon",
+     "x": 217,
+     "y": 938,
+     "w": 22,
+     "h": 20,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_13",
+     "kind": "icon",
+     "x": 249,
+     "y": 938,
+     "w": 15,
+     "h": 20,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_14",
+     "kind": "icon",
+     "x": 260,
+     "y": 938,
+     "w": 15,
+     "h": 20,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_15",
+     "kind": "icon",
+     "x": 279,
+     "y": 959,
+     "w": 28,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_1",
+     "kind": "text",
+     "x": 457,
+     "y": 270,
+     "w": 154,
+     "h": 29,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_2",
+     "kind": "text",
+     "x": 213,
+     "y": 398,
+     "w": 132,
+     "h": 29,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_pct_line_1",
+     "kind": "text",
+     "x": 230,
+     "y": 439,
+     "w": 98,
+     "h": 28,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_pct_line",
+     "draft": true
+    },
+    {
+     "name": "map_pct_line_2",
+     "kind": "text",
+     "x": 554,
+     "y": 582,
+     "w": 93,
+     "h": 25,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_pct_line",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_3",
+     "kind": "text",
+     "x": 451,
+     "y": 651,
+     "w": 168,
+     "h": 33,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_4",
+     "kind": "text",
+     "x": 307,
+     "y": 706,
+     "w": 109,
+     "h": 22,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_5",
+     "kind": "text",
+     "x": 161,
+     "y": 910,
+     "w": 172,
+     "h": 29,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_pct_line_3",
+     "kind": "text",
+     "x": 187,
+     "y": 957,
+     "w": 121,
+     "h": 24,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_pct_line",
+     "draft": true
+    },
+    {
+     "name": "map_pct_line_4",
+     "kind": "text",
+     "x": 550,
+     "y": 966,
+     "w": 98,
+     "h": 25,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_pct_line",
+     "draft": true
     }
    ]
   },
@@ -8208,7 +9308,8 @@
      "h": 15,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_item"
+     "cls": "map_item",
+     "draft": true
     },
     {
      "name": "map_item_2",
@@ -8219,7 +9320,8 @@
      "h": 12,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_item"
+     "cls": "map_item",
+     "draft": true
     },
     {
      "name": "map_item_3",
@@ -8230,7 +9332,8 @@
      "h": 14,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_item"
+     "cls": "map_item",
+     "draft": true
     },
     {
      "name": "map_item_4",
@@ -8241,7 +9344,8 @@
      "h": 15,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_item"
+     "cls": "map_item",
+     "draft": true
     },
     {
      "name": "map_monster_12",
@@ -8252,7 +9356,8 @@
      "h": 15,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_monster"
+     "cls": "map_monster",
+     "draft": true
     },
     {
      "name": "map_monster_13",
@@ -8263,7 +9368,8 @@
      "h": 19,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_monster"
+     "cls": "map_monster",
+     "draft": true
     },
     {
      "name": "map_monster_14",
@@ -8274,7 +9380,8 @@
      "h": 19,
      "note": "pre-labelled",
      "template": false,
-     "cls": "map_monster"
+     "cls": "map_monster",
+     "draft": true
     },
     {
      "name": "anchor_area_map_legend_1",
@@ -8286,6 +9393,258 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "anchor_area_map_legend"
+    },
+    {
+     "name": "map_monster_1",
+     "kind": "icon",
+     "x": 21,
+     "y": 496,
+     "w": 18,
+     "h": 17,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_2",
+     "kind": "icon",
+     "x": 57,
+     "y": 496,
+     "w": 13,
+     "h": 16,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_3",
+     "kind": "icon",
+     "x": 67,
+     "y": 514,
+     "w": 23,
+     "h": 16,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_4",
+     "kind": "icon",
+     "x": 68,
+     "y": 788,
+     "w": 27,
+     "h": 20,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_5",
+     "kind": "icon",
+     "x": 361,
+     "y": 970,
+     "w": 14,
+     "h": 13,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_6",
+     "kind": "icon",
+     "x": 4,
+     "y": 1008,
+     "w": 12,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_7",
+     "kind": "icon",
+     "x": 14,
+     "y": 1008,
+     "w": 15,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_8",
+     "kind": "icon",
+     "x": 25,
+     "y": 1008,
+     "w": 15,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_monster_9",
+     "kind": "icon",
+     "x": 53,
+     "y": 1029,
+     "w": 18,
+     "h": 18,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_monster",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_1",
+     "kind": "text",
+     "x": 219,
+     "y": 338,
+     "w": 154,
+     "h": 33,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_2",
+     "kind": "text",
+     "x": 0,
+     "y": 465,
+     "w": 109,
+     "h": 31,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_pct_line_1",
+     "kind": "text",
+     "x": 0,
+     "y": 513,
+     "w": 91,
+     "h": 19,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_pct_line",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_3",
+     "kind": "text",
+     "x": 308,
+     "y": 626,
+     "w": 104,
+     "h": 30,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_4",
+     "kind": "text",
+     "x": 217,
+     "y": 721,
+     "w": 169,
+     "h": 39,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_5",
+     "kind": "text",
+     "x": 105,
+     "y": 774,
+     "w": 85,
+     "h": 25,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_pct_line_2",
+     "kind": "text",
+     "x": 76,
+     "y": 795,
+     "w": 105,
+     "h": 25,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_pct_line",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_6",
+     "kind": "text",
+     "x": 0,
+     "y": 978,
+     "w": 99,
+     "h": 31,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_zone_label_7",
+     "kind": "text",
+     "x": 309,
+     "y": 1013,
+     "w": 110,
+     "h": 28,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_zone_label",
+     "draft": true
+    },
+    {
+     "name": "map_pct_line_3",
+     "kind": "text",
+     "x": 0,
+     "y": 1025,
+     "w": 74,
+     "h": 28,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_pct_line",
+     "draft": true
+    },
+    {
+     "name": "map_pct_line_4",
+     "kind": "text",
+     "x": 314,
+     "y": 1037,
+     "w": 100,
+     "h": 24,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_pct_line",
+     "draft": true
+    },
+    {
+     "name": "map_pct_line_5",
+     "kind": "text",
+     "x": 619,
+     "y": 1099,
+     "w": 97,
+     "h": 28,
+     "note": "pre-labelled",
+     "template": false,
+     "cls": "map_pct_line",
+     "draft": true
     }
    ]
   },
@@ -8375,7 +9734,8 @@
      "h": 9,
      "note": "pre-labelled",
      "template": false,
-     "cls": "mm_item"
+     "cls": "mm_item",
+     "draft": true
     },
     {
      "name": "mm_item_2",
@@ -8386,7 +9746,8 @@
      "h": 9,
      "note": "pre-labelled",
      "template": false,
-     "cls": "mm_item"
+     "cls": "mm_item",
+     "draft": true
     },
     {
      "name": "mm_item_3",
@@ -8397,7 +9758,8 @@
      "h": 9,
      "note": "pre-labelled",
      "template": false,
-     "cls": "mm_item"
+     "cls": "mm_item",
+     "draft": true
     },
     {
      "name": "mm_item_4",
@@ -8408,7 +9770,8 @@
      "h": 9,
      "note": "pre-labelled",
      "template": false,
-     "cls": "mm_item"
+     "cls": "mm_item",
+     "draft": true
     },
     {
      "name": "mm_item_5",
@@ -8419,7 +9782,8 @@
      "h": 9,
      "note": "pre-labelled",
      "template": false,
-     "cls": "mm_item"
+     "cls": "mm_item",
+     "draft": true
     },
     {
      "name": "anchor_minimap_ring_1",
@@ -8577,7 +9941,8 @@
      "h": 20,
      "note": "pre-labelled",
      "template": false,
-     "cls": "mm_icon"
+     "cls": "mm_icon",
+     "draft": true
     },
     {
      "name": "player_character_1",
@@ -8696,7 +10061,8 @@
      "h": 8,
      "note": "pre-labelled",
      "template": false,
-     "cls": "mm_item"
+     "cls": "mm_item",
+     "draft": true
     },
     {
      "name": "mm_item_2",
@@ -8707,7 +10073,8 @@
      "h": 7,
      "note": "pre-labelled",
      "template": true,
-     "cls": "mm_item"
+     "cls": "mm_item",
+     "draft": true
     },
     {
      "name": "mm_monster_1",
@@ -8718,7 +10085,8 @@
      "h": 9,
      "note": "pre-labelled",
      "template": false,
-     "cls": "mm_monster"
+     "cls": "mm_monster",
+     "draft": true
     },
     {
      "name": "mm_monster_2",
@@ -8729,7 +10097,8 @@
      "h": 9,
      "note": "pre-labelled",
      "template": false,
-     "cls": "mm_monster"
+     "cls": "mm_monster",
+     "draft": true
     },
     {
      "name": "mm_monster_3",
@@ -8740,7 +10109,8 @@
      "h": 9,
      "note": "pre-labelled",
      "template": false,
-     "cls": "mm_monster"
+     "cls": "mm_monster",
+     "draft": true
     },
     {
      "name": "mm_building_1",
@@ -8751,7 +10121,8 @@
      "h": 11,
      "note": "pre-labelled",
      "template": true,
-     "cls": "mm_building"
+     "cls": "mm_building",
+     "draft": true
     },
     {
      "name": "mm_icon_1",
@@ -8762,7 +10133,8 @@
      "h": 15,
      "note": "pre-labelled",
      "template": true,
-     "cls": "mm_icon"
+     "cls": "mm_icon",
+     "draft": true
     },
     {
      "name": "mm_icon_2",
@@ -8773,7 +10145,8 @@
      "h": 18,
      "note": "pre-labelled",
      "template": false,
-     "cls": "mm_icon"
+     "cls": "mm_icon",
+     "draft": true
     },
     {
      "name": "mm_icon_3",
@@ -8784,7 +10157,8 @@
      "h": 18,
      "note": "pre-labelled",
      "template": false,
-     "cls": "mm_icon"
+     "cls": "mm_icon",
+     "draft": true
     },
     {
      "name": "mm_icon_4",
@@ -8795,7 +10169,8 @@
      "h": 17,
      "note": "pre-labelled",
      "template": false,
-     "cls": "mm_icon"
+     "cls": "mm_icon",
+     "draft": true
     },
     {
      "name": "mm_icon_5",
@@ -8806,7 +10181,8 @@
      "h": 26,
      "note": "pre-labelled",
      "template": false,
-     "cls": "mm_icon"
+     "cls": "mm_icon",
+     "draft": true
     },
     {
      "name": "mm_icon_6",
@@ -8817,7 +10193,8 @@
      "h": 8,
      "note": "pre-labelled",
      "template": false,
-     "cls": "mm_icon"
+     "cls": "mm_icon",
+     "draft": true
     },
     {
      "name": "mm_icon_7",
@@ -8828,7 +10205,8 @@
      "h": 9,
      "note": "pre-labelled",
      "template": false,
-     "cls": "mm_icon"
+     "cls": "mm_icon",
+     "draft": true
     },
     {
      "name": "player_character_1",
@@ -8998,7 +10376,8 @@
      "h": 19,
      "note": "pre-labelled",
      "template": false,
-     "cls": "mm_monster"
+     "cls": "mm_monster",
+     "draft": true
     },
     {
      "name": "player_character_1",
