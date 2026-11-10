@@ -258,6 +258,11 @@ def quest_step(dev, det, fight: bool) -> bool:
         if ring is None:
             return False
         cx, cy = ring
+        if cy < 130 and cx < 300:
+            # An edge ring over the HUD (name, power, portrait): a tap there opens the profile or class page (live
+            # 2026-11-10, a "Mage" card and the Class page). Leave the quest pointer for now.
+            log.info("quest ring under the HUD at %s: not tapping it", ring)
+            return False
         if cx < 70 or cx > 650 or cy < 150 or cy > 900:  # an edge ring: tapping it pans the camera to the target
             ui.tap(dev, (cx, cy), 2)
             ring = find_quest_ring(dev.screenshot())
