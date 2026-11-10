@@ -20,7 +20,7 @@ The builder runs as a Remote Control session on mae's PC (machine details: `envi
 
 ## Item and currency symbols (mae, 2026-11-10)
 
-Whenever you see a material or currency symbol that is not in `resource/items/items.json` (`python -m sxs items` lists them), find out what it is: tap the symbol, read the name and description popup, capture the screen into docs/screens, and add it with `python -m sxs items add <id> --screen ... --box X Y W H --name ... --kind ... --desc "..." --named-by popup --found-in "Menu > Path" --tight`. Never tap a buy or spend button to get there.
+Whenever you see a material or currency symbol that is not in `resource/items/items.json` (`python -m sxs items` lists them), find out what it is: tap the symbol, read the name and description popup, capture the screen into docs/screens, and add it with `python -m sxs items add <id> --screen ... --box X Y W H --name ... --kind ... --desc "..." --named-by popup --found-in "Menu > Path" --tight`. Never tap a buy or spend button to get there. In Material Realms some symbols look like resources but are usage symbols (a round glowing badge with a counter, e.g. crossed hammer and sword "11"): catalogue them as kind `usage` under their own id, never as the look-alike resource (mae).
 
 ## Loop
 

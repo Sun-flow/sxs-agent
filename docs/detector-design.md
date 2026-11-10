@@ -47,6 +47,9 @@ catalogue, `resource/items/` (`python -m sxs items`, `sxs/detect/items.py`):
   `named_by` popup | screen | mae | guess) and one entry per sighting (icon crop, reference screen, box, menu path in
   `found_in`). Unnamed symbols are `unknown_N` with a blank name until someone reads the popup or mae names them.
   Append only: catalogue order sets the class ids below.
+- Look-alikes (mae): in Material Realms some symbols look like resource icons but are usage symbols, e.g. a round
+  glowing badge with crossed hammer and sword and a counter (`docs/screens/icons/material_realm_usage_badge_mae.png`).
+  They get kind `usage` and their own id, so they are their own class, never a sighting of the resource.
 - Detector class `item_icon` (group items). A labeler box of that class carries `item`, the catalogue id (the
   labeler shows a "which item?" menu).
 - Auto-labelling: `python -m sxs prelabel --items` finds every catalogued symbol on the reference screens by

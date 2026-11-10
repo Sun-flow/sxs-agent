@@ -15,7 +15,10 @@ An item is {"id", "name", "kind", "description", "uses", "named_by", "icons": [{
   [x, y, w, h] there, and found_in, the menu path where it shows, e.g. "Home > Vendor Booth > Vault".
 - id: lower case letters, digits and _, e.g. "raw_ore". A symbol we have not named yet gets "unknown_N" and
   name "" until someone taps it and reads the popup (or mae names it).
-- kind: one of KINDS. named_by says how sure the name is: "popup" (read from the item's own name and description
+- kind: one of KINDS. "usage" is a symbol that only looks like a resource: a round glowing badge with a counter in
+  Material Realms (crossed hammer and sword, "11"; docs/screens/icons/material_realm_usage_badge_mae.png) stands
+  for uses or attempts, not a material you own (mae, 2026-11-10). Give it its own id (e.g. realm_attempts), never
+  a sighting of the look-alike resource, so the detector keeps the two apart. named_by says how sure the name is: "popup" (read from the item's own name and description
   popup, the goal for every item), "screen" (a label next to it, e.g. a shop or cart row), "mae", or "guess".
 - description: the popup text, word for word. uses: our own note (what it is for, rules that touch it).
 
@@ -41,7 +44,7 @@ from ..core.paths import RESOURCE, SCREENS
 ITEMS_DIR = RESOURCE / "items"
 ITEMS_FILE = ITEMS_DIR / "items.json"
 ICONS = ITEMS_DIR / "icons"
-KINDS = ("currency", "material", "ticket", "consumable", "ingredient", "gift", "key_item", "gear", "other")
+KINDS = ("currency", "material", "ticket", "consumable", "ingredient", "gift", "key_item", "gear", "usage", "other")
 NAMED_BY = ("popup", "screen", "mae", "guess", "")
 ID = re.compile(r"^[a-z][a-z0-9_]*$")
 MATCH = 0.86  # normalised correlation needed for a hit
