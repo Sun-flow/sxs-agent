@@ -18,3 +18,4 @@ Design notes, one per plan step. The code is the source of truth; these explain 
 | `shop-tables.md` | Shop stock and mae's Buy? marks |
 | `screens/` | Reference screenshots in folders by situation, `expected.json`, the `unlabeled/` bank; index in `screens/README.md` |
 | `archive/` | History only (old log entries), never instructions |
+- `fogwalk-postmortem.md`: why the Fog Walk was scrapped (2026-11-10), where it lives, what depends on it, what to keep.
