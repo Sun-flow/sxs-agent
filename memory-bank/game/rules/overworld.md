@@ -106,6 +106,10 @@ When fog-walking (R-065) or finding a way to an out-of-the-way spot, look on the
 *told* · R-066, R-068, R-130, R-132
 ## Getting somewhere
 
+### R-150 · Entering a new zone: start at the entrance, then work outward to the fog
+- On entering a new zone, don't start by searching for fog (mae, 2026-11-10 02:35). First find the entrance between the previous zone and the new one on the map (the crossing point, R-132; the location tree's way in, R-135), move the camera there, then walk to walkable tiles next to the unexplored fog from that entrance outward (never the fog itself, R-146).
+*told* · R-067, R-130, R-132, R-135, R-146
+
 ### R-067 · Areas join by land bridges: head for the connection, not the straight line
 Connections can be far off the straight line (Verdantglade II to Moonveil Woods is a land bridge at the minimap's bottom). A zone can have several ways in and border several zones (mae); try the most recent way in that worked first (R-132). Straight walks hit walls and water: path-find over walkable minimap tiles (R-066) to the connection, or travel via the area map (R-068), whose taps auto-path.
 *told* · R-066, R-068, R-132

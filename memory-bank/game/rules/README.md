@@ -33,7 +33,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 
 ## Adding or changing a rule
 
-- New rule: next free ID (**next free: R-150**), under the right `##` heading of the right file, plus a row in the ID index below.
+- New rule: next free ID (**next free: R-151**), under the right `##` heading of the right file, plus a row in the ID index below.
 - Never reuse or renumber an ID. When merging a rule into another, delete it, add it to the retired table, and repoint citations.
 - Run `python3 scripts/check-rules.py`: it checks that every cited ID resolves, retired IDs aren't cited, every file is listed here, and image paths exist.
 
@@ -162,6 +162,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-147 | `overworld.md` | Lucky Wheel ("Wheel of Destiny"): one free spin per wheel while its zone is unexplored |
 | R-148 | `overworld.md` | A blue "!" on the area map marks interactable statues: tap them to finish the zone |
 | R-149 | `overworld.md` | "Rankings" structure: back out, press nothing |
+| R-150 | `overworld.md` | Entering a new zone: start at the entrance, then work outward to the fog |
 
 ## Retired IDs
 
