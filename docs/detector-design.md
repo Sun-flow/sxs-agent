@@ -82,6 +82,8 @@ Cons
 
 ### Recommendation
 
+**Agreed by mae (2026-11-10):** train options 1 and 2 on the same dataset and keep the winner.
+
 Train **YOLO26n and RF-DETR Nano on the same Roboflow dataset version**. Run both offline on the reference screens
 with a new `see detect` view, and keep the one that wins on our screens at a CPU cost we accept (target
 ≤ 80 ms a frame on mae's PC). Pick RF-DETR if the bot might ever be shared publicly and its CPU time is acceptable;
