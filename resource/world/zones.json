@@ -8,8 +8,8 @@
    "blessed": true,
    "notes": "Free 4-player story dungeon (R-133); Lost Goddess Statue blessed 2026-11-05.",
    "map_point": [
-    585,
-    837
+    663,
+    923
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -42,8 +42,8 @@
    "kind": "town",
    "notes": "Town: Chief, Hermes, Carol, portal (R-134).",
    "map_point": [
-    353,
-    1025
+    736,
+    533
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -53,8 +53,8 @@
    "first_seen": "2026-11-05",
    "pct": 0,
    "map_point": [
-    930,
-    270
+    597,
+    339
    ],
    "last_seen": "2026-11-09",
    "entries": [],
@@ -71,8 +71,8 @@
    "pct": 100,
    "notes": "Entered past a bracketed wolf-boss pack (R-041); ground pickups by a cooking pot finish it (R-066).",
    "map_point": [
-    1163,
-    891
+    1128,
+    322
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -84,8 +84,8 @@
    "pct": 100,
    "notes": "Entered from Verdantglade III (142,84) or Drasilgard (138,84). The last 7% was the Lucky Wheel (blue !): its first spin is free while the zone is unexplored (mae). Lost Goddess Statue unlocked 2026-11-10.",
    "map_point": [
-    614,
-    754
+    499,
+    1079
    ],
    "last_seen": "2026-11-09",
    "entries": [
@@ -113,8 +113,8 @@
    "first_seen": "2026-11-05",
    "pct": 0,
    "map_point": [
-    811,
-    280
+    188,
+    766
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -125,8 +125,8 @@
    "pct": 100,
    "notes": "Dungeon gate unlocked by quest; Bellflower field at minimap (169, 94-95) (R-123).",
    "map_point": [
-    1225,
-    1128
+    1191,
+    560
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -136,8 +136,8 @@
    "first_seen": "2026-11-09",
    "pct": 0,
    "map_point": [
-    585,
-    485
+    359,
+    313
    ],
    "last_seen": "2026-11-09"
   },
@@ -146,8 +146,8 @@
    "first_seen": "2026-11-09",
    "pct": 0,
    "map_point": [
-    409,
-    875
+    184,
+    703
    ],
    "last_seen": "2026-11-09"
   },
@@ -185,8 +185,8 @@
    "pct": 42,
    "notes": "Border label 'Troll Lair 17K' at a corner of its dotted line (R-132).",
    "map_point": [
-    815,
-    516
+    1005,
+    1096
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -197,8 +197,8 @@
    "pct": 100,
    "notes": "Area quests done.",
    "map_point": [
-    744,
-    552
+    582,
+    565
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -221,8 +221,8 @@
    "pct": 100,
    "notes": "No way in on foot from Moonveil Woods (fog south of about (168, 94) never moves); entered with the quest's Go travel (R-084, R-089).",
    "map_point": [
-    1137,
-    1290
+    1104,
+    722
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -256,8 +256,8 @@
     }
    ],
    "map_point": [
-    507,
-    735
+    584,
+    564
    ],
    "last_seen": "2026-11-09",
    "blessed": true
@@ -265,13 +265,13 @@
   "Verdantglade VI": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-05",
-   "pct": 78,
+   "pct": 87,
    "failed_via": {
-    "Auroradrasil": "2026-11-04"
+    "Auroradrasil": "2026-11-09 (fog walk no_fog)"
    },
    "map_point": [
-    479,
-    662
+    247,
+    490
    ],
    "last_seen": "2026-11-09",
    "entries": [
@@ -303,8 +303,8 @@
     }
    ],
    "map_point": [
-    499,
-    512
+    577,
+    340
    ],
    "last_seen": "2026-11-09",
    "blessed": true
@@ -315,8 +315,8 @@
    "pct": 0,
    "notes": "Its border label runs sideways along a vertical dotted line, no power shown (R-132).",
    "map_point": [
-    825,
-    404
+    1031,
+    986
    ],
    "last_seen": "2026-11-09",
    "entries": []
@@ -1031,6 +1031,46 @@
   },
   {
    "a": "Verdantglade V",
+   "b": "Stagnant Jungle",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Auroradrasil",
+   "b": "Hidden Camp",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Rabbit Vault",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Jungle Camp",
+   "b": "Wildbloom Coast",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Verdantglade I",
+   "b": "Stagnant Jungle",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Drasilgard",
+   "b": "Verdantglade I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Hidden Camp",
+   "b": "Stone Ruins I",
+   "how": "map_adjacent"
+  },
+  {
+   "a": "Monolith Ruins I",
    "b": "Stagnant Jungle",
    "how": "map_adjacent"
   }

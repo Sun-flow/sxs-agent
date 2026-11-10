@@ -451,6 +451,20 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
     last_plan = None  # the frame the last minimap walk tap was planned on
     seen_names: dict = {}  # name under the minimap -> zone the big map's player dot put us in (R-140)
 
+    def note_objective(title: str, action: str, xy) -> None:
+        k = tree.key(home_area or "")
+        t = (title or "").strip()
+        if not k or len(t) < 4 or not xy or re.search(r"^\d+$|Mage|Settings|Friend|Request|Chat", t):
+            return
+        objs = tree.zones[k].setdefault("objectives", [])
+        for o in objs:
+            if o["title"] == t and max(abs(o["xy"][0] - xy[0]), abs(o["xy"][1] - xy[1])) <= 2:
+                if action != "dismiss":
+                    o["done"] = True
+                return
+        objs.append({"title": t, "xy": list(xy), "done": action != "dismiss", "day": server_day()})
+        tree.save()
+
     def in_home(zone: str) -> bool:
         """True when `zone` is the zone being explored, also when OCR joined two labels ("Wildbloom CoastHidden Camo"
         for Hidden Camp, live 2026-11-10: the walk left the zone it was in to 'go back' to it)."""
@@ -803,6 +817,9 @@ def walk(dev, det, minutes: float = 10, area: Optional[str] = None,
             else:
                 # Cards, dialogs and unknown popups: the same rules as the quest loop.
                 card, choice = decider.decide(ctx)
+                # mae, 2026-11-10: keep a list of every objective a zone has (statues, chests, wheels, portals,
+                # gates...) in the location tree, so what a walk missed shows up there.
+                note_objective(card.title, choice.action, goto.coords(det))
                 if (tapped and tapped[2] == "building" and card.title and card.title != last_card
                         and choice.action != "dismiss"):  # a card we act on: not a social popup or an unknown one
                     collectibles.save(tapped[0], tapped[1], card.title, "interactable", home_area or "")
