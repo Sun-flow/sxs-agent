@@ -131,7 +131,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-115 | `upgrades.md` | Ascend a badged skill with its own shards |
 | R-116 | `ui.md` | Claim every lit Goals tab with the claim-goals task |
 | R-117 | `upgrades.md` | Level classes with Class Badges; never Change Class |
-| R-118 | `upgrades.md` | Rank Advancement raises the level cap |
+| R-118 | `upgrades.md` | Rank Advancement raises the level cap; at the cap it comes first (mae) |
 | R-119 | `upgrades.md` | Activate Gear Resonance each time a band completes |
 | R-120 | `economy.md` | Molly's Vendor Booth: claim only the free Vault stamina |
 | R-121 | `economy.md` | Mall: claim the free gift boxes, never a pack |

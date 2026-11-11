@@ -66,7 +66,7 @@ flowchart LR
     end
     subgraph rank["rank"]
         direction TB
-        r1["Advance only while its button has ! (R-118)"] --> r2["Goals tab with !: claim Level and Power"]
+        r1["Advance only while its button has ! (R-118);<br/>a blue pip means a material is short"] --> r2["Goals tab with !: claim Level and Power"]
     end
 ```
 
@@ -79,15 +79,30 @@ Every button press first checks that no spend word sits on its row (`policy/clai
 fights in a row, and `python -m sxs strengthen`. The daily loop runs the same pieces as its `gear_swap` and
 `strengthen` steps. **Ok statuses:** `done`.
 
+Rank comes first when the level is at the cap (mae, 2026-11-11, R-118): a rank-up is the biggest single power
+gain (Apprentice III applied the banked bed EXP, Lv 30 → 37, power 30.6K → 35.9K). **The rank-first branch
+(dashed) is planned, not built**: `strengthen` today runs the rank pass only inside the Upgrade loop (step 4)
+and only when its button shows "!". To-do for a builder: status.md.
+
 ```mermaid
 flowchart TD
     S(["Start"]) --> A["1. Claim the Cart (sweep home for the bubble)"]
-    A --> B[["2. Gear Swap: every slot with a red !"]]
+    A --> CAP{"0. Level at the cap?<br/>(Character: Lv N/N)"}
+    CAP -->|no| B
+    CAP -->|yes| RP["Rank page (Character > rank badge)"]
+    RP --> RA{"Advance button?"}
+    RA -->|"! (all met)"| ADV["Advance, tap through RANK UP,<br/>claim rank Goals (R-116)"] --> BED["Collect bed EXP (banked EXP applies)"] --> B
+    RA -->|"blue pip (short)"| SH{"Short item gatherable for free?<br/>(Bellflowers: Flower Harvest, R-123)"}
+    SH -->|yes| GA[["gather --harvest bellflower --enter"]] --> RP
+    SH -->|"no (Rolla, leaves, unknown)"| NOTE["Log what is short; carry on"] --> B
+    B[["2. Gear Swap: every slot with a red !"]]
     B --> C["3. Portrait: fill empty charm slots if the charm row has !"]
     C --> D[["4. Upgrade loop: goals, skills, gear, class, rank"]]
     D --> OK(["done"])
     classDef ok fill:#d4edda,stroke:#2e7d32,color:#000
     classDef sub fill:#dbe9ff,stroke:#1f5fbf,color:#000
+    classDef plan stroke-dasharray: 5 5
     class OK ok
-    class B,D sub
+    class B,D,GA sub
+    class CAP,RP,RA,ADV,BED,SH,NOTE plan
 ```

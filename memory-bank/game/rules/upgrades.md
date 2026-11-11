@@ -73,8 +73,9 @@ Skill page, Quick Upgrade icon at about (0.73, 0.47), captioned "Upgrade". No se
 
 ## Rank
 
-### R-118 · Rank Advancement raises the level cap
+### R-118 · Rank Advancement raises the level cap; at the cap it comes first (mae)
 - Character > rank badge ("Apprentice I", (0.82, 0.72)). Needs max level plus materials; at the cap, levelling stops until you rank up.
+- **Rank advancement is one of the highest-priority strengthening tasks: whenever the level hits the cap, go for the next rank at once** (mae, 2026-11-11 05:20). It is a huge power boost: Apprentice III applied the banked bed EXP, Lv 30 → 37, power 30.6K → 35.9K. Gather any free material it is short of (Bellflowers, R-123) before other strengthening. Flowchart: `docs/loops/upgrade.md` (Get stronger).
 - Advance only when the Advance button shows "!", with free materials (**no Dawnium**). Tap through "RANK UP"; stored XP applies at once. Then claim the rank Goals (R-116).
 - Apprentice I → II (done): Lv 20, 5 grey stones, 20 Bellflowers (R-123), 5.5K Rolla; cap 30.
 - Apprentice II → III: Lv 30 (met), 5 green leaves (18/5, met), 30 Bellflowers (14/30 on 2026-11-11; the cost card names "Verdantglade Flower Harvest" as the source and shows an "Available" tag; picks are free, R-123), 10.5K Rolla (met); cap 40. Raising Player Rank is required to keep progressing (mae, 2026-11-11).
