@@ -64,6 +64,18 @@ check("Jungle Camp: the fog north of its label (its way in)", bool(jc) and jc[0]
 check("Verdantglade IV (no fog of its own beside reachable ground) has none", frontier("Verdantglade IV"), None)
 check("no walkable ground near us: none", area_map.frontier(frame, labels["Verdantglade V"], [], me=(60, 300)), None)
 
+# Run 22's capture: Grotto Peninsula at 63%, its dotted outline running north into fog, our dot at the label's south.
+g = cv2.imread(str(SCREENS / "world/world_area_map_grotto_peninsula_63.png"))
+gme = next((p for k, p in area_map.objects(g) if k == "player"), None)
+check("our dot is found when its core is dimmer than V 235", gme is not None and abs(gme[0] - 354) + abs(gme[1] - 663) < 6,
+      True)
+gl = {"Grotto Peninsula": (290, 560), "Rabbit Vault": (482, 590), "Verdantglade VI": (338, 808),
+      "Stagnant Jungle": (258, 1085), "Auroradrasil": (482, 1032)}
+gf = area_map.frontier(g, gl["Grotto Peninsula"], [p for k, p in gl.items() if k != "Grotto Peninsula"], me=gme)
+check("Grotto Peninsula: a frontier north of us, into the zone's fog", bool(gf) and gf[0][1] < gme[1] - 40, True)
+if gf:
+    check("fog round it", gf[1] >= area_map.FRONTIER_MIN_FOG, True)
+
 # Minimap goals: objects only. Ground (fog leads, shaded tiles) is never a goal any more (R-143).
 check("minimap goals", minimap.GOALS, ("item", "monster", "building"))
 check("no fog_lead helper left", hasattr(minimap, "fog_lead"), False)
@@ -144,6 +156,16 @@ check("a tile over the minimap HUD is off limits", clear.on_screen((360, 600), t
                                                                    (8, 12)), None)
 check("a guard group is a leg source of its own", hasattr(clear.Clearer, "try_guard"), True)
 check("no % line counts as explored only near the end", clear.NO_PCT_DONE_FROM >= 90, True)
+import tempfile  # noqa: E402
+import numpy as np  # noqa: E402
+from sxs.core import paths, ui  # noqa: E402
+
+paths.SCREENS = Path(tempfile.mkdtemp())
+saved = clear.save_dialogue(type("D", (), {"screenshot": lambda self: np.zeros((4, 4, 3), np.uint8)})(),
+                            f"{ui.PLAYER_NAME} She's all good.", "Verdantglade X")
+check("a saved story choice is named without our player name", saved.name, "choice_verdantglade_x_she_s_all_good.png")
+check("one reply option (two arrow matches on it)", clear.option_rows([[60, 800, 40, 40], [62, 805, 40, 40]]), [820])
+check("two reply options", len(clear.option_rows([[60, 700, 40, 40], [60, 800, 40, 40]])), 2)
 check("the loop's ok statuses", {"zone_done", "no_objective", "no_progress"} <= clear.OK, True)
 
 print("all good" if not fails else f"{fails} failed")

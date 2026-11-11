@@ -153,11 +153,40 @@ def objects(frame: np.ndarray) -> list[tuple[str, tuple[int, int]]]:
             out += [(kind, p) for p in pts]
             continue
         out += [(kind, (int(cents[i][0]), int(cents[i][1]))) for i in keep]
+    if not any(k == "player" for k, _ in out):
+        p = player_dot(frame)
+        if p:
+            out.append(("player", p))
     out += [("statue", p) for p in blue_badges(frame)]
     # Orange bits of a yellow structure icon aren't monsters.
     blds = [p for k, p in out if k == "building"]
     return [(k, p) for k, p in out
             if k != "monster" or all(abs(p[0] - q[0]) + abs(p[1] - q[1]) > BUILDING_MERGE for q in blds)]
+
+
+DOT_CENTRE = (360, 620)  # the area map opens with our dot about here
+DOT_MAX_PX = 200  # from DOT_CENTRE: a round white blob farther off is a letter or an icon, not us
+
+
+def player_dot(frame: np.ndarray) -> Optional[tuple[int, int]]:
+    """Our white dot when the strict mask (V > 235) misses it: its core reads V ~214-228 on some openings (live
+    2026-11-11, run 22 capture `world/world_area_map_grotto_peninsula_63.png`, and `world/area_map_survey_zoom.png`),
+    so no frontier or big-map pick could measure from it. A round near-white blob, not in a text row, nearest where
+    the map opens on us."""
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    x0, y0, w, h = MAP_AREA
+    lx, ly, lw, lh = LEGEND
+    m = np.zeros(hsv.shape[:2], np.uint8)
+    m[y0:y0 + h, x0:x0 + w] = ((hsv[..., 1] < 45) & (hsv[..., 2] > 195))[y0:y0 + h, x0:x0 + w]
+    m[ly:ly + lh, lx:lx + lw] = 0
+    n, _, st, cents = cv2.connectedComponentsWithStats(m)
+    keep = [i for i in range(1, n) if 25 <= st[i, 4] <= 200 and 6 <= st[i, 2] <= 18 and 6 <= st[i, 3] <= 18
+            and max(st[i, 2], st[i, 3]) <= 1.25 * min(st[i, 2], st[i, 3]) and st[i, 4] >= 0.6 * st[i, 2] * st[i, 3]]
+    text = _text_rows([tuple(int(v) for v in st[i, :4]) for i in keep])
+    pts = [(int(cents[i][0]), int(cents[i][1])) for k, i in enumerate(keep) if k not in text]
+    cx, cy = DOT_CENTRE
+    pts = [p for p in pts if (p[0] - cx) ** 2 + (p[1] - cy) ** 2 <= DOT_MAX_PX ** 2]
+    return min(pts, key=lambda p: (p[0] - cx) ** 2 + (p[1] - cy) ** 2) if pts else None
 
 
 def crosses_border(lines: np.ndarray, a: tuple[int, int], b: tuple[int, int], near: int = 3) -> bool:

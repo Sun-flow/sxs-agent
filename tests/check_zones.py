@@ -66,6 +66,14 @@ t.zones["Jungle Camp"].pop("lost_at")
 check("name match keeps numerals apart", same("Verdantglade V", "Verdantglade VI"), False)
 check("name match takes a clipped label", same("tglade III", "Verdantglade III"), True)
 
+# Blessing a ready statue (roam.bless_once): never our own "!" or the tracker's gift badge (run 26 tapped us).
+from sxs.loops import roam  # noqa: E402
+SHOTS = Path(__file__).resolve().parent.parent / "docs" / "screens" / "world"
+own = roam.statue_on_screen(cv2.imread(str(SHOTS / "world_map_tracker_gift.png")), (262, 548))
+check("our own red ! is not a statue (an NPC's may be: a miss)", own is None or abs(own[0] - 302) > 60, True)
+check("the tracker panel's gift ! is not a statue",
+      roam.statue_on_screen(cv2.imread(str(SHOTS / "world_map_boss_beaten.png")), (360, 720)), None)
+
 with tempfile.TemporaryDirectory() as d:
     t2 = Tree.load()
     t2.path = Path(d) / "zones.json"

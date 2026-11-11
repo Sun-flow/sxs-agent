@@ -51,6 +51,7 @@ from ..policy.zones import Tree
 from ..vision.badges import SMALL_MIN_AREA, find_badges
 from ..vision.hud import read_power
 from ..vision.ocr import power_k
+from ..vision.player import player_on_screen
 from ..actions import mapnav
 from . import clear
 
@@ -203,6 +204,28 @@ def merge_readings(readings: list, bottom: int = 1185) -> list[Area]:
                 hit.unsure = False
             hit.gate = hit.gate or g.gate
     return out
+
+
+BLESS_TRIES = 2  # walks to a ready statue before giving up on it this survey
+STATUE_SCREEN_PX = 320  # a red "!" this far from the screen centre after the walk can be the statue's
+STATUE_BADGE_DY = 60  # the statue's body sits this far below its red "!"
+TRACKER_TOP = 880  # the quest tracker panel's top: its gift "!" is not a statue's
+OWN_BADGE_PX, OWN_BADGE_DY = 70, 200  # our own "!" sits over our name label: this close in x, up to this far above
+
+
+def statue_on_screen(frame: np.ndarray, me=None) -> Optional[tuple[int, int]]:
+    """After the walk to a ready statue the camera centres on us, beside it: tap the statue under its red "!",
+    not the screen centre, which is us (run 26). The badge nearest the centre, off the HUD and the tracker panel,
+    not our own "!" (over `me`, our name label); None if none shows. An NPC's "!" can still be picked: its card or
+    dialogue is then a miss, closed by the caller."""
+    cx, cy = goto.SCREEN_CENTRE
+    pts = [p for p in find_badges(frame) if (p[0] - cx) ** 2 + (p[1] - cy) ** 2 <= STATUE_SCREEN_PX ** 2
+           and mapnav.off_hud(p) == (int(p[0]), int(p[1])) and p[1] < TRACKER_TOP
+           and not (me and abs(p[0] - me[0]) <= OWN_BADGE_PX and -OWN_BADGE_DY <= me[1] - p[1] <= OWN_BADGE_DY)]
+    if not pts:
+        return None
+    x, y = min(pts, key=lambda p: (p[0] - cx) ** 2 + (p[1] - cy) ** 2)
+    return int(x), int(y) + STATUE_BADGE_DY
 
 
 def nearest_badge(frame: np.ndarray) -> Optional[tuple[int, int]]:
@@ -432,33 +455,64 @@ class Roamer:
         self.tree.save()
 
     def bless_ready(self, zones: list[str]) -> int:
-        """mae, 2026-11-05: a statue with a red "!" on the area map is ready. Walk to its zone, then to the badge
-        nearest us the big-map way (tap it on the area map, close the map, tap the middle of the screen) and unlock it
-        through the card rules."""
+        """mae, 2026-11-05: a statue with a red "!" on the area map is ready. Walk to the badge nearest us the big-map
+        way, open the statue and Unlock it through the card rules. Blessed only when the card was a Goddess Statue,
+        its Unlock was pressed and a reward popup followed (live 2026-11-11, run 26: the walk ended with our character
+        at the screen centre, the centre tap opened our own Mage class card, and the zone was logged blessed). Any
+        other card is a miss: closed, and the statue tried again (BLESS_TRIES)."""
         done = 0
         for name in zones[:3]:
             # The zone is only a guess from the nearest label (live 2026-11-10: Verdantglade V's statue was put in
             # "Wildbloom Coast" and the walk to that label went nowhere). Walk straight to the badge nearest us.
             log.info("statue ready to bless (near the %s label)", name)
             progress(("bless", name))
-            why = goto.go_to(self.dev, self.det, nearest_badge)
-            progress(("bless_walk", why))
-            if why in ("not_on_map", "no_target"):
-                continue
-            self.dev.tap(*goto.SCREEN_CENTRE)
-            time.sleep(4)
-            if self.det.detect().state in ("world_map", "unknown") and not self.det.read_text([60, 560, 600, 80]):
-                continue
-            card, choice = Decider(self.det).decide(Context(goal="explore"))
-            log.info("statue card %r -> %s", card.title, choice.kind)
-            self.dev.tap(*choice.point)
-            time.sleep(3)
-            close_rewards(self.dev, self.det)
-            self.tree.mark_blessed(name)
-            self.tree.save()
-            progress(("blessed", name))
-            done += 1
+            for attempt in range(1, BLESS_TRIES + 1):
+                result = self.bless_once(attempt)
+                if result == "blessed":
+                    self.tree.mark_blessed(name)
+                    self.tree.save()
+                    log.info("%s: statue blessed (Unlock pressed, blessing popup closed)", name)
+                    progress(("blessed", name))
+                    done += 1
+                    break
+                if result == "no_statue":
+                    break
         return done
+
+    def bless_once(self, attempt: int) -> str:
+        """One try at the ready statue nearest us: "blessed", "miss" (no card, or not the statue's), or "no_statue"."""
+        why = goto.go_to(self.dev, self.det, nearest_badge)
+        progress(("bless_walk", why, attempt))
+        if why in ("not_on_map", "no_target"):
+            return "no_statue"
+        frame = self.dev.screenshot()
+        me = player_on_screen(self.det, frame)
+        cx, cy = goto.SCREEN_CENTRE
+        point = goto.SCREEN_CENTRE
+        if me and abs(me[0] - cx) <= goto.ME_AT_CENTRE_PX and abs(me[1] - cy) <= goto.ME_AT_CENTRE_PX:
+            point = statue_on_screen(frame, me)
+            if point is None:
+                log.info("bless try %d: we stand at the screen centre and no red \"!\" shows beside us: not "
+                         "tapping ourselves", attempt)
+                return "miss"
+        log.info("bless try %d: tapping the statue at %s", attempt, point)
+        self.dev.tap(*point)
+        time.sleep(4)
+        if self.det.detect().state in ("world_map", "unknown") and not self.det.read_text([60, 560, 600, 80]):
+            log.info("bless try %d: no card opened", attempt)
+            return "miss"
+        card, choice = Decider(self.det).decide(Context(goal="explore"))
+        log.info("statue card %r -> %s", card.title, choice.kind)
+        self.dev.tap(*choice.point)
+        time.sleep(3)
+        if not re.search(r"Goddess Statue", card.title or "") or choice.kind != "goddess_statue":
+            log.warning("bless try %d: card %r is not a statue we can Unlock: closed it, not blessed", attempt,
+                        card.title)
+            return "miss"
+        if not close_rewards(self.dev, self.det):
+            log.warning("bless try %d: Unlock pressed but no blessing popup followed: not counted", attempt)
+            return "miss"
+        return "blessed"
 
     def pick(self, areas: list[Area], power: Optional[float], here: str = "") -> tuple[Optional[Area], Optional[Area]]:
         """(next area to explore, first area behind a power wall), by the location tree (`Tree.next_zone`):

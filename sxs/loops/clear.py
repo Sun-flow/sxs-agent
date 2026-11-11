@@ -102,6 +102,9 @@ def save_dialogue(dev, texts: str, zone: Optional[str]):
     """Save a story-choice dialogue to docs/screens/dialogs/choice_<zone>_<first words of the choices>.png (mae, 2026-11-11)."""
     import cv2
     from ..core.paths import SCREENS
+    from ..core.ui import PLAYER_NAME
+    # Our own name shows on the dialogue (live 2026-11-11, run 25): keep it out of the file name (PII rule).
+    texts = re.sub(re.escape(PLAYER_NAME), " ", texts or "", flags=re.I)
     words = re.sub(r"[^a-z0-9]+", "_", f"{zone or ''} {texts}".lower()).strip("_")[:60] or "scene"
     out = SCREENS / "dialogs"
     out.mkdir(parents=True, exist_ok=True)
@@ -110,6 +113,16 @@ def save_dialogue(dev, texts: str, zone: Optional[str]):
         path = out / f"choice_{words}_{time.strftime('%Y%m%d-%H%M%S')}.png"
     cv2.imwrite(str(path), dev.screenshot())
     return path
+
+
+def option_rows(boxes) -> list[int]:
+    """Centre heights of a dialogue's reply options from their arrow matches; matches within 20 px are one option."""
+    rows: list[int] = []
+    for x, y, w, h in sorted(boxes, key=lambda b: b[1]):
+        c = y + h // 2
+        if all(abs(c - r) > 20 for r in rows):
+            rows.append(c)
+    return rows
 
 
 class Clearer:
@@ -577,6 +590,22 @@ class Clearer:
             progress(("battle", d.text or "", int(time.monotonic() // 20)))
         elif pass_through(dev, d):
             pass  # dialogue
+        elif d.state == "puzzle":
+            # Live 2026-11-11 (run 24, Grotto Peninsula): a minimap leg walked onto the Ancient Fortress gate and its
+            # "Energy Circuits" slab puzzle opened (unknown_screen then). Puzzles are skipped for now (R-153): back
+            # out, skip the spot, and end the run `puzzle` with the gate noted on the zone.
+            here = _xy(self.det) or (self.leg.xy if self.leg else None)
+            ui.tap(dev, ui.BACK_ARROW, 2)
+            title = (d.text or "").strip() or "a puzzle screen"
+            log.warning("STUCK %s: %s at %s (R-153), stopping", self.home, title, here)
+            self.note_objective(f"Puzzle ({title})", "dismiss", here)
+            if here:
+                self.skip_spot(here)
+            k = self.tree.key(self.home or "")
+            if k and not self.tree.zones[k].get("blocked"):
+                self.tree.zones[k]["blocked"] = f"puzzle gate near {list(here) if here else '?'} (R-153)"
+                self.tree.save()
+            return "puzzle"
         elif d.state == "defeated":
             card, choice = self.decider.decide(self.ctx)
             dev.tap(*choice.point)
@@ -631,10 +660,18 @@ class Clearer:
         return None
 
     def dialogue_choice(self) -> Optional[str]:
-        """A puzzle NPC (Fonik, R-153): take Leave and note the puzzle; skip the spot."""
+        """A lone option: press it (mae). A puzzle NPC (Fonik, R-153): take Leave and note the puzzle; skip the spot.
+        Two or more options and no Leave: a story choice, mae's call (stop needs_decision, screenshot saved)."""
         lines = self.det.read_text([60, 300, 600, 750])
         leave = [b for t, b in lines if re.fullmatch(r"\s*Leave\.?\s*", t)]
         texts = " / ".join(t for t, _ in lines)
+        arrows = option_rows(self.det.find_all("State.DialogueChoice"))
+        if len(arrows) == 1 and not leave:
+            # mae, 2026-11-11 05:37: a dialogue with only one option is always safe to press (live run 25: Killian's
+            # lone "She's all good." stopped the run for a decision).
+            log.info("dialogue with one option (%s): pressing it", texts)
+            ui.tap(self.dev, (360, arrows[0]), 2)
+            return None
         if not leave:
             # mae, 2026-11-11: story choices are mae's call for now. Stop, and save the dialogue as a
             # reference under docs/screens/dialogs/, named for the scene; her pick is recorded there afterwards.
@@ -768,7 +805,7 @@ class Clearer:
         from .roam import Roamer  # roam imports this module
         time.sleep(2)
         n = Roamer(self.dev, self.det).bless_ready([self.home])
-        log.info("%s: %s", self.home, "statue blessed" if n else "no statue ready to bless on the big map yet")
+        log.info("%s: %s", self.home, "statue blessed" if n else "statue not blessed (no ready badge, or the tries above missed)")
         return "zone_done"
 
     def map_chores(self) -> bool:

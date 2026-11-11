@@ -19,6 +19,7 @@
                 "State.Defeated",
                 "State.ConfirmDialog",
                 "State.DungeonFloor",
+                "State.Puzzle",
                 "State.TowerResult",
                 "State.TowerList",
                 "State.TowerFloors",
@@ -374,6 +375,19 @@
             360,
             560,
             90
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.Puzzle": {
+        "doc": "A map puzzle screen opened by walking onto its gate or tiles (seen 2026-11-11, run 24: 'Energy Circuits', 'Drag or tap to swap slabs, linking all nodes and powering the circuits.', zone title 'Ancient Fortress' top left, a refresh button top right, back arrow bottom left at (75, 1218)). Puzzles are skipped for now (R-153): back arrow out. Image: docs/screens/world/puzzle_energy_circuits.png.",
+        "recognition": "OCR",
+        "expected": "Energy Circuits|swap slabs|linking all nodes|^Drag or tap",
+        "roi": [
+            80,
+            270,
+            560,
+            150
         ],
         "pre_delay": 0,
         "post_delay": 0
