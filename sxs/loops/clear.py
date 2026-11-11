@@ -117,6 +117,20 @@ def save_dialogue(dev, texts: str, zone: Optional[str]):
     return path
 
 
+def flavour_pick(lines, texts: str):
+    """((text, box) of the option to press, why) when resource/policy/dialogue_choices.json knows this dialogue."""
+    import json
+    from ..core.paths import RESOURCE
+    path = RESOURCE / "policy" / "dialogue_choices.json"
+    rules = json.loads(path.read_text(encoding="utf-8"))["rules"] if path.exists() else []
+    for rule in rules:
+        if re.search(rule["match"], texts, re.S):
+            hit = next(((t, b) for t, b in lines if re.search(rule["pick"], t)), None)
+            if hit:
+                return hit, rule["why"]
+    return None
+
+
 def option_rows(boxes) -> list[int]:
     """Centre heights of a dialogue's reply options from their arrow matches; matches within 20 px are one option."""
     rows: list[int] = []
@@ -703,6 +717,12 @@ class Clearer:
             # lone "She's all good." stopped the run for a decision).
             log.info("dialogue with one option (%s): pressing it", texts)
             ui.tap(self.dev, (360, arrows[0]), 2)
+            return None
+        known = flavour_pick(lines, texts)
+        if known and not leave:
+            pick, why = known
+            log.info("dialogue choice (%s): a known flavour choice, pressing %r (%s)", texts, pick[0], why)
+            ui.tap(self.dev, ui.centre(pick[1]), 2)
             return None
         if not leave:
             # mae, 2026-11-11: story choices are mae's call for now. Stop, and save the dialogue as a
