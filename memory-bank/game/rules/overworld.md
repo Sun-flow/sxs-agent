@@ -55,6 +55,13 @@ Code: `python -m sxs roam` picks the zone with `Tree.next_zone` from the locatio
 - Verdantglade VIII, Troll Lair and Zephyr Vale are 100% and blessed; Blessing Level 9; Cart Stone and Wood Lv 9 (Lv 10 needs Blessing 10, R-136).
 *observed* · R-086, R-135, R-136, R-153
 
+### R-174 · Blight Witch lore objects: visit them; expect a curse, then Quick Heal
+- A hooded stone statue (Bubble Lake, about (95, 80); a gold "building" on the minimap) opens the lore page "Tale of the Blight Witch I" (R-173). After Close, "Tap to Continue" shows a curse card, "Cutting Words": max HP -100%, and Witch's Curse ATK -50% for one battle (builder, run 27, 2026-11-11).
+- Then the badly-wounded Confirm appears with an Akane tutorial overlay ("Uh-oh! You got cursed!...") and a two-option choice ("Are you serious?" / "No big deal!"). mae (2026-11-11): this choice is flavour only; pick either option, no need to stop.
+- Code: flavour rulings like this live in resource/policy/dialogue_choices.json (Clear Zone, #60): one entry per ruling with "match", "pick" and "why". Add an entry whenever mae calls a choice flavour, and note it in the rule.
+- Visit them like any other object (mae, 2026-11-11): they are part of exploration, the debuff is accepted, and they can give great value. Afterwards Quick Heal (R-138) before the next fight. Unknown: whether the object counts toward the zone %.
+*observed, told* · `dialogs/dialogue_blight_witch_curse_cutting_words.png`, `dialogs/tutorial_cursed_akane_quick_heal.png`, `dialogs/dialogue_choice_bubble_lake_cursed.png` · R-173, R-164, R-030
+
 ### R-142 · While exploring, follow the zone's own Explore quest
 - The zone's own Explore quest in the tracker ("Explore Verdantglade V") is the best goal source while exploring (live, Verdantglade V 78% → 100%, 2026-11-09).
 - Tap the tracker's locate icon only when no gold ring is showing: the icon toggles Tracking on and off (R-022).
@@ -206,7 +213,8 @@ A stone pillar card "Gate of Power": "Requires: Power reaches 15.5K (Current: 8.
 - Card: "This stone gate is sealed tight. To unlock, you need: Reach the Apprentice II rank (current: Apprentice II)", with a free Unlock button once the rank is met. Press Unlock (card rule `sealed_gate`, `resource/policy/cards.json`); it is free, not a spend. Short of the rank there is no button: dismiss.
 - Unlocked live 2026-11-10 about 03:32; Explore Verdantglade VI went 0 → 3%.
 - Another gate sits near (142, 149) on the Wildbloom Coast / Verdantglade VI side, where the minimap reads Verdantglade VI.
-*observed* · R-030, R-070, R-086, R-150
+- The gate between Verdantglade XI and XII needs Apprentice III; free Unlock as above (builder, run 27, 2026-11-11). New zones seen past it: Amber Gorge 44K, Gorge Camp 38K, Damp Coast.
+*observed* · `world/world_sealed_stone_gate_xi_apprentice_iii.png` · R-030, R-070, R-086, R-150, R-118
 
 ## Map objects and statues
 

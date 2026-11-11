@@ -82,10 +82,11 @@ Skill page, Quick Upgrade icon at about (0.73, 0.47), captioned "Upgrade". No se
 - While a material is short the Advance button shows a **blue pip**, not "!"; the Rank Goals tab carries the "!" (claim it, R-116).
 - Collect the Bellflowers with `python -m sxs gather --harvest bellflower --enter` (enters the Flower Harvest field itself).
 - Apprentice III reached 2026-11-11 (strengthening pass): the banked bed EXP applied on rank-up, Lv 30 → 37 (cap 40). The next rank's needs are not read yet ❓.
+- Code: rank-first is built (Upgrader.rank_first, PR #62); the flowchart in `docs/loops/upgrade.md` shows it as a solid branch.
 *observed, told* · `character/rank_advancement.png`, `character/rank_up_result.png`, `character/rank_advancement_apprentice3.png` · node `rank_advancement` · R-101, R-116, R-123
 
 ## Relics
 
-### R-105 · Enhance relics in bands of 1, element by element (not unlocked yet)
-Relics come in elements of 4. Raise one element's 4 relics together by 1 level; bring every element level before any goes higher. Element order: the character's affinity, highest first. Cost: sand (R-106). Code: `relic_plan` in `sxs/loops/upgrade.py`.
+### R-105 · Enhance relics in bands of 1, element by element
+Relics come in elements of 4. Raise one element's 4 relics together by 1 level; bring every element level before any goes higher. Element order: the character's affinity, highest first. Cost: sand (R-106). Relics are unlocked (R-172). Code: `relic_plan` in `sxs/loops/upgrade.py`, used by the relic step (PR #62).
 *told* · R-092, R-106

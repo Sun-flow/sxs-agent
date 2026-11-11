@@ -33,7 +33,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 
 ## Adding or changing a rule
 
-- New rule: next free ID (**next free: R-173**), under the right `##` heading of the right file, plus a row in the ID index below.
+- New rule: next free ID (**next free: R-175**), under the right `##` heading of the right file, plus a row in the ID index below.
 - Never reuse or renumber an ID. When merging a rule into another, delete it, add it to the retired table, and repoint citations.
 - Run `python3 scripts/check-rules.py`: it checks that every cited ID resolves, retired IDs aren't cited, every file is listed here, and image paths exist.
 
@@ -185,6 +185,8 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-170 | `home.md` | Tap the little things around Home for small resources |
 | R-171 | `ui.md` | Story dialogue with a single option: always press it |
 | R-172 | `home.md` | Workbench: activate new relics; Enhance with Chrono Sand, never Replace |
+| R-173 | `ui.md` | Lore pages: swipe to the end, then Close |
+| R-174 | `overworld.md` | Blight Witch lore objects: visit them; expect a curse, then Quick Heal |
 
 ## Retired IDs
 

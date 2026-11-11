@@ -1,4 +1,7 @@
 {
+ "aliases": {
+  "unknown_1": "growth_trial_points"
+ },
  "items": [
   {
    "id": "wood",
@@ -1160,7 +1163,7 @@
    "name": "Rare Auroral Badge",
    "kind": "ticket",
    "description": "Use 10 to get a capsule from the Rare Aeonic Gacha.",
-   "uses": "Gacha ticket (Rare Aeonic Gacha, 10 per capsule): a pull, never used by the bot. Sources: Shop Purchase (locked), Commission (locked)",
+   "uses": "Gacha ticket (Rare Aeonic Gacha, 10 per capsule): pays for x10 draws (R-167). Sources: Shop Purchase (locked), Commission (locked)",
    "named_by": "popup",
    "icons": [
     {
@@ -1611,7 +1614,7 @@
    "name": "Epic Auroral Badge",
    "kind": "ticket",
    "description": "Use 10 to get a capsule from the Epic Aeonic Gacha.",
-   "uses": "Gacha ticket (Epic Aeonic Gacha, 10 per capsule): a pull, never used by the bot",
+   "uses": "Gacha ticket (Epic Aeonic Gacha, 10 per capsule): pays for x10 draws (R-167)",
    "named_by": "popup",
    "icons": [
     {
@@ -3288,6 +3291,27 @@
     }
    ],
    "group": "technique"
+  },
+  {
+   "id": "gateway_key",
+   "name": "Gateway Key",
+   "kind": "key_item",
+   "description": "Use it to unlock a sealed pillar on the world map. Emergency stone gates have mysteriously sealed off the paths. Only this specially forged key can open them.",
+   "uses": "Opens a Sealing Pillar (Rabbit Vault's way in); source: Verdantglade Kingdom Shop (buying needs mae's buy list)",
+   "named_by": "popup",
+   "icons": [
+    {
+     "file": "gateway_key.png",
+     "screen": "world/item_gateway_key_popup.png",
+     "box": [
+      426,
+      376,
+      134,
+      126
+     ],
+     "found_in": "World map > Sealing Pillar card > Required Item"
+    }
+   ]
   }
  ]
 }
