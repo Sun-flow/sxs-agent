@@ -166,6 +166,11 @@ saved = clear.save_dialogue(type("D", (), {"screenshot": lambda self: np.zeros((
 check("a saved story choice is named without our player name", saved.name, "choice_verdantglade_x_she_s_all_good.png")
 check("one reply option (two arrow matches on it)", clear.option_rows([[60, 800, 40, 40], [62, 805, 40, 40]]), [820])
 check("two reply options", len(clear.option_rows([[60, 700, 40, 40], [60, 800, 40, 40]])), 2)
+akane = [("Akane", [0, 0, 1, 1]), ("Are you serious?", [100, 700, 300, 60]), ("No big deal!", [100, 800, 300, 60])]
+check("a flavour choice mae ruled on is pressed, not parked",
+      (clear.flavour_pick(akane, " / ".join(t for t, _ in akane)) or ((None,),))[0][0], "Are you serious?")
+check("an unknown story choice still parks", clear.flavour_pick([("Yes", [0, 0, 1, 1]), ("No", [0, 9, 1, 1])], "Yes / No"),
+      None)
 check("the loop's ok statuses", {"zone_done", "no_objective", "no_progress"} <= clear.OK, True)
 
 print("all good" if not fails else f"{fails} failed")

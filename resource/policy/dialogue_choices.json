@@ -1,0 +1,10 @@
+{
+    "doc": "Story dialogues with two or more options and no Leave that are flavour only (mae decides each the first time; the bot otherwise stops needs_decision and saves the screen under docs/screens/dialogs/). Clear Zone tries the rules in order: when 'match' (a regex) finds the dialogue's text (all lines joined with ' / '), it presses the first option whose text matches 'pick'. A dialogue with a single option is always pressed (mae, 2026-11-11) and needs no rule here.",
+    "rules": [
+        {
+            "match": "Are you serious\\?.*No big deal!|No big deal!.*Are you serious\\?",
+            "pick": "^\\s*Are you serious\\?\\s*$",
+            "why": "Akane's tutorial after the Blight Witch curse (live 2026-11-11, run 27, Bubble Lake): mae, 06:02, 'an irrelevant dialogue, and can be chosen arbitrarily'."
+        }
+    ]
+}

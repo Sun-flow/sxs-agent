@@ -8,6 +8,7 @@
 | `image/labels/` | Crops of boxes mae drew in the labeler (`python -m sxs labeler`), one folder per screen, `manifest.json` (`sxs/core/labels.py`) |
 | `detect/classes.json` | UI detector classes in id order (append only), group and labeler kind (`docs/detector-design.md`) |
 | `policy/cards.json` | Card/popup decision rules (`sxs/policy/decide.py`) |
+| `policy/dialogue_choices.json` | Story choices mae ruled flavour only: which option Clear Zone presses instead of stopping |
 | `policy/gather.json` | Material priority for the Gather Loop |
 | `world/zones.json` | The location tree: zones, CP, exploration %, blessed, connections, ways in, open questions. Read and written by `sxs/policy/zones.py` (roam surveys and Clear Zone runs update it; commit it with the session). `python -m sxs zones` prints it |
 | `model/ocr/` | OCR models (fetched by `scripts/fetch-ocr-models.py`, gitignored except `keys.txt`) |

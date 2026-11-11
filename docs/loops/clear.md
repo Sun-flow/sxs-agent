@@ -81,7 +81,9 @@ Each leg logs `[leg N] goal: <source> <what> at <where>` before it starts and `[
 | Gate of Elements (Gate of Wind...) | add companions, Open (R-057) | gain, or the spot skipped if still short |
 | dialogue_choice (a puzzle NPC) | Leave; puzzle noted on the zone (R-153) | the spot skipped |
 | dialogue_choice with one option | press it (mae, 2026-11-11: always safe) | |
+| dialogue_choice that `resource/policy/dialogue_choices.json` knows (flavour, mae ruled) | press its listed option | |
 | dialogue_choice with two or more options and no Leave (a story choice) | save the screen to `docs/screens/dialogs/choice_<zone>_<choices>.png`, ask mae (mae, 2026-11-11) | `needs_decision` |
 | any other card | card rules (`resource/policy/cards.json`, goal explore) | acted on: gain; dismissed: the spot skipped; Gate of Power: the spot skipped, `power_gate` the 3rd time; "Required Item": `blocked_item` |
+| lore_page ("Tale of the Blight Witch I": story text, no back arrow) | swipe up until Close shows, press it | gain (an object cleared) |
 | puzzle (a slab or circuit puzzle, "Energy Circuits") | back arrow; spot skipped; zone marked blocked (R-153) | `puzzle` |
 | unknown, 5 in a row | frame saved | `unknown_screen` |

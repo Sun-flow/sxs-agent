@@ -47,6 +47,8 @@ log = logging.getLogger("sxs.loops.clear")
 STALL_LEGS = 4  # legs in a row with no % and no object cleared before the run stops (no_progress)
 BIG_MAP_LEGS = 12  # big-map legs per run (each ~20-30 s)
 NO_PCT_DONE_FROM = 90  # % a zone must have reached before its label showing no % line counts toward explored
+LORE_SWIPES = 8  # swipes up a lore page before giving up on its Close button
+LORE_CLOSE_ROI = [160, 900, 400, 340]  # where Close shows at the end of a lore page (about (360, 1104))
 FRONTIER_LEGS = 6  # frontier legs per run: fog matters only when it hides objects (3 ran short in Grotto Peninsula)
 FOG_REVEALED = 0.05  # drop in the fog share round the frontier spot, before the walk to after, that counts as revealed
 RING_MISSES = 2  # ring legs in a row without a gain before the ring waits for another source's gain
@@ -113,6 +115,20 @@ def save_dialogue(dev, texts: str, zone: Optional[str]):
         path = out / f"choice_{words}_{time.strftime('%Y%m%d-%H%M%S')}.png"
     cv2.imwrite(str(path), dev.screenshot())
     return path
+
+
+def flavour_pick(lines, texts: str):
+    """((text, box) of the option to press, why) when resource/policy/dialogue_choices.json knows this dialogue."""
+    import json
+    from ..core.paths import RESOURCE
+    path = RESOURCE / "policy" / "dialogue_choices.json"
+    rules = json.loads(path.read_text(encoding="utf-8"))["rules"] if path.exists() else []
+    for rule in rules:
+        if re.search(rule["match"], texts, re.S):
+            hit = next(((t, b) for t, b in lines if re.search(rule["pick"], t)), None)
+            if hit:
+                return hit, rule["why"]
+    return None
 
 
 def option_rows(boxes) -> list[int]:
@@ -366,7 +382,11 @@ class Clearer:
                 0 <= gr < len(mm.grid) and 0 <= gc < len(mm.grid)) else []
             if len(path) < 2 or path[-1] != (gr, gc):
                 path = [mm.centre, (gr, gc)]  # aim straight at the spot; the game paths there itself
-        log.info("[leg %d] couldn't bring the %s on screen", leg.n, goal)
+        # Live 2026-11-11 (run 29, XI): the same item 5 tiles off took legs 9-12, each failing in about 1 s with no
+        # walk, and the run ended no_progress. An object we can't bring on screen is skipped at once (all its tiles),
+        # so the next leg falls through to the big map, the ring or the frontier.
+        log.info("[leg %d] couldn't bring the %s on screen: skipped for the rest of this run", leg.n, goal)
+        self.skip_spot(spot)
         leg.events.append("no_move")
         return leg
 
@@ -590,6 +610,14 @@ class Clearer:
             progress(("battle", d.text or "", int(time.monotonic() // 20)))
         elif pass_through(dev, d):
             pass  # dialogue
+        elif d.state == "lore_page":
+            # Live 2026-11-11 (run 27, Bubble Lake): a structure opened "Tale of the Blight Witch I", a story page
+            # with no back arrow; its Close button shows only once scrolled to the end. Reading it is the object.
+            if self.close_lore():
+                self.event("cleared")
+            else:
+                log.warning("lore page: no Close after %d swipes; frame %s", LORE_SWIPES, save_unknown(dev, "lore"))
+                return "unknown_screen"
         elif d.state == "puzzle":
             # Live 2026-11-11 (run 24, Grotto Peninsula): a minimap leg walked onto the Ancient Fortress gate and its
             # "Energy Circuits" slab puzzle opened (unknown_screen then). Puzzles are skipped for now (R-153): back
@@ -659,6 +687,18 @@ class Clearer:
             return self.card()
         return None
 
+    def close_lore(self) -> bool:
+        """Swipe a lore page up until its Close button shows, then press it. True if it closed."""
+        for i in range(LORE_SWIPES + 1):
+            close = [b for t, b in self.det.read_text(LORE_CLOSE_ROI) if re.fullmatch(r"\s*Close\s*", t)]
+            if close:
+                log.info("lore page: Close after %d swipes", i)
+                ui.tap(self.dev, ui.centre(close[0]), 2)
+                return True
+            self.dev.swipe(360, 1000, 360, 300, 500)
+            time.sleep(1)
+        return False
+
     def dialogue_choice(self) -> Optional[str]:
         """A lone option: press it (mae). A puzzle NPC (Fonik, R-153): take Leave and note the puzzle; skip the spot.
         Two or more options and no Leave: a story choice, mae's call (stop needs_decision, screenshot saved)."""
@@ -671,6 +711,12 @@ class Clearer:
             # lone "She's all good." stopped the run for a decision).
             log.info("dialogue with one option (%s): pressing it", texts)
             ui.tap(self.dev, (360, arrows[0]), 2)
+            return None
+        known = flavour_pick(lines, texts)
+        if known and not leave:
+            pick, why = known
+            log.info("dialogue choice (%s): a known flavour choice, pressing %r (%s)", texts, pick[0], why)
+            ui.tap(self.dev, ui.centre(pick[1]), 2)
             return None
         if not leave:
             # mae, 2026-11-11: story choices are mae's call for now. Stop, and save the dialogue as a
