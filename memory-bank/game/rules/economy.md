@@ -26,6 +26,7 @@ Rolla (gold coin, top bar, "1.38K") pays for gear enhancement (R-023), Rank Adva
 - **Every Mall pack is real money (USD): never tap a pack or price, never open Top Up.** Packs: Welcome Gift, Halloween Charmer, Little Devil, Pilgrimage Pass, Daily Deals, Weekly Deals, Pathfinder Pack.
 - Route: Home menu (0.92, 0.79), Mall (0.72, 0.65): "Premium Picks" (state `mall`), tabs Event | Monthly Pass | Top Up.
 - Each pack page has a free gift box top left, red "!" above-right while claimable; one tap claims it (mae allows). Daily Gift (4 h refresh), Weekly Gift (5 d), Welcome Benefit (once), plus boxes on Halloween Charmer and Little Devil. Claim each once per refresh; tap nothing else.
+- Event > Welcome Gift: the free "Welcome Benefit" box top left with a "!" gave 30 Dawnium (2026-11-11); every other pack on that page is USD: never tap.
 - Code: `python -m sxs mall`, daily step `mall_gifts`.
 *told, observed* · `shops/mall_premium_picks.png`, `shops/mall_premium_picks_2.png`, `shops/mall_welcome_gift.png`, `shops/mall_welcome_benefit.png`, `shops/mall_halloween_charmer.png`, `shops/mall_daily_deals.png`, `shops/mall_weekly_deals.png` · node `mall` · R-043, R-063
 

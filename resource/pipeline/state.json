@@ -17,6 +17,8 @@
                 "State.RewardPopup",
                 "State.TapToContinue",
                 "State.Defeated",
+                "State.DialogueChoice",
+                "State.Dialogue",
                 "State.ConfirmDialog",
                 "State.DungeonFloor",
                 "State.Puzzle",
@@ -30,8 +32,6 @@
                 "State.GuildConquest",
                 "State.GuildPanel",
                 "State.Interact",
-                "State.DialogueChoice",
-                "State.Dialogue",
                 "State.GuildJoinList",
                 "State.GuildNoGuild",
                 "State.BattlePrep",
@@ -138,7 +138,7 @@
         "post_delay": 0
     },
     "State.ConfirmDialog": {
-        "doc": "Generic two-button Confirm dialog (Cancel left, OK right). The dialog grows with its content, so the title sits anywhere from y=330 to 450.",
+        "doc": "Generic two-button Confirm dialog (Cancel left, OK right). The dialog grows with its content, so the title sits anywhere from y=330 to 450. Checked after State.DialogueChoice and State.Dialogue: a tutorial overlay (Akane) can sit on top of a Confirm card, and the dialogue is what takes the tap (live 2026-11-11, docs/screens/dialogs/tutorial_cursed_akane_quick_heal.png).",
         "recognition": "OCR",
         "expected": "^Confirm$",
         "roi": [

@@ -18,17 +18,19 @@ Read before pressing any button that might spend, and on any class, social, acco
 
 **Never do:**
 - **Timed Packs** popups (e.g. "Exploration Kit", $0.99): dismiss with a tap below the card (R-157). **Replace** on a charm card (R-158).
+- **Aeonic Gacha with Dawnium, Draw x1, or a short "Draw xN"**: draw only x10 with Auroral Badges or pull tickets when a full 10x is affordable (mae, R-167). **"Delete Read"** in the Mailbox (R-168). **Replace** on a relic card (R-172).
 - **Spend a Golden Beetle** (it skips a puzzle); puzzle areas are skipped for now (mae) (R-153).
 - **A 3rd guild donation in a day** (R-103).
 - **Choose a class or press "Change Class"**: mae's call (R-054, R-117).
 - **"Rcmd Loadouts"** or its Apply (R-080).
 - **Guild choice** beyond joining one random open guild is mae's (R-102). Other social features are allowed (R-057, R-077).
-- **Delete or dismantle items**; **accept agreements or account prompts** (mae).
+- **Delete items**; **accept agreements or account prompts** (mae). Dismantle in the Alchemy Pot is allowed: it only takes gear weaker than what is equipped (R-165).
 - **Type in chat**; close Server Chat with the down arrow (0.06, 0.96) (R-027).
 - **Rate the game or open the store**: rating popups get **Later** (mae) (R-060).
 - **Retry on the Fantasia Ascent DEFEAT screen**, or tick Auto Challenge there (R-079).
 - **Spend stamina while exploring**: in explored, blessed areas, respawned monsters and most interactables cost stamina; don't tap them (even on a reference-crop match) unless a loop is deliberately farming, e.g. battle essence for skills (mae) (R-065, R-131).
 - **Change the character's appearance**: never press Complete on Carol's Reshape (costs a Shapeshifting Mirror); the look is mae's choice (R-134).
+- **Answer story dialogue that offers two or more choices and no Leave**: stop with `needs_decision`, save the screen, ask mae (R-164). A single option is always pressed (R-171).
 - **Pick a "Choose Your Reward" option when both are valid**: ask mae; only a lone Class Mismatch lets the bot take the other (R-129).
 - **Decide the player's zone from assumptions about the surroundings**: read the minimap name first, then the big map's player indicator (mae) (R-140). **Walk label-to-label between zones**: leave by the way you came in (R-068).
 - **Tap on fog** as an exploration target, or hop toward it tile by tile: a frontier leg walks to revealed ground beside it via the big map (mae) (R-146, R-130).

@@ -49,6 +49,8 @@ BIG_MAP_LEGS = 12  # big-map legs per run (each ~20-30 s)
 NO_PCT_DONE_FROM = 90  # % a zone must have reached before its label showing no % line counts toward explored
 LORE_SWIPES = 8  # swipes up a lore page before giving up on its Close button
 LORE_CLOSE_ROI = [160, 900, 400, 340]  # where Close shows at the end of a lore page (about (360, 1104))
+BAN_PX = 25  # area-map px within which a candidate is the object a walk already failed to reach from here
+SETTLE_RECHECK_S = 2.0  # after handling a screen, the map must still show this long later to count as clear
 FRONTIER_LEGS = 6  # frontier legs per run: fog matters only when it hides objects (3 ran short in Grotto Peninsula)
 FOG_REVEALED = 0.05  # drop in the fog share round the frontier spot, before the walk to after, that counts as revealed
 RING_MISSES = 2  # ring legs in a row without a gain before the ring waits for another source's gain
@@ -157,6 +159,8 @@ class Clearer:
         self.no_gain = 0
         self.ring_misses = 0
         self.big_map_used = self.frontier_used = 0
+        self.big_map_bans: list = []  # (where we stood, area-map px offset of an object whose walk left us there)
+        self.pick_xy = None  # our map coordinates when the big map was opened for the current pick
         self.frontier_away: list[tuple[int, int]] = []  # area-map directions of frontier legs that revealed nothing
         self.big_map_off = False  # big-map objects keep leading back to a failed spot: object source off
         self.fails: list[tuple[tuple[int, int], int]] = []  # [(map spot, legs there without a gain)]
@@ -457,10 +461,26 @@ class Clearer:
                 choice["pct"] = pct
             labels = {a.name: a.point for a in areas}
             if not self.big_map_off and self.big_map_used < BIG_MAP_LEGS:
-                hit = area_map.nearest(frame, ("statue", "item", "monster", "building"), max_px=ZONE_PICK_PX,
-                                       labels=labels, home=self.home, is_home=mapnav.label_is)
+                me = next((p for k, p in area_map.objects(frame) if k == "player"), None)
+                # A red "!" on a structure (live 2026-11-11, run 31: the Sealed Stone Gate between Verdantglade XI
+                # and XII, opened by hand) or on a ready statue: its card's free Unlock, by the card rules (R-145,
+                # never a paid button); unmet requirements leave the card dismissed and the spot skipped.
+                from .roam import statue_badges  # roam imports this module
+                red_bangs = [("red_bang", p) for p in statue_badges(frame)]
+                banned = [off for at, off in self.big_map_bans if near(at, self.pick_xy)] if me else []
+                skip: list = []
+                for _ in range(6):
+                    hit = area_map.nearest(frame, ("statue", "item", "monster", "building", "red_bang"),
+                                           max_px=ZONE_PICK_PX, labels=labels, home=self.home,
+                                           is_home=mapnav.label_is, skip=skip, extra=red_bangs)
+                    if not hit or not any(abs(hit[1][0] - me[0] - dx) <= BAN_PX and abs(hit[1][1] - me[1] - dy)
+                                          <= BAN_PX for dx, dy in banned):
+                        break
+                    skip.append(hit[1])  # a big-map object that left us standing still from here before
+                    hit = None
                 if hit:
-                    choice.update(kind="big_map", what=f"{hit[0]} on the big map")
+                    choice.update(kind="big_map", what=f"{hit[0]} on the big map",
+                                  off=(hit[1][0] - me[0], hit[1][1] - me[1]) if me else None)
                     return hit[1]
             if mine and self.frontier_used < FRONTIER_LEGS:
                 others = [a.point for a in areas if a not in mine]
@@ -480,6 +500,7 @@ class Clearer:
         if not objects_left and self.frontier_used >= FRONTIER_LEGS:
             return None
         choice: dict = {}
+        self.pick_xy = _xy(self.det)
         why = goto.go_to(self.dev, self.det, self.picker(choice))
         if "pct" in choice and (self.pct is None or choice["pct"] > self.pct):
             self.pct = choice["pct"]
@@ -494,6 +515,14 @@ class Clearer:
         here = _xy(self.det)
         leg = self.start_leg(kind, choice["what"], here)
         log.info("[leg %d] big-map walk: %s, now at %s", leg.n, why, here)
+        if kind == "big_map" and choice.get("off") and (why == "no_move" or (why == "under_me" and near(
+                here, self.pick_xy, 0))):
+            # Live 2026-11-11 (run 30, XI): the walk to XI's not-ready statue, one tile from where we stood, ended
+            # no_move four legs running and the pass stopped no_progress. An object that leaves us standing still is
+            # not picked again from here.
+            self.big_map_bans.append((self.pick_xy, choice["off"]))
+            log.info("[leg %d] the %s left us standing at %s: not picked again from here", leg.n, choice["what"],
+                     here)
         if why not in ("arrived", "under_me"):
             leg.events.append("no_move")
             return leg
@@ -575,13 +604,22 @@ class Clearer:
     def settle(self, deadline: float) -> Optional[str]:
         """Handle every screen until we're back on the island map. Returns a stop status or None."""
         until = min(deadline, time.monotonic() + SETTLE_S)
+        handled = False
         while time.monotonic() < until:
             d = self.det.detect()
             if self.unknown.seen(d.state):
                 log.warning("unfamiliar screen; frame saved to %s", save_unknown(self.dev, "clear"))
                 return "unknown_screen"
             if d.state == "world_map":
-                return None
+                if not handled:
+                    return None
+                # A reward can open a beat after the card closes (live 2026-11-11, run 34: a statue's Visit, then
+                # "Blessing of Nameless Warrior" with Tap to Continue over the map, and the next leg read nothing
+                # under it). Look once more before calling the map clear.
+                handled = False
+                time.sleep(SETTLE_RECHECK_S)
+                continue
+            handled = True
             stop = self.handle(d, deadline)
             if stop:
                 return stop
@@ -850,7 +888,10 @@ class Clearer:
         # now (R-070: free, +1 Blessing Level) the way roam does: the ready badge nearest us on the big map.
         from .roam import Roamer  # roam imports this module
         time.sleep(2)
-        n = Roamer(self.dev, self.det).bless_ready([self.home])
+        k = self.tree.key(self.home or "")
+        spot = next((o["xy"] for o in ((self.tree.zones[k].get("objectives") or []) if k else [])
+                     if re.search(r"Goddess Statue", o.get("title", ""))), None)  # where its card was read
+        n = Roamer(self.dev, self.det).bless_ready([self.home], near_xy=spot)
         log.info("%s: %s", self.home, "statue blessed" if n else "statue not blessed (no ready badge, or the tries above missed)")
         return "zone_done"
 
@@ -942,6 +983,9 @@ class Clearer:
                     log.warning("STUCK %s: %d legs in a row without progress (%s)", self.home, self.no_gain,
                                 "; ".join(f"{x.source} {x.result}" for x in self.legs[-STALL_LEGS:]))
                     return self.summary("no_progress")
+                stop = self.settle(deadline)  # nothing left over the map (a late reward card, run 34)
+                if stop:
+                    return self.summary(stop)
                 pct_before, xy_before = self.pct, _xy(self.det)
                 leg = self.plan()
                 if leg is None:

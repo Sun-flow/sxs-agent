@@ -54,7 +54,7 @@ SOURCE_LINK = (590, 758)  # item card: the first Source row ("Verdantglade Flowe
 HUNT_STAMINA_ROI = [40, 200, 200, 40]  # "175/300" on the Resource Hunt card
 PLAY_ROI = (0, 130, 720, 870)  # x0, y0, x1, y1 where pickups can be tapped (HUD above, tracker/chat below)
 MINIMAP_ROI = (520, 60, 720, 270)
-TRACKER_COUNT_ROI = [50, 845, 180, 50]  # "2/20" beside the tracked item's icon, left of the map
+TRACKER_COUNT_ROI = [50, 845, 180, 95]  # "2/20" beside the tracked item's icon, left of the map; sat at y~895 on 2026-11-11
 MINIMAP_CENTRE = (616, 177)  # the character's spot on the minimap (sxs.vision.minimap.CENTER)
 WALK_STEP = 280  # px per walk tap toward a ring seen only on the minimap
 LABEL_TO_PICKUP = (6, -33)  # from the cost label's centre to the pickup above it
@@ -345,11 +345,16 @@ def _args(p) -> None:
     p.add_argument("--check", action="store_true", help="read stamina and the budget only")
     p.add_argument("--harvest", nargs="?", const="bellflower", choices=sorted(TARGETS),
                    help="already on the map with an item tracker (default bellflower): collect until it's full")
+    p.add_argument("--enter", action="store_true",
+                   help="with --harvest bellflower: first go Home > Rank Advancement > Bellflower source > OK")
 
 
 def _run(ctx, opts):
     g = Gatherer(ctx.dev, ctx.det)
     if opts.harvest:
+        if opts.enter and opts.harvest == "bellflower" and not g.enter_bellflower_field():
+            g.nav.go_home()
+            return {"end": "unknown_screen"}
         return g.collect(TARGETS[opts.harvest], keep=int(load_policy().get("keep_stamina", 70)))
     return g.run(opts.material, opts.check)
 

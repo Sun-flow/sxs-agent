@@ -202,12 +202,12 @@ def crosses_border(lines: np.ndarray, a: tuple[int, int], b: tuple[int, int], ne
 
 def nearest(frame: np.ndarray, kinds=("item", "monster", "building"), max_px: int = 260,
             skip=(), same_zone: bool = True, labels: Optional[dict] = None,
-            home: Optional[str] = None, is_home=None) -> Optional[tuple[str, tuple[int, int]]]:
+            home: Optional[str] = None, is_home=None, extra=()) -> Optional[tuple[str, tuple[int, int]]]:
     """The object of `kinds` nearest our white dot (within max_px), or None. same_zone (R-132, live 2026-11-09: a
     big-map walk to the nearest dot from Verdantglade V ended in Zephyr Vale): skip objects whose straight line from
     us crosses a dotted zone border, and, given the map's zone labels {name: point} and our zone's name, objects
     whose nearest label is another zone's (labels sit in their zone's middle)."""
-    objs = objects(frame)
+    objs = objects(frame) + list(extra)  # extra: (kind, point) found by other readers (red "!" structures)
     me = [p for k, p in objs if k == "player"]
     if not me:
         return None

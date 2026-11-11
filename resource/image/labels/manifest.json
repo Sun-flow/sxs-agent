@@ -2,6 +2,51 @@
  "tag": "labeled screen regions",
  "entries": [
   {
+   "screen": "area_map_blue_bang",
+   "box": "map_building_10",
+   "kind": "icon",
+   "roi": [
+    413,
+    566,
+    23,
+    25
+   ],
+   "template": "labels/area_map_blue_bang/map_building_10.png",
+   "source": "world/area_map_blue_bang.png",
+   "note": "pre-labelled",
+   "date": "2026-11-10"
+  },
+  {
+   "screen": "area_map_blue_bang",
+   "box": "map_building_3",
+   "kind": "icon",
+   "roi": [
+    555,
+    502,
+    25,
+    25
+   ],
+   "template": "labels/area_map_blue_bang/map_building_3.png",
+   "source": "world/area_map_blue_bang.png",
+   "note": "pre-labelled",
+   "date": "2026-11-10"
+  },
+  {
+   "screen": "area_map_legend_overlap",
+   "box": "map_zone_label_4",
+   "kind": "text",
+   "roi": [
+    350,
+    699,
+    115,
+    41
+   ],
+   "template": "labels/area_map_legend_overlap/map_zone_label_4.png",
+   "source": "world/area_map_legend_overlap.png",
+   "note": "pre-labelled",
+   "date": "2026-11-10"
+  },
+  {
    "screen": "daily_signin_received",
    "box": "stellatie_6",
    "kind": "icon",
@@ -28,6 +73,81 @@
    ],
    "template": "labels/explore_resource_tracker2/badge_gold_ring_1.png",
    "source": "world/explore_resource_tracker2.png",
+   "note": "pre-labelled",
+   "date": "2026-11-10"
+  },
+  {
+   "screen": "explore_stamina_boar",
+   "box": "mm_item_1",
+   "kind": "icon",
+   "roi": [
+    612,
+    247,
+    8,
+    7
+   ],
+   "template": "labels/explore_stamina_boar/mm_item_1.png",
+   "source": "world/explore_stamina_boar.png",
+   "note": "pre-labelled",
+   "date": "2026-11-10"
+  },
+  {
+   "screen": "world_area_map",
+   "box": "anchor_area_map_legend_1",
+   "kind": "region",
+   "roi": [
+    530,
+    30,
+    190,
+    240
+   ],
+   "template": "labels/world_area_map/anchor_area_map_legend_1.png",
+   "source": "world/world_area_map.png",
+   "note": "pre-labelled",
+   "date": "2026-11-10"
+  },
+  {
+   "screen": "world_map_tracker_gift",
+   "box": "mm_building_1",
+   "kind": "icon",
+   "roi": [
+    621,
+    162,
+    10,
+    11
+   ],
+   "template": "labels/world_map_tracker_gift/mm_building_1.png",
+   "source": "world/world_map_tracker_gift.png",
+   "note": "pre-labelled",
+   "date": "2026-11-10"
+  },
+  {
+   "screen": "world_map_tracker_gift",
+   "box": "mm_icon_1",
+   "kind": "icon",
+   "roi": [
+    611,
+    117,
+    10,
+    15
+   ],
+   "template": "labels/world_map_tracker_gift/mm_icon_1.png",
+   "source": "world/world_map_tracker_gift.png",
+   "note": "pre-labelled",
+   "date": "2026-11-10"
+  },
+  {
+   "screen": "world_map_tracker_gift",
+   "box": "mm_item_2",
+   "kind": "icon",
+   "roi": [
+    645,
+    214,
+    8,
+    7
+   ],
+   "template": "labels/world_map_tracker_gift/mm_item_2.png",
+   "source": "world/world_map_tracker_gift.png",
    "note": "pre-labelled",
    "date": "2026-11-10"
   }
