@@ -43,6 +43,7 @@ flowchart TD
 | [gather.md](gather.md) | Gather | `python -m sxs gather` | Spend stamina above 70 on the priority material |
 | [cart.md](cart.md) | Cart Upgrade | `python -m sxs cart` | Claim the Cart, raise Stone and Wood evenly |
 | [upgrade.md](upgrade.md) | Upgrade, Strengthen | `python -m sxs upgrade`, `python -m sxs strengthen` | Take every upgrade a Character-screen "!" offers |
+| [gacha.md](gacha.md) | Gacha, Relics | `python -m sxs gacha`, `python -m sxs relics` | Draw x10 whenever a full x10 is affordable; activate and enhance relics |
 | [gearswap.md](gearswap.md) | Gear Swap | `python -m sxs gearswap` | Equip the better piece in every flagged slot |
 | [tower.md](tower.md) | Fantasia Ascent | `python -m sxs tower` | One tower climb a day until the first loss |
 | [guild.md](guild.md) | Guild | `python -m sxs guild` | Donate twice, sit at the Forge, use Conquest attempts |
@@ -71,6 +72,8 @@ flowchart LR
     clear --> goto
     upgrade --> strengthen[["strengthen helpers"]]
     upgrade --> gearswap
+    upgrade --> gacha[["gacha"]]
+    upgrade --> relics[["relics"]]
     cart --> strengthen
     runner(["runner: every loop"]) -.-> interrupts[["interrupt table"]]
     interrupts -.-> tutorial[["tutorial"]]
@@ -78,7 +81,8 @@ flowchart LR
 ```
 
 `strengthen` here means the `Strengthener` helpers (claim the Cart, banded gear enhance, charms). After 3 losses in a
-row `explore` calls `get_stronger` in `upgrade` (Cart, gear swap, charms, Upgrade loop).
+row `explore` calls `get_stronger` in `upgrade` (Cart, rank first at the cap, gacha, relics, gear swap, charms,
+Upgrade loop); the daily `strengthen` step calls it too, without the gear swap.
 
 ## Making the diagrams the source of truth (proposed follow-up)
 

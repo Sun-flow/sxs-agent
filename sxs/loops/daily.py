@@ -19,7 +19,8 @@ Steps, in order (each starts from home and ends there):
   guild_conquest   Guild boss: claim beaten floors, use the 2 daily attempts in the background, claim goals.
   gather           Journal > Map Exploration: spend stamina above 70 on the priority material (sxs.loops.gather, R-107).
   gear_swap        Equip the better piece wherever a gear slot on the Character screen shows "!" (sxs.loops.gearswap).
-  strengthen       Fill empty charm slots from the profile, then the Upgrade Loop (sxs.loops.upgrade): every "!" on the
+  strengthen       upgrade.get_stronger without its gear swap (its own step): Cart, rank first at the level cap, Aeonic
+                   Gacha x10 draws, Workbench relics, empty charm slots, then the Upgrade Loop: every "!" on the
                    Character screen (banded gear, resonance, Quick Upgrade, ascensions, class levels, rank, goals).
                    Repeated after quest claims, because enhancing finishes quests and quests pay ore.
   progress         Read the day's numbers (home, profile, Journal) for the progress report (sxs.loops.progress).
@@ -130,8 +131,7 @@ class Dailies:
                 return "done"
             if attempt == len(pans):
                 break
-            self.dev.swipe(*pans[attempt], 600)
-            time.sleep(1.5)
+            self.dev.pan(*pans[attempt], 600)  # adb fallback when MaaFramework's swipe stops (2026-11-11)
         return "nothing"
 
     def growth_trial(self) -> str:
@@ -223,16 +223,11 @@ class Dailies:
         return GearSwap(self.dev, self.det).run()["end"]
 
     def strengthen(self) -> str:
-        self.st.claim_cart()
-        self.nav.go_home()
         # mae, 2026-11-04: a portrait "!" can mean many things, so nothing here assumes it means gear. Each upgrade
-        # type has its own function and its own need-check: better gear is the gear_swap step (a gear slot's "!"),
-        # empty charm slots are filled only when one is empty, and the Upgrade Loop runs one pass per badge it
-        # sees on the Character screen (goals, skills, gear, class, rank).
-        self._tap(ui.HUD_PORTRAIT, 2.5)  # -> player profile
-        if self.det.detect().state == "player_profile":
-            self.st.equip_charms(from_profile=True)  # returns at once when every charm slot is filled
-        self.upgrader.run()
+        # type has its own function and its own need-check. Since 2026-11-11 this is get_stronger: Cart, rank first
+        # at the cap, gacha, relics, charms, Upgrade Loop. Better gear is its own daily step (gear_swap), so skipped.
+        from .upgrade import get_stronger
+        get_stronger(self.dev, self.det, skip=frozenset({"gear_swap"}))
         return "done"
 
     def progress(self) -> str:

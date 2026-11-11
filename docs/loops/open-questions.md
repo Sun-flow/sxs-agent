@@ -6,6 +6,10 @@ the item to "Settled" at the bottom (keep its number, so links stay right).
 
 ## Needs mae's call
 
+- **Relic "Auto-combine on material shortage"** (Enhance Relic, ticked by default): what it combines is unknown.
+  The relic step presses Enhance only while every cost reads have ≥ need, so it never triggers. Allow it, and with
+  what? ([gacha.md](gacha.md))
+
 **Q6. Guild AFK when the Forge is full.** The code falls back to the Mine, then the Power Station. R-110 only says
 Forge. Is the fallback fine?
 

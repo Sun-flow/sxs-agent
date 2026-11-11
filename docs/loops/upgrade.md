@@ -76,33 +76,38 @@ Every button press first checks that no spend word sits on its row (`policy/clai
 ## Get stronger (`get_stronger`, the Strengthen loop)
 
 **Goal:** everything that raises power with soft resources, in one call. **Used by:** `explore --chain` after 3 lost
-fights in a row, and `python -m sxs strengthen`. The daily loop runs the same pieces as its `gear_swap` and
-`strengthen` steps. **Ok statuses:** `done`.
+fights in a row, the daily loop's `strengthen` step (without the gear swap, which is its own daily step), and
+`python -m sxs strengthen [--only cart,rank,gacha,relics,gear_swap,charms,upgrade]`. **Ok statuses:** `done`.
+Each step has its own time budget and stall check (`STEP_BUDGET_S` in `sxs/loops/upgrade.py`); a step that fails or
+runs out is recorded and the next one starts.
 
-Rank comes first when the level is at the cap (mae, 2026-11-11, R-118): a rank-up is the biggest single power
-gain (Apprentice III applied the banked bed EXP, Lv 30 → 37, power 30.6K → 35.9K). **The rank-first branch
-(dashed) is planned, not built**: `strengthen` today runs the rank pass only inside the Upgrade loop (step 4)
-and only when its button shows "!". To-do for a builder: status.md.
+Rank comes first when the level is at the cap (mae, 2026-11-11 05:20, R-118): a rank-up is the biggest single power
+gain (Apprentice III applied the banked bed EXP, Lv 30 → 37, power 30.6K → 35.9K). Then the Aeonic Gacha (mae 05:22,
+R-167) and the Workbench (R-172), so new relics are activated and enhanced in the same pass: both are drawn in
+[gacha.md](gacha.md). Built 2026-11-11 (`Upgrader.rank_first`, `get_stronger`); not yet run live.
 
 ```mermaid
 flowchart TD
-    S(["Start"]) --> A["1. Claim the Cart (sweep home for the bubble)"]
-    A --> CAP{"0. Level at the cap?<br/>(Character: Lv N/N)"}
-    CAP -->|no| B
-    CAP -->|yes| RP["Rank page (Character > rank badge)"]
-    RP --> RA{"Advance button?"}
-    RA -->|"! (all met)"| ADV["Advance, tap through RANK UP,<br/>claim rank Goals (R-116)"] --> BED["Collect bed EXP (banked EXP applies)"] --> B
-    RA -->|"blue pip (short)"| SH{"Short item gatherable for free?<br/>(Bellflowers: Flower Harvest, R-123)"}
-    SH -->|yes| GA[["gather --harvest bellflower --enter"]] --> RP
-    SH -->|"no (Rolla, leaves, unknown)"| NOTE["Log what is short; carry on"] --> B
-    B[["2. Gear Swap: every slot with a red !"]]
-    B --> C["3. Portrait: fill empty charm slots if the charm row has !"]
-    C --> D[["4. Upgrade loop: goals, skills, gear, class, rank"]]
+    S(["Start"]) --> A[["1. cart: claim the Cart (home sweep, adb pan fallback)"]]
+    A --> RP["2. rank: Character > rank badge; read 'Level: N/M'"]
+    RP --> CAP{"N = M (at the cap)?"}
+    CAP -->|"no / unreadable"| GA
+    CAP -->|yes| RA{"Advance button?"}
+    RA -->|"! (all met)"| ADV["Advance, tap through RANK UP,<br/>claim rank Goals (R-116)"] --> BED["Collect bed EXP (daily bed step)"] --> GA
+    RA -->|"blue pip (short)"| SH{"Middle cost (Bellflowers) short<br/>and tagged 'Available'?"}
+    SH -->|"yes (first time)"| GAT[["gather: Flower Harvest (R-123)"]] --> RP
+    SH -->|"no (Rolla, leaves, unknown)"| NOTE["Log the costs; carry on"] --> GA
+    GA[["3. gacha: x10 on every tier with a full x10 (gacha.md)"]]
+    GA --> RL[["4. relics: activate, ascend, enhance in bands (gacha.md)"]]
+    RL --> B[["5. gear_swap: every slot with a red !"]]
+    B --> C["6. charms: portrait, fill empty charm slots if the charm row has !"]
+    C --> D[["7. upgrade: goals, skills, gear, class, rank"]]
     D --> OK(["done"])
     classDef ok fill:#d4edda,stroke:#2e7d32,color:#000
     classDef sub fill:#dbe9ff,stroke:#1f5fbf,color:#000
-    classDef plan stroke-dasharray: 5 5
     class OK ok
-    class B,D,GA sub
-    class CAP,RP,RA,ADV,BED,SH,NOTE plan
+    class A,B,D,GA,RL,GAT sub
 ```
+
+The Bellflower gather runs at most once per pass; a second shortfall is logged. Rank's own pass in the Upgrade loop
+(step 7) stays: after step 2 it usually finds nothing, but it still claims rank Goals when they light up.
