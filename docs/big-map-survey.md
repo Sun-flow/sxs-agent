@@ -10,7 +10,7 @@ facts: labels, "Exploration: N%" lines, power lines, statue badges, dots.
 
 ## Short answer
 
-The bot has **no memory of the last survey**. Seven separate code paths open the big map, and each one reads it
+The bot has **no memory of the last survey**. Nine separate code paths open the big map, and each one reads it
 fresh, with its own label reader, and throws the result away when it closes the map. The worst repeat is roam's:
 after a zone run it surveys once to check the zone's %, then the loop starts over and **surveys again straight
 away**, 11 s later, with nothing changed in between. Each roam survey also **pans the map 8 times**, because
@@ -31,7 +31,7 @@ Logs from mae's PC (`logs/`, roam runs vii_r4, run2-run17, Clear Zone runs run15
 | Pans thrown away | 182 pans logged "couldn't match it to the last view; reading skipped" | the pan ran, nothing was read |
 | Survey, give up, survey the same zone again | run11: "exploring Leafy Corrido" → entrance picker `no_target` (22 s, with 6 pans) → give up → survey → same zone, 3 times in 2.5 min (a name mismatch, since fixed in the tree, but nothing stops it happening again) | ~60 s per round |
 | Clear Zone re-reads what roam just read | run22: roam-style label walk at 23:35:22 read Grotto Peninsula, then `map_pct` opened the map again at 23:36:00 for the same label | ~9 s |
-| Two readers disagree on the same label | run22: `map_pct` read Grotto Peninsula with "no % line" twice; the big-map picker, in the next opening, read 63%. The run ended "0% → 63%" with no gain in between | a wrong % either way |
+| Two readers disagree on the same label | run22: `map_pct` read Grotto Peninsula with "no % line" twice; the big-map picker, in the next opening, read 63%. The run ended "0% → 63%" with no gain in between | a wrong % either way (the "no % line" half is now guarded: since 5b80215 it only counts from 90%) |
 | Plain walk openings are cheap | run15 (IX 38→85%): 8 openings, 3-4 s each, 29 s of a 392 s run | fine as they are |
 
 So the problem is not the walk openings. It is the **survey** openings: roam's full survey, the entrance picker,
@@ -49,6 +49,7 @@ label walks that zoom and pan, and Clear Zone's % read.
 | 6 | `Clearer.map_pct` (`loops/clear.py`) | start of a Clear Zone run in a side zone (no tracker quest), then every 3 legs | the zone's label and % line | survey zoom | ~9 s | it doesn't know roam just read the %; the big-map picker (7) reads the % in its own openings, but `map_pct` runs anyway |
 | 7 | `Clearer.picker` via `go_to(picker)` (`clear.py`) | each big-map or frontier leg | labels, %, objects in the zone, fog frontier | none, survey zoom only if nothing found | 3-7 s | already reads labels and %; the one opening that does double duty today |
 | 8 | `Clearer.check_zone` → `go_to(home)` (`clear.py`) | strayed out of the zone, twice | label walk | as (4) | 4-22 s | standalone `go_to` |
+| 9 | `Clearer.fog_here` (`clear.py`, added after 9200bbb) | once after each frontier leg | our dot and the fog share round it | **none on purpose**: same zoom as the frontier pick, so before and after compare | ~3 s | needs its own frame at the pick's zoom; stays as it is, but its opening can feed the snapshot too |
 
 Three different label readers parse the same OCR in different ways:
 
@@ -86,7 +87,7 @@ The "1X" = IX and "Lakeside" vs "Lakeside Camp" fixes each went into one or two 
    pairs % and power lines). It returns `Area(name, box, pct, gate, unsure)`, our white dot, red and blue badges,
    and the object dots in one pass over one frame. One name matcher, `bigmap.is_zone(label, zone)`, holds every
    OCR rule we've learned (numerals, "1X", clipped left edges, joined labels, first-words names).
-2. **Every opening is a survey.** Whoever opens the map (a walk, a picker, a bless) goes through
+2. **Every opening is a survey.** (Except that `fog_here` keeps its own zoom: the fog before/after comparison needs it.) Whoever opens the map (a walk, a picker, a bless) goes through
    `BigMap.opened(reason)`. That records the reading as the new snapshot before the caller taps anything. A walk
    opening costs ~1 s more for the OCR and saves the next survey.
 3. **Facts are cached, pixels are not.** The snapshot keeps **zone facts**: per zone the %, power, a ready
@@ -137,7 +138,7 @@ rule as the quest-moved check.
 flowchart TD
     C(["A caller needs a big-map fact<br/>(roam pick, zone %, ready statue, entrance, where am I)"]) --> V{"Snapshot has it<br/>and it's still valid?<br/>(invalidation table)"}
     V -->|yes| R["Reuse it<br/>log: reuse survey N (age, why valid)"] --> OUT(["fact returned"])
-    V -->|no| O["Open the map once<br/>(survey zoom unless it's known to be there already)"]
+    V -->|no| O["Open the map once<br/>(survey zoom unless it's known to be there already;<br/>fog_here keeps the frontier's zoom)"]
     O --> READ["One read of the frame: labels with % and power,<br/>our dot, red and blue badges, object dots"]
     READ --> NEED{"The zone the caller<br/>is about to act on in view?"}
     NEED -->|yes| SNAP
@@ -198,7 +199,7 @@ flowchart LR
   first; `judge`, `read_pct`, `check_zone` and `finish_zone` call `invalidate`.
 - Rules: R-076 (big map) gets a line on the shared survey; no game rule changes.
 
-The Clear Zone thread owns roam and clear. The split is agreed with it before any edit to those two files.
+The Clear Zone thread owns roam and clear. The Clear Zone thread agreed (2026-11-11): this branch builds on its tip 100a6ee and takes over `map_pct`, the picker's label read, `in_home` and `finish_zone`; it stays out of `clear.py` until this lands if the picker's signature changes.
 
 ## Questions for mae
 
