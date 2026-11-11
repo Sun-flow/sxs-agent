@@ -1,0 +1,29 @@
+{
+ "name": "seq_essence_stamina_resource_hunt_08",
+ "kind": "essence_stamina",
+ "zone": "resource_hunt",
+ "what": "essence pickup, stamina 255 -> 250",
+ "at": "2026-11-11T16:45:08",
+ "picked": [
+  {
+   "file": "seq_essence_stamina_resource_hunt_08_f01.png",
+   "t": -9.9
+  },
+  {
+   "file": "seq_essence_stamina_resource_hunt_08_f06.png",
+   "t": -6.78
+  },
+  {
+   "file": "seq_essence_stamina_resource_hunt_08_f12.png",
+   "t": -5.22
+  },
+  {
+   "file": "seq_essence_stamina_resource_hunt_08_f17.png",
+   "t": -0.07
+  },
+  {
+   "file": "seq_essence_stamina_resource_hunt_08_f24.png",
+   "t": 2.8
+  }
+ ]
+}

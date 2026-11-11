@@ -6,7 +6,8 @@ from __future__ import annotations
 import cv2
 import numpy as np
 
-LEFT_PANEL = (0, 700, 140, 1000)  # quest/resource tracker icons on the left: ring-shaped, never targets
+LEFT_PANEL = (0, 840, 140, 1000)  # quest/resource tracker icons on the left: ring-shaped, never targets. From y 840:
+# a Resource Hunt edge pointer (Rolla, live 2026-11-11) sits above it at the left edge, about (50, 758).
 
 
 def blue_aura(hsv: np.ndarray, pt, r: int = 55) -> float:

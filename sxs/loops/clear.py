@@ -309,10 +309,13 @@ class Clearer:
         (explored) ground meets the zone's shaded ground (mae, 2026-11-11: live, the walks into Verdantglade XIII
         kept ending at a wall). True when we stand in the zone afterwards."""
         name = goto.area_name_here(self.det)
-        if not name or self.in_home(name):
+        if not name:
+            name = mapnav.zone_by_map(self.dev, self.det, self.home or "") or ""
+        if name and (goto.same_area(name, self.home or "") or mapnav.label_is(name, self.home or "")):
             return True
         log.info("still in %s after the walk to %s: looking for a crossing into its shaded ground", name, self.home)
-        arrived = lambda n: bool(n) and self.in_home(n)
+        # Strict match here: in_home's loose rules took "Verdantglade XiI" (XII, OCR) for XIII (live 2026-11-11).
+        arrived = lambda n: bool(n) and (goto.same_area(n, self.home or "") or mapnav.label_is(n, self.home or ""))
         if mapnav.enter_next_zone(self.dev, self.det, arrived=arrived):
             return True
         # Nothing on the minimap: the entrance nearest the zone's label on the big map, then step across there.

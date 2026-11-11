@@ -1,0 +1,29 @@
+{
+ "name": "seq_sand_stamina_resource_hunt_04",
+ "kind": "sand_stamina",
+ "zone": "resource_hunt",
+ "what": "sand pickup, stamina 275 -> 270",
+ "at": "2026-11-11T16:43:15",
+ "picked": [
+  {
+   "file": "seq_sand_stamina_resource_hunt_04_f01.png",
+   "t": -9.64
+  },
+  {
+   "file": "seq_sand_stamina_resource_hunt_04_f06.png",
+   "t": -6.52
+  },
+  {
+   "file": "seq_sand_stamina_resource_hunt_04_f11.png",
+   "t": -5.44
+  },
+  {
+   "file": "seq_sand_stamina_resource_hunt_04_f16.png",
+   "t": -0.08
+  },
+  {
+   "file": "seq_sand_stamina_resource_hunt_04_f24.png",
+   "t": 2.76
+  }
+ ]
+}
