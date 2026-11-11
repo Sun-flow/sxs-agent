@@ -53,6 +53,36 @@ def find_badges(frame: np.ndarray, roi=None, min_area: int = MIN_AREA) -> list[t
     return sorted(out, key=lambda p: (p[1] // 20, p[0]))
 
 
+def find_tan_bangs(frame: np.ndarray, region=None) -> list[tuple[int, int]]:
+    """Centres of tan "!" badges: a Lost Statue's ready mark on the area map is drawn tan, not red (live 2026-11-11,
+    run 35, docs/screens/world/world_area_map_xii_statue_ready.png; Bubble Lake's was red). A thin upright white
+    mark with a ring of tan (HSV ~15/99/167) round it. region: [x, y, w, h] to search, else the whole frame."""
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    h, s, v = (hsv[..., i].astype(int) for i in range(3))
+    inside = np.zeros(h.shape, bool)
+    if region:
+        x, y, w, hh = region
+        inside[y:y + hh, x:x + w] = True
+    else:
+        inside[:] = True
+    tan = (h >= 6) & (h <= 22) & (s >= 70) & (v >= 100) & inside
+    white = ((s < 70) & (v > 185) & inside).astype(np.uint8)
+    n, _, stats, cents = cv2.connectedComponentsWithStats(white)
+    yy, xx = np.mgrid[-12:13, -12:13]
+    d = np.hypot(xx, yy)
+    ring = (d >= 7) & (d <= 10)
+    H, W = h.shape
+    out = []
+    for i in range(1, n):
+        _, _, bw, bh, _ = stats[i]
+        if not (7 <= bh <= 20 and bw <= 7 and bh >= 2 * bw):
+            continue
+        cx, cy = int(cents[i][0]), int(cents[i][1])
+        if 12 <= cx < W - 12 and 12 <= cy < H - 12 and tan[cy - 12:cy + 13, cx - 12:cx + 13][ring].mean() >= 0.6:
+            out.append((cx, cy))
+    return out
+
+
 def find_up_pips(frame: np.ndarray, roi=None) -> list[tuple[int, int]]:
     """Centres of the small light-blue discs with a white up arrow that sit where a red "!" would (mae, 2026-11-09):
     on a gear slot it means the piece can be enhanced (the red "!" means a better piece to swap in, R-088); skill

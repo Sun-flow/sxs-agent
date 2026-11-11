@@ -69,6 +69,11 @@ check("name match takes a clipped label", same("tglade III", "Verdantglade III")
 # Blessing a ready statue (roam.bless_once): never our own "!" or the tracker's gift badge (run 26 tapped us).
 from sxs.loops import roam  # noqa: E402
 SHOTS = Path(__file__).resolve().parent.parent / "docs" / "screens" / "world"
+xii = cv2.imread(str(SHOTS / "world_area_map_xii_statue_ready.png"))
+check("a Lost Statue's tan ready mark is found on the area map (run 35, XII)", roam.nearest_badge(xii), (74, 464))
+none = [n for n in ("area_map_survey_zoom", "area_map_v3", "world_area_map", "area_map_blue_bang")
+        if roam.statue_badges(cv2.imread(str(SHOTS / f"{n}.png")))]
+check("no ready statue read on area maps without one", none, [])
 own = roam.statue_on_screen(cv2.imread(str(SHOTS / "world_map_tracker_gift.png")), (262, 548))
 check("our own red ! is not a statue (an NPC's may be: a miss)", own is None or abs(own[0] - 302) > 60, True)
 check("the tracker panel's gift ! is not a statue",

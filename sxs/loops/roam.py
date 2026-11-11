@@ -48,7 +48,7 @@ from ..core.paths import LOGS, RESOURCE
 from ..policy.decide import Context, Decider
 from ..policy import fights
 from ..policy.zones import Tree
-from ..vision.badges import SMALL_MIN_AREA, find_badges
+from ..vision.badges import SMALL_MIN_AREA, find_badges, find_tan_bangs
 from ..vision.hud import read_power
 from ..vision.ocr import power_k
 from ..vision.player import player_on_screen
@@ -229,13 +229,20 @@ def statue_on_screen(frame: np.ndarray, me=None) -> Optional[tuple[int, int]]:
     return int(x), int(y) + STATUE_BADGE_DY
 
 
+LAST_BADGE: dict = {}  # the last ready-statue pick's offset from our dot on the area map
+
+
 def nearest_badge(frame: np.ndarray) -> Optional[tuple[int, int]]:
     """Area-map picker: the ready statue nearest our white dot (or the screen centre)."""
     from ..vision import area_map
     me = [p for k, p in area_map.objects(frame) if k == "player"]
     cx, cy = me[0] if me else goto.SCREEN_CENTRE
     pts = statue_badges(frame)
-    return min(pts, key=lambda p: (p[0] - cx) ** 2 + (p[1] - cy) ** 2) if pts else None
+    if not pts:
+        return None
+    p = min(pts, key=lambda q: (q[0] - cx) ** 2 + (q[1] - cy) ** 2)
+    LAST_BADGE["off"] = (p[0] - cx, p[1] - cy) if me else None  # area-map px from our dot, for bless_once
+    return p
 
 
 ORE_YELLOW_PX = 250  # yellow pixels left of a badge that mean a gold ore icon
@@ -253,6 +260,13 @@ def statue_badges(frame: np.ndarray) -> list[tuple[int, int]]:
         yellow = ((near[..., 0] >= 15) & (near[..., 0] <= 35) & (near[..., 1] > 120) & (near[..., 2] > 150)).sum()
         if yellow < ORE_YELLOW_PX:
             out.append((bx - 4, by + 5))
+    # A Lost Statue's ready mark is tan, not red (run 35, Verdantglade XII): its icon sits below-left of the mark.
+    from ..vision import area_map
+    x, y, w, h = area_map.MAP_AREA
+    lx, ly, lw, lh = area_map.LEGEND
+    for bx, by in find_tan_bangs(frame, [x, y, w, h]):
+        if not (lx <= bx <= lx + lw and ly <= by <= ly + lh):
+            out.append((bx - 10, by + 10))
     return out
 
 
@@ -482,6 +496,7 @@ class Roamer:
 
     def bless_once(self, attempt: int, near_xy=None) -> str:
         """One try at the ready statue nearest us: "blessed", "miss" (no card, or not the statue's), or "no_statue"."""
+        LAST_BADGE.clear()
         why = goto.go_to(self.dev, self.det, nearest_badge)
         progress(("bless_walk", why, attempt))
         if why in ("not_on_map", "no_target"):
@@ -499,6 +514,10 @@ class Roamer:
                 self.walk_toward(near_xy)
                 frame = self.dev.screenshot()
                 point = statue_on_screen(frame, player_on_screen(self.det, frame))
+            if point is None and not near_xy and LAST_BADGE.get("off"):
+                # No spot in the tree (the statue's card was never read): head the way the area map showed it,
+                # a few taps, looking for its red "!" after each (run 35, XII: the camera came back on us).
+                point = self.walk_toward_badge(LAST_BADGE["off"])
             if point is None:
                 log.info("bless try %d: we stand at the screen centre and no red \"!\" shows beside us: not "
                          "tapping ourselves", attempt)
@@ -521,6 +540,25 @@ class Roamer:
             log.warning("bless try %d: Unlock pressed but no blessing popup followed: not counted", attempt)
             return "miss"
         return "blessed"
+
+    def walk_toward_badge(self, off, hops: int = 4) -> Optional[tuple[int, int]]:
+        """Walk the area map's direction (off: px from our dot to the statue) by 3-tile taps until the statue's red
+        "!" shows beside us; its tap point, or None."""
+        cx, cy = goto.SCREEN_CENTRE
+        n = max(1.0, (off[0] ** 2 + off[1] ** 2) ** 0.5)
+        point = (int(cx + off[0] / n * 3 * WALK_TILE_PX), int(cy + off[1] / n * 3 * WALK_TILE_PX))
+        for i in range(hops):
+            log.info("bless: walking toward the statue's direction on the area map (%d of %d)", i + 1, hops)
+            before = goto.coords(self.det)
+            self.dev.tap(*mapnav.off_me(self.det, point))
+            time.sleep(4)
+            frame = self.dev.screenshot()
+            found = statue_on_screen(frame, player_on_screen(self.det, frame))
+            if found:
+                return found
+            if goto.coords(self.det) == before:
+                return None
+        return None
 
     def walk_toward(self, target, hops: int = 10) -> None:
         """Walk to map coordinates by screen taps up to 3 tiles at a time toward them (x grows east, y north), until
