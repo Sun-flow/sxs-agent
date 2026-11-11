@@ -20,6 +20,7 @@
                 "State.ConfirmDialog",
                 "State.DungeonFloor",
                 "State.Puzzle",
+                "State.LorePage",
                 "State.TowerResult",
                 "State.TowerList",
                 "State.TowerFloors",
@@ -388,6 +389,19 @@
             270,
             560,
             150
+        ],
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "State.LorePage": {
+        "doc": "A lore page opened by a structure on the map (seen 2026-11-11, run 27, Bubble Lake: title 'Tale of the Blight Witch I' top left, a long block of story text, a down chevron at the bottom, no back arrow; scrolled to the end it shows a 'Close' button at about (360, 1104)). Swipe up until Close shows and press it. Images: docs/screens/dialogs/dialogue_lore_tale_of_the_blight_witch.png, docs/screens/dialogs/dialogue_lore_page_close.png.",
+        "recognition": "OCR",
+        "expected": "^(Tale|Legend|Chronicle|Saga|Ballad|Song|Record|Diary|Journal) of ",
+        "roi": [
+            20,
+            20,
+            560,
+            100
         ],
         "pre_delay": 0,
         "post_delay": 0

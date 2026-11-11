@@ -47,6 +47,8 @@ log = logging.getLogger("sxs.loops.clear")
 STALL_LEGS = 4  # legs in a row with no % and no object cleared before the run stops (no_progress)
 BIG_MAP_LEGS = 12  # big-map legs per run (each ~20-30 s)
 NO_PCT_DONE_FROM = 90  # % a zone must have reached before its label showing no % line counts toward explored
+LORE_SWIPES = 8  # swipes up a lore page before giving up on its Close button
+LORE_CLOSE_ROI = [160, 900, 400, 340]  # where Close shows at the end of a lore page (about (360, 1104))
 FRONTIER_LEGS = 6  # frontier legs per run: fog matters only when it hides objects (3 ran short in Grotto Peninsula)
 FOG_REVEALED = 0.05  # drop in the fog share round the frontier spot, before the walk to after, that counts as revealed
 RING_MISSES = 2  # ring legs in a row without a gain before the ring waits for another source's gain
@@ -590,6 +592,14 @@ class Clearer:
             progress(("battle", d.text or "", int(time.monotonic() // 20)))
         elif pass_through(dev, d):
             pass  # dialogue
+        elif d.state == "lore_page":
+            # Live 2026-11-11 (run 27, Bubble Lake): a structure opened "Tale of the Blight Witch I", a story page
+            # with no back arrow; its Close button shows only once scrolled to the end. Reading it is the object.
+            if self.close_lore():
+                self.event("cleared")
+            else:
+                log.warning("lore page: no Close after %d swipes; frame %s", LORE_SWIPES, save_unknown(dev, "lore"))
+                return "unknown_screen"
         elif d.state == "puzzle":
             # Live 2026-11-11 (run 24, Grotto Peninsula): a minimap leg walked onto the Ancient Fortress gate and its
             # "Energy Circuits" slab puzzle opened (unknown_screen then). Puzzles are skipped for now (R-153): back
@@ -658,6 +668,18 @@ class Clearer:
         else:
             return self.card()
         return None
+
+    def close_lore(self) -> bool:
+        """Swipe a lore page up until its Close button shows, then press it. True if it closed."""
+        for i in range(LORE_SWIPES + 1):
+            close = [b for t, b in self.det.read_text(LORE_CLOSE_ROI) if re.fullmatch(r"\s*Close\s*", t)]
+            if close:
+                log.info("lore page: Close after %d swipes", i)
+                ui.tap(self.dev, ui.centre(close[0]), 2)
+                return True
+            self.dev.swipe(360, 1000, 360, 300, 500)
+            time.sleep(1)
+        return False
 
     def dialogue_choice(self) -> Optional[str]:
         """A lone option: press it (mae). A puzzle NPC (Fonik, R-153): take Leave and note the puzzle; skip the spot.
