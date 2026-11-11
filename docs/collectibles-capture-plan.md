@@ -22,20 +22,48 @@ From the rules (R-002, R-066, R-106, R-108, R-109, R-122, R-124, R-131) and the 
 
 Never touched for this: Golden Beetles, anything with a spend button (policy.md never-do list).
 
-## Classes: a proposal for mae
+## Classes: two tiers (mae, 2026-11-11 18:35)
 
-`resource/detect/classes.json` has no class for a collectible on the island map (only `monster`, `npc_alert`,
-`player_character`, `tracker_box` in group world, and `badge_gold_ring` for the tracking ring). Two options, both
-append-only:
+mae wants one broad class for exploration ("is it collectible?") and the exact kind when farming ("where is the
+ore?"), with stamina-costing objects told apart from free ones.
 
-1. **One class, catalogue field (recommended).** Append `world_collectible` (group world, kind region). A box
-   carries `collectible`, an id from a new `resource/world/collectibles.json` (id, name, look, cost, where seen),
-   the same way `item_icon` carries `item`. The export can then train one class per collectible, per group (ore,
-   plant, pickup, chest), or one class for all, as `--items` does today. New kinds never need a class change.
-2. **One class per kind.** Append `world_ore_node`, `world_plant_node`, `world_pickup`, `world_chest`. Simpler to
-   read, but every new kind is a new class.
+**Roboflow constraint.** An object-detection box has exactly one class; Roboflow has no nested classes, and its tags
+are per image, not per box. But a dataset version can merge or drop classes when it is generated ("Modify Classes"),
+and our own export already does the same (`--items each|group|one`). So two tiers are possible: **label the fine
+kind once, train the fine classes, and let the bot (or a merged dataset version) roll them up.** "Any collectible" is
+then just "any box whose class is in the collectible table": no second model, no extra labeling.
 
-Nothing is appended until mae picks.
+**Design (proposed, append-only):**
+
+1. `resource/detect/classes.json`: append `world_collectible` (group world, kind region), and the statue objects
+   (below). A box of class `world_collectible` carries `collectible`, an id from a new catalogue
+   `resource/world/collectibles.json`, the way `item_icon` carries `item`.
+2. `collectibles.json`, one entry per kind: `{id, name, family, cost, look, seen}`.
+   - `family`: `ore`, `sand`, `essence`, `rolla`, `plant`, `pickup`, `chest`, `special`.
+   - `cost`: `free` or `stamina`. The same art can be both (ore rocks are free in an unexplored zone, 5 stamina in
+     a blessed one), so `cost` is set per box when it differs, from what the frame shows.
+3. The stamina label. Stamina-costing objects show a "⚡5" label over them (`resource/image/explore/stamina_cost_5.png`,
+   R-108). Append a class `stamina_cost` for that label. This is what tells "costs stamina" apart from "free" for every
+   kind, including essence: an essence fight is a monster with a stamina label (to confirm on a blessed zone's
+   monster), so the model does not need to learn every monster type as "essence". Essence = `monster` box +
+   `stamina_cost` box above it; ore for stamina = `world_collectible/ore` + `stamina_cost` above it.
+4. Export modes (`python -m sxs dataset --collectibles each|family|one`, to build): `each` trains one class per kind
+   (`wc_ore_rock`, ...), `family` one per family, `one` a single `world_collectible`. First training: `family`, since
+   each class needs about 50 boxes on 20 screens and families get there first; switch to `each` once kinds have the
+   data.
+5. Runtime: exploration asks for any box in the collectible table (any family, any cost) and skips those with a
+   `stamina_cost` box over them in blessed zones (R-065); the stamina loop asks for family `ore` (or `sand`,
+   `rolla`, essence monsters) *with* a `stamina_cost` box.
+
+**Statues (mae: very important).** Coverage today: 0 boxes on any statue. Only 2 `map_statue_bang` boxes (the blue
+"!" badge on the area map), 0 `card_goddess_statue`, and no class for the statue itself on the island map. Reference
+screens that show one: 6 statue cards (now drafted as `card_goddess_statue`, for mae to confirm), 1 Lost Goddess
+Statue on the island map (`world/lost_goddess_statue_auroradrasil_mae.png`), 2 area maps with statue icons, 1
+blessing popup. Proposed: append `world_goddess_statue` and `world_lost_statue` (group world, kind region): the
+large and the small statue look different and give different rewards (R-070), so they get separate classes; the
+blessed and unblessed looks stay one class each. The capture session adds statues (below).
+
+Nothing is appended to classes.json until mae says yes to this design.
 
 ## How a sequence is captured
 
@@ -65,6 +93,8 @@ name, for `seq_` screens (today it hashes each file, and `balanced_splits` moves
 | 3 | Flower Harvest bellflowers (free picks) | 4 | 0 |
 | 4 | Resource Hunt ore (Verdantglade II mine), above the 70 keep line only (R-107) | 4 | 20 |
 | 5 | Any chest, blue-aura or green-timer node met on the way | as met | 0 |
+| 6 | Statues: walk to each Goddess and Lost Goddess Statue in reach (blessed ones in done zones, an unblessed one when a zone is at 100%), burst the approach and the card | 6+ (3 of each kind) | 0 |
+| 7 | Stamina-costing forms, in blessed zones, while above 150 stamina and never below 70: ore, sand, Rolla nodes, and a monster fight for essence; one burst each, frames show the "⚡5" label | 8 (2 per resource) | about 40 |
 
 That is about 20 sequences, about 100 picked frames, and at least 3 sequences per kind across 2 zones. The target for
 a first training is 50 boxes on 20 screens per class, so ore, plant and pickup each need about 2 sessions; later
@@ -91,6 +121,7 @@ template (`resource/image/explore/stamina_cost_5.png`) and the tracking ring fin
 
 ## What mae decides
 
-1. Option 1 or 2 for the classes.
-2. A time for the 40-minute capture session (the builder thread runs it; the coordinator asks).
-3. Whether to build the pre-roll buffer next.
+1. ~~Option 1 or 2~~: two tiers, `world_collectible` + kind (mae, 18:35). Still to confirm: the class names above
+   (`world_collectible`, `stamina_cost`, `world_goddess_statue`, `world_lost_statue`).
+2. A time for the capture session (the builder thread runs it; the coordinator asks).
+3. ~~Pre-roll buffer~~: yes (mae, 18:35); shorten it if the frames bloat.
