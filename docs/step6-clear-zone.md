@@ -57,7 +57,7 @@ leg count and the %, not the coordinates, so a run that only walks gets stopped.
 - New: `sxs/actions/mapnav.py`, the helpers worth keeping from `fogwalk.py`: zone check (R-140), quest ring and
   tracker counter (with the 1X -> IX fix), object taps, Gate of Elements, Lucky Wheel, HUD and own-character
   keep-outs, the big-map nearest-object picker, and a new frontier picker.
-- Deleted: `sxs/loops/fogwalk.py` and the `fogwalk` command; fog-edge tap points, fog leads and shaded-tile goals
+- Deleted: `fogwalk.py` (in `sxs/loops/`) and the `fogwalk` command; fog-edge tap points, fog leads and shaded-tile goals
   in `sxs/vision/minimap.py`; the new-tile watchdog.
 - `sxs/loops/roam.py` calls `clear.run` per zone. When every zone in reach is blessed it ends
   `exploration_concluded` instead of a last fog walk. Zone entry stays as it is (the tree's known way in first, then

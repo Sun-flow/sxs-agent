@@ -1,7 +1,12 @@
 # Session Log
 
-> **Last updated**: 2026-11-10
+> **Last updated**: 2026-11-11
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
+
+### 2026-11-11 · Fog Walk scrapped, Clear Zone built (Claude Code, cloud)
+- mae (2026-11-10 23:48): the fog-walk idea "has been poisoning our navigation"; scrap it. Post-mortem from the exploration thread: `docs/fogwalk-postmortem.md` (new-tile progress let it hop 1-3 tiles for minutes; run 13: 62 hops vs 4 object legs, all % from objects).
+- Built on `claude/project-thread-e1kt6z`: design `docs/step6-clear-zone.md`, flowchart `docs/loops/clear.md`; `sxs/loops/clear.py` (legs with named objectives, progress = % or objects, `no_objective`/`no_progress` stops, per-leg readout); `sxs/actions/mapnav.py` (helpers kept from fogwalk.py); `area_map.frontier` (revealed ground beside the zone's biggest fog patch); `sxs/loops/fogwalk.py`, `docs/loops/fogwalk.md`, minimap fog leads deleted; roam calls `clear.run` and no longer sweeps leftover fog; `scripts/tap_trace.py` traces clear. Rules R-065, R-130, R-146, R-150 rewritten. Also fixed: the vj9wvt merge had folded the Lucky Wheel spin into the Gate of Elements branch.
+- Open: live test by the exploration thread; tune the frontier thresholds on live area maps; `--farm` dropped (farming is Gather's job).
 
 ### 2026-11-10 · Item symbol survey on the emulator (Claude Code, mae's PC)
 - Took the emulator from the exploration builder (~06:30Z) and read item info cards across menus (list and card gotchas in `docs/screens/items/README.md`). Catalogue now 78 items, all real items popup-read; 3 Material Realm use buttons as kind `usage` (mae: label them); every sighting boxed as `item_icon` in labels.json; Cart Claim All, Enhance and Advance boxed. Branch `claude/project-thread-6juae0` (wuht8i / PR #51 merged in).
@@ -94,11 +99,3 @@
 ### 2026-11-09 · Screen labeling UI (Claude Code, cloud)
 - mae asked for a simple UI to tag screenshots by clicking areas, so the bot can learn to recognise them. New `python -m sxs labeler` (`sxs/labeler/`, stdlib HTTP server + one HTML page, 127.0.0.1 only): screens list (bank first), drag boxes, name and kind (button/text/icon/badge/region), note, "save crop as template"; screen name/folder/state/what. Saves to `docs/screens/labels.json`, crops to `resource/image/labels/<screen>/<box>.png` + manifest (`sxs/core/labels.py`), bank rows or `expected.json`; "File labelled screens" runs `label`, which now moves boxes and crops with the screen. `sxs/vision/labels.py` finds a boxed crop on a frame (`python -m sxs see labels`). `tests/check_labeler.py`.
 - Open: not run on mae's PC yet; no boxes drawn yet.
-
-### 2026-11-09 · Zone borders, location tree, closer-zoom map survey, Cart unlock (Claude Code, mae's PC via Remote Control, offline only)
-- Branch `claude/project-thread-sesbe9` (off main d1d7339). No live run: the new code needs one (ask mae first).
-- R-132 before the crossing: `minimap.border_mask/border_tiles` find the dotted zone line on the minimap (1-2 px light grey, S < 40, V 105-200, straight runs of 12+ px with green on both sides; icon edges dropped). Border tiles are walls for `path_to_nearest` unless `cross_border`; the fog walk allows crossing only while standing outside the zone it was sent to (walking in from roam's neighbour). Tuned on `world/explore_bellflower_picked.png` (passage east of the player) and four border-free frames.
-- Location tree `resource/world/zones.json` + `sxs/policy/zones.py` (`python -m sxs zones`): zones with kingdom, CP, %, blessed, map point, way in (`entry`), failed neighbours by day; links walked / map_adjacent / inside; open questions (Jungle Camp's entry first). Seeded from status and rules. Roam's `pick` uses `Tree.next_zone` (the zone we stand in first while unfinished, else lowest-CP unexplored in reach), `approach` ranks neighbours by the tree, and walks record entries that worked or failed; the fog walk records every zone change it sees.
-- Area-map survey: full zoom-out then one "+" (682, 795), and a 3x3 grid of slow 300 px pans stitched by phase correlation; readings merged by name (a label with no room under it for its % line is `unsure`, not finished). Ready statues are tied to their zone and blessed by walking there, then to the badge nearest us.
-- Cart (R-137): `CartUpgrader.unlock_rows` presses any row's exact "Unlock" before upgrading; any cost or spend word on a confirmation backs out with needs_decision.
-- New `tests/check_zones.py`. Open: everything above is unwatched live (survey pan size and the "+" position are guesses from one reference screen; whether the map remembers its zoom; map-adjacency distance 330 px); the world-view border labels ("Troll Lair 17K") are not read yet.

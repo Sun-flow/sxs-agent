@@ -92,7 +92,7 @@ When weighing a fight or challenge, accept monsters with up to 25% more CP (powe
 ## Fantasia Ascent (tower)
 
 ### R-079 · Fantasia Ascent: one climb a day, Auto Challenge on, never Retry
-- Daily step `fantasia_ascent` (`sxs/loops/tower.py`, run date in `logs/daily.json`); the explore loop can call it too and gets control back. Explore and Fog Walk check the day's tower mark before climbing; if today's climb already ran, explore leaves the tower and ends with `tower_done_today` (the quest waits for tomorrow; PR #45). One climb a day; **never retry a tower loss** (mae).
+- Daily step `fantasia_ascent` (`sxs/loops/tower.py`, run date in `logs/daily.json`); the explore loop can call it too and gets control back. Explore and Clear Zone check the day's tower mark before climbing; if today's climb already ran, explore leaves the tower and ends with `tower_done_today` (the quest waits for tomorrow; PR #45). One climb a day; **never retry a tower loss** (mae).
 - Route: Journal, Fantasia Ascent (R-094). Or quest "Into the Moon's Shadow I" Go, then OK (0.68, 0.57) on "Return to Home to challenge the Fantasia Ascent?".
 - `tower_list` (cards "Current: Fn/110") -> `tower_floors` (F1 at bottom; Goals tab may be badged, R-063; recommended power, Challenge (0.85, 0.86)) -> prep (15 rounds) -> `tower_result`.
 - VICTORY: Clear Rewards (ores, Worn Knuckles), Continue (0.77, 0.95) goes to the next floor's prep. DEFEAT: Retry in the same spot: **never press it**.
