@@ -2,6 +2,7 @@
 training), with mae's account name blacked out (docs/detector-design.md, step 3).
 
     python -m sxs dataset [--out DIR] [--drafts] [--include-private] [--minimap both|crop|full] [--items each|group|one]
+                          [--collectibles family|each|one]
                           [--zip]
 
 Reads docs/screens/labels.json (boxes with a detector class; drafts only with --drafts) and writes:
@@ -22,6 +23,11 @@ catalogued item becomes its own class, item_<id>, numbered after the fixed class
 model names the symbol (mae, 2026-11-10); a box without an item id stays item_icon. --items one keeps them all as
 item_icon (the runtime then names them by matching the catalogue crops); --items group makes one class per material
 type (the item's group, else its kind), a coarser model to compare against.
+
+World collectibles (class world_collectible with a "collectible" id from resource/world/collectibles.json, mae
+2026-11-11): --collectibles family (default) makes one class per family (wc_resource_hunt, wc_misc, wc_chest,
+wc_pickup), each one per kind (wc_ore_rock, ...), one keeps world_collectible. The bot rolls kinds up to families
+and to "any collectible" from the catalogue, so one model serves exploring and farming.
 
 Privacy (nothing here may identify mae or other players): the HUD name strip is blacked out on every frame, and
 with SXS_ACCOUNT_NAME set (an environment variable, never committed) every OCR line that reads as that name, such
@@ -140,7 +146,7 @@ def yolo_line(cls_id: int, box: dict, ox: int, oy: int, scale: float, W: int, H:
 
 def export(out: Path, drafts: bool = False, include_private: bool = False, name: Optional[str] = None,
            name_ocr: bool = True, det=None, minimap: str = "both", items: str = "each",
-           balance: bool = True) -> dict:
+           balance: bool = True, collectibles: str = "family") -> dict:
     """Write the dataset. `det` (a StateDetector) reads each frame for name lines when name_ocr is on.
     Returns a summary: images and boxes per split, boxes per class, screens skipped and why."""
     classes = labels.classes()
@@ -154,12 +160,24 @@ def export(out: Path, drafts: bool = False, include_private: bool = False, name:
     else:
         label = {}
     classes = classes + [{"name": n, "group": "items"} for n in dict.fromkeys(label.values())]
+    from . import collectibles as world
+
+    wcat = world.load()["collectibles"]
+    if collectibles == "each":  # one class per collectible kind, after the item classes, in catalogue order
+        wlabel = {c["id"]: f"wc_{c['id']}" for c in wcat}
+    elif collectibles == "family":  # one class per family (resource_hunt, misc, chest, pickup)
+        wlabel = {c["id"]: f"wc_{c['family']}" for c in wcat}
+    else:
+        wlabel = {}
+    classes = classes + [{"name": n, "group": "world"} for n in dict.fromkeys(wlabel.values())]
     ids = {c["name"]: i for i, c in enumerate(classes)}
 
     def cid(b: dict) -> int:
         item = catalogue.resolve(b.get("item") or "")
         if b["cls"] == "item_icon" and item in label:
             return ids[label[item]]
+        if b["cls"] == "world_collectible" and b.get("collectible") in wlabel:
+            return ids[wlabel[b["collectible"]]]
         return ids[b["cls"]]
 
     mini = {c["name"] for c in classes if c["group"] == "minimap"}
@@ -237,6 +255,9 @@ def main(argv: list[str]) -> int:
                    help="where minimap boxes go: an enlarged crop, the full frame, or both (default)")
     p.add_argument("--items", choices=("each", "group", "one"), default="each",
                    help="item symbols: one class per item (default), per material type (group), or all item_icon")
+    p.add_argument("--collectibles", choices=("each", "family", "one"), default="family",
+                   help="world collectibles: one class per family (default), per kind (each), or all "
+                        "world_collectible")
     p.add_argument("--hash-split", action="store_true",
                    help="plain 80/10/10 hash split (default: also move screens so each class on 3+ screens is in "
                         "valid and test)")
@@ -253,7 +274,8 @@ def main(argv: list[str]) -> int:
         from ..core.state import StateDetector
 
         det = StateDetector(ImageDevice())
-    s = export(args.out, args.drafts, args.include_private, name or None, not args.no_name_ocr, det, args.minimap, args.items, not args.hash_split)
+    s = export(args.out, args.drafts, args.include_private, name or None, not args.no_name_ocr, det, args.minimap, args.items, not args.hash_split,
+               args.collectibles)
     for split, _ in SPLITS:
         print(f"{split}: {s['images'][split]} image(s), {s['boxes'][split]} box(es)")
     print("by class: " + (", ".join(f"{c} {n}" for c, n in sorted(s["classes"].items())) or "none"))

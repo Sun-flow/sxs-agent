@@ -47,7 +47,7 @@ then just "any box whose class is in the collectible table": no second model, no
    kind, including essence: an essence fight is a monster with a stamina label (to confirm on a blessed zone's
    monster), so the model does not need to learn every monster type as "essence". Essence = `monster` box +
    `stamina_cost` box above it; ore for stamina = `world_collectible/ore` + `stamina_cost` above it.
-4. Export modes (`python -m sxs dataset --collectibles each|family|one`, to build): `each` trains one class per kind
+4. Export modes (`python -m sxs dataset --collectibles each|family|one`, built): `each` trains one class per kind
    (`wc_ore_rock`, ...), `family` one per family, `one` a single `world_collectible`. First training: `family`, since
    each class needs about 50 boxes on 20 screens and families get there first; switch to `each` once kinds have the
    data.
@@ -63,7 +63,14 @@ blessing popup. Proposed: append `world_goddess_statue` and `world_lost_statue` 
 large and the small statue look different and give different rewards (R-070), so they get separate classes; the
 blessed and unblessed looks stay one class each. The capture session adds statues (below).
 
-Nothing is appended to classes.json until mae says yes to this design.
+**Built (mae said yes, 2026-11-11 22:58).** The four classes are appended to classes.json; the catalogue is
+`resource/world/collectibles.json` (`sxs/detect/collectibles.py`) with families `resource_hunt` (ore rock, sand
+node, Rolla node: the Journal Resource Hunt targets), `misc` (Bellflower now; mae: recipe resources that crop up now
+and then, many more to come as we explore), `chest`, `pickup`. Essence is not a collectible kind: mae confirmed the
+"stamina 5" board is a monster fight, which any monster can give once its zone is blessed, so it is boxed as
+`monster` plus `stamina_cost`. The labeler shows a "which collectible?" menu and a cost menu on `world_collectible`
+boxes, and the Category menu filters by collectible kind or family. `python -m sxs dataset --collectibles
+family|each|one` (default family).
 
 ## How a sequence is captured
 
@@ -103,13 +110,19 @@ sessions add other zones and lighting (shadow, and blessed zones, whose colours 
 Live-run rules: the readout rule (post command, goal, target and stop condition before, readouts about every 2
 minutes, a [Result] at the end), never spend Dawnium, never tap Golden Beetles, keep 70 stamina.
 
-## Making it automatic (the system, not a person)
+## Making it automatic (built 2026-11-11)
 
 Hand-run bursts are only the first batch. The loops already take a frame every step, so the lasting fix is a
 pre-roll buffer: the fog walk and the gather collector keep their last 12 frames, and when a pickup or reward popup
 appears they save the buffer as a `seq_` sequence (R-131 already asks for a reference of every collectible met).
-Every exploration run then adds training data with no extra emulator time. Build offline next; live test at an
-approved time.
+Every exploration run then adds training data with no extra emulator time.
+
+Built as `sxs/core/preroll.py`: every screenshot goes into a 12-frame buffer (`SXS_PREROLL`, 0 turns it off); the
+R-131 moments (`sxs/vision/collectibles.save`: a monster fight starting, an interactable's card in Clear Zone) and
+each gather pickup save it to `captures/sequences/seq_<kind>_<what>_<area>_<time>/` (one per event per 20 s), and
+writing stops at `SXS_PREROLL_MAX_MB` (500 MB) so a long run cannot fill the disk. Not run live yet: the first
+approved run shows how big the sequences get. Not covered yet: a stamina drop with no fight or pickup (mae: report
+it with a pre-roll of the cause); that needs a stamina read in Clear Zone, which belongs to that thread.
 
 ## Labeling sequences
 
@@ -121,7 +134,6 @@ template (`resource/image/explore/stamina_cost_5.png`) and the tracking ring fin
 
 ## What mae decides
 
-1. ~~Option 1 or 2~~: two tiers, `world_collectible` + kind (mae, 18:35). Still to confirm: the class names above
-   (`world_collectible`, `stamina_cost`, `world_goddess_statue`, `world_lost_statue`).
+1. ~~Classes~~: two tiers, `world_collectible` + kind (mae, 18:35); the four class names approved (22:58).
 2. A time for the capture session (the builder thread runs it; the coordinator asks).
-3. ~~Pre-roll buffer~~: yes (mae, 18:35); shorten it if the frames bloat.
+3. ~~Pre-roll buffer~~: yes (mae, 18:35), built; shorten it (`SXS_PREROLL`) if the frames bloat.

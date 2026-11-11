@@ -10,6 +10,7 @@ Needs Pillow, OpenCV and numpy; no MaaFramework, no emulator. Works in a temp co
 from __future__ import annotations
 
 import sys
+import json
 import tempfile
 from pathlib import Path
 
@@ -19,6 +20,8 @@ import cv2  # noqa: E402
 import numpy as np  # noqa: E402
 
 from sxs.core import labels, screens  # noqa: E402
+from sxs.detect import collectibles as world  # noqa: E402
+REAL_WORLD = world.FILE
 from sxs.detect import dataset, items, prelabel  # noqa: E402
 from sxs.vision import minimap as mm  # noqa: E402
 
@@ -40,6 +43,7 @@ def point_at(tmp: Path) -> None:
     screens.EXPECTED_FILE = shots / "expected.json"
     items.ITEMS_DIR = tmp / "items"
     items.ITEMS_FILE, items.ICONS = items.ITEMS_DIR / "items.json", items.ITEMS_DIR / "icons"
+    world.FILE = tmp / "world" / "collectibles.json"
 
 
 def check_splits() -> None:
@@ -145,7 +149,66 @@ def check_map_drafter() -> None:
     check([b["x"] for b in merged] == [400], "a draft mae removed before is not drafted again")
 
 
+def check_collectibles() -> None:
+    """Two-tier world collectibles (mae, 2026-11-11): one box, exported per family, per kind or as one class."""
+    real = json.loads(REAL_WORLD.read_text(encoding="utf-8"))
+    fams = set(real["families"])
+    check(all(c["family"] in fams and c["cost"] in world.COSTS for c in real["collectibles"])
+          and len({c["id"] for c in real["collectibles"]}) == len(real["collectibles"]),
+          f"collectible catalogue: {len(real['collectibles'])} kinds, families and costs valid, ids unique")
+    names = [c["name"] for c in labels.classes()]
+    check(all(n in names for n in ("world_collectible", "stamina_cost", "world_goddess_statue", "world_lost_statue")),
+          "the four world classes are in classes.json")
+    with tempfile.TemporaryDirectory() as t:
+        tmp = Path(t)
+        point_at(tmp)
+        world.FILE.parent.mkdir(parents=True)
+        world.FILE.write_text(json.dumps(real), encoding="utf-8")
+        (tmp / "screens" / "world").mkdir(parents=True)
+        cv2.imwrite(str(tmp / "screens" / "world" / "world_ore.png"), np.full((1280, 720, 3), 90, np.uint8))
+        screens.save_expected({"states": {"world_ore": "world_map"}, "notes": {}})
+        probs = labels.set_boxes("world/world_ore.png", [
+            {"name": "rock", "kind": "region", "x": 300, "y": 600, "w": 80, "h": 60, "cls": "world_collectible",
+             "collectible": "ore_rock", "cost": "free"},
+            {"name": "board", "kind": "badge", "x": 320, "y": 560, "w": 40, "h": 30, "cls": "stamina_cost"},
+            {"name": "bad", "kind": "region", "x": 10, "y": 600, "w": 80, "h": 60, "cls": "world_collectible",
+             "collectible": "no_such_thing"}], (720, 1280))
+        got = {b["name"]: b for b in labels.boxes_for("world/world_ore.png")}
+        check(got["rock"].get("collectible") == "ore_rock" and got["rock"].get("cost") == "free" and len(probs) == 1
+              and "collectible" not in got["bad"], "a box keeps its collectible and cost; an unknown kind is dropped")
+        # the "bad" box (kind dropped) stays plain world_collectible in every mode
+        for mode, want, n in (("family", "wc_resource_hunt", 1), ("each", "wc_ore_rock", 1),
+                              ("one", "world_collectible", 2)):
+            s = dataset.export(tmp / f"ds_{mode}", name_ocr=False, collectibles=mode)
+            check(s["classes"].get(want) == n, f"--collectibles {mode}: the ore rock exports as {want}")
+
+
+def check_preroll() -> None:
+    """Pre-roll buffer (mae, 2026-11-11): the last frames are saved as one sequence per event, capped."""
+    import os
+
+    from sxs.core import preroll
+
+    with tempfile.TemporaryDirectory() as t:
+        out = Path(t)
+        preroll.clear()
+        for i in range(preroll._frames.maxlen + 3):
+            preroll.push(np.full((64, 36, 3), i, np.uint8))
+        f = preroll.save("monster", "Boar", "Verdantglade II", out=out)
+        files = sorted(p.name for p in f.glob("*.png")) if f else []
+        meta = json.loads((f / "frames.json").read_text()) if f else {}
+        check(f is not None and len(files) == preroll._frames.maxlen and meta.get("preroll") is True
+              and f.name.startswith("seq_monster_boar_verdantglade_ii_"),
+              f"pre-roll saves the last {preroll._frames.maxlen} frames as seq_<kind>_<what>_<area>_<time>")
+        check(preroll.save("monster", "Boar", "Verdantglade II", out=out) is None, "the same event is saved once")
+        os.environ["SXS_PREROLL_MAX_MB"] = "0"
+        check(preroll.save("chest", "Chest", "x", out=out) is None, "nothing is written past the size cap")
+        del os.environ["SXS_PREROLL_MAX_MB"]
+        preroll.clear()
+
+
 def main() -> int:
+    check_preroll()
     check_map_drafter()
     check_items()
     check_splits()
@@ -228,6 +291,7 @@ def main() -> int:
         lab2 = (tmp / "ds2" / split / "labels" / "world_world_test.txt").read_text()
         check(f"{ids['mm_item']} " not in lab2, "minimap=crop keeps minimap boxes off the full frame")
 
+    check_collectibles()  # last: it points the modules at a temp folder
     print("all good" if not problems else f"{len(problems)} problem(s)")
     return 1 if problems else 0
 

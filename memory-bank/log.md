@@ -3,6 +3,11 @@
 > **Last updated**: 2026-11-10
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
 
+### 2026-11-11 (evening) · World collectible classes and pre-roll buffer (Claude Code, cloud)
+- mae approved two tiers (world_collectible + kind), the four class names, the pre-roll buffer; bellflower goes in a "misc" family; ore is a Resource Hunt target; the "stamina 5" board is a monster fight (essence) any monster gives once a zone is blessed.
+- Built on PR #67: classes appended (ids 44-47 before #69's map_portal; whichever merges second renumbers), `resource/world/collectibles.json`, `collectible`/`cost` box fields, labeler menus and filter, `dataset --collectibles family|each|one`, `sxs/core/preroll.py` hooked into Device.screenshot, collectibles.save and gather pickups.
+- Open: a stamina-drop pre-roll needs a stamina read in Clear Zone (that thread); first live run sizes the sequences.
+
 ### 2026-11-11 · Big-map survey diagnosis and design (Claude Code, cloud)
 - mae: the bot scans the big map several times in a row; wanted the fog-walk treatment. Read mae's PC run logs (roam vii_r4, run2-17; clear run15-22): roam surveyed after each Clear Zone run and again at the loop top seconds later (35-43 s each); every survey panned 8 times for blocked/given-up zones (182 pans thrown away); clear's `map_pct` re-read roam's survey; three label readers disagreed (run22 Grotto: no % line vs 63%). Plain walk openings are cheap (3-4 s).
 - `docs/big-map-survey.md` (PR #61): caller table, causes, design. mae's decisions (06:49): survey zoom only to see which zones exist, walking never needs a full survey, small surveys (glances) fine, 1 min / 10 min reuse limits, one full panned survey per day. Strengthening thread's one-glance-per-leg suggestions folded in.
@@ -79,10 +84,3 @@
 - mae asked how screen checks work and whether a Roboflow/YOLO UI detector would help. New `docs/vision-upgrade.md`. Measured offline (cloud CPU, reference screens): a check is up to 52 OCR nodes in sequence, ~60-110 ms each and 330-560 ms for the big ROIs (MainMenu, TapToContinue, ClassPage); world map ~2.8 s, unknown ~5.5 s, late pages ~7 s; template nodes 3-11 ms; all 53 sampled screens correct. 14 nodes OCR the same title strip.
 - Proposal for mae to approve: a bench command on her PC, shared title/tab strip reads, last-state-first with an overlay guard, unchanged-frame skip, foreground check only on unknown, tighter big ROIs, try DirectML. Detector (YOLO26n or Apache RF-DETR Nano via MaaFramework `NeuralNetworkDetect`) is stage 3-5: for finding cards, buttons, map icons, our marker, label boxes; not for %/CP text or minimap dots.
 - Open: mae's approval of Part 1; numbers on her PC.
-
-### 2026-11-10 · Explore diagram review (Claude Code, cloud)
-- mae regrouped the explore loop's per-screen diagram into handler groups (world map, tower and battle prep, pass-through and dialogue, cards and unknown screens, profile, home) with one shared return and grouped exits. Adopted in `docs/loops/explore.md` with fixes: exit groups declared first (otherwise Mermaid leaves them empty), "Step 1 ·" labels (Mermaid 11 draws "1. " as "Unsupported markdown: list"), groups named as handlers, not loops, the PR #46 guard step, and the missing battle-prep edge.
-- Code gaps listed under the diagram and as open-questions Q16-Q19: explore fights under 70% after two heal tries (use `start_fight`), two quest-ring followers (R-142, share one), "1. " labels on other pages. Code structure already mirrors the groups (one `_on_<screen>` per group); no reorganisation needed. Docs only, no code changed.
-- mae (00:55): remove R-141; overarching routines may switch loops (she only meant: don't change task focus without asking). Sent to the docs thread, which owns #46.
-- mae (00:56): the name under the minimap is the most accurate zone source; R-140 must not forbid it (sent to the docs thread; Q17 settled, no change).
-- R-150 (mae 02:35, rule on #46): new-zone entry step added to `docs/loops/fogwalk.md` and `explore.md` (find the entrance on the big map, centre the camera, walk to ground beside fog outward from it); marked as being built.

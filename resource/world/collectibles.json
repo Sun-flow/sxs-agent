@@ -1,0 +1,73 @@
+{
+ "doc": "World collectibles (docs/collectibles-capture-plan.md, mae 2026-11-11): the kinds a world_collectible box can be. Append only (the order sets class ids in the export). family: resource_hunt (Journal > Map Exploration > Resource Hunt targets: ore, sand, Rolla), misc (flowers and other recipe resources that crop up now and then; many will be added as we explore), chest, pickup (a ground item behind a green dot). cost: free or stamina by default; a box can override it with its own \"cost\" when the frame shows otherwise. Battle Essence is not a collectible: it comes from a monster fight marked by a stamina_cost board in a blessed zone (box the monster as monster and the board as stamina_cost).",
+ "families": [
+  "resource_hunt",
+  "misc",
+  "chest",
+  "pickup"
+ ],
+ "collectibles": [
+  {
+   "id": "ore_rock",
+   "name": "Ore rock",
+   "family": "resource_hunt",
+   "resource": "ore",
+   "cost": "stamina",
+   "look": "grey rocks with blue crystals, a stamina 5 board over them",
+   "seen": [
+    "world/explore_ore_rocks.png",
+    "world/explore_ore_rocks_near.png"
+   ]
+  },
+  {
+   "id": "sand_node",
+   "name": "Sand node",
+   "family": "resource_hunt",
+   "resource": "sand",
+   "cost": "stamina",
+   "look": "not captured yet",
+   "seen": []
+  },
+  {
+   "id": "rolla_node",
+   "name": "Rolla node",
+   "family": "resource_hunt",
+   "resource": "rolla",
+   "cost": "stamina",
+   "look": "not captured yet",
+   "seen": []
+  },
+  {
+   "id": "bellflower",
+   "name": "Bellflower",
+   "family": "misc",
+   "resource": "bellflower",
+   "cost": "free",
+   "look": "bell-shaped flowers in the Verdantglade Flower Harvest field",
+   "seen": [
+    "world/explore_bellflower_field.png",
+    "world/item_bellflower.png"
+   ]
+  },
+  {
+   "id": "chest",
+   "name": "Chest",
+   "family": "chest",
+   "resource": "",
+   "cost": "free",
+   "look": "a chest on the ground; walking onto it opens it",
+   "seen": [
+    "world/world_map_tile_puzzle_chests.png"
+   ]
+  },
+  {
+   "id": "ground_pickup",
+   "name": "Ground pickup",
+   "family": "pickup",
+   "resource": "",
+   "cost": "free",
+   "look": "an item on the ground behind a green minimap dot; rarer ones glow blue (R-122)",
+   "seen": []
+  }
+ ]
+}

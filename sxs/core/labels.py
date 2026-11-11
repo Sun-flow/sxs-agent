@@ -10,7 +10,9 @@ box is for: a button to tap, text to read with OCR, an icon or badge to match, o
 
 For the UI detector (docs/detector-design.md) a box can also carry "cls", one of the detector classes in
 resource/detect/classes.json, and "draft": true when the pre-labeller drew it and mae has not confirmed it yet.
-A box of class item_icon can also carry "item", an id from the item catalogue (resource/items/items.json).
+A box of class item_icon can also carry "item", an id from the item catalogue (resource/items/items.json); a box
+of class world_collectible can carry "collectible", an id from resource/world/collectibles.json, and "cost"
+(free or stamina) when it differs from that kind's default.
 Only boxes with a cls go into a training dataset (`python -m sxs dataset`); drafts only when asked.
 
 docs/screens/rejected.json remembers the drafts mae removed ({"screens": {key: [{"cls", "item", "x", "y", "w",
@@ -101,6 +103,17 @@ def clean_boxes(boxes: list, size: tuple[int, int]) -> tuple[list[dict], list[st
         if item and (cls != "item_icon" or item not in item_ids()):
             problems.append(f"box {name}: item {item!r} is not in resource/items/items.json")
             item = ""
+        coll = str(b.get("collectible") or "").strip()
+        if coll:
+            from ..detect import collectibles as world
+
+            if cls != "world_collectible" or coll not in world.ids():
+                problems.append(f"box {name}: collectible {coll!r} is not in resource/world/collectibles.json")
+                coll = ""
+        cost = str(b.get("cost") or "").strip() if coll else ""
+        if cost and cost not in ("free", "stamina"):
+            problems.append(f"box {name}: cost {cost!r} must be free or stamina")
+            cost = ""
         seen.add(name)
         box = {"name": name, "kind": kind, "x": x0, "y": y0, "w": x1 - x0, "h": y1 - y0,
                "note": str(b.get("note", "")).strip(), "template": bool(b.get("template"))}
@@ -108,6 +121,10 @@ def clean_boxes(boxes: list, size: tuple[int, int]) -> tuple[list[dict], list[st
             box["cls"] = cls
         if item:
             box["item"] = item
+        if coll:
+            box["collectible"] = coll
+        if cost:
+            box["cost"] = cost
         if b.get("draft"):
             box["draft"] = True
         out.append(box)

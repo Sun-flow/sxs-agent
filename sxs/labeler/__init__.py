@@ -82,12 +82,20 @@ def _items() -> list[dict]:
     return items.load()["items"]
 
 
+def _collectibles() -> list[dict]:
+    from ..detect import collectibles as world
+
+    return [{"id": c["id"], "name": c.get("name", ""), "family": c["family"], "cost": c.get("cost", "")}
+            for c in world.load()["collectibles"]]
+
+
 def _item_groups() -> dict:
     return {i["id"]: i.get("group", "") for i in _items()}
 
 
 def matches(box: dict, category: str, groups: dict, item_groups: dict) -> bool:
-    """Category strings: "c:<class>", "g:<class group>", "i:<item id>", "ig:<item group>"; "" matches all."""
+    """Category strings: "c:<class>", "g:<class group>", "i:<item id>", "ig:<item group>", "w:<collectible id>",
+    "wf:<collectible family>"; "" matches all."""
     if not category:
         return True
     kind, _, value = category.partition(":")
@@ -100,6 +108,12 @@ def matches(box: dict, category: str, groups: dict, item_groups: dict) -> bool:
         return cls == "item_icon" and box.get("item") == value
     if kind == "ig":
         return cls == "item_icon" and item_groups.get(box.get("item", "")) == value
+    if kind == "w":
+        return cls == "world_collectible" and box.get("collectible") == value
+    if kind == "wf":
+        from ..detect import collectibles as world
+
+        return cls == "world_collectible" and world.family(box.get("collectible", "")) == value
     return False
 
 
@@ -149,6 +163,9 @@ def apply_review(decisions: list[dict]) -> dict:
                     b["item"] = d["item"]
                 elif d["cls"] != "item_icon":
                     b.pop("item", None)
+                if d["cls"] != "world_collectible":
+                    b.pop("collectible", None)
+                    b.pop("cost", None)
                 if old_cls and old_cls != d["cls"]:  # the old class was wrong here: don't draft it again
                     removed.append(dict(b, cls=old_cls))
             else:
@@ -166,7 +183,8 @@ def list_screens() -> list[dict]:
     stored = labels.load()["screens"]
     boxed = {k: len(v.get("boxes", [])) for k, v in stored.items()}
     drafts = {k: sum(1 for b in v.get("boxes", []) if b.get("draft")) for k, v in stored.items()}
-    tags = {k: [[b.get("cls", ""), b.get("item", ""), bool(b.get("draft"))] for b in v.get("boxes", [])]
+    tags = {k: [[b.get("cls", ""), b.get("item", ""), bool(b.get("draft")), b.get("collectible", "")]
+                for b in v.get("boxes", [])]
             for k, v in stored.items()}
     out = []
     for p in sorted(SCREENS.rglob("*.png")):
@@ -251,7 +269,8 @@ class Handler(BaseHTTPRequestHandler):
                 self._json({"screens": list_screens(), "states": _known_states(), "kinds": labels.KINDS,
                             "template_kinds": labels.TEMPLATE_KINDS, "classes": labels.classes(),
                             "items": [{"id": i["id"], "name": i.get("name", ""), "group": i.get("group", "")}
-                                      for i in _items()]})
+                                      for i in _items()],
+                            "collectibles": _collectibles()})
             elif url.path == "/api/review":
                 q = parse_qs(url.query)
                 self._json(review_list(q.get("category", [""])[0], q.get("drafts", ["0"])[0] == "1"))

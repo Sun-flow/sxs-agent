@@ -89,7 +89,11 @@ class Device:
     def screenshot(self) -> np.ndarray:
         """Return the current frame as a BGR array, 720x1280x3."""
         self.controller.post_screencap().wait()
-        return self.controller.cached_image
+        frame = self.controller.cached_image
+        from . import preroll
+
+        preroll.push(frame)  # the last frames, saved when a loop collects or fights something (core/preroll.py)
+        return frame
 
     def tap(self, x: int, y: int) -> None:
         self.controller.post_click(x, y).wait()
