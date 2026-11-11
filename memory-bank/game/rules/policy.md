@@ -30,7 +30,7 @@ Read before pressing any button that might spend, and on any class, social, acco
 - **Retry on the Fantasia Ascent DEFEAT screen**, or tick Auto Challenge there (R-079).
 - **Spend stamina while exploring**: in explored, blessed areas, respawned monsters and most interactables cost stamina; don't tap them (even on a reference-crop match) unless a loop is deliberately farming, e.g. battle essence for skills (mae) (R-065, R-131).
 - **Change the character's appearance**: never press Complete on Carol's Reshape (costs a Shapeshifting Mirror); the look is mae's choice (R-134).
-- **Answer story dialogue that offers choices and no Leave**: stop with `needs_decision`, save the screen, ask mae (R-164).
+- **Answer story dialogue that offers two or more choices and no Leave**: stop with `needs_decision`, save the screen, ask mae (R-164). A single option is always pressed (R-171).
 - **Pick a "Choose Your Reward" option when both are valid**: ask mae; only a lone Class Mismatch lets the bot take the other (R-129).
 - **Decide the player's zone from assumptions about the surroundings**: read the minimap name first, then the big map's player indicator (mae) (R-140). **Walk label-to-label between zones**: leave by the way you came in (R-068).
 - **Tap on fog** as an exploration target, or hop toward it tile by tile: a frontier leg walks to revealed ground beside it via the big map (mae) (R-146, R-130).

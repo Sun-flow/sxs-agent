@@ -33,7 +33,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 
 ## Adding or changing a rule
 
-- New rule: next free ID (**next free: R-171**), under the right `##` heading of the right file, plus a row in the ID index below.
+- New rule: next free ID (**next free: R-172**), under the right `##` heading of the right file, plus a row in the ID index below.
 - Never reuse or renumber an ID. When merging a rule into another, delete it, add it to the retired table, and repoint citations.
 - Run `python3 scripts/check-rules.py`: it checks that every cited ID resolves, retired IDs aren't cited, every file is listed here, and image paths exist.
 
@@ -183,6 +183,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-168 | `home.md` | Mailbox (the owl): Claim All daily, never Delete Read |
 | R-169 | `home.md` | Item bag: open Treasure Chest items, leave gifts, ask on a choose-one box |
 | R-170 | `home.md` | Tap the little things around Home for small resources |
+| R-171 | `ui.md` | Story dialogue with a single option: always press it |
 
 ## Retired IDs
 
