@@ -10,6 +10,7 @@ Design notes, one per plan step. The code is the source of truth; these explain 
 | `step4-dailies.md` | `sxs.loops.daily` steps and routes |
 | `step5-upgrades.md` | Upgrade Loop and Gather Loop |
 | `step6-clear-zone.md` | Clear Zone: goal-directed exploration (every leg a named objective, progress = % or objects), which replaced the Fog Walk |
+| `big-map-survey.md` | Why the big map is surveyed again and again (every caller, measured costs) and the shared-survey design proposed to replace the repeats (2026-11-11, for mae's review) |
 | `loops/` | Diagrams of every loop: goal, step order, checks, sub-loops, what it does on each screen; `loops/open-questions.md` lists where code and rules disagree (index `loops/README.md`) |
 | `interrupts.md` | How a loop is paused for a tutorial, reward choice or popup and resumed (the interrupt table) |
 | `function-check.md` | What each loop does, how to run it, what it reports, whether it has run live |
