@@ -206,6 +206,7 @@ def merge_readings(readings: list, bottom: int = 1185) -> list[Area]:
     return out
 
 
+WALK_TILE_PX = 104  # one map tile on the island screen
 BLESS_TRIES = 2  # walks to a ready statue before giving up on it this survey
 STATUE_SCREEN_PX = 320  # a red "!" this far from the screen centre after the walk can be the statue's
 STATUE_BADGE_DY = 60  # the statue's body sits this far below its red "!"
@@ -454,7 +455,7 @@ class Roamer:
             self.tree.link_neighbours_by_map(kingdom)
         self.tree.save()
 
-    def bless_ready(self, zones: list[str]) -> int:
+    def bless_ready(self, zones: list[str], near_xy=None) -> int:
         """mae, 2026-11-05: a statue with a red "!" on the area map is ready. Walk to the badge nearest us the big-map
         way, open the statue and Unlock it through the card rules. Blessed only when the card was a Goddess Statue,
         its Unlock was pressed and a reward popup followed (live 2026-11-11, run 26: the walk ended with our character
@@ -467,7 +468,7 @@ class Roamer:
             log.info("statue ready to bless (near the %s label)", name)
             progress(("bless", name))
             for attempt in range(1, BLESS_TRIES + 1):
-                result = self.bless_once(attempt)
+                result = self.bless_once(attempt, near_xy)
                 if result == "blessed":
                     self.tree.mark_blessed(name)
                     self.tree.save()
@@ -479,7 +480,7 @@ class Roamer:
                     break
         return done
 
-    def bless_once(self, attempt: int) -> str:
+    def bless_once(self, attempt: int, near_xy=None) -> str:
         """One try at the ready statue nearest us: "blessed", "miss" (no card, or not the statue's), or "no_statue"."""
         why = goto.go_to(self.dev, self.det, nearest_badge)
         progress(("bless_walk", why, attempt))
@@ -491,6 +492,13 @@ class Roamer:
         point = goto.SCREEN_CENTRE
         if me and abs(me[0] - cx) <= goto.ME_AT_CENTRE_PX and abs(me[1] - cy) <= goto.ME_AT_CENTRE_PX:
             point = statue_on_screen(frame, me)
+            if point is None and near_xy:
+                # Live 2026-11-11 (run 32, XI): the big-map walk left the camera on us 16 tiles from the statue,
+                # whose map coordinates the location tree had (its not-ready card was read earlier). Walk there.
+                log.info("bless try %d: no statue beside us; walking toward its known spot %s", attempt, near_xy)
+                self.walk_toward(near_xy)
+                frame = self.dev.screenshot()
+                point = statue_on_screen(frame, player_on_screen(self.det, frame))
             if point is None:
                 log.info("bless try %d: we stand at the screen centre and no red \"!\" shows beside us: not "
                          "tapping ourselves", attempt)
@@ -513,6 +521,31 @@ class Roamer:
             log.warning("bless try %d: Unlock pressed but no blessing popup followed: not counted", attempt)
             return "miss"
         return "blessed"
+
+    def walk_toward(self, target, hops: int = 10) -> None:
+        """Walk to map coordinates by screen taps up to 3 tiles at a time toward them (x grows east, y north), until
+        within 2 tiles, or a tap moves us no more."""
+        cx, cy = goto.SCREEN_CENTRE
+        for _ in range(hops):
+            xy = goto.coords(self.det)
+            if xy is None:
+                return
+            dx, dy = target[0] - xy[0], target[1] - xy[1]
+            if max(abs(dx), abs(dy)) <= 2:
+                return
+            step = lambda d: max(-3, min(3, d))  # noqa: E731
+            point = (cx + step(dx) * WALK_TILE_PX, cy - step(dy) * WALK_TILE_PX)
+            self.dev.tap(*mapnav.off_me(self.det, point))
+            last, until = xy, time.monotonic() + 12
+            while time.monotonic() < until:
+                time.sleep(1.5)
+                now = goto.coords(self.det)
+                if now is None or now == last:
+                    break
+                last = now
+            if last == xy:
+                log.info("walk toward %s: a tap from %s moved us no more", target, xy)
+                return
 
     def pick(self, areas: list[Area], power: Optional[float], here: str = "") -> tuple[Optional[Area], Optional[Area]]:
         """(next area to explore, first area behind a power wall), by the location tree (`Tree.next_zone`):

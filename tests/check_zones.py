@@ -74,6 +74,29 @@ check("our own red ! is not a statue (an NPC's may be: a miss)", own is None or 
 check("the tracker panel's gift ! is not a statue",
       roam.statue_on_screen(cv2.imread(str(SHOTS / "world_map_boss_beaten.png")), (360, 720)), None)
 
+# walk_toward: taps step up to 3 tiles toward the target (x east, y north) until within 2 tiles.
+pos = [94, 52]
+taps = []
+
+
+class Dev:
+    def tap(self, x, y):
+        taps.append((x, y))
+        pos[0] += max(-3, min(3, round((x - 360) / 104)))
+        pos[1] -= max(-3, min(3, round((y - 640) / 104)))
+
+
+saved = roam.goto.coords, roam.mapnav.off_me, roam.time.sleep
+roam.goto.coords = lambda det: tuple(pos)
+roam.mapnav.off_me = lambda det, p, frame=None: p
+roam.time.sleep = lambda s: None
+r = roam.Roamer.__new__(roam.Roamer)
+r.dev, r.det = Dev(), None
+r.walk_toward((78, 62))
+check("walking to a statue 16 tiles west and 10 north ends beside it", max(abs(pos[0] - 78), abs(pos[1] - 62)) <= 2, True)
+check("the first tap goes up-left (west and north)", taps[0][0] < 360 and taps[0][1] < 640, True)
+roam.goto.coords, roam.mapnav.off_me, roam.time.sleep = saved
+
 with tempfile.TemporaryDirectory() as d:
     t2 = Tree.load()
     t2.path = Path(d) / "zones.json"

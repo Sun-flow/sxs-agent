@@ -878,7 +878,10 @@ class Clearer:
         # now (R-070: free, +1 Blessing Level) the way roam does: the ready badge nearest us on the big map.
         from .roam import Roamer  # roam imports this module
         time.sleep(2)
-        n = Roamer(self.dev, self.det).bless_ready([self.home])
+        k = self.tree.key(self.home or "")
+        spot = next((o["xy"] for o in ((self.tree.zones[k].get("objectives") or []) if k else [])
+                     if re.search(r"Goddess Statue", o.get("title", ""))), None)  # where its card was read
+        n = Roamer(self.dev, self.det).bless_ready([self.home], near_xy=spot)
         log.info("%s: %s", self.home, "statue blessed" if n else "statue not blessed (no ready badge, or the tries above missed)")
         return "zone_done"
 
