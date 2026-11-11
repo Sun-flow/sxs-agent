@@ -41,10 +41,26 @@ The non-quest exploration loop (mae; the quest-progression loop is settled):
 4. Then exploration is concluded for now (the last sweep for leftover fog-walk ground went with the fog walk, 2026-11-10).
 Next by this order (2026-11-05): Jungle Camp (12.6K). Ways in: from Verdantglade III at about (142, 84) and from Drasilgard at about (138, 84) (builder, 2026-11-10; in the location tree). Live 0 → 93%, then the free Lucky Wheel spin (R-147, R-148) took it to 100%; blessed 2026-11-10. When objects run out, Clear Zone tries up to 3 frontier legs (R-130), then stops `no_objective`. Its Lost Goddess Statue (orange Ψ-like map icon) gives Home EXP +1% and Home Raw Ore +1%.
 Code: `python -m sxs roam` picks the zone with `Tree.next_zone` from the location tree (`resource/world/zones.json`, `sxs/policy/zones.py`, `python -m sxs zones`; zones with no power line read go last). Zones never read on the big map (e.g. Sunrise Isle) rank last; a zone with no entrance and no known way in is skipped with a named reason, never wandered to (run 9 lesson, R-150). The tree holds each zone's kingdom, CP, %, blessed, map point and way in, and records Jungle Camp's missing entry as an open question. Roam blesses a statue when its area-map "!" lights (R-070), and ends with `exploration_concluded`.
-- Big-map reads (2026-11-10): Grotto Peninsula 23K, Rabbit Vault and Stagnant Jungle, all 0%. Troll Lair's label overlaps Verdantglade IV's, and three no-% readings once flipped it to 100% (reset to 42%) ❓. Sunrise Isle has never been read.
+- Big-map reads (2026-11-10): Grotto Peninsula 23K, Rabbit Vault and Stagnant Jungle, all 0%. Troll Lair's label overlaps Verdantglade IV's, and it was really 100%: zoom in before trusting a reading (R-160). Sunrise Isle has never been read.
 - Direction (mae, 2026-11-10 04:44): alternate main-quest areas (the next Explore quest, Verdantglade VII) with side areas (Zephyr Vale, Monolith Ruins I, Troll Lair and others); side areas cause more trouble, so log every issue as it comes up.
 - Verdantglade VII (23.6K) explored and blessed 2026-11-10; statue at (102, 113); its Portal activated. VII borders Monolith Ruins II at about (88–91, 106–107) (the minimap name lost its last "I", "Monolith Ruins I .", so it was first logged as Monolith Ruins I). New zones read: Verdantglade VIII 27K (main quest; reached from Drasilgard near (129, 100)), Leafy Corridor 25.5K, Monolith Ruins II (no CP shown; puzzle, R-153).
 *told* · R-065, R-070, R-076, R-127, R-130, R-132
+
+### R-163 · Zone facts, 2026-11-10 evening: VIII, Monolith Ruins I, Bubble Lake, new zones
+- Verdantglade VIII's way in is from VII's south edge at (102, 110), past a monster group on the dotted line (beating it gave +13%); VIII's east side under Drasilgard is cliffs and forest.
+- Monolith Ruins I is reached from Verdantglade V at (151, 122) east to (155, 119): a forest strip with three blue-lit stone pedestals (a light puzzle, skipped, R-153).
+- Bubble Lake (new, south-west of VIII) is behind a Gate of Power 30.5K at (109, 83) (R-086).
+- Leafy Corridor is all fog with no known way in (likely through Bubble Lake or Monolith Ruins II).
+- New zones on the map: Hurricane Heights (island south-west of Leafy Corridor; the story's next stop; the Journal's "Daily Events" unlock there), Stone Ruins II, Monolith Ruins V, Verdantglade IX 30K (south of VIII).
+- Verdantglade VIII, Troll Lair and Zephyr Vale are 100% and blessed; Blessing Level 9; Cart Stone and Wood Lv 9 (Lv 10 needs Blessing 10, R-136).
+*observed* · R-086, R-135, R-136, R-153
+
+### R-174 · Blight Witch lore objects: visit them; expect a curse, then Quick Heal
+- A hooded stone statue (Bubble Lake, about (95, 80); a gold "building" on the minimap) opens the lore page "Tale of the Blight Witch I" (R-173). After Close, "Tap to Continue" shows a curse card, "Cutting Words": max HP -100%, and Witch's Curse ATK -50% for one battle (builder, run 27, 2026-11-11).
+- Then the badly-wounded Confirm appears with an Akane tutorial overlay ("Uh-oh! You got cursed!...") and a two-option choice ("Are you serious?" / "No big deal!"). mae (2026-11-11): this choice is flavour only; pick either option, no need to stop.
+- Code: flavour rulings like this live in resource/policy/dialogue_choices.json (Clear Zone, #60): one entry per ruling with "match", "pick" and "why". Add an entry whenever mae calls a choice flavour, and note it in the rule.
+- Visit them like any other object (mae, 2026-11-11): they are part of exploration, the debuff is accepted, and they can give great value. Afterwards Quick Heal (R-138) before the next fight. Unknown: whether the object counts toward the zone %.
+*observed, told* · `dialogs/dialogue_blight_witch_curse_cutting_words.png`, `dialogs/tutorial_cursed_akane_quick_heal.png`, `dialogs/dialogue_choice_bubble_lake_cursed.png` · R-173, R-164, R-030
 
 ### R-142 · While exploring, follow the zone's own Explore quest
 - The zone's own Explore quest in the tracker ("Explore Verdantglade V") is the best goal source while exploring (live, Verdantglade V 78% → 100%, 2026-11-09).
@@ -163,6 +179,11 @@ At home, tapping the tracker for a quest elsewhere asks "Travel to <Area> now?";
 - A 100% area with a red "!" probably has its statue waiting ❓. Sunrise Isle is at the bottom right of the Verdantglade map; its % isn't read ❓.
 *observed* · `world/world_area_map.png`, `world/area_map_lv22.png`, `world/area_map_survey_zoom.png`, `world/area_map_legend_overlap.png`, `icons/area_map_chest.png` · node `area_map` · R-068, R-070, R-084, R-086
 
+### R-160 · A zone's % can hide under a neighbour's label: zoom in before trusting it
+- Troll Lair's "17K / Exploration 100%" sits under the Verdantglade IV label on the area map, and OCR read it as "rolLall". Zoom the area map in before trusting a missing or stale reading (Troll Lair read as 42% while it was 100%) (builder, 2026-11-10).
+- Its Lost Goddess Statue (red "!") was ready to bless the whole time (R-070).
+*observed* · node `area_map` · R-070, R-076, R-135, R-140
+
 ## Power walls and gates
 
 ### R-084 · A recommended power far above yours is a wall: stop exploring there
@@ -179,12 +200,21 @@ A stone pillar card "Gate of Power": "Requires: Power reaches 15.5K (Current: 8.
 - Damp Woods: an area-map walk to its label from Verdantglade II lands at about (184, 86), a fogged pocket with a stone mini-dungeon, ore baskets, a statue and the 15.5K gate. Behind it: ore baskets, a glowing crystal and a duck-shaped item, free to tap; they finish Damp Woods. The minimap barely shows them under shadow, so the bot can't find them from it yet ❓.
 *observed* · `world/gate_of_power.png`, `world/gate_of_power_open.png` · R-065, R-070, R-084
 
+### R-159 · Gate of Elements: open it with companions' affinity
+- A "Gate of Wind" (one of the Gates of Elements) card reads "Requires Total <Element> Affinity reaches N (Current: 0)" and has 4 friend slots. Affinity comes from relics (not unlocked yet) or from up to 3 helpers (builder, 2026-11-10).
+- The NPC companions Akane, Qin and Killian carry Wind Affinity 101 each.
+- Steps: tap a "+" slot to open the picker (tabs Friends / Guild / Companion along the bottom; Companion at about (608, 1216)), tick a companion's circle (first row about (626, 230)), press OK (360, 1104); the card then shows Open: press it. Free; a social feature (R-057).
+- Seen: Zephyr Vale's way in at (153, 109).
+- Code: `fogwalk.elemental_gate` (moves with the exploration redesign).
+*observed* · `world/world_gate_of_wind.png`, `world/world_gate_of_wind_ready.png`, `world/world_gate_of_elements_info.png`, `unlabeled/social_gate_friends_picker.png`, `unlabeled/social_gate_companions_picker.png` · R-057, R-086
+
 ### R-145 · Sealed Stone Gate: a rank-gated gate between zones; press the free Unlock
 - A gold "!" structure on Verdantglade V's north edge at about (135, 126) is the way from Verdantglade V into Verdantglade VI. It is **not** V's Goddess Statue (that is a separate gold statue, R-070).
 - Card: "This stone gate is sealed tight. To unlock, you need: Reach the Apprentice II rank (current: Apprentice II)", with a free Unlock button once the rank is met. Press Unlock (card rule `sealed_gate`, `resource/policy/cards.json`); it is free, not a spend. Short of the rank there is no button: dismiss.
 - Unlocked live 2026-11-10 about 03:32; Explore Verdantglade VI went 0 → 3%.
 - Another gate sits near (142, 149) on the Wildbloom Coast / Verdantglade VI side, where the minimap reads Verdantglade VI.
-*observed* · R-030, R-070, R-086, R-150
+- The gate between Verdantglade XI and XII needs Apprentice III; free Unlock as above (builder, run 27, 2026-11-11). New zones seen past it: Amber Gorge 44K, Gorge Camp 38K, Damp Coast.
+*observed* · `world/world_sealed_stone_gate_xi_apprentice_iii.png` · R-030, R-070, R-086, R-150, R-118
 
 ## Map objects and statues
 
@@ -223,6 +253,11 @@ Tapping a map object (e.g. a Portal) opens a card with one button at (0.5, 0.70)
 ### R-144 · "Statue of <name>": press Visit
 A "Statue of <name>" card (e.g. Statue of Lunar Sage in Verdantglade V) has a free Visit: it gives a permanent stat boost (Lunar Sage: HP +170), heals fully and counts toward exploration. Always press Visit. The card shows "daily visit attempts". On the area map these statues carry a blue "!" and count toward exploration % (R-148). Policy: `resource/policy/cards.json` (match "Statue of ...").
 *observed* · R-030, R-042, R-070, R-148
+
+### R-161 · A statue that isn't ready doesn't put its spot off limits
+- A statue card that isn't ready (zone below 100%) is not a reason to avoid its spot: the last pickups often sit right beside it. Zephyr Vale: a chest, a Destiny Fruit and an ore pile next to the statue took it from 66% to 100% (builder, 2026-11-10).
+- Pickups beside the player are collected by tapping them directly (R-155).
+*observed* · R-030, R-070, R-155
 
 ### R-149 · "Rankings" structure: back out, press nothing
 A map structure opens a "Rankings" card. It has nothing for the bot: back out and press nothing (builder, 2026-11-10).

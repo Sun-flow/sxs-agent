@@ -33,7 +33,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 
 ## Adding or changing a rule
 
-- New rule: next free ID (**next free: R-159**), under the right `##` heading of the right file, plus a row in the ID index below.
+- New rule: next free ID (**next free: R-175**), under the right `##` heading of the right file, plus a row in the ID index below.
 - Never reuse or renumber an ID. When merging a rule into another, delete it, add it to the retired table, and repoint citations.
 - Run `python3 scripts/check-rules.py`: it checks that every cited ID resolves, retired IDs aren't cited, every file is listed here, and image paths exist.
 
@@ -131,7 +131,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-115 | `upgrades.md` | Ascend a badged skill with its own shards |
 | R-116 | `ui.md` | Claim every lit Goals tab with the claim-goals task |
 | R-117 | `upgrades.md` | Level classes with Class Badges; never Change Class |
-| R-118 | `upgrades.md` | Rank Advancement raises the level cap |
+| R-118 | `upgrades.md` | Rank Advancement raises the level cap; at the cap it comes first (mae) |
 | R-119 | `upgrades.md` | Activate Gear Resonance each time a band completes |
 | R-120 | `economy.md` | Molly's Vendor Booth: claim only the free Vault stamina |
 | R-121 | `economy.md` | Mall: claim the free gift boxes, never a pack |
@@ -171,6 +171,22 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-156 | `combat.md` | Monster group cards: Challenge when the power fits |
 | R-157 | `economy.md` | Timed Packs popups are paid: dismiss with a tap below the card |
 | R-158 | `ui.md` | Walk taps keep out of the HUD; stray taps open cards to close |
+| R-159 | `overworld.md` | Gate of Elements: open it with companions' affinity |
+| R-160 | `overworld.md` | A zone's % can hide under a neighbour's label: zoom in before trusting it |
+| R-161 | `overworld.md` | A statue that isn't ready doesn't put its spot off limits |
+| R-162 | `quests.md` | Tracker OCR reads IX as "1X": normalise before comparing zone names |
+| R-163 | `overworld.md` | Zone facts, 2026-11-10 evening: VIII, Monolith Ruins I, Bubble Lake, new zones |
+| R-164 | `ui.md` | Story dialogue with choices and no Leave: stop, save the screen, ask mae |
+| R-165 | `home.md` | Dismantle in the Alchemy Pot is safe: use it for ore |
+| R-166 | `home.md` | Locked furniture: tap the crate, not the "Open" marker; Unlock is free |
+| R-167 | `home.md` | Aeonic Gacha: draw x10 whenever a full 10x pull is affordable (badges and tickets only) |
+| R-168 | `home.md` | Mailbox (the owl): Claim All daily, never Delete Read |
+| R-169 | `home.md` | Item bag: open Treasure Chest items, leave gifts, ask on a choose-one box |
+| R-170 | `home.md` | Tap the little things around Home for small resources |
+| R-171 | `ui.md` | Story dialogue with a single option: always press it |
+| R-172 | `home.md` | Workbench: activate new relics; Enhance with Chrono Sand, never Replace |
+| R-173 | `ui.md` | Lore pages: swipe to the end, then Close |
+| R-174 | `overworld.md` | Blight Witch lore objects: visit them; expect a curse, then Quick Heal |
 
 ## Retired IDs
 
