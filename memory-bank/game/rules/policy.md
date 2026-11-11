@@ -42,7 +42,7 @@ Read before pressing any button that might spend, and on any class, social, acco
 - **Vendor Booth Vault "Free" x30 Stamina**: once a day, only if OCR reads exactly "Free" (mae) (R-120).
 - **Mall free gift boxes** (top-left box with "!"), once per refresh, nothing else on the page (mae) (R-121).
 - **Free card buttons**: safe verbs on map-object cards (R-030; a map card's "Pray" is not the Prayer gacha), Gate of Power "Open" (R-086), free Explore/Challenge on mini-dungeon and gate cards (R-071, R-082), free travel OK (R-089), claims behind red "!" (R-063).
-- **Upgrades with soft currency or materials**: gear enhancement (Rolla, ore), techniques (Battle Essence), ascension (shards), class badges; rank advancement only when Advance shows "!" and with free materials (R-118).
+- **Upgrades with soft currency or materials**: gear enhancement (Rolla, ore), techniques (Battle Essence), ascension (shards), class badges; rank advancement only when Advance shows "!" and with free materials (R-118). **Auto-combine on material shortage**: always allowed, in any menu that has it (mae, 2026-11-11 18:15); a combine prompt with a spend word (Dawnium, a price) is still refused (R-172).
 - **Stamina** above the 70 reserve (R-107); mining with free Iron Hammers (R-095).
 *told* · R-042, R-093, R-103, R-120
 

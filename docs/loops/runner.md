@@ -41,6 +41,26 @@ flowchart TD
 - A loop that never calls `progress(...)` ends at its first budget. Loops that report progress: explore and clear
   (Heartbeat), gather (pickups), roam (statues), cart, upgrade, tower floors, mall pages, gear swaps.
 
+## Swipe fallback: `Device.pan`
+
+After a game restart on 2026-11-11, MaaFramework's swipe stopped panning Home while `adb shell input swipe` still
+worked. Camera pans on Home (Cart, Vendor Booth, bed, gacha and Workbench sweeps) now go through
+`Device.pan(x1, y1, x2, y2, ms)`:
+
+```mermaid
+flowchart LR
+    P(["pan"]) --> SW["swipe (MaaFramework, or adb once switched)"] --> M{"Scene band (y 260-940)<br/>changed? (frames_moved)"}
+    M -->|yes| T(["True"])
+    M -->|"no, already on adb"| F(["False: the scene's end"])
+    M -->|"no"| ADB["Same swipe via adb shell input swipe<br/>(device pixels, wm size)"] --> M2{"changed?"}
+    M2 -->|yes| SET["Every later swipe of this run goes through adb (logged once)"] --> T
+    M2 -->|no| F
+```
+
+A pan that moves nothing also tells a sweep it reached the scene's end, so `actions/home.find_on_home` turns round
+instead of spending the rest of its pans. Walk swipes and other gestures keep `Device.swipe`, which follows the
+switch once it is made. Checked offline in `tests/check_strengthen.py`.
+
 ## Interrupts: checked after every screen read
 
 Every `det.detect()` a loop makes goes through this table first, top row first. If a row matches, the loop waits

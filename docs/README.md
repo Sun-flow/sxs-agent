@@ -20,6 +20,7 @@ Design notes, one per plan step. The code is the source of truth; these explain 
 | `labeler-diagnosis.md` | Where the map mislabels came from (red text as monsters, zoom knob as Rolla), counts, and the single-category review: `prelabel --one`, category filter, review grid, rejected drafts |
 | `collectibles-capture-plan.md` | Training data for world collectibles: what they are, class options, burst capture of approach sequences, session plan, pre-roll buffer |
 | `home-tap-pass-plan.md` | Plan for the Home tap pass (R-170): where it fits in the dailies, detection, captures, tests; not built yet |
+| `strengthen-live-test-plan.md` | Live test steps for the gacha, relic, rank-first and swipe-fallback build: commands, expected readouts, stop conditions |
 | `shop-tables.md` | Shop stock and mae's Buy? marks |
 | `screens/` | Reference screenshots in folders by situation, `expected.json`, the `unlabeled/` bank; index in `screens/README.md` |
 | `archive/` | History only (old log entries), never instructions |

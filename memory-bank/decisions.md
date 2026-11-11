@@ -120,3 +120,15 @@ Entry format:
 - **Alternatives considered**: patching the fog walk (progress by %, ring first, longer frontier legs), as the exploration thread first proposed; rejected because mae asked for the approach to be replaced, not layered on.
 - **Status**: Accepted
 
+
+## 2026-11-11 · Strengthen order: rank first at the cap, then gacha and relics (mae)
+- **Decision**: `get_stronger` (strengthen, daily strengthen step, explore after losses) runs cart, rank, Aeonic Gacha, Workbench relics, gear swap, charms, Upgrade loop, each with its own time budget. Gacha draws only a full x10 (four readings must agree); relics enhance while the Enhance button's pip shows.
+- **Rationale**: mae 05:20 (rank first at the cap, R-118) and 05:22 (pull whenever a full x10 is affordable, R-167); gacha before relics so new relics get activated and enhanced in the same pass.
+- **Alternatives considered**: gacha and relics after the Upgrade loop (Rolla goes to gear first); rejected because the coordinator's brief and mae's rules put them right after rank.
+- **Status**: Accepted (built, not run live)
+
+## 2026-11-11 · Auto-combine always allowed; rank opened only on its bang or at the cap (mae, 18:15)
+- **Decision**: "Auto-combine on material shortage" is always allowed, in any menu that has it (relics enhance on the button's pip, even with a cost short; a combine prompt with a spend word is still refused). The rank step reads the Character screen's level and rank-badge corner and opens the rank page only on a red "!" or blue pip, at the cap, or within 3 levels of the cap to gather free materials early; then it advances at once.
+- **Rationale**: mae: auto-combine is "a great feature that many systems will use"; rank-up is predictable (bang on the badge, level cap), so checking the rank page every pass is wasted time.
+- **Alternatives considered**: opening the rank page every pass (the first build); dropping the near-cap look (then Bellflowers would only be gathered after the cap).
+- **Status**: Accepted (built, not run live)
