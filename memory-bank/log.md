@@ -3,6 +3,11 @@
 > **Last updated**: 2026-11-10
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
 
+### 2026-11-11 · Big-map portals (Claude Code, cloud)
+- mae (20:01): portals on the big map teleport you to areas where you activated them; a camera tap or drag that opens the portal of the zone we're heading to should press Teleport. Rule R-175 (R-152 now points to it).
+- Built (branch `claude/project-thread-csl1bt`): `area_map.portal_boxes()/portals()` (H 94-103 swirls, 40-400 px, max 24 px; portal blue is deeper than the statue badge: median S >= 172 vs 150-160), the same test stops `blue_badges` taking a portal with a label's letters on it for a statue badge; `goto.on_portal()` after every area-map tap and drag (Teleport into the target zone, else close; Activate is never pressed from the map); `go_to(zone)` taps a portal within 60 px of the target's label first when we are in another zone; `Teleport` added to the card button list (the portal card rule still only Activates). Class `map_portal` appended (id 44) and drafted by `prelabel`; mae's 4 crops in `docs/screens/icons/`. Checks in `tests/check_zones.py`.
+- Open: not run live (Teleport load time, where the card's close tap lands on the area map); class order vs #67's four new classes.
+
 ### 2026-11-11 · Labeler: map mislabels diagnosed, single-category review (Claude Code, cloud)
 - mae saw the zoom knob drafted as Rolla and red map words as monsters. Causes (`docs/labeler-diagnosis.md`): prelabel's own copy of the area-map reader lacked the bot's filters (24 of 39 monster drafts were text/badges/building bits); the item matcher ran over the map (knob = Rolla at 0.89); "Confirm all drafts" and forgotten removals let them through and back.
 - Built (branch `claude/project-thread-2oswgl`): drafter follows `area_map.objects()` (on mae's 7 area maps, drafts she removed 32 -> 4), no item drafts on maps, `docs/screens/rejected.json`, `prelabel --one CLASS`, labeler Category filter + review grid (Y/N/move, Apply), `capture NAME --burst N`. Plan: `docs/collectibles-capture-plan.md`.
@@ -93,9 +98,3 @@
 - Open: the statue-bless walk picked a point on our own position (VI's statue was off-screen below); Troll Lair keeps flipping to 100% from its overlapping label (reset to 42%).
 - Big-map speed (mae 02:15): survey pans only when a zone with work left isn't in view (was a 3x3 grid, 40-50 s); zone picker reads labels only when there's a candidate.
 - Open: Jungle Camp's last 7% not found (big-map walks picked a Drasilgard dot at (130,94); fog to the south/north-east not walked); Strengthen not rerun since the watchdog fix; Cart Lv 6 and weapon +25 not yet run (red ore in hand).
-
-### 2026-11-10 (morning) · Rules: puzzles, Golden Beetles, item symbols (Claude Code, cloud, docs thread)
-- #46 merged (rules through R-152, VI blessed batch). Fresh docs branch from main.
-- mae (06:25): never spend Golden Beetles; skip puzzle areas for now (Fonik box puzzle gating Monolith Ruins II); puzzle solvers later (new R-153, policy.md never-do).
-- mae (06:24): identify every unrecognized item or currency symbol through its info card and add it to the items and currency database, for the Roboflow detector (new R-154, playbook).
-- Folded the builder's branch `claude/project-thread-dloc9z` (runs 1–8, through ace956a) with its rules: Fonik's puzzle in Monolith Ruins II (R-153); objects start only from the next tile (new R-155); monster group cards fought within 1.25x (new R-156, Limpid Legion solved); Timed Packs paid popup closes with a tap below (new R-157); HUD keep-out for walk taps, never Replace a charm (new R-158); area-map edge targets dragged to the middle (R-068); one locate tap per missing ring (R-022); mini-dungeon battles waited out (R-071); VII blessed, Blessing 7 → 8 (R-070); glowing pot = Refined Ore (R-122); stamina mark confirmed (R-065); VII, VIII, Leafy Corridor, Monolith Ruins II (R-135); survey OCR and trailing numerals (R-140). Menu map: Timed Packs popup node; three node kinds fixed so the graph checks again. R-154 names the items database path.

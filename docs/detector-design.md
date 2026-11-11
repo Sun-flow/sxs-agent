@@ -15,7 +15,7 @@ One pass over a frame that returns boxes with a class and a score, wherever the 
 | cards | `card_chest`, `card_statue_visit`, `card_goddess_statue`, `card_sealed_gate`, `card_boulder`, `card_wheel`, `card_dungeon_gate`, `card_interact` | Which card is up, before the card rules |
 | buttons | `btn_primary`, `btn_close_x`, `btn_back_arrow`, `btn_tap_to_spin`, `btn_claim`, `btn_quick_heal`, `btn_price` (spend buttons, never tapped; mae 2026-11-10) | Where to tap |
 | badges | `badge_red_bang`, `badge_blue_pip`, `badge_gold_ring`, `badge_gift` | What needs attention |
-| area_map | `map_player`, `map_item`, `map_monster`, `map_building`, `map_statue_bang`, `map_chest`, `map_zone_label`, `map_pct_line` | Big-map targets; label boxes for clean OCR |
+| area_map | `map_player`, `map_item`, `map_monster`, `map_building`, `map_statue_bang`, `map_chest`, `map_zone_label`, `map_pct_line`, `map_portal` | Big-map targets; label boxes for clean OCR |
 | world | `player_character`, `monster`, `npc_alert`, `tracker_box` | Never tap ourselves; fights; NPCs |
 | minimap | `mm_item`, `mm_monster`, `mm_building`, `mm_icon` | Minimap objects (mae, 2026-11-10), see below |
 | screen | `anchor_minimap_ring`, `anchor_tab_bar`, `anchor_hud_portrait`, `anchor_battle_round`, `anchor_dialogue_box`, `anchor_popup_panel`, `anchor_page_title`, `anchor_area_map_legend` | Model-first screen checks, see below |

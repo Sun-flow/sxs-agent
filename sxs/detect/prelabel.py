@@ -94,6 +94,7 @@ def area_map_objects(frame: np.ndarray) -> list[dict]:
                    for px, py in points):
                 out.append(_pad(MAP_KINDS[kind], bx, by, bw, bh))
     out += [_point_box("map_statue_bang", (x, y - am.STATUE_BELOW)) for k, (x, y) in found if k == "statue"]
+    out += [_pad("map_portal", *b) for b in am.portal_boxes(frame)]  # blue swirls (R-175)
     return out
 
 

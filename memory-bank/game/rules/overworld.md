@@ -152,9 +152,18 @@ Zoom differs each opening: pick places by OCR'd label (never a merged OCR label 
 
 ### R-152 · A Portal sits under the Verdantglade VI label on the big map
 - On the area map a Portal sits directly under the "Verdantglade VI" label, so tapping the label can open the portal's card (builder, 2026-11-10).
-- Tapping the label is fine, and the portal card is an accepted outcome: back out or handle it (R-030), it is not an error (mae).
+- Tapping the label is fine, and the portal card is an accepted outcome: handle it by R-175 (Teleport when it is the target zone's portal, else close it), it is not an error (mae).
 - Code: area-map walks tap 26 px above a zone label (`goto.LABEL_DY`).
-*told, observed* · node `area_map` · R-030, R-068, R-076
+*told, observed* · node `area_map` · R-030, R-068, R-076, R-175
+
+### R-175 · Portals on the big map: Teleport into the zone you are heading to
+- A portal shows on the area map as a small teal-blue swirl (9-20 px), often right under a zone label. Tapping it opens the Portal card ("An ancient gateway that whisks you across space when activated").
+- A portal you have activated (walked to and pressed Activate, R-030) shows **Teleport** on its card: pressing it moves you to that portal at once, free. One not yet activated shows Activate, which only works standing next to it: close that card.
+- Camera moves on the area map (a tap to centre, a drag to pan) sometimes land on a portal and open its card. If the portal is in the zone we are moving towards, press Teleport: it gets us there immediately, which is what the camera move was for (mae). If it is another zone's portal, close the card (tap above it) and carry on.
+- Going to another zone, use its portal on purpose: if a swirl sits by the target zone's label, tap it first and Teleport; fall back to walking when the card shows Activate.
+- A portal's zone is the zone whose label is nearest to it. Walks on the island never press Teleport (the card rules only Activate).
+- Code: `area_map.portals()` finds the swirls (told from the blue statue "!" by their deeper blue); `goto.on_portal()` handles the card; detector class `map_portal`.
+*told, observed* · `icons/map_portal_1.png`, `icons/map_portal_2.png`, `icons/map_portal_3.png`, `icons/map_portal_4.png`, `world/interact_portal.png`, `unlabeled/drasilgard_portal_teleport.png` · node `area_map` · R-030, R-076, R-146, R-148, R-152
 
 ### R-089 · Travel from home through the quest tracker
 At home, tapping the tracker for a quest elsewhere asks "Travel to <Area> now?"; OK is free. Use it for areas whose area-map label is in fog.

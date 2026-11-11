@@ -264,6 +264,12 @@
    "group": "buttons",
    "kind": "button",
    "about": "Yellow price button that spends money or Dawnium (USD packs, Mall, Vendor Booth Vault, purchase prompts): never tap (mae, 2026-11-10); never label these btn_primary"
+  },
+  {
+   "name": "map_portal",
+   "group": "area_map",
+   "kind": "icon",
+   "about": "Blue swirl portal icon on the area map, often under a zone label; tap opens the Portal card (Teleport once activated) (R-175)"
   }
  ]
 }
