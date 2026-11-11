@@ -115,11 +115,16 @@ def _label_point(det, name: str, frame=None) -> Optional[tuple[int, int]]:
     return x + w // 2, y + h // 2
 
 
-def _widen(dev) -> bool:
-    """A label wasn't on the area map. It used to zoom out to the survey zoom and look again; mae (2026-11-11,
-    docs/big-map-survey.md): the survey zoom is only for seeing which zones exist, walking never needs it. Callers pan
-    toward the label instead (`_pans`). Kept so callers read the same; always False."""
-    return False
+def _widen(dev, frame=None):
+    """A label or target wasn't in view: zoom out to the survey zoom with one knob drag (~2 s) and return the new
+    frame, or None when the knob isn't seen (no blind taps) or the map is already there. mae (2026-11-11 18:15): a
+    glance may zoom out when it is quick and accurate; what must not happen regularly is the slow full pan."""
+    from . import bigmap
+    frame = frame if frame is not None else dev.screenshot()
+    if bigmap.knob_y(frame) is None or not bigmap.set_zoom(dev, frame, bigmap.SURVEY_KNOB_Y):
+        return None
+    log.info("not in view at the walking zoom: zoomed out (one knob drag)")
+    return dev.screenshot()
 
 
 PAN_CENTRE, PAN_LEN, PAN_MS = (330, 620), 350, 1500  # directed pans: a slow drag from the map's middle
@@ -127,9 +132,9 @@ PAN_CENTRE, PAN_LEN, PAN_MS = (330, 620), 350, 1500  # directed pans: a slow dra
 
 def _pans(toward) -> list:
     """Drags that bring a label in `toward` (a unit vector on the area map, from the location tree) into view: two
-    along it. Without a direction, the old six-drag sweep."""
+    along it. Without a direction none: the old six-drag sweep is gone (mae: no regular slow panning)."""
     if not toward:
-        return LABEL_PANS
+        return []
     cx, cy = PAN_CENTRE
     dx, dy = int(-toward[0] * PAN_LEN), int(-toward[1] * PAN_LEN)  # drag the map the other way to reveal it
     return [(cx, cy, cx + dx, cy + dy)] * 2
@@ -217,6 +222,9 @@ def go_to(dev, det, target, pan_for_target: bool = False, toward=None, purpose: 
         # same opening (the map's zoom changes between openings, so points from an earlier reading drift).
         a, b_, frac = target
         pa, pb = _label_point(det, a, frame), _label_point(det, b_, frame)
+        wide = _widen(dev, frame) if pa is None or pb is None else None
+        if wide is not None:
+            pa, pb = _label_point(det, a, wide), _label_point(det, b_, wide)
         for drag in (_pans(toward) if pa is None or pb is None else ()):
             dev.swipe(*drag, PAN_MS)
             time.sleep(1.2)
@@ -242,7 +250,10 @@ def go_to(dev, det, target, pan_for_target: bool = False, toward=None, purpose: 
                             or [b for t, b in labels.items() if close_name(t, target)])
         labels, hit = find(frame)
         # Not in view (live 2026-11-10: Damp Woods sat off the bottom right while the map opened centred on
-        # Auroradrasil): pan toward it and look again; never zoom out to search (mae, 2026-11-11).
+        # Auroradrasil): zoom out with one knob drag, then (still missing) two drags toward it. No full sweep.
+        wide = _widen(dev, frame) if not hit else None
+        if wide is not None:
+            labels, hit = find(wide)
         for drag in (_pans(toward) if not hit else ()):
             dev.swipe(*drag, PAN_MS)
             time.sleep(1.2)
@@ -260,9 +271,12 @@ def go_to(dev, det, target, pan_for_target: bool = False, toward=None, purpose: 
     elif callable(target):
         # A picker reads this opening of the map (mae, 2026-11-05: tap the target on the big map, close it, tap the
         # element now in the middle of the screen).
-        # A picker reads this same opening (recorded above). Not found: no zoom-out any more (mae, 2026-11-11);
-        # callers that may need it pan (pan_for_target), toward the target when they know the way.
+        # A picker reads this same opening (recorded above). Not found: one quick zoom-out (the target may just be
+        # off screen, live 2026-11-09), then callers that may need it pan toward it (pan_for_target).
         point = target(frame)
+        wide = _widen(dev, frame) if point is None else None
+        if wide is not None:
+            point = target(wide)
         for drag in (_pans(toward) if point is None and pan_for_target else ()):
             # Off screen or under the dark bottom-left corner (live 2026-11-10: Jungle Camp's blue "!"): pan, look again.
             dev.swipe(*drag, PAN_MS)

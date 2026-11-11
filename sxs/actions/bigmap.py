@@ -253,7 +253,7 @@ class BigMap:
             for name in [k for k in d if zone is None or same(k, zone) or label_is(k, zone)]:
                 d.pop(name, None)
         if event in ("zone_changed", "gain") and self.last is not None:
-            self.last.at = 0.0  # the last look no longer stands in for a new one
+            self.last.at = float("-inf")  # the last look no longer stands in for a new one
         log.debug("[map] stale: %s %s", event, zone or "")
 
     # ------------------------------------------------------------------ discovery

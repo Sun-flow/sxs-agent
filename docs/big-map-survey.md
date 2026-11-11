@@ -89,8 +89,8 @@ The "1X" = IX and "Lakeside" vs "Lakeside Camp" fixes each went into one or two 
 | | **Glance** (small survey) | **Discovery survey** |
 |---|---|---|
 | What it's for | walking: pick an object, find a label, read our zone's %, where am I, a ready statue nearby | finding out which zones exist and their % and power, for the location tree |
-| Zoom | the walking zoom, which the map is kept at; no zoom taps when the knob already shows it | survey zoom (4 taps and a drag), then back to the walking zoom before closing |
-| Pans | none, or 1-2 short drags toward one named label (from the tree's last known direction) | the full pan grid, once |
+| Zoom | the walking zoom, which the map is kept at; no zoom taps when the knob already shows it; one quick knob drag out when what it needs isn't in view | survey zoom (one knob drag), then back to the walking zoom before closing |
+| Pans | none, or 2 short drags toward one named label (from the tree's last known direction); never the sweep | the full pan grid, once |
 | When | every opening of the map, for any walk | once per server day; when the location tree has no zone left to pick; when we hunt side areas on purpose (`roam --discover`); never for walking |
 | Cost | ~3-4 s, as Clear Zone's legs are today | ~45 s |
 
@@ -119,10 +119,10 @@ frame and skip the zoom taps when it's already there.
 4. **Roam picks from the location tree, not from a fresh survey.** The tree already holds every zone's %, power,
    blocked flag and ways in (`Tree.next_zone`); glances and Clear Zone's results keep it current. Roam runs a
    discovery survey only for the reasons in the table above, and says which.
-5. **A label not in view is found by a short pan, not a survey.** `go_to` a zone, the entrance picker and
-   `map_pct` look in the glance; if the label isn't there, 1-2 drags toward the tree's direction for it; if still
-   not there, the walk ends `no_label` and the caller decides (roam: give the zone up for today, R-150). Zooming
-   out to search is gone.
+5. **A label not in view: one quick zoom-out, then a short pan, never a sweep.** `go_to` a zone and the pickers
+   look in the glance; if it isn't there, one knob drag to the survey zoom (~2 s; mae 18:15: zooming is fine when
+   quick); if still not there, 2 drags toward the tree's direction for it; then the walk ends `no_label` and the
+   caller decides (roam: give the zone up for today, R-150). The six-drag sweep is gone.
 6. **Every opening says what it was for.** One line each:
 
    ```
@@ -235,10 +235,10 @@ flowchart LR
   (their filters are unchanged for now; merging them into one reader is a follow-up). `reread_pct` re-reads a
   missing % line from an enlarged crop of the same frame.
 - `sxs/actions/goto.py`: `go_to` brings the map to the walking zoom (only when it sees the knob, so a blind "-" tap
-  never lands on the island map), records the opening, and gives the picker that same frame. It no longer zooms
-  out to look for a label or target: `_widen` does nothing; a missing label is looked for by two drags `toward` it
-  (direction from the tree's label points) or, without a direction, the old six-drag sweep. `survey_zoom` is used
-  only by the discovery survey.
+  never lands on the island map), records the opening, and gives the picker that same frame. A missing label or
+  target: `_widen` zooms out with one knob drag (no "-" taps, nothing when the knob isn't seen), then two drags
+  `toward` it when the tree gives a direction (its label points). The old six-drag sweep is gone. The full pan grid
+  is only in the discovery survey.
 - `sxs/actions/mapnav.py`: `zone_by_map` is a glance (no survey zoom).
 - `sxs/loops/roam.py`: `look_around` replaces the survey at the top of every pass: a discovery survey only when
   due (first of the server day, `--discover`, or the tree has nothing left to pick), else the tree's zones
@@ -262,5 +262,9 @@ The Clear Zone thread agreed (2026-11-11) that this branch takes over `map_pct`,
 1. **Survey zoom is only for seeing which zones are available.** Walking basically never needs a full survey,
    except when we hunt unexplored side areas on purpose. Small surveys (glances) are fine; the goal is less
    navigation overhead. → Glance / discovery split above.
+   Refined 18:15: "I'm okay with the map glance zooming, I just don't want it to do the big pan which takes a while
+   regularly. If it is capable of zooming out quickly and accurately and efficiently, I don't mind." → A glance that
+   doesn't find its label or target zooms out with **one knob drag** (~2 s, only when the knob is seen) and looks
+   again; the slow six-drag sweep is gone, and the full pan grid stays in the once-a-day discovery survey.
 2. **Age limits are good:** about 1 minute for the zone being cleared, 10 minutes for other zones.
 3. **One full pan per day is okay.** → The first roam pass of each server day runs the discovery survey.

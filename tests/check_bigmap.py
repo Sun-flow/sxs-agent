@@ -141,10 +141,14 @@ check("enlarged-crop re-read", bigmap.reread_pct(cd, frame, [300, 500, 150, 30])
 check("same frame size handed to OCR", cd.shapes[0], frame.shape)
 
 # ------------------------------------------------------------------ walks never zoom out to search
-check("_widen no longer zooms", goto._widen(FakeDev([frame])), False)
+d = FakeDev([img("area_map_v3.png")])
+check("_widen: one knob drag to the survey zoom, no '-' taps", (goto._widen(d) is not None, d.taps, len(d.swipes)),
+      (True, [], 1))
+check("_widen: already at survey zoom, nothing", goto._widen(FakeDev([img("area_map_survey_zoom.png")])), None)
+check("_widen: no knob seen (not the map), no blind taps", goto._widen(FakeDev([img("world_map.png")])), None)
 pans = goto._pans((1.0, 0.0))
 check("two drags toward a label to the east (map dragged west)", (len(pans), pans[0][2] < pans[0][0]), (2, True))
-check("no direction: the old sweep", goto._pans(None), goto.LABEL_PANS)
+check("no direction: no sweep at all", goto._pans(None), [])
 
 
 class TreeOnly(roam.Roamer):
