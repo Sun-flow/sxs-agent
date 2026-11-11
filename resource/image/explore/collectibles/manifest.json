@@ -18,6 +18,33 @@
    "date": "2026-11-09",
    "stamina": null,
    "n": 0
+  },
+  {
+   "file": "interactable_limpid_legion_verdantglade_viii_0.png",
+   "name": "Limpid Legion",
+   "kind": "interactable",
+   "area": "Verdantglade VIII",
+   "date": "2026-11-10",
+   "stamina": null,
+   "n": 0
+  },
+  {
+   "file": "interactable_portal_verdantglade_viii_0.png",
+   "name": "Portal",
+   "kind": "interactable",
+   "area": "Verdantglade VIII",
+   "date": "2026-11-10",
+   "stamina": null,
+   "n": 0
+  },
+  {
+   "file": "interactable_ds_verdantglade_viii_0.png",
+   "name": "DS",
+   "kind": "interactable",
+   "area": "Verdantglade VIII",
+   "date": "2026-11-10",
+   "stamina": null,
+   "n": 0
   }
  ]
 }

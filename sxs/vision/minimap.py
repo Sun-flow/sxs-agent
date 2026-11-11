@@ -160,7 +160,7 @@ def shade_border(grid: list[list[str]], centre: tuple[int, int], home_light: Opt
     frontier inside a zone) doesn't make a long straight run.
 
     home_light: whether the zone we're exploring is the light one (blessed) or the shaded one. The caller usually
-    knows (the fog walk: shaded while the zone is unexplored). Guessed from the tiles round the player otherwise,
+    knows (Clear Zone: shaded while the zone is unexplored). Guessed from the tiles round the player otherwise,
     which goes wrong right at the edge (live 2026-11-09: standing on the line, the light side won the count)."""
     n = len(grid)
     pr, pc = centre
@@ -271,29 +271,17 @@ if __name__ == "__main__":
 
 CLOSE_TILES = 4  # objects this many tiles away or nearer are tapped on screen, not reached by a big-map walk
 SCREEN_TILE = 104  # px per game tile on the island map at the default zoom (grid lines are this far apart)
-GOALS = ("item", "monster", "walk_unexplored", "fog_lead")  # what free exploration heads for (nearest first);
-# orange monster dots are fought (mae, 2026-11-04: "orange minimap icons are monsters and should be fought").
-# "fog_lead" is not a tile class: it is any walkable tile touching black, unspotted fog (mae, 2026-11-05: light
-# green running into black is a lead to follow into the fog, not a dead end).
-
-
-def fog_lead(mm: Minimap, r: int, c: int) -> bool:
-    """A walkable tile with unspotted fog next to it: walking there reveals what lies beyond. The player's ring
-    (the tiles next to the centre) reads as fog too, so it doesn't count."""
-    if mm.grid[r][c] not in WALKABLE:
-        return False
-    n, (pr, pc) = len(mm.grid), mm.centre
-    return any(0 <= r + dr < n and 0 <= c + dc < n and mm.grid[r + dr][c + dc] == "unspotted"
-               and max(abs(r + dr - pr), abs(c + dc - pc)) > 1
-               for dr, dc in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+GOALS = ("item", "monster", "building")  # map objects: pickups, monsters (mae, 2026-11-04: fight orange dots),
+# structures. Ground is never a goal: the % comes from objects (R-143; the fog walk's "fog leads" and shaded-tile
+# goals were scrapped with it, 2026-11-10).
 
 
 BORDER_BUFFER = 1  # tiles round a border line that are walls too: the line is drawn to within a tile (live 2026-11-09)
 
 
 def path_to_nearest(mm: Minimap, goals=GOALS, skip=frozenset(), cross_border: bool = False) -> list[tuple[int, int]]:
-    """Breadth-first path over walkable tiles from the player to the nearest goal tile (unexplored walkable ground
-    or a pickup). Goal tiles themselves count as walkable. Empty if nothing reachable.
+    """Breadth-first path over walkable tiles from the player to the nearest goal tile (a map object by default).
+    Goal tiles themselves count as walkable. Empty if nothing reachable.
 
     A zone's dotted border line (R-132) is a wall unless cross_border: finish the zone you're in first, and cross
     only into a zone that passes the 1.25x power check (the caller decides, `sxs.core.zones`)."""
@@ -309,8 +297,7 @@ def path_to_nearest(mm: Minimap, goals=GOALS, skip=frozenset(), cross_border: bo
     while q:
         cur = q.popleft()
         r, c = cur
-        if cur != start and cur not in skip and (mm.grid[r][c] in goals
-                                                  or ("fog_lead" in goals and fog_lead(mm, r, c))):
+        if cur != start and cur not in skip and mm.grid[r][c] in goals:
             path = []
             while cur is not None:
                 path.append(cur)

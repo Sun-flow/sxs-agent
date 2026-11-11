@@ -1,10 +1,10 @@
 # Roam loop (non-quest exploration)
 
 Code: `sxs/loops/roam.py` (`Roamer`). Command: `python -m sxs roam [--area NAME] [--minutes N] [--max-areas N] [--walk-minutes N]`.
-Rules: R-135 (order), R-065 (fog-walk goal), R-070 (statues), R-127 (1.25x power), R-132 (zone borders).
+Rules: R-135 (order), R-065 (exploration goal), R-070 (statues), R-127 (1.25x power), R-132 (zone borders).
 
 **Goal:** bring every zone in reach to 100% and bless its statue, lowest recommended power first; then walk any
-leftover fog; then exploration is concluded for now.
+then exploration is concluded for now.
 **End condition:** no zone left in reach, a power wall, a lost fight, an unfamiliar screen, `--max-areas` zones
 done, or the time.
 **Ok statuses:** `exploration_concluded`, `all_explored`, `power_wall`, `area_done`, `max_areas`, `timeout`.
@@ -24,13 +24,10 @@ flowchart TD
     BL -->|no| PK["3. Pick the next zone (location tree):<br/>the zone we stand in if unfinished (R-132), else<br/>lowest power first among zones under 100%,<br/>within 1.25x ours, not given up today; no power line last"]
     PK --> PK2{"A zone picked?"}
     PK2 -->|"no, but one is behind a power wall"| PW(["power_wall"])
-    PK2 -->|"no zone left"| LF[["4b. Fog Walk where we stand<br/>(leftover fog-walk ground)"]]
-    LF --> LF2{"Walk ended no_fog?"}
-    LF2 -->|yes| EC(["exploration_concluded"])
-    LF2 -->|no| AE(["all_explored"])
+    PK2 -->|"no zone left"| EC(["exploration_concluded"])
     PK2 -->|yes| AP["4. Approach (skipped if we already stand in it):<br/>the neighbour the tree knows got in before, then walked links,<br/>then the nearest explored label (failed today goes last);<br/>then 60% of the way toward the target's label"]
-    AP --> FW[["5. Fog Walk in the target zone<br/>(the neighbour counts as inside)"]]
-    FW --> FW2{"Fog Walk ended defeated,<br/>unknown_screen or at home?"}
+    AP --> FW[["5. Clear Zone in the target zone<br/>(the neighbour counts as inside)"]]
+    FW --> FW2{"Clear Zone ended defeated, unknown_screen,<br/>needs_decision, repeating_card or at home?"}
     FW2 -->|yes| STOP(["that status"])
     FW2 -->|no| RS["6. Survey again"]
     RS --> RS2{"Target zone now?"}
@@ -46,12 +43,12 @@ flowchart TD
     classDef ok fill:#d4edda,stroke:#2e7d32,color:#000
     classDef look fill:#fde2c8,stroke:#c25e00,color:#000
     classDef sub fill:#dbe9ff,stroke:#1f5fbf,color:#000
-    class PW,EC,AE,MA ok
+    class PW,EC,MA ok
     class NOM,NAM,STOP look
-    class LF,FW sub
+    class FW sub
 ```
 
-With `--area NAME` steps 3 and 4b are skipped: the named zone is the target; when it shows no % the loop blesses its
+With `--area NAME` step 3 is skipped: the named zone is the target; when it shows no % the loop blesses its
 statue and ends `area_done`; a pass without progress ends `no_progress`.
 
 ## State kept between runs
@@ -63,13 +60,13 @@ from (or failed from). Built in PR #43, not run live yet.
 
 ## Screens
 
-Roam itself only sees the island map, the area map and statue cards; everything else happens inside the Fog Walk
-([fogwalk.md](fogwalk.md)) and `goto` (`sxs/actions/goto.py`).
+Roam itself only sees the island map, the area map and statue cards; everything else happens inside Clear Zone
+([clear.md](clear.md)) and `goto` (`sxs/actions/goto.py`).
 
 | Screen | Action |
 |---|---|
 | home, menus | go_home, then World, then Verdantglade's island |
 | world_overview | tap Verdantglade's island |
-| world_map | survey, walk, or hand to Fog Walk |
+| world_map | survey, walk, or hand to Clear Zone |
 | area_map | read labels, % and power lines, statue badges; close with the back arrow |
 | statue card | card rules (`goal explore`): Goddess Statue Unlock, blessed statue dismiss |

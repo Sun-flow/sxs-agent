@@ -39,7 +39,7 @@ flowchart TD
 | [daily.md](daily.md) | Dailies | `python -m sxs daily` | Every once-a-day chore, then the upgrade passes |
 | [explore.md](explore.md) | Explore (quest follower) | `python -m sxs explore` | Follow the tracked quest line |
 | [roam.md](roam.md) | Roam | `python -m sxs roam` | Explore and bless every zone in reach, lowest power first |
-| [fogwalk.md](fogwalk.md) | Fog Walk | `python -m sxs fogwalk` | Bring one zone to 100% |
+| [clear.md](clear.md) | Clear Zone | `python -m sxs clear` | Bring one zone to 100%, one named objective per leg (replaced the Fog Walk, 2026-11-10) |
 | [gather.md](gather.md) | Gather | `python -m sxs gather` | Spend stamina above 70 on the priority material |
 | [cart.md](cart.md) | Cart Upgrade | `python -m sxs cart` | Claim the Cart, raise Stone and Wood evenly |
 | [upgrade.md](upgrade.md) | Upgrade, Strengthen | `python -m sxs upgrade`, `python -m sxs strengthen` | Take every upgrade a Character-screen "!" offers |
@@ -65,10 +65,10 @@ flowchart LR
     daily --> progress[["progress"]]
     explore[["explore"]] --> tower
     explore --> upgrade
-    roam[["roam"]] --> fogwalk[["fogwalk"]]
+    roam[["roam"]] --> clear[["clear"]]
     roam --> goto[["goto"]]
-    fogwalk --> tower
-    fogwalk --> goto
+    clear --> tower
+    clear --> goto
     upgrade --> strengthen[["strengthen helpers"]]
     upgrade --> gearswap
     cart --> strengthen
@@ -94,4 +94,4 @@ editing the flow, the next step would be a small flow spec per loop, read by the
   YAML names a step or action the code doesn't have. The diagrams then can't drift from the bot.
 
 Start with the parts that are already tables in code (daily `STEPS`, upgrade `PASSES`, `cards.json`, the interrupt
-`TABLE`, `nav.TOWARD_HOME`); the walking logic inside explore and fogwalk stays in Python.
+`TABLE`, `nav.TOWARD_HOME`); the walking logic inside explore and clear stays in Python.

@@ -91,7 +91,9 @@ class Strengthener:
             if swipe:
                 self.dev.swipe(*swipe, HOME_SWIPE_MS)
                 time.sleep(1.5)
-            bubble = self.det.find("Home.CartBubble")
+            # The bubble shows only while loot waits; the wheel is always there. Either one opens the claim, so stop
+            # at whichever comes first (live 2026-11-11: no bubble meant 28 swipes, about 2 minutes, for nothing).
+            bubble = self.det.find("Home.CartBubble") or self.det.find("Home.Cart")
             if bubble:
                 x, y, w, h = bubble.box
                 self._tap((x + w // 2, y + h // 2), 2.5)

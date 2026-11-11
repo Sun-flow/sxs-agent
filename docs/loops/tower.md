@@ -1,7 +1,7 @@
 # Fantasia Ascent loop (tower)
 
 Code: `sxs/loops/tower.py` (`open_from_home`, `climb`). Command: `python -m sxs tower [--tower NAME] [--to F] [--floors N]`;
-daily step `fantasia_ascent`. Also called by [explore.md](explore.md) and [fogwalk.md](fogwalk.md) when a tower
+daily step `fantasia_ascent`. Also called by [explore.md](explore.md) and [clear.md](clear.md) when a tower
 screen shows. Rules: R-079, R-112, R-127, R-061.
 
 **Goal:** one climb a day with Auto Challenge on, until the first loss. Never Retry a loss.
@@ -49,5 +49,5 @@ flowchart TD
     class U0,U1,LH,U2,NT look
 ```
 
-When explore or fogwalk meet a tower screen, they check today's mark first: if the day's climb already ran they
+When explore or clear meet a tower screen, they check today's mark first: if the day's climb already ran they
 leave the tower; otherwise they climb and mark the day (R-079, [open-questions.md](open-questions.md) Q10).

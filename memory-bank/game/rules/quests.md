@@ -35,6 +35,10 @@ The target icon on the tracker (about (0.40, 0.79); yellow on, grey off) toggles
 - The locate icon toggles Tracking: tap it once when no ring shows, and not again until a ring has been seen (builder, 2026-11-10; R-142).
 *told, observed* · nodes `quests`, `world_map` · R-044, R-074, R-080
 
+### R-162 · Tracker OCR reads IX as "1X": normalise before comparing zone names
+- The tracker read "ExploreVerdantglade1X26/100" for Explore Verdantglade IX. Before comparing zone names, turn a "1" or "l" in front of V or X into "I" (builder, 2026-11-10).
+*observed* · R-022, R-140, R-142
+
 ## Progressing a quest
 
 ### R-021 · The Explore counter rises with fog, pickups, fights and objects

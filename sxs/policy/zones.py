@@ -43,6 +43,7 @@ from . import fights
 
 ZONES_FILE = RESOURCE / "world" / "zones.json"
 LINK_RANK = {"map_adjacent": 0, "inside": 1, "walked": 2}
+LOST_RETRY_GAIN = 0.5  # K of power to gain before a zone we lost a fight in is tried again (as roam's give-ups)
 ADJACENT_PX = 200  # survey-zoom px between two labels that makes them likely neighbours (330 linked half the kingdom)
 
 
@@ -238,6 +239,14 @@ class Tree:
             return False, f"{there} needs {z.get('cp')}K, over 1.25x our {power}K"
         return True, ""
 
+    def lost_wall(self, name: str, power: Optional[float]) -> bool:
+        """We lost a fight in this zone (Clear Zone writes `lost_at`, our power then): it waits until power has grown
+        by LOST_RETRY_GAIN (live 2026-11-11: Lakeside Camp's guarded boss beat us at 28.5K)."""
+        lost = (self.get(name) or {}).get("lost_at")
+        if lost is None:
+            return False
+        return power is None or power < lost + LOST_RETRY_GAIN
+
     def next_zone(self, power: Optional[float], here: str = "", skip: Iterable[str] = ()) -> Optional[str]:
         """R-132 then R-135: the zone we stand in if it's unfinished and in reach; else the lowest-CP zone not blessed
         and in reach (zones with no CP read go last)."""
@@ -245,7 +254,7 @@ class Tree:
         # A zone whose way in needs an item we don't have (live 2026-11-10: Hidden Camp's Boulder Blockade needs a
         # Magic Drill) waits until someone clears `blocked`.
         ok = lambda k: (squeeze(k) not in skip and not self.zones[k].get("blocked")  # noqa: E731
-                        and fights.within_reach(self.zones[k].get("cp"), power))
+                        and fights.within_reach(self.zones[k].get("cp"), power) and not self.lost_wall(k, power))
         h = self.key(here)
         if h and self.zones[h].get("kind", "zone") == "zone" and not self.explored(h) and ok(h):
             return h
