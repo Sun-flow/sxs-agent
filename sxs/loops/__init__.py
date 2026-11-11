@@ -16,6 +16,7 @@ REGISTRY = {
     "explore": "sxs.loops.explore",
     "roam": "sxs.loops.roam",
     "clear": "sxs.loops.clear",
+    "seqcap": "sxs.loops.seqcap",
     "goto": "sxs.actions.goto",
     "gather": "sxs.loops.gather",
     "upgrade": "sxs.loops.upgrade",

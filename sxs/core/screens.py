@@ -37,7 +37,7 @@ FOLDERS = (
                "blessing_", "map_", "exploration_", "destiny_", "item_")),
 )
 FOLDER_OF = {"apply_requests": "guild"}
-SPECIAL = ("icons", "items", "minimap", "unlabeled")  # not checked by the detector test (items: popup captures)
+SPECIAL = ("icons", "items", "minimap", "sequences", "unlabeled")  # not checked by the detector test (items: popup captures)
 UNLABELED = SCREENS / "unlabeled"
 BANK_INDEX = UNLABELED / "README.md"
 EXPECTED_FILE = SCREENS / "expected.json"

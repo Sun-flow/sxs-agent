@@ -144,6 +144,8 @@ def option_rows(boxes) -> list[int]:
 
 
 class Clearer:
+    MINIMAP_GOALS = ("item", "monster", "building")  # minimap dots a leg may head for (seqcap: items only)
+
     def __init__(self, dev, det, area: Optional[str] = None, allowed=()):
         self.dev, self.det = dev, det
         self.tree = Tree.load()
@@ -349,7 +351,7 @@ class Clearer:
         n = len(mm.grid)
         skip = ring | {(r, c) for r in range(n) for c in range(n)
                        if self.failed_spot(minimap.world_tile(mm, (r, c), xy))}
-        path = minimap.path_to_nearest(mm, goals=("item", "monster", "building"), skip=skip)
+        path = minimap.path_to_nearest(mm, goals=self.MINIMAP_GOALS, skip=skip)
         if len(path) < 2 or len(path) - 1 > MINIMAP_REACH:
             return None
         goal = mm.grid[path[-1][0]][path[-1][1]]

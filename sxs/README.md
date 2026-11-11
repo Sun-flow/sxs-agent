@@ -69,6 +69,7 @@ Every loop has the same inputs, outputs and readouts:
 | `explore` | `loops/explore.py` | Quest follower (tracker marker) | `--chain --minutes 10`, `--choose REGEX` |
 | `roam` | `loops/roam.py` | Unexplored areas under our power, bless statues | `--minutes 30`, `--area NAME` |
 | `clear` | `loops/clear.py` | Clear Zone: one zone to 100%, every leg toward a named objective (replaced the Fog Walk) | `--area "Verdantglade IX" --minutes 10` |
+| `seqcap` | `loops/seqcap.py` | Sequence Capture: approach sequences of world pickups for detector training (pre-roll buffer, pickups only, stamina guard, `--resume`) | `--job collectibles_1 --areas "Grotto Peninsula" --target 20` |
 | `goto` | `actions/goto.py` | Walk somewhere via the area map | `"Highland Woods"` or `X Y` |
 | `gather` | `loops/gather.py` | Generic `collect(Target)` for ore, sand, essence, rolla, bellflower | `--material sand`, `--check`, `--harvest` |
 | `upgrade` | `loops/upgrade.py` | Every "!" on the Character screen | `--only skills` |
