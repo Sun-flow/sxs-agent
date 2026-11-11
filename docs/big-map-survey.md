@@ -2,8 +2,8 @@
 
 mae, 2026-11-11: "when our bot scans the big map for zones, it will often do it multiple times in a row." This page
 diagnoses where those scans come from, then proposes a design in the same shape as the Clear Zone redesign
-([step6-clear-zone.md](step6-clear-zone.md)). **Nothing in the code has changed yet.** Edit the design and the
-flowchart below, and the build follows them.
+([step6-clear-zone.md](step6-clear-zone.md)). **Nothing in the code has changed yet.** mae answered the design
+questions on 2026-11-11 (see "Decisions" at the end); the design below follows them, and the build follows the design.
 
 "Big map" and "area map" are the same screen (tap the minimap). A **survey** is one opening of it read for zone
 facts: labels, "Exploration: N%" lines, power lines, statue badges, dots.
@@ -16,9 +16,11 @@ after a zone run it surveys once to check the zone's %, then the loop starts ove
 away**, 11 s later, with nothing changed in between. Each roam survey also **pans the map 8 times**, because
 it looks for zones that are blocked or given up on and so can never show. That costs 35-43 s per survey.
 
-The fix: one survey object per run (`BigMap`) that roam and Clear Zone share. Every opening of the map, for a
-survey or for a walk, reads everything at once and updates it. A later caller reuses those facts until something
-named invalidates them, and every survey logs one line saying why it ran.
+The fix (with mae's decisions): **walking never needs a full survey.** The zoomed-out survey with pans is kept
+for one job, finding out which zones exist: once per server day, or on purpose when hunting unexplored side areas.
+Everything else is a **glance**: the map opens at the walking zoom, the bot reads what's in view, taps, and closes.
+One object per run (`BigMap`), shared by roam and Clear Zone, keeps the facts from every glance. A later caller
+reuses them until something named makes them stale, and every opening logs one line saying what it was for.
 
 ## What the logs show
 
@@ -79,106 +81,122 @@ The "1X" = IX and "Lakeside" vs "Lakeside Camp" fixes each went into one or two 
    finished (`FINISHED_READS`, and `map_pct`'s own 3 reads), so a cautious caller surveys again to collect
    proof. That is right in itself, but each proof read is a full survey, not a glance at the label.
 
-## The design: one survey, shared, with named reasons
+## The design: glances for walking, a discovery survey once a day
 
-### Four rules
+### Two kinds of look (mae, 2026-11-11)
+
+| | **Glance** (small survey) | **Discovery survey** |
+|---|---|---|
+| What it's for | walking: pick an object, find a label, read our zone's %, where am I, a ready statue nearby | finding out which zones exist and their % and power, for the location tree |
+| Zoom | the walking zoom, which the map is kept at; no zoom taps when the knob already shows it | survey zoom (4 taps and a drag), then back to the walking zoom before closing |
+| Pans | none, or 1-2 short drags toward one named label (from the tree's last known direction) | the full pan grid, once |
+| When | every opening of the map, for any walk | once per server day; when the location tree has no zone left to pick; when we hunt side areas on purpose (`roam --discover`); never for walking |
+| Cost | ~3-4 s, as Clear Zone's legs are today | ~45 s |
+
+"mae: survey zoom should be reserved for situations where we want to see what zones are available, and no
+other. Walking should basically never require a full survey, unless we are looking for unexplored side areas
+(which we can do on purpose). Small surveys are something I am okay with, but I want to reduce the overhead cost
+of navigation."
+
+The **walking zoom** is the zoom Clear Zone's legs use today (run15: 8 openings, 3-4 s each, objects found). Its
+knob position is measured from those captures and pinned as a constant, so every glance can check the knob in its
+frame and skip the zoom taps when it's already there.
+
+### Rules
 
 1. **One reader, one matcher.** All label OCR goes through one function (today's `read_areas`, which already
    pairs % and power lines). It returns `Area(name, box, pct, gate, unsure)`, our white dot, red and blue badges,
    and the object dots in one pass over one frame. One name matcher, `bigmap.is_zone(label, zone)`, holds every
    OCR rule we've learned (numerals, "1X", clipped left edges, joined labels, first-words names).
-2. **Every opening is a survey.** (Except that `fog_here` keeps its own zoom: the fog before/after comparison needs it.) Whoever opens the map (a walk, a picker, a bless) goes through
-   `BigMap.opened(reason)`. That records the reading as the new snapshot before the caller taps anything. A walk
-   opening costs ~1 s more for the OCR and saves the next survey.
-3. **Facts are cached, pixels are not.** The snapshot keeps **zone facts**: per zone the %, power, a ready
-   statue, label seen or not, objects in the zone (count and kinds), entrance found or not, the zone our dot sits
-   in. Those are valid across openings. **Tap points** are always read in the opening that taps them (as `go_to`
-   does now).
-4. **A survey runs only for a named reason, and says it.** `BigMap.look(reason)` returns the snapshot if it is
-   still valid and opens the map only if it isn't. Each call logs one line:
+2. **Every opening is a glance, and a glance reads everything in view.** Whoever opens the map (a walk, a picker,
+   a bless) goes through `BigMap.opened(purposes)`. The reading is stored before the caller taps anything; the OCR
+   costs ~1 s and saves the next opening. `fog_here` keeps the frontier's zoom, because its fog before/after
+   comparison needs it (at the walking zoom that is the same zoom anyway).
+3. **Facts are kept, pixels are not.** `BigMap` keeps **zone facts**: per zone the %, power, a ready statue,
+   label seen or not, objects in the zone (count and kinds), entrance found or not, the zone our dot sits in.
+   Those last across openings. **Tap points** are always read in the opening that taps them (as `go_to` does now).
+4. **Roam picks from the location tree, not from a fresh survey.** The tree already holds every zone's %, power,
+   blocked flag and ways in (`Tree.next_zone`); glances and Clear Zone's results keep it current. Roam runs a
+   discovery survey only for the reasons in the table above, and says which.
+5. **A label not in view is found by a short pan, not a survey.** `go_to` a zone, the entrance picker and
+   `map_pct` look in the glance; if the label isn't there, 1-2 drags toward the tree's direction for it; if still
+   not there, the walk ends `no_label` and the caller decides (roam: give the zone up for today, R-150). Zooming
+   out to search is gone.
+6. **Every opening says what it was for.** One line each:
 
    ```
-   [big map] survey 4 (zone run ended: Verdantglade VII zone_done; last survey 2:10 ago, invalid: % changed)  9.2 s, our dot: found (fallback)
-   [big map] reuse survey 4 (roam pick; 11 s old, nothing changed)
-   [big map] walk opening 5 also read: 14 labels, Verdantglade VII 100%, 1 ready statue, our dot: found
-   [map] opened for: pct, pick (leg 6) 3.4 s, zoom already set, our dot: found
+   [map] glance for: pct, pick (leg 6) 3.4 s, zoom already set, 9 labels, Grotto Peninsula 63%, our dot: found
+   [map] reuse (roam pick; Clear Zone's last glance 40 s ago, same zone)
+   [map] discovery survey (first of server day 2026-11-11) 44 s, 8 pans, 27 zones, our dot: found (fallback)
    ```
 
-### When the snapshot goes stale (invalidation)
+   Every opening logs whether our white dot was found (strict mask, the `player_dot` fallback added in 8ddc275, or
+   not at all). Without the dot, the frontier and object pickers measure from the zone label instead of from us.
+
+### When kept facts go stale
 
 | Event | Which facts are dropped | Who signals it |
 |---|---|---|
-| Zone entered or left (the minimap name changed) | our dot's zone; the walk openings refresh it anyway | Clear Zone `check_zone`, roam `approach` |
+| Zone entered or left (the minimap name changed) | our dot's zone; the next glance refreshes it | Clear Zone `check_zone`, roam `approach` |
 | Object taken or fight won in a zone (leg result `gain`) | that zone's objects | Clear Zone `judge` |
 | % changed on the tracker for a zone | that zone's % | Clear Zone `read_pct` |
-| Statue blessed | that zone's ready statue | `bless_ready` (marks it, no survey) |
-| A Clear Zone run ended | that zone's %, objects and statue | roam, after `clear.run` |
-| A side zone's % is older than 3 legs | that zone's %, read in the next big-map leg's opening, or by `map_pct` if no big-map leg comes | Clear Zone |
-| The zone being cleared: its look is over ~1 minute old | that zone's %, objects, our dot | `BigMap.look` (roam takes Clear Zone's last look only inside this) |
-| Age over 10 minutes, or a new server day (reset 13:00Z) | everything else (other zones' %, power, statues) | `BigMap.look` |
-| Power went up | power-wall decisions only (no survey needed) | roam |
+| Statue blessed | that zone's ready statue | `bless_ready` (marks it, no new look) |
+| A Clear Zone run ended | that zone's %, objects and statue, unless its last glance is under ~1 minute old | roam, after `clear.run` |
+| A side zone's % is older than 3 legs | that zone's %, read in the next leg's glance | Clear Zone |
+| Age over 10 minutes (mae: "good timeline") | other zones' %, power, statues | `BigMap` |
+| New server day (reset 13:00Z) | everything; the first roam pass runs the day's discovery survey | `BigMap` |
+| Power went up | power-wall decisions only (no look needed) | roam |
 
-Every survey logs whether our white dot was found (strict mask, the `player_dot` fallback added in 8ddc275, or not at all). Without the dot, the frontier and object pickers measure from the zone label instead of from us, so a snapshot with no dot can't answer "where am I" or "nearest object".
+Anything not on this list does not open the map. Adding a reason means adding a row here.
 
-Anything not on this list does not trigger a survey. Adding a reason means adding a row here.
-
-### Inside a Clear Zone leg: one look per leg
+### Inside a Clear Zone leg: one glance per leg
 
 The strengthening thread read the Clear Zone code on #60's tip (2026-11-11) and counted up to **three openings in
 one leg**: `map_pct` opens, zooms (4 taps and a drag), reads the % and closes. The picker opens again to choose the
 objective. After a frontier leg, `fog_here` opens a third time. Each opening re-zooms from scratch. Then roam's
-survey opens the map at the zone's end, and again before the next pick. Its five suggestions are part of this design:
+survey opens the map at the zone's end, and again before the next pick. Its suggestions, with mae's zoom decision:
 
-1. **One look per leg.** A leg opens the map once. That one frame feeds every reader: the zone's %, objects in the
-   zone, our dot, the fog share, statue badges and the other labels. `map_pct` stops being an opening of its own
-   and becomes a reader of the leg's look. It opens the map itself only when no big-map leg came in the last 3 legs.
-2. **The last look is the next "before".** `fog_here`'s frame after a frontier leg (taken at the pick's zoom) is
-   kept as the next leg's look when nothing has happened since, so the next leg doesn't reopen the map to compare.
-   At the end of a zone run, Clear Zone hands its last look to roam. Roam resurveys only if that look is stale:
-   older than about 1 minute, or taken in another zone.
-3. **Check the zoom knob before zooming.** The slider knob's position is read from the frame. When the map is
-   already at survey zoom, the 4 taps and the drag are skipped (~3 s per opening).
+1. **One glance per leg.** A leg opens the map once. That one frame feeds every reader: the zone's %, objects in
+   the zone, our dot, the fog share, statue badges and the other labels. `map_pct` stops being an opening of its
+   own and becomes a reader of the leg's glance, at the walking zoom (it zooms out today). It opens the map itself
+   only when no leg opened it in the last 3 legs.
+2. **The last glance is the next "before".** `fog_here`'s frame after a frontier leg is kept as the next leg's
+   glance when nothing has happened since. At the end of a zone run, Clear Zone hands its last glance to roam.
+3. **Check the zoom knob before zooming.** Read the knob from the frame; skip the taps when it already shows the
+   walking zoom (~3 s per opening).
 4. **Retry a failed % read from the same frame.** When a label is read but its % line isn't, OCR an enlarged crop
    under the label in the same frame before counting it as "no % line". Never reopen the map to retry.
-5. **Say what each opening was for.** Each opening logs its purposes, so the next live run shows the saving:
-   `[map] opened for: pct, pick (leg 6) 3.4 s, zoom already set, our dot: found`.
+5. **Say what each opening was for** (rule 6 above).
 
-The strengthening thread estimates this saves 10-15 s per leg, on top of the roam savings below.
+The strengthening thread estimates 10-15 s saved per leg, on top of the roam savings below.
 
-### Pans only toward what's needed
+### Proof reads without extra looks
 
-A survey pans only when **the zone a caller is about to act on** isn't in view. It no longer pans for every
-unfinished zone. Blocked zones, zones given up on today and zones over the power wall never trigger a pan. A pan
-goes toward the zone's last known point from the location tree (one or two drags, not eight). A zone that
-wasn't seen after that is recorded as "off view from here" for this run, so later surveys don't pan for it again.
-
-### Proof reads without full surveys
-
-"No % line" evidence (`FINISHED_READS`, `map_pct`'s 3 reads) counts **openings in which the label was read with
-room for a % line under it**, including walk openings. The evidence piles up while the bot walks, without extra
-surveys. A % jump that no gain explains (run22: 0% → 63%) needs two matching reads before it's believed, the same
+"No % line" evidence (`FINISHED_READS`, `map_pct`'s 3 reads, which count only from 90% since 5b80215) counts
+**glances in which the label was read with room for a % line under it**. The evidence piles up while the bot
+walks. A % jump that no gain explains (run22: 0% → 63%) needs two matching reads before it's believed, the same
 rule as the quest-moved check.
 
 ### The flowchart
 
 ```mermaid
 flowchart TD
-    C(["A caller needs a big-map fact<br/>(roam pick, zone %, ready statue, entrance, where am I)"]) --> V{"Snapshot has it<br/>and it's still valid?<br/>(invalidation table)"}
-    V -->|yes| R["Reuse it<br/>log: reuse survey N (age, why valid)"] --> OUT(["fact returned"])
-    V -->|no| O["Open the map once<br/>(survey zoom unless it's known to be there already;<br/>fog_here keeps the frontier's zoom)"]
-    O --> READ["One read of the frame: labels with % and power,<br/>our dot, red and blue badges, object dots"]
-    READ --> NEED{"The zone the caller<br/>is about to act on in view?"}
-    NEED -->|yes| SNAP
-    NEED -->|"no, and it isn't blocked,<br/>given up or walled"| PAN["Pan toward its last known point<br/>(1-2 drags), read again"] --> SNAP
-    NEED -->|"no, and it can't be acted on"| SNAP
-    SNAP["Store as survey N: facts per zone, time, leg count, reason<br/>write the location tree<br/>log: survey N (reason, what was invalid) seconds"] --> TAP{"Caller also taps<br/>something on the map?"}
+    C(["A caller needs a big-map fact or a tap point<br/>(zone %, pick an object, a label to walk to, ready statue, where am I)"]) --> V{"Only a fact, and the kept<br/>one is still valid?<br/>(stale table)"}
+    V -->|yes| R["Reuse it<br/>log: reuse (age, why valid)"] --> OUT(["fact returned"])
+    V -->|no| O["Glance: open the map<br/>at the walking zoom<br/>(knob checked, no taps if set)"]
+    O --> READ["One read of the frame: labels with % and power,<br/>our dot, red and blue badges, object dots, fog"]
+    READ --> NEED{"What the caller needs<br/>is in view?"}
+    NEED -->|yes| KEEP
+    NEED -->|"no: a named label"| PAN["1-2 drags toward it<br/>(tree's direction), read again"] --> KEEP
+    NEED -->|"no: anything else"| KEEP
+    KEEP["Keep the facts per zone, time, leg, purposes<br/>update the location tree<br/>log: glance for (purposes) seconds, our dot"] --> TAP{"Caller taps<br/>something?"}
     TAP -->|yes| T["Tap point from this same frame<br/>(pixels never reused)"] --> CL
     TAP -->|no| CL["Close the map"] --> OUT
-    W(["Any walk opening<br/>(go_to a label, a picker, a bless)"]) --> READ
+    D(["Discovery survey: first roam pass of the server day,<br/>no zone left to pick, or roam --discover"]) --> DS["Survey zoom, full pan grid, read every view"] --> DZ["Back to the walking zoom"] --> KEEP
     classDef ok fill:#d4edda,stroke:#2e7d32,color:#000
     classDef sub fill:#dbe9ff,stroke:#1f5fbf,color:#000
     class OUT,R ok
-    class O,PAN sub
+    class O,PAN,DS sub
 ```
 
 ### Roam's zone cycle, before and after
@@ -188,53 +206,50 @@ flowchart LR
     subgraph Before["Before: about 2-2.5 min of big map per zone"]
         direction TB
         b1["survey + 8 pans (35-43 s)"] --> b2["entrance picker, zoom + 6 pans (16-22 s)"]
-        b2 --> b3["Clear Zone map_pct (9 s) + every 3 legs (9 s)"]
-        b3 --> b4["legs (3-7 s per opening, fine)"]
+        b2 --> b3["Clear Zone map_pct, zoomed out (9 s) + every 3 legs (9 s)"]
+        b3 --> b4["legs (3-7 s per opening)"]
         b4 --> b5["bless at 100% (5-10 s)"]
         b5 --> b6["survey + 8 pans (35-43 s)"]
         b6 --> b7["loop top: survey + 8 pans again (35-43 s)"]
         b7 --> b8["red ! seen → bless → survey again"]
     end
-    subgraph After["After: about 20-30 s per zone"]
+    subgraph After["After: about 10-20 s per zone, plus one 45 s survey a day"]
         direction TB
-        a1["survey, pans only for the picked zone (~10 s)"] --> a2["entrance walk opening (~4 s), also refreshes the snapshot"]
-        a2 --> a3["Clear Zone starts with roam's %, no map_pct"]
-        a3 --> a4["legs: each opening also reads the zone's %"]
-        a4 --> a5["bless at 100% marks the statue done in the snapshot"]
-        a5 --> a6["one survey: zone run ended (~10 s), reused as the next pick"]
+        a0["first pass of the day only: discovery survey (~45 s)"] --> a1["pick the zone from the location tree (no look)"]
+        a1 --> a2["entrance: one glance (~4 s)"]
+        a2 --> a3["Clear Zone: one glance per big-map leg, % read from it"]
+        a3 --> a4["bless at 100% marks the statue done"]
+        a4 --> a5["Clear Zone's last glance goes back to roam and the tree; next pick, no look"]
     end
 ```
 
 ## What changes in the code
 
-- **New** `bigmap.py` in `sxs/actions/`: `Snapshot` (zone facts, dot, badges, objects, time, legs, reason), `BigMap`
-  (`look(reason, need=zone)`, `opened(reason)` context manager for walk openings, `invalidate(event, zone)`),
-  `read()` (the one reader, moved from `roam.read_areas` + `merge_readings`), `is_zone()` (the one matcher).
-  A new offline check, `check_bigmap.py` in `tests/`, replays saved area-map frames (`docs/screens/world/area_map_*.png`) through the reader
-  and checks the invalidation rules offline.
-- `sxs/actions/goto.py`: `go_to` takes an optional `bigmap` and records its opening; `area_labels` becomes a thin
-  wrapper over the one reader. The map is left at survey zoom, and `go_to` skips `survey_zoom` when it knows the
-  map is already there (saves ~3.5 s per opening).
-- `sxs/actions/mapnav.py`: `zone_by_map` and `map_labels` go through `BigMap`. The dot from the last opening
-  answers "where am I" when it's fresh.
-- `sxs/loops/roam.py` (Clear Zone thread's file): one `BigMap` per run; the post-zone survey becomes the next
-  pass's survey (the loop-top survey only runs when the snapshot is invalid); `bless_ready` doesn't `continue` into
-  a new survey; `bless_near` uses the snapshot's statue facts; the pan list is "the picked zone", not "every
-  unfinished zone".
-- `sxs/loops/clear.py` (Clear Zone thread's file): `Clearer` takes roam's `BigMap`; `map_pct` at the start is
-  skipped when the snapshot has the zone's % from this visit; the every-3-legs read uses the picker's openings
-  first; `judge`, `read_pct`, `check_zone` and `finish_zone` call `invalidate`.
-- Rules: R-076 (big map) gets a line on the shared survey; no game rule changes.
+- **New** `bigmap.py` in `sxs/actions/`: `BigMap` (kept zone facts with times, `opened(purposes)` context manager
+  for every opening, `discover(reason)` for the discovery survey, `invalidate(event, zone)`), `read()` (the one
+  reader, moved from `roam.read_areas` + `merge_readings`), `is_zone()` (the one matcher), `WALK_ZOOM` knob
+  position and `at_zoom(frame)`. A new offline check, `check_bigmap.py` in `tests/`, replays saved area-map frames
+  (`docs/screens/world/area_map_*.png`) through the reader and checks the stale rules.
+- `sxs/actions/goto.py`: `go_to` opens through `BigMap.opened`; `area_labels` becomes a thin wrapper over the one
+  reader; `_widen` (zoom out to search) and the 6-drag `LABEL_PANS` search are replaced by 1-2 drags toward the
+  label; `survey_zoom` is called only by `BigMap.discover`.
+- `sxs/actions/mapnav.py`: `zone_by_map` reads a glance (no survey zoom); `map_labels` goes through the one reader.
+- `sxs/loops/roam.py`: one `BigMap` per run; picks from the tree; `survey()` becomes `BigMap.discover` and runs
+  only for its three reasons; the post-zone and loop-top surveys go; `bless_ready` and `bless_near` use kept statue
+  facts and one glance per statue.
+- `sxs/loops/clear.py`: `Clearer` takes roam's `BigMap`; one glance per leg feeds `map_pct`, the picker and
+  `fog_here`; `judge`, `read_pct`, `check_zone` and `finish_zone` call `invalidate`.
+- `scripts/tap_trace.py` and the run readouts count openings by kind (glance, reuse, discovery) so the next live
+  run shows the saving.
+- Rules: R-076 (big map) gets the glance / discovery split.
 
-The Clear Zone thread owns roam and clear. The Clear Zone thread agreed (2026-11-11): this branch builds on its tip 100a6ee and takes over `map_pct`, the picker's label read, `in_home` and `finish_zone`; it stays out of `clear.py` until this lands if the picker's signature changes.
+The Clear Zone thread agreed (2026-11-11) that this branch takes over `map_pct`, the picker's label read,
+`in_home` and `finish_zone`; it stays out of `clear.py` until this lands if the picker's signature changes.
 
-## Questions for mae
+## Decisions (mae, 2026-11-11 06:49)
 
-1. **Survey zoom for every opening.** Leaving the map at survey zoom saves the 4 zoom taps on every opening, and
-   the Clear Zone pickers found objects at that zoom in run22. OK to make it the standard zoom for walks too?
-2. **Age limits.** Facts about the zone being cleared are reused for about 1 minute; facts about other zones
-   (their %, power, statues) for 10 minutes. Is anything on the big map likely to change on its own faster than
-   that (respawning monsters in explored zones, timed events)?
-3. **Pans.** With pans only toward the picked zone, a zone that never shows in the first view (Sunrise Isle,
-   Rabbit Vault) is read only when roam picks it. Fine, or should a full panned survey still run once per server
-   day to keep the location tree complete?
+1. **Survey zoom is only for seeing which zones are available.** Walking basically never needs a full survey,
+   except when we hunt unexplored side areas on purpose. Small surveys (glances) are fine; the goal is less
+   navigation overhead. → Glance / discovery split above.
+2. **Age limits are good:** about 1 minute for the zone being cleared, 10 minutes for other zones.
+3. **One full pan per day is okay.** → The first roam pass of each server day runs the discovery survey.

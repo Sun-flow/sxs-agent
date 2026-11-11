@@ -1,7 +1,12 @@
 # Session Log
 
-> **Last updated**: 2026-11-10
+> **Last updated**: 2026-11-11
 > Newest first. One entry per session: date, where it ran, what changed (link the PR or commit), what was left open. Keep about 15 entries. When there are more, move the oldest to `docs/archive/memory-bank-log.md` (create it the first time). Entries before this file existed were rebuilt from git history and the project's chat.
+
+### 2026-11-11 · Big-map survey diagnosis and design (Claude Code, cloud)
+- mae: the bot scans the big map several times in a row; wanted the fog-walk treatment. Read mae's PC run logs (roam vii_r4, run2-17; clear run15-22): roam surveyed after each Clear Zone run and again at the loop top seconds later (35-43 s each); every survey panned 8 times for blocked/given-up zones (182 pans thrown away); clear's `map_pct` re-read roam's survey; three label readers disagreed (run22 Grotto: no % line vs 63%). Plain walk openings are cheap (3-4 s).
+- `docs/big-map-survey.md` (PR #61): caller table, causes, design. mae's decisions (06:49): survey zoom only to see which zones exist, walking never needs a full survey, small surveys (glances) fine, 1 min / 10 min reuse limits, one full panned survey per day. Strengthening thread's one-glance-per-leg suggestions folded in.
+- Open: build offline (emulator not available until mae picks a time); then a live run counting glances vs surveys.
 
 ### 2026-11-11 · Fog Walk scrapped, Clear Zone built (Claude Code, cloud)
 - mae (2026-11-10 23:48): the fog-walk idea "has been poisoning our navigation"; scrap it. Post-mortem from the exploration thread: `docs/fogwalk-postmortem.md` (new-tile progress let it hop 1-3 tiles for minutes; run 13: 62 hops vs 4 object legs, all % from objects).
@@ -95,11 +100,3 @@
 - After mae's labeler pass: `scripts/merge_labels.py` (merge two labels.json copies, mae's boxes win); dataset export balances splits so every class on 3+ screens is in valid and test (`--hash-split` for the old split); item `aliases` + `python -m sxs items rename` (unknown_1 -> growth_trial_points); `btn_quick_heal` = the Quick Heal button on the badly-wounded dialog; new class `btn_price` (mae); prelabel drops area-map label letters, `--redraft` / `--only`, clear stop when OCR models are missing.
 - Ran on labels/check-drafts (by the symbols thread): mae's 83 map/minimap marker boxes back to drafts plus the text drafter (zone names, % lines, Claim): 191 drafts on 23 screens for her to check.
 - Open: mae re-checks those drafts; second labelling pass for empty classes (cards, close X); Roboflow upload waits for her go.
-
-### 2026-11-09 (late) · Upgrade loops live test (Claude Code, mae's PC via Remote Control)
-- mae (23:52): test the upgrade loops. Cart: claimed, the free Chrono Sand Unlock pressed (R-137, first live run, worked), Stone/Wood capped at Lv 5 (Blessing Lv 6). Gear swap: weapon 1490 → 1960, head 1170 → 1820. Upgrade Loop: 1 skill Quick Upgrade, Goals claimed. Gear enhance: weapon +21 → 24, head +18 → 23, chest and boots +15 → 20. Power 22.4K → about 24.5K.
-- Fixed: the blue enhance pip finder found none live (discs bluer, S up to ~175; one merged with the chest slot's rim, 38x26): range H 85-116, S 45-190, size to 40 px, aspect 1.5; reference `character/character_pips_all4.png`. The gear pass stopped at the first piece short of materials (the weapon's +25 needs red ore, 299/300) though others could go on: a short or capped piece is left out, the rest keep banding. Gear pass budget 180 s (enhancing four slots took 60 s of 90).
-- mae (23:52): claim EXP too. Bed EXP (daily step `bed`, free speed-up kept): Lv 24 → 30 (cap for Apprentice II), power about 28.4K. After it: boots swapped (2050 → 2110), 2 rank Goals claimed; the rank badge then cleared (Apprentice III still needs the Bellflowers).
-- Fixed: Strengthen's 60 s watchdog stopped it while the Upgrade Loop's Goals pass was still opening pages; each pass and Goals page now reports progress.
-- mae (00:07): the pass kept trying the highest piece (no pip, unaffordable) although the lower pieces had pips. Now only Enhance Gear tabs with the blue pip are enhanced (`strengthen.tabs_with_pip`), and after an "Insufficient materials" banner it waits for the banner to fade (it had made the next pieces read as short). Reference `character/enhance_gear_short_weapon.png`. Live after the fix: no pips left (materials spent), pass does nothing, correctly.
-- Open: chest and boots stop at +20 for the red ore too.
