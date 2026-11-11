@@ -57,9 +57,9 @@ Code: `python -m sxs roam` picks the zone with `Tree.next_zone` from the locatio
 
 ### R-174 · Blight Witch lore objects curse the player: avoid them while exploring
 - A hooded stone statue (Bubble Lake, about (95, 80); a gold "building" on the minimap) opens the lore page "Tale of the Blight Witch I" (R-173). After Close, "Tap to Continue" shows a curse card, "Cutting Words": max HP -100%, and Witch's Curse ATK -50% for one battle (builder, run 27, 2026-11-11).
-- Then the badly-wounded Confirm appears with an Akane tutorial overlay ("Uh-oh! You got cursed!...") and a two-option choice ("Are you serious?" / "No big deal!"): stop with needs_decision (R-164).
-- Avoid Blight Witch objects while exploring until mae says otherwise. Unknown: whether the object counts toward the zone %. mae's choice: pending.
-*observed* · `dialogs/dialogue_blight_witch_curse_cutting_words.png`, `dialogs/tutorial_cursed_akane_quick_heal.png`, `dialogs/dialogue_choice_bubble_lake_cursed.png` · R-173, R-164, R-030
+- Then the badly-wounded Confirm appears with an Akane tutorial overlay ("Uh-oh! You got cursed!...") and a two-option choice ("Are you serious?" / "No big deal!"). mae (2026-11-11): this choice is flavour only; pick either option, no need to stop.
+- Avoid Blight Witch objects while exploring until mae says otherwise. Unknown: whether the object counts toward the zone %.
+*observed, told* · `dialogs/dialogue_blight_witch_curse_cutting_words.png`, `dialogs/tutorial_cursed_akane_quick_heal.png`, `dialogs/dialogue_choice_bubble_lake_cursed.png` · R-173, R-164, R-030
 
 ### R-142 · While exploring, follow the zone's own Explore quest
 - The zone's own Explore quest in the tracker ("Explore Verdantglade V") is the best goal source while exploring (live, Verdantglade V 78% → 100%, 2026-11-09).
