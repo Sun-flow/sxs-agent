@@ -609,16 +609,6 @@ class Clearer:
         elif d.state == "lore_page":
             # Live 2026-11-11 (run 27, Bubble Lake): a structure opened "Tale of the Blight Witch I", a story page
             # with no back arrow; its Close button shows only once scrolled to the end. Reading it is the object.
-            here = _xy(self.det) or (self.leg.xy if self.leg else None)
-            k = self.tree.key(self.home or "")
-            if k and here:
-                # Run 27: the Blight Witch's lore page led into a curse card. Avoid the spot from now on (mae to decide
-                # whether lore objects are ever worth opening).
-                spots = self.tree.zones[k].setdefault("avoid_spots", [])
-                if not any(near(o, here) for o in spots):
-                    spots.append(list(here))
-                    self.tree.save()
-                self.skip_spot(here)
             if self.close_lore():
                 self.event("cleared")
             else:
@@ -911,10 +901,6 @@ class Clearer:
             self.tree.save()
         self.pct = (self.tree.get(self.home or "") or {}).get("pct") if self.home else None
         self.power = read_power(self.det)
-        for xy in (self.tree.get(self.home or "") or {}).get("avoid_spots", []):
-            # Objects that hurt us (live 2026-11-11, run 27: Bubble Lake's Blight Witch statue, a lore page and then
-            # a curse, max HP -100% for a battle): never a leg's objective.
-            self.skip_spot(xy)
         self.pct = self.read_pct()
         if not self.own_quest:
             self.map_pct()
