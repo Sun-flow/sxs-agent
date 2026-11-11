@@ -96,3 +96,9 @@ Scene labels (e.g. "Class to Unlock") overlap the quest tracker region; filter t
 - Gift items (e.g. "Rolla Management Made Easy") are companion affinity gifts: leave them.
 - A selection box ("choose one") is a choice: stop and ask mae (R-129).
 *observed* · `home/bag_items.png`, `home/bag_casket_card.png`, `home/bag_casket_multi.png`, `home/bag_visage_giftbox.png` · node `item_bag` · R-129, R-134
+
+### R-170 · Tap the little things around Home for small resources
+- Tiny creatures at the Home base (mice, sometimes sitting in burrows), pink leaf piles and clay jars or pots can be tapped for a small amount of resources (mae, 2026-11-11 04:57). The Home routine includes a tap pass over them, found by template after panning.
+- A tracker line "...ers X 0/100" showed next to three leaf piles: likely a collect counter for them ❓.
+- Drop names and fuller reference images: to come from the strengthening thread.
+*told* · `home/home_tap_mouse.png`, `home/home_tap_mice_burrows.png`, `home/home_tap_critters.png`, `home/home_tap_leaf_pile.png`, `home/home_tap_overview.png` · node `home` · R-020, R-126
