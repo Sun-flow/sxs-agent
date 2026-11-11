@@ -59,6 +59,10 @@ check("1.25x power check on crossing", t.can_cross("Drasilgard", "Troll Lair", 1
 check("crossing from a town into a zone in reach", t.can_cross("Drasilgard", "Jungle Camp", 22.4)[0], True)
 check("Jungle Camp's missing way in is an open question",
       any(q.startswith("Jungle Camp: no known way in") for q in t.open_questions()), True)
+t.zones["Jungle Camp"]["lost_at"] = 22.4  # a fight lost there at 22.4K (Clear Zone's defeated screen)
+check("a zone we lost a fight in waits for more power", t.next_zone(22.6) != "Jungle Camp", True)
+check("and is tried again once power grows", t.next_zone(22.9), "Jungle Camp")
+t.zones["Jungle Camp"].pop("lost_at")
 check("name match keeps numerals apart", same("Verdantglade V", "Verdantglade VI"), False)
 check("name match takes a clipped label", same("tglade III", "Verdantglade III"), True)
 

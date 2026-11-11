@@ -15,7 +15,7 @@
    "entries": []
   },
   "Bubble Lake": {
-   "kingdom": "Verdantglade Verdant",
+   "kingdom": "Verdantglade",
    "first_seen": "2026-11-10",
    "pct": 0,
    "map_point": [
@@ -61,13 +61,14 @@
   "Grotto Peninsula": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-09",
-   "pct": 0,
+   "pct": 63,
    "cp": 23.0,
    "map_point": [
     311,
     -173
    ],
-   "last_seen": "2026-11-10"
+   "last_seen": "2026-11-11",
+   "notes": "run 22: 0 -> 63% in 4 legs; the zone's ground runs north into fog (frontier retest target)"
   },
   "Hidden Camp": {
    "kingdom": "Verdantglade",
@@ -128,6 +129,13 @@
     }
    ],
    "blessed": true
+  },
+  "Lakeside Camp": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-11",
+   "last_seen": "2026-11-11",
+   "lost_at": 28.5,
+   "lost_note": "lost to the bracketed boss group guarding the chest at 28.5K, 2026-11-11 (run 21)"
   },
   "Leafy Corridor": {
    "kingdom": "Verdantglade",
@@ -195,7 +203,8 @@
     459,
     -149
    ],
-   "last_seen": "2026-11-10"
+   "last_seen": "2026-11-11",
+   "blocked": "Sealing Pillar needs a Gateway Key (0 owned; Clearing Item in the Verdantglade Kingdom Shop)"
   },
   "Stagnant Jungle": {
    "kingdom": "Verdantglade",
@@ -218,6 +227,12 @@
    ],
    "last_seen": "2026-11-10",
    "entries": []
+  },
+  "Stone Ruins II": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-11",
+   "last_seen": "2026-11-11",
+   "blocked": "floor puzzle (R-153)"
   },
   "Sunrise Isle": {
    "kingdom": "Verdantglade",
@@ -302,9 +317,9 @@
    "entries": []
   },
   "Verdantglade IX": {
-   "kingdom": "Verdantglade Verdant",
+   "kingdom": "Verdantglade",
    "first_seen": "2026-11-10",
-   "pct": 100,
+   "pct": 44,
    "cp": 30.0,
    "map_point": [
     423,
@@ -313,10 +328,15 @@
    "last_seen": "2026-11-10",
    "entries": [
     {
-     "via": "Verdantglade IV",
-     "day": "2026-11-10"
+     "via": "Verdantglade VIII",
+     "day": "2026-11-10",
+     "xy": [
+      124,
+      76
+     ]
     }
-   ]
+   ],
+   "notes": "Way in: Verdantglade VIII's south edge at about (124,76) (exploration thread, 2026-11-10). A 100% here was an OCR misread; live tracker 44/100 on 2026-11-11 (run 15)."
   },
   "Verdantglade V": {
    "kingdom": "Verdantglade",

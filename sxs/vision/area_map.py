@@ -15,7 +15,8 @@ import numpy as np
 LEGEND = (530, 30, 190, 240)  # x, y, w, h of the legend box top right (its icons are not targets)
 MAP_AREA = (0, 90, 720, 1060)  # below the title, above the kingdom buttons
 MIN_PX = 25  # objects closer than this to our white dot are our own marker
-SIZES = {"item": (15, 120), "monster": (15, 200), "building": (40, 400), "player": (30, 200)}
+SIZES = {"item": (15, 120), "monster": (15, 200), "building": (25, 400), "player": (30, 200)}  # building 25: small
+# gold icons (a winged structure in Verdantglade III, `world/area_map_v3.png`) were dropped at 40
 
 
 def _masks(hsv: np.ndarray) -> dict:
@@ -172,7 +173,7 @@ def crosses_border(lines: np.ndarray, a: tuple[int, int], b: tuple[int, int], ne
 
 def nearest(frame: np.ndarray, kinds=("item", "monster", "building"), max_px: int = 260,
             skip=(), same_zone: bool = True, labels: Optional[dict] = None,
-            home: Optional[str] = None) -> Optional[tuple[str, tuple[int, int]]]:
+            home: Optional[str] = None, is_home=None) -> Optional[tuple[str, tuple[int, int]]]:
     """The object of `kinds` nearest our white dot (within max_px), or None. same_zone (R-132, live 2026-11-09: a
     big-map walk to the nearest dot from Verdantglade V ended in Zephyr Vale): skip objects whose straight line from
     us crosses a dotted zone border, and, given the map's zone labels {name: point} and our zone's name, objects
@@ -200,7 +201,8 @@ def nearest(frame: np.ndarray, kinds=("item", "monster", "building"), max_px: in
             from ..actions.goto import close_name, same_area as _same
 
             def same_area(a, b):  # OCR clips labels ("Jungle Car" for Jungle Camp, live 2026-11-10)
-                return _same(a, b) or close_name(a, b) or (len(a) >= 6 and b.lower().startswith(a.lower()[:-1]))
+                return (_same(a, b) or close_name(a, b) or (len(a) >= 6 and b.lower().startswith(a.lower()[:-1]))
+                        or bool(is_home and is_home(a, b)))
             if not any(same_area(t, home) for t in labels):
                 # Our zone's label wasn't read: nothing can be told apart, so pick nothing rather than anything
                 # (the same day a walk "to the nearest object" kept ending in Drasilgard).
@@ -221,21 +223,56 @@ def nearest(frame: np.ndarray, kinds=("item", "monster", "building"), max_px: in
 
 
 FOG_S_MAX, FOG_V_MAX = 25, 80  # unrevealed fog on the area map: dark and grey (HSV ~100/8/40 at the survey zoom)
-FRONTIER_BAND = 14  # px: revealed ground this close to fog is on the frontier
-FRONTIER_WINDOW = 121  # px square round a frontier point in which the fog is measured
-FRONTIER_MIN_FOG = 0.3  # share of that window that must be fog: a sliver of fog isn't worth a leg
+FRONTIER_BAND = 14  # px: walkable ground this close to fog is on the frontier
+FRONTIER_WINDOW = 61  # px square round a frontier point in which the fog is measured
+FRONTIER_MIN_FOG = 0.2  # share of that window that must be fog: a sliver along a wall isn't a patch worth a leg
 FRONTIER_MAX_PX = 380  # from our zone's label: a frontier farther than this is another zone's
+FRONTIER_AWAY_DEG = 45  # a frontier this close in direction to an empty one is the same patch
+FRONTIER_AWAY_PX = 120  # px from us: still the spent frontier we stand at
+START_REACH_PX = 80  # the walkable ground we stand on: the patch nearest our dot (or our zone's label) within this
 
 
-def frontier(frame: np.ndarray, home: tuple[int, int], others=(), skip=(), skip_px: int = 60
-             ) -> Optional[tuple[tuple[int, int], float]]:
-    """Clear Zone's last objective source (docs/step6-clear-zone.md): the point of revealed ground beside the biggest
-    patch of fog that belongs to our zone. `home` is our zone's label on this opening of the map, `others` the other
-    zones' labels (a point nearer another label, by LABEL_MARGIN, is that zone's), `skip` points already tried on
-    this same opening. Returns (point, fog share of the window round it), or None.
+def _fog(s, v, region) -> np.ndarray:
+    fog = ((s <= FOG_S_MAX) & (v <= FOG_V_MAX) & region).astype(np.uint8)
+    return cv2.morphologyEx(fog, cv2.MORPH_OPEN, np.ones((7, 7), np.uint8))  # not label shadows or dotted lines
 
-    Fog only matters because it hides objects, so this is one long big-map leg to a named spot, never a string of
-    short hops (the fog walk's failure, docs/fogwalk-postmortem.md)."""
+
+def fog_share(frame: np.ndarray, point: tuple[int, int]) -> float:
+    """Share of fog in the FRONTIER_WINDOW square round a point, measured as frontier() measures it. A frontier leg
+    compares it at its target before the walk with the same spot (our dot) after: fog that shrank was revealed."""
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    s, v = hsv[..., 1].astype(int), hsv[..., 2].astype(int)
+    x0, y0, w, hh = MAP_AREA
+    region = np.zeros(s.shape, bool)
+    region[y0:min(y0 + hh, SAFE_TAP_MAX_Y), x0:x0 + w] = True
+    fog = _fog(s, v, region).astype(np.float32)
+    r = FRONTIER_WINDOW // 2
+    x, y = point
+    win = fog[max(0, y - r):y + r + 1, max(0, x - r):x + r + 1]
+    return float(win.mean()) if win.size else 0.0
+
+
+def walkable(hsv: np.ndarray) -> np.ndarray:
+    """Walkable ground on the area map, explored (light, HSV ~40/36/157) or not yet blessed (shaded, ~42/79/81).
+    Walls are a greener, more saturated hue (~54/120/60-110), as on the minimap (R-066)."""
+    h, s, v = (hsv[..., i].astype(int) for i in range(3))
+    return (h >= 30) & (h <= 50) & (s >= 20) & (s <= 100) & (v >= 70)
+
+
+def frontier(frame: np.ndarray, home: tuple[int, int], others=(), me: Optional[tuple[int, int]] = None,
+             skip=(), skip_px: int = 60, away=()) -> Optional[tuple[tuple[int, int], float]]:
+    """Clear Zone's last objective source (docs/step6-clear-zone.md; mae, 2026-11-11): the nearest patch of fog in
+    our zone that touches walkable ground we can reach. `home` is our zone's label on this opening of the map,
+    `others` the other zones' labels (a point nearer another label, by LABEL_MARGIN, is that zone's), `me` our white
+    dot (None: measured from our label), `skip` points already tried on this opening, `away` directions (dx, dy
+    from us) of frontier legs that revealed nothing: points within FRONTIER_AWAY_DEG of one, or within
+    FRONTIER_AWAY_PX of us (we stand at the spent one), aren't picked (live 2026-11-11, run 22: Grotto Peninsula's
+    one empty frontier ended every frontier leg while its dotted ground ran far north into fog). Reachable = the walkable
+    patch we stand on (zone borders' dotted lines and icons bridged). Returns (point on that ground beside the fog,
+    fog share of the window round it), nearest to us first, or None.
+
+    Fog only matters because it hides objects, so this is one big-map leg to a named spot, never a string of short
+    hops (the fog walk's failure, docs/fogwalk-postmortem.md)."""
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     s, v = hsv[..., 1].astype(int), hsv[..., 2].astype(int)
     x0, y0, w, hh = MAP_AREA
@@ -243,30 +280,45 @@ def frontier(frame: np.ndarray, home: tuple[int, int], others=(), skip=(), skip_
     region[y0:min(y0 + hh, SAFE_TAP_MAX_Y), x0:x0 + w] = True
     for rx, ry, rw, rh in (LEGEND, SLIDER):
         region[ry:ry + rh, rx:rx + rw] = False
-    fog = ((s <= FOG_S_MAX) & (v <= FOG_V_MAX) & region).astype(np.uint8)
-    fog = cv2.morphologyEx(fog, cv2.MORPH_OPEN, np.ones((7, 7), np.uint8))  # not label shadows or dotted lines
+    fog = _fog(s, v, region)
     text = cv2.dilate(((s < 25) & (v > 170)).astype(np.uint8), np.ones((9, 9), np.uint8)).astype(bool)  # labels
-    ground = (((s >= 30) & (v >= 50)) | (v >= 120)) & region & ~text
-    ground = cv2.morphologyEx(ground.astype(np.uint8), cv2.MORPH_OPEN, np.ones((5, 5), np.uint8))
-    near = cv2.dilate(fog, np.ones((FRONTIER_BAND, FRONTIER_BAND), np.uint8))
-    band = (ground & near).astype(bool)
-    ys, xs = np.nonzero(band)
+    ground = (walkable(hsv) & region).astype(np.uint8)
+    ground = cv2.morphologyEx(ground, cv2.MORPH_CLOSE, np.ones((9, 9), np.uint8))  # bridge borders and icons
+    ground = cv2.morphologyEx(ground, cv2.MORPH_OPEN, np.ones((5, 5), np.uint8))
+    n, comp = cv2.connectedComponents(ground)
+    sx, sy = me or home
+    ys, xs = np.nonzero(ground)
     if len(xs) == 0:
         return None
-    keep = np.arange(len(xs)) % 5 == 0  # thinned: neighbouring pixels are the same spot
+    d0 = (xs - sx) ** 2 + (ys - sy) ** 2
+    i0 = int(np.argmin(d0))
+    if d0[i0] > START_REACH_PX ** 2:
+        return None  # no walkable ground near us on this view
+    reach = comp == comp[ys[i0], xs[i0]]
+    near_fog = cv2.dilate(fog, np.ones((FRONTIER_BAND, FRONTIER_BAND), np.uint8)).astype(bool)
+    ys, xs = np.nonzero(reach & near_fog & ~text & region)
+    if len(xs) == 0:
+        return None
+    keep = np.arange(len(xs)) % 3 == 0  # thinned: neighbouring pixels are the same spot
     xs, ys = xs[keep], ys[keep]
     hx, hy = home
     dh = np.sqrt((xs - hx) ** 2 + (ys - hy) ** 2)
     ok = dh <= FRONTIER_MAX_PX
     for ox, oy in others:
         ok &= np.sqrt((xs - ox) ** 2 + (ys - oy) ** 2) >= LABEL_MARGIN * dh
-    for sx_, sy_ in skip:
-        ok &= (xs - sx_) ** 2 + (ys - sy_) ** 2 > skip_px ** 2
+    for kx, ky in skip:
+        ok &= (xs - kx) ** 2 + (ys - ky) ** 2 > skip_px ** 2
+    if away:
+        dx, dy = xs - sx, ys - sy
+        dn = np.sqrt(dx ** 2 + dy ** 2) + 1e-6
+        ok &= dn > FRONTIER_AWAY_PX
+        for ax, ay in away:
+            an = np.hypot(ax, ay) + 1e-6
+            ok &= (dx * ax + dy * ay) / (dn * an) < np.cos(np.radians(FRONTIER_AWAY_DEG))
+    share = cv2.blur(fog.astype(np.float32), (FRONTIER_WINDOW, FRONTIER_WINDOW))[ys, xs]
+    ok &= share >= FRONTIER_MIN_FOG
     if not ok.any():
         return None
-    share = cv2.blur(fog.astype(np.float32), (FRONTIER_WINDOW, FRONTIER_WINDOW))
-    score = np.where(ok, share[ys, xs], -1.0)
-    i = int(np.argmax(score))
-    if score[i] < FRONTIER_MIN_FOG:
-        return None
-    return (int(xs[i]), int(ys[i])), float(score[i])
+    dist = np.where(ok, (xs - sx) ** 2 + (ys - sy) ** 2, np.inf)
+    i = int(np.argmin(dist))
+    return (int(xs[i]), int(ys[i])), float(share[i])

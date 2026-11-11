@@ -9,7 +9,7 @@ R-131, R-132, R-140, R-142, R-143, R-147, R-148, R-150, R-155.
 structures, statues. Every leg names its objective; progress is the zone's % or an object cleared, never tiles.
 **End condition:** 100% (or the tracker moved on), no objective left, 4 legs in a row without progress, a power
 gate met 3 times, a lost fight, an unfamiliar screen, or the time.
-**Ok statuses:** `zone_done`, `no_objective`, `no_progress`, `power_gate`, `blocked_item`, `explored`, `timeout`.
+**Ok statuses:** `zone_done`, `no_objective`, `no_progress`, `puzzle` (3 gold squares in a row that open nothing and move no %: floor-puzzle tiles, R-153; the zone is marked blocked), `power_gate`, `blocked_item`, `explored`, `timeout`.
 Needs a look: `defeated`, `unknown_screen`, `repeating_card`, `left_area:home`, `not_on_map`, `not_in_zone`.
 
 ## The leg loop
@@ -26,7 +26,7 @@ flowchart TD
     EX -->|yes| XP(["explored"])
     EX -->|no| L
     L["Between legs: read the % (tracker Explore N/100 if it is this zone's)"] --> D{"100%, or tracker moved<br/>on to the next zone?"}
-    D -->|yes| ZD(["zone_done"])
+    D -->|yes| BS["Bless the zone's statue if its red ! shows on the big map (R-070)"] --> ZD(["zone_done"])
     D -->|no| Z{"Still in our zone?<br/>(minimap name, R-140)"}
     Z -->|"no, twice"| BK[["goto back into the zone"]] --> L
     Z -->|yes| ST{"4 legs in a row<br/>without progress?"}
@@ -35,15 +35,18 @@ flowchart TD
     P1 -->|yes| LEG["Leg: tap the target under the ring"]
     P1 -->|no| P2{"2. Known object on screen?<br/>(R-131 crops)"}
     P2 -->|yes| LEG2["Leg: tap it (from the next tile if needed, R-155)"]
-    P2 -->|no| P3{"3. Dot or structure within 4 tiles<br/>on the minimap?"}
-    P3 -->|yes| LEG3["Leg: tap it on screen"]
-    P3 -->|no| P4{"4. Object in our zone on the big map?<br/>(blue ! statue, dot, structure)"}
+    P2 -->|no| PG{"2b. Guard group in gold brackets<br/>or under a skull marker? (R-139)"}
+    PG -->|yes| LEGG["Leg: tap the group to fight it"]
+    PG -->|no| P3{"3. Dot or structure anywhere<br/>on the minimap (up to 10 tiles)?"}
+    P3 -->|yes| LEG3["Leg: walk along the minimap path until it is on screen<br/>(up to 3 walk taps), then tap it"]
+    P3 -->|no| P4{"4. Anything in our zone on the big map that counts for exploration?<br/>blue ! statues and wheels, green pickups, orange monsters,<br/>gold structures and chests"}
     P4 -->|yes| LEG4[["Leg: big-map walk to it, tap the centre"]]
-    P4 -->|no| P5{"5. Frontier: our revealed ground<br/>beside the biggest fog patch?<br/>(3 per run)"}
+    P4 -->|no| P5{"5. Frontier: the nearest fog in our zone<br/>touching walkable ground we can reach?<br/>(6 per run; one that uncovers fog leads on to the next;<br/>one whose fog did not shrink sends the next another way)"}
     P5 -->|yes| LEG5[["Leg: one big-map walk to the frontier"]]
     P5 -->|no| NO(["no_objective: leftovers written to the location tree"])
     LEG --> R
     LEG2 --> R
+    LEGG --> R
     LEG3 --> R
     LEG4 --> R
     LEG5 --> R
@@ -69,7 +72,7 @@ Each leg logs `[leg N] goal: <source> <what> at <where>` before it starts and `[
 | battle_prep | heal from the portrait if HP under 70% (2 tries), else Start Battle; save the monster crop (R-131) | gain (a fight) |
 | battle, loading, dialogue, tap_to_continue | wait / pass through | |
 | reward_popup | close | gain (a pickup) |
-| defeated | OK | `defeated` |
+| defeated | OK; the zone gets `lost_at` (our power) in the location tree, so roam skips it until power is 0.5K higher | `defeated` |
 | player_profile | close (a stray tap on our character) | |
 | tower screens | tower climb if not done today (R-079), then back to the zone | |
 | area_map | close (left open by a big-map walk) | |
@@ -77,5 +80,6 @@ Each leg logs `[leg N] goal: <source> <what> at <where>` before it starts and `[
 | Lucky Wheel, free spin showing (R-147) | spin once | gain |
 | Gate of Elements (Gate of Wind...) | add companions, Open (R-057) | gain, or the spot skipped if still short |
 | dialogue_choice (a puzzle NPC) | Leave; puzzle noted on the zone (R-153) | the spot skipped |
+| dialogue_choice with no Leave (a story choice) | save the screen to `docs/screens/dialogs/choice_<zone>_<choices>.png`, ask mae (mae, 2026-11-11) | `needs_decision` |
 | any other card | card rules (`resource/policy/cards.json`, goal explore) | acted on: gain; dismissed: the spot skipped; Gate of Power: the spot skipped, `power_gate` the 3rd time; "Required Item": `blocked_item` |
 | unknown, 5 in a row | frame saved | `unknown_screen` |

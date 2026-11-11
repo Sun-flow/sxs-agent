@@ -345,11 +345,16 @@ def _args(p) -> None:
     p.add_argument("--check", action="store_true", help="read stamina and the budget only")
     p.add_argument("--harvest", nargs="?", const="bellflower", choices=sorted(TARGETS),
                    help="already on the map with an item tracker (default bellflower): collect until it's full")
+    p.add_argument("--enter", action="store_true",
+                   help="with --harvest bellflower: first go Home > Rank Advancement > Bellflower source > OK")
 
 
 def _run(ctx, opts):
     g = Gatherer(ctx.dev, ctx.det)
     if opts.harvest:
+        if opts.enter and opts.harvest == "bellflower" and not g.enter_bellflower_field():
+            g.nav.go_home()
+            return {"end": "unknown_screen"}
         return g.collect(TARGETS[opts.harvest], keep=int(load_policy().get("keep_stamina", 70)))
     return g.run(opts.material, opts.check)
 

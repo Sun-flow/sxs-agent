@@ -31,24 +31,38 @@ labels = {"Verdantglade VI": (147, 525), "Verdantglade V": (485, 600), "Wildbloo
           "Drasilgard": (310, 885), "Highland Woods": (690, 675)}
 
 
-def frontier(home):
+ME = (360, 549)  # our white dot (inside the white box in Verdantglade V)
+
+
+def frontier(home, me=ME):
     others = [p for k, p in labels.items() if k != home]
-    return area_map.frontier(frame, labels[home], others)
+    return area_map.frontier(frame, labels[home], others, me=me)
 
 
-vi = frontier("Verdantglade VI")
-check("VI frontier found", vi is not None, True)
-if vi:
-    (x, y), share = vi
-    check("VI frontier on its north-west edge, not on the label text", 150 <= x <= 240 and 470 <= y <= 515, True)
-    check("VI frontier has fog round it", share >= area_map.FRONTIER_MIN_FOG, True)
-    again = area_map.frontier(frame, labels["Verdantglade VI"], [p for k, p in labels.items() if k != "Verdantglade VI"],
-                              skip=[(x, y)])
+v = frontier("Verdantglade V")
+check("V: a frontier on reachable ground", v is not None, True)
+if v:
+    (x, y), share = v
+    check("V: its nearest fog, on the zone's north-east edge", 540 <= x <= 620 and 470 <= y <= 540, True)
+    check("V: fog round it", share >= area_map.FRONTIER_MIN_FOG, True)
+    again = area_map.frontier(frame, labels["Verdantglade V"],
+                              [p for k, p in labels.items() if k != "Verdantglade V"], me=ME, skip=[(x, y)])
     check("a skipped frontier isn't picked again on the same opening", again is None or
           (again[0][0] - x) ** 2 + (again[0][1] - y) ** 2 > 60 ** 2, True)
+    other = area_map.frontier(frame, labels["Verdantglade V"],
+                              [p for k, p in labels.items() if k != "Verdantglade V"], me=ME, away=[(x - ME[0], y - ME[1])])
+    print("   next frontier after an empty one:", other)
+    if other:
+        import math
+        ox, oy = other[0][0] - ME[0], other[0][1] - ME[1]
+        cos = (ox * (x - ME[0]) + oy * (y - ME[1])) / (math.hypot(ox, oy) * math.hypot(x - ME[0], y - ME[1]))
+        check("after an empty frontier the next goes another way", cos < math.cos(math.radians(45)), True)
+    check("fog_share measures what frontier() measured", abs(area_map.fog_share(frame, (x, y)) - share) < 1e-6, True)
+check("no fog round our dot on explored ground", area_map.fog_share(frame, ME), 0.0)
 jc = frontier("Jungle Camp")
-check("Jungle Camp frontier north of its label (its way in)", bool(jc) and jc[0][1] < labels["Jungle Camp"][1], True)
-check("Zephyr Vale (no fog of its own in reach) has no frontier", frontier("Zephyr Vale"), None)
+check("Jungle Camp: the fog north of its label (its way in)", bool(jc) and jc[0][1] < labels["Jungle Camp"][1], True)
+check("Verdantglade IV (no fog of its own beside reachable ground) has none", frontier("Verdantglade IV"), None)
+check("no walkable ground near us: none", area_map.frontier(frame, labels["Verdantglade V"], [], me=(60, 300)), None)
 
 # Minimap goals: objects only. Ground (fog leads, shaded tiles) is never a goal any more (R-143).
 check("minimap goals", minimap.GOALS, ("item", "monster", "building"))
@@ -107,6 +121,29 @@ check("STALL_LEGS legs without a gain reach the stop count", c.no_gain >= clear.
 c.no_gain = 0
 c.judge(leg("frontier", ["revealed"]), 42, (0, 0))
 check("a frontier that revealed objects is a gain", c.legs[-1].result, "gain")
+c.judge(leg("minimap", ["cleared"]), 42, (0, 0))
+check("an object gone from the minimap after the leg is a gain", c.legs[-1].result, "gain")
+for _ in range(clear.PUZZLE_LEGS):
+    lg = clear.Leg(len(c.legs) + 1, "minimap", "building 2 tiles away", (60, 60), ["cleared"])
+    c.legs.append(lg)
+    c.judge(lg, c.pct, (0, 0))
+check("gold squares that open nothing and move no % add up to a puzzle", c.inert_gold, clear.PUZZLE_LEGS)
+lg = clear.Leg(len(c.legs) + 1, "minimap", "building 1 tiles away", (61, 61), ["acted"])
+c.legs.append(lg)
+c.judge(lg, c.pct, (0, 0))
+check("a gold square whose card we acted on is a structure, not a puzzle tile", c.inert_gold, 0)
+check("a zone given by its first words matches its label", clear.mapnav.label_is("Lakeside Camp", "Lakeside"), True)
+check("a different numeral is another zone", clear.mapnav.label_is("Verdantglade I", "Verdantglade II"), False)
+check("another zone with a shared first word isn't ours", clear.mapnav.label_is("Lakeside Camp", "Lake"), False)
+check("minimap targets reach the whole minimap", clear.MINIMAP_REACH >= 7, True)
+check("a tile 2 right of us is on screen", clear.on_screen((360, 600), type("M", (), {"centre": (10, 10)})(), (10, 12)),
+      (568, 600))
+check("a tile 5 right of us is off screen", clear.on_screen((360, 600), type("M", (), {"centre": (10, 10)})(), (10, 15)),
+      None)
+check("a tile over the minimap HUD is off limits", clear.on_screen((360, 600), type("M", (), {"centre": (10, 10)})(),
+                                                                   (8, 12)), None)
+check("a guard group is a leg source of its own", hasattr(clear.Clearer, "try_guard"), True)
+check("no % line counts as explored only near the end", clear.NO_PCT_DONE_FROM >= 90, True)
 check("the loop's ok statuses", {"zone_done", "no_objective", "no_progress"} <= clear.OK, True)
 
 print("all good" if not fails else f"{fails} failed")
