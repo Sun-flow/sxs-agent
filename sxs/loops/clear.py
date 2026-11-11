@@ -805,7 +805,7 @@ class Clearer:
         from .roam import Roamer  # roam imports this module
         time.sleep(2)
         n = Roamer(self.dev, self.det).bless_ready([self.home])
-        log.info("%s: %s", self.home, "statue blessed" if n else "no statue ready to bless on the big map yet")
+        log.info("%s: %s", self.home, "statue blessed" if n else "statue not blessed (no ready badge, or the tries above missed)")
         return "zone_done"
 
     def map_chores(self) -> bool:
