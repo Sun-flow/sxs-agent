@@ -35,3 +35,4 @@ Run from the repo root (`.venv\Scripts\python scripts\X.py` on Windows, `python3
 | `fetch-ocr-models.py` | Download the OCR models into `resource/model/ocr/` (once per clone) |
 | `clean.py [--dry-run]` | Delete `captures/` and `.maa/debug/` (not `logs/`) at the end of a session |
 | `tap_trace.py` | Run Clear Zone or roam with every tap logged (point, calling line) and the frame saved to `captures/taps/`; for finding which tap causes a stuck point |
+| `merge_labels.py OTHER.json` | Merge another copy of docs/screens/labels.json into this one box by box (mae's confirmed boxes always win; the other side's boxes and drafts are added where nothing here covers them). For when two branches both changed labels.json |

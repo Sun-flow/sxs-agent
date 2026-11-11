@@ -6,12 +6,16 @@ and description, so the UI detector can learn and auto-label them (docs/detector
                                                      [--found-in "Home > Vendor Booth"] [--tight]
                                                      crop a symbol from a reference screen into the catalogue
     python -m sxs items find [SCREEN ...]            match every catalogued symbol on screens (default: all)
+    python -m sxs items rename OLD NEW               rename an item (old id kept as an alias)
     python -m sxs items box KEY --cls CLS --box X Y W H [--item ID] [--name N] [--note T]
                                                      add a confirmed detector box to a reference screen (the same
                                                      as drawing it in the labeler), e.g. a button you came across
 
     resource/items/items.json    {"items": [item, ...]}, append only (the order sets detector class ids)
     resource/items/icons/*.png   one crop per sighting of an item: <id>.png, <id>_2.png, ...
+
+Renames: "aliases" maps an old id to the new one (`python -m sxs items rename OLD NEW` keeps it), so labeler
+boxes that still carry an old id export under the new one.
 
 An item is {"id", "name", "kind", "description", "uses", "named_by", "icons": [{"file", "screen", "box", "found_in"}]}.
 - icons: one entry per sighting: the crop file, the reference screen it came from (docs/screens key), its box
@@ -74,6 +78,34 @@ def save(data: dict) -> None:
 
 def ids() -> list[str]:
     return [it["id"] for it in load()["items"]]
+
+
+def resolve(item_id: str) -> str:
+    """The current id for an item id, following renames in items.json "aliases" (old id -> new id), e.g. an
+    unknown_N that has since been named. Unknown ids come back unchanged."""
+    aliases = load().get("aliases", {})
+    seen = set()
+    while item_id in aliases and item_id not in seen:
+        seen.add(item_id)
+        item_id = aliases[item_id]
+    return item_id
+
+
+def rename(old: str, new: str) -> None:
+    """Rename an item: its id and icon files change and the old id is kept as an alias, so boxes and notes that
+    still say the old id keep working."""
+    data = load()
+    it = next((i for i in data["items"] if i["id"] == old), None)
+    if it is None or not ID.match(new) or any(i["id"] == new for i in data["items"]):
+        raise ValueError(f"cannot rename {old} to {new}")
+    for ic in it["icons"]:
+        f = ic["file"].replace(old, new, 1)
+        if (ICONS / ic["file"]).exists():
+            (ICONS / ic["file"]).rename(ICONS / f)
+        ic["file"] = f
+    it["id"] = new
+    data.setdefault("aliases", {})[old] = new
+    save(data)
 
 
 def get(item_id: str) -> Optional[dict]:
@@ -263,6 +295,9 @@ def main(argv: list[str]) -> int:
     f = sub.add_parser("find", help="match catalogued symbols on reference screens")
     f.add_argument("names", nargs="*", help="screen file names without .png (default: all)")
     f.add_argument("--threshold", type=float, default=MATCH)
+    r = sub.add_parser("rename", help="rename an item id (the old id stays as an alias)")
+    r.add_argument("old")
+    r.add_argument("new")
     b = sub.add_parser("box", help="add a confirmed detector box (any class) to a reference screen")
     b.add_argument("screen", help="docs/screens key, e.g. dailies/material_realms.png")
     b.add_argument("--cls", required=True, help="detector class from resource/detect/classes.json")
@@ -271,6 +306,10 @@ def main(argv: list[str]) -> int:
     b.add_argument("--name", default="", help="box name (default: the item or class plus a number)")
     b.add_argument("--note", default="")
     args = p.parse_args(argv)
+    if args.cmd == "rename":
+        rename(args.old, args.new)
+        print(f"{args.old} -> {args.new}")
+        return 0
     if args.cmd == "box":
         return add_box(args.screen, args.cls, args.box, args.item, args.name, args.note)
     if args.cmd == "add":
