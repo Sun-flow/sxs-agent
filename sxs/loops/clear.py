@@ -54,6 +54,7 @@ SETTLE_S = 240  # longest a leg's aftermath may take (a mini-dungeon floor fight
 MINIMAP_REACH = 10  # path tiles: any dot or structure the minimap shows is a target (mae, 2026-11-11: 7-10 tiles)
 MINIMAP_HOPS = 3  # walk taps toward a minimap target that is off screen before the leg gives up on it
 TAP_AREA = (20, 320, 700, 920)  # x0, y0, x1, y1: on-screen taps land here (under the minimap, above the tracker)
+MAP_PCT_EVERY = 3  # legs between area-map % reads in a zone with no tracker quest (each read ~6 s)
 PUZZLE_LEGS = 3  # minimap legs at gold squares that open nothing and move no % before the zone counts as a puzzle
 RETAPS = 2  # extra taps on a minimap object that is still there after the leg's tap (R-155)
 GAIN_EVENTS = {"fight", "pickup", "acted", "wheel", "gate_open", "revealed", "cleared"}
@@ -127,6 +128,8 @@ class Clearer:
         self.fails: list[tuple[tuple[int, int], int]] = []  # [(map spot, legs there without a gain)]
         self.arrivals: list[tuple[str, tuple[int, int]]] = []  # (source, where a big-map leg ended)
         self.gates = 0
+        self.no_pct_reads = 0  # area-map reads in a row of our label with no % line under it
+        self.map_read_leg = 0  # leg count at the last map_pct
         self.inert_gold = 0  # minimap legs at gold squares that opened no card or fight and moved no % (puzzle tiles)
         self.repeats, self.last_card = 0, None
         self.heal_tries = 0
@@ -161,6 +164,36 @@ class Clearer:
         if self.leg is not None:
             self.leg.events.append(name)
         progress(("event", len(self.legs), name))
+
+    def map_pct(self) -> None:
+        """No tracker quest for this zone (a side zone): read its label's "Exploration: N%" on the area map at the
+        survey zoom (live 2026-11-11, run 20: the % stayed None all run, so it could never show progress or 100%).
+        A label read three times running with room for a % line and none under it means the zone is explored."""
+        from .roam import merge_readings, read_areas, same  # roam imports this module
+        if not self.home or not goto.open_area_map(self.dev, self.det):
+            return
+        goto.survey_zoom(self.dev)
+        time.sleep(1)
+        areas = merge_readings([(read_areas(self.det, self.dev.screenshot()), (0, 0))])
+        ui.tap(self.dev, ui.BACK_ARROW, 2)
+        if self.det.detect().state == "area_map":
+            ui.tap(self.dev, ui.BACK_ARROW, 2)
+        mine = [a for a in areas if same(a.name, self.home) or mapnav.label_is(a.name, self.home)]
+        if not mine:
+            log.info("area map: %s's label not read", self.home)
+            return
+        a = next((m for m in mine if m.pct is not None), mine[0])
+        if a.pct is not None:
+            self.no_pct_reads = 0
+            if self.pct is None or a.pct > self.pct:
+                self.pct = a.pct
+            log.info("area map: %s at %d%%", self.home, a.pct)
+        elif not a.unsure:
+            self.no_pct_reads += 1
+            log.info("area map: %s shows no %% line (%d of 3 reads)", self.home, self.no_pct_reads)
+            if self.no_pct_reads >= 3:  # roam needs 3 too (2 once flipped Troll Lair)
+                self.pct = 100
+        progress(("pct", self.pct))
 
     def read_pct(self) -> Optional[int]:
         """The tracker's "Explore <zone> N/100" when it is this zone's quest; else the last area-map reading."""
@@ -725,6 +758,9 @@ class Clearer:
             self.tree.save()
         self.pct = (self.tree.get(self.home or "") or {}).get("pct") if self.home else None
         self.pct = self.read_pct()
+        if not self.own_quest:
+            self.map_pct()
+            self.map_read_leg = 0
         self.pct_start = self.pct
         log.info("clearing %s from %s%%", self.home, self.pct)
         with resume_with(self.det, self.back_to_zone):
@@ -735,6 +771,9 @@ class Clearer:
                 if self.map_chores():
                     continue
                 self.read_pct()
+                if not self.own_quest and len(self.legs) - self.map_read_leg >= MAP_PCT_EVERY:
+                    self.map_pct()
+                    self.map_read_leg = len(self.legs)
                 if self.done():
                     return self.summary(self.finish_zone())
                 stop = self.check_zone()
