@@ -45,7 +45,7 @@ Every loop has the same inputs, outputs and readouts:
 - **Time.** Runs are short (mae, 2026-11-04: 1-2 minutes), but the budget is a stuck check, not a hard stop
   (mae, 2026-11-05). Every `--budget` seconds (default 120) the runner asks whether the loop reported progress in
   the last `--stall` seconds (default 60): if yes it carries on for another budget (up to 10 times), if not it ends
-  `over_budget` and goes home. Code that calls `progress(reading)` (Heartbeat in explore and fogwalk, the collector
+  `over_budget` and goes home. Code that calls `progress(reading)` (Heartbeat in explore, Clear Zone's legs and %, the collector
   in gather, claims, upgrade presses, tower floors, mall pages, gear swaps) also ends `stalled` when the reading
   hasn't changed for `--stall` seconds; a loop that never reports progress stops at its first budget. A loop's own
   `--minutes` is only its outer ceiling. `with task(name, seconds) as t:` gives one step its own check: daily runs
@@ -68,7 +68,7 @@ Every loop has the same inputs, outputs and readouts:
 | `daily` | `loops/daily.py` | Every once-a-day step, then upgrades | `--only a,b`, `--force` |
 | `explore` | `loops/explore.py` | Quest follower (tracker marker) | `--chain --minutes 10`, `--choose REGEX` |
 | `roam` | `loops/roam.py` | Unexplored areas under our power, bless statues | `--minutes 30`, `--area NAME` |
-| `fogwalk` | `loops/fogwalk.py` | Fog Walk inside one side area | `--area "Stone Ruins I" --minutes 5` |
+| `clear` | `loops/clear.py` | Clear Zone: one zone to 100%, every leg toward a named objective (replaced the Fog Walk) | `--area "Verdantglade IX" --minutes 10` |
 | `goto` | `actions/goto.py` | Walk somewhere via the area map | `"Highland Woods"` or `X Y` |
 | `gather` | `loops/gather.py` | Generic `collect(Target)` for ore, sand, essence, rolla, bellflower | `--material sand`, `--check`, `--harvest` |
 | `upgrade` | `loops/upgrade.py` | Every "!" on the Character screen | `--only skills` |
@@ -85,7 +85,7 @@ Every loop has the same inputs, outputs and readouts:
 
 Who calls whom: `daily` → `mall`, `vendor`, `gearswap`, `tower`, `guild`, `gather`, `strengthen`, `upgrade`, `policy.claims`, `progress`.
 `progress` → `guild` (island and building taps), `roam` (area map reader).
-`roam` → `actions.goto`, `fogwalk`; `fogwalk` → `explore` (HP reader), `gather` (stamina cost), `actions.rewards`;
+`roam` → `actions.goto`, `clear`; `clear` → `actions.mapnav` (zone check, quest ring, object taps), `explore` (HP reader), `actions.rewards`;
 `explore` → `tower`, `upgrade.get_stronger` (→ `gearswap`, `upgrade`). Everything → `core`.
 
 ## Shared pieces worth knowing

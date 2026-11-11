@@ -59,8 +59,20 @@ check("1.25x power check on crossing", t.can_cross("Drasilgard", "Troll Lair", 1
 check("crossing from a town into a zone in reach", t.can_cross("Drasilgard", "Jungle Camp", 22.4)[0], True)
 check("Jungle Camp's missing way in is an open question",
       any(q.startswith("Jungle Camp: no known way in") for q in t.open_questions()), True)
+t.zones["Jungle Camp"]["lost_at"] = 22.4  # a fight lost there at 22.4K (Clear Zone's defeated screen)
+check("a zone we lost a fight in waits for more power", t.next_zone(22.6) != "Jungle Camp", True)
+check("and is tried again once power grows", t.next_zone(22.9), "Jungle Camp")
+t.zones["Jungle Camp"].pop("lost_at")
 check("name match keeps numerals apart", same("Verdantglade V", "Verdantglade VI"), False)
 check("name match takes a clipped label", same("tglade III", "Verdantglade III"), True)
+
+# Blessing a ready statue (roam.bless_once): never our own "!" or the tracker's gift badge (run 26 tapped us).
+from sxs.loops import roam  # noqa: E402
+SHOTS = Path(__file__).resolve().parent.parent / "docs" / "screens" / "world"
+own = roam.statue_on_screen(cv2.imread(str(SHOTS / "world_map_tracker_gift.png")), (262, 548))
+check("our own red ! is not a statue (an NPC's may be: a miss)", own is None or abs(own[0] - 302) > 60, True)
+check("the tracker panel's gift ! is not a statue",
+      roam.statue_on_screen(cv2.imread(str(SHOTS / "world_map_boss_beaten.png")), (360, 720)), None)
 
 with tempfile.TemporaryDirectory() as d:
     t2 = Tree.load()

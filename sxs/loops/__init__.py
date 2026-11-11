@@ -15,7 +15,7 @@ REGISTRY = {
     "daily": "sxs.loops.daily",
     "explore": "sxs.loops.explore",
     "roam": "sxs.loops.roam",
-    "fogwalk": "sxs.loops.fogwalk",
+    "clear": "sxs.loops.clear",
     "goto": "sxs.actions.goto",
     "gather": "sxs.loops.gather",
     "upgrade": "sxs.loops.upgrade",
