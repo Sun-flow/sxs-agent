@@ -90,13 +90,14 @@ Scene labels (e.g. "Class to Unlock") overlap the quest tracker region; filter t
 - Goals tab (Kingdom / Element sub-tabs): "Kingdom Gacha Draws" rows at 10/20/30 with Claim: claim each lit row (R-116).
 - Leaving Goals once popped a $0.99 "Gacha Bonus Pack" timed pack: dismiss it with a tap below the card (R-157); a "Timed Packs" icon then sits in Home's right column (never tap it).
 - First draws (2026-11-11): Rare badges 235 → 35 (two x10), new relics Star Ladybug, Firebird Quill, Hunter's Requiem, Wreath of Peace; power 35.9K → 36.4K.
-- Until a builder writes the pull function (status.md), a session draws by hand. Prayer pulls keep their own rule (R-093).
+- Code: the gacha command and loop (PR #62); `strengthen` runs it after rank. Prayer pulls keep their own rule (R-093).
 *told, observed* · `home/aeonic_gacha.png`, `home/aeonic_gacha_tiers.png`, `home/aeonic_gacha_epic_tier.png`, `home/aeonic_gacha_result.png`, `home/aeonic_gacha_result2.png`, `home/aeonic_gacha_ticket_counter.png`, `home/aeonic_gacha_goals.png`, `home/timed_pack_gacha_bonus.png` · node `aeonic_gacha` · R-043, R-093, R-116, R-157, R-159, R-166, R-172
 
 ### R-172 · Workbench: activate new relics; Enhance with Chrono Sand, never Replace
 - An element tab with a new relic shows it under its rarity with "Activate" and a "!": tap it for "ACTIVATED <name>, <Element> Aegis n, stat +n, Tap to Continue"; the relic goes on display slot 1 (builder, 2026-11-11).
 - The relic card has Replace and Enhance. **Never Replace** (like charms, R-158). Enhance Relic costs Chrono Sand and Rolla: 1K / 1.8K for +1 → +2 and +2 → +3, 2K / 3.6K for +3 → +4. "<" and ">" cycle through the displayed relics across elements.
 - Ascend needs 20 of the relic's own shards (gacha duplicates come as 3-shard bundles, R-167).
+- Code: the relics command and loop (PR #62). It presses Enhance only while every cost reads have >= need, so "Auto-combine on material shortage" never fires. Whether auto-combine may run is an open question for mae (`docs/loops/open-questions.md`).
 *observed* · `home/workbench_relic_activate.png`, `home/workbench_relic_activated.png`, `home/workbench_relic_card.png`, `home/workbench_enhance_relic.png`, `home/workbench_relic_ascension.png` · node `workbench` · R-158, R-166, R-167
 
 ### R-168 · Mailbox (the owl): Claim All daily, never Delete Read
