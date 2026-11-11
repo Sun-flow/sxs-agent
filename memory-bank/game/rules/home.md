@@ -64,3 +64,9 @@ Scene labels (e.g. "Class to Unlock") overlap the quest tracker region; filter t
 - House furniture (Lv 7). Dish tab: Green Riceball restores 8% + 1000 HP for ingredients shown at the top; Cook shows "Cooked". Jelly Bean Pals is a second recipe.
 - Green Riceball is probably R-061's cheap healing food ❓; keep it stocked for the explore loop (R-046).
 *observed* · `home/furniture_alchemy_pot.png`, `home/alchemy_pot.png`, `home/cooked.png` · node `alchemy_pot` · R-061
+
+### R-165 · Dismantle in the Alchemy Pot is safe: use it for ore
+- The Alchemy Pot's Dismantle only takes gear with lower CP than the gear currently equipped, so anything better than what we wear is protected (mae, 2026-11-11 04:50).
+- Dismantling is allowed and is a good source of ore for gear enhancement (R-023, R-092); dismantled advanced gear gives Refined Ore (R-125).
+- This replaces the old "never dismantle items" never-do. Deleting items is still mae's call.
+*told* · node `alchemy_pot` · R-023, R-047, R-088, R-092

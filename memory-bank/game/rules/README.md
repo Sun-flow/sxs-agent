@@ -33,7 +33,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 
 ## Adding or changing a rule
 
-- New rule: next free ID (**next free: R-165**), under the right `##` heading of the right file, plus a row in the ID index below.
+- New rule: next free ID (**next free: R-166**), under the right `##` heading of the right file, plus a row in the ID index below.
 - Never reuse or renumber an ID. When merging a rule into another, delete it, add it to the retired table, and repoint citations.
 - Run `python3 scripts/check-rules.py`: it checks that every cited ID resolves, retired IDs aren't cited, every file is listed here, and image paths exist.
 
@@ -177,6 +177,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-162 | `quests.md` | Tracker OCR reads IX as "1X": normalise before comparing zone names |
 | R-163 | `overworld.md` | Zone facts, 2026-11-10 evening: VIII, Monolith Ruins I, Bubble Lake, new zones |
 | R-164 | `ui.md` | Story dialogue with choices and no Leave: stop, save the screen, ask mae |
+| R-165 | `home.md` | Dismantle in the Alchemy Pot is safe: use it for ore |
 
 ## Retired IDs
 

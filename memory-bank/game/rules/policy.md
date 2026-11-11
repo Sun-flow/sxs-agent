@@ -23,7 +23,7 @@ Read before pressing any button that might spend, and on any class, social, acco
 - **Choose a class or press "Change Class"**: mae's call (R-054, R-117).
 - **"Rcmd Loadouts"** or its Apply (R-080).
 - **Guild choice** beyond joining one random open guild is mae's (R-102). Other social features are allowed (R-057, R-077).
-- **Delete or dismantle items**; **accept agreements or account prompts** (mae).
+- **Delete items**; **accept agreements or account prompts** (mae). Dismantle in the Alchemy Pot is allowed: it only takes gear weaker than what is equipped (R-165).
 - **Type in chat**; close Server Chat with the down arrow (0.06, 0.96) (R-027).
 - **Rate the game or open the store**: rating popups get **Later** (mae) (R-060).
 - **Retry on the Fantasia Ascent DEFEAT screen**, or tick Auto Challenge there (R-079).

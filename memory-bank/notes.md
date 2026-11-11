@@ -10,7 +10,7 @@
 - Budget: a Claude subscription now, a local model later. Scripts run without model calls; the model is for being stuck or planning. When a model solves something, save it as a script so it costs nothing next time. Credits are fine during build-out; the final bot must be token-efficient.
 - Windows first; Linux where easier.
 - mae guides from phone or PC and likes Claude playing the game itself. Ask before touching the game after a pause.
-- Lasting or account choices are mae's: class, social (friends, team, guild choice), agreements, account prompts. Never delete or dismantle items, never type in chat. Full list: `game/rules/policy.md`.
+- Lasting or account choices are mae's: class, social (friends, team, guild choice), agreements, account prompts. Never delete items, never type in chat; Alchemy Pot Dismantle is allowed (R-165). Full list: `game/rules/policy.md`.
 
 ## How loops must behave (mae, 2026-11-04)
 
