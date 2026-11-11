@@ -390,3 +390,27 @@ def enter_next_zone(dev, det, arrived=None, hops: int = CROSSING_HOPS) -> bool:
             skip.add(path[-1])  # that crossing didn't take us anywhere: try the next one
     name = goto.area_name_here(det)
     return arrived(name)
+
+
+def walk_to_entrance(dev, det, zone: str) -> str:
+    """mae (2026-11-11): the minimap shows ~10 tiles; when no crossing shows there, find it on the big map. Opens the
+    area map, picks the light-to-shaded entrance nearest `zone`'s label (area_map.crossings), walks to its light
+    side. Returns goto.go_to's result, or "no_entrance" when the map shows none near that label."""
+    chosen: dict = {}
+
+    def pick(frame):
+        labels = map_labels(det, frame)
+        target = next((p for name, p in labels.items() if label_is(name, zone)), None)
+        found = area_map.crossings(frame)
+        if target is None or not found:
+            log.info("zone entry (big map): %s", "no label for " + zone if target is None else "no entrances shown")
+            return None
+        c, box = min(found, key=lambda e: (e[0][0] - target[0]) ** 2 + (e[0][1] - target[1]) ** 2)
+        chosen.update(centre=c, box=box)
+        p = area_map.light_side(frame, c)
+        log.info("zone entry (big map): entrance %s nearest the %s label at %s; walking to its light side %s",
+                 box, zone, target, p)
+        return p
+
+    why = goto.go_to(dev, det, pick)
+    return why if chosen else "no_entrance"

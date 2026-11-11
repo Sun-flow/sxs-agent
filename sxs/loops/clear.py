@@ -312,7 +312,13 @@ class Clearer:
         if not name or self.in_home(name):
             return True
         log.info("still in %s after the walk to %s: looking for a crossing into its shaded ground", name, self.home)
-        return mapnav.enter_next_zone(self.dev, self.det, arrived=lambda n: bool(n) and self.in_home(n))
+        arrived = lambda n: bool(n) and self.in_home(n)
+        if mapnav.enter_next_zone(self.dev, self.det, arrived=arrived):
+            return True
+        # Nothing on the minimap: the entrance nearest the zone's label on the big map, then step across there.
+        why = mapnav.walk_to_entrance(self.dev, self.det, self.home or "")
+        log.info("big-map entrance walk toward %s: %s", self.home, why)
+        return why != "no_entrance" and mapnav.enter_next_zone(self.dev, self.det, arrived=arrived)
 
     # ---------------------------------------------------------------- objective sources
     def start_leg(self, source: str, what: str, xy=None) -> Leg:
