@@ -1,6 +1,6 @@
 # Decision Log
 
-> **Last updated**: 2026-11-10
+> **Last updated**: 2026-11-11
 > Decisions with lasting consequences (tech choices, structure, conventions, scope calls) and why they were made, so later sessions don't undo them by accident. One entry per decision, newest first; update `Status` when superseded; never delete an entry. Details and sources for the 2026-11-02 entries are in `docs/step1-emulator-and-game.md`.
 
 Entry format:
@@ -15,11 +15,22 @@ Entry format:
 
 ---
 
+### [2026-11-10] Yellow price buttons are their own detector class, btn_price
+- **Decision**: Mall, Vendor Booth and purchase-prompt price buttons (USD, Dawnium) are labelled `btn_price`, a new class appended to `resource/detect/classes.json`, never `btn_primary`.
+- **Rationale**: mae (2026-11-10, decision card). They look identical to action buttons; a separate class lets the bot refuse spend buttons by class as a second safeguard beside the text check.
+- **Alternatives considered**: label them `btn_primary` and rely on the text check only; leave shop screens unlabelled (the model would still fire on them).
+- **Status**: Accepted
+
 ### [2026-11-10] Screen checks: one OCR read per frame now; a trained UI detector works alongside it (hybrid)
 - **Decision**: `StateDetector.detect()` reads the whole screen once per frame and matches every plain OCR State node against that read (PR #48). The next step is a UI detector (YOLO26 Nano and RF-DETR Nano trained head to head on one private Roboflow dataset, keep the winner), labelled in our labeler with detector classes from `resource/detect/classes.json`. Once trained, it runs first for screens whose anchors it sees with high confidence; the text check still decides spend-risk screens (cards, shops, prayer, confirms), unsure frames and unknown screens. Minimap objects are detector classes too, trained on an enlarged minimap crop and on the full frame to compare; minimap terrain stays with the colour code.
 - **Rationale**: mae (2026-11-10): faster, cheaper processing first, then "why don't they work together?" Measured on her PC: old check 6.4 s median, new 1.3 s (1.0 s on DirectML). A model pass is ~40-60 ms, but only text gives wording safety (an allowed button verb), one-line new screens, unknown-stays-unknown, and numbers.
 - **Alternatives considered**: model-only state detection (no wording safety, confident on unseen screens); per-strip reads (only 1.1x); last-state-first (still has to check every popup above it); Roboflow 3.0 / YOLOLite (Roboflow licence and lock-in); full-frame-only minimap dots (2-10 px, near the detector's limit).
 - **Status**: Accepted (mae 2026-11-10); detector not trained yet
+
+### [2026-11-11] Drafts follow the bot's own readers; removed drafts are remembered
+- **Decision**: the pre-labeller drafts an area-map object only where `sxs/vision/area_map.objects()` reports one, never drafts item symbols on map areas, and skips anything in `docs/screens/rejected.json` (drafts mae removed). Review is one class at a time in the labeler's grid.
+- **Rationale**: a separate copy of the reader drifted and drafted red text, badges and the zoom knob; forgotten removals came back on every re-draft (`docs/labeler-diagnosis.md`).
+- **Alternatives considered**: tuning the copy's thresholds (would drift again); deleting "Confirm all drafts" (kept, but it now confirms only the shown category).
 
 ### [2026-11-09] The location tree is committed data the bot writes: `resource/world/zones.json`
 - **Decision**: zones, their CP, exploration %, blessed flag, links (walked / map_adjacent / inside) and known ways in live in one JSON file under `resource/world/`, read and written by `sxs/policy/zones.py`. Roam surveys and fog-walk zone changes update it at runtime; builders commit it with their session. Roam picks targets and entry neighbours from it, not from one area-map reading.
@@ -109,3 +120,15 @@ Entry format:
 - **Alternatives considered**: patching the fog walk (progress by %, ring first, longer frontier legs), as the exploration thread first proposed; rejected because mae asked for the approach to be replaced, not layered on.
 - **Status**: Accepted
 
+
+## 2026-11-11 · Strengthen order: rank first at the cap, then gacha and relics (mae)
+- **Decision**: `get_stronger` (strengthen, daily strengthen step, explore after losses) runs cart, rank, Aeonic Gacha, Workbench relics, gear swap, charms, Upgrade loop, each with its own time budget. Gacha draws only a full x10 (four readings must agree); relics enhance while the Enhance button's pip shows.
+- **Rationale**: mae 05:20 (rank first at the cap, R-118) and 05:22 (pull whenever a full x10 is affordable, R-167); gacha before relics so new relics get activated and enhanced in the same pass.
+- **Alternatives considered**: gacha and relics after the Upgrade loop (Rolla goes to gear first); rejected because the coordinator's brief and mae's rules put them right after rank.
+- **Status**: Accepted (built, not run live)
+
+## 2026-11-11 · Auto-combine always allowed; rank opened only on its bang or at the cap (mae, 18:15)
+- **Decision**: "Auto-combine on material shortage" is always allowed, in any menu that has it (relics enhance on the button's pip, even with a cost short; a combine prompt with a spend word is still refused). The rank step reads the Character screen's level and rank-badge corner and opens the rank page only on a red "!" or blue pip, at the cap, or within 3 levels of the cap to gather free materials early; then it advances at once.
+- **Rationale**: mae: auto-combine is "a great feature that many systems will use"; rank-up is predictable (bang on the badge, level cap), so checking the rank page every pass is wasted time.
+- **Alternatives considered**: opening the rank page every pass (the first build); dropping the near-cap look (then Bellflowers would only be gathered after the cap).
+- **Status**: Accepted (built, not run live)

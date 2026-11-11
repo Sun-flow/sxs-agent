@@ -116,7 +116,37 @@ def check_items() -> None:
         check(sg["classes"].get("item_currency") == 1, "--items group: one class per material type (kind when no group)")
 
 
+def check_map_drafter() -> None:
+    """Area-map drafts follow the bot's own reader (docs/labeler-diagnosis.md): a monster dot is drafted, red text
+    and the zoom slider are not; item symbols are never drafted on the map; a removed draft is not drafted again."""
+    from sxs.vision import area_map as am
+
+    img = np.full((1280, 720, 3), (40, 70, 40), np.uint8)
+    cv2.circle(img, (200, 500), 7, (90, 130, 250), -1)  # an orange monster dot (BGR)
+    cv2.circle(img, (450, 600), 5, (80, 220, 120), -1)  # a green pickup dot
+    cv2.putText(img, "12.6K", (250, 800), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (60, 60, 230), 2)  # red CP text
+    cv2.putText(img, "Exploration", (250, 840), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (60, 60, 230), 2)
+    sx, sy, sw, sh = am.SLIDER
+    cv2.circle(img, (sx + sw // 2, sy + sh // 2), 12, (240, 240, 240), -1)  # the zoom knob
+    got = prelabel.area_map_objects(img)
+    mons = [b for b in got if b["cls"] == "map_monster"]
+    check(len(mons) == 1 and abs(mons[0]["x"] + mons[0]["w"] / 2 - 200) <= 2,
+          f"area map: the monster dot is drafted, red text letters are not ({len(mons)} monster drafts)")
+    check(any(b["cls"] == "map_item" for b in got), "area map: the pickup dot is drafted")
+    check(not any(sx <= b["x"] + b["w"] / 2 <= sx + sw and sy <= b["y"] + b["h"] / 2 <= sy + sh for b in got),
+          "area map: nothing drafted on the zoom slider")
+    check(prelabel.no_item_regions("area_map") and not prelabel.no_item_regions("home"),
+          "item symbols are not drafted on the area map's map, anywhere on other screens")
+
+    old = {"cls": "map_monster", "x": 300, "y": 300, "w": 14, "h": 14}
+    rej = {"world/x.png": [dict(old)]}
+    merged = prelabel.merge([], [dict(old), {"cls": "map_monster", "x": 400, "y": 300, "w": 14, "h": 14}],
+                            (720, 1280), key="world/x.png", rejected=rej)
+    check([b["x"] for b in merged] == [400], "a draft mae removed before is not drafted again")
+
+
 def main() -> int:
+    check_map_drafter()
     check_items()
     check_splits()
     cls = labels.classes()

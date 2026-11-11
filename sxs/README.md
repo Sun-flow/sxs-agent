@@ -12,6 +12,7 @@ Run from the repo root on the Windows PC (`.venv\Scripts\python`, shown below as
     python -m sxs labeler                  # web page: name screens, box buttons/text/icons, save crops as templates
     python -m sxs report [--day DAY]       # the day's progress report from saved snapshots (no emulator)
     python -m sxs prelabel [--ocr] [--items]  # draft detector boxes on the reference screens (no emulator)
+    python -m sxs prelabel --one map_monster  # draft one class only; check it in the labeler's review grid
     python -m sxs items [add|find]         # item and currency symbol catalogue, resource/items (no emulator)
     python -m sxs dataset [--zip]          # YOLO dataset for Roboflow, account name and chat blacked out (no emulator)
     python -m sxs bench [--one-per-state]  # screen-check timings on the reference screens, old way vs new (no emulator)
@@ -73,7 +74,9 @@ Every loop has the same inputs, outputs and readouts:
 | `upgrade` | `loops/upgrade.py` | Every "!" on the Character screen | `--only skills` |
 | `cart` | `loops/cart.py` | Claim the Cart, then raise its Stone and Wood rows evenly (R-136); ends when capped or short | `--check`, `--max N` |
 | `gearswap` | `loops/gearswap.py` | Equip the better piece wherever a gear slot shows "!" (separate from enhancing) | `--check`, `--all` |
-| `strengthen` | `loops/strengthen.py` | `upgrade.get_stronger`: Cart, gear swap, charms, Upgrade Loop | |
+| `strengthen` | `loops/strengthen.py` | `upgrade.get_stronger`: Cart, rank first at the cap, gacha, relics, gear swap, charms, Upgrade Loop | `--only rank,gacha` |
+| `gacha` | `loops/gacha.py` | Aeonic Gacha: Draw x10 on every tier with a full x10 of badges, ticket counter, Goals (never Dawnium, x1 or short xN) | `--check` |
+| `relics` | `loops/relics.py` | Workbench: activate new relics, ascend with own shards, enhance in bands (never Replace) | `--check` |
 | `tower` | `loops/tower.py` | Fantasia Ascent, one run a day | `--tower "Moonveil Woods"` |
 | `guild` | `loops/guild.py` | Donate x2, Forge AFK, Conquest | `--only donate,afk` |
 | `mall` | `loops/mall.py` | Mall free gift boxes, never a price (**safeguard**) | |
@@ -85,13 +88,14 @@ Every loop has the same inputs, outputs and readouts:
 Who calls whom: `daily` → `mall`, `vendor`, `gearswap`, `tower`, `guild`, `gather`, `strengthen`, `upgrade`, `policy.claims`, `progress`.
 `progress` → `guild` (island and building taps), `roam` (area map reader).
 `roam` → `actions.goto`, `clear`; `clear` → `actions.mapnav` (zone check, quest ring, object taps), `explore` (HP reader), `actions.rewards`;
-`explore` → `tower`, `upgrade.get_stronger` (→ `gearswap`, `upgrade`). Everything → `core`.
+`explore` → `tower`, `upgrade.get_stronger` (→ `strengthen` Cart, rank, `gacha`, `relics`, `gearswap`, `upgrade`); daily's `strengthen` step → `get_stronger` too. `gacha`, `relics` → `actions.home` (find on Home). Everything → `core`.
 
 ## Shared pieces worth knowing
 
 | Need | Use |
 |---|---|
 | A fixed button position | `core/ui.py` (bottom nav, back arrow, popup edges, OK/Cancel, portrait, Quick Heal); `ui.tap(dev, xy, wait)` |
+| Find something on the panning Home scene | `actions/home.py`: `find_on_home(dev, det, finder)`, `template_finder(name)`; pans use `Device.pan` (adb fallback) |
 | Tap and wait for a screen | `Navigator.tap(xy, wait)`, `Navigator.open(xy, state)`; `go_home()` from anywhere |
 | Read a line, number, amount, a/b | `vision/ocr.py`: `read_line`, `read_int`, `read_amount`, `read_fraction`, `boxes_of` |
 | Fight / loading / dialogue / reward screens in a loop | `actions/common.py`: `pass_through(dev, d)`, `close_rewards(dev, det)` |
