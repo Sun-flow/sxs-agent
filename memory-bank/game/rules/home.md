@@ -84,9 +84,20 @@ Scene labels (e.g. "Class to Unlock") overlap the quest tracker region; filter t
 - A "time-frozen gacha machine" that draws Relics with Auroral Badges. The free Unlock (R-166) adds the tracker quest "Aeonic Gacha: Unlock Aeonic Gacha" (50 badges): tap the tracker to claim it (R-044).
 - Screen: tabs Kingdom / Element / Goals; banner "Sylvan Relics" (Verdantglade); Draw x1 = 10 badges, Draw x10 = 100 badges; "Gacha Draws Today n/10000"; a guaranteed Rare in 10. We hold 230 badges (2026-11-11).
 - **Draw x10 whenever a full 10x pull is affordable on any tier**, paying only with Auroral Badges or pull tickets, **never Dawnium** (mae, 2026-11-11 05:22; this replaces "never draw without mae"). Never Draw x1.
-- Pulling earns extra pull tickets, shown by a counter in the upper left of the relic gacha screen: count them toward the next 10x pull.
+- **Tiers**: four cards under the globe, Rare (blue) / Epic (purple) / Legendary (orange) / a gold one (Mythic ❓), each showing "held/10". Tapping a card switches the tier; the Draw buttons then cost that tier's badge. Draw x10 = 100 badges. With fewer than 100 the right button turns into "Draw xN" (x3 for 30, x4 for 40): that is **not** a full x10, don't press it (builder, 2026-11-11).
+- **Ticket counter** (upper left): an Epic badge icon with "n/5", and a "!" when n ≥ 5. Each tap converts 5 points into Epic badges (20/5 → 0/5 in 4 taps; Epic badges 22 → 43): tap it while the "!" shows, then check whether an Epic x10 is affordable.
+- A draw plays about 4 s of globe animation, then a 10-item result screen (new relics with a NEW ring, otherwise 3-shard bundles) with Draw x1 / x10 and a back arrow. Activate new relics at the Workbench (R-172).
+- Goals tab (Kingdom / Element sub-tabs): "Kingdom Gacha Draws" rows at 10/20/30 with Claim: claim each lit row (R-116).
+- Leaving Goals once popped a $0.99 "Gacha Bonus Pack" timed pack: dismiss it with a tap below the card (R-157); a "Timed Packs" icon then sits in Home's right column (never tap it).
+- First draws (2026-11-11): Rare badges 235 → 35 (two x10), new relics Star Ladybug, Firebird Quill, Hunter's Requiem, Wreath of Peace; power 35.9K → 36.4K.
 - Until a builder writes the pull function (status.md), a session draws by hand. Prayer pulls keep their own rule (R-093).
-*observed* · `home/aeonic_gacha.png` · node `aeonic_gacha` · R-043, R-093, R-159, R-166
+*told, observed* · `home/aeonic_gacha.png`, `home/aeonic_gacha_tiers.png`, `home/aeonic_gacha_epic_tier.png`, `home/aeonic_gacha_result.png`, `home/aeonic_gacha_result2.png`, `home/aeonic_gacha_ticket_counter.png`, `home/aeonic_gacha_goals.png`, `home/timed_pack_gacha_bonus.png` · node `aeonic_gacha` · R-043, R-093, R-116, R-157, R-159, R-166, R-172
+
+### R-172 · Workbench: activate new relics; Enhance with Chrono Sand, never Replace
+- An element tab with a new relic shows it under its rarity with "Activate" and a "!": tap it for "ACTIVATED <name>, <Element> Aegis n, stat +n, Tap to Continue"; the relic goes on display slot 1 (builder, 2026-11-11).
+- The relic card has Replace and Enhance. **Never Replace** (like charms, R-158). Enhance Relic costs Chrono Sand and Rolla: 1K / 1.8K for +1 → +2 and +2 → +3, 2K / 3.6K for +3 → +4. "<" and ">" cycle through the displayed relics across elements.
+- Ascend needs 20 of the relic's own shards (gacha duplicates come as 3-shard bundles, R-167).
+*observed* · `home/workbench_relic_activate.png`, `home/workbench_relic_activated.png`, `home/workbench_relic_card.png`, `home/workbench_enhance_relic.png`, `home/workbench_relic_ascension.png` · node `workbench` · R-158, R-166, R-167
 
 ### R-168 · Mailbox (the owl): Claim All daily, never Delete Read
 - The owl on the house's left balcony is the Mailbox: tabs Mail / Gifts. "Claim All" (0.69, 0.81) is free: press it once a day. Never press "Delete Read" (R-043 spirit: no deleting) (builder, 2026-11-11).
