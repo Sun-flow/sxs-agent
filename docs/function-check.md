@@ -15,8 +15,8 @@ progress also stop as `stalled` after `--stall` seconds (default 60) with no cha
 | `strengthen` | Cart loot, equip better gear and charms, enhance gear, upgrade techniques | materials short | Yes |
 | `daily` | Sign-in, Mall gifts, Vendor stamina, Cart, bed EXP, Growth Trial, Fantasia Ascent, quests, guild x3, gather, strengthen (120 s per step) | every step tried once | Yes, all steps |
 | `explore` | Follows the quest tracker marker; fights, cards, dialogue, healing, unsticking | tracker 100/100, no marker, unknown screen | Yes (`--chain` played the quest line) |
-| `fogwalk` | Walks to unexplored ground in one side area by minimap/fog edge | area done, stalled | Yes, experimental (minimap mislabels in Highland Woods) |
-| `roam` | Picks unexplored areas under our power on the area map, walks there, fog-walks, blesses statues | no eligible area left | Yes (Damp Woods) |
+| `clear` | Clears one zone: each leg toward a named objective (quest ring, objects, big map, fog frontier) | zone_done, no_objective, no_progress | No (replaced the fog walk 2026-11-10; to be tested live) |
+| `roam` | Picks unexplored areas under our power on the area map, walks there, clears them, blesses statues | no eligible area left | Yes (Damp Woods) |
 | `goto` | Walks to an area via the area map | arrived / failed | Yes |
 | `gather` | Spends stamina above 70 on the priority material via Map Exploration; `--harvest` picks Bellflowers | stamina at 70 | Yes for ore; harvest detector weak |
 | `tower` | Fantasia Ascent daily climb, Auto Challenge, no retries | first loss | Yes |
@@ -48,5 +48,5 @@ Gates of Power still open only once our power reaches their number.
 | `daily` | Works after fixes: sign-in, Growth Trial, quests, Conquest (both attempts), Ironvein, Mall halves, Vendor, guild donate/AFK. |
 | `tower` | Works after fixes: 25% check, starts Auto Challenge, which climbs in the background (F6 to F24). |
 | `explore` | Works: Verdantglade III 0 to 73/100 in four 2-minute runs. |
-| `roam` / `fogwalk` | Ends cleanly, but can't walk into Verdantglade III (the only area left); the quest route can. |
+| `roam` / `clear` | Ends cleanly, but can't walk into Verdantglade III (the only area left); the quest route can. |
 | `gather` | Picked 2 ore, then stopped as stuck when panning found nothing. |

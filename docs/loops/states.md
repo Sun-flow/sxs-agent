@@ -15,28 +15,28 @@ loop passes through it (`actions/common.pass_through`). **Cards** = the card rul
 | title | Nobody but go_home | Tap to play |
 | chat | Interrupt: close the panel (R-027) | close |
 | choose_reward | Interrupt: class-matched pick, else stop `needs_decision` (R-129) | no way home |
-| area_map | roam, fogwalk, goto: read labels, tap targets; fogwalk closes a leftover one | back |
+| area_map | roam, clear, goto: read labels, tap targets; clear closes a leftover one | back |
 | rating_popup | Interrupt: Later (R-060) | Later |
 | reward_popup, tap_to_continue | Pass: close; gather, tutorial, mall, vendor close it too | close |
-| defeated | explore, fogwalk: Cards (OK, home), run ends `defeated` | OK |
-| confirm_dialog | explore, fogwalk: Cards; gather: OK only on "explore" travel; guild: OK only for a donation of 20 or less / an AFK switch; vendor, pray, material_realms: Cancel | Cancel |
-| dungeon_floor | explore, fogwalk: Cards (Next Floor) | no way home |
-| tower_list, tower_floors, tower_result | tower; explore and fogwalk hand over to tower | back |
-| quest_detail | explore, fogwalk: Cards (Go / Track) | no way home |
-| player_profile | explore: heal under 80%, fill charms once, close; fogwalk: close; gather: close, 3rd time `stuck_self`; daily strengthen: fill charms | no way home |
+| defeated | explore, clear: Cards (OK, home), run ends `defeated` | OK |
+| confirm_dialog | explore, clear: Cards; gather: OK only on "explore" travel; guild: OK only for a donation of 20 or less / an AFK switch; vendor, pray, material_realms: Cancel | Cancel |
+| dungeon_floor | explore, clear: Cards (Next Floor) | no way home |
+| tower_list, tower_floors, tower_result | tower; explore and clear hand over to tower | back |
+| quest_detail | explore, clear: Cards (Go / Track) | no way home |
+| player_profile | explore: heal under 80%, fill charms once, close; clear: close; gather: close, 3rd time `stuck_self`; daily strengthen: fill charms | no way home |
 | guild_donation, guild_conquest, guild_panel | guild | above the popup / back |
-| interact | explore, fogwalk: Cards (map object, statue, mini-dungeon, gate) | no way home |
+| interact | explore, clear: Cards (map object, statue, mini-dungeon, gate) | no way home |
 | dialogue_choice | explore: `--choose`, else stop on Ascend/Change Class, else lowest option; tutorial: Leave and stop on Ascend/Change Class, else the detected option (Q11) | no way home |
 | dialogue | Pass: next (explore logs the text) | next |
 | guild_join_list, guild_no_guild | Nobody (joining was done once by hand) | back / Home |
-| battle_prep | explore: heal under 70% then Start; fogwalk: back out when fights are off, else heal then Start; tower: heal then Start; guild conquest: Start; gather: heal then Start, then resume gathering (back out after 3 guard fights) | back |
+| battle_prep | explore: heal under 70% then Start; clear: heal under 70% then Start (it only runs in unexplored zones, where fights are free); tower: heal then Start; guild conquest: Start; gather: heal then Start, then resume gathering (back out after 3 guard fights) | back |
 | background_fight | tower: wait (Auto Challenge); guild conquest: minimise | minimise |
 | battle | Pass: wait | wait |
 | furniture_upgrade | cart | no way home |
 | cart | cart, strengthen: Claim All, row arrows | tap outside |
-| home | Start of every menu loop; explore: tap the tracker; fogwalk: run ends `left_area:home`; interrupt: tutorial highlight | (goal) |
-| world_overview | roam, fogwalk: tap Verdantglade's island | Home |
-| world_map | explore, fogwalk, roam, gather, goto; interrupt: tutorial highlight | back |
+| home | Start of every menu loop; explore: tap the tracker; clear: run ends `left_area:home`; interrupt: tutorial highlight | (goal) |
+| world_overview | roam, clear: tap Verdantglade's island | Home |
+| world_map | explore, clear, roam, gather, goto; interrupt: tutorial highlight | back |
 | character | upgrade, gearswap, strengthen | Home |
 | main_menu | daily quests, mall | back |
 | enhance_gear | upgrade gear pass, strengthen | back |

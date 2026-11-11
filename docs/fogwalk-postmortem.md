@@ -13,7 +13,7 @@ mae (23:48Z): the fog-walk approach is bad and is being scrapped; a new thread d
 
 ## Where it lives
 
-`sxs/loops/fogwalk.py` (~1130 lines):
+`fogwalk.py` in `sxs/loops/` (~1130 lines; deleted 2026-11-11, replaced by Clear Zone, `docs/step6-clear-zone.md`):
 
 | Function | What it does | Keep? |
 |---|---|---|

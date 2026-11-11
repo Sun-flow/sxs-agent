@@ -2,9 +2,11 @@
 
 Older entries moved from `memory-bank/log.md`, newest first.
 
-### 2026-11-09 · Screen labeling UI (Claude Code, cloud)
-- mae asked for a simple UI to tag screenshots by clicking areas, so the bot can learn to recognise them. New `python -m sxs labeler` (`sxs/labeler/`, stdlib HTTP server + one HTML page, 127.0.0.1 only): screens list (bank first), drag boxes, name and kind (button/text/icon/badge/region), note, "save crop as template"; screen name/folder/state/what. Saves to `docs/screens/labels.json`, crops to `resource/image/labels/<screen>/<box>.png` + manifest (`sxs/core/labels.py`), bank rows or `expected.json`; "File labelled screens" runs `label`, which now moves boxes and crops with the screen. `sxs/vision/labels.py` finds a boxed crop on a frame (`python -m sxs see labels`). `tests/check_labeler.py`.
-- Open: not run on mae's PC yet; no boxes drawn yet.
+### 2026-11-09 · Loop diagrams (Claude Code, cloud)
+- mae asked for the decision flow in a human-readable, editable form. New `docs/loops/`: one page per loop (runner and interrupts, daily, explore, roam, fogwalk, gather, cart, upgrade and strengthen, gearswap, tower, guild, small loops) with goal, end condition, ok statuses, numbered Mermaid flowcharts of the step and check order, sub-loops called, and per-screen actions; `states.md` maps every detector state to the loops that act on it and to `go_home`; all 27 diagrams render (mermaid-cli).
+- `docs/loops/open-questions.md` lists what the drawing turned up: mae's new asks (unlock free Cart rows; zone borders seen before crossing; both since built in #43, not run live), questions for mae (gear enhance only runs when a swap badge is lit; Quick Heal on badly wounded spends dishes; gather backs out of guarded pickups; Forge-full fallback; daily scope), code against rules (explore's retry path uses the old strengthen; explore/fogwalk can start a second tower climb after the day's loss; the tutorial follower answers dialogue choices blind; 15 known screens with no `go_home` tap; vendor pans fast), and out-of-date rule text (R-023, R-042 vs R-091).
+- mae's answers (19:53): red "!" on a gear slot = swap, blue up-arrow pip = enhance; two dish kinds (permanent stat dishes: conserve; healing dishes: cooked with Rolla, fine); gather fights guards then resumes; bed free speed-up stays its own task, used once the day's exploration hits the content wall; fix the bugs. Code: `find_up_pips` (`sxs/vision/badges.py`) drives the Upgrade loop's gear pass (offline check on `character.png`); `start_fight` in `sxs/actions/common.py`, used by gather; `get_stronger` in `sxs/loops/upgrade.py` (explore after 3 losses, `python -m sxs strengthen`); explore/fogwalk check the tower's daily mark (explore ends `tower_done_today`); `tutorial.follow` stops on Ascend/Change Class. None of it run live yet. Rule updates (R-046, R-061, R-080, R-088, R-092, R-073) go to the docs thread.
+- Open: the remaining questions (Q6-Q8, Q12-Q15); the proposed flow-spec follow-up (`docs/loops/README.md`).
 
 ### 2026-11-09 · Zone borders, location tree, closer-zoom map survey, Cart unlock (Claude Code, mae's PC via Remote Control, offline only)
 - Branch `claude/project-thread-sesbe9` (off main d1d7339). No live run: the new code needs one (ask mae first).
@@ -186,3 +188,7 @@ Older entries moved from `memory-bank/log.md`, newest first.
 ### 2026-11-02 · Step 1: emulator choice and game survey (Claude Code, cloud)
 - Compared emulators and automation toolkits and catalogued the game's daily content; picked MuMu Player 12 and MaaFramework (`decisions.md`). mae confirmed the game is Sword x Staff. PR #1, branch `docs/step1-emulator-and-game`.
 - PR #1 merged 2026-11-03. Open: maes2024 setup.
+
+### 2026-11-09 · Screen labeling UI (Claude Code, cloud)
+- mae asked for a simple UI to tag screenshots by clicking areas, so the bot can learn to recognise them. New `python -m sxs labeler` (`sxs/labeler/`, stdlib HTTP server + one HTML page, 127.0.0.1 only): screens list (bank first), drag boxes, name and kind (button/text/icon/badge/region), note, "save crop as template"; screen name/folder/state/what. Saves to `docs/screens/labels.json`, crops to `resource/image/labels/<screen>/<box>.png` + manifest (`sxs/core/labels.py`), bank rows or `expected.json`; "File labelled screens" runs `label`, which now moves boxes and crops with the screen. `sxs/vision/labels.py` finds a boxed crop on a frame (`python -m sxs see labels`). `tests/check_labeler.py`.
+- Open: not run on mae's PC yet; no boxes drawn yet.

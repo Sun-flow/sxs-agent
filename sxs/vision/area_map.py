@@ -218,3 +218,55 @@ def nearest(frame: np.ndarray, kinds=("item", "monster", "building"), max_px: in
                 cands = [(k, p) for k, p in cands if ours(p)]
     # A blue-"!" statue first (mae, 2026-11-10: the interactable that finishes a zone), then the nearest object.
     return min(cands, key=lambda kp: (kp[0] != "statue", (kp[1][0] - px) ** 2 + (kp[1][1] - py) ** 2)) if cands else None
+
+
+FOG_S_MAX, FOG_V_MAX = 25, 80  # unrevealed fog on the area map: dark and grey (HSV ~100/8/40 at the survey zoom)
+FRONTIER_BAND = 14  # px: revealed ground this close to fog is on the frontier
+FRONTIER_WINDOW = 121  # px square round a frontier point in which the fog is measured
+FRONTIER_MIN_FOG = 0.3  # share of that window that must be fog: a sliver of fog isn't worth a leg
+FRONTIER_MAX_PX = 380  # from our zone's label: a frontier farther than this is another zone's
+
+
+def frontier(frame: np.ndarray, home: tuple[int, int], others=(), skip=(), skip_px: int = 60
+             ) -> Optional[tuple[tuple[int, int], float]]:
+    """Clear Zone's last objective source (docs/step6-clear-zone.md): the point of revealed ground beside the biggest
+    patch of fog that belongs to our zone. `home` is our zone's label on this opening of the map, `others` the other
+    zones' labels (a point nearer another label, by LABEL_MARGIN, is that zone's), `skip` points already tried on
+    this same opening. Returns (point, fog share of the window round it), or None.
+
+    Fog only matters because it hides objects, so this is one long big-map leg to a named spot, never a string of
+    short hops (the fog walk's failure, docs/fogwalk-postmortem.md)."""
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    s, v = hsv[..., 1].astype(int), hsv[..., 2].astype(int)
+    x0, y0, w, hh = MAP_AREA
+    region = np.zeros(s.shape, bool)
+    region[y0:min(y0 + hh, SAFE_TAP_MAX_Y), x0:x0 + w] = True
+    for rx, ry, rw, rh in (LEGEND, SLIDER):
+        region[ry:ry + rh, rx:rx + rw] = False
+    fog = ((s <= FOG_S_MAX) & (v <= FOG_V_MAX) & region).astype(np.uint8)
+    fog = cv2.morphologyEx(fog, cv2.MORPH_OPEN, np.ones((7, 7), np.uint8))  # not label shadows or dotted lines
+    text = cv2.dilate(((s < 25) & (v > 170)).astype(np.uint8), np.ones((9, 9), np.uint8)).astype(bool)  # labels
+    ground = (((s >= 30) & (v >= 50)) | (v >= 120)) & region & ~text
+    ground = cv2.morphologyEx(ground.astype(np.uint8), cv2.MORPH_OPEN, np.ones((5, 5), np.uint8))
+    near = cv2.dilate(fog, np.ones((FRONTIER_BAND, FRONTIER_BAND), np.uint8))
+    band = (ground & near).astype(bool)
+    ys, xs = np.nonzero(band)
+    if len(xs) == 0:
+        return None
+    keep = np.arange(len(xs)) % 5 == 0  # thinned: neighbouring pixels are the same spot
+    xs, ys = xs[keep], ys[keep]
+    hx, hy = home
+    dh = np.sqrt((xs - hx) ** 2 + (ys - hy) ** 2)
+    ok = dh <= FRONTIER_MAX_PX
+    for ox, oy in others:
+        ok &= np.sqrt((xs - ox) ** 2 + (ys - oy) ** 2) >= LABEL_MARGIN * dh
+    for sx_, sy_ in skip:
+        ok &= (xs - sx_) ** 2 + (ys - sy_) ** 2 > skip_px ** 2
+    if not ok.any():
+        return None
+    share = cv2.blur(fog.astype(np.float32), (FRONTIER_WINDOW, FRONTIER_WINDOW))
+    score = np.where(ok, share[ys, xs], -1.0)
+    i = int(np.argmax(score))
+    if score[i] < FRONTIER_MIN_FOG:
+        return None
+    return (int(xs[i]), int(ys[i])), float(score[i])
