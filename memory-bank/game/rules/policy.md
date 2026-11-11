@@ -18,6 +18,7 @@ Read before pressing any button that might spend, and on any class, social, acco
 
 **Never do:**
 - **Timed Packs** popups (e.g. "Exploration Kit", $0.99): dismiss with a tap below the card (R-157). **Replace** on a charm card (R-158).
+- **Aeonic Gacha draws** (Auroral Badges) until mae allows them (R-167); **"Go to Aeonic Gacha"** links (R-166). **"Delete Read"** in the Mailbox (R-168).
 - **Spend a Golden Beetle** (it skips a puzzle); puzzle areas are skipped for now (mae) (R-153).
 - **A 3rd guild donation in a day** (R-103).
 - **Choose a class or press "Change Class"**: mae's call (R-054, R-117).

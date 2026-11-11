@@ -69,4 +69,30 @@ Scene labels (e.g. "Class to Unlock") overlap the quest tracker region; filter t
 - The Alchemy Pot's Dismantle only takes gear with lower CP than the gear currently equipped, so anything better than what we wear is protected (mae, 2026-11-11 04:50).
 - Dismantling is allowed and is a good source of ore for gear enhancement (R-023, R-092); dismantled advanced gear gives Refined Ore (R-125).
 - This replaces the old "never dismantle items" never-do. Deleting items is still mae's call.
-*told* · node `alchemy_pot` · R-023, R-047, R-088, R-092
+- Settings (builder, 2026-11-11): Alchemy Pot tabs Dish / Combine / Dismantle / Goals. On Dismantle keep "Exclude High-Power Gear" ticked, tick Common, Rare and Epic (Legendary off), up to 99 per press, then Dismantle: a "Dismantled" banner lists the Raw Ore (red ore from Epic). First pass: 211 pieces gave about 2.9K Raw Ore and 110 red ore; 7 high-power pieces (green double chevrons) stayed for gear swaps (R-088).
+- Alchemy Goals has Dismantle and Dish sub-tabs: Claim each lit row (R-116). Combine ("Select items for combination") is unused.
+*told, observed* · `home/alchemy_dismantle.png`, `home/alchemy_dismantle_selected.png`, `home/alchemy_dismantled.png`, `home/alchemy_dismantle_left_highpower.png`, `home/alchemy_goals.png`, `home/alchemy_dish_goals.png`, `home/alchemy_combine.png` · node `alchemy_pot` · R-023, R-047, R-088, R-092, R-116
+
+### R-166 · Locked furniture: tap the crate, not the "Open" marker; Unlock is free
+- An "Open" marker over a crate in the house (upper floor) or on home (the stone left of the Cart) marks a locked furniture slot. Tapping "Open" only walks the character there; tap the crate or stone itself to get the furniture card, whose Unlock carries a red "!" and no cost: press it, then "UNLOCKED <name> / Tap to Continue" (builder, 2026-11-11).
+- **Workbench** (house, upper floor; "study your collection of Relics") opens the Relic screen: element tabs (Light, ...), Affinity and Aegis counters, Resonance Level 1 (4 display slots, +20% elemental stats of displayed relics), tabs Relic / Goals. With no relics it shows "No eligible Relics" and "Go to Aeonic Gacha": never tap that link (R-167).
+- **Aeonic Gacha** (stone left of the Cart): R-167.
+*observed* · `home/home_house_open_slot.png`, `home/furniture_workbench.png`, `home/workbench_relics.png`, `home/home_stone_open.png`, `home/furniture_aeonic_gacha.png` · nodes `workbench`, `aeonic_gacha` · R-047, R-159
+
+### R-167 · Aeonic Gacha: unlock it free, claim its quest, never draw without mae
+- A "time-frozen gacha machine" that draws Relics with Auroral Badges. The free Unlock (R-166) adds the tracker quest "Aeonic Gacha: Unlock Aeonic Gacha" (50 badges): tap the tracker to claim it (R-044).
+- Screen: tabs Kingdom / Element / Goals; banner "Sylvan Relics" (Verdantglade); Draw x1 = 10 badges, Draw x10 = 100 badges; "Gacha Draws Today n/10000"; a guaranteed Rare in 10. We hold 230 badges (2026-11-11).
+- **Draws are pulls: never draw** until mae says so (asked 2026-11-11); same footing as Prayer pulls (R-093).
+*observed* · `home/aeonic_gacha.png` · node `aeonic_gacha` · R-043, R-093, R-159, R-166
+
+### R-168 · Mailbox (the owl): Claim All daily, never Delete Read
+- The owl on the house's left balcony is the Mailbox: tabs Mail / Gifts. "Claim All" (0.69, 0.81) is free: press it once a day. Never press "Delete Read" (R-043 spirit: no deleting) (builder, 2026-11-11).
+- First Claim All gave 400 Dawnium, 20K Rolla, 10 Bond Trinket, 10 Stellatie, weapons, 5 T4 Battle Essence Casket, 50 Rare Auroral Badge and 2 Visage gift boxes. Receiving Dawnium is fine; spending it is not (R-018).
+*observed* · `home/mailbox.png`, `home/mailbox_received.png` · node `mail` · R-018, R-043, R-116
+
+### R-169 · Item bag: open Treasure Chest items, leave gifts, ask on a choose-one box
+- The chest on the house's ground floor (badge with a count) is the Item bag. Usable boxes carry a "!" (blue or red). Tapping one opens a "Treasure Chest" card with Cancel / Use; a stack shows a quantity slider that defaults to max (builder, 2026-11-11).
+- Open every Treasure Chest item with Use at the max quantity: T1/T2/T4 Battle Essence Caskets (400/530/840 each), T2 Raw Ore Casket (420), Yummy Bites Weapon and Outfit Visage gift boxes (cosmetics; opening only adds them, choosing a look stays mae's, R-134).
+- Gift items (e.g. "Rolla Management Made Easy") are companion affinity gifts: leave them.
+- A selection box ("choose one") is a choice: stop and ask mae (R-129).
+*observed* · `home/bag_items.png`, `home/bag_casket_card.png`, `home/bag_casket_multi.png`, `home/bag_visage_giftbox.png` · node `item_bag` · R-129, R-134

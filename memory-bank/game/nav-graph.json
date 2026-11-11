@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-11-10",
+ "updated": "2026-11-11",
  "screen": [
   720,
   1280
@@ -431,11 +431,14 @@
    "id": "mail",
    "name": "Mail",
    "kind": "menu",
-   "confidence": "reported",
+   "confidence": "observed",
    "unlock": null,
    "detect": null,
-   "images": [],
-   "notes": "Entry point unknown."
+   "images": [
+    "docs/screens/home/mailbox.png",
+    "docs/screens/home/mailbox_received.png"
+   ],
+   "notes": "Mailbox: the owl on the house's left balcony (home_house). Tabs Mail / Gifts; Claim All (0.69, 0.81) free; never Delete Read (R-168)."
   },
   {
    "id": "arena",
@@ -606,7 +609,7 @@
     "docs/screens/home/alchemy_pot.png",
     "docs/screens/home/cooked.png"
    ],
-   "notes": "House furniture: melt down gear and cook dishes. Dish tab: recipes with ingredient costs at the top and a Cook button; shows a 'Cooked' banner (R-047)."
+   "notes": "House furniture: melt down gear and cook dishes. Dish tab: recipes with ingredient costs at the top and a Cook button; shows a 'Cooked' banner (R-047). Tabs Dish / Combine / Dismantle / Goals; Dismantle with Exclude High-Power Gear ticked is allowed (R-165)."
   },
   {
    "id": "rank_advancement",
@@ -1156,6 +1159,45 @@
     "docs/screens/unlabeled/exploration_kit_pack.png"
    ],
    "notes": "Paid pack, e.g. Exploration Kit $0.99. Never buy (R-043, R-157). No detector state yet. Closes only with a tap below the card (360,1120)."
+  },
+  {
+   "id": "workbench",
+   "name": "Workbench (Relics)",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": "free furniture Unlock",
+   "detect": null,
+   "images": [
+    "docs/screens/home/furniture_workbench.png",
+    "docs/screens/home/workbench_relics.png"
+   ],
+   "notes": "House upper floor. Relic screen: element tabs, Affinity/Aegis, Resonance Level, tabs Relic / Goals. Never tap 'Go to Aeonic Gacha' (R-166, R-167)."
+  },
+  {
+   "id": "aeonic_gacha",
+   "name": "Aeonic Gacha",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": "free furniture Unlock",
+   "detect": null,
+   "images": [
+    "docs/screens/home/furniture_aeonic_gacha.png",
+    "docs/screens/home/aeonic_gacha.png"
+   ],
+   "notes": "Stone left of the Cart. Tabs Kingdom / Element / Goals; Draw x1/x10 with Auroral Badges: never draw without mae (R-167)."
+  },
+  {
+   "id": "item_bag",
+   "name": "Item bag",
+   "kind": "menu",
+   "confidence": "observed",
+   "unlock": null,
+   "detect": null,
+   "images": [
+    "docs/screens/home/bag_items.png",
+    "docs/screens/home/bag_casket_card.png"
+   ],
+   "notes": "Chest on the house's ground floor. Usable boxes carry a '!'; Treasure Chest card Cancel / Use with a quantity slider (R-169)."
   }
  ],
  "edges": [
@@ -2924,6 +2966,54 @@
    },
    "confidence": "observed",
    "notes": "A tap above the card does not close it (R-157)."
+  },
+  {
+   "from": "home_house",
+   "to": "workbench",
+   "action": {
+    "type": "tap",
+    "target": "Workbench crate (upper floor), not its 'Open' marker",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "Find by template after panning (R-166)."
+  },
+  {
+   "from": "home",
+   "to": "aeonic_gacha",
+   "action": {
+    "type": "tap",
+    "target": "Stone left of the Cart",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "R-166, R-167."
+  },
+  {
+   "from": "home_house",
+   "to": "mail",
+   "action": {
+    "type": "tap",
+    "target": "Owl on the left balcony",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "R-168."
+  },
+  {
+   "from": "home_house",
+   "to": "item_bag",
+   "action": {
+    "type": "tap",
+    "target": "Chest on the ground floor (count badge)",
+    "template": null,
+    "pos": null
+   },
+   "confidence": "observed",
+   "notes": "R-169."
   }
  ]
 }

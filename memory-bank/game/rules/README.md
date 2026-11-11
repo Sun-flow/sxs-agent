@@ -33,7 +33,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 
 ## Adding or changing a rule
 
-- New rule: next free ID (**next free: R-166**), under the right `##` heading of the right file, plus a row in the ID index below.
+- New rule: next free ID (**next free: R-170**), under the right `##` heading of the right file, plus a row in the ID index below.
 - Never reuse or renumber an ID. When merging a rule into another, delete it, add it to the retired table, and repoint citations.
 - Run `python3 scripts/check-rules.py`: it checks that every cited ID resolves, retired IDs aren't cited, every file is listed here, and image paths exist.
 
@@ -178,6 +178,10 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-163 | `overworld.md` | Zone facts, 2026-11-10 evening: VIII, Monolith Ruins I, Bubble Lake, new zones |
 | R-164 | `ui.md` | Story dialogue with choices and no Leave: stop, save the screen, ask mae |
 | R-165 | `home.md` | Dismantle in the Alchemy Pot is safe: use it for ore |
+| R-166 | `home.md` | Locked furniture: tap the crate, not the "Open" marker; Unlock is free |
+| R-167 | `home.md` | Aeonic Gacha: unlock it free, claim its quest, never draw without mae |
+| R-168 | `home.md` | Mailbox (the owl): Claim All daily, never Delete Read |
+| R-169 | `home.md` | Item bag: open Treasure Chest items, leave gifts, ask on a choose-one box |
 
 ## Retired IDs
 
