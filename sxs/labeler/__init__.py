@@ -14,6 +14,13 @@ one confirms it too). Fill in the screen's name, state and notes. Save writes:
   `python -m sxs label`, which moves it into its folder and keeps its boxes);
 - for a filed screen, its state and notes in docs/screens/expected.json.
 
+Category filter and review grid (mae, 2026-11-11): the Category menu shows one label category at a time (a class,
+a class group such as area_map, an item, or an item group): the list keeps the screens that have one, and the
+screen shows only those boxes. "Review grid" puts every box of the category from every screen side by side as
+zoomed crops; mark each Keep (Y), Reject (N) or move it to another class, then Apply. A rejected draft is
+remembered in docs/screens/rejected.json so `python -m sxs prelabel` does not draft it again. Open
+http://127.0.0.1:8765/#review=map_monster to land in the grid (`python -m sxs prelabel --one map_monster` prints it).
+
 Python standard library plus Pillow; no MaaFramework, no emulator, no model calls. Listens on 127.0.0.1 only.
 """
 
@@ -75,12 +82,92 @@ def _items() -> list[dict]:
     return items.load()["items"]
 
 
+def _item_groups() -> dict:
+    return {i["id"]: i.get("group", "") for i in _items()}
+
+
+def matches(box: dict, category: str, groups: dict, item_groups: dict) -> bool:
+    """Category strings: "c:<class>", "g:<class group>", "i:<item id>", "ig:<item group>"; "" matches all."""
+    if not category:
+        return True
+    kind, _, value = category.partition(":")
+    cls = box.get("cls", "")
+    if kind == "c":
+        return cls == value
+    if kind == "g":
+        return groups.get(cls) == value
+    if kind == "i":
+        return cls == "item_icon" and box.get("item") == value
+    if kind == "ig":
+        return cls == "item_icon" and item_groups.get(box.get("item", "")) == value
+    return False
+
+
+def review_list(category: str, drafts_only: bool = False) -> dict:
+    """Every box of a category on every screen, for the review grid."""
+    groups = {c["name"]: c["group"] for c in labels.classes()}
+    igroups = _item_groups()
+    out = []
+    for key, entry in sorted(labels.load()["screens"].items()):
+        size = entry.get("size") or [720, 1280]
+        for b in entry.get("boxes", []):
+            if matches(b, category, groups, igroups) and (b.get("draft") or not drafts_only):
+                out.append({"key": key, "size": size, "box": b})
+    return {"category": category, "boxes": out}
+
+
+def apply_review(decisions: list[dict]) -> dict:
+    """Apply review-grid decisions: [{"key", "name", "action": keep | reject | relabel, "cls"?, "item"?}].
+    keep confirms the box, reject removes it (and remembers a removed draft), relabel gives it another class."""
+    kind = {c["name"]: c["kind"] for c in labels.classes()}
+    by_key: dict[str, list[dict]] = {}
+    for d in decisions:
+        by_key.setdefault(d["key"], []).append(d)
+    counts = {"keep": 0, "reject": 0, "relabel": 0}
+    problems = []
+    for key, ds in by_key.items():
+        p = _screen_path(key)
+        boxes = [dict(b) for b in labels.boxes_for(key)]
+        names = {b["name"]: b for b in boxes}
+        removed = []
+        for d in ds:
+            b = names.get(d.get("name", ""))
+            if b is None:
+                problems.append(f"{key}: no box {d.get('name')!r} (changed since the grid loaded?)")
+                continue
+            act = d.get("action")
+            if act == "keep":
+                b["draft"] = False
+            elif act == "reject":
+                boxes.remove(b)
+                if b.get("draft") or b.get("cls"):
+                    removed.append(b)
+            elif act == "relabel" and d.get("cls") in kind:
+                old_cls = b.get("cls")
+                b["cls"], b["kind"], b["draft"] = d["cls"], kind[d["cls"]], False
+                if d["cls"] == "item_icon" and d.get("item"):
+                    b["item"] = d["item"]
+                elif d["cls"] != "item_icon":
+                    b.pop("item", None)
+                if old_cls and old_cls != d["cls"]:  # the old class was wrong here: don't draft it again
+                    removed.append(dict(b, cls=old_cls))
+            else:
+                problems.append(f"{key}: {d.get('name')}: unknown action {act!r}")
+                continue
+            counts[act] += 1
+        problems += labels.set_boxes(key, boxes, _image_size(p))
+        labels.add_rejected(key, removed)
+    return {"ok": not problems, "counts": counts, "problems": problems}
+
+
 def list_screens() -> list[dict]:
     expected = screens.load_expected()
     rows = {r["file"]: r for r in screens.bank_rows()}
     stored = labels.load()["screens"]
     boxed = {k: len(v.get("boxes", [])) for k, v in stored.items()}
     drafts = {k: sum(1 for b in v.get("boxes", []) if b.get("draft")) for k, v in stored.items()}
+    tags = {k: [[b.get("cls", ""), b.get("item", ""), bool(b.get("draft"))] for b in v.get("boxes", [])]
+            for k, v in stored.items()}
     out = []
     for p in sorted(SCREENS.rglob("*.png")):
         key = labels.screen_key(p)
@@ -90,7 +177,7 @@ def list_screens() -> list[dict]:
         out.append({"key": key, "folder": folder, "file": p.name, "banked": banked,
                     "state": row.get("state", "") if banked else expected["states"].get(p.stem, ""),
                     "labelled": bool(row.get("state")) if banked else p.stem in expected["states"],
-                    "boxes": boxed.get(key, 0), "drafts": drafts.get(key, 0)})
+                    "boxes": boxed.get(key, 0), "drafts": drafts.get(key, 0), "tags": tags.get(key, [])})
     out.sort(key=lambda s: (not s["banked"], s["folder"], s["file"]))
     return out
 
@@ -113,7 +200,10 @@ def save_screen(body: dict) -> dict:
     key = body["key"]
     p = _screen_path(key)
     f = body.get("fields", {})
+    kept = {b.get("name") for b in body.get("boxes", [])}
+    gone = [b for b in labels.boxes_for(key) if b.get("draft") and b["name"] not in kept]
     problems = labels.set_boxes(key, body.get("boxes", []), _image_size(p))
+    labels.add_rejected(key, gone)
     if key.startswith("unlabeled/"):
         name = f.get("name", "").strip()
         if name and not screens.NAME.match(name):
@@ -160,7 +250,11 @@ class Handler(BaseHTTPRequestHandler):
             elif url.path == "/api/screens":
                 self._json({"screens": list_screens(), "states": _known_states(), "kinds": labels.KINDS,
                             "template_kinds": labels.TEMPLATE_KINDS, "classes": labels.classes(),
-                            "items": [{"id": i["id"], "name": i.get("name", "")} for i in _items()]})
+                            "items": [{"id": i["id"], "name": i.get("name", ""), "group": i.get("group", "")}
+                                      for i in _items()]})
+            elif url.path == "/api/review":
+                q = parse_qs(url.query)
+                self._json(review_list(q.get("category", [""])[0], q.get("drafts", ["0"])[0] == "1"))
             elif url.path == "/api/screen":
                 self._json(screen_detail(parse_qs(url.query)["key"][0]))
             elif url.path.startswith("/img/"):
@@ -179,6 +273,11 @@ class Handler(BaseHTTPRequestHandler):
                 if url.path == "/api/save":
                     result = save_screen(body)
                     print(f"saved {body['key']}: {len(body.get('boxes', []))} box(es)"
+                          + (f", problems: {result['problems']}" if result["problems"] else ""), flush=True)
+                    self._json(result)
+                elif url.path == "/api/review":
+                    result = apply_review(body.get("decisions", []))
+                    print(f"review applied: {result['counts']}"
                           + (f", problems: {result['problems']}" if result["problems"] else ""), flush=True)
                     self._json(result)
                 elif url.path == "/api/file":

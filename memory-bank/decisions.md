@@ -1,6 +1,6 @@
 # Decision Log
 
-> **Last updated**: 2026-11-10
+> **Last updated**: 2026-11-11
 > Decisions with lasting consequences (tech choices, structure, conventions, scope calls) and why they were made, so later sessions don't undo them by accident. One entry per decision, newest first; update `Status` when superseded; never delete an entry. Details and sources for the 2026-11-02 entries are in `docs/step1-emulator-and-game.md`.
 
 Entry format:
@@ -20,6 +20,11 @@ Entry format:
 - **Rationale**: mae (2026-11-10): faster, cheaper processing first, then "why don't they work together?" Measured on her PC: old check 6.4 s median, new 1.3 s (1.0 s on DirectML). A model pass is ~40-60 ms, but only text gives wording safety (an allowed button verb), one-line new screens, unknown-stays-unknown, and numbers.
 - **Alternatives considered**: model-only state detection (no wording safety, confident on unseen screens); per-strip reads (only 1.1x); last-state-first (still has to check every popup above it); Roboflow 3.0 / YOLOLite (Roboflow licence and lock-in); full-frame-only minimap dots (2-10 px, near the detector's limit).
 - **Status**: Accepted (mae 2026-11-10); detector not trained yet
+
+### [2026-11-11] Drafts follow the bot's own readers; removed drafts are remembered
+- **Decision**: the pre-labeller drafts an area-map object only where `sxs/vision/area_map.objects()` reports one, never drafts item symbols on map areas, and skips anything in `docs/screens/rejected.json` (drafts mae removed). Review is one class at a time in the labeler's grid.
+- **Rationale**: a separate copy of the reader drifted and drafted red text, badges and the zoom knob; forgotten removals came back on every re-draft (`docs/labeler-diagnosis.md`).
+- **Alternatives considered**: tuning the copy's thresholds (would drift again); deleting "Confirm all drafts" (kept, but it now confirms only the shown category).
 
 ### [2026-11-09] The location tree is committed data the bot writes: `resource/world/zones.json`
 - **Decision**: zones, their CP, exploration %, blessed flag, links (walked / map_adjacent / inside) and known ways in live in one JSON file under `resource/world/`, read and written by `sxs/policy/zones.py`. Roam surveys and fog-walk zone changes update it at runtime; builders commit it with their session. Roam picks targets and entry neighbours from it, not from one area-map reading.

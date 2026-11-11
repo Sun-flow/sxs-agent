@@ -20,7 +20,8 @@ into a folder by situation. The name's prefix picks the folder (`sxs/core/screen
 | `minimap/` | Minimap crops and tile samples for the minimap classifier; `legend_*` are mae's legend screenshots and crops (R-066, R-130) |
 | `unlabeled/` | **The bank:** screens nobody has named yet, with a table for mae to fill in (`unlabeled/README.md`) |
 
-`labels.json` holds the boxes mae drew on screens in the labeler (see below).
+`labels.json` holds the boxes mae drew on screens in the labeler (see below); `rejected.json` the drafts she removed,
+so the pre-labeller never drafts them again.
 
 `expected.json` holds what the state detector must report on each screen (`states`) and mae's notes on labelled
 screens (`notes`). `tests/check_states_offline.py` runs the detector over every folder except `icons/`, `items/` (item popup captures), `minimap/`
@@ -47,6 +48,10 @@ every screen, the bank first. On a screen:
   into `resource/image/labels/<screen>/<box>.png` with a row in its `manifest.json`, and writes the screen's row in
   `unlabeled/README.md` (bank) or its state and notes in `expected.json` (filed screens).
 - **File labelled screens** runs `python -m sxs label`; boxes and crops follow the screen to its new name.
+- **Category** menu and **Review grid** (mae, 2026-11-11): show one label category at a time (a class, a class group,
+  an item or an item group); the grid shows every box of it from every screen as zoomed crops to keep (`Y`), reject
+  (`N`) or move to another class, then Apply. `python -m sxs prelabel --one CLASS` drafts one class for it
+  (`docs/labeler-diagnosis.md`).
 
 The bot uses them through `sxs/vision/labels.py` (`find(frame, "cart", "upgrade_button")`, `python -m sxs see
 labels FRAME`), and a pipeline node can use the crop as `template: "labels/<screen>/<box>.png"`. Boxes are in the

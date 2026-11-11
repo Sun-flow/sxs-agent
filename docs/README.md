@@ -15,6 +15,8 @@ Design notes, one per plan step. The code is the source of truth; these explain 
 | `progress-tracker.md` | `python -m sxs progress` / `report`: what each stat is read from, what still needs a route, stats worth adding |
 | `vision-upgrade.md` | How a screen check works and where its time goes (measured), no-ML speed-ups to approve, and whether to train a YOLO/Roboflow UI detector |
 | `detector-design.md` | Plan for a Roboflow-trained UI detector: classes, the three model choices with pros and cons, dataset pipeline, adoption |
+| `labeler-diagnosis.md` | Where the map mislabels came from (red text as monsters, zoom knob as Rolla), counts, and the single-category review: `prelabel --one`, category filter, review grid, rejected drafts |
+| `collectibles-capture-plan.md` | Training data for world collectibles: what they are, class options, burst capture of approach sequences, session plan, pre-roll buffer |
 | `shop-tables.md` | Shop stock and mae's Buy? marks |
 | `screens/` | Reference screenshots in folders by situation, `expected.json`, the `unlabeled/` bank; index in `screens/README.md` |
 | `archive/` | History only (old log entries), never instructions |
