@@ -298,18 +298,16 @@ def zone_here(dev, det, tree: Optional[Tree] = None) -> str:
 
 def zone_by_map(dev, det, hint: str = "") -> Optional[str]:
     """Where the player is by the white dot on the big map: the fallback for `zone_here` (R-140) when the name under
-    the minimap can't be read or matched. Opens the area map zoomed out, takes the zone whose label is nearest our dot
-    (the hint stands unless another label is clearly nearer), closes the map. None if unreadable."""
-    dev.tap(*goto.MINIMAP)
-    time.sleep(2.5)
-    if det.detect().state != "area_map":
+    the minimap can't be read or matched. A glance at the walking zoom (docs/big-map-survey.md: no survey zoom for
+    this): the zone whose label is nearest our dot (the hint stands unless another label is clearly nearer). Always a
+    fresh glance: an earlier look's dot is from before the last walk. None if unreadable."""
+    from . import bigmap
+    look = bigmap.get(dev, det).glance("where am I")
+    if look is None or look.frame is None:
         return None
-    goto.survey_zoom(dev)
-    frame = dev.screenshot()
-    me = [p for k, p in area_map.objects(frame) if k == "player"]
+    frame = look.frame
+    me = [look.dot] if look.dot else []
     labels = map_labels(det, frame)
-    dev.tap(*ui.BACK_ARROW)
-    time.sleep(2)
     if not me or not labels:
         return None
     px, py = me[0]
@@ -326,7 +324,9 @@ def zone_by_map(dev, det, hint: str = "") -> Optional[str]:
 def map_labels(det, frame) -> dict:
     """Zone labels on the area map: name -> centre. Not % lines, power lines or the legend."""
     out = {}
-    for t, b in det.read_text(MAP_LABELS_ROI, frame):
+    from . import bigmap
+    lines = bigmap.map_text(det, frame, MAP_LABELS_ROI) if frame is not None else det.read_text(MAP_LABELS_ROI)
+    for t, b in lines:
         t = t.replace("-", " ").strip(" |")
         if len(t) < 4 or re.search(r"%|\d\.?\d?K$|Exploration", t) or (b[0] > 530 and b[1] < 270):
             continue

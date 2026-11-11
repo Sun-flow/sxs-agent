@@ -10,6 +10,7 @@ Design notes, one per plan step. The code is the source of truth; these explain 
 | `step4-dailies.md` | `sxs.loops.daily` steps and routes |
 | `step5-upgrades.md` | Upgrade Loop and Gather Loop |
 | `step6-clear-zone.md` | Clear Zone: goal-directed exploration (every leg a named objective, progress = % or objects), which replaced the Fog Walk |
+| `big-map-survey.md` | Why the big map is surveyed again and again (every caller, measured costs) and the shared-survey design proposed to replace the repeats (2026-11-11, for mae's review) |
 | `loops/` | Diagrams of every loop: goal, step order, checks, sub-loops, what it does on each screen; `loops/open-questions.md` lists where code and rules disagree (index `loops/README.md`) |
 | `interrupts.md` | How a loop is paused for a tutorial, reward choice or popup and resumed (the interrupt table) |
 | `function-check.md` | What each loop does, how to run it, what it reports, whether it has run live |
@@ -20,6 +21,7 @@ Design notes, one per plan step. The code is the source of truth; these explain 
 | `labeler-diagnosis.md` | Where the map mislabels came from (red text as monsters, zoom knob as Rolla), counts, and the single-category review: `prelabel --one`, category filter, review grid, rejected drafts |
 | `collectibles-capture-plan.md` | Training data for world collectibles: what they are, class options, burst capture of approach sequences, session plan, pre-roll buffer |
 | `home-tap-pass-plan.md` | Plan for the Home tap pass (R-170): where it fits in the dailies, detection, captures, tests; not built yet |
+| `strengthen-live-test-plan.md` | Live test steps for the gacha, relic, rank-first and swipe-fallback build: commands, expected readouts, stop conditions |
 | `shop-tables.md` | Shop stock and mae's Buy? marks |
 | `screens/` | Reference screenshots in folders by situation, `expected.json`, the `unlabeled/` bank; index in `screens/README.md` |
 | `archive/` | History only (old log entries), never instructions |

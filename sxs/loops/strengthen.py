@@ -1,11 +1,14 @@
 """Shared strengthening helpers (claim the Cart, banded gear enhancing, charms, gear replace) and the Strengthen loop.
 
-    python -m sxs strengthen
+    python -m sxs strengthen                  # every step
+    python -m sxs strengthen --only rank,gacha  # some steps: cart, rank, gacha, relics, gear_swap, charms, upgrade
 
-The loop runs `sxs.loops.upgrade.get_stronger`: Cart, gear swap, charms, then the Upgrade Loop (mae, 2026-11-09:
-the old path levelled techniques one tap at a time instead of Quick Upgrade, R-104). Each step starts from home and
-returns there. Spends Rolla, Raw/Refined Ore and Battle Essence only; stops tapping
-an upgrade as soon as the game says materials are short. Never touches Dawnium, Prayer or the shop. No model calls.
+The loop runs `sxs.loops.upgrade.get_stronger`: Cart, rank as soon as its badge shows a bang or the level hits its cap (R-118), Aeonic Gacha x10 draws
+(R-167), Workbench relics (R-172), gear swap, charms, then the Upgrade Loop (mae, 2026-11-09: the old path levelled
+techniques one tap at a time instead of Quick Upgrade, R-104). Each step starts from home and returns there, with
+its own time budget. Spends Rolla, Raw/Refined Ore, Battle Essence, Chrono Sand and Auroral Badges only; stops
+tapping an upgrade as soon as the game says materials are short. Never touches Dawnium, Prayer or the shop.
+No model calls.
 """
 
 from __future__ import annotations
@@ -89,8 +92,7 @@ class Strengthener:
         right, left = HOME_SWIPE_RIGHT, HOME_SWIPE_LEFT
         for swipe in [None] + [right] * HOME_SWEEP_RIGHT + [left] * HOME_SWEEP_LEFT:  # the whole scene
             if swipe:
-                self.dev.swipe(*swipe, HOME_SWIPE_MS)
-                time.sleep(1.5)
+                self.dev.pan(*swipe, HOME_SWIPE_MS)  # falls back to adb when MaaFramework's swipe stops (2026-11-11)
             # The bubble shows only while loot waits; the wheel is always there. Either one opens the claim, so stop
             # at whichever comes first (live 2026-11-11: no bubble meant 28 swipes, about 2 minutes, for nothing).
             bubble = self.det.find("Home.CartBubble") or self.det.find("Home.Cart")
@@ -266,10 +268,19 @@ class Strengthener:
         return replaced
 
 
+def _args(p) -> None:
+    p.add_argument("--only", help="comma-separated steps: cart, rank, gacha, relics, gear_swap, charms, upgrade")
+
+
 def _run(ctx, opts):
-    from .upgrade import get_stronger  # upgrade imports this module
-    return {"end": "done", **get_stronger(ctx.dev, ctx.det)}
+    from .upgrade import STRENGTHEN_STEPS, get_stronger  # upgrade imports this module
+    from ..core.loop import banner
+    only = set(opts.only.split(",")) if getattr(opts, "only", None) else None
+    steps = [s for s in STRENGTHEN_STEPS if not only or s in only]
+    banner(log, "Strengthen", "get stronger with soft resources: " + ", ".join(steps),
+           "each step done once or cut by its own time budget")
+    return {"end": "done", **get_stronger(ctx.dev, ctx.det, only=only)}
 
 
-LOOP = Loop("strengthen", "Strengthen", "get stronger with soft resources: Cart, gear swap, charms, Upgrade Loop",
-            _run, budget=8 * 90)
+LOOP = Loop("strengthen", "Strengthen", "get stronger with soft resources: Cart, rank first, gacha, relics, gear swap, "
+            "charms, Upgrade Loop", _run, _args, budget=25 * 60)
