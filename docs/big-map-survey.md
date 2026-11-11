@@ -98,9 +98,9 @@ The "1X" = IX and "Lakeside" vs "Lakeside Camp" fixes each went into one or two 
    still valid and opens the map only if it isn't. Each call logs one line:
 
    ```
-   [big map] survey 4 (zone run ended: Verdantglade VII zone_done; last survey 2:10 ago, invalid: % changed)  9.2 s
+   [big map] survey 4 (zone run ended: Verdantglade VII zone_done; last survey 2:10 ago, invalid: % changed)  9.2 s, our dot: found (fallback)
    [big map] reuse survey 4 (roam pick; 11 s old, nothing changed)
-   [big map] walk opening 5 also read: 14 labels, Verdantglade VII 100%, 1 ready statue
+   [big map] walk opening 5 also read: 14 labels, Verdantglade VII 100%, 1 ready statue, our dot: found
    ```
 
 ### When the snapshot goes stale (invalidation)
@@ -115,6 +115,8 @@ The "1X" = IX and "Lakeside" vs "Lakeside Camp" fixes each went into one or two 
 | A side zone's % is older than 3 legs | that zone's %, read in the next big-map leg's opening, or by `map_pct` if no big-map leg comes | Clear Zone |
 | Age over 10 minutes, or a new server day (reset 13:00Z) | everything | `BigMap.look` |
 | Power went up | power-wall decisions only (no survey needed) | roam |
+
+Every survey logs whether our white dot was found (strict mask, the `player_dot` fallback added in 8ddc275, or not at all). Without the dot, the frontier and object pickers measure from the zone label instead of from us, so a snapshot with no dot can't answer "where am I" or "nearest object".
 
 Anything not on this list does not trigger a survey. Adding a reason means adding a row here.
 
