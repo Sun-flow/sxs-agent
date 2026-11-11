@@ -1,5 +1,7 @@
 # Fog Walk post-mortem (2026-11-10)
 
+<!-- index: Why the Fog Walk was scrapped (2026-11-10), where it lives, what depends on it, what to keep -->
+
 mae (23:48Z): the fog-walk approach is bad and is being scrapped; a new thread designs the replacement navigation. This note lists where it lives, what leans on it, what went wrong, and what is worth keeping.
 
 ## What went wrong

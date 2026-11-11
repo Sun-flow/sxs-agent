@@ -1,0 +1,7 @@
+# 2026-11-10 00:50 · Explore diagram review (Claude Code, cloud)
+
+- mae regrouped the explore loop's per-screen diagram into handler groups (world map, tower and battle prep, pass-through and dialogue, cards and unknown screens, profile, home) with one shared return and grouped exits. Adopted in `docs/loops/explore.md` with fixes: exit groups declared first (otherwise Mermaid leaves them empty), "Step 1 ·" labels (Mermaid 11 draws "1. " as "Unsupported markdown: list"), groups named as handlers, not loops, the PR #46 guard step, and the missing battle-prep edge.
+- Code gaps listed under the diagram and as open-questions Q16-Q19: explore fights under 70% after two heal tries (use `start_fight`), two quest-ring followers (R-142, share one), "1. " labels on other pages. Code structure already mirrors the groups (one `_on_<screen>` per group); no reorganisation needed. Docs only, no code changed.
+- mae (00:55): remove R-141; overarching routines may switch loops (she only meant: don't change task focus without asking). Sent to the docs thread, which owns #46.
+- mae (00:56): the name under the minimap is the most accurate zone source; R-140 must not forbid it (sent to the docs thread; Q17 settled, no change).
+- R-150 (mae 02:35, rule on #46): new-zone entry step added to `docs/loops/fogwalk.md` and `explore.md` (find the entrance on the big map, centre the camera, walk to ground beside fog outward from it); marked as being built.

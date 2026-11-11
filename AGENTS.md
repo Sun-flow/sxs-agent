@@ -12,25 +12,25 @@ Your memory doesn't carry over between sessions, so this repo keeps it for you i
 
 1. Run `python3 scripts/check-memory.py`; skim the commits it lists.
 2. Open `memory-bank/README.md` and follow its start-of-session steps (status, recent log, and the rest on demand).
-3. Then use the map below to read only what your task needs. Every folder has a README index: read the index, then the one file it points to.
+3. Then use the map below to read only what your task needs. Every folder has a README: read it (or run the index command it names), then the one file you need.
 
 ## Map: read top-down, stop when you have what you need
 
 | Need | Index | Leaves |
 |---|---|---|
-| Where the work stands, what's next | `memory-bank/README.md` | `memory-bank/status.md`, top of `memory-bank/log.md` |
+| Where the work stands, what's next | `memory-bank/README.md` | `memory-bank/status.md`, `python3 scripts/entries.py log`, `python3 scripts/index.py work` |
 | Playing the game (builder session) | `memory-bank/playbook.md` | `sxs/README.md` for commands |
 | mae's preferences, environments, decisions | `memory-bank/README.md` | the bank file it names |
-| Game facts: rules of the world, menus, routes | `memory-bank/game/rules/README.md` (situation → file → IDs) | one rules file; never-do list in `memory-bank/game/rules/policy.md`; menus in `memory-bank/game/nav-graph.json` |
+| Game facts: rules of the world, menus, routes | `memory-bank/game/rules/README.md` (situation → file; IDs via `python3 scripts/index.py rules`) | one rules file; never-do list in `memory-bank/game/rules/policy.md`; menus in `memory-bank/game/nav-graph.json` |
 | Running or changing the bot (modules, commands, loop contract) | `sxs/README.md` | one module |
 | Screens the bot can detect, templates, policies | `resource/README.md` | `resource/pipeline/state.json`, the policy files |
-| Why a step is designed the way it is | `docs/README.md` | one `docs/stepN-*.md` |
+| Why a step is designed the way it is | `docs/README.md` (`python3 scripts/index.py docs`) | one `docs/stepN-*.md` |
 | Helper scripts and checks | `scripts/README.md` | one script |
-| Tests and what each needs | `tests/README.md` | one test |
+| Tests and what each needs | `tests/README.md` (`python3 scripts/index.py tests`) | one test |
 
 ## End of every session
 
-Before you finish or hand work back, update the memory bank as `memory-bank/README.md` describes: `status.md`, a new entry at the top of `log.md`, anything learned in `notes.md`, decisions in `memory-bank/decisions.md`. Then run `python3 scripts/check-memory.py` and `python3 tests/check_repo.py`, and commit the memory changes with the work. Write things down as you learn them; sessions can end without warning.
+Before you finish or hand work back, update the memory bank as `memory-bank/README.md` describes: `status.md`, your own file in `memory-bank/work/`, a new log entry file (`python3 scripts/entries.py new log "Title"`), anything learned in `notes.md`, decisions as new files (`python3 scripts/entries.py new decisions "Title"`). Never append to a shared list or edit an index table: see "Merge-proof by design" in `memory-bank/README.md`. Then run `python3 scripts/check-memory.py` and `python3 tests/check_repo.py`, and commit the memory changes with the work. Write things down as you learn them; sessions can end without warning.
 
 ## Where things go
 
@@ -46,4 +46,4 @@ Before you finish or hand work back, update the memory bank as `memory-bank/READ
 | `.agents/prompts/memory-bank.md` | The project-agnostic prompt that builds and maintains `memory-bank/` (copied from mae's TrackFlow-Company-Overhaul repo). |
 | captures/, logs/, .maa/ | Runtime output, gitignored. `scripts/clean.py` empties captures/. |
 
-New file? Put it in the folder above that fits and add a line to that folder's README. A new top-level folder needs a row here.
+New file? Put it in the folder above that fits. In `docs/` and `tests/` give it its index metadata (see that folder's README); elsewhere add a line to the folder's README. A new top-level folder needs a row here.

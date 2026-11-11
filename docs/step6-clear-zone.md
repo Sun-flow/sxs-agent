@@ -1,5 +1,7 @@
 # Step 6: Clear Zone, goal-directed exploration (replaces the Fog Walk)
 
+<!-- index: Clear Zone: goal-directed exploration (every leg a named objective, progress = % or objects), which replaced the Fog Walk -->
+
 mae, 2026-11-10 23:48: the fog walk "is candidly bad, and we need to scrap it"; the idea of fog-walking has been
 poisoning navigation. Why it failed is in [fogwalk-postmortem.md](fogwalk-postmortem.md). In short: it counted
 "stood on a new tile" as progress, so it could hop 1-3 tiles at a time round the same patch for minutes while the

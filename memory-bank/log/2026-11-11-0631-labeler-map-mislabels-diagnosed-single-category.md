@@ -1,0 +1,5 @@
+# 2026-11-11 06:31 · Labeler: map mislabels diagnosed, single-category review (Claude Code, cloud)
+
+- mae saw the zoom knob drafted as Rolla and red map words as monsters. Causes (`docs/labeler-diagnosis.md`): prelabel's own copy of the area-map reader lacked the bot's filters (24 of 39 monster drafts were text/badges/building bits); the item matcher ran over the map (knob = Rolla at 0.89); "Confirm all drafts" and forgotten removals let them through and back.
+- Built (branch `claude/project-thread-2oswgl`): drafter follows `area_map.objects()` (on mae's 7 area maps, drafts she removed 32 -> 4), no item drafts on maps, `docs/screens/rejected.json`, `prelabel --one CLASS`, labeler Category filter + review grid (Y/N/move, Apply), `capture NAME --burst N`. Plan: `docs/collectibles-capture-plan.md`.
+- Found: mae's PC labeler copy (04:22) already reviewed all 191 drafts (157 kept, 34 removed), not pushed. Open: commit it to #55; mae picks collectible class option, capture session time, pre-roll buffer.

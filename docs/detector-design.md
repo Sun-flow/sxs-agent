@@ -1,5 +1,7 @@
 # UI detector: Roboflow design
 
+<!-- index: Plan for a Roboflow-trained UI detector: classes, the three model choices with pros and cons, dataset pipeline, adoption -->
+
 mae, 2026-11-10: "let's start designing a roboflow implementation ... recommend me the three best choices with pro
 and con lists for each." Background and the case for a detector: `docs/vision-upgrade.md` (Part 2). This note is
 the plan. Built so far: the screen-check speed-ups (Part 1, PR #48), and step 1 below (class list in the labeler,

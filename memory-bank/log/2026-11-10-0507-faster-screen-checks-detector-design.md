@@ -1,0 +1,5 @@
+# 2026-11-10 05:07 · Faster screen checks + detector design (Claude Code, cloud)
+
+- mae approved Part 1 and asked for a Roboflow design with three model choices. `StateDetector.detect()` now reads the whole screen once per frame and matches every plain OCR node against it (`strips`/`exact` in `State.Detect`; `AreaMap`, `GuildJoinList`, `GuildNoGuild` keep their own OCR), returns the last detection for an unchanged frame (<2 s), checks the foreground app only on unknown (mae: none on known screens; kept on unknown so go_home can relaunch a crashed game), and `SXS_INFERENCE` picks cpu/directml/auto. `python -m sxs bench` times old vs new on the reference screens: 241 screens all correct, median 2489 -> 882 ms, worst 7456 -> 1820 ms (cloud CPU). Not run live yet.
+- `docs/detector-design.md`: classes, YOLO26n / RF-DETR Nano / Roboflow 3.0 pros and cons (train the first two on one Roboflow dataset, keep the winner), labeler -> exporter (masks the name strip) -> Roboflow -> ONNX -> vision module, adoption class by class.
+- Open: bench on mae's PC (CPU vs DirectML); live roam with readouts; mae's answers in detector-design.md.

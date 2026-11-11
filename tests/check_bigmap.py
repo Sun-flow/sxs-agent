@@ -2,7 +2,13 @@
 
 docs/big-map-survey.md: the zoom knob read from reference area maps, glances that don't re-zoom when the knob is
 already at the walking zoom, one OCR pass per frame for every label reader, kept facts and what makes them stale,
-the once-a-day discovery survey, the enlarged-crop % re-read, and walks that never zoom out to search."""
+the once-a-day discovery survey, the enlarged-crop % re-read, and walks that never zoom out to search.
+
+Needs: OpenCV, MaaFramework (imports only)
+Checks: Shared big map: zoom knob on reference area maps, no re-zoom at the walking zoom, one OCR pass for all label
+  readers, kept facts and stale events, discovery once a server day, % re-read from an enlarged crop, walks pan
+  instead of zooming out, roam surveys only when due
+"""
 
 import sys
 import tempfile

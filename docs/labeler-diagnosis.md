@@ -1,5 +1,7 @@
 # Labeler mislabels: diagnosis and the single-category review (2026-11-11)
 
+<!-- index: Where the map mislabels came from (red text as monsters, zoom knob as Rolla), counts, and the single-category review: `prelabel --one`, category filter, review grid, rejected drafts -->
+
 mae (2026-11-11 06:15): the map zoom control was drafted as Rolla and many red words on the map were drafted as
 monsters. Where did those come from, and how do we make checking drafts fast? This note answers with counts, then
 says what changed. Numbers come from PR #55 (`labels/check-drafts` at adf35ea) and from the labeler's own copy on

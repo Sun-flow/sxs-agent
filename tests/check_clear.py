@@ -1,7 +1,12 @@
 """Offline checks for the Clear Zone loop (no emulator): python tests/check_clear.py
 
 The frontier picker on a reference area map, the minimap planner's goals (objects only, no fog leads), and the leg
-bookkeeping: what counts as a gain, spot skipping, the ring resting, a frontier that reveals nothing."""
+bookkeeping: what counts as a gain, spot skipping, the ring resting, a frontier that reveals nothing.
+
+Needs: OpenCV, MaaFramework (imports only)
+Checks: Clear Zone: fog frontier on a reference area map, minimap goals are objects only, leg bookkeeping (gain,
+  failed spots, ring resting, stall count)
+"""
 
 import sys
 from pathlib import Path

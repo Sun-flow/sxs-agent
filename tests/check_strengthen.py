@@ -3,6 +3,11 @@
 Aeonic Gacha readers and a replayed draw pass (R-167: x10 only when a full x10 is affordable, never x1 or a short
 xN), Workbench relic readers (R-172, R-105), rank-first readers (R-118), the step order, and Device.pan's adb
 fallback. Needs MaaFramework, OpenCV and the OCR models (scripts/fetch-ocr-models.py).
+
+Needs: MaaFramework + OCR models, OpenCV
+Checks: Aeonic Gacha readers and a replayed draw pass (x10 only, never x1 or short xN), result names, timed pack;
+  Workbench relic readers; rank-first level and Bellflower check; strengthen step order; `Device.pan` adb fallback
+  and the Home sweep
 """
 
 import sys
