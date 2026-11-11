@@ -12,6 +12,7 @@ Run from the repo root on the Windows PC (`.venv\Scripts\python`, shown below as
     python -m sxs labeler                  # web page: name screens, box buttons/text/icons, save crops as templates
     python -m sxs report [--day DAY]       # the day's progress report from saved snapshots (no emulator)
     python -m sxs prelabel [--ocr] [--items]  # draft detector boxes on the reference screens (no emulator)
+    python -m sxs prelabel --one map_monster  # draft one class only; check it in the labeler's review grid
     python -m sxs items [add|find]         # item and currency symbol catalogue, resource/items (no emulator)
     python -m sxs dataset [--zip]          # YOLO dataset for Roboflow, account name and chat blacked out (no emulator)
     python -m sxs bench [--one-per-state]  # screen-check timings on the reference screens, old way vs new (no emulator)
