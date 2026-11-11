@@ -16,7 +16,7 @@ How it works:
     pickups each (`--per-material`), only above `--keep` stamina (150). Essence comes from monster fights.
   - `statue:ZONE`: walk to the statue icon nearest us in the zone; the walk is the sequence (statue not tapped).
   - `pickups:ZONE`: Clear Zone (`sxs/loops/clear.py`) with legs to free pickups only (minimap item dots and known
-    collectible crops). No quest-ring, guard, big-map or frontier legs; the statue is blessed at 100% (allowed).
+    collectible crops). Legs to item and monster dots (minimap, then big map; mae 19:44: monsters saved like interactables); no quest-ring, guard or frontier legs; the statue is blessed at 100% (allowed).
     Clear Zone refuses explored zones, where pickups cost stamina (R-065).
 - **Stamina drops on free legs** are not a stop (mae): the pre-roll of the cause is saved as a stamina_drop sequence
   and listed in job.json under stamina_drops for the report.
@@ -56,7 +56,7 @@ POST_S = 3.0  # seconds after it (the reward popup)
 SAMPLE_S = 0.5  # sampler thread: one frame this often, on top of the frames the walk takes itself
 MAX_FRAMES = 24  # frames kept per sequence (evenly thinned when the buffer holds more)
 MERGE_S = 4.0  # events this close together are one sequence (a leg's "pickup" then "cleared")
-COLLECT_EVENTS = {"pickup": "pickup", "cleared": "pickup", "acted": "object", "wheel": "wheel"}
+COLLECT_EVENTS = {"pickup": "pickup", "cleared": "pickup", "acted": "object", "wheel": "wheel", "fight": "monster"}
 ROOT = CAPTURES / "sequences"
 PICKS = SCREENS / "sequences"
 STAMINA_DROP_READS = 2  # readings in a row below the last good one before a drop counts (OCR slips)
@@ -241,10 +241,12 @@ def pick(folder: Path, meta: dict, n: int) -> list[Path]:
 class CaptureClearer(clear.Clearer):
     """Clear Zone with legs to pickups only (mae, 2026-11-11: no quest-ring legs to start; blessing a statue at 100%
     is fine, it opens new areas)."""
-    MINIMAP_GOALS = ("item",)
+    MINIMAP_GOALS = ("item", "monster")  # mae (19:44): monsters are fine targets, saved like interactables
+    BIG_MAP_GOALS = ("item", "monster")  # live 2026-11-11: minimap-only legs found nothing in Grotto Peninsula or XIII
 
     def __init__(self, dev, det, area, rec: "Recorder", job: Job):
         super().__init__(dev, det, area)
+        self.frontier_used = clear.FRONTIER_LEGS  # no fog legs: capture walks to pickups only
         self.rec, self.job = rec, job
         self.stamina: Optional[int] = None
         self.low_reads = 0
@@ -278,6 +280,13 @@ class CaptureClearer(clear.Clearer):
             self.rec.mark("stamina_drop", self.home or "unknown", what, force=True)
             self.stamina, self.low_reads = s, 0
 
+    def finish_object(self, leg, spot, goal: str) -> None:
+        """Clear Zone records an object gone from the minimap straight into the leg, not through event() (live
+        2026-11-11: a Hurricane Heights monster "taken" this way saved no sequence)."""
+        super().finish_object(leg, spot, goal)
+        if "cleared" in leg.events:
+            self.rec.mark("monster" if goal == "monster" else "pickup", self.home or "unknown", leg.what)
+
     def try_known(self, frame, xy, me):
         for name, kind, point, score in collectibles.find(frame, explored=False, area=self.home or "",
                                                           kinds=("collectible",)):
@@ -294,7 +303,7 @@ class CaptureClearer(clear.Clearer):
         self.guard_stamina()
         frame = self.dev.screenshot()
         xy, me = clear._xy(self.det), player_on_screen(self.det, frame)
-        return self.try_known(frame, xy, me) or self.try_minimap(frame, xy, me)
+        return self.try_known(frame, xy, me) or self.try_minimap(frame, xy, me) or self.try_big_map()
 
 
 # ---------------------------------------------------------------- stamina nodes (Resource Hunt)
@@ -348,6 +357,11 @@ def statue(dev, det, rec: "Recorder", zone: str) -> str:
         pts = statue_points(frame) + statue_badges(frame)
         return min(pts, key=lambda q: (q[0] - cx) ** 2 + (q[1] - cy) ** 2) if pts else None
 
+    if det.detect().state != "world_map":
+        # A hunt step ends at home (live 2026-11-11: the statue step after it read not_on_map at once).
+        from .roam import Roamer
+        if not Roamer(dev, det)._to_world():
+            return "not_on_map"
     if goto.go_to(dev, det, zone) == "not_on_map":
         return "not_on_map"
     why = goto.go_to(dev, det, nearest)
@@ -387,7 +401,8 @@ def run(dev, det, job: str, steps: list[dict], target: int, minutes: float, resu
         j = Job.open(job, resume, target, steps)
     except FileExistsError as e:
         return {"status": "refused: " + str(e)}
-    todo = [s for s in j.data["steps"] if not s.get("status") or s["status"] in ("timeout", "paused", "running")]
+    todo = [s for s in j.data["steps"] if not s.get("status") or s["status"] in ("timeout", "paused", "running", "not_on_map")
+            or s["status"].startswith("error")]
     banner(log, "Sequence Capture", f"save {j.data['target']} approach sequences of world collectibles (job {job}, "
            f"{j.count} saved so far): " + ", ".join(f"{s['do']} {s['arg']}" for s in todo),
            f"{j.data['target']} sequences, {minutes:g} minutes, every step done, or an unfamiliar screen; stamina "
@@ -427,6 +442,10 @@ def run(dev, det, job: str, steps: list[dict], target: int, minutes: float, resu
             status = "target"
     except KeyboardInterrupt:
         status = "paused"
+    except Exception as e:  # a step's navigation gave up (live 2026-11-11: go_home timed out on a game restart)
+        log.exception("step failed: %s", e)
+        rec.mark("error", "nav", f"{type(e).__name__}: {e}"[:200], force=True)  # the frames that led up to it
+        status = f"error: {type(e).__name__}"
     finally:
         rec.stop()
         j.end_run(status)

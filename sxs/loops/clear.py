@@ -145,6 +145,7 @@ def option_rows(boxes) -> list[int]:
 
 class Clearer:
     MINIMAP_GOALS = ("item", "monster", "building")  # minimap dots a leg may head for (seqcap: items only)
+    BIG_MAP_GOALS = ("statue", "item", "monster", "building", "red_bang")  # big-map objects a leg may head for
 
     def __init__(self, dev, det, area: Optional[str] = None, allowed=()):
         self.dev, self.det = dev, det
@@ -472,7 +473,7 @@ class Clearer:
                 banned = [off for at, off in self.big_map_bans if near(at, self.pick_xy)] if me else []
                 skip: list = []
                 for _ in range(6):
-                    hit = area_map.nearest(frame, ("statue", "item", "monster", "building", "red_bang"),
+                    hit = area_map.nearest(frame, self.BIG_MAP_GOALS,
                                            max_px=ZONE_PICK_PX, labels=labels, home=self.home,
                                            is_home=mapnav.label_is, skip=skip, extra=red_bangs)
                     if not hit or not any(abs(hit[1][0] - me[0] - dx) <= BAN_PX and abs(hit[1][1] - me[1] - dy)
