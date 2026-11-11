@@ -132,8 +132,7 @@ class CartUpgrader:
         # Home keeps its pan, and claim_cart's own sweep can end several screens off: sweep wide both ways.
         for i, swipe in enumerate([None] + [right] * HOME_SWEEP_RIGHT + [left] * HOME_SWEEP_LEFT):
             if swipe:
-                self.dev.swipe(*swipe, HOME_SWIPE_MS)
-                time.sleep(1.5)
+                self.dev.pan(*swipe, HOME_SWIPE_MS)  # adb fallback when MaaFramework's swipe stops (2026-11-11)
                 progress(("sweep", i))
             hit = self.det.find("Home.Cart")
             if not hit:
