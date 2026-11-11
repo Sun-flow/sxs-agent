@@ -14,6 +14,7 @@ Story dialogue (Akane, ▼ at the bottom) can overlay any screen. Tap (0.5, 0.9)
 - Save each capture under `docs/screens/dialogs/` with a name for the scene, and record which choice mae picked.
 - One option only: press it, no stop (R-171).
 - Not covered: a choice with a Leave option (class choice, puzzles) keeps its own rule (R-054, R-153); plain dialogue without choices is tapped through (R-028).
+- Exceptions: two-or-more-choice dialogues that mae rules flavour are pressed from resource/policy/dialogue_choices.json (#60); see R-174.
 *told* · node `dialogue` · R-028, R-042, R-054, R-153
 
 ### R-171 · Story dialogue with a single option: always press it
