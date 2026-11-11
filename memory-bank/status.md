@@ -13,6 +13,7 @@
 
 ## Strengthening and the Cart (2026-11-05 early morning)
 
+- Strengthening pass 2026-11-11 (thread "Strengthen character via home-hub upgrades", branch `claude/project-thread-m2ql7o`): power 28.5K → 30.6K. Home hub toured (Workbench, Aeonic Gacha, Mailbox, Item bag; R-166 to R-169), 211 pieces dismantled for ore (R-165). Raw Ore is now the limit (348 left). Rank Apprentice III needs 30 Bellflowers (14/30, R-118).
 - Strengthening, live-validated (2026-11-09/10): gear swap weapon 1490 to 1960, head 1170 to 1820; enhance weapon +21 to +24, head +18 to +23, chest +15 to +21, boots +15 to +20; power 22.4K to about 24.5K. `python -m sxs upgrade` always opens the Skill page; the gear pass finds blue enhance pips and leaves out pieces short of their own material (the weapon's +25 needs red ore; enough is now in hand). To do: enhance lower-level pieces first (mae, R-092).
 - Cart: `python -m sxs cart` (also daily step `cart_upgrade`) raises Stone and Wood evenly (R-136). Both are Lv 6 (2026-11-10); Lv 7 needs Blessing Lv 7. Costs are Wood + Stone + Rolla only. Blessing Level rises when a zone's Goddess Statue is unlocked (R-035, R-070). Chrono Sand unlocked live (free, R-137).
 

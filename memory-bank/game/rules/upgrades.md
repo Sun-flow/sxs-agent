@@ -21,6 +21,7 @@ Read when raising character power: the character-screen "!", gear, skills, charm
 - Cost: Raw Ore (blue crystal) and Rolla, shown have/need ("Raw Ore 7/720"); higher steps add Refined Ore (red crystal): the weapon's +24 → +25 needs 300. Short: a banner "Insufficient materials to enhance." Wait for it to clear (about 2.5 s) before the next piece, or that piece reads the old banner as its own failure.
 - 4 tabs on top, one per piece (weapon, head, chest, boots; no offhand yet), each "+N". The selected piece shows "+21 → +22" at y≈0.42, stat deltas, cost, Enhance (0.5, 0.85), Resonance (R-119), Goals (R-116).
 - Detector state `enhance_gear`.
+- Raw Ore is the limit on enhancing: after about 10K spent on 2026-11-11, 348 were left and the weapon's next level needs 1.14K. Dismantle (R-165) and Raw Ore Caskets (R-169) are the free sources.
 *observed* · `character/enhance_gear.png` · nodes `character`, `enhance_gear` · R-092, R-119
 
 ### R-092 · Enhance all gear evenly, in 5-level bands
@@ -76,8 +77,10 @@ Skill page, Quick Upgrade icon at about (0.73, 0.47), captioned "Upgrade". No se
 - Character > rank badge ("Apprentice I", (0.82, 0.72)). Needs max level plus materials; at the cap, levelling stops until you rank up.
 - Advance only when the Advance button shows "!", with free materials (**no Dawnium**). Tap through "RANK UP"; stored XP applies at once. Then claim the rank Goals (R-116).
 - Apprentice I → II (done): Lv 20, 5 grey stones, 20 Bellflowers (R-123), 5.5K Rolla; cap 30.
-- Apprentice II → III: Lv 30, 5 green leaf items, 30 of a new flower ❓ (name unknown; probably another Flower Harvest), 10.5K Rolla; cap 40.
-*observed* · `character/rank_advancement.png`, `character/rank_up_result.png` · node `rank_advancement` · R-101, R-116, R-123
+- Apprentice II → III: Lv 30 (met), 5 green leaves (18/5, met), 30 Bellflowers (14/30 on 2026-11-11; the cost card names "Verdantglade Flower Harvest" as the source and shows an "Available" tag; picks are free, R-123), 10.5K Rolla (met); cap 40. Raising Player Rank is required to keep progressing (mae, 2026-11-11).
+- While a material is short the Advance button shows a **blue pip**, not "!"; the Rank Goals tab carries the "!" (claim it, R-116).
+- Collect the Bellflowers with `python -m sxs gather --harvest bellflower --enter` (enters the Flower Harvest field itself).
+*observed, told* · `character/rank_advancement.png`, `character/rank_up_result.png`, `character/rank_advancement_apprentice3.png` · node `rank_advancement` · R-101, R-116, R-123
 
 ## Relics
 
