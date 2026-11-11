@@ -65,7 +65,6 @@ Format: `- what — branch, PR, environment (started)`. Remove the line when it 
 - Fill the Buy? column in `docs/shop-tables.md`; buy nothing until then.
 - (R-116 changed 22:17: mae retracted the Home collect-all; Goals tabs are claimed per tab by a claim-goals task, builder to build.)
 - A blue-aura pickup crop, and the name of the Apprentice III flower item.
-- Story dialogue with two choices and no Leave (Akane and Qin in Verdantglade VIII) stops the bot with `needs_decision`: may the bot answer such dialogue itself? (2026-11-10)
 - Is co-op content in iteration 1? Hide chat channels in Settings → Game → Social Settings (cuts OCR noise; a settings change, so mae's call)?
 
 ## Known problems

@@ -11,7 +11,7 @@
 ### 2026-11-10 (night) · Rules from the evening exploration session (Claude Code, cloud, docs thread)
 - #50, #52, #53 merged; #55, #56 (labels, symbols handoff) opened; #58 opened for the exploration branch (last fog-walk state + post-mortem; mae scrapped Fog Walk at 23:48, a clear-zone loop replaces it).
 - New rules: Gate of Elements opened with companions' Wind Affinity (R-159); a zone's % hidden under a neighbour's label (R-160, Troll Lair); a not-ready statue doesn't fence off its pickups (R-161); tracker "1X" = IX (R-162); evening zone facts: VIII, Monolith Ruins I, Bubble Lake, new zones, Blessing 9 (R-163).
-- Open: may the bot answer two-choice story dialogue with no Leave (status.md, waiting on mae); `sxs goto` takes screen pixels (notes.md).
+- mae (2026-11-11 04:10): story dialogue with choices and no Leave: stop, save a reference screenshot, ask her, for the next few instances (new R-164, policy never-do). Open: `sxs goto` takes screen pixels (notes.md).
 
 ### 2026-11-10 (evening) · VIII, Troll Lair, Zephyr Vale blessed; Fog Walk scrapped (Claude Code, mae's PC via Remote Control)
 - Branch `claude/project-thread-vj9wvt` (off main after #53); 13 traced runs (`scripts/tap_trace.py`), readouts every ~2 min.
