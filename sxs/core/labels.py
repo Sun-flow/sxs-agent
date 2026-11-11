@@ -91,6 +91,10 @@ def clean_boxes(boxes: list, size: tuple[int, int]) -> tuple[list[dict], list[st
             problems.append(f"box {name}: class {cls!r} is not in resource/detect/classes.json")
             cls = ""
         item = str(b.get("item") or "").strip()
+        if item:
+            from ..detect import items as catalogue
+
+            item = catalogue.resolve(item)
         if item and (cls != "item_icon" or item not in item_ids()):
             problems.append(f"box {name}: item {item!r} is not in resource/items/items.json")
             item = ""
