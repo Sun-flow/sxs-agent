@@ -101,6 +101,7 @@ The "1X" = IX and "Lakeside" vs "Lakeside Camp" fixes each went into one or two 
    [big map] survey 4 (zone run ended: Verdantglade VII zone_done; last survey 2:10 ago, invalid: % changed)  9.2 s, our dot: found (fallback)
    [big map] reuse survey 4 (roam pick; 11 s old, nothing changed)
    [big map] walk opening 5 also read: 14 labels, Verdantglade VII 100%, 1 ready statue, our dot: found
+   [map] opened for: pct, pick (leg 6) 3.4 s, zoom already set, our dot: found
    ```
 
 ### When the snapshot goes stale (invalidation)
@@ -113,12 +114,36 @@ The "1X" = IX and "Lakeside" vs "Lakeside Camp" fixes each went into one or two 
 | Statue blessed | that zone's ready statue | `bless_ready` (marks it, no survey) |
 | A Clear Zone run ended | that zone's %, objects and statue | roam, after `clear.run` |
 | A side zone's % is older than 3 legs | that zone's %, read in the next big-map leg's opening, or by `map_pct` if no big-map leg comes | Clear Zone |
-| Age over 10 minutes, or a new server day (reset 13:00Z) | everything | `BigMap.look` |
+| The zone being cleared: its look is over ~1 minute old | that zone's %, objects, our dot | `BigMap.look` (roam takes Clear Zone's last look only inside this) |
+| Age over 10 minutes, or a new server day (reset 13:00Z) | everything else (other zones' %, power, statues) | `BigMap.look` |
 | Power went up | power-wall decisions only (no survey needed) | roam |
 
 Every survey logs whether our white dot was found (strict mask, the `player_dot` fallback added in 8ddc275, or not at all). Without the dot, the frontier and object pickers measure from the zone label instead of from us, so a snapshot with no dot can't answer "where am I" or "nearest object".
 
 Anything not on this list does not trigger a survey. Adding a reason means adding a row here.
+
+### Inside a Clear Zone leg: one look per leg
+
+The strengthening thread read the Clear Zone code on #60's tip (2026-11-11) and counted up to **three openings in
+one leg**: `map_pct` opens, zooms (4 taps and a drag), reads the % and closes. The picker opens again to choose the
+objective. After a frontier leg, `fog_here` opens a third time. Each opening re-zooms from scratch. Then roam's
+survey opens the map at the zone's end, and again before the next pick. Its five suggestions are part of this design:
+
+1. **One look per leg.** A leg opens the map once. That one frame feeds every reader: the zone's %, objects in the
+   zone, our dot, the fog share, statue badges and the other labels. `map_pct` stops being an opening of its own
+   and becomes a reader of the leg's look. It opens the map itself only when no big-map leg came in the last 3 legs.
+2. **The last look is the next "before".** `fog_here`'s frame after a frontier leg (taken at the pick's zoom) is
+   kept as the next leg's look when nothing has happened since, so the next leg doesn't reopen the map to compare.
+   At the end of a zone run, Clear Zone hands its last look to roam. Roam resurveys only if that look is stale:
+   older than about 1 minute, or taken in another zone.
+3. **Check the zoom knob before zooming.** The slider knob's position is read from the frame. When the map is
+   already at survey zoom, the 4 taps and the drag are skipped (~3 s per opening).
+4. **Retry a failed % read from the same frame.** When a label is read but its % line isn't, OCR an enlarged crop
+   under the label in the same frame before counting it as "no % line". Never reopen the map to retry.
+5. **Say what each opening was for.** Each opening logs its purposes, so the next live run shows the saving:
+   `[map] opened for: pct, pick (leg 6) 3.4 s, zoom already set, our dot: found`.
+
+The strengthening thread estimates this saves 10-15 s per leg, on top of the roam savings below.
 
 ### Pans only toward what's needed
 
@@ -207,8 +232,9 @@ The Clear Zone thread owns roam and clear. The Clear Zone thread agreed (2026-11
 
 1. **Survey zoom for every opening.** Leaving the map at survey zoom saves the 4 zoom taps on every opening, and
    the Clear Zone pickers found objects at that zoom in run22. OK to make it the standard zoom for walks too?
-2. **10-minute age limit.** Is anything on the big map likely to change on its own within 10 minutes (respawning
-   monsters in explored zones, timed events) that would need a shorter limit?
+2. **Age limits.** Facts about the zone being cleared are reused for about 1 minute; facts about other zones
+   (their %, power, statues) for 10 minutes. Is anything on the big map likely to change on its own faster than
+   that (respawning monsters in explored zones, timed events)?
 3. **Pans.** With pans only toward the picked zone, a zone that never shows in the first view (Sunrise Isle,
    Rabbit Vault) is read only when roam picks it. Fine, or should a full panned survey still run once per server
    day to keep the location tree complete?
