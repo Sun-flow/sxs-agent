@@ -156,6 +156,14 @@ check("a tile over the minimap HUD is off limits", clear.on_screen((360, 600), t
                                                                    (8, 12)), None)
 check("a guard group is a leg source of its own", hasattr(clear.Clearer, "try_guard"), True)
 check("no % line counts as explored only near the end", clear.NO_PCT_DONE_FROM >= 90, True)
+import tempfile  # noqa: E402
+import numpy as np  # noqa: E402
+from sxs.core import paths, ui  # noqa: E402
+
+paths.SCREENS = Path(tempfile.mkdtemp())
+saved = clear.save_dialogue(type("D", (), {"screenshot": lambda self: np.zeros((4, 4, 3), np.uint8)})(),
+                            f"{ui.PLAYER_NAME} She's all good.", "Verdantglade X")
+check("a saved story choice is named without our player name", saved.name, "choice_verdantglade_x_she_s_all_good.png")
 check("the loop's ok statuses", {"zone_done", "no_objective", "no_progress"} <= clear.OK, True)
 
 print("all good" if not fails else f"{fails} failed")

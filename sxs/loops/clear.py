@@ -102,6 +102,9 @@ def save_dialogue(dev, texts: str, zone: Optional[str]):
     """Save a story-choice dialogue to docs/screens/dialogs/choice_<zone>_<first words of the choices>.png (mae, 2026-11-11)."""
     import cv2
     from ..core.paths import SCREENS
+    from ..core.ui import PLAYER_NAME
+    # Our own name shows on the dialogue (live 2026-11-11, run 25): keep it out of the file name (PII rule).
+    texts = re.sub(re.escape(PLAYER_NAME), " ", texts or "", flags=re.I)
     words = re.sub(r"[^a-z0-9]+", "_", f"{zone or ''} {texts}".lower()).strip("_")[:60] or "scene"
     out = SCREENS / "dialogs"
     out.mkdir(parents=True, exist_ok=True)
