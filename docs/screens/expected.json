@@ -147,7 +147,12 @@
   "world_overview": "world_overview",
   "wounded": "confirm_dialog",
   "zone_edge_verdantglade_v": "world_map",
-  "zone_edge_verdantglade_v_on_line": "world_map"
+  "zone_edge_verdantglade_v_on_line": "world_map",
+  "dialogue_blight_witch_curse_cutting_words": "tap_to_continue",
+  "tutorial_cursed_akane_quick_heal": "dialogue",
+  "dialogue_lore_tale_of_the_blight_witch": "lore_page",
+  "dialogue_lore_page_close": "lore_page",
+  "dialogue_choice_bubble_lake_cursed": "dialogue_choice"
  },
  "notes": {}
 }
