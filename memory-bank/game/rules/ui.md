@@ -20,6 +20,12 @@ Story dialogue (Akane, ▼ at the bottom) can overlay any screen. Tap (0.5, 0.9)
 - If story dialogue offers only one option, it is always safe to press: press it and carry on (mae, 2026-11-11 05:37). Only two or more choices with no Leave stop the bot (R-164).
 *told* · node `dialogue` · R-028, R-164
 
+### R-173 · Lore pages: swipe to the end, then Close
+- A minimap "building" object can open a lore page (e.g. "Tale of the Blight Witch I"): title top left, long story text, a down chevron at the bottom, no back arrow (builder, 2026-11-11).
+- Swipe up to the end of the text; a "Close" button appears at about (360, 1104). Close is safe, and reading the page counts as clearing the object.
+- Code: a `lore_page` state is being added with Clear Zone (#60).
+*observed* · `dialogs/dialogue_lore_tale_of_the_blight_witch.png`, `dialogs/dialogue_lore_page_close.png` · R-028, R-030
+
 ### R-036 · Tap what the tutorial highlights
 - Highlights: (a) a bright yellow pulsing frame, (b) an Akane chibi bubble ("Tap to unlock", "Tap to speed up", "Upgrade skill to Lv. 5") about 0.08 screen height above the button, (c) sometimes a white or pale frame. Step 3's tutorial follower handles (a) and (b).
 - "UNLOCKED ..." full-screen card: tap to continue.
