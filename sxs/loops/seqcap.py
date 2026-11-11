@@ -1,6 +1,6 @@
 """Sequence Capture: record approach sequences of world collectibles for detector training data. No model calls.
 
-    python -m sxs seqcap --job NAME [--areas "Zone A,Zone B"] [--target 20] [--minutes 40]
+    python -m sxs seqcap --job NAME [--steps "hunt:ore,statue:Troll Lair,pickups:Grotto Peninsula"] [--minutes 40]
     python -m sxs seqcap --job NAME --resume        # carry on a stopped job where it left off
 
 Plan: docs/collectibles-capture-plan.md (mae, 2026-11-11: collectibles in the world with the frames leading up to
@@ -11,14 +11,18 @@ How it works:
   for the last PRE_S seconds. When a leg collects something (a pickup's reward popup, an object cleared, a card
   acted on, a wheel), the buffer from PRE_S before to POST_S after is saved as one sequence:
   captures/sequences/<job>/seq_<kind>_<zone>_<nn>/fNN.png with frames.json. Nobody has to start a burst by hand.
-- The walk is Clear Zone's (`sxs/loops/clear.py`) cut down to **capture only**: legs go to pickups only (minimap item
-  dots and known collectible crops on screen). No quest ring, no guard fights, no big-map or frontier legs, no
-  blessing at 100%. Clear Zone already refuses explored zones, where pickups cost stamina (R-065).
-- **Stamina guard**: stamina is read before every leg; any drop ends the job at once ("stamina_spent"). The job
-  never spends stamina or any currency (mae, 2026-11-11).
-- **Pausable**: the job file captures/sequences/<job>/job.json is written after every saved sequence, and a sequence
-  folder appears only when complete (written as .part, then renamed). Stop any time (Ctrl+C, close the laptop, the
-  emulator dropping); `--resume` continues the count and the zone list from the job file.
+- A job is a list of steps (mae's answers, 2026-11-11), run in order:
+  - `hunt:MATERIAL` (ore, sand, rolla, essence): stamina-costing exemplars through the Resource Hunt route, a few
+    pickups each (`--per-material`), only above `--keep` stamina (150). Essence comes from monster fights.
+  - `statue:ZONE`: walk to the statue icon nearest us in the zone; the walk is the sequence (statue not tapped).
+  - `pickups:ZONE`: Clear Zone (`sxs/loops/clear.py`) with legs to free pickups only (minimap item dots and known
+    collectible crops). No quest-ring, guard, big-map or frontier legs; the statue is blessed at 100% (allowed).
+    Clear Zone refuses explored zones, where pickups cost stamina (R-065).
+- **Stamina drops on free legs** are not a stop (mae): the pre-roll of the cause is saved as a stamina_drop sequence
+  and listed in job.json under stamina_drops for the report.
+- **Pausable**: the job file captures/sequences/<job>/job.json is written after every saved sequence and step, and a
+  sequence folder appears only when complete (written as .part, then renamed). Stop any time (Ctrl+C, close the
+  laptop, the emulator dropping); `--resume` carries on from the first unfinished step.
 - `--pick N` (default 5) copies N frames of each sequence (first sight, middle, near, the collect moment, the
   reward) as 256-colour PNGs into docs/screens/sequences/<seq>/ for committing and boxing in the labeler.
 
@@ -55,15 +59,11 @@ MERGE_S = 4.0  # events this close together are one sequence (a leg's "pickup" t
 COLLECT_EVENTS = {"pickup": "pickup", "cleared": "pickup", "acted": "object", "wheel": "wheel"}
 ROOT = CAPTURES / "sequences"
 PICKS = SCREENS / "sequences"
-STAMINA_DROP_READS = 2  # readings in a row below the last good one before the guard stops the job (OCR slips)
+STAMINA_DROP_READS = 2  # readings in a row below the last good one before a drop counts (OCR slips)
 
 
 def slug(t: str) -> str:
     return re.sub(r"[^a-z0-9]+", "_", (t or "unknown").lower()).strip("_")[:30] or "unknown"
-
-
-class StaminaSpent(Exception):
-    pass
 
 
 # ---------------------------------------------------------------- the job file
@@ -72,20 +72,18 @@ class Job:
         self.name = name
         self.dir = ROOT / name
         self.file = self.dir / "job.json"
-        self.data = {"job": name, "target": 20, "areas": [], "sequences": [], "zones": {}, "runs": []}
+        self.data = {"job": name, "target": 30, "steps": [], "sequences": [], "stamina_drops": [], "runs": []}
         self.lock = threading.Lock()
 
     @classmethod
-    def open(cls, name: str, resume: bool, target: int, areas: list[str]) -> "Job":
+    def open(cls, name: str, resume: bool, target: int, steps: list[dict]) -> "Job":
         job = cls(name)
         if job.file.exists():
             if not resume:
                 raise FileExistsError(f"job {name!r} exists ({job.file}); pass --resume to carry it on")
             job.data = json.loads(job.file.read_text(encoding="utf-8"))
-            if areas:
-                job.data["areas"] = areas
         else:
-            job.data.update(target=target, areas=areas)
+            job.data.update(target=target, steps=steps)
         for p in job.dir.glob("*.part"):  # a sequence cut off by a stop: never half kept
             for f in p.iterdir():
                 f.unlink()
@@ -155,9 +153,9 @@ class Recorder:
         if self.pending:
             self._write_due(force=True)
 
-    def mark(self, kind: str, zone: str, what: str) -> None:
+    def mark(self, kind: str, zone: str, what: str, force: bool = False) -> None:
         now = time.time()
-        if self.pending and now - self.pending[-1]["t"] < MERGE_S:
+        if not force and self.pending and now - self.pending[-1]["t"] < MERGE_S:
             return  # the same collect (a reward popup, then the dot gone from the minimap)
         self.pending.append({"t": now, "kind": kind, "zone": zone, "what": what})
         log.info("collect seen (%s, %s): saving the last %.0f s and the next %.0f s", kind, what, PRE_S, POST_S)
@@ -239,13 +237,15 @@ def pick(folder: Path, meta: dict, n: int) -> list[Path]:
     return saved
 
 
-# ---------------------------------------------------------------- Clear Zone, capture only
+# ---------------------------------------------------------------- Clear Zone, pickups only
 class CaptureClearer(clear.Clearer):
+    """Clear Zone with legs to pickups only (mae, 2026-11-11: no quest-ring legs to start; blessing a statue at 100%
+    is fine, it opens new areas)."""
     MINIMAP_GOALS = ("item",)
 
-    def __init__(self, dev, det, area, rec: Recorder):
+    def __init__(self, dev, det, area, rec: "Recorder", job: Job):
         super().__init__(dev, det, area)
-        self.rec = rec
+        self.rec, self.job = rec, job
         self.stamina: Optional[int] = None
         self.low_reads = 0
 
@@ -259,6 +259,8 @@ class CaptureClearer(clear.Clearer):
             self.rec.mark(kind, self.home or "unknown", what)
 
     def guard_stamina(self) -> None:
+        """mae (2026-11-11): a stamina drop on a free-pickup leg is not a stop. Save the pre-roll of what caused it
+        as a stamina_drop sequence, note it in the job file for the report, and carry on."""
         s = read_stamina(self.det)
         if s is None:
             return
@@ -267,7 +269,14 @@ class CaptureClearer(clear.Clearer):
             return
         self.low_reads += 1
         if self.low_reads >= STAMINA_DROP_READS:
-            raise StaminaSpent(f"stamina {self.stamina} -> {s}")
+            last = self.legs[-1] if self.legs else None
+            what = f"after leg {last.n}: {last.what} ({last.result})" if last else "before the first leg"
+            log.warning("stamina dropped %d -> %d %s: saving the pre-roll as stamina_drop", self.stamina, s, what)
+            self.job.data["stamina_drops"].append({"at": time.strftime("%Y-%m-%dT%H:%M:%S"), "zone": self.home,
+                                                   "from": self.stamina, "to": s, "what": what})
+            self.job.save()
+            self.rec.mark("stamina_drop", self.home or "unknown", what, force=True)
+            self.stamina, self.low_reads = s, 0
 
     def try_known(self, frame, xy, me):
         for name, kind, point, score in collectibles.find(frame, explored=False, area=self.home or "",
@@ -287,81 +296,170 @@ class CaptureClearer(clear.Clearer):
         xy, me = clear._xy(self.det), player_on_screen(self.det, frame)
         return self.try_known(frame, xy, me) or self.try_minimap(frame, xy, me)
 
-    def map_pct(self) -> None:
-        return  # area-map % reads only steer exploration; capture doesn't need them
 
-    def finish_zone(self) -> str:
-        log.info("%s reads 100%%: no pickups left here (statue not blessed: capture only)", self.home)
-        return "zone_done"
+# ---------------------------------------------------------------- stamina nodes (Resource Hunt)
+def hunt(dev, det, rec: "Recorder", material: str, pickups: int, keep: int) -> str:
+    """Stamina-costing exemplars (mae, 2026-11-11): ore, sand, Rolla, and essence (monster fights in a blessed area)
+    through the Resource Hunt route, a few pickups each, only above `keep` stamina. Each stamina drop is one
+    collect: the pre-roll before it is saved as seq_<material>_stamina_resource_hunt_NN."""
+    from .gather import TARGETS, Gatherer
+
+    class Hunter(Gatherer):
+        last = None
+
+        def progress(self, target):
+            now = super().progress(target)
+            if now is not None and self.last is not None and now < self.last:
+                rec.mark(f"{material}_stamina", "resource_hunt", f"{material} pickup, stamina {self.last} -> {now}")
+            if now is not None:
+                self.last = now
+            return now
+
+    g = Hunter(dev, det)
+    stamina = g.open_hunt(material)
+    if stamina is None:
+        return "unknown_screen"
+    budget = min(pickups, max(0, (stamina - keep) // TARGETS[material].cost))
+    log.info("%s: stamina %d, keep %d: %d pickups", material, stamina, keep, budget)
+    if budget == 0:
+        g.nav.go_home()
+        return "no_spare_stamina"
+    if not g.enter():
+        g.nav.go_home()
+        return "unknown_screen"
+    out = g.collect(TARGETS[material], budget=budget, keep=keep, minutes=4)
+    log.info("%s: %s", material, out)
+    g.nav.go_home()
+    return out.get("end", "done")
 
 
-# ---------------------------------------------------------------- the loop
-def run(dev, det, job: str, areas: list[str], target: int, minutes: float, resume: bool, picks: int) -> dict:
+# ---------------------------------------------------------------- statue approaches
+def statue(dev, det, rec: "Recorder", zone: str) -> str:
+    """Approach frames of a statue (mae, 2026-11-11: Goddess and Lost Goddess Statues must be in the model). Walk
+    into the zone, then to the statue icon nearest us on the area map; the pre-roll of that walk is the sequence.
+    The statue is not tapped (a blessed statue's card has nothing to do)."""
+    from ..actions import goto
+    from ..vision import area_map
+    from .roam import statue_badges, statue_points
+
+    def nearest(frame):
+        me = [p for k, p in area_map.objects(frame) if k == "player"]
+        cx, cy = me[0] if me else goto.SCREEN_CENTRE
+        pts = statue_points(frame) + statue_badges(frame)
+        return min(pts, key=lambda q: (q[0] - cx) ** 2 + (q[1] - cy) ** 2) if pts else None
+
+    if goto.go_to(dev, det, zone) == "not_on_map":
+        return "not_on_map"
+    why = goto.go_to(dev, det, nearest)
+    log.info("statue walk in %s: %s", zone, why)
+    if why != "arrived":
+        return why
+    time.sleep(1.5)
+    rec.mark("statue", zone, f"walk to the statue icon nearest us in {zone}", force=True)
+    time.sleep(POST_S + 1)
+    return "done"
+
+
+# ---------------------------------------------------------------- the job
+DEFAULT_STEPS = (
+    [{"do": "hunt", "arg": m} for m in ("ore", "sand", "rolla", "essence")]
+    + [{"do": "statue", "arg": z} for z in ("Auroradrasil", "Jungle Camp", "Troll Lair")]
+    + [{"do": "pickups", "arg": z} for z in ("Grotto Peninsula", "Verdantglade XIII", "Hurricane Heights")]
+)
+STEP_OK = clear.OK | {"done", "no_spare_stamina", "budget_spent", "stamina_reserve", "stuck_progress", "guarded",
+                      "arrived", "no_move", "no_label", "no_target"}
+
+
+def parse_steps(text: str) -> list[dict]:
+    """"hunt:ore,statue:Troll Lair,pickups:Grotto Peninsula" -> steps."""
+    out = []
+    for part in [p.strip() for p in text.split(",") if p.strip()]:
+        do, _, arg = part.partition(":")
+        if do not in ("hunt", "statue", "pickups") or not arg:
+            raise ValueError(f"bad step {part!r}: use hunt:MATERIAL, statue:ZONE or pickups:ZONE")
+        out.append({"do": do, "arg": arg.strip()})
+    return out
+
+
+def run(dev, det, job: str, steps: list[dict], target: int, minutes: float, resume: bool, picks: int,
+        keep: int, per_material: int) -> dict:
     try:
-        j = Job.open(job, resume, target, areas)
+        j = Job.open(job, resume, target, steps)
     except FileExistsError as e:
         return {"status": "refused: " + str(e)}
-    zones = j.data["areas"]
-    banner(log, "Sequence Capture", f"save {j.data['target']} approach sequences of world collectibles "
-           f"(job {job}, {j.count} saved so far) from pickups in {', '.join(zones) or 'the zone we stand in'}",
-           f"{j.data['target']} sequences, {minutes:g} minutes, every zone out of pickups, any stamina spent, "
-           "or an unfamiliar screen")
+    todo = [s for s in j.data["steps"] if not s.get("status") or s["status"] in ("timeout", "paused", "running")]
+    banner(log, "Sequence Capture", f"save {j.data['target']} approach sequences of world collectibles (job {job}, "
+           f"{j.count} saved so far): " + ", ".join(f"{s['do']} {s['arg']}" for s in todo),
+           f"{j.data['target']} sequences, {minutes:g} minutes, every step done, or an unfamiliar screen; stamina "
+           f"is spent only on hunt steps and only above {keep}")
     rec = Recorder(dev, j, picks)
     rec.start()
     deadline = time.monotonic() + minutes * 60
-    status = "timeout"
+    status = "steps_done"
     try:
-        todo = [z for z in zones if j.data["zones"].get(z) not in clear.OK - {"timeout"}] or ([None] if not zones else [])
-        for zone in todo:
-            if j.done:
-                break
+        for step in todo:
             left = (deadline - time.monotonic()) / 60
+            if j.done:
+                status = "target"
+                break
             if left < 1:
+                status = "timeout"
                 break
-            c = CaptureClearer(dev, det, zone, rec)
-            log.info("zone %s: %d of %d sequences so far, %.0f minutes left", zone or "(here)", j.count,
-                     j.data["target"], left)
-            res = c.run(left, walk_there=zone is not None)
-            zstat = res.split()[0] if isinstance(res, str) else str(res)
-            j.data["zones"][zone or c.home or "here"] = zstat
+            step["status"] = "running"
             j.save()
-            if zstat not in clear.OK:
-                status = zstat
+            log.info("[step] %s %s: %d of %d sequences so far, %.0f minutes left", step["do"], step["arg"], j.count,
+                     j.data["target"], left)
+            progress(("step", step["do"], step["arg"]))
+            if step["do"] == "hunt":
+                res = hunt(dev, det, rec, step["arg"], per_material, keep)
+            elif step["do"] == "statue":
+                res = statue(dev, det, rec, step["arg"])
+            else:
+                res = CaptureClearer(dev, det, step["arg"], rec, j).run(left, walk_there=True)
+            res = res.split()[0] if isinstance(res, str) else str(res)
+            step["status"] = res
+            j.save()
+            log.info("[step] %s %s: %s", step["do"], step["arg"], res)
+            if res not in STEP_OK:
+                status = res
                 break
-        else:
-            status = "target" if j.done else "zones_done"
         if j.done:
             status = "target"
-    except StaminaSpent as e:
-        log.warning("STOP: %s. The job never spends stamina; check what took it", e)
-        status = "stamina_spent"
     except KeyboardInterrupt:
         status = "paused"
     finally:
         rec.stop()
         j.end_run(status)
-    log.info("job %s: %d/%d sequences; resume with: python -m sxs seqcap --job %s --resume", job, j.count,
-             j.data["target"], job)
+    log.info("job %s: %d/%d sequences, %d stamina drops on free legs; resume with: python -m sxs seqcap --job %s "
+             "--resume", job, j.count, j.data["target"], len(j.data["stamina_drops"]), job)
     return {"status": status, "sequences": j.count, "target": j.data["target"],
-            "kinds": sorted({s["kind"] for s in j.data["sequences"]})}
+            "kinds": sorted({s["kind"] for s in j.data["sequences"]}), "stamina_drops": len(j.data["stamina_drops"])}
 
 
 def _args(p) -> None:
     p.add_argument("--job", required=True, help="job name (lower case, digits, _): captures/sequences/<job>/")
-    p.add_argument("--areas", default="", help="zones to take pickups in, comma separated (default: where we stand)")
-    p.add_argument("--target", type=int, default=20, help="sequences to save (default 20)")
+    p.add_argument("--steps", default="", help="hunt:MATERIAL, statue:ZONE, pickups:ZONE, comma separated "
+                   "(default: ore, sand, rolla, essence; statues in Auroradrasil, Jungle Camp, Troll Lair; pickups in "
+                   "Grotto Peninsula, Verdantglade XIII, Hurricane Heights)")
+    p.add_argument("--target", type=int, default=30, help="sequences to save (default 30)")
     p.add_argument("--minutes", type=float, default=40, help="upper limit for this sitting")
-    p.add_argument("--resume", action="store_true", help="carry on an existing job")
+    p.add_argument("--resume", action="store_true", help="carry on an existing job from its job file")
     p.add_argument("--pick", type=int, default=5, help="frames per sequence copied to docs/screens/sequences/")
+    p.add_argument("--keep", type=int, default=150, help="hunt steps never take stamina below this (default 150)")
+    p.add_argument("--per-material", type=int, default=4, help="pickups per hunt step (default 4)")
 
 
 def _run(ctx, opts):
     if not re.match(r"^[a-z][a-z0-9_]*$", opts.job):
         return {"status": "refused: job name must be lower case letters, digits and _"}
-    areas = [a.strip() for a in opts.areas.split(",") if a.strip()]
-    return run(ctx.dev, ctx.det, opts.job, areas, opts.target, opts.minutes, opts.resume, opts.pick)
+    try:
+        steps = parse_steps(opts.steps) if opts.steps else [dict(s) for s in DEFAULT_STEPS]
+    except ValueError as e:
+        return {"status": f"refused: {e}"}
+    return run(ctx.dev, ctx.det, opts.job, steps, opts.target, opts.minutes, opts.resume, opts.pick, opts.keep,
+               opts.per_material)
 
 
-OK = {"target", "zones_done", "timeout", "paused"} | clear.OK
-LOOP = Loop("seqcap", "Sequence Capture", "record approach sequences of world collectibles (pickups only, "
-            "resumable, never spends stamina)", _run, _args, ok=OK, budget=300)
+OK = {"target", "steps_done", "timeout", "paused"}
+LOOP = Loop("seqcap", "Sequence Capture", "record approach sequences of world collectibles and stamina nodes "
+            "(pre-roll buffer, resumable)", _run, _args, ok=OK, budget=300)
