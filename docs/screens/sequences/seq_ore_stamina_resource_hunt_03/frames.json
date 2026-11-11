@@ -1,0 +1,29 @@
+{
+ "name": "seq_ore_stamina_resource_hunt_03",
+ "kind": "ore_stamina",
+ "zone": "resource_hunt",
+ "what": "ore pickup, stamina 290 -> 285",
+ "at": "2026-11-11T16:35:56",
+ "picked": [
+  {
+   "file": "seq_ore_stamina_resource_hunt_03_f01.png",
+   "t": -7.16
+  },
+  {
+   "file": "seq_ore_stamina_resource_hunt_03_f06.png",
+   "t": -6.02
+  },
+  {
+   "file": "seq_ore_stamina_resource_hunt_03_f10.png",
+   "t": -4.54
+  },
+  {
+   "file": "seq_ore_stamina_resource_hunt_03_f15.png",
+   "t": -0.07
+  },
+  {
+   "file": "seq_ore_stamina_resource_hunt_03_f24.png",
+   "t": 2.83
+  }
+ ]
+}
