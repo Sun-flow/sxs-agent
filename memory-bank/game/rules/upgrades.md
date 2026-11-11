@@ -80,6 +80,7 @@ Skill page, Quick Upgrade icon at about (0.73, 0.47), captioned "Upgrade". No se
 - Apprentice II → III: Lv 30 (met), 5 green leaves (18/5, met), 30 Bellflowers (14/30 on 2026-11-11; the cost card names "Verdantglade Flower Harvest" as the source and shows an "Available" tag; picks are free, R-123), 10.5K Rolla (met); cap 40. Raising Player Rank is required to keep progressing (mae, 2026-11-11).
 - While a material is short the Advance button shows a **blue pip**, not "!"; the Rank Goals tab carries the "!" (claim it, R-116).
 - Collect the Bellflowers with `python -m sxs gather --harvest bellflower --enter` (enters the Flower Harvest field itself).
+- Apprentice III reached 2026-11-11 (strengthening pass): the banked bed EXP applied on rank-up, Lv 30 → 37 (cap 40). The next rank's needs are not read yet ❓.
 *observed, told* · `character/rank_advancement.png`, `character/rank_up_result.png`, `character/rank_advancement_apprentice3.png` · node `rank_advancement` · R-101, R-116, R-123
 
 ## Relics

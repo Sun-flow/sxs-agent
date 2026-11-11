@@ -77,7 +77,8 @@ Scene labels (e.g. "Class to Unlock") overlap the quest tracker region; filter t
 - An "Open" marker over a crate in the house (upper floor) or on home (the stone left of the Cart) marks a locked furniture slot. Tapping "Open" only walks the character there; tap the crate or stone itself to get the furniture card, whose Unlock carries a red "!" and no cost: press it, then "UNLOCKED <name> / Tap to Continue" (builder, 2026-11-11).
 - **Workbench** (house, upper floor; "study your collection of Relics") opens the Relic screen: element tabs (Light, ...), Affinity and Aegis counters, Resonance Level 1 (4 display slots, +20% elemental stats of displayed relics), tabs Relic / Goals. With no relics it shows "No eligible Relics" and "Go to Aeonic Gacha": never tap that link (R-167).
 - **Aeonic Gacha** (stone left of the Cart): R-167.
-*observed* · `home/home_house_open_slot.png`, `home/furniture_workbench.png`, `home/workbench_relics.png`, `home/home_stone_open.png`, `home/furniture_aeonic_gacha.png` · nodes `workbench`, `aeonic_gacha` · R-047, R-159
+- The **Airship** on Home shows "Unlocks at Lv. 40": not reachable yet (Lv 37 on 2026-11-11).
+*observed* · `home/home_house_open_slot.png`, `home/furniture_workbench.png`, `home/workbench_relics.png`, `home/home_stone_open.png`, `home/furniture_aeonic_gacha.png`, `home/home_airship_lv40.png` · nodes `workbench`, `aeonic_gacha` · R-047, R-159
 
 ### R-167 · Aeonic Gacha: unlock it free, claim its quest, never draw without mae
 - A "time-frozen gacha machine" that draws Relics with Auroral Badges. The free Unlock (R-166) adds the tracker quest "Aeonic Gacha: Unlock Aeonic Gacha" (50 badges): tap the tracker to claim it (R-044).
