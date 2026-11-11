@@ -54,6 +54,7 @@ SETTLE_S = 240  # longest a leg's aftermath may take (a mini-dungeon floor fight
 MINIMAP_REACH = 10  # path tiles: any dot or structure the minimap shows is a target (mae, 2026-11-11: 7-10 tiles)
 MINIMAP_HOPS = 3  # walk taps toward a minimap target that is off screen before the leg gives up on it
 TAP_AREA = (20, 320, 700, 920)  # x0, y0, x1, y1: on-screen taps land here (under the minimap, above the tracker)
+PUZZLE_LEGS = 3  # minimap legs at gold squares that open nothing and move no % before the zone counts as a puzzle
 RETAPS = 2  # extra taps on a minimap object that is still there after the leg's tap (R-155)
 GAIN_EVENTS = {"fight", "pickup", "acted", "wheel", "gate_open", "revealed", "cleared"}
 ZONE_PICK_PX = 900  # big-map search radius for this zone's objects (the label check keeps it to the zone)
@@ -126,6 +127,7 @@ class Clearer:
         self.fails: list[tuple[tuple[int, int], int]] = []  # [(map spot, legs there without a gain)]
         self.arrivals: list[tuple[str, tuple[int, int]]] = []  # (source, where a big-map leg ended)
         self.gates = 0
+        self.inert_gold = 0  # minimap legs at gold squares that opened no card or fight and moved no % (puzzle tiles)
         self.repeats, self.last_card = 0, None
         self.heal_tries = 0
         self.reward_taps = 0
@@ -626,6 +628,12 @@ class Clearer:
             leg.result = "failed"
         else:
             leg.result = "reached"
+        if leg.source == "minimap" and leg.what.startswith("building"):
+            moved = pct is not None and pct_before is not None and pct > pct_before
+            if moved or {"acted", "fight", "pickup"} & set(leg.events):
+                self.inert_gold = 0
+            else:
+                self.inert_gold += 1
         log.info("[leg %d] result: %s | %s%% -> %s%% | events %s", leg.n, leg.result, pct_before, pct,
                  ", ".join(e for e in leg.events if e != "no_move") or "none")
         if gained:
@@ -722,6 +730,17 @@ class Clearer:
                 stop = self.check_zone()
                 if stop:
                     return self.summary(stop)
+                if self.inert_gold >= PUZZLE_LEGS:
+                    # Live 2026-11-11 (run 18, Stone Ruins II): the gold squares on the minimap were the tiles of a
+                    # floor puzzle; stepping on them opens nothing and moves no %. Puzzles are skipped for now (R-153).
+                    log.warning("STUCK %s: %d gold squares in a row opened nothing and moved no %%: a floor puzzle "
+                                "(R-153), stopping", self.home, self.inert_gold)
+                    self.note_objective("Puzzle (stone floor tiles)", "dismiss", _xy(self.det))
+                    k = self.tree.key(self.home or "")
+                    if k and not self.tree.zones[k].get("blocked"):
+                        self.tree.zones[k]["blocked"] = "floor puzzle (R-153)"
+                        self.tree.save()
+                    return self.summary("puzzle")
                 if self.no_gain >= STALL_LEGS:
                     log.warning("STUCK %s: %d legs in a row without progress (%s)", self.home, self.no_gain,
                                 "; ".join(f"{x.source} {x.result}" for x in self.legs[-STALL_LEGS:]))
@@ -758,5 +777,5 @@ def _run(ctx, opts):
 
 
 # Ends that mean the zone ran out of things to do or is walled, not that something went wrong.
-OK = {"zone_done", "no_objective", "no_progress", "power_gate", "blocked_item", "explored", "timeout"}
+OK = {"zone_done", "no_objective", "puzzle", "no_progress", "power_gate", "blocked_item", "explored", "timeout"}
 LOOP = Loop("clear", "Clear Zone", "bring one zone to 100%: every leg toward a named objective", _run, _args, ok=OK)

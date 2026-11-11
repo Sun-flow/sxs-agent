@@ -9,7 +9,7 @@ R-131, R-132, R-140, R-142, R-143, R-147, R-148, R-150, R-155.
 structures, statues. Every leg names its objective; progress is the zone's % or an object cleared, never tiles.
 **End condition:** 100% (or the tracker moved on), no objective left, 4 legs in a row without progress, a power
 gate met 3 times, a lost fight, an unfamiliar screen, or the time.
-**Ok statuses:** `zone_done`, `no_objective`, `no_progress`, `power_gate`, `blocked_item`, `explored`, `timeout`.
+**Ok statuses:** `zone_done`, `no_objective`, `no_progress`, `puzzle` (3 gold squares in a row that open nothing and move no %: floor-puzzle tiles, R-153; the zone is marked blocked), `power_gate`, `blocked_item`, `explored`, `timeout`.
 Needs a look: `defeated`, `unknown_screen`, `repeating_card`, `left_area:home`, `not_on_map`, `not_in_zone`.
 
 ## The leg loop
