@@ -367,6 +367,14 @@ def enter_next_zone(dev, det, arrived=None, hops: int = CROSSING_HOPS) -> bool:
             log.info("zone entry: now in %s", name)
             return True
         mm = minimap.read(frame, True)  # we stand on the light (explored) side
+        pr, pc = mm.centre
+        near = [mm.grid[r][c] for r in range(pr - 3, pr + 4) for c in range(pc - 3, pc + 4)
+                if 0 <= r < len(mm.grid) and 0 <= c < len(mm.grid) and max(abs(r - pr), abs(c - pc)) > 1]
+        if sum(k == "walk_explored" for k in near) < sum(k == "walk_unexplored" for k in near):
+            # Live 2026-11-11: in Grotto Peninsula (63%, not blessed) the "crossing" was the zone's own fog, three taps
+            # at the same tile. A crossing means standing on an explored zone's light ground.
+            log.info("zone entry: we stand on shaded ground (this zone isn't explored): no crossing to look for")
+            return False
         path = minimap.path_to_crossing(mm, skip)
         me = player_on_screen(det, frame)
         if not path or me is None:
@@ -378,7 +386,7 @@ def enter_next_zone(dev, det, arrived=None, hops: int = CROSSING_HOPS) -> bool:
                  len(path) - 1, path[-1], point)
         dev.tap(*point)
         time.sleep(4)
-        if xy is not None and goto.coords(det) == xy:
+        if xy is None or goto.coords(det) == xy:
             skip.add(path[-1])  # that crossing didn't take us anywhere: try the next one
     name = goto.area_name_here(det)
     return arrived(name)

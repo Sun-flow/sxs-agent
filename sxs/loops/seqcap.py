@@ -251,6 +251,15 @@ class CaptureClearer(clear.Clearer):
         self.stamina: Optional[int] = None
         self.low_reads = 0
 
+    def here(self) -> str:
+        """The zone we actually stand in, for the sequence name (live 2026-11-11: a Grotto Peninsula monster was
+        filed under Hurricane Heights, the zone the step was aiming for)."""
+        from ..actions import goto
+        try:
+            return goto.area_name_here(self.det) or self.home or "unknown"
+        except Exception:
+            return self.home or "unknown"
+
     def event(self, name: str) -> None:
         super().event(name)
         kind = COLLECT_EVENTS.get(name)
@@ -258,7 +267,7 @@ class CaptureClearer(clear.Clearer):
             what = self.leg.what if self.leg else name
             if name == "acted" and self.last_card:
                 kind = slug(self.last_card)
-            self.rec.mark(kind, self.home or "unknown", what)
+            self.rec.mark(kind, self.here(), what)
 
     def guard_stamina(self) -> None:
         """mae (2026-11-11): a stamina drop on a free-pickup leg is not a stop. Save the pre-roll of what caused it
@@ -285,7 +294,7 @@ class CaptureClearer(clear.Clearer):
         2026-11-11: a Hurricane Heights monster "taken" this way saved no sequence)."""
         super().finish_object(leg, spot, goal)
         if "cleared" in leg.events:
-            self.rec.mark("monster" if goal == "monster" else "pickup", self.home or "unknown", leg.what)
+            self.rec.mark("monster" if goal == "monster" else "pickup", self.here(), leg.what)
 
     def try_known(self, frame, xy, me):
         for name, kind, point, score in collectibles.find(frame, explored=False, area=self.home or "",
