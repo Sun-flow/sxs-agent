@@ -111,6 +111,8 @@ check("STALL_LEGS legs without a gain reach the stop count", c.no_gain >= clear.
 c.no_gain = 0
 c.judge(leg("frontier", ["revealed"]), 42, (0, 0))
 check("a frontier that revealed objects is a gain", c.legs[-1].result, "gain")
+c.judge(leg("minimap", ["cleared"]), 42, (0, 0))
+check("an object gone from the minimap after the leg is a gain", c.legs[-1].result, "gain")
 check("minimap targets reach the whole minimap", clear.MINIMAP_REACH >= 7, True)
 check("a tile 2 right of us is on screen", clear.on_screen((360, 600), type("M", (), {"centre": (10, 10)})(), (10, 12)),
       (568, 600))

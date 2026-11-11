@@ -15,7 +15,7 @@
    "entries": []
   },
   "Bubble Lake": {
-   "kingdom": "Verdantglade Verdant",
+   "kingdom": "Verdantglade",
    "first_seen": "2026-11-10",
    "pct": 0,
    "map_point": [
@@ -302,9 +302,9 @@
    "entries": []
   },
   "Verdantglade IX": {
-   "kingdom": "Verdantglade Verdant",
+   "kingdom": "Verdantglade",
    "first_seen": "2026-11-10",
-   "pct": 100,
+   "pct": 44,
    "cp": 30.0,
    "map_point": [
     423,
@@ -313,10 +313,15 @@
    "last_seen": "2026-11-10",
    "entries": [
     {
-     "via": "Verdantglade IV",
-     "day": "2026-11-10"
+     "via": "Verdantglade VIII",
+     "day": "2026-11-10",
+     "xy": [
+      124,
+      76
+     ]
     }
-   ]
+   ],
+   "notes": "Way in: Verdantglade VIII's south edge at about (124,76) (exploration thread, 2026-11-10). A 100% here was an OCR misread; live tracker 44/100 on 2026-11-11 (run 15)."
   },
   "Verdantglade V": {
    "kingdom": "Verdantglade",

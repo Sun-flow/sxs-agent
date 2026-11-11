@@ -54,7 +54,8 @@ SETTLE_S = 240  # longest a leg's aftermath may take (a mini-dungeon floor fight
 MINIMAP_REACH = 10  # path tiles: any dot or structure the minimap shows is a target (mae, 2026-11-11: 7-10 tiles)
 MINIMAP_HOPS = 3  # walk taps toward a minimap target that is off screen before the leg gives up on it
 TAP_AREA = (20, 320, 700, 920)  # x0, y0, x1, y1: on-screen taps land here (under the minimap, above the tracker)
-GAIN_EVENTS = {"fight", "pickup", "acted", "wheel", "gate_open", "revealed"}
+RETAPS = 2  # extra taps on a minimap object that is still there after the leg's tap (R-155)
+GAIN_EVENTS = {"fight", "pickup", "acted", "wheel", "gate_open", "revealed", "cleared"}
 ZONE_PICK_PX = 900  # big-map search radius for this zone's objects (the label check keeps it to the zone)
 
 
@@ -272,6 +273,7 @@ class Clearer:
             if point is not None:
                 self.tapped = (frame, point, goal)
                 self.leg_tap(point)
+                self.finish_object(leg, spot, goal)
                 return leg
             if hop == MINIMAP_HOPS:
                 break
@@ -300,6 +302,40 @@ class Clearer:
         log.info("[leg %d] couldn't bring the %s on screen", leg.n, goal)
         leg.events.append("no_move")
         return leg
+
+    def finish_object(self, leg: Leg, spot, goal: str) -> None:
+        """Live 2026-11-11 (run 15, IX): a tap that walked us next to a pickup didn't collect it; pickups start only
+        from a tap on the sprite itself once beside it (R-155). While we're still on the map and the minimap still
+        shows the object at its spot, tap it again where it now is (up to RETAPS times). When it's gone from the
+        minimap, it was taken: that's the object cleared."""
+        for i in range(RETAPS + 1):
+            self.wait_still()
+            if self.det.detect().state != "world_map" or leg.events:
+                return  # a fight, a card or a reward popup: the aftermath handles it
+            frame = self.dev.screenshot()
+            if centre_player(self.dev, self.det, frame):
+                frame = self.dev.screenshot()
+            xy, me = _xy(self.det), player_on_screen(self.det, frame)
+            if xy is None or me is None:
+                return
+            mm = minimap.read(frame, False)
+            pr, pc = mm.centre
+            here = [(pr - (spot[1] - xy[1]) + dr, pc + (spot[0] - xy[0]) + dc) for dr in (-1, 0, 1) for dc in (-1, 0, 1)]
+            left = [t for t in here if 0 <= t[0] < len(mm.grid) and 0 <= t[1] < len(mm.grid)
+                    and mm.grid[t[0]][t[1]] == goal]
+            if not left:
+                log.info("[leg %d] the %s at map %s is gone from the minimap: taken", leg.n, goal, spot)
+                leg.events.append("cleared")
+                return
+            if i == RETAPS:
+                break
+            t = min(left, key=lambda t: abs(t[0] - (pr - (spot[1] - xy[1]))) + abs(t[1] - (pc + (spot[0] - xy[0]))))
+            point = on_screen(me, mm, t)
+            if point is None:
+                return
+            log.info("[leg %d] the %s is still there: tapping it again at %s", leg.n, goal, point)
+            self.dev.tap(*mapnav.off_me(self.det, point, frame))
+        log.info("[leg %d] the %s at map %s is still on the minimap after %d taps", leg.n, goal, spot, RETAPS + 1)
 
     def wait_still(self, most: float = 12) -> None:
         """Wait until the map coordinates stop changing (a walk ended) or the screen leaves the map."""
@@ -660,8 +696,15 @@ class Clearer:
         if not self.home:
             self.home = mapnav.zone_here(self.dev, self.det, self.tree) or None
         if self.home and self.tree.get(self.home) and self.tree.explored(self.home):
-            log.info("%s is explored already (location tree): nothing to clear", self.home)
-            return "explored"
+            # The live tracker beats the tree (live 2026-11-11, run 14: a misread 100% for IX ended the run as
+            # "explored" while the tracker said 35/100).
+            live = mapnav.quest_counter(self.det, self.home)
+            if live is None or live >= 100:
+                log.info("%s is explored already (location tree): nothing to clear", self.home)
+                return "explored"
+            log.info("the location tree has %s explored but the tracker reads %d/100: clearing it", self.home, live)
+            self.tree.observe(self.home, pct=live)
+            self.tree.save()
         self.pct = (self.tree.get(self.home or "") or {}).get("pct") if self.home else None
         self.pct = self.read_pct()
         self.pct_start = self.pct
