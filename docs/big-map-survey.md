@@ -257,6 +257,16 @@ flowchart LR
 The Clear Zone thread agreed (2026-11-11) that this branch takes over `map_pct`, the picker's label read,
 `in_home` and `finish_zone`; it stays out of `clear.py` until this lands if the picker's signature changes.
 
+## Related: the fog frontier (mae, 2026-11-11 18:23)
+
+mae asked how Clear Zone's frontier leg differs from the scrapped fog walk. It is the last objective source: one
+long big-map walk to a named spot at the edge of the zone's fog, only when the quest ring, the screen, the minimap
+and the big map have nothing left; uncovered fog is never a gain (4 legs with no object stop the run), at most 6 a
+run. mae: "revealing fog is an okay continue condition", so a leg that shrinks the fog may lead on to the next. Her
+one change, built here: the spot is framed **half revealed ground, half fog** (`area_map.frontier`:
+`FRONTIER_INSET`, `FRONTIER_MIN_GROUND`), on ground connected to where we stand, so the tap after the big-map walk
+lands on that ground and not on fog that would path across a wall. Rule R-130.
+
 ## Decisions (mae, 2026-11-11 06:49)
 
 1. **Survey zoom is only for seeing which zones are available.** Walking basically never needs a full survey,
