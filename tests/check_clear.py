@@ -57,6 +57,8 @@ if v:
         ox, oy = other[0][0] - ME[0], other[0][1] - ME[1]
         cos = (ox * (x - ME[0]) + oy * (y - ME[1])) / (math.hypot(ox, oy) * math.hypot(x - ME[0], y - ME[1]))
         check("after an empty frontier the next goes another way", cos < math.cos(math.radians(45)), True)
+    check("fog_share measures what frontier() measured", abs(area_map.fog_share(frame, (x, y)) - share) < 1e-6, True)
+check("no fog round our dot on explored ground", area_map.fog_share(frame, ME), 0.0)
 jc = frontier("Jungle Camp")
 check("Jungle Camp: the fog north of its label (its way in)", bool(jc) and jc[0][1] < labels["Jungle Camp"][1], True)
 check("Verdantglade IV (no fog of its own beside reachable ground) has none", frontier("Verdantglade IV"), None)

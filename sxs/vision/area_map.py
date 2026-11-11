@@ -232,6 +232,26 @@ FRONTIER_AWAY_PX = 120  # px from us: still the spent frontier we stand at
 START_REACH_PX = 80  # the walkable ground we stand on: the patch nearest our dot (or our zone's label) within this
 
 
+def _fog(s, v, region) -> np.ndarray:
+    fog = ((s <= FOG_S_MAX) & (v <= FOG_V_MAX) & region).astype(np.uint8)
+    return cv2.morphologyEx(fog, cv2.MORPH_OPEN, np.ones((7, 7), np.uint8))  # not label shadows or dotted lines
+
+
+def fog_share(frame: np.ndarray, point: tuple[int, int]) -> float:
+    """Share of fog in the FRONTIER_WINDOW square round a point, measured as frontier() measures it. A frontier leg
+    compares it at its target before the walk with the same spot (our dot) after: fog that shrank was revealed."""
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    s, v = hsv[..., 1].astype(int), hsv[..., 2].astype(int)
+    x0, y0, w, hh = MAP_AREA
+    region = np.zeros(s.shape, bool)
+    region[y0:min(y0 + hh, SAFE_TAP_MAX_Y), x0:x0 + w] = True
+    fog = _fog(s, v, region).astype(np.float32)
+    r = FRONTIER_WINDOW // 2
+    x, y = point
+    win = fog[max(0, y - r):y + r + 1, max(0, x - r):x + r + 1]
+    return float(win.mean()) if win.size else 0.0
+
+
 def walkable(hsv: np.ndarray) -> np.ndarray:
     """Walkable ground on the area map, explored (light, HSV ~40/36/157) or not yet blessed (shaded, ~42/79/81).
     Walls are a greener, more saturated hue (~54/120/60-110), as on the minimap (R-066)."""
@@ -260,8 +280,7 @@ def frontier(frame: np.ndarray, home: tuple[int, int], others=(), me: Optional[t
     region[y0:min(y0 + hh, SAFE_TAP_MAX_Y), x0:x0 + w] = True
     for rx, ry, rw, rh in (LEGEND, SLIDER):
         region[ry:ry + rh, rx:rx + rw] = False
-    fog = ((s <= FOG_S_MAX) & (v <= FOG_V_MAX) & region).astype(np.uint8)
-    fog = cv2.morphologyEx(fog, cv2.MORPH_OPEN, np.ones((7, 7), np.uint8))  # not label shadows or dotted lines
+    fog = _fog(s, v, region)
     text = cv2.dilate(((s < 25) & (v > 170)).astype(np.uint8), np.ones((9, 9), np.uint8)).astype(bool)  # labels
     ground = (walkable(hsv) & region).astype(np.uint8)
     ground = cv2.morphologyEx(ground, cv2.MORPH_CLOSE, np.ones((9, 9), np.uint8))  # bridge borders and icons

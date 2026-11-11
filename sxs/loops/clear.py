@@ -47,7 +47,8 @@ log = logging.getLogger("sxs.loops.clear")
 STALL_LEGS = 4  # legs in a row with no % and no object cleared before the run stops (no_progress)
 BIG_MAP_LEGS = 12  # big-map legs per run (each ~20-30 s)
 NO_PCT_DONE_FROM = 90  # % a zone must have reached before its label showing no % line counts toward explored
-FRONTIER_LEGS = 3  # frontier legs per run: fog matters only when it hides objects
+FRONTIER_LEGS = 6  # frontier legs per run: fog matters only when it hides objects (3 ran short in Grotto Peninsula)
+FOG_REVEALED = 0.05  # drop in the fog share round the frontier spot, before the walk to after, that counts as revealed
 RING_MISSES = 2  # ring legs in a row without a gain before the ring waits for another source's gain
 SPOT_FAILS = 2  # legs at one map spot without a gain before that spot is skipped for the run
 SPOT_TILES = 2  # map tiles within which two spots are the same spot
@@ -435,7 +436,8 @@ class Clearer:
                 if hit:
                     sx, sy = me or mine[0].point
                     choice.update(kind="frontier", what=f"nearest fog in the zone beside reachable ground "
-                                  f"(fog {hit[1]:.0%} round it)", dir=(hit[0][0] - sx, hit[0][1] - sy))
+                                  f"(fog {hit[1]:.0%} round it)", dir=(hit[0][0] - sx, hit[0][1] - sy),
+                                  fog=hit[1])
                     return hit[0]
             return None
         return pick
@@ -472,24 +474,50 @@ class Clearer:
         if here:
             self.arrivals.append((kind, here))
         if kind == "frontier":
-            # A frontier leg pays only if it uncovers something: an object on the minimap near where it ended.
-            frame = self.dev.screenshot()
-            mm = minimap.read(frame, False)
-            pr, pc = mm.centre
-            found = [t for t in mm.tiles("item") + mm.tiles("monster") + mm.tiles("building")
-                     if max(abs(t[0] - pr), abs(t[1] - pc)) > 1
-                     and not (here and self.failed_spot(minimap.world_tile(mm, t, here)))]
-            if found:
-                leg.events.append("revealed")
-                log.info("[leg %d] frontier revealed %d object tiles on the minimap", leg.n, len(found))
-            else:
-                # Try the next patch in another direction (run 22: one empty frontier ended them all while the
-                # zone's ground ran far north into fog). FRONTIER_LEGS still caps them.
-                if "dir" in choice:
-                    self.frontier_away.append(choice["dir"])
-                log.info("[leg %d] frontier revealed nothing: the next one goes another way (%d of %d used)", leg.n,
-                         self.frontier_used, FRONTIER_LEGS)
+            self.frontier_result(leg, here, choice)
         return leg
+
+    def frontier_result(self, leg: Leg, here, choice: dict) -> None:
+        """A frontier leg uncovers objects (a gain), or at least fog (the next frontier lies past it), or nothing.
+        Live 2026-11-11, run 22 (Grotto Peninsula, 63%): the one frontier leg found no object on the minimap, and
+        "revealed nothing" then ended every frontier leg while the zone's ground ran on north into fog. Walking to
+        the fog's edge is what uncovers it, so fog that shrank means the leg worked: the next frontier, farther in,
+        follows (capped by FRONTIER_LEGS, and by STALL_LEGS when none of them finds an object). Only a patch whose
+        fog didn't shrink is spent, and the next one is looked for in another direction."""
+        frame = self.dev.screenshot()
+        mm = minimap.read(frame, False)
+        pr, pc = mm.centre
+        found = [t for t in mm.tiles("item") + mm.tiles("monster") + mm.tiles("building")
+                 if max(abs(t[0] - pr), abs(t[1] - pc)) > 1
+                 and not (here and self.failed_spot(minimap.world_tile(mm, t, here)))]
+        if found:
+            leg.events.append("revealed")
+            log.info("[leg %d] frontier revealed %d object tiles on the minimap", leg.n, len(found))
+            return
+        after = self.fog_here()
+        before = choice.get("fog")
+        if after is not None and before is not None and after <= before - FOG_REVEALED:
+            leg.events.append("fog_revealed")
+            log.info("[leg %d] frontier uncovered fog (%.0f%% -> %.0f%% round us), no object yet: the next frontier "
+                     "goes on from here", leg.n, 100 * before, 100 * after)
+            return
+        if "dir" in choice:
+            self.frontier_away.append(choice["dir"])
+        log.info("[leg %d] frontier uncovered nothing (fog round us %s -> %s): the next one goes another way "
+                 "(%d of %d used)", leg.n, before, after, self.frontier_used, FRONTIER_LEGS)
+
+    def fog_here(self) -> Optional[float]:
+        """The fog share round our dot on the area map, at the zoom the frontier was picked at (the map opens at the
+        zoom it was left at), or None when the map or our dot isn't read."""
+        if not goto.open_area_map(self.dev, self.det):
+            return None
+        time.sleep(0.5)
+        frame = self.dev.screenshot()
+        me = next((p for k, p in area_map.objects(frame) if k == "player"), None)
+        ui.tap(self.dev, ui.BACK_ARROW, 2)
+        if self.det.detect().state == "area_map":
+            ui.tap(self.dev, ui.BACK_ARROW, 2)
+        return area_map.fog_share(frame, me) if me else None
 
     def plan(self) -> Optional[Leg]:
         """Start the next leg from the first source that has an objective; None when none has."""
@@ -634,8 +662,10 @@ class Clearer:
         self.repeats = self.repeats + 1 if card.title == self.last_card else 0
         self.last_card = card.title
         if choice.action == "dismiss":
-            if re.search(r"Required Item|Insufficient items", card.body or ""):
-                # A blocker that needs an item we don't have (Boulder Blockade: a Magic Drill, R-151).
+            if (re.search(r"Required Item|Insufficient items", card.body or "")
+                    or re.search(r"Blockade|Sealing Pillar", card.title or "")):
+                # A blocker that needs an item we don't have (Boulder Blockade: a Magic Drill, R-151; Sealing Pillar:
+                # a Gateway Key, live 2026-11-11 in Rabbit Vault).
                 need = re.search(r"Use an? ([A-Z][\w ]+?) to", card.body or "")
                 why = f"{card.title.strip()} needs {need.group(1) if need else 'an item'}"
                 log.warning("STUCK %s: %s", self.home, why)

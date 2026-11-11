@@ -18,6 +18,12 @@
             "why": "Team-up, party and friend requests from other players: accept (mae, 2026-11-05, R-057: teaming up is an important part of the game). Typing in chat and guild create/choose/leave stay off-limits; the never-list still blocks any spend button."
         },
         {
+            "kind": "item_blocker",
+            "match": "(Blockade|Sealing Pillar|Required Item|Insufficient items)",
+            "choose": "dismiss",
+            "why": "A blocker that only an item clears: Boulder Blockade (Magic Drill, R-151), Vine Blockade, Sealing Pillar (live 2026-11-11, Rabbit Vault: needs a Gateway Key, a 'Clearing Item' sold in the Verdantglade Kingdom Shop; we own 0). Never buy it (shop purchases wait for mae's Buy? marks). Clear Zone ends blocked_item and marks the zone blocked."
+        },
+        {
             "kind": "social_requests",
             "match": "^(Apply|Friends Team Up Challenge Room)",
             "choose": "dismiss",

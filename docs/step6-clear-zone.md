@@ -26,8 +26,12 @@ This page is the design of its replacement. The flowchart is [loops/clear.md](lo
    | 5 | A **frontier**: the nearest fog in our zone that touches walkable ground we can reach (mae, 2026-11-11) | area map | one long big-map walk there |
 
    Fog matters only because it hides objects, so the frontier is the last source, and it is one long leg to a
-   named spot, never a string of short hops. A frontier leg must reveal or clear something, or it's spent, and the next frontier leg (up to 3)
-   aims in another direction (more than 45 degrees off the empty one).
+   named spot, never a string of short hops. A frontier leg must reveal or clear something. Objects it uncovers on the minimap are a
+   gain. Fog that shrank round the spot (the area map's fog share there, before the walk and after) means the leg
+   worked but found nothing yet: the next frontier, farther in, follows; it isn't a gain, so 4 of those in a row
+   still stop the run `no_progress`. A spot whose fog didn't shrink is spent, and the next frontier aims more than
+   45 degrees away from it. Up to 6 frontier legs a run (run 22, Grotto Peninsula: the first frontier found no
+   object, and "revealed nothing" ended all frontier legs while the zone's ground ran on north into fog).
 4. **No objective, or no progress, means stop and say why.** The run ends with a named status instead of
    wandering:
    - `zone_done`: 100%, or the tracker moved on to the next zone's Explore quest.

@@ -41,7 +41,7 @@ flowchart TD
     P3 -->|yes| LEG3["Leg: walk along the minimap path until it is on screen<br/>(up to 3 walk taps), then tap it"]
     P3 -->|no| P4{"4. Anything in our zone on the big map that counts for exploration?<br/>blue ! statues and wheels, green pickups, orange monsters,<br/>gold structures and chests"}
     P4 -->|yes| LEG4[["Leg: big-map walk to it, tap the centre"]]
-    P4 -->|no| P5{"5. Frontier: the nearest fog in our zone<br/>touching walkable ground we can reach?<br/>(3 per run; after one reveals nothing, the next goes another way)"}
+    P4 -->|no| P5{"5. Frontier: the nearest fog in our zone<br/>touching walkable ground we can reach?<br/>(6 per run; one that uncovers fog leads on to the next;<br/>one whose fog did not shrink sends the next another way)"}
     P5 -->|yes| LEG5[["Leg: one big-map walk to the frontier"]]
     P5 -->|no| NO(["no_objective: leftovers written to the location tree"])
     LEG --> R
