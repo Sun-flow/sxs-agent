@@ -2,8 +2,9 @@
 
 mae, 2026-11-11: "when our bot scans the big map for zones, it will often do it multiple times in a row." This page
 diagnoses where those scans come from, then proposes a design in the same shape as the Clear Zone redesign
-([step6-clear-zone.md](step6-clear-zone.md)). **Nothing in the code has changed yet.** mae answered the design
-questions on 2026-11-11 (see "Decisions" at the end); the design below follows them, and the build follows the design.
+([step6-clear-zone.md](step6-clear-zone.md)). mae answered the design questions on 2026-11-11 (see
+"Decisions" at the end); the design below follows them, and it is built ("What changed in the code"), offline
+checked, not yet run live.
 
 "Big map" and "area map" are the same screen (tap the minimap). A **survey** is one opening of it read for zone
 facts: labels, "Exploration: N%" lines, power lines, statue badges, dots.
@@ -223,25 +224,35 @@ flowchart LR
     end
 ```
 
-## What changes in the code
+## What changed in the code (built 2026-11-11, offline; not run live yet)
 
-- **New** `bigmap.py` in `sxs/actions/`: `BigMap` (kept zone facts with times, `opened(purposes)` context manager
-  for every opening, `discover(reason)` for the discovery survey, `invalidate(event, zone)`), `read()` (the one
-  reader, moved from `roam.read_areas` + `merge_readings`), `is_zone()` (the one matcher), `WALK_ZOOM` knob
-  position and `at_zoom(frame)`. A new offline check, `check_bigmap.py` in `tests/`, replays saved area-map frames
-  (`docs/screens/world/area_map_*.png`) through the reader and checks the stale rules.
-- `sxs/actions/goto.py`: `go_to` opens through `BigMap.opened`; `area_labels` becomes a thin wrapper over the one
-  reader; `_widen` (zoom out to search) and the 6-drag `LABEL_PANS` search are replaced by 1-2 drags toward the
-  label; `survey_zoom` is called only by `BigMap.discover`.
-- `sxs/actions/mapnav.py`: `zone_by_map` reads a glance (no survey zoom); `map_labels` goes through the one reader.
-- `sxs/loops/roam.py`: one `BigMap` per run; picks from the tree; `survey()` becomes `BigMap.discover` and runs
-  only for its three reasons; the post-zone and loop-top surveys go; `bless_ready` and `bless_near` use kept statue
-  facts and one glance per statue.
-- `sxs/loops/clear.py`: `Clearer` takes roam's `BigMap`; one glance per leg feeds `map_pct`, the picker and
-  `fog_here`; `judge`, `read_pct`, `check_zone` and `finish_zone` call `invalidate`.
-- `scripts/tap_trace.py` and the run readouts count openings by kind (glance, reuse, discovery) so the next live
-  run shows the saving.
-- Rules: R-076 (big map) gets the glance / discovery split.
+- **New** `bigmap.py` in `sxs/actions/`: `BigMap` (one per process, `bigmap.get(dev, det)`, shared by roam and Clear
+  Zone) keeps the facts every opening read (`record`), with times; `glance(purposes)` opens at the walking zoom,
+  reads, closes; `recent`, `fact`, `reuse`, `invalidate(event, zone)`; `discovery_due` / `discovered` keep the server
+  day of the last discovery survey in `logs/bigmap.json`. `knob_y` reads the zoom knob (821 closest, **955 walking =
+  the game's default**, 1031 survey, 1089 fully out, measured on the 20 reference area maps); `set_zoom` drags the
+  knob only when it isn't there already. `map_text` runs one OCR pass per frame that all three label readers share
+  (their filters are unchanged for now; merging them into one reader is a follow-up). `reread_pct` re-reads a
+  missing % line from an enlarged crop of the same frame.
+- `sxs/actions/goto.py`: `go_to` brings the map to the walking zoom (only when it sees the knob, so a blind "-" tap
+  never lands on the island map), records the opening, and gives the picker that same frame. It no longer zooms
+  out to look for a label or target: `_widen` does nothing; a missing label is looked for by two drags `toward` it
+  (direction from the tree's label points) or, without a direction, the old six-drag sweep. `survey_zoom` is used
+  only by the discovery survey.
+- `sxs/actions/mapnav.py`: `zone_by_map` is a glance (no survey zoom).
+- `sxs/loops/roam.py`: `look_around` replaces the survey at the top of every pass: a discovery survey only when
+  due (first of the server day, `--discover`, or the tree has nothing left to pick), else the tree's zones
+  (`tree_areas`, fresher glance % first) and statues seen in glances. The survey after a zone run is gone: Clear
+  Zone's last glance (under a minute old, showing the zone) or one glance. The discovery survey always pans the
+  full grid and leaves the map at the walking zoom. Glances update the tree's % but never its label points.
+  Blessing drops the ready-statue fact. The run ends with `[map] this run: glance N, reuse N, discovery N`.
+- `sxs/loops/clear.py`: `map_pct` reuses this leg's look (or roam's walk-in look) when under a minute old, else
+  glances at the walking zoom; retries a missing % line from an enlarged crop. `fog_here` records its frame. A gain
+  drops the zone's % and retires the last look. The run summary logs the map counts.
+- Tests: `check_bigmap.py` in `tests/` (40 checks). `check_clear`, `check_zones`, `check_loops`, `check_interrupts`,
+  `check_upgrade_logic`, `check_rewards_offline` and `check_repo` still pass.
+- Not done here: R-076's wording (the docs thread owns rules); merging the three label filters into one reader;
+  `scripts/tap_trace.py` counting openings by kind (the `[map]` lines already do).
 
 The Clear Zone thread agreed (2026-11-11) that this branch takes over `map_pct`, the picker's label read,
 `in_home` and `finish_zone`; it stays out of `clear.py` until this lands if the picker's signature changes.

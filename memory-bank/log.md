@@ -6,7 +6,8 @@
 ### 2026-11-11 · Big-map survey diagnosis and design (Claude Code, cloud)
 - mae: the bot scans the big map several times in a row; wanted the fog-walk treatment. Read mae's PC run logs (roam vii_r4, run2-17; clear run15-22): roam surveyed after each Clear Zone run and again at the loop top seconds later (35-43 s each); every survey panned 8 times for blocked/given-up zones (182 pans thrown away); clear's `map_pct` re-read roam's survey; three label readers disagreed (run22 Grotto: no % line vs 63%). Plain walk openings are cheap (3-4 s).
 - `docs/big-map-survey.md` (PR #61): caller table, causes, design. mae's decisions (06:49): survey zoom only to see which zones exist, walking never needs a full survey, small surveys (glances) fine, 1 min / 10 min reuse limits, one full panned survey per day. Strengthening thread's one-glance-per-leg suggestions folded in.
-- Open: build offline (emulator not available until mae picks a time); then a live run counting glances vs surveys.
+- Built offline the same session (branch merged with #63's e1kt6z tip): `sxs/actions/bigmap.py`, walks never zoom out (pan toward the label instead), roam looks around from the tree and surveys only when due, no post-zone survey, `map_pct` reuses the leg's look, one OCR pass per frame for all label readers. `tests/check_bigmap.py` 40 checks; other offline checks pass.
+- Open: live run (emulator not available until mae picks a time); merge the three label filters into one reader; R-076 wording (docs thread).
 
 ### 2026-11-11 · Fog Walk scrapped, Clear Zone built (Claude Code, cloud)
 - mae (2026-11-10 23:48): the fog-walk idea "has been poisoning our navigation"; scrap it. Post-mortem from the exploration thread: `docs/fogwalk-postmortem.md` (new-tile progress let it hop 1-3 tiles for minutes; run 13: 62 hops vs 4 object legs, all % from objects).

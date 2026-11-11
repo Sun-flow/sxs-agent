@@ -25,7 +25,7 @@ Coordinates are in the 720×1280 portrait frame. No module calls a model.
 | `vision/` | Reading the screen: OCR helpers, HP bar, HUD numbers, account stats (`stats.py`), player label, tracker, pickups, badges, minimap, gift | Never taps |
 | `detect/` | UI detector data (docs/detector-design.md): `prelabel.py` drafts boxes from the existing detectors, `dataset.py` exports the YOLO dataset with names blacked out, `items.py` keeps the item and currency symbol catalogue (resource/items) | Never taps; no model yet |
 | `policy/` | Decisions from `resource/policy/*.json`: card/popup decider, free-claim presser; `fights.py` (1.25x power rule), `zones.py` (location tree in `resource/world/zones.json`: next zone, crossing check, ways in) | The spend blocklists live here (**safeguard**) |
-| `actions/` | Small reusable steps that tap: heal, close rewards / step dialogue, go to an area, unstick, camera, watchdog | No loop of its own, except `goto` |
+| `actions/` | Small reusable steps that tap: heal, close rewards / step dialogue, go to an area, unstick, camera, watchdog; `bigmap.py` keeps what each big-map opening read (glances, discovery survey once a day, zoom knob) | No loop of its own, except `goto` |
 | `loops/` | Goal-driven loops, one module each, each exposing `LOOP` | Registered in `loops/__init__.py` |
 
 ## The loop contract (`core/loop.py`, mae 2026-11-04)
@@ -68,7 +68,7 @@ Every loop has the same inputs, outputs and readouts:
 | `explore` | `loops/explore.py` | Quest follower (tracker marker) | `--chain --minutes 10`, `--choose REGEX` |
 | `roam` | `loops/roam.py` | Unexplored areas under our power, bless statues | `--minutes 30`, `--area NAME` |
 | `clear` | `loops/clear.py` | Clear Zone: one zone to 100%, every leg toward a named objective (replaced the Fog Walk) | `--area "Verdantglade IX" --minutes 10` |
-| `goto` | `actions/goto.py` | Walk somewhere via the area map | `"Highland Woods"` or `X Y` |
+| `goto` | `actions/goto.py` | Walk somewhere via the area map (a glance at the walking zoom, recorded in `actions/bigmap.py`) | `"Highland Woods"` or `X Y` |
 | `gather` | `loops/gather.py` | Generic `collect(Target)` for ore, sand, essence, rolla, bellflower | `--material sand`, `--check`, `--harvest` |
 | `upgrade` | `loops/upgrade.py` | Every "!" on the Character screen | `--only skills` |
 | `cart` | `loops/cart.py` | Claim the Cart, then raise its Stone and Wood rows evenly (R-136); ends when capped or short | `--check`, `--max N` |

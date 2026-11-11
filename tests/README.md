@@ -11,8 +11,9 @@
 | `check_progress.py` | MaaFramework + OCR models | Progress tracker: stat readers on reference screens, bands, the day report (temp logs), the home > profile > Journal route replayed |
 | `check_zones.py` | OpenCV, MaaFramework (imports only) | Minimap zone-border detector on reference frames, border blocks the planner, location tree decisions (R-132, R-135), area-map pan merge, Cart Unlock finder (R-137) |
 | `check_clear.py` | OpenCV, MaaFramework (imports only) | Clear Zone: fog frontier on a reference area map, minimap goals are objects only, leg bookkeeping (gain, failed spots, ring resting, stall count) |
+| `check_bigmap.py` | OpenCV, MaaFramework (imports only) | Shared big map: zoom knob on reference area maps, no re-zoom at the walking zoom, one OCR pass for all label readers, kept facts and stale events, discovery once a server day, % re-read from an enlarged crop, walks pan instead of zooming out, roam surveys only when due |
 | `check_labeler.py` | Pillow, OpenCV | Labeler page API in a temp copy: save boxes, crops and manifest, bank row, filing moves boxes and crops, paths outside docs/screens refused, `vision/labels.py` finds a crop |
 | `check_detect_data.py` | Pillow, OpenCV | UI detector data: class list, `cls`/draft on boxes, pre-label merge keeps mae's boxes, YOLO export (format, split, minimap crop, name and chat masking, private screens left out) |
 | `smoke_test.py [--no-restart]` | Live emulator | Cold start → home → menus → home |
 
-Run the first eleven after any code change; `smoke_test.py` after changing navigation.
+Run the first twelve after any code change; `smoke_test.py` after changing navigation.
