@@ -164,6 +164,8 @@ paths.SCREENS = Path(tempfile.mkdtemp())
 saved = clear.save_dialogue(type("D", (), {"screenshot": lambda self: np.zeros((4, 4, 3), np.uint8)})(),
                             f"{ui.PLAYER_NAME} She's all good.", "Verdantglade X")
 check("a saved story choice is named without our player name", saved.name, "choice_verdantglade_x_she_s_all_good.png")
+check("one reply option (two arrow matches on it)", clear.option_rows([[60, 800, 40, 40], [62, 805, 40, 40]]), [820])
+check("two reply options", len(clear.option_rows([[60, 700, 40, 40], [60, 800, 40, 40]])), 2)
 check("the loop's ok statuses", {"zone_done", "no_objective", "no_progress"} <= clear.OK, True)
 
 print("all good" if not fails else f"{fails} failed")

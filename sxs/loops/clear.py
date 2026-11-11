@@ -115,6 +115,16 @@ def save_dialogue(dev, texts: str, zone: Optional[str]):
     return path
 
 
+def option_rows(boxes) -> list[int]:
+    """Centre heights of a dialogue's reply options from their arrow matches; matches within 20 px are one option."""
+    rows: list[int] = []
+    for x, y, w, h in sorted(boxes, key=lambda b: b[1]):
+        c = y + h // 2
+        if all(abs(c - r) > 20 for r in rows):
+            rows.append(c)
+    return rows
+
+
 class Clearer:
     def __init__(self, dev, det, area: Optional[str] = None, allowed=()):
         self.dev, self.det = dev, det
@@ -650,10 +660,18 @@ class Clearer:
         return None
 
     def dialogue_choice(self) -> Optional[str]:
-        """A puzzle NPC (Fonik, R-153): take Leave and note the puzzle; skip the spot."""
+        """A lone option: press it (mae). A puzzle NPC (Fonik, R-153): take Leave and note the puzzle; skip the spot.
+        Two or more options and no Leave: a story choice, mae's call (stop needs_decision, screenshot saved)."""
         lines = self.det.read_text([60, 300, 600, 750])
         leave = [b for t, b in lines if re.fullmatch(r"\s*Leave\.?\s*", t)]
         texts = " / ".join(t for t, _ in lines)
+        arrows = option_rows(self.det.find_all("State.DialogueChoice"))
+        if len(arrows) == 1 and not leave:
+            # mae, 2026-11-11 05:37: a dialogue with only one option is always safe to press (live run 25: Killian's
+            # lone "She's all good." stopped the run for a decision).
+            log.info("dialogue with one option (%s): pressing it", texts)
+            ui.tap(self.dev, (360, arrows[0]), 2)
+            return None
         if not leave:
             # mae, 2026-11-11: story choices are mae's call for now. Stop, and save the dialogue as a
             # reference under docs/screens/dialogs/, named for the scene; her pick is recorded there afterwards.
