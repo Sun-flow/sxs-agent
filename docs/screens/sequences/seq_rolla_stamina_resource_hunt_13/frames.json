@@ -1,0 +1,29 @@
+{
+ "name": "seq_rolla_stamina_resource_hunt_13",
+ "kind": "rolla_stamina",
+ "zone": "resource_hunt",
+ "what": "rolla pickup, stamina 231 -> 226",
+ "at": "2026-11-11T16:48:12",
+ "picked": [
+  {
+   "file": "seq_rolla_stamina_resource_hunt_13_f01.png",
+   "t": -9.58
+  },
+  {
+   "file": "seq_rolla_stamina_resource_hunt_13_f05.png",
+   "t": -6.13
+  },
+  {
+   "file": "seq_rolla_stamina_resource_hunt_13_f10.png",
+   "t": -4.56
+  },
+  {
+   "file": "seq_rolla_stamina_resource_hunt_13_f14.png",
+   "t": -0.08
+  },
+  {
+   "file": "seq_rolla_stamina_resource_hunt_13_f23.png",
+   "t": 2.87
+  }
+ ]
+}

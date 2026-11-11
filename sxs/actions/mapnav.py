@@ -387,6 +387,11 @@ def enter_next_zone(dev, det, arrived=None, hops: int = CROSSING_HOPS) -> bool:
         dev.tap(*point)
         time.sleep(4)
         if xy is None or goto.coords(det) == xy:
+            # mae (2026-11-11, watching XIII): the walk reached the fog edge, but monsters stood in the entrance and
+            # the character couldn't pass without beating them. A walk that didn't move with a monster on or beside
+            # the way in: fight it (the caller's settle handles battle prep), then try the same crossing again.
+            if block_fight(dev, det, mm, path, me):
+                return False
             skip.add(path[-1])  # that crossing didn't take us anywhere: try the next one
     name = goto.area_name_here(det)
     return arrived(name)
@@ -414,3 +419,23 @@ def walk_to_entrance(dev, det, zone: str) -> str:
 
     why = goto.go_to(dev, det, pick)
     return why if chosen else "no_entrance"
+
+
+BLOCK_TILES = 2  # a monster this many minimap tiles from the way in blocks it
+
+
+def block_fight(dev, det, mm, path, me) -> bool:
+    """Tap a monster standing in or beside the way into a zone (a bracketed guard first). True when a fight (or any
+    screen off the map) started: the caller's settle handles it."""
+    if attack_guard(dev, det):
+        return det.detect().state != "world_map"
+    mons = [t for t in mm.tiles("monster") if any(abs(t[0] - p[0]) + abs(t[1] - p[1]) <= BLOCK_TILES for p in path)]
+    if not mons or me is None:
+        return False
+    t = min(mons, key=lambda t: abs(t[0] - mm.centre[0]) + abs(t[1] - mm.centre[1]))
+    point = off_me(det, minimap.screen_point(me, mm, t))
+    log.info("zone entry: the walk didn't move and a monster stands by the way in (minimap %s): fighting it at %s",
+             t, point)
+    dev.tap(*point)
+    time.sleep(4)
+    return det.detect().state != "world_map"

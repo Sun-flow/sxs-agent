@@ -318,6 +318,8 @@ class Clearer:
         arrived = lambda n: bool(n) and (goto.same_area(n, self.home or "") or mapnav.label_is(n, self.home or ""))
         if mapnav.enter_next_zone(self.dev, self.det, arrived=arrived):
             return True
+        if self.det.detect().state != "world_map":
+            return False  # a fight with a monster blocking the way in: settle handles it, the next check retries
         # Nothing on the minimap: the entrance nearest the zone's label on the big map, then step across there.
         why = mapnav.walk_to_entrance(self.dev, self.det, self.home or "")
         log.info("big-map entrance walk toward %s: %s", self.home, why)
