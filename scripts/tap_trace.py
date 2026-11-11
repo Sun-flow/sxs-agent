@@ -1,7 +1,7 @@
-"""Run a fog walk (or roam) with every tap logged (point, caller line) and the frame saved before it, to find
+"""Run Clear Zone (or roam) with every tap logged (point, caller line) and the frame saved before it, to find
 which tap causes a stuck point (2026-11-10: the player profile kept opening mid-walk).
 
-    python scripts/tap_trace.py AREA MINUTES          # fog walk; frames in captures/taps/
+    python scripts/tap_trace.py AREA MINUTES          # clear --area AREA, from where we stand; frames in captures/taps/
     python scripts/tap_trace.py roam AREA MINUTES     # roam --area AREA
 """
 import logging
@@ -15,7 +15,7 @@ import cv2
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from sxs.core.device import Device  # noqa: E402
 from sxs.core.state import StateDetector  # noqa: E402
-from sxs.loops import fogwalk  # noqa: E402
+from sxs.loops import clear  # noqa: E402
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s", datefmt="%H:%M:%S")
 OUT = Path(__file__).resolve().parent.parent / "captures" / "taps"
@@ -44,4 +44,4 @@ if sys.argv[1] == "roam":
     from sxs.loops.roam import Roamer
     print(Roamer(dev, det).run(float(sys.argv[3]), sys.argv[2], 1, 15))
 else:
-    print(fogwalk.walk(dev, det, minutes=float(sys.argv[2]), area=sys.argv[1], walk_there=False))
+    print(clear.run(dev, det, minutes=float(sys.argv[2]), area=sys.argv[1], walk_there=False))

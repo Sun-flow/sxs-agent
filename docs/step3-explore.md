@@ -9,8 +9,8 @@ _Started 2026-11-03 on maes2024 (account Lv 2 → 10, Originisle II–IV and the
 | `python -m sxs explore [--chain] [--minutes 20] [--choose REGEX]` | Follows the quest tracker on the island map: fights, collects, opens cards, climbs mini-dungeon floors, heals, claims finished quests. `--chain` starts the next quest. `--choose` passes a decision a human made (e.g. `'^Ascend to Mage$'`). |
 | `python -m sxs tutorial [--steps 40]` | Follows tutorial prompts: taps through dialogue and taps what the yellow highlight or "Tap to..." bubble points at (R-036). |
 | `python -m sxs goto "Stone Ruins I"` or `goto X Y` | Walks to an area label (OCR'd) or point on the area map. |
-| `python -m sxs fogwalk [--minutes 10] [--area NAME]` | Explores areas with no quest marker: minimap's unexplored tiles, then the fog edge. |
-| `python -m sxs roam [--minutes 30] [--area NAME] [--max-areas 2] [--walk-minutes 10]` | Picks unfinished areas from the area map (R-076), walks there, fog-walks them, unlocks their statue (R-070). Stops at the first power wall (R-084). |
+| `python -m sxs clear [--minutes 10] [--area NAME]` | Clears one zone, one named objective per leg (replaced the fog walk, see `step6-clear-zone.md`). |
+| `python -m sxs roam [--minutes 30] [--area NAME] [--max-areas 2] [--walk-minutes 10]` | Picks unfinished areas from the area map (R-076), walks there, clears them (`clear`), unlocks their statue (R-070). Stops at the first power wall (R-084). |
 | `python -m sxs tower [--tower NAME] [--to N] [--floors 110] [--minutes 15]` | Fantasia Ascent climb (R-079): Auto Challenge on, no retries. |
 | `python -m sxs see minimap [FRAME.png]` | Classifies minimap tiles (R-066); writes `captures/minimap.png`. |
 
@@ -21,7 +21,7 @@ From mae, 2026-11-04; see `memory-bank/decisions.md` ("Loops are watched and han
 - **Banner** at start via `device.banner()`: `[Running X Loop]` / `[Goal: ...]` / `[End condition: ...]`. Post it to mae when starting a loop.
 - **Stuck checks**: periodic heartbeat log line; end early with a named reason, never idle. Explore's reasons: `complete`, `defeated`, `no_marker`, `no_tracker`, `unknown_card`, `repeating_card`, `needs_decision`, `stuck_home`, `stuck_progress`, `stuck_self`, `low_hp`, `unknown_screen`, `timeout`. A loop that gets stuck repeatedly needs fixing, not restarting.
 - **Unknown screens**: a bounded known recovery (back arrow, close, tap outside), then `device.save_unknown()` (frame to `captures/unknown/`) and stop.
-- **Composable**: loops call each other and resume (explore hands Fantasia Ascent screens to `sxs.loops.tower`; roam uses goto and fogwalk).
+- **Composable**: loops call each other and resume (explore hands Fantasia Ascent screens to `sxs.loops.tower`; roam uses goto and clear).
 - **Heal before fights**: never fight under 70% HP (R-061); `sxs/actions/heal.py` for loops outside explore.
 
 ## Explore loop (`sxs/loops/explore.py`)
@@ -55,5 +55,5 @@ One detection per step, then by state:
 
 - Pale/white tutorial highlights (the Skill button) are not detected, nor highlights on yellow buttons with no hint bubble.
 - Quick Heal from the "badly wounded" card didn't seem to take; from the profile it works (R-078).
-- Loot off the tracker's path (e.g. after a boss) isn't picked up unless fogwalk/roam reaches it.
+- Loot off the tracker's path (e.g. after a boss) isn't picked up unless clear/roam reaches it.
 - `sxs/loops/explore.py` keeps its own inline copy of the heal logic instead of `sxs/actions/heal.py`.

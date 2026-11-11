@@ -33,7 +33,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 
 ## Adding or changing a rule
 
-- New rule: next free ID (**next free: R-159**), under the right `##` heading of the right file, plus a row in the ID index below.
+- New rule: next free ID (**next free: R-175**), under the right `##` heading of the right file, plus a row in the ID index below.
 - Never reuse or renumber an ID. When merging a rule into another, delete it, add it to the retired table, and repoint citations.
 - Run `python3 scripts/check-rules.py`: it checks that every cited ID resolves, retired IDs aren't cited, every file is listed here, and image paths exist.
 
@@ -83,7 +83,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-062 | `overworld.md` | Talk to red "!" NPCs first; they gate what's around them |
 | R-063 | `ui.md` | A red "!" on a menu button or tab means something to claim |
 | R-064 | `overworld.md` | If the marker leads nowhere, follow NPC instructions |
-| R-065 | `overworld.md` | When stuck or between quests, walk the fog edge |
+| R-065 | `overworld.md` | Between quests, clear side zones to 100% by their objects |
 | R-066 | `overworld.md` | Minimap legend: it shows the true tiles |
 | R-067 | `overworld.md` | Areas join by land bridges: head for the connection, not the straight line |
 | R-068 | `overworld.md` | Travel far or into unexplored ground through the area map |
@@ -131,7 +131,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-115 | `upgrades.md` | Ascend a badged skill with its own shards |
 | R-116 | `ui.md` | Claim every lit Goals tab with the claim-goals task |
 | R-117 | `upgrades.md` | Level classes with Class Badges; never Change Class |
-| R-118 | `upgrades.md` | Rank Advancement raises the level cap |
+| R-118 | `upgrades.md` | Rank Advancement raises the level cap; at the cap it comes first (mae) |
 | R-119 | `upgrades.md` | Activate Gear Resonance each time a band completes |
 | R-120 | `economy.md` | Molly's Vendor Booth: claim only the free Vault stamina |
 | R-121 | `economy.md` | Mall: claim the free gift boxes, never a pack |
@@ -143,7 +143,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-127 | `combat.md` | Take fights against up to 25% more CP than ours |
 | R-128 | `quests.md` | Daily Quest: the default Quest page |
 | R-129 | `ui.md` | "Choose Your Reward": take the class match, else ask mae |
-| R-130 | `overworld.md` | Fog-walk and pathfind toward the light-green to striped-green edge |
+| R-130 | `overworld.md` | Fog is revealed by a frontier leg to the zone's own edge, never by short hops |
 | R-131 | `overworld.md` | Save a reference of every collectible and monster met while exploring |
 | R-132 | `overworld.md` | Dotted lines mark zone borders: finish the zone you're in first |
 | R-133 | `combat.md` | Auroradrasil: a free 4-player story dungeon with NPC companions |
@@ -158,11 +158,11 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-143 | `overworld.md` | In an unblessed zone the whole minimap is shaded: the % comes from objects |
 | R-144 | `overworld.md` | "Statue of <name>": press Visit |
 | R-145 | `overworld.md` | Sealed Stone Gate: a rank-gated gate between zones; press the free Unlock |
-| R-146 | `overworld.md` | Never tap fog: tap walkable ground next to it |
+| R-146 | `overworld.md` | Never tap fog |
 | R-147 | `overworld.md` | Lucky Wheel ("Wheel of Destiny"): one free spin per wheel while its zone is unexplored |
 | R-148 | `overworld.md` | A blue "!" on the area map marks interactable statues: tap them to finish the zone |
 | R-149 | `overworld.md` | "Rankings" structure: back out, press nothing |
-| R-150 | `overworld.md` | Entering a new zone: start at the entrance, then work outward to the fog |
+| R-150 | `overworld.md` | Entering a new zone: start at the entrance, then take its objectives |
 | R-151 | `overworld.md` | Boulder Blockade: a barrier that needs a drill bit; Hidden Camp is inaccessible for now |
 | R-152 | `overworld.md` | A Portal sits under the Verdantglade VI label on the big map |
 | R-153 | `overworld.md` | Puzzle areas: skip them for now; never spend Golden Beetles |
@@ -171,6 +171,22 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-156 | `combat.md` | Monster group cards: Challenge when the power fits |
 | R-157 | `economy.md` | Timed Packs popups are paid: dismiss with a tap below the card |
 | R-158 | `ui.md` | Walk taps keep out of the HUD; stray taps open cards to close |
+| R-159 | `overworld.md` | Gate of Elements: open it with companions' affinity |
+| R-160 | `overworld.md` | A zone's % can hide under a neighbour's label: zoom in before trusting it |
+| R-161 | `overworld.md` | A statue that isn't ready doesn't put its spot off limits |
+| R-162 | `quests.md` | Tracker OCR reads IX as "1X": normalise before comparing zone names |
+| R-163 | `overworld.md` | Zone facts, 2026-11-10 evening: VIII, Monolith Ruins I, Bubble Lake, new zones |
+| R-164 | `ui.md` | Story dialogue with choices and no Leave: stop, save the screen, ask mae |
+| R-165 | `home.md` | Dismantle in the Alchemy Pot is safe: use it for ore |
+| R-166 | `home.md` | Locked furniture: tap the crate, not the "Open" marker; Unlock is free |
+| R-167 | `home.md` | Aeonic Gacha: draw x10 whenever a full 10x pull is affordable (badges and tickets only) |
+| R-168 | `home.md` | Mailbox (the owl): Claim All daily, never Delete Read |
+| R-169 | `home.md` | Item bag: open Treasure Chest items, leave gifts, ask on a choose-one box |
+| R-170 | `home.md` | Tap the little things around Home for small resources |
+| R-171 | `ui.md` | Story dialogue with a single option: always press it |
+| R-172 | `home.md` | Workbench: activate new relics; Enhance with Chrono Sand, never Replace |
+| R-173 | `ui.md` | Lore pages: swipe to the end, then Close |
+| R-174 | `overworld.md` | Blight Witch lore objects: visit them; expect a curse, then Quick Heal |
 
 ## Retired IDs
 

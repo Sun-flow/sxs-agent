@@ -31,7 +31,7 @@ then taps Start Battle even when the prep bar is still under 70%. R-061 says nev
 `start_fight` (used by gather) backs out instead. *Recommend:* call `start_fight`; if it returns
 False, end the run `low_hp`.
 
-**Q18. Two quest-ring followers.** Explore's `_follow_marker` and Fog Walk's `quest_step` do the same job differently;
+**Q18. Two quest-ring followers.** Explore's `_follow_marker` and Clear Zone's `mapnav.quest_step` do the same job differently;
 `quest_step` is the live-proven one (R-142). *Recommend:* one shared action in `sxs/actions/` that both call, keeping
 Explore's pan/toggle retries for when no ring shows.
 
@@ -68,9 +68,9 @@ presses any row's exact "Unlock" before the upgrades and backs out of any cost o
 [cart.md](cart.md).
 
 **Q2. Spot a zone border before crossing it.** *Built in PR #43, not run live yet:* `border_mask` in
-`sxs/vision/minimap.py` finds the dotted line on the minimap and the Fog Walk's plan treats it as a wall (R-132); the
+`sxs/vision/minimap.py` finds the dotted line on the minimap and Clear Zone's minimap planner treats it as a wall (R-132); the
 location tree (`sxs/policy/zones.py`) keeps zones, neighbours and entry points; roam finishes the zone it stands in
-first. See [fogwalk.md](fogwalk.md) and [roam.md](roam.md).
+first. See [clear.md](clear.md) and [roam.md](roam.md).
 
 **Q3. Gear enhancing starts on the blue pip.** A red "!" on a gear slot means a better piece to swap in (gearswap); a
 blue up-arrow pip in the same place means the piece can be enhanced. *Done:* `find_up_pips` in
@@ -94,9 +94,9 @@ exploration is done (content wall reached), to get the most from it. Not built y
 charms, Upgrade loop). Explore calls it after 3 losses in a row, and `python -m sxs strengthen` now runs it. The old
 one-tap-at-a-time technique levelling is gone.
 
-**Q10. One tower climb a day.** *Done:* when explore or fogwalk meet a tower screen they first check today's mark.
+**Q10. One tower climb a day.** *Done:* when explore or clear meet a tower screen they first check today's mark.
 If the day's climb already ran, explore goes home and ends `tower_done_today` (ok: the quest waits for tomorrow) and
-fogwalk walks back to its zone. A climb they do start marks the day done.
+clear walks back to its zone. A climb they do start marks the day done.
 
 **Q11. Tutorial dialogue choices.** *Done:* `tutorial.follow` reads the options first; on "Ascend to" / "Change
 Class" it taps Leave and ends `needs_decision`, which stops whatever loop the interrupt paused (R-054).
