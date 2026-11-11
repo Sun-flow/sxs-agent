@@ -265,6 +265,13 @@ def run(names: Optional[set] = None, ocr: bool = False, dry_run: bool = False, w
     only: draft just these classes (other classes' drafts are left as they are)."""
     det = None
     if ocr:
+        from ..core.paths import RESOURCE
+
+        missing = [f for f in ("det.onnx", "rec.onnx") if not (RESOURCE / "model" / "ocr" / f).exists()]
+        if missing:
+            raise SystemExit(f"--ocr needs the OCR models in resource/model/ocr/ ({', '.join(missing)} missing; they "
+                             "are gitignored, so every new clone or worktree needs them): run "
+                             "python scripts/fetch-ocr-models.py, or copy them from another checkout.")
         from ..core.replay import ImageDevice
         from ..core.state import StateDetector
 
