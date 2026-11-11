@@ -37,7 +37,7 @@ from typing import Optional
 import cv2
 import numpy as np
 
-from ..actions import goto
+from ..actions import bigmap, goto
 from ..actions.common import close_rewards
 from ..core import ui
 from ..core.device import save_unknown
@@ -122,7 +122,8 @@ def read_areas(det, frame=None) -> list[Area]:
     neighbour's "Exploration: 0%" sat within reach of the Verdantglade V label, so it read 0%. Now the % is found
     anywhere in a line, its x is estimated from where it sits in the joined text, and it goes to the label whose
     width covers it (nearest above), not merely one within 120 px."""
-    lines = det.read_text(MAP_ROI, frame)
+    from ..actions import bigmap  # one OCR pass per frame, shared with the other area-map readers
+    lines = bigmap.map_text(det, frame, MAP_ROI) if frame is not None else det.read_text(MAP_ROI, frame)
     areas: list[Area] = []
     extras = []
     for text, box in lines:
@@ -303,6 +304,9 @@ class Roamer:
         self.power: Optional[float] = None
         self.tree = Tree.load()
         self.no_pct: dict[str, int] = {}  # zone -> surveys in a row that showed it with no % line
+        self.bm = bigmap.get(dev, det)  # glances and kept facts, shared with Clear Zone (docs/big-map-survey.md)
+        self.discover_asked = False  # roam --discover: hunt unexplored side areas with a discovery survey now
+        self.discovered_this_run = False
 
     def give_up(self, name: str, why: str) -> None:
         """Skip `name` for the rest of this run, and in later runs the same server day until power grows (seen 2026-11-04:
@@ -366,28 +370,28 @@ class Roamer:
 
         mae, 2026-11-09: zoomed all the way out, OCR merged neighbouring labels and lost the % lines. So zoom out
         fully, step one zoom closer, and read a 3x3 grid of pans; labels are placed in the first view's coordinates
-        by the measured pan shift. Everything read goes into the location tree."""
+        by the measured pan shift. Everything read goes into the location tree.
+
+        mae, 2026-11-11 (docs/big-map-survey.md): this is the **discovery survey**, only for seeing which zones exist:
+        once per server day, when the tree has no zone left to pick, or on purpose (`--discover`). It always pans the
+        full grid (one full pan a day is fine) and leaves the map at the walking zoom for the next glance."""
         power = read_power(self.det)
         self.power = power or self.power
+        t0 = time.monotonic()
         if not goto.open_area_map(self.dev, self.det):
             log.warning("the area map did not open; frame %s", save_unknown(self.dev, "roam_survey"))
             return [], [], power
         goto.survey_zoom(self.dev)
         time.sleep(1)
         frame = self.dev.screenshot()
+        self.bm.record(frame, "discovery survey (first view)", kind="discovery", t0=t0)
         kingdom = " ".join(t for t, _ in self.det.read_text(KINGDOM_ROI, frame)).strip()
         readings = [(read_areas(self.det, frame), (0, 0))]
         badges = [(p, (0, 0)) for p in statue_badges(frame)]
         shift, pending = (0, 0), (0, 0)
-        # mae, 2026-11-10: the 3x3 pan grid (40-50 s per survey) wasted time; the survey zoom shows nearly the whole
-        # kingdom. Pan only when a zone the location tree still has work in wasn't read in this view.
-        first = [a.name for a in readings[0][0]]
-        missing = [k for k, z in self.tree.zones.items() if z.get("kind", "zone") == "zone"
-                   and not self.tree.done(k) and not any(same(n, k) for n in first)]
-        pans = PANS if missing else []
-        if missing:
-            log.info("survey: %s not in view; panning", ", ".join(missing[:4]))
-        for rx, ry in pans:
+        # The full grid: the discovery survey runs once a day (mae, 2026-11-11), so it reads everything once. (The old
+        # "pan when a zone with work left isn't in view" test panned every time: blocked zones never show.)
+        for rx, ry in PANS:
             fx, fy = PAN_FROM
             self.dev.swipe(fx, fy, fx - rx * PAN_PX, fy - ry * PAN_PX, PAN_MS)
             time.sleep(1.2)
@@ -405,14 +409,67 @@ class Roamer:
             badges += [(p, shift) for p in statue_badges(cur)]
             frame = cur
             progress(("survey_pan", shift))
+        bigmap.set_zoom(self.dev, frame, bigmap.WALK_KNOB_Y)  # leave it at the walking zoom for the next glance
         self.dev.tap(*ui.BACK_ARROW)
         time.sleep(2)
         areas = merge_readings(readings)
+        now = time.monotonic()
+        for a in areas:
+            if a.pct is not None:
+                self.bm.pct[a.name] = bigmap.Fact(a.pct, now)
         ready = self.statue_zones(areas, [(x - ox, y - oy) for (x, y), (ox, oy) in badges])
         self.remember(areas, kingdom)
+        for name in ready:
+            self.bm.statue[name] = bigmap.Fact(True, now)
+        self.bm.discovered()
+        self.discovered_this_run = True
+        log.info("[map] discovery survey took %.0f s", time.monotonic() - t0)
         log.info("power %s; %s areas %s; statues ready in %s", power, kingdom or "?",
                  [(a.name, a.pct, a.gate) + (("unsure",) if a.unsure else ()) for a in areas], ready)
         return areas, ready, power
+
+    def look_around(self) -> tuple[list[Area], list[str], Optional[float]]:
+        """What roam knows before a pick, without a survey unless one is due (docs/big-map-survey.md): the location
+        tree's zones, the ready statues seen in recent glances, and power from the HUD. A discovery survey runs only
+        for its reasons: first of the server day, or asked (--discover)."""
+        why = self.bm.discovery_due() or ("asked (--discover)" if self.discover_asked and not self.discovered_this_run
+                                          else None)
+        if why:
+            log.info("[map] discovery survey: %s", why)
+            return self.survey()
+        power = read_power(self.det)
+        self.power = power or self.power
+        statues = [n for n, f in self.bm.statue.items() if time.monotonic() - f.at <= bigmap.OTHER_ZONES_S]
+        areas = self.tree_areas()
+        log.info("[map] no survey: picking from the location tree (%d zones); statues ready (seen in glances): %s",
+                 len(areas), statues or "none")
+        return areas, statues, power
+
+    def tree_areas(self) -> list[Area]:
+        """The location tree's zones as survey-like areas: pct None for explored ones (as an area map shows them),
+        the label point from the last discovery survey (relative positions only)."""
+        out = []
+        for k, z in self.tree.zones.items():
+            if z.get("kind", "zone") != "zone":
+                continue
+            mx, my = z.get("map_point") or (0, 0)
+            pct = None if self.tree.explored(k) else z.get("pct")
+            fresh = self.bm.fact("pct", k)
+            if fresh is not None and not self.tree.explored(k):
+                pct = fresh
+            out.append(Area(k, [int(mx), int(my), 0, 0], pct, z.get("cp")))
+        return out
+
+    def toward(self, name: str, here: str = "") -> Optional[tuple[float, float]]:
+        """Unit vector on the area map from the zone we're in to `name`, from the label points of the last
+        discovery survey, for the short pans that bring a label into view. None when either point is unknown."""
+        a = (self.tree.get(here) or {}).get("map_point") if here else None
+        b = (self.tree.get(name) or {}).get("map_point")
+        if not a or not b:
+            return None
+        dx, dy = b[0] - a[0], b[1] - a[1]
+        n = (dx * dx + dy * dy) ** 0.5
+        return (dx / n, dy / n) if n >= 40 else None
 
     @staticmethod
     def statue_zones(areas: list[Area], points: list[tuple[int, int]]) -> list[str]:
@@ -426,7 +483,7 @@ class Roamer:
                     out.append(name)
         return out
 
-    def remember(self, areas: list[Area], kingdom: str) -> None:
+    def remember(self, areas: list[Area], kingdom: str, points: bool = True) -> None:
         """Write a survey into the location tree (resource/world/zones.json)."""
         kingdom = re.sub(r"[^A-Za-z ]", "", kingdom).strip()
         for a in areas:
@@ -464,7 +521,8 @@ class Roamer:
                     pct = ...
             elif known:
                 self.no_pct.pop(known, None)
-            self.tree.observe(known or a.name, kingdom or None, pct=pct, cp=a.gate if a.gate else ..., point=a.point)
+            self.tree.observe(known or a.name, kingdom or None, pct=pct, cp=a.gate if a.gate else ...,
+                              point=a.point if points else None)  # label points only from the survey zoom
         if kingdom:
             self.tree.link_neighbours_by_map(kingdom)
         self.tree.save()
@@ -484,6 +542,7 @@ class Roamer:
             for attempt in range(1, BLESS_TRIES + 1):
                 result = self.bless_once(attempt, near_xy)
                 if result == "blessed":
+                    self.bm.invalidate("blessed", name)
                     self.tree.mark_blessed(name)
                     self.tree.save()
                     log.info("%s: statue blessed (Unlock pressed, blessing popup closed)", name)
@@ -631,7 +690,8 @@ class Roamer:
         # Clear Zone then takes the zone's objectives from there. Only for a zone not yet walked into.
         if not (self.tree.get(target.name) or {}).get("entries"):
             progress(("entrance", target.name))
-            why = goto.go_to(self.dev, self.det, self.entrance_picker(target.name), pan_for_target=True)
+            why = goto.go_to(self.dev, self.det, self.entrance_picker(target.name), pan_for_target=True,
+                             toward=self.toward(target.name, here), purpose=f"{target.name}'s entrance")
             log.info("walk to %s's entrance (explored ground nearest it): %s", target.name, why)
             if why == "no_target" and not self.tree.neighbours(target.name, ("walked",)):
                 # R-150: no entrance on the map and no known way in: don't wander toward it.
@@ -647,12 +707,12 @@ class Roamer:
         # Try the plain big-map walk to the zone's label first: most zones can be walked into from where we are
         # (live 2026-11-09: from Verdantglade VI the walk "via Verdantglade IV" landed in Auroradrasil instead).
         progress(("walk_to", target.name))
-        first = goto.go_to(self.dev, self.det, target.name)
+        first = goto.go_to(self.dev, self.det, target.name, toward=self.toward(target.name, here))
         if first == "no_move" or (here and same(here, ENCLOSURE)):
             # Live 2026-11-10: from inside Auroradrasil (an enclosed clearing inside Verdantglade V) big-map walks to
             # far labels don't move the character. Step out first: the tracked quest's pointer led out before.
             if self.escape():
-                first = goto.go_to(self.dev, self.det, target.name)
+                first = goto.go_to(self.dev, self.det, target.name, toward=self.toward(target.name, here))
         if first == "arrived":
             now = goto.area_name_here(self.det)
             if now and same(now, target.name):
@@ -667,7 +727,7 @@ class Roamer:
         done = [a for a in areas if a.pct is None and not a.unsure and not same(a.name, target.name)
                 and self.tree.key(a.name) and self.tree.explored(a.name)]
         if not done:
-            goto.go_to(self.dev, self.det, target.name)
+            goto.go_to(self.dev, self.det, target.name, toward=self.toward(target.name, here))
             return None
         tx, ty = target.point
         # Nearest neighbour first; one that already failed today for this target is tried last (2026-11-04:
@@ -730,14 +790,13 @@ class Roamer:
         """Walk to each statue icon near the area's label that this bot hasn't opened yet and open its card."""
         opened = 0
         for _ in range(3):
-            self.dev.tap(*goto.MINIMAP)
-            time.sleep(2.5)
-            frame = self.dev.screenshot()
-            areas = {a.name: a for a in read_areas(self.det, frame)}
+            look = self.bm.glance(f"statues near {area_name}")  # walking zoom (docs/big-map-survey.md)
+            if look is None or look.frame is None:
+                return opened
+            frame = look.frame
+            areas = {a.name: a for a in look.areas}
             label = next((a for n, a in areas.items() if same(n, area_name)), None)
             statues = statue_badges(frame) + [p for p in statue_points(frame)]
-            self.dev.tap(*ui.BACK_ARROW)
-            time.sleep(2)
             if label is None:
                 return opened
             key = lambda p: f"{area_name}@{p[0] // 20},{p[1] // 20}"
@@ -774,7 +833,7 @@ class Roamer:
         if not self._to_world():
             return "not_on_map"
         while time.monotonic() < deadline and done < max_areas:
-            areas, statues, power = self.survey()
+            areas, statues, power = self.look_around()
             if not areas:
                 return "no_area_map"  # nothing read: not evidence that anything is finished
             if statues and self.bless_ready(statues):
@@ -797,6 +856,11 @@ class Roamer:
                 wall = None
             else:
                 target, wall = self.pick(areas, power, goto.area_name_here(self.det))
+            if target is None and not area and not self.discovered_this_run:
+                # Nothing left in the tree: look for zones it doesn't know yet (a discovery reason, mae 2026-11-11).
+                log.info("[map] discovery survey: the location tree has no zone left to pick")
+                self.survey()
+                continue
             if target is None:
                 if wall:
                     log.info("next area %s needs %sK (power %sK): natural wall", wall.name, wall.gate, power)
@@ -822,7 +886,17 @@ class Roamer:
                 return why
             if not self._to_world():
                 return "not_on_map"
-            areas, _, _ = self.survey()
+            # No survey after a zone run (it used to survey here and again at the loop top, 11 s apart): Clear
+            # Zone's last glance if it is under a minute old and shows the zone's label, else one glance now.
+            self.bm.invalidate("zone_run_ended", target.name)
+            look = self.bm.recent(bigmap.CURRENT_ZONE_S)
+            if look is None or not any(same(a.name, target.name) for a in look.areas):
+                look = self.bm.glance(f"zone run ended: {target.name} {why}")
+            else:
+                look = self.bm.reuse(f"zone run ended: {target.name} {why}", look)
+            areas = merge_readings([(look.areas, (0, 0))]) if look else []
+            if areas:
+                self.remember(areas, "", points=False)  # a glance's points are at the walking zoom
             now = next((a for a in areas if same(a.name, target.name)), None) or                 next((a for a in areas if self.label_prefix_zone(a.name) == self.tree.key(target.name)
                       and a.pct is not None), None)
             if now is None and self.tree.get(target.name):
@@ -877,13 +951,20 @@ def _args(p) -> None:
     p.add_argument("--minutes", type=float, default=20,  # an outer ceiling only: the runner's progress check ends
                    help="upper limit; normally the 2-minute progress check ends the run")  # a stuck run (mae)
     p.add_argument("--area", help="explore only this area (as named on the area map)")
+    p.add_argument("--discover", action="store_true",
+                   help="start with a discovery survey (survey zoom, full pan) to look for unexplored side areas")
     p.add_argument("--max-areas", type=int, default=10)
     p.add_argument("--walk-minutes", type=float, default=8,
                    help="Clear Zone budget per zone (its leg rules usually end it sooner)")
 
 
 def _run(ctx, opts):
-    return Roamer(ctx.dev, ctx.det).run(opts.minutes, opts.area, opts.max_areas, opts.walk_minutes)
+    r = Roamer(ctx.dev, ctx.det)
+    r.discover_asked = bool(getattr(opts, "discover", False))
+    try:
+        return r.run(opts.minutes, opts.area, opts.max_areas, opts.walk_minutes)
+    finally:
+        log.info("[map] this run: %s", r.bm.summary())
 
 
 OK = {"area_done", "power_wall", "all_explored", "timeout", "max_areas", "exploration_concluded", "no_entrance"}

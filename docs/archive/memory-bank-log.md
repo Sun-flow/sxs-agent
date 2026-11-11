@@ -2,6 +2,14 @@
 
 Older entries moved from `memory-bank/log.md`, newest first.
 
+### 2026-11-10 (morning) · Verdantglade VII explored and blessed; side-area stuck points (Claude Code, mae's PC via Remote Control)
+- mae (04:44): keep exploring, alternating main-quest and side areas; log every issue. Branch `claude/project-thread-dloc9z`. 8 traced runs (`scripts/tap_trace.py`).
+- Verdantglade VII 60 → 100% (runs 1-4), Goddess Statue unlocked by hand: Blessing Lv 8, Cart max 8, AFK EXP 636 → 657. Next quest: Explore Verdantglade VIII (27K).
+- Fixed: a far tap on a monster/quest target that doesn't move us walks beside it and taps again (`fogwalk.tap_object`; mae: the click starts the fight, aim matters); go_to never taps our own character at the centre (profile popups) and closes the profile; go_to checks the area map really closed; edge targets on the area map are dragged to the middle first (VII statue walk); one locate tap per missing quest ring (each tap toggles tracking); VII was dropped as a misread of VI and its % written onto VI (numeral-aware misread check; blessed zones keep 100%; clipped names renamed to the full one); walk taps keep out of HUD buttons (one hit Timed Packs: paid "Exploration Kit" popup, nothing bought; rule closes it with a tap below the card); battles and loading screens waited out (damage numbers were read as cards); a minimap goal 3 walk taps don't reach is dropped (ping-pong in VII); dialogue choices take Leave (Fonik's puzzle); a zone name one trailing I short of the zone being explored is that zone; monster group cards ("Limpid Legion", Rcmd Power) fought under the 1.25x rule; crash in `area_map.nearest`.
+- mae: the glowing pot is a Refined Ore pickup (EXP + Refined Ore x59), not a monster.
+- Monolith Ruins II (0%) blocked by Fonik's box puzzle (Golden Beetle question to mae). Benchmark for the vision thread run (default 1.3 s median, DirectML 1.0 s). Handed the emulator off for the symbol-mapping thread.
+- Open: VIII's quest ring pointed into fog the walk couldn't enter (129,94); survey % lines under the wrong name; Monolith Ruins I way in; Zephyr Vale, Troll Lair not reached; 5 stamina spent by a manual tap on an explored-zone rabbit.
+
 ### 2026-11-10 (night) · More zones: V blessed, Jungle Camp 0 → 93% (Claude Code, mae's PC via Remote Control)
 - mae (00:46): explore more areas. Verdantglade V's Goddess Statue (gold, "!" by V's north-east edge near (154,135); not the Sealed Stone Gate at (135,126)) unlocked by hand: Blessing Lv 6, Cart max Lv 6, AFK EXP 592 → 608. Helmet and Armor Enhancement quest gifts claimed (red ore x50 each).
 - Jungle Camp's way in found: from Verdantglade III at (142,84) (also walked in from Drasilgard at (138,84)); 0 → 93% in one run. Its Lost Goddess Statue is the orange icon on the map; Lucky Wheel ("Wheel of Destiny", tickets 0) is a structure there: new card rule backs out with the back arrow, never spins.

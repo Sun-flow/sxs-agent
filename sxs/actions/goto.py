@@ -77,12 +77,16 @@ def same_area(a: str, b: str) -> bool:
                       and not (short.endswith("i") and "i" in long_[len(short):]))
 
 
-def area_labels(det) -> dict[str, list[int]]:
-    """Area-map OCR: name -> box, for lines that look like area names (not the legend or percentages)."""
+def area_labels(det, frame=None) -> dict[str, list[int]]:
+    """Area-map OCR: name -> box, for lines that look like area names (not the legend or percentages). With a frame,
+    the OCR is shared with the other area-map readers (`bigmap.map_text`: one read per frame)."""
+    from . import bigmap
     out = {}
     # Up to the zoom slider (x 655): labels on the right third, such as Damp Woods at the survey zoom, were cut off
     # by the old x 540 limit (live 2026-11-10). The legend box (top right) is skipped.
-    for text, box in det.read_text([0, 120, 655, 1050]):
+    roi = [0, 120, 655, 1050]  # x, y, w, h
+    lines = bigmap.map_text(det, frame, roi) if frame is not None else det.read_text(roi)
+    for text, box in lines:
         t = text.replace("-", " ").strip(" |")
         if re.search(r"Exploration|%|\d\.\dK", t) or len(t) < 4:
             continue
@@ -100,8 +104,8 @@ def coords(det) -> Optional[tuple[int, int]]:
     return (int(m.group(1)), int(m.group(2))) if m else None
 
 
-def _label_point(det, name: str) -> Optional[tuple[int, int]]:
-    labels = area_labels(det)
+def _label_point(det, name: str, frame=None) -> Optional[tuple[int, int]]:
+    labels = area_labels(det, frame)
     hit = ([b for t, b in labels.items() if t.lower() == name.lower()]
            or [b for t, b in labels.items() if squeeze(t) == squeeze(name)]
            or [b for t, b in labels.items() if same_area(t, name)])
@@ -111,14 +115,29 @@ def _label_point(det, name: str) -> Optional[tuple[int, int]]:
     return x + w // 2, y + h // 2
 
 
-def _widen(dev) -> bool:
-    """A label wasn't on the area map: it opens centred on the camera, so a far area can sit off screen (seen
-    2026-11-04: from Moonveil Woods, Verdantglade II and Damp Woods were cut off). Zoom out one step and let the
-    labels settle, then the caller reads again. Returns True when it tried."""
-    # One "-" wasn't enough (live 2026-11-10: Damp Woods never showed from Jungle Camp): the survey zoom shows the
-    # whole kingdom with readable labels.
-    survey_zoom(dev)
-    return True
+def _widen(dev, frame=None):
+    """A label or target wasn't in view: zoom out to the survey zoom with one knob drag (~2 s) and return the new
+    frame, or None when the knob isn't seen (no blind taps) or the map is already there. mae (2026-11-11 18:15): a
+    glance may zoom out when it is quick and accurate; what must not happen regularly is the slow full pan."""
+    from . import bigmap
+    frame = frame if frame is not None else dev.screenshot()
+    if bigmap.knob_y(frame) is None or not bigmap.set_zoom(dev, frame, bigmap.SURVEY_KNOB_Y):
+        return None
+    log.info("not in view at the walking zoom: zoomed out (one knob drag)")
+    return dev.screenshot()
+
+
+PAN_CENTRE, PAN_LEN, PAN_MS = (330, 620), 350, 1500  # directed pans: a slow drag from the map's middle
+
+
+def _pans(toward) -> list:
+    """Drags that bring a label in `toward` (a unit vector on the area map, from the location tree) into view: two
+    along it. Without a direction none: the old six-drag sweep is gone (mae: no regular slow panning)."""
+    if not toward:
+        return []
+    cx, cy = PAN_CENTRE
+    dx, dy = int(-toward[0] * PAN_LEN), int(-toward[1] * PAN_LEN)  # drag the map the other way to reveal it
+    return [(cx, cy, cx + dx, cy + dy)] * 2
 
 
 SLIDER_DRAG = (682, 1090, 682, 1030)  # zoom knob from full zoom-out a quarter up (`world/area_map_survey_zoom.png`)
@@ -126,12 +145,10 @@ SLIDER_DRAG = (682, 1090, 682, 1030)  # zoom knob from full zoom-out a quarter u
 
 def survey_zoom(dev) -> None:
     """Area map open: zoom out fully, then one step closer by dragging the knob (mae, 2026-11-09: fully zoomed out the
-    labels merge; the "+" button jumps to the closest zoom). The whole kingdom then nearly fits the screen."""
-    for _ in range(4):
-        dev.tap(*AREA_MAP_ZOOM_OUT)
-        time.sleep(0.4)
-    dev.swipe(*SLIDER_DRAG, 600)
-    time.sleep(1.2)
+    labels merge; the "+" button jumps to the closest zoom). The whole kingdom then nearly fits the screen. Only the
+    discovery survey uses it (mae, 2026-11-11); it skips the taps when the knob already shows the survey zoom."""
+    from . import bigmap
+    bigmap.set_zoom(dev, dev.screenshot(), bigmap.SURVEY_KNOB_Y)
 
 
 LABEL_PANS = [(300, 900, 300, 450), (450, 620, 150, 620), (300, 400, 300, 850), (300, 400, 300, 850),
@@ -170,9 +187,14 @@ def _me_at_centre(dev, det) -> bool:
                 and abs(me[1] - SCREEN_CENTRE[1]) <= ME_AT_CENTRE_PX)
 
 
-def go_to(dev, det, target, pan_for_target: bool = False) -> str:
+def go_to(dev, det, target, pan_for_target: bool = False, toward=None, purpose: str = "") -> str:
     """target: an area name on the area map, or an (x, y) point there. Returns "arrived" (walked and stopped),
-    "no_move" (coordinates didn't change: blocked or unreachable), "no_label", or "not_on_map"."""
+    "no_move" (coordinates didn't change: blocked or unreachable), "no_label", or "not_on_map".
+
+    The map opens at the walking zoom (docs/big-map-survey.md): its frame is recorded in the shared BigMap (a glance)
+    before anything is tapped. A label or target not in view is looked for by drags `toward` it (a unit vector from
+    the location tree) when given, else by the six-drag sweep; never by zooming out."""
+    from . import bigmap
     banner(log, "Go To", f"walk to {'the nearest object' if callable(target) else target} picked on the area map",
            f"the character stops moving, {WALK_TIMEOUT_S}s, or no movement at all after the tap")
     start = coords(det)
@@ -187,13 +209,29 @@ def go_to(dev, det, target, pan_for_target: bool = False) -> str:
         return "not_on_map"
     dev.tap(*MINIMAP)
     time.sleep(2)
+    t0 = time.monotonic() - 2
+    bm = bigmap.get(dev, det)
+    frame = dev.screenshot()
+    if bigmap.knob_y(frame) is not None and bigmap.set_zoom(dev, frame, bigmap.WALK_KNOB_Y):
+        frame = dev.screenshot()  # only with the knob seen: a blind "-" tap on the island map hits the tracker
+    what = purpose or ("pick" if callable(target) else f"walk to {target if not isinstance(target, tuple) else 'a point'}")
+    if bigmap.knob_y(frame) is not None:
+        bm.record(frame, what, t0=t0)
     if isinstance(target, tuple) and len(target) == 3 and isinstance(target[0], str):
         # (from_area, to_area, fraction): a point that far along from one label to the other, both read in this
         # same opening (the map's zoom changes between openings, so points from an earlier reading drift).
         a, b_, frac = target
-        pa, pb = _label_point(det, a), _label_point(det, b_)
-        if (pa is None or pb is None) and _widen(dev):
-            pa, pb = _label_point(det, a), _label_point(det, b_)
+        pa, pb = _label_point(det, a, frame), _label_point(det, b_, frame)
+        wide = _widen(dev, frame) if pa is None or pb is None else None
+        if wide is not None:
+            pa, pb = _label_point(det, a, wide), _label_point(det, b_, wide)
+        for drag in (_pans(toward) if pa is None or pb is None else ()):
+            dev.swipe(*drag, PAN_MS)
+            time.sleep(1.2)
+            cur = dev.screenshot()
+            pa, pb = _label_point(det, a, cur), _label_point(det, b_, cur)
+            if pa is not None and pb is not None:
+                break
         if pa is None or pb is None:
             log.warning("no %r or %r on the area map; frame %s", a, b_, save_unknown(dev, "goto"))
             dev.tap(*ui.BACK_ARROW)
@@ -201,8 +239,8 @@ def go_to(dev, det, target, pan_for_target: bool = False) -> str:
             return "no_label"
         point = (int(pa[0] + (pb[0] - pa[0]) * frac), int(pa[1] + (pb[1] - pa[1]) * frac))
     elif isinstance(target, str):
-        def find():
-            labels = area_labels(det)
+        def find(fr):
+            labels = area_labels(det, fr)
             # OCR swaps I, l and 1 and drops edge letters: match exactly first, then loosely.
             return labels, ([b for t, b in labels.items() if t.lower() == target.lower()]
                             or [b for t, b in labels.items() if squeeze(t) == squeeze(target)]
@@ -210,15 +248,16 @@ def go_to(dev, det, target, pan_for_target: bool = False) -> str:
                             or [b for t, b in labels.items() if squeeze(t) and squeeze(target).startswith(squeeze(t))
                                 and same_area(t, target)]
                             or [b for t, b in labels.items() if close_name(t, target)])
-        labels, hit = find()
-        if not hit and _widen(dev):
-            labels, hit = find()
-        # Still not in view: the kingdom is bigger than the screen even zoomed out (live 2026-11-10: Damp Woods sat
-        # off the bottom right while the map opened centred on Auroradrasil). Pan and look again.
-        for drag in (LABEL_PANS if not hit else ()):
-            dev.swipe(*drag, 1500)
+        labels, hit = find(frame)
+        # Not in view (live 2026-11-10: Damp Woods sat off the bottom right while the map opened centred on
+        # Auroradrasil): zoom out with one knob drag, then (still missing) two drags toward it. No full sweep.
+        wide = _widen(dev, frame) if not hit else None
+        if wide is not None:
+            labels, hit = find(wide)
+        for drag in (_pans(toward) if not hit else ()):
+            dev.swipe(*drag, PAN_MS)
             time.sleep(1.2)
-            labels, hit = find()
+            labels, hit = find(dev.screenshot())
             if hit:
                 log.info("found %r after panning the area map", target)
                 break
@@ -232,16 +271,15 @@ def go_to(dev, det, target, pan_for_target: bool = False) -> str:
     elif callable(target):
         # A picker reads this opening of the map (mae, 2026-11-05: tap the target on the big map, close it, tap the
         # element now in the middle of the screen).
-        time.sleep(0.5)
-        point = target(dev.screenshot())
-        if point is None:
-            # The map opens at whatever zoom it was left at, so the target may just be off screen (live 2026-11-09:
-            # "no_target" for Verdantglade V while its dots were outside the view): look again zoomed out.
-            survey_zoom(dev)
-            point = target(dev.screenshot())
-        for drag in (LABEL_PANS if point is None and pan_for_target else ()):
+        # A picker reads this same opening (recorded above). Not found: one quick zoom-out (the target may just be
+        # off screen, live 2026-11-09), then callers that may need it pan toward it (pan_for_target).
+        point = target(frame)
+        wide = _widen(dev, frame) if point is None else None
+        if wide is not None:
+            point = target(wide)
+        for drag in (_pans(toward) if point is None and pan_for_target else ()):
             # Off screen or under the dark bottom-left corner (live 2026-11-10: Jungle Camp's blue "!"): pan, look again.
-            dev.swipe(*drag, 1500)
+            dev.swipe(*drag, PAN_MS)
             time.sleep(1.2)
             point = target(dev.screenshot())
             if point is not None:
