@@ -68,7 +68,8 @@
     -173
    ],
    "last_seen": "2026-11-11",
-   "notes": "run 22: 0 -> 63% in 4 legs; the zone's ground runs north into fog (frontier retest target)"
+   "notes": "run 22: 0 -> 63% in 4 legs. Run 24: the zone's northern fog lies behind the Ancient Fortress gate ~(116,148), an 'Energy Circuits' slab puzzle (R-153)",
+   "blocked": "puzzle gate near [116, 148] (Ancient Fortress, Energy Circuits; R-153)"
   },
   "Hidden Camp": {
    "kingdom": "Verdantglade",

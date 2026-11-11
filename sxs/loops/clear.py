@@ -577,6 +577,22 @@ class Clearer:
             progress(("battle", d.text or "", int(time.monotonic() // 20)))
         elif pass_through(dev, d):
             pass  # dialogue
+        elif d.state == "puzzle":
+            # Live 2026-11-11 (run 24, Grotto Peninsula): a minimap leg walked onto the Ancient Fortress gate and its
+            # "Energy Circuits" slab puzzle opened (unknown_screen then). Puzzles are skipped for now (R-153): back
+            # out, skip the spot, and end the run `puzzle` with the gate noted on the zone.
+            here = _xy(self.det) or (self.leg.xy if self.leg else None)
+            ui.tap(dev, ui.BACK_ARROW, 2)
+            title = (d.text or "").strip() or "a puzzle screen"
+            log.warning("STUCK %s: %s at %s (R-153), stopping", self.home, title, here)
+            self.note_objective(f"Puzzle ({title})", "dismiss", here)
+            if here:
+                self.skip_spot(here)
+            k = self.tree.key(self.home or "")
+            if k and not self.tree.zones[k].get("blocked"):
+                self.tree.zones[k]["blocked"] = f"puzzle gate near {list(here) if here else '?'} (R-153)"
+                self.tree.save()
+            return "puzzle"
         elif d.state == "defeated":
             card, choice = self.decider.decide(self.ctx)
             dev.tap(*choice.point)
