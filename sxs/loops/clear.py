@@ -382,7 +382,11 @@ class Clearer:
                 0 <= gr < len(mm.grid) and 0 <= gc < len(mm.grid)) else []
             if len(path) < 2 or path[-1] != (gr, gc):
                 path = [mm.centre, (gr, gc)]  # aim straight at the spot; the game paths there itself
-        log.info("[leg %d] couldn't bring the %s on screen", leg.n, goal)
+        # Live 2026-11-11 (run 29, XI): the same item 5 tiles off took legs 9-12, each failing in about 1 s with no
+        # walk, and the run ended no_progress. An object we can't bring on screen is skipped at once (all its tiles),
+        # so the next leg falls through to the big map, the ring or the frontier.
+        log.info("[leg %d] couldn't bring the %s on screen: skipped for the rest of this run", leg.n, goal)
+        self.skip_spot(spot)
         leg.events.append("no_move")
         return leg
 
