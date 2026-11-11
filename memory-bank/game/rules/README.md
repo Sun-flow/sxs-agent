@@ -186,7 +186,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-171 | `ui.md` | Story dialogue with a single option: always press it |
 | R-172 | `home.md` | Workbench: activate new relics; Enhance with Chrono Sand, never Replace |
 | R-173 | `ui.md` | Lore pages: swipe to the end, then Close |
-| R-174 | `overworld.md` | Blight Witch lore objects curse the player: avoid them |
+| R-174 | `overworld.md` | Blight Witch lore objects: visit them; expect a curse, then Quick Heal |
 
 ## Retired IDs
 
