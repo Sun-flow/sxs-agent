@@ -6,9 +6,10 @@ Design notes, one per plan step. The code is the source of truth; these explain 
 |---|---|
 | `step1-emulator-and-game.md` | Emulator choice, architecture, daily-content catalogue, iteration 1 scope |
 | `step2-hands-and-eyes.md` | Device layer, state detector, CLI, adding a screen |
-| `step3-explore.md` | Explore loop, card decisions, tutorial follower, minimap, fog walk |
+| `step3-explore.md` | Explore loop, card decisions, tutorial follower, minimap (its fog walk was replaced by step 6) |
 | `step4-dailies.md` | `sxs.loops.daily` steps and routes |
 | `step5-upgrades.md` | Upgrade Loop and Gather Loop |
+| `step6-clear-zone.md` | Clear Zone: goal-directed exploration (every leg a named objective, progress = % or objects), which replaced the Fog Walk |
 | `loops/` | Diagrams of every loop: goal, step order, checks, sub-loops, what it does on each screen; `loops/open-questions.md` lists where code and rules disagree (index `loops/README.md`) |
 | `interrupts.md` | How a loop is paused for a tutorial, reward choice or popup and resumed (the interrupt table) |
 | `function-check.md` | What each loop does, how to run it, what it reports, whether it has run live |
@@ -18,3 +19,4 @@ Design notes, one per plan step. The code is the source of truth; these explain 
 | `shop-tables.md` | Shop stock and mae's Buy? marks |
 | `screens/` | Reference screenshots in folders by situation, `expected.json`, the `unlabeled/` bank; index in `screens/README.md` |
 | `archive/` | History only (old log entries), never instructions |
+- `fogwalk-postmortem.md`: why the Fog Walk was scrapped (2026-11-10), where it lives, what depends on it, what to keep.

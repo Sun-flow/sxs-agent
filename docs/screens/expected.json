@@ -142,6 +142,7 @@
   "world_map_moonveil_entry": "world_map",
   "world_map_player_pointer": "world_map",
   "world_map_tile_puzzle_chests": "world_map",
+  "puzzle_energy_circuits": "puzzle",
   "world_map_tracker_gift": "world_map",
   "world_overview": "world_overview",
   "wounded": "confirm_dialog",

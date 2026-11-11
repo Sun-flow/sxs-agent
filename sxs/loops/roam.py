@@ -15,8 +15,8 @@ over areas that strings them together:
    first), else the lowest-CP zone not yet explored with recommended power at most 25% above ours (R-135, R-127), not
    given up on. The Verdantglade cap (handoff: 4 to 7 areas, or stop at a natural wall) is enforced by stopping at
    the first power wall, and by `--max-areas`.
-3. Walk there with the area map and explore it (`fogwalk.walk`: minimap dots and unexplored tiles, then fog edge;
-   fights and cards go through the usual rules).
+3. Walk there with the area map and clear it (`clear.run`: one named objective per leg, quest ring, objects on
+   screen, the minimap and the big map, then the fog frontier; fights and cards go through the usual rules).
 4. When the area shows no percentage any more (100%), walk to each Lost Statue icon near its label and open the
    statue's card; the card rules unlock it (R-070: free, +1 Blessing Level).
 
@@ -51,7 +51,9 @@ from ..policy.zones import Tree
 from ..vision.badges import SMALL_MIN_AREA, find_badges
 from ..vision.hud import read_power
 from ..vision.ocr import power_k
-from . import fogwalk
+from ..vision.player import player_on_screen
+from ..actions import mapnav
+from . import clear
 
 log = logging.getLogger("sxs.loops.roam")
 
@@ -59,7 +61,7 @@ STATUE_TEMPLATE = RESOURCE / "image" / "areamap" / "lost_statue.png"  # from doc
 STATUE_THRESHOLD = 0.8
 STATUE_NEAR_LABEL = 260  # px on the area map: statues this close to an area's label belong to it
 MAP_ROI = [0, 120, 720, 1100]  # labels below y 1185 are the kingdom buttons
-STOP_REASONS = {"defeated", "unknown_screen", "left_area:home"}
+STOP_REASONS = {"defeated", "unknown_screen", "left_area:home", "needs_decision", "repeating_card"}
 SURVEY_ZOOM_OUT = 4  # "-" taps: enough to reach full zoom-out from any opening
 # mae, 2026-11-09: read one step closer than full zoom-out (OCR merged labels there). Live the same day: one "+" tap
 # jumps to the closest zoom (labels clipped to "/erdanto", % lines lost), so drag the slider knob up a little instead.
@@ -204,6 +206,28 @@ def merge_readings(readings: list, bottom: int = 1185) -> list[Area]:
     return out
 
 
+BLESS_TRIES = 2  # walks to a ready statue before giving up on it this survey
+STATUE_SCREEN_PX = 320  # a red "!" this far from the screen centre after the walk can be the statue's
+STATUE_BADGE_DY = 60  # the statue's body sits this far below its red "!"
+TRACKER_TOP = 880  # the quest tracker panel's top: its gift "!" is not a statue's
+OWN_BADGE_PX, OWN_BADGE_DY = 70, 200  # our own "!" sits over our name label: this close in x, up to this far above
+
+
+def statue_on_screen(frame: np.ndarray, me=None) -> Optional[tuple[int, int]]:
+    """After the walk to a ready statue the camera centres on us, beside it: tap the statue under its red "!",
+    not the screen centre, which is us (run 26). The badge nearest the centre, off the HUD and the tracker panel,
+    not our own "!" (over `me`, our name label); None if none shows. An NPC's "!" can still be picked: its card or
+    dialogue is then a miss, closed by the caller."""
+    cx, cy = goto.SCREEN_CENTRE
+    pts = [p for p in find_badges(frame) if (p[0] - cx) ** 2 + (p[1] - cy) ** 2 <= STATUE_SCREEN_PX ** 2
+           and mapnav.off_hud(p) == (int(p[0]), int(p[1])) and p[1] < TRACKER_TOP
+           and not (me and abs(p[0] - me[0]) <= OWN_BADGE_PX and -OWN_BADGE_DY <= me[1] - p[1] <= OWN_BADGE_DY)]
+    if not pts:
+        return None
+    x, y = min(pts, key=lambda p: (p[0] - cx) ** 2 + (p[1] - cy) ** 2)
+    return int(x), int(y) + STATUE_BADGE_DY
+
+
 def nearest_badge(frame: np.ndarray) -> Optional[tuple[int, int]]:
     """Area-map picker: the ready statue nearest our white dot (or the screen centre)."""
     from ..vision import area_map
@@ -274,7 +298,7 @@ class Roamer:
         _save_state(self.state)
 
     def tried_from(self, target: str) -> list[str]:
-        """Neighbours a fog walk into `target` started from today without making progress."""
+        """Neighbours a Clear Zone run into `target` started from today without making progress."""
         t = self.state.get("tried_from", {}).get(target, {})
         return t.get("via", []) if t.get("day") == server_day() else []
 
@@ -313,8 +337,13 @@ class Roamer:
                 break
         if d.state == "world_overview":  # the kingdom picker: tap Verdantglade's island
             self.dev.tap(*VERDANTGLADE_ISLAND)
-            time.sleep(8)
-            d = self.det.detect()
+            # The island can take over 8 s to load after the kingdom picker (live 2026-11-10 22:43: "not_on_map"
+            # with the island up a moment later): poll up to ~24 s.
+            for _ in range(8):
+                time.sleep(3)
+                d = self.det.detect()
+                if d.state == "world_map":
+                    break
         return d.state == "world_map"
 
     def survey(self) -> tuple[list[Area], list[str], Optional[float]]:
@@ -426,33 +455,64 @@ class Roamer:
         self.tree.save()
 
     def bless_ready(self, zones: list[str]) -> int:
-        """mae, 2026-11-05: a statue with a red "!" on the area map is ready. Walk to its zone, then to the badge
-        nearest us the big-map way (tap it on the area map, close the map, tap the middle of the screen) and unlock it
-        through the card rules."""
+        """mae, 2026-11-05: a statue with a red "!" on the area map is ready. Walk to the badge nearest us the big-map
+        way, open the statue and Unlock it through the card rules. Blessed only when the card was a Goddess Statue,
+        its Unlock was pressed and a reward popup followed (live 2026-11-11, run 26: the walk ended with our character
+        at the screen centre, the centre tap opened our own Mage class card, and the zone was logged blessed). Any
+        other card is a miss: closed, and the statue tried again (BLESS_TRIES)."""
         done = 0
         for name in zones[:3]:
             # The zone is only a guess from the nearest label (live 2026-11-10: Verdantglade V's statue was put in
             # "Wildbloom Coast" and the walk to that label went nowhere). Walk straight to the badge nearest us.
             log.info("statue ready to bless (near the %s label)", name)
             progress(("bless", name))
-            why = goto.go_to(self.dev, self.det, nearest_badge)
-            progress(("bless_walk", why))
-            if why in ("not_on_map", "no_target"):
-                continue
-            self.dev.tap(*goto.SCREEN_CENTRE)
-            time.sleep(4)
-            if self.det.detect().state in ("world_map", "unknown") and not self.det.read_text([60, 560, 600, 80]):
-                continue
-            card, choice = Decider(self.det).decide(Context(goal="explore"))
-            log.info("statue card %r -> %s", card.title, choice.kind)
-            self.dev.tap(*choice.point)
-            time.sleep(3)
-            close_rewards(self.dev, self.det)
-            self.tree.mark_blessed(name)
-            self.tree.save()
-            progress(("blessed", name))
-            done += 1
+            for attempt in range(1, BLESS_TRIES + 1):
+                result = self.bless_once(attempt)
+                if result == "blessed":
+                    self.tree.mark_blessed(name)
+                    self.tree.save()
+                    log.info("%s: statue blessed (Unlock pressed, blessing popup closed)", name)
+                    progress(("blessed", name))
+                    done += 1
+                    break
+                if result == "no_statue":
+                    break
         return done
+
+    def bless_once(self, attempt: int) -> str:
+        """One try at the ready statue nearest us: "blessed", "miss" (no card, or not the statue's), or "no_statue"."""
+        why = goto.go_to(self.dev, self.det, nearest_badge)
+        progress(("bless_walk", why, attempt))
+        if why in ("not_on_map", "no_target"):
+            return "no_statue"
+        frame = self.dev.screenshot()
+        me = player_on_screen(self.det, frame)
+        cx, cy = goto.SCREEN_CENTRE
+        point = goto.SCREEN_CENTRE
+        if me and abs(me[0] - cx) <= goto.ME_AT_CENTRE_PX and abs(me[1] - cy) <= goto.ME_AT_CENTRE_PX:
+            point = statue_on_screen(frame, me)
+            if point is None:
+                log.info("bless try %d: we stand at the screen centre and no red \"!\" shows beside us: not "
+                         "tapping ourselves", attempt)
+                return "miss"
+        log.info("bless try %d: tapping the statue at %s", attempt, point)
+        self.dev.tap(*point)
+        time.sleep(4)
+        if self.det.detect().state in ("world_map", "unknown") and not self.det.read_text([60, 560, 600, 80]):
+            log.info("bless try %d: no card opened", attempt)
+            return "miss"
+        card, choice = Decider(self.det).decide(Context(goal="explore"))
+        log.info("statue card %r -> %s", card.title, choice.kind)
+        self.dev.tap(*choice.point)
+        time.sleep(3)
+        if not re.search(r"Goddess Statue", card.title or "") or choice.kind != "goddess_statue":
+            log.warning("bless try %d: card %r is not a statue we can Unlock: closed it, not blessed", attempt,
+                        card.title)
+            return "miss"
+        if not close_rewards(self.dev, self.det):
+            log.warning("bless try %d: Unlock pressed but no blessing popup followed: not counted", attempt)
+            return "miss"
+        return "blessed"
 
     def pick(self, areas: list[Area], power: Optional[float], here: str = "") -> tuple[Optional[Area], Optional[Area]]:
         """(next area to explore, first area behind a power wall), by the location tree (`Tree.next_zone`):
@@ -490,14 +550,14 @@ class Roamer:
     def approach(self, areas: list[Area], target: Area) -> Optional[Area]:
         """mae, 2026-11-04: "try moving from areas you are connected to". Walk into the explored area whose label
         sits nearest the target's on the area map, then toward the target as far as the explored ground goes; the
-        fog walk takes it from there. Returns the neighbour used (None if there is none: walk to the label)."""
-        here = fogwalk.zone_here(self.dev, self.det, self.tree)  # R-140: the minimap name first, then the big map
+        Clear Zone run takes it from there. Returns the neighbour used (None if there is none: walk to the label)."""
+        here = mapnav.zone_here(self.dev, self.det, self.tree)  # R-140: the minimap name first, then the big map
         progress(("zone_here", here))
         if here and same(here, target.name):
             log.info("already in %s: finishing it here first (R-132)", target.name)
             return None
         # R-150 (mae, 2026-11-10): start a new zone at its entrance, the explored ground nearest it on the big map;
-        # the fog walk then steps onto the tiles beside its fog. Only for a zone not yet walked into.
+        # Clear Zone then takes the zone's objectives from there. Only for a zone not yet walked into.
         if not (self.tree.get(target.name) or {}).get("entries"):
             progress(("entrance", target.name))
             why = goto.go_to(self.dev, self.det, self.entrance_picker(target.name), pan_for_target=True)
@@ -507,7 +567,7 @@ class Roamer:
                 self.give_up(target.name, "no entrance found on the big map and no known way in")
                 return NO_ENTRANCE
             if why == "arrived":
-                # The entrance is on the neighbour's ground: the fog walk may stand there and cross into the target
+                # The entrance is on the neighbour's ground: the Clear Zone run may stand there and cross into the target
                 # (live 2026-11-10: without this it "went back" to Wildbloom Coast by a big-map jump at once).
                 now = goto.area_name_here(self.det)
                 if now and not same(now, target.name):
@@ -576,7 +636,7 @@ class Roamer:
         from ..vision import area_map
 
         def pick(frame):
-            labels = fogwalk.map_labels(self.det, frame)
+            labels = mapnav.map_labels(self.det, frame)
             hits = [p for k, p in labels.items() if same(k, name) or goto.close_name(k, name)]
             return area_map.entrance(frame, hits[0]) if hits else None
         return pick
@@ -586,7 +646,7 @@ class Roamer:
         or two steps). True if the zone under the minimap changed."""
         before = goto.area_name_here(self.det)
         for _ in range(2):
-            if not fogwalk.quest_step(self.dev, self.det, fight=True):
+            if not mapnav.quest_step(self.dev, self.det, fight=True):
                 break
             now = goto.area_name_here(self.det)
             if now and not same(now, before):
@@ -670,19 +730,23 @@ class Roamer:
                 if wall:
                     log.info("next area %s needs %sK (power %sK): natural wall", wall.name, wall.gate, power)
                     return "power_wall"
-                # Every zone in reach is blessed (mae): one last fog walk for ground nobody has walked yet.
-                why = fogwalk.walk(self.dev, self.det, minutes=walk_minutes)
-                log.info("all zones blessed; fog walk for leftover ground ended: %s", why)
-                return "exploration_concluded" if why == "no_fog" else "all_explored"
+                # Every zone in reach is blessed (mae). The fog walk's last sweep for leftover ground went with it
+                # (scrapped 2026-11-10): ground isn't progress, objects are (R-143).
+                log.info("all zones in reach explored and blessed: exploration concluded for now")
+                return "exploration_concluded"
             log.info("exploring %s (%s%%, %sK)", target.name, target.pct, target.gate)
             via = self.approach(areas, target)
             if via is NO_ENTRANCE:
                 log.info("skipping %s for now: no entrance found (R-150)", target.name)
+                if area:
+                    # Only this zone was asked for: retrying it just repeats the same survey (live 2026-11-10: Leafy
+                    # Corridor gave up and was picked again every 30 s until killed).
+                    return "no_entrance"
                 continue
             left = (deadline - time.monotonic()) / 60
-            why = fogwalk.walk(self.dev, self.det, minutes=min(walk_minutes, max(1.0, left)), area=target.name,
-                               allowed={via.name} if via else None, walk_there=False)
-            log.info("fog walk in %s ended: %s", target.name, why)
+            why = clear.run(self.dev, self.det, minutes=min(walk_minutes, max(1.0, left)), area=target.name,
+                            allowed={via.name} if via else None, walk_there=False)
+            log.info("Clear Zone in %s ended: %s", target.name, why)
             if why in STOP_REASONS:
                 return why
             if not self._to_world():
@@ -724,14 +788,14 @@ class Roamer:
                     self.tree.save()
             elif now.pct == target.pct:
                 if via:
-                    self.tree.record_entry(target.name, via.name, False, server_day(), why=f"fog walk {why}")
+                    self.tree.record_entry(target.name, via.name, False, server_day(), why=f"clear {why}")
                     self.tree.save()
                 if via and self.failed_from(target.name, via.name) < MAX_ENTRY_TRIES:
                     # Not in from this side: the next run tries the next-nearest connected area instead.
                     log.info("no way into %s from %s; the next run tries another neighbour", target.name, via.name)
                     self.given_up.add(target.name)
                 else:
-                    self.give_up(target.name, f"fog walk ended {why!r} without moving off {now.pct}% "
+                    self.give_up(target.name, f"Clear Zone ended {why!r} without moving off {now.pct}% "
                                  f"(tried from {', '.join(self.tried_from(target.name)) or 'its label'})")
                 if area:
                     return "no_progress"
@@ -743,13 +807,14 @@ def _args(p) -> None:
                    help="upper limit; normally the 2-minute progress check ends the run")  # a stuck run (mae)
     p.add_argument("--area", help="explore only this area (as named on the area map)")
     p.add_argument("--max-areas", type=int, default=10)
-    p.add_argument("--walk-minutes", type=float, default=2, help="fog walk budget per pass")
+    p.add_argument("--walk-minutes", type=float, default=8,
+                   help="Clear Zone budget per zone (its leg rules usually end it sooner)")
 
 
 def _run(ctx, opts):
     return Roamer(ctx.dev, ctx.det).run(opts.minutes, opts.area, opts.max_areas, opts.walk_minutes)
 
 
-OK = {"area_done", "power_wall", "all_explored", "timeout", "max_areas", "exploration_concluded"}
+OK = {"area_done", "power_wall", "all_explored", "timeout", "max_areas", "exploration_concluded", "no_entrance"}
 LOOP = Loop("roam", "Roam", "free exploration: unexplored areas under our power, then their statues", _run, _args,
             ok=OK)

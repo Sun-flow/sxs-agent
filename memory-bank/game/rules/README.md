@@ -83,7 +83,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-062 | `overworld.md` | Talk to red "!" NPCs first; they gate what's around them |
 | R-063 | `ui.md` | A red "!" on a menu button or tab means something to claim |
 | R-064 | `overworld.md` | If the marker leads nowhere, follow NPC instructions |
-| R-065 | `overworld.md` | When stuck or between quests, walk the fog edge |
+| R-065 | `overworld.md` | Between quests, clear side zones to 100% by their objects |
 | R-066 | `overworld.md` | Minimap legend: it shows the true tiles |
 | R-067 | `overworld.md` | Areas join by land bridges: head for the connection, not the straight line |
 | R-068 | `overworld.md` | Travel far or into unexplored ground through the area map |
@@ -143,7 +143,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-127 | `combat.md` | Take fights against up to 25% more CP than ours |
 | R-128 | `quests.md` | Daily Quest: the default Quest page |
 | R-129 | `ui.md` | "Choose Your Reward": take the class match, else ask mae |
-| R-130 | `overworld.md` | Fog-walk and pathfind toward the light-green to striped-green edge |
+| R-130 | `overworld.md` | Fog is revealed by a frontier leg to the zone's own edge, never by short hops |
 | R-131 | `overworld.md` | Save a reference of every collectible and monster met while exploring |
 | R-132 | `overworld.md` | Dotted lines mark zone borders: finish the zone you're in first |
 | R-133 | `combat.md` | Auroradrasil: a free 4-player story dungeon with NPC companions |
@@ -158,11 +158,11 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-143 | `overworld.md` | In an unblessed zone the whole minimap is shaded: the % comes from objects |
 | R-144 | `overworld.md` | "Statue of <name>": press Visit |
 | R-145 | `overworld.md` | Sealed Stone Gate: a rank-gated gate between zones; press the free Unlock |
-| R-146 | `overworld.md` | Never tap fog: tap walkable ground next to it |
+| R-146 | `overworld.md` | Never tap fog |
 | R-147 | `overworld.md` | Lucky Wheel ("Wheel of Destiny"): one free spin per wheel while its zone is unexplored |
 | R-148 | `overworld.md` | A blue "!" on the area map marks interactable statues: tap them to finish the zone |
 | R-149 | `overworld.md` | "Rankings" structure: back out, press nothing |
-| R-150 | `overworld.md` | Entering a new zone: start at the entrance, then work outward to the fog |
+| R-150 | `overworld.md` | Entering a new zone: start at the entrance, then take its objectives |
 | R-151 | `overworld.md` | Boulder Blockade: a barrier that needs a drill bit; Hidden Camp is inaccessible for now |
 | R-152 | `overworld.md` | A Portal sits under the Verdantglade VI label on the big map |
 | R-153 | `overworld.md` | Puzzle areas: skip them for now; never spend Golden Beetles |

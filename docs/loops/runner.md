@@ -38,7 +38,7 @@ flowchart TD
 
 - Inside a loop, `with task(name, seconds)` gives one step its own budget and stall check: the step is cut and the
   loop goes on with the next one. Daily (120 s per step) and Upgrade (90 s per pass) work this way.
-- A loop that never calls `progress(...)` ends at its first budget. Loops that report progress: explore and fogwalk
+- A loop that never calls `progress(...)` ends at its first budget. Loops that report progress: explore and clear
   (Heartbeat), gather (pickups), roam (statues), cart, upgrade, tower floors, mall pages, gear swaps.
 
 ## Interrupts: checked after every screen read
@@ -67,7 +67,7 @@ flowchart TD
     TU2 -->|"done or steps used"| RES
     M -->|"nothing matches"| BACK(["Loop gets the screen"])
     N --> M
-    RES["Run the loop's resume step, if any<br/>(Fog Walk walks back to its zone)"] --> AG["Read the screen again<br/>(up to 3 handlers in a row)"]
+    RES["Run the loop's resume step, if any<br/>(Clear Zone walks back to its zone)"] --> AG["Read the screen again<br/>(up to 3 handlers in a row)"]
     AG --> BACK
     classDef look fill:#fde2c8,stroke:#c25e00,color:#000
     classDef sub fill:#dbe9ff,stroke:#1f5fbf,color:#000
