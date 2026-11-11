@@ -58,17 +58,22 @@ Stop if: the machine or Workbench can't be found by hand (report with a screensh
    `Light: affinity N, displayed relics [3, ...]` per element with relics, `[Result Relics] check`.
    Stop if: `no_template` (step 1 not done), `unknown_screen`, or the levels read don't match the screen.
 2. `python -m sxs relics`. Goal: activate any new relic, ascend where shards read 20/20 with the button's pip,
-   enhance in bands of one level. Expected: `relic activated (Light tab)`, `relic slot 0: +3 -> +4`, then
-   `relic slot N at +4: short (costs [...])` once Chrono Sand runs out; `[Result Relics] done` or `nothing`.
+   enhance in bands of one level, letting auto-combine fill a short material (mae, always allowed). Expected:
+   `relic activated (Light tab)`, `relic slot 0: +3 -> +4`, possibly `a cost is short (...); auto-combine fills it`
+   and `auto-combine dialog (...): accepting` (its frame saved to captures/unknown/ as a reference), then
+   `relic slot N at +4: no pip, short even with auto-combine` at the end; `[Result Relics] done` or `nothing`.
    Stop if: Replace is pressed (it must never be), the "universal materials" option changes, or more than 30
    presses.
 
-## 5. Rank first and the whole pass
+## 5. Rank (on its bang or at the cap) and the whole pass
 
-1. `python -m sxs strengthen --only rank`. Goal: read "Level: N/M" on Rank Advancement. Expected today
-   (Lv 37/40): `rank: level 37/40, not at the cap; nothing to do first`. At the cap: `rank: level 40/40 is the cap`,
-   then either `rank: advanced 1 time(s)` (bed EXP collected after) or the costs line and, when Bellflowers are short,
-   a Flower Harvest gather and one retry.
+1. `python -m sxs strengthen --only rank`. Goal: read "Level N/M" and the rank badge's corner on the Character
+   screen; open the rank page only on a red "!" or blue pip, at the cap, or within 3 levels of it (materials early).
+   Expected at 38/40 with the red "!" mae saw: `rank: level (38, 40), bang True: advance now`, then the rank page:
+   Goals claimed if lit, the costs line, and a Flower Harvest gather if Bellflowers are short and tagged Available.
+   Far below the cap with no bang: `rank: ... no bang on the rank badge: nothing to do` and the rank page stays shut.
+   At the cap with "!" on Advance: `rank: advanced 1 time(s)` (bed EXP collected after).
+   Stop if: the level or the bang reads wrong against the screen (save a frame for the test).
    Stop if: Advance is pressed while its button shows only the blue pip (it must not be).
 2. `python -m sxs strengthen`. Goal: the whole pass in order cart, rank, gacha, relics, gear_swap, charms, upgrade,
    each with `[strengthen <step>] <status>`. Expected end: `[Result Strengthen] done` within about 15 minutes.

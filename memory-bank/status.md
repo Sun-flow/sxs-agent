@@ -1,6 +1,6 @@
 # Status
 
-> **Last updated**: 2026-11-11 (gacha, relics, rank-first strengthen and swipe fallback built, not run live)
+> **Last updated**: 2026-11-11 18:30 (auto-combine allowed; rank opened only on its bang or at the cap; #62's code brought to main)
 > Where the work stands now. Past sessions: `log.md`. How a builder works: `playbook.md`.
 
 ## Game state (2026-11-05 05:05Z, mae's PC)
@@ -45,7 +45,7 @@ Format: `- what — branch, PR, environment (started)`. Remove the line when it 
 
 ## Next (in order)
 
-- Built 2026-11-11, not run live (branch `claude/project-thread-6napxz`, PR off #59 + #60): rank first at the level cap (`Upgrader.rank_first`, R-118), Aeonic Gacha pull function (`python -m sxs gacha`, R-167), Workbench relics (`python -m sxs relics`, R-172/R-105), `get_stronger` order cart, rank, gacha, relics, gear_swap, charms, upgrade (also the daily strengthen step, minus gear_swap), `Device.pan` with the adb swipe fallback. Live test plan: `docs/strengthen-live-test-plan.md` (its first step captures the two Home templates, gacha machine and Workbench, which don't exist yet). Run only at a time mae approves.
+- Built 2026-11-11, not run live (#62, then a follow-up PR on branch `claude/project-thread-6napxz` because #59 merged into main seconds before #62 reached its branch): rank as soon as its badge shows a red "!" or blue pip or the level hits its cap, Bellflowers gathered within 3 levels of the cap (`Upgrader.rank_first`, R-118, mae 18:15); Aeonic Gacha pull function (`python -m sxs gacha`, R-167); Workbench relics with auto-combine always allowed (`python -m sxs relics`, R-172, mae 18:15); `get_stronger` order cart, rank, gacha, relics, gear_swap, charms, upgrade (also the daily strengthen step, minus gear_swap); `Device.pan` with the adb swipe fallback. Live test plan: `docs/strengthen-live-test-plan.md` (its first step captures the two Home templates, gacha machine and Workbench, which don't exist yet). Run only at a time mae approves.
 - From mae's rules (2026-11-09), code to do: gather fights a monster guarding a pickup, then resumes it (R-139); a separate bed free speed-up task, called after the day's exploration, not in dailies (R-035); the gear pass treats a blue arrow pip on a slot as "enhance" (R-088); pickup reference crops for the fog walk (R-131).
 - Interrupt layer (`docs/interrupts.md`): ran under all 8 live runs of the strengthening session (2026-11-05) with no false trigger; still to watch live: the tutorial pause/resume path. Live check that a tutorial highlight on the island map pauses Fog Walk and resumes it; capture frames of tutorials on unknown overlays so the row can learn them. Companions invite is followed (mae 02:23: inviting is fine).
 

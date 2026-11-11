@@ -6,10 +6,6 @@ the item to "Settled" at the bottom (keep its number, so links stay right).
 
 ## Needs mae's call
 
-- **Relic "Auto-combine on material shortage"** (Enhance Relic, ticked by default): what it combines is unknown.
-  The relic step presses Enhance only while every cost reads have ≥ need, so it never triggers. Allow it, and with
-  what? ([gacha.md](gacha.md))
-
 **Q6. Guild AFK when the Forge is full.** The code falls back to the Mine, then the Power Station. R-110 only says
 Forge. Is the fallback fine?
 
@@ -63,6 +59,9 @@ isn't detected, the zone counts as finished.
   (`HEAL_BELOW` in `sxs/loops/explore.py`, `FIGHT_MIN_HP` in `sxs/actions/heal.py`).
 
 ## Settled (mae, 2026-11-09 and 11-10)
+
+**Relic auto-combine.** Always allowed, in any menu that has it (mae, 2026-11-11 18:15). The relic step now presses
+Enhance while the button's pip shows, even when a cost is short ([gacha.md](gacha.md)).
 
 **Q17. Explore's unstick reads the zone from the minimap name.** Not a problem (mae, 2026-11-10): the name under the
 minimap is the most accurate way to confirm the player's zone; R-140 is being reworded to say so. No change.

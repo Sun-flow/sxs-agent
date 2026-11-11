@@ -3,7 +3,7 @@
     python -m sxs strengthen                  # every step
     python -m sxs strengthen --only rank,gacha  # some steps: cart, rank, gacha, relics, gear_swap, charms, upgrade
 
-The loop runs `sxs.loops.upgrade.get_stronger`: Cart, rank first at the level cap (R-118), Aeonic Gacha x10 draws
+The loop runs `sxs.loops.upgrade.get_stronger`: Cart, rank as soon as its badge shows a bang or the level hits its cap (R-118), Aeonic Gacha x10 draws
 (R-167), Workbench relics (R-172), gear swap, charms, then the Upgrade Loop (mae, 2026-11-09: the old path levelled
 techniques one tap at a time instead of Quick Upgrade, R-104). Each step starts from home and returns there, with
 its own time budget. Spends Rolla, Raw/Refined Ore, Battle Essence, Chrono Sand and Auroral Badges only; stops

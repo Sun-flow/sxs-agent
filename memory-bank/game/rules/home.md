@@ -97,7 +97,8 @@ Scene labels (e.g. "Class to Unlock") overlap the quest tracker region; filter t
 - An element tab with a new relic shows it under its rarity with "Activate" and a "!": tap it for "ACTIVATED <name>, <Element> Aegis n, stat +n, Tap to Continue"; the relic goes on display slot 1 (builder, 2026-11-11).
 - The relic card has Replace and Enhance. **Never Replace** (like charms, R-158). Enhance Relic costs Chrono Sand and Rolla: 1K / 1.8K for +1 → +2 and +2 → +3, 2K / 3.6K for +3 → +4. "<" and ">" cycle through the displayed relics across elements.
 - Ascend needs 20 of the relic's own shards (gacha duplicates come as 3-shard bundles, R-167).
-- Code: the relics command and loop (PR #62). It presses Enhance only while every cost reads have >= need, so "Auto-combine on material shortage" never fires. Whether auto-combine may run is an open question for mae (`docs/loops/open-questions.md`).
+- **Auto-combine on material shortage is always allowed**, here and in any menu that has it (mae, 2026-11-11 18:15: "a great feature that many systems will use"). Keep it ticked; Enhance while the button's blue pip shows, even with a cost short.
+- Code: the relics command and loop (PR #62): Enhance while the pip shows; a combine prompt is accepted unless it shows a spend word.
 *observed* · `home/workbench_relic_activate.png`, `home/workbench_relic_activated.png`, `home/workbench_relic_card.png`, `home/workbench_enhance_relic.png`, `home/workbench_relic_ascension.png` · node `workbench` · R-158, R-166, R-167
 
 ### R-168 · Mailbox (the owl): Claim All daily, never Delete Read

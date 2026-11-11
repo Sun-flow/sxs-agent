@@ -81,21 +81,26 @@ fights in a row, the daily loop's `strengthen` step (without the gear swap, whic
 Each step has its own time budget and stall check (`STEP_BUDGET_S` in `sxs/loops/upgrade.py`); a step that fails or
 runs out is recorded and the next one starts.
 
-Rank comes first when the level is at the cap (mae, 2026-11-11 05:20, R-118): a rank-up is the biggest single power
-gain (Apprentice III applied the banked bed EXP, Lv 30 → 37, power 30.6K → 35.9K). Then the Aeonic Gacha (mae 05:22,
+Rank advancement happens as soon as it is noticed (mae, 2026-11-11 05:20 and 18:15, R-118): a rank-up is the biggest
+single power gain (Apprentice III applied the banked bed EXP, Lv 30 → 37, power 30.6K → 35.9K). It is predictable:
+the rank badge on the Character screen shows a red "!" or a blue pip, and the level reaches its cap ("Level 40/40").
+The rank step reads both from the Character screen it already opens and opens the rank page only then, or within 3
+levels of the cap to gather free materials (Bellflowers) before the cap arrives. Then the Aeonic Gacha (mae 05:22,
 R-167) and the Workbench (R-172), so new relics are activated and enhanced in the same pass: both are drawn in
 [gacha.md](gacha.md). Built 2026-11-11 (`Upgrader.rank_first`, `get_stronger`); not yet run live.
 
 ```mermaid
 flowchart TD
     S(["Start"]) --> A[["1. cart: claim the Cart (home sweep, adb pan fallback)"]]
-    A --> RP["2. rank: Character > rank badge; read 'Level: N/M'"]
-    RP --> CAP{"N = M (at the cap)?"}
-    CAP -->|"no / unreadable"| GA
-    CAP -->|yes| RA{"Advance button?"}
+    A --> CS["2. rank: Character screen; read 'Level N/M'<br/>and the rank badge's corner"]
+    CS --> SIG{"Red ! or blue pip on the rank badge,<br/>or N = M (at the cap)?"}
+    SIG -->|yes| RP["Rank page (Character > rank badge)"]
+    SIG -->|"no, but within 3 levels of the cap"| RP
+    SIG -->|"no"| GA
+    RP --> RA{"Advance button?"}
     RA -->|"! (all met)"| ADV["Advance, tap through RANK UP,<br/>claim rank Goals (R-116)"] --> BED["Collect bed EXP (daily bed step)"] --> GA
-    RA -->|"blue pip (short)"| SH{"Middle cost (Bellflowers) short<br/>and tagged 'Available'?"}
-    SH -->|"yes (first time)"| GAT[["gather: Flower Harvest (R-123)"]] --> RP
+    RA -->|"blue pip / none"| GO2["Rank Goals tab lit? claim (the bang may mean Goals)"] --> SH{"Middle cost (Bellflowers) short<br/>and tagged 'Available'?"}
+    SH -->|"yes (first time)"| GAT[["gather: Flower Harvest (R-123)"]] --> CS
     SH -->|"no (Rolla, leaves, unknown)"| NOTE["Log the costs; carry on"] --> GA
     GA[["3. gacha: x10 on every tier with a full x10 (gacha.md)"]]
     GA --> RL[["4. relics: activate, ascend, enhance in bands (gacha.md)"]]

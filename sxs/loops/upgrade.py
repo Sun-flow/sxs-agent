@@ -64,6 +64,10 @@ RANK_LEVEL_ROI = [40, 595, 280, 40]  # "Level: 30/30" (left column; "Max Level: 
 RANK_COST_ROI = [130, 985, 460, 30]  # material costs "18/5", "14/30", "189K/10.5K", left to right
 RANK_AVAILABLE_ROI = [130, 925, 460, 50]  # "Available" tag over a material with a free source (Bellflowers)
 RANK_MIDDLE_X = 360  # the middle cost slot: Bellflowers (gather.RANK_BELLFLOWER_ICON)
+CHAR_LEVEL_ROI = [10, 870, 480, 80]  # Character screen: "Level 38 /40" (big digits) left of the rank badge
+RANK_BADGE_ROI = [480, 840, 240, 140]  # Character screen: the rank badge and the red "!" or blue pip on its corner
+RANK_BANG_AT = (RANK_BADGE[0] + 90, RANK_BADGE[1] - 30)
+PRECOLLECT_LEVELS = 3  # within this many levels of the cap, check the rank costs and gather free materials early
 # Enhance Gear
 RESONANCE = (620, 256)
 
@@ -102,6 +106,24 @@ def level_and_cap(text: str) -> Optional[tuple[int, int]]:
     """"Level: 30/30" -> (30, 30)."""
     m = re.search(r"Level\s*:?\s*(\d+)\s*/\s*(\d+)", text or "")
     return (int(m.group(1)), int(m.group(2))) if m else None
+
+
+def character_level(texts: list[tuple[str, list[int]]]) -> Optional[tuple[int, int]]:
+    """Character screen OCR -> (level, cap). The big digits OCR as one line ("Level 2 /10") or apart ("Level",
+    "24/30"); read left to right. The EXP counter ("479/4.92K") sits further right and has no "Level" before it."""
+    joined = " ".join(t for t, _ in sorted(texts, key=lambda tb: tb[1][0]))
+    return level_and_cap(joined)
+
+
+def rank_due(level: Optional[tuple[int, int]], bang: bool) -> str:
+    """When strengthen opens the rank page (mae, 2026-11-11 18:15): a red "!" or blue pip on the rank badge, or the
+    level at its cap ("advance"); a few levels below the cap only to gather free materials early ("precollect");
+    otherwise not at all ("no_signal")."""
+    if bang or (level and level[0] >= level[1]):
+        return "advance"
+    if level and level[1] - level[0] <= PRECOLLECT_LEVELS:
+        return "precollect"
+    return "no_signal"
 
 
 def cost_slots(texts: list[tuple[str, list[int]]]) -> list[tuple[float, float, int]]:
@@ -335,25 +357,33 @@ class Upgrader:
         log.info("rank: %s", out)
         return out
 
+    def rank_signal(self) -> tuple[Optional[tuple[int, int]], bool]:
+        """Character screen open: (level, cap) and whether the rank badge carries a red "!" or a blue pip."""
+        frame = self.dev.screenshot()
+        level = character_level(self.det.read_text(CHAR_LEVEL_ROI, frame))
+        bang = near_any(self._badges(RANK_BADGE_ROI), RANK_BANG_AT, 50) or \
+            near_any(find_up_pips(frame, RANK_BADGE_ROI), RANK_BANG_AT, 50)
+        return level, bang
+
     def rank_first(self, gather: bool = True) -> dict:
-        """Rank first at the level cap (mae, 2026-11-11 05:20, R-118): open Rank Advancement, read "Level: N/M";
-        at the cap press Advance while it carries "!", tap through RANK UP, claim rank Goals, collect the bed's EXP.
-        When the Bellflowers are short (blue pip, "Available" tag) gather them for free (R-123) and try once more.
-        Anything else short is logged and strengthening carries on."""
+        """Rank advancement as soon as it is noticed (mae, 2026-11-11 05:20 and 18:15, R-118). The Character screen
+        says when: a red "!" or blue pip on the rank badge, or "Level N/N" (the cap). Without either the rank page
+        isn't opened, except within PRECOLLECT_LEVELS of the cap, to gather free materials early. On the page:
+        Advance while it carries "!", tap through RANK UP, claim rank Goals, collect the bed's EXP. Bellflowers that
+        are short with an "Available" tag are gathered for free (R-123), then Advance is tried once more."""
         if not self._character():
             return {"end": "unknown_screen"}
+        level, bang = self.rank_signal()
+        due = rank_due(level, bang)
+        out: dict = {"level": level, "bang": bang, "due": due}
+        if due == "no_signal":
+            log.info("rank: level %s, no bang on the rank badge: nothing to do", level)
+            return {**out, "end": "no_signal"}
+        log.info("rank: level %s, bang %s: %s", level, bang, "advance now (R-118)" if due == "advance"
+                 else "near the cap, checking the materials early")
         self._tap(RANK_BADGE, 2.5)
         if self.det.detect().state != "rank_advancement":
-            return {"end": f"unknown_screen ({save_unknown(self.dev, 'rank_first')})"}
-        lv = level_and_cap(" ".join(t for t, _ in self.det.read_text(RANK_LEVEL_ROI)))
-        out: dict = {"level": lv}
-        if not lv:
-            log.warning("rank: could not read Level N/M; frame %s", save_unknown(self.dev, "rank_level"))
-            return {**out, "end": "unknown_level"}
-        if lv[0] < lv[1]:
-            log.info("rank: level %d/%d, not at the cap; nothing to do first", *lv)
-            return {**out, "end": "below_cap"}
-        log.info("rank: level %d/%d is the cap: rank advancement first (R-118)", *lv)
+            return {**out, "end": f"unknown_screen ({save_unknown(self.dev, 'rank_first')})"}
         advanced = self._press_while_badged(RANK_ADVANCE, wait=4)
         if advanced:
             for _ in range(3):  # "RANK UP ... Tap to Continue", then a reward card
@@ -367,6 +397,9 @@ class Upgrader:
             out["bed"] = Dailies(self.dev, self.det).bed()  # banked EXP applies on the new cap
             log.info("rank: advanced %d time(s)", advanced)
             return {**out, "advanced": advanced, "end": "advanced"}
+        if near_any(self._badges([620, 1150, 100, 80]), (688, 1193), 30):
+            out["goals"] = self.claim_goals(BOTTOM_RIGHT_TAB, GOALS_SUBTABS)  # the bang may have meant Goals
+            self._tap((280, 1216), 2)  # back to the Rank tab for the costs
         costs = cost_slots(self.det.read_text(RANK_COST_ROI))
         tags = [b[0] + b[2] // 2 for t, b in self.det.read_text(RANK_AVAILABLE_ROI) if re.search(r"Available", t)]
         short = [(h, n) for h, n, _ in costs if h < n]
@@ -374,7 +407,7 @@ class Upgrader:
         log.info("rank: Advance has no \"!\"; costs %s, short %s", out["costs"], short or "none read")
         if gather and bellflowers_short(costs, tags):
             from .gather import TARGETS, Gatherer, load_policy
-            log.info("rank: Bellflowers short and free to pick: gathering them (R-123), then trying again")
+            log.info("rank: Bellflowers short and free to pick: gathering them now (R-123)")
             g = Gatherer(self.dev, self.det)
             got = g.collect(TARGETS["bellflower"], keep=int(load_policy().get("keep_stamina", 70))) \
                 if g.enter_bellflower_field() else {"end": "unknown_screen"}
@@ -382,7 +415,7 @@ class Upgrader:
             out["gathered"] = got.get("end")
             again = self.rank_first(gather=False)
             return {**out, "retry": again, "end": again.get("end")}
-        return {**out, "end": "short"}
+        return {**out, "end": "short" if short else "waiting"}
 
     def goals(self, pages=("skills", "gear", "class_levels", "rank")) -> dict:
         """Claim every lit Goals tab first (mae, 2026-11-04, reversing R-116): a Goals "!" lights the Skill / Class /
@@ -483,7 +516,7 @@ STEP_BUDGET_S = {"cart": 150, "rank": 360, "gacha": 180, "relics": 240, "gear_sw
 
 def get_stronger(dev, det, only: Optional[set] = None, skip: frozenset = frozenset()) -> dict:
     """Everything that raises power with soft resources, in one call (mae, 2026-11-09; order 2026-11-11):
-    claim the Cart; rank first when the level is at the cap (R-118, mae 05:20); Aeonic Gacha x10 draws whenever a
+    claim the Cart; rank advancement as soon as the rank badge shows a bang or the level hits its cap (R-118, mae 05:20 and 18:15); Aeonic Gacha x10 draws whenever a
     full x10 is affordable (R-167, mae 05:22); Workbench relics, so new relics get activated and enhanced (R-172);
     then better gear where a slot shows a red "!" (gearswap, R-088), empty charm slots, and the Upgrade Loop.
     Each step has its own time budget and stall check; one step failing never stops the next. Used by explore

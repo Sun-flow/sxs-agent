@@ -6,8 +6,9 @@
 Rules: R-172 (activate; Enhance with Chrono Sand and Rolla; never Replace; Ascend with 20 own shards), R-105 (bands
 of one level, element by element, highest affinity first: `upgrade.relic_plan`). Flowchart: docs/loops/gacha.md.
 
-Enhance is pressed only while its blue pip shows and every cost reads have >= need, so the screen's ticked
-"Auto-combine on material shortage" never has a shortage to fill (what it would combine is an open question).
+Enhance is pressed while its blue pip shows (the game's own "affordable" signal). "Auto-combine on material
+shortage" stays ticked and may fill a shortage: mae, 2026-11-11 18:15, always allow auto-combine in any menu that
+has it. A combine confirmation is accepted only when no spend word (Dawnium, a price) is on it.
 The relic card's left button is Replace: the code taps the button whose text reads Enhance, never a fixed point.
 No model calls.
 """
@@ -56,6 +57,7 @@ BUTTON_PIP, BUTTON_PIP_ROI = (502, 1062), [430, 1020, 140, 80]
 SUB_ENHANCE, SUB_ASCEND = (290, 1218), (563, 1218)
 FILLED_SAT = 60  # mean saturation round a slot centre: a relic icon above, the grey "+" below
 MAX_PRESSES = 30
+COMBINE_ROI = [40, 380, 640, 470]  # a confirm dialog over Enhance Relic (never seen yet); above the checkbox label at y 868
 OK = {"done", "nothing", "check", "no_template"}
 
 
@@ -225,20 +227,40 @@ class RelicBench:
         self._tap(SUB_ENHANCE, 1.5)
         return n
 
+    def accept_combine(self) -> bool:
+        """An auto-combine confirmation after Enhance (its layout is not captured yet): accept it with the dialog's
+        OK unless a spend word shows. False when a spend word stopped it (the dialog is cancelled)."""
+        text = " ".join(t for t, _ in self.det.read_text(COMBINE_ROI))
+        if not re.search(r"[Cc]ombine|[Ss]ynthes", text) or "Auto-combine" in text:
+            return True  # no dialog (the screen's own checkbox label doesn't count)
+        if claims.SPEND.search(text):
+            log.warning("combine dialog with a spend word (%r): cancelling; frame %s", text,
+                        save_unknown(self.dev, "relics_combine_spend"))
+            self._tap(ui.CONFIRM_CANCEL, 2)
+            return False
+        log.info("auto-combine dialog (%r): accepting", text[:80])
+        save_unknown(self.dev, "relics_combine")  # reference frame: the dialog isn't in docs/screens yet
+        self._tap(ui.CONFIRM_OK, 2.5)
+        return True
+
     def enhance_once(self, slot: int) -> str:
-        """Enhance Relic open: one press on `slot`. "up", "short" (no pip, or a cost not covered) or "stuck"."""
+        """Enhance Relic open: one press on `slot`. "up", "short" (no pip on Enhance) or "stuck"."""
         self._tap(TOP_SLOTS[slot], 1.2)
         before = self._level()
         frame = self.dev.screenshot()
         costs = costs_in([t for t, _ in self.det.read_text(COST_ROI, frame)])
-        if not near_any(find_up_pips(frame, BUTTON_PIP_ROI), BUTTON_PIP, 30) or not affordable(costs):
-            log.info("relic slot %d at +%s: short (costs %s)", slot, before, costs)
+        if not near_any(find_up_pips(frame, BUTTON_PIP_ROI), BUTTON_PIP, 30):
+            log.info("relic slot %d at +%s: no pip, short even with auto-combine (costs %s)", slot, before, costs)
             return "short"
+        if not affordable(costs):
+            log.info("relic slot %d: a cost is short (%s); auto-combine fills it (mae, always allowed)", slot, costs)
         if not boxes_of(self.det, [250, 1050, 220, 70], r"Enhance"):
             log.warning("the button under the costs doesn't read Enhance; not pressing")
             return "stuck"
         self._tap(ENHANCE_BUTTON, 2.5)
         self.presses += 1
+        if not self.accept_combine():
+            return "stuck"
         if self.det.detect().state in ("tap_to_continue", "reward_popup"):
             self._tap(CONTINUE, 1.5)
         after = self._level()

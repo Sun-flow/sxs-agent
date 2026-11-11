@@ -75,8 +75,8 @@ draw with the result names, and `[Result Gacha] done: 2 draws (Rare 2), counter 
 ## Workbench relics (`python -m sxs relics`)
 
 **Goal:** activate every new relic, then enhance displayed relics with Chrono Sand and Rolla in bands of one level
-(R-105), and Ascend a relic only with 20 of its own shards. **Never** Replace (R-172), never the "universal
-materials" option, never a "+" slot. **End:** nothing lit, materials short, the press cap (30), or an unexpected
+(R-105), auto-combining a short material when the game offers it, and Ascend a relic only with 20 of its own
+shards. **Never** Replace (R-172), never the "universal materials" option, never a "+" slot. **End:** nothing lit, materials short, the press cap (30), or an unexpected
 screen. **Ok statuses:** `done`, `nothing`, `check`, `no_template` (until the Workbench template is captured).
 
 ```mermaid
@@ -91,9 +91,9 @@ flowchart TD
     SV --> PL{"4. relic_plan(levels, affinity):<br/>lowest band first, highest affinity element first"}
     PL -->|none| GO
     PL -->|"(element, slot)"| EN["Open that element, display slot -> card;<br/>tap Enhance only if the button reads Enhance<br/>(never Replace)"]
-    EN --> CK{"Enhance button has the blue pip and<br/>every cost reads have >= need?"}
+    EN --> CK{"Enhance button has the blue pip?<br/>(a short cost is fine: auto-combine fills it)"}
     CK -->|no| CAP["Mark that relic capped / short; re-plan"] --> PL
-    CK -->|yes| PR["Press Enhance once; read +level again"] --> PL
+    CK -->|yes| PR["Press Enhance once; accept a combine dialog unless it shows a spend word;<br/>read +level again"] --> PL
     GO["5. Ascend tab: only where the cost reads n/20 with n >= 20"] --> GL{"6. Goals tab has !?"}
     GL -->|yes| GC["Claim (R-116)"] --> H
     GL -->|no| H["Back home"]
@@ -113,9 +113,10 @@ slots (165, 165), (295, 165), (423, 165), (552, 165), "+1 → +2" at y ≈ 548, 
 Enhance (360, 1084) with its pip at (502, 1062); bottom tabs Enhance (290, 1218) / Ascend (563, 1218); Relic screen
 tabs Relic (290, 1218) / Goals (563, 1218).
 
-**Auto-combine:** the Enhance Relic screen has "Auto-combine on material shortage" ticked. What it combines is not
-known, so the bot presses Enhance only while every cost reads have ≥ need: auto-combine then never has a shortage
-to fill. Open question for mae: may it combine (and with what)?
+**Auto-combine:** always allowed, in any menu that has it (mae, 2026-11-11 18:15: "a great feature that many systems
+will use"). The Enhance Relic screen keeps "Auto-combine on material shortage" ticked and the bot presses Enhance
+while the button's blue pip shows, even when a cost reads short. A combine confirmation, if one appears (not seen
+yet; its frame is saved), is accepted with its OK unless it shows a spend word (Dawnium, a price).
 
 ## What is not known yet (the live test answers these)
 

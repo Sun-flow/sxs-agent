@@ -140,6 +140,24 @@ check("ascension 3/20: no pip on Ascend, so never pressed (the icon can OCR as a
 
 # --- rank first ---------------------------------------------------------------------------------------------------
 check("level at cap", upgrade.level_and_cap("Level: 30/30"), (30, 30))
+# mae, 2026-11-11 18:15: open the rank page only on a bang or at the cap; gather materials early near the cap.
+check("rank due: bang", upgrade.rank_due((38, 40), True), "advance")
+check("rank due: at the cap", upgrade.rank_due((40, 40), False), "advance")
+check("rank due: near the cap, no bang", upgrade.rank_due((38, 40), False), "precollect")
+check("rank due: far below the cap", upgrade.rank_due((24, 40), False), "no_signal")
+check("rank due: unreadable level, no bang", upgrade.rank_due(None, False), "no_signal")
+dev.set_frame(S / "character/character.png")
+check("Character level 2/10 (one OCR line)", upgrade.character_level(det.read_text(upgrade.CHAR_LEVEL_ROI)), (2, 10))
+dev.set_frame(S / "character/character_pips_all4.png")
+check("Character level 24/30 (split OCR, EXP counter ignored)",
+      upgrade.character_level(det.read_text(upgrade.CHAR_LEVEL_ROI)), (24, 30))
+f = img("character/character_pips_all4.png")
+check("no bang on the rank badge there", near_any(find_badges(f, upgrade.RANK_BADGE_ROI), upgrade.RANK_BANG_AT, 50)
+      or near_any(find_up_pips(f, upgrade.RANK_BADGE_ROI), upgrade.RANK_BANG_AT, 50), False)
+bx, by = find_badges(img("home/aeonic_gacha_ticket_counter.png"), gacha.COUNTER_BADGE_ROI)[0]  # a real red "!"
+f[upgrade.RANK_BANG_AT[1] - 16:upgrade.RANK_BANG_AT[1] + 16, upgrade.RANK_BANG_AT[0] - 16:upgrade.RANK_BANG_AT[0] + 16] = \
+    img("home/aeonic_gacha_ticket_counter.png")[by - 16:by + 16, bx - 16:bx + 16]
+check("a red ! pasted on the rank badge's corner is seen", near_any(find_badges(f, upgrade.RANK_BADGE_ROI), upgrade.RANK_BANG_AT, 50), True)
 dev.set_frame(S / "character/rank_advancement_apprentice3.png")
 check("rank page level", upgrade.level_and_cap(" ".join(t for t, _ in det.read_text(upgrade.RANK_LEVEL_ROI))), (30, 30))
 costs = upgrade.cost_slots(det.read_text(upgrade.RANK_COST_ROI))
