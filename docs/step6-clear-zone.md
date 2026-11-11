@@ -20,9 +20,9 @@ This page is the design of its replacement. The flowchart is [loops/clear.md](lo
    |---|---|---|---|
    | 1 | The zone's own Explore quest ring (R-142) | gold ring on screen, locate icon once | tap the target under the ring |
    | 2 | An object on screen we know (R-131 crops) | screen | tap it (R-155: from the next tile if the first tap does nothing) |
-   | 3 | A dot or structure a few tiles away on the minimap | minimap | tap it on screen |
-   | 4 | The nearest object in our zone on the big map: blue "!" statue first, then dots, then structures (R-068, R-148) | area map | tap it there, close, tap the centre |
-   | 5 | A **frontier**: the zone's revealed ground next to its biggest patch of fog on the big map | area map | one long big-map walk there |
+   | 3 | A dot or structure anywhere on the minimap (up to 10 tiles; mae: if it shows there it is close enough) | minimap | walk along the minimap path until it is on screen, then tap it |
+   | 4 | The nearest thing in our zone on the big map that counts for exploration: blue "!" statues and wheels first, then green pickups, orange monsters, gold structures and chests (R-068, R-148) | area map | tap it there, close, tap the centre |
+   | 5 | A **frontier**: the nearest fog in our zone that touches walkable ground we can reach (mae, 2026-11-11) | area map | one long big-map walk there |
 
    Fog matters only because it hides objects, so the frontier is the last source, and it is one long leg to a
    named spot, never a string of short hops. A frontier leg must reveal or clear something, or it's spent.

@@ -35,11 +35,11 @@ flowchart TD
     P1 -->|yes| LEG["Leg: tap the target under the ring"]
     P1 -->|no| P2{"2. Known object on screen?<br/>(R-131 crops)"}
     P2 -->|yes| LEG2["Leg: tap it (from the next tile if needed, R-155)"]
-    P2 -->|no| P3{"3. Dot or structure within 4 tiles<br/>on the minimap?"}
-    P3 -->|yes| LEG3["Leg: tap it on screen"]
-    P3 -->|no| P4{"4. Object in our zone on the big map?<br/>(blue ! statue, dot, structure)"}
+    P2 -->|no| P3{"3. Dot or structure anywhere<br/>on the minimap (up to 10 tiles)?"}
+    P3 -->|yes| LEG3["Leg: walk along the minimap path until it is on screen<br/>(up to 3 walk taps), then tap it"]
+    P3 -->|no| P4{"4. Anything in our zone on the big map that counts for exploration?<br/>blue ! statues and wheels, green pickups, orange monsters,<br/>gold structures and chests"}
     P4 -->|yes| LEG4[["Leg: big-map walk to it, tap the centre"]]
-    P4 -->|no| P5{"5. Frontier: our revealed ground<br/>beside the biggest fog patch?<br/>(3 per run)"}
+    P4 -->|no| P5{"5. Frontier: the nearest fog in our zone<br/>touching walkable ground we can reach?<br/>(3 per run)"}
     P5 -->|yes| LEG5[["Leg: one big-map walk to the frontier"]]
     P5 -->|no| NO(["no_objective: leftovers written to the location tree"])
     LEG --> R
@@ -77,5 +77,6 @@ Each leg logs `[leg N] goal: <source> <what> at <where>` before it starts and `[
 | Lucky Wheel, free spin showing (R-147) | spin once | gain |
 | Gate of Elements (Gate of Wind...) | add companions, Open (R-057) | gain, or the spot skipped if still short |
 | dialogue_choice (a puzzle NPC) | Leave; puzzle noted on the zone (R-153) | the spot skipped |
+| dialogue_choice with no Leave (a story choice) | save the screen to `docs/screens/dialogs/choice_<zone>_<choices>.png`, ask mae (mae, 2026-11-11) | `needs_decision` |
 | any other card | card rules (`resource/policy/cards.json`, goal explore) | acted on: gain; dismissed: the spot skipped; Gate of Power: the spot skipped, `power_gate` the 3rd time; "Required Item": `blocked_item` |
 | unknown, 5 in a row | frame saved | `unknown_screen` |

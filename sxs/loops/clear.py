@@ -6,9 +6,9 @@ Replaces the Fog Walk (scrapped by mae, 2026-11-10: docs/fogwalk-postmortem.md).
 flowchart: docs/loops/clear.md. The rules in short:
 
 1. Every walk is a *leg* toward one objective the log can name. Sources, best first: the zone's own Explore quest
-   ring (R-142), a known object on screen (R-131), a dot or structure within a few tiles on the minimap, the nearest
-   object in the zone on the big map (R-068, R-148), and last a frontier: the zone's revealed ground beside its
-   biggest patch of fog, one long big-map walk.
+   ring (R-142), a known object on screen (R-131), any dot or structure the minimap shows, the nearest
+   thing in the zone on the big map that counts for exploration (R-068, R-148), and last a frontier: the nearest fog
+   in the zone touching walkable ground we can reach, one long big-map walk.
 2. Progress is the zone's % or an object cleared (a fight, a pickup, a card acted on, a wheel spin, a gate opened),
    never "a new tile".
 3. No objective left: stop `no_objective`. STALL_LEGS legs in a row without progress: stop `no_progress`.
@@ -23,6 +23,7 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 from ..actions import goto, heal, mapnav, rewards
+from ..actions.camera import centre_player
 from ..actions.common import REWARD_STATES, TOWER_STATES, pass_through
 from ..actions.watchdog import UnknownScreens
 from ..core import ui
@@ -50,6 +51,9 @@ SPOT_TILES = 2  # map tiles within which two spots are the same spot
 GATE_LIMIT = 3  # Gate of Power cards in one run before the zone counts as walled off
 REWARD_TAPS_MAX = 3  # tracker gift taps per run
 SETTLE_S = 240  # longest a leg's aftermath may take (a mini-dungeon floor fights several rounds)
+MINIMAP_REACH = 10  # path tiles: any dot or structure the minimap shows is a target (mae, 2026-11-11: 7-10 tiles)
+MINIMAP_HOPS = 3  # walk taps toward a minimap target that is off screen before the leg gives up on it
+TAP_AREA = (20, 320, 700, 920)  # x0, y0, x1, y1: on-screen taps land here (under the minimap, above the tracker)
 GAIN_EVENTS = {"fight", "pickup", "acted", "wheel", "gate_open", "revealed"}
 ZONE_PICK_PX = 900  # big-map search radius for this zone's objects (the label check keeps it to the zone)
 
@@ -71,8 +75,34 @@ def _xy(det) -> Optional[tuple[int, int]]:
     return goto.coords(det)
 
 
+def on_screen(me, mm, tile) -> Optional[tuple[int, int]]:
+    """Screen point of a minimap tile, from our character's screen point; None when it is off screen or on the HUD."""
+    pr, pc = mm.centre
+    x = me[0] + (tile[1] - pc) * minimap.SCREEN_TILE
+    y = me[1] + (tile[0] - pr) * minimap.SCREEN_TILE
+    x0, y0, x1, y1 = TAP_AREA
+    if not (x0 <= x <= x1 and y0 <= y <= y1):
+        return None
+    p = (int(x), int(y))
+    return p if mapnav.off_hud(p) == p else None
+
+
 def near(a, b, tiles: int = SPOT_TILES) -> bool:
     return bool(a and b) and max(abs(a[0] - b[0]), abs(a[1] - b[1])) <= tiles
+
+
+def save_dialogue(dev, texts: str, zone: Optional[str]):
+    """Save a story-choice dialogue to docs/screens/dialogs/choice_<zone>_<first words of the choices>.png (mae, 2026-11-11)."""
+    import cv2
+    from ..core.paths import SCREENS
+    words = re.sub(r"[^a-z0-9]+", "_", f"{zone or ''} {texts}".lower()).strip("_")[:60] or "scene"
+    out = SCREENS / "dialogs"
+    out.mkdir(parents=True, exist_ok=True)
+    path = out / f"choice_{words}.png"
+    if path.exists():
+        path = out / f"choice_{words}_{time.strftime('%Y%m%d-%H%M%S')}.png"
+    cv2.imwrite(str(path), dev.screenshot())
+    return path
 
 
 class Clearer:
@@ -221,6 +251,8 @@ class Clearer:
         return None
 
     def try_minimap(self, frame, xy, me) -> Optional[Leg]:
+        """A dot or structure anywhere on the minimap (mae, 2026-11-11: if it shows there, it is close enough). The
+        leg walks toward it along the minimap path until it is on screen, then taps it."""
         if xy is None or me is None:
             return None
         mm = minimap.read(frame, False)
@@ -230,15 +262,54 @@ class Clearer:
         skip = ring | {(r, c) for r in range(n) for c in range(n)
                        if self.failed_spot(minimap.world_tile(mm, (r, c), xy))}
         path = minimap.path_to_nearest(mm, goals=("item", "monster", "building"), skip=skip)
-        if len(path) < 2 or len(path) - 1 > minimap.CLOSE_TILES:
+        if len(path) < 2 or len(path) - 1 > MINIMAP_REACH:
             return None
         goal = mm.grid[path[-1][0]][path[-1][1]]
         spot = minimap.world_tile(mm, path[-1], xy)
-        point = minimap.screen_point(me, mm, path[-1])
         leg = self.start_leg("minimap", f"{goal} {len(path) - 1} tiles away", spot)
-        self.tapped = (frame, point, goal)
-        self.leg_tap(point)
+        for hop in range(MINIMAP_HOPS + 1):
+            point = on_screen(me, mm, path[-1])
+            if point is not None:
+                self.tapped = (frame, point, goal)
+                self.leg_tap(point)
+                return leg
+            if hop == MINIMAP_HOPS:
+                break
+            # Off screen: walk to the farthest tile of the path that is on screen, then look again.
+            step = next((on_screen(me, mm, t) for t in reversed(path[1:-1]) if on_screen(me, mm, t)), None)
+            if step is None:
+                break
+            log.info("[leg %d] %s off screen: walking toward it (%s)", leg.n, goal, step)
+            self.dev.tap(*mapnav.off_me(self.det, step, frame))
+            self.wait_still()
+            if self.det.detect().state != "world_map":
+                return leg  # a fight or a card on the way: the leg's aftermath handles it
+            frame = self.dev.screenshot()
+            if centre_player(self.dev, self.det, frame):
+                frame = self.dev.screenshot()
+            xy, me = _xy(self.det), player_on_screen(self.det, frame)
+            if xy is None or me is None:
+                break
+            mm = minimap.read(frame, False)
+            pr, pc = mm.centre
+            gr, gc = pr - (spot[1] - xy[1]), pc + (spot[0] - xy[0])
+            path = minimap.path_to_nearest(mm, goals=(mm.grid[gr][gc],), skip=ring) if (
+                0 <= gr < len(mm.grid) and 0 <= gc < len(mm.grid)) else []
+            if len(path) < 2 or path[-1] != (gr, gc):
+                path = [mm.centre, (gr, gc)]  # aim straight at the spot; the game paths there itself
+        log.info("[leg %d] couldn't bring the %s on screen", leg.n, goal)
+        leg.events.append("no_move")
         return leg
+
+    def wait_still(self, most: float = 12) -> None:
+        """Wait until the map coordinates stop changing (a walk ended) or the screen leaves the map."""
+        last, until = _xy(self.det), time.monotonic() + most
+        while time.monotonic() < until:
+            time.sleep(1.5)
+            now = _xy(self.det)
+            if now is None or now == last:
+                return
+            last = now
 
     def leg_tap(self, point) -> None:
         how = mapnav.tap_object(self.dev, self.det, point, wait=3)
@@ -266,9 +337,11 @@ class Clearer:
                     return hit[1]
             if mine and self.frontier_used < FRONTIER_LEGS:
                 others = [a.point for a in areas if a not in mine]
-                hit = area_map.frontier(frame, mine[0].point, others)
+                me = next((p for k, p in area_map.objects(frame) if k == "player"), None)
+                hit = area_map.frontier(frame, mine[0].point, others, me=me)
                 if hit:
-                    choice.update(kind="frontier", what=f"frontier (fog {hit[1]:.0%} round it)")
+                    choice.update(kind="frontier", what=f"nearest fog in the zone beside reachable ground "
+                                  f"(fog {hit[1]:.0%} round it)")
                     return hit[0]
             return None
         return pick
@@ -426,7 +499,10 @@ class Clearer:
         leave = [b for t, b in lines if re.fullmatch(r"\s*Leave\.?\s*", t)]
         texts = " / ".join(t for t, _ in lines)
         if not leave:
-            log.warning("dialogue choice with no Leave option (%s); stopping", texts)
+            # mae, 2026-11-11: story choices are mae's call for now. Stop, and save the dialogue as a
+            # reference under docs/screens/dialogs/, named for the scene; her pick is recorded there afterwards.
+            path = save_dialogue(self.dev, texts, self.home)
+            log.warning("dialogue choice with no Leave option (%s); stopping for mae. Screenshot: %s", texts, path)
             return "needs_decision"
         puzzle = bool(re.search(r"puzzle|Golden Beetle", texts + " " + " ".join(
             t for t, _ in self.det.read_text([0, 1150, 720, 130])), re.I))
