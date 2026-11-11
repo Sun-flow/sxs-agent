@@ -173,7 +173,7 @@ def crosses_border(lines: np.ndarray, a: tuple[int, int], b: tuple[int, int], ne
 
 def nearest(frame: np.ndarray, kinds=("item", "monster", "building"), max_px: int = 260,
             skip=(), same_zone: bool = True, labels: Optional[dict] = None,
-            home: Optional[str] = None) -> Optional[tuple[str, tuple[int, int]]]:
+            home: Optional[str] = None, is_home=None) -> Optional[tuple[str, tuple[int, int]]]:
     """The object of `kinds` nearest our white dot (within max_px), or None. same_zone (R-132, live 2026-11-09: a
     big-map walk to the nearest dot from Verdantglade V ended in Zephyr Vale): skip objects whose straight line from
     us crosses a dotted zone border, and, given the map's zone labels {name: point} and our zone's name, objects
@@ -201,7 +201,8 @@ def nearest(frame: np.ndarray, kinds=("item", "monster", "building"), max_px: in
             from ..actions.goto import close_name, same_area as _same
 
             def same_area(a, b):  # OCR clips labels ("Jungle Car" for Jungle Camp, live 2026-11-10)
-                return _same(a, b) or close_name(a, b) or (len(a) >= 6 and b.lower().startswith(a.lower()[:-1]))
+                return (_same(a, b) or close_name(a, b) or (len(a) >= 6 and b.lower().startswith(a.lower()[:-1]))
+                        or bool(is_home and is_home(a, b)))
             if not any(same_area(t, home) for t in labels):
                 # Our zone's label wasn't read: nothing can be told apart, so pick nothing rather than anything
                 # (the same day a walk "to the nearest object" kept ending in Drasilgard).

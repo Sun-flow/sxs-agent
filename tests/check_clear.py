@@ -122,6 +122,9 @@ lg = clear.Leg(len(c.legs) + 1, "minimap", "building 1 tiles away", (61, 61), ["
 c.legs.append(lg)
 c.judge(lg, c.pct, (0, 0))
 check("a gold square whose card we acted on is a structure, not a puzzle tile", c.inert_gold, 0)
+check("a zone given by its first words matches its label", clear.mapnav.label_is("Lakeside Camp", "Lakeside"), True)
+check("a different numeral is another zone", clear.mapnav.label_is("Verdantglade I", "Verdantglade II"), False)
+check("another zone with a shared first word isn't ours", clear.mapnav.label_is("Lakeside Camp", "Lake"), False)
 check("minimap targets reach the whole minimap", clear.MINIMAP_REACH >= 7, True)
 check("a tile 2 right of us is on screen", clear.on_screen((360, 600), type("M", (), {"centre": (10, 10)})(), (10, 12)),
       (568, 600))

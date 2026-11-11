@@ -26,7 +26,7 @@ flowchart TD
     EX -->|yes| XP(["explored"])
     EX -->|no| L
     L["Between legs: read the % (tracker Explore N/100 if it is this zone's)"] --> D{"100%, or tracker moved<br/>on to the next zone?"}
-    D -->|yes| ZD(["zone_done"])
+    D -->|yes| BS["Bless the zone's statue if its red ! shows on the big map (R-070)"] --> ZD(["zone_done"])
     D -->|no| Z{"Still in our zone?<br/>(minimap name, R-140)"}
     Z -->|"no, twice"| BK[["goto back into the zone"]] --> L
     Z -->|yes| ST{"4 legs in a row<br/>without progress?"}

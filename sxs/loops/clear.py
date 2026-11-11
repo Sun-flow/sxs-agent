@@ -186,7 +186,7 @@ class Clearer:
     def in_home(self, name: str) -> bool:
         if not self.home or not name:
             return True
-        if goto.same_area(name, self.home) or goto.close_name(name, self.home):
+        if goto.same_area(name, self.home) or goto.close_name(name, self.home) or mapnav.label_is(name, self.home):
             return True
         h, z = goto.squeeze(self.home), goto.squeeze(name)
         if len(h) >= 6 and h[:-1] in z:  # labels OCR joined ("Wildbloom CoastHidden Camp")
@@ -362,14 +362,18 @@ class Clearer:
 
         def pick(frame):
             areas = read_areas(self.det, frame)
-            mine = [a for a in areas if self.home and (same(a.name, self.home) or goto.close_name(a.name, self.home))]
+            mine = [a for a in areas if self.home and (same(a.name, self.home) or mapnav.label_is(a.name, self.home))]
+            if mine and not self.tree.key(self.home) and len(mine[0].name) > len(self.home):
+                # A zone given by its first words ("Lakeside"): go by the full name the map shows ("Lakeside Camp").
+                log.info("zone %r is %r on the area map", self.home, mine[0].name)
+                self.home = mine[0].name
             pct = next((a.pct for a in mine if a.pct is not None), None)
             if pct is not None and not self.own_quest:
                 choice["pct"] = pct
             labels = {a.name: a.point for a in areas}
             if not self.big_map_off and self.big_map_used < BIG_MAP_LEGS:
                 hit = area_map.nearest(frame, ("statue", "item", "monster", "building"), max_px=ZONE_PICK_PX,
-                                       labels=labels, home=self.home)
+                                       labels=labels, home=self.home, is_home=mapnav.label_is)
                 if hit:
                     choice.update(kind="big_map", what=f"{hit[0]} on the big map")
                     return hit[1]
@@ -662,6 +666,12 @@ class Clearer:
             self.tree.save()
         rewards.claim_tracker_reward(self.dev, self.det, self.dev.screenshot())
         self.pct = 100
+        # Live 2026-11-11 (run 16, IX): at 100% the zone's statue showed its red "!" and waited for a hand. Bless it
+        # now (R-070: free, +1 Blessing Level) the way roam does: the ready badge nearest us on the big map.
+        from .roam import Roamer  # roam imports this module
+        time.sleep(2)
+        n = Roamer(self.dev, self.det).bless_ready([self.home])
+        log.info("%s: %s", self.home, "statue blessed" if n else "no statue ready to bless on the big map yet")
         return "zone_done"
 
     def map_chores(self) -> bool:

@@ -332,3 +332,18 @@ def map_labels(det, frame) -> dict:
             continue
         out[t] = ui.centre(b)
     return out
+
+
+def label_is(label: str, zone: str) -> bool:
+    """An area-map label names `zone`: the same name as OCR reads it (goto.same_area, close_name), or the full name
+    of a zone given by its first words (live 2026-11-11, run 19: `clear --area "Lakeside"` never matched the label
+    "Lakeside Camp", so the big map found nothing "in our zone" beside ten dots). The extra words must be words, not
+    a roman numeral (numerals are goto.same_area's call)."""
+    if not label or not zone:
+        return False
+    if goto.same_area(label, zone) or goto.close_name(label, zone):
+        return True
+    a, b = sorted((label.strip(), zone.strip()), key=len)
+    if len(goto.squeeze(a)) < 6 or not b.lower().startswith(a.lower() + " "):
+        return False
+    return not re.fullmatch(r"[IVXl1|]+", b[len(a):].strip())
