@@ -20,6 +20,7 @@ This page is the design of its replacement. The flowchart is [loops/clear.md](lo
    |---|---|---|---|
    | 1 | The zone's own Explore quest ring (R-142) | gold ring on screen, locate icon once | tap the target under the ring |
    | 2 | An object on screen we know (R-131 crops) | screen | tap it (R-155: from the next tile if the first tap does nothing) |
+   | 2b | A monster group in gold brackets or under a red skull marker: it guards what lies behind it (R-139; live run 21, Lakeside Camp) | screen | tap it to fight |
    | 3 | A dot or structure anywhere on the minimap (up to 10 tiles; mae: if it shows there it is close enough) | minimap | walk along the minimap path until it is on screen, then tap it |
    | 4 | The nearest thing in our zone on the big map that counts for exploration: blue "!" statues and wheels first, then green pickups, orange monsters, gold structures and chests (R-068, R-148) | area map | tap it there, close, tap the centre |
    | 5 | A **frontier**: the nearest fog in our zone that touches walkable ground we can reach (mae, 2026-11-11) | area map | one long big-map walk there |
@@ -33,7 +34,8 @@ This page is the design of its replacement. The flowchart is [loops/clear.md](lo
      location tree (what was tried, what blocked), so mae or a later run can see them.
    - `no_progress`: 4 legs in a row with no % and no object cleared. Repeating a stuck point is a defect to fix,
      not something to retry.
-   - `power_gate`, `blocked_item`, `defeated`, `unknown_screen`: as before.
+   - `power_gate`, `blocked_item`, `defeated`, `unknown_screen`: as before. A lost fight also writes `lost_at`
+     (our power then) on the zone, and roam skips the zone until power is 0.5K higher.
 
 ## What a leg is
 

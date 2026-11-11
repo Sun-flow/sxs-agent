@@ -35,7 +35,9 @@ flowchart TD
     P1 -->|yes| LEG["Leg: tap the target under the ring"]
     P1 -->|no| P2{"2. Known object on screen?<br/>(R-131 crops)"}
     P2 -->|yes| LEG2["Leg: tap it (from the next tile if needed, R-155)"]
-    P2 -->|no| P3{"3. Dot or structure anywhere<br/>on the minimap (up to 10 tiles)?"}
+    P2 -->|no| PG{"2b. Guard group in gold brackets<br/>or under a skull marker? (R-139)"}
+    PG -->|yes| LEGG["Leg: tap the group to fight it"]
+    PG -->|no| P3{"3. Dot or structure anywhere<br/>on the minimap (up to 10 tiles)?"}
     P3 -->|yes| LEG3["Leg: walk along the minimap path until it is on screen<br/>(up to 3 walk taps), then tap it"]
     P3 -->|no| P4{"4. Anything in our zone on the big map that counts for exploration?<br/>blue ! statues and wheels, green pickups, orange monsters,<br/>gold structures and chests"}
     P4 -->|yes| LEG4[["Leg: big-map walk to it, tap the centre"]]
@@ -44,6 +46,7 @@ flowchart TD
     P5 -->|no| NO(["no_objective: leftovers written to the location tree"])
     LEG --> R
     LEG2 --> R
+    LEGG --> R
     LEG3 --> R
     LEG4 --> R
     LEG5 --> R
@@ -69,7 +72,7 @@ Each leg logs `[leg N] goal: <source> <what> at <where>` before it starts and `[
 | battle_prep | heal from the portrait if HP under 70% (2 tries), else Start Battle; save the monster crop (R-131) | gain (a fight) |
 | battle, loading, dialogue, tap_to_continue | wait / pass through | |
 | reward_popup | close | gain (a pickup) |
-| defeated | OK | `defeated` |
+| defeated | OK; the zone gets `lost_at` (our power) in the location tree, so roam skips it until power is 0.5K higher | `defeated` |
 | player_profile | close (a stray tap on our character) | |
 | tower screens | tower climb if not done today (R-079), then back to the zone | |
 | area_map | close (left open by a big-map walk) | |

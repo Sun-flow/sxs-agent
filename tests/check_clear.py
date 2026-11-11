@@ -132,6 +132,7 @@ check("a tile 5 right of us is off screen", clear.on_screen((360, 600), type("M"
       None)
 check("a tile over the minimap HUD is off limits", clear.on_screen((360, 600), type("M", (), {"centre": (10, 10)})(),
                                                                    (8, 12)), None)
+check("a guard group is a leg source of its own", hasattr(clear.Clearer, "try_guard"), True)
 check("the loop's ok statuses", {"zone_done", "no_objective", "no_progress"} <= clear.OK, True)
 
 print("all good" if not fails else f"{fails} failed")

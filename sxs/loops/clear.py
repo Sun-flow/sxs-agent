@@ -24,6 +24,7 @@ from typing import Optional
 
 from ..actions import goto, heal, mapnav, rewards
 from ..actions.camera import centre_player
+from ..actions.unstick import attack_guard
 from ..actions.common import REWARD_STATES, TOWER_STATES, pass_through
 from ..actions.watchdog import UnknownScreens
 from ..core import ui
@@ -36,6 +37,7 @@ from ..policy.decide import Context, Decider
 from ..policy.zones import Tree
 from ..vision import area_map, collectibles, minimap
 from ..vision.hp import PREP_HP_BAR
+from ..vision.hud import read_power
 from ..vision.player import player_on_screen
 from . import tower
 from .explore import REPEAT_LIMIT, hud_hp
@@ -128,6 +130,7 @@ class Clearer:
         self.fails: list[tuple[tuple[int, int], int]] = []  # [(map spot, legs there without a gain)]
         self.arrivals: list[tuple[str, tuple[int, int]]] = []  # (source, where a big-map leg ended)
         self.gates = 0
+        self.power: Optional[float] = None  # K, read from the HUD when the run starts
         self.no_pct_reads = 0  # area-map reads in a row of our label with no % line under it
         self.map_read_leg = 0  # leg count at the last map_pct
         self.inert_gold = 0  # minimap legs at gold squares that opened no card or fight and moved no % (puzzle tiles)
@@ -274,6 +277,14 @@ class Clearer:
         if not mapnav.quest_step(self.dev, self.det, True):  # taps the target under the ring when there is one
             return None
         return self.start_leg("ring", f"Explore {self.home} {n}/100 (target under the gold ring)", here)
+
+    def try_guard(self, frame, xy) -> Optional[Leg]:
+        """A monster group in gold corner brackets, or a monster under a red skull marker, guards what lies behind it
+        (R-139; live 2026-11-11, run 21: Lakeside Camp's chest and pickups sat behind a bracketed boss and its
+        guards, and the run ended no_objective). Fight it first: it is the zone's next objective."""
+        if self.failed_spot(xy) or not attack_guard(self.dev, self.det, frame):
+            return None
+        return self.start_leg("guard", "guard group in brackets (or under a skull marker)", xy)
 
     def try_known(self, frame, xy, me) -> Optional[Leg]:
         for name, kind, point, score in collectibles.find(frame, explored=False, area=self.home or ""):
@@ -482,7 +493,7 @@ class Clearer:
             # (roam's way in) they are respawns that cost stamina (R-065).
             frame = self.dev.screenshot()
             xy, me = _xy(self.det), player_on_screen(self.det, frame)
-            leg = self.try_known(frame, xy, me) or self.try_minimap(frame, xy, me)
+            leg = self.try_known(frame, xy, me) or self.try_guard(frame, xy) or self.try_minimap(frame, xy, me)
             if leg:
                 return leg
         return self.try_big_map()
@@ -529,6 +540,17 @@ class Clearer:
         elif d.state == "defeated":
             card, choice = self.decider.decide(self.ctx)
             dev.tap(*choice.point)
+            # A fight we lost walls the zone off until we're stronger (live 2026-11-11, Lakeside Camp's guarded boss
+            # at 28.5K): roam skips it until power grows (zones.Tree.lost_wall, LOST_RETRY_GAIN).
+            # No power read, no wall: it could never be lifted.
+            k = self.tree.key(self.home or "")
+            if k and self.power is not None:
+                self.tree.zones[k]["lost_at"] = self.power
+                self.tree.zones[k]["lost_note"] = (f"lost a fight at {self.power}K near {self.leg.xy if self.leg else '?'}"
+                                                  f" ({self.leg.what if self.leg else 'no leg'}), {server_day()}")
+                self.tree.save()
+                log.warning("STUCK %s: %s; roam skips it until power grows", self.home,
+                            self.tree.zones[k]["lost_note"])
             return "defeated"
         elif d.state == "player_profile":
             ui.tap(dev, ui.ABOVE_POPUP, 1.5)
@@ -757,6 +779,7 @@ class Clearer:
             self.tree.observe(self.home, pct=live)
             self.tree.save()
         self.pct = (self.tree.get(self.home or "") or {}).get("pct") if self.home else None
+        self.power = read_power(self.det)
         self.pct = self.read_pct()
         if not self.own_quest:
             self.map_pct()
