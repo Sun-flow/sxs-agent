@@ -227,6 +227,8 @@ FRONTIER_BAND = 14  # px: walkable ground this close to fog is on the frontier
 FRONTIER_WINDOW = 61  # px square round a frontier point in which the fog is measured
 FRONTIER_MIN_FOG = 0.2  # share of that window that must be fog: a sliver along a wall isn't a patch worth a leg
 FRONTIER_MAX_PX = 380  # from our zone's label: a frontier farther than this is another zone's
+FRONTIER_AWAY_DEG = 45  # a frontier this close in direction to an empty one is the same patch
+FRONTIER_AWAY_PX = 120  # px from us: still the spent frontier we stand at
 START_REACH_PX = 80  # the walkable ground we stand on: the patch nearest our dot (or our zone's label) within this
 
 
@@ -238,11 +240,14 @@ def walkable(hsv: np.ndarray) -> np.ndarray:
 
 
 def frontier(frame: np.ndarray, home: tuple[int, int], others=(), me: Optional[tuple[int, int]] = None,
-             skip=(), skip_px: int = 60) -> Optional[tuple[tuple[int, int], float]]:
+             skip=(), skip_px: int = 60, away=()) -> Optional[tuple[tuple[int, int], float]]:
     """Clear Zone's last objective source (docs/step6-clear-zone.md; mae, 2026-11-11): the nearest patch of fog in
     our zone that touches walkable ground we can reach. `home` is our zone's label on this opening of the map,
     `others` the other zones' labels (a point nearer another label, by LABEL_MARGIN, is that zone's), `me` our white
-    dot (None: measured from our label), `skip` points already tried on this opening. Reachable = the walkable
+    dot (None: measured from our label), `skip` points already tried on this opening, `away` directions (dx, dy
+    from us) of frontier legs that revealed nothing: points within FRONTIER_AWAY_DEG of one, or within
+    FRONTIER_AWAY_PX of us (we stand at the spent one), aren't picked (live 2026-11-11, run 22: Grotto Peninsula's
+    one empty frontier ended every frontier leg while its dotted ground ran far north into fog). Reachable = the walkable
     patch we stand on (zone borders' dotted lines and icons bridged). Returns (point on that ground beside the fog,
     fog share of the window round it), nearest to us first, or None.
 
@@ -284,6 +289,13 @@ def frontier(frame: np.ndarray, home: tuple[int, int], others=(), me: Optional[t
         ok &= np.sqrt((xs - ox) ** 2 + (ys - oy) ** 2) >= LABEL_MARGIN * dh
     for kx, ky in skip:
         ok &= (xs - kx) ** 2 + (ys - ky) ** 2 > skip_px ** 2
+    if away:
+        dx, dy = xs - sx, ys - sy
+        dn = np.sqrt(dx ** 2 + dy ** 2) + 1e-6
+        ok &= dn > FRONTIER_AWAY_PX
+        for ax, ay in away:
+            an = np.hypot(ax, ay) + 1e-6
+            ok &= (dx * ax + dy * ay) / (dn * an) < np.cos(np.radians(FRONTIER_AWAY_DEG))
     share = cv2.blur(fog.astype(np.float32), (FRONTIER_WINDOW, FRONTIER_WINDOW))[ys, xs]
     ok &= share >= FRONTIER_MIN_FOG
     if not ok.any():

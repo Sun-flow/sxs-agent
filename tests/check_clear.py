@@ -49,6 +49,14 @@ if v:
                               [p for k, p in labels.items() if k != "Verdantglade V"], me=ME, skip=[(x, y)])
     check("a skipped frontier isn't picked again on the same opening", again is None or
           (again[0][0] - x) ** 2 + (again[0][1] - y) ** 2 > 60 ** 2, True)
+    other = area_map.frontier(frame, labels["Verdantglade V"],
+                              [p for k, p in labels.items() if k != "Verdantglade V"], me=ME, away=[(x - ME[0], y - ME[1])])
+    print("   next frontier after an empty one:", other)
+    if other:
+        import math
+        ox, oy = other[0][0] - ME[0], other[0][1] - ME[1]
+        cos = (ox * (x - ME[0]) + oy * (y - ME[1])) / (math.hypot(ox, oy) * math.hypot(x - ME[0], y - ME[1]))
+        check("after an empty frontier the next goes another way", cos < math.cos(math.radians(45)), True)
 jc = frontier("Jungle Camp")
 check("Jungle Camp: the fog north of its label (its way in)", bool(jc) and jc[0][1] < labels["Jungle Camp"][1], True)
 check("Verdantglade IV (no fog of its own beside reachable ground) has none", frontier("Verdantglade IV"), None)
@@ -133,6 +141,7 @@ check("a tile 5 right of us is off screen", clear.on_screen((360, 600), type("M"
 check("a tile over the minimap HUD is off limits", clear.on_screen((360, 600), type("M", (), {"centre": (10, 10)})(),
                                                                    (8, 12)), None)
 check("a guard group is a leg source of its own", hasattr(clear.Clearer, "try_guard"), True)
+check("no % line counts as explored only near the end", clear.NO_PCT_DONE_FROM >= 90, True)
 check("the loop's ok statuses", {"zone_done", "no_objective", "no_progress"} <= clear.OK, True)
 
 print("all good" if not fails else f"{fails} failed")

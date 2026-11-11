@@ -46,6 +46,7 @@ log = logging.getLogger("sxs.loops.clear")
 
 STALL_LEGS = 4  # legs in a row with no % and no object cleared before the run stops (no_progress)
 BIG_MAP_LEGS = 12  # big-map legs per run (each ~20-30 s)
+NO_PCT_DONE_FROM = 90  # % a zone must have reached before its label showing no % line counts toward explored
 FRONTIER_LEGS = 3  # frontier legs per run: fog matters only when it hides objects
 RING_MISSES = 2  # ring legs in a row without a gain before the ring waits for another source's gain
 SPOT_FAILS = 2  # legs at one map spot without a gain before that spot is skipped for the run
@@ -126,6 +127,7 @@ class Clearer:
         self.no_gain = 0
         self.ring_misses = 0
         self.big_map_used = self.frontier_used = 0
+        self.frontier_away: list[tuple[int, int]] = []  # area-map directions of frontier legs that revealed nothing
         self.big_map_off = False  # big-map objects keep leading back to a failed spot: object source off
         self.fails: list[tuple[tuple[int, int], int]] = []  # [(map spot, legs there without a gain)]
         self.arrivals: list[tuple[str, tuple[int, int]]] = []  # (source, where a big-map leg ended)
@@ -171,7 +173,8 @@ class Clearer:
     def map_pct(self) -> None:
         """No tracker quest for this zone (a side zone): read its label's "Exploration: N%" on the area map at the
         survey zoom (live 2026-11-11, run 20: the % stayed None all run, so it could never show progress or 100%).
-        A label read three times running with room for a % line and none under it means the zone is explored."""
+        A label read three times running with room for a % line and none under it means the zone is explored, once
+        it has read NO_PCT_DONE_FROM% or more."""
         from .roam import merge_readings, read_areas, same  # roam imports this module
         if not self.home or not goto.open_area_map(self.dev, self.det):
             return
@@ -191,6 +194,10 @@ class Clearer:
             if self.pct is None or a.pct > self.pct:
                 self.pct = a.pct
             log.info("area map: %s at %d%%", self.home, a.pct)
+        elif not a.unsure and (self.pct or 0) < NO_PCT_DONE_FROM:
+            # A label that hasn't shown its % yet (run 22: Grotto Peninsula at 0% read "no % line" twice, then 63%):
+            # a missing line means explored only for a zone already near the end.
+            log.info("area map: %s shows no %% line, not counted (last %s%%)", self.home, self.pct)
         elif not a.unsure:
             self.no_pct_reads += 1
             log.info("area map: %s shows no %% line (%d of 3 reads)", self.home, self.no_pct_reads)
@@ -424,10 +431,11 @@ class Clearer:
             if mine and self.frontier_used < FRONTIER_LEGS:
                 others = [a.point for a in areas if a not in mine]
                 me = next((p for k, p in area_map.objects(frame) if k == "player"), None)
-                hit = area_map.frontier(frame, mine[0].point, others, me=me)
+                hit = area_map.frontier(frame, mine[0].point, others, me=me, away=self.frontier_away)
                 if hit:
+                    sx, sy = me or mine[0].point
                     choice.update(kind="frontier", what=f"nearest fog in the zone beside reachable ground "
-                                  f"(fog {hit[1]:.0%} round it)")
+                                  f"(fog {hit[1]:.0%} round it)", dir=(hit[0][0] - sx, hit[0][1] - sy))
                     return hit[0]
             return None
         return pick
@@ -475,8 +483,12 @@ class Clearer:
                 leg.events.append("revealed")
                 log.info("[leg %d] frontier revealed %d object tiles on the minimap", leg.n, len(found))
             else:
-                log.info("[leg %d] frontier revealed nothing: no more frontier legs this run", leg.n)
-                self.frontier_used = FRONTIER_LEGS
+                # Try the next patch in another direction (run 22: one empty frontier ended them all while the
+                # zone's ground ran far north into fog). FRONTIER_LEGS still caps them.
+                if "dir" in choice:
+                    self.frontier_away.append(choice["dir"])
+                log.info("[leg %d] frontier revealed nothing: the next one goes another way (%d of %d used)", leg.n,
+                         self.frontier_used, FRONTIER_LEGS)
         return leg
 
     def plan(self) -> Optional[Leg]:
