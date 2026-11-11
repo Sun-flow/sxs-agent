@@ -101,4 +101,5 @@ Scene labels (e.g. "Class to Unlock") overlap the quest tracker region; filter t
 - Tiny creatures at the Home base (mice, sometimes sitting in burrows), pink leaf piles and clay jars or pots can be tapped for a small amount of resources (mae, 2026-11-11 04:57). The Home routine includes a tap pass over them, found by template after panning.
 - A tracker line "...ers X 0/100" showed next to three leaf piles: likely a collect counter for them ❓.
 - Drop names and fuller reference images: to come from the strengthening thread.
+- Implementation and test plan (not run yet; a builder picks it up when mae approves): `docs/home-tap-pass-plan.md`.
 *told* · `home/home_tap_mouse.png`, `home/home_tap_mice_burrows.png`, `home/home_tap_critters.png`, `home/home_tap_leaf_pile.png`, `home/home_tap_overview.png` · node `home` · R-020, R-126
