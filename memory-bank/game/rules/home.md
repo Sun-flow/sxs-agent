@@ -75,15 +75,17 @@ Scene labels (e.g. "Class to Unlock") overlap the quest tracker region; filter t
 
 ### R-166 · Locked furniture: tap the crate, not the "Open" marker; Unlock is free
 - An "Open" marker over a crate in the house (upper floor) or on home (the stone left of the Cart) marks a locked furniture slot. Tapping "Open" only walks the character there; tap the crate or stone itself to get the furniture card, whose Unlock carries a red "!" and no cost: press it, then "UNLOCKED <name> / Tap to Continue" (builder, 2026-11-11).
-- **Workbench** (house, upper floor; "study your collection of Relics") opens the Relic screen: element tabs (Light, ...), Affinity and Aegis counters, Resonance Level 1 (4 display slots, +20% elemental stats of displayed relics), tabs Relic / Goals. With no relics it shows "No eligible Relics" and "Go to Aeonic Gacha": never tap that link (R-167).
+- **Workbench** (house, upper floor; "study your collection of Relics") opens the Relic screen: element tabs (Light, ...), Affinity and Aegis counters, Resonance Level 1 (4 display slots, +20% elemental stats of displayed relics), tabs Relic / Goals. With no relics it shows "No eligible Relics" and "Go to Aeonic Gacha", a link to the gacha (R-167).
 - **Aeonic Gacha** (stone left of the Cart): R-167.
 - The **Airship** on Home shows "Unlocks at Lv. 40": not reachable yet (Lv 37 on 2026-11-11).
 *observed* · `home/home_house_open_slot.png`, `home/furniture_workbench.png`, `home/workbench_relics.png`, `home/home_stone_open.png`, `home/furniture_aeonic_gacha.png`, `home/home_airship_lv40.png` · nodes `workbench`, `aeonic_gacha` · R-047, R-159
 
-### R-167 · Aeonic Gacha: unlock it free, claim its quest, never draw without mae
+### R-167 · Aeonic Gacha: draw x10 whenever a full 10x pull is affordable (badges and tickets only)
 - A "time-frozen gacha machine" that draws Relics with Auroral Badges. The free Unlock (R-166) adds the tracker quest "Aeonic Gacha: Unlock Aeonic Gacha" (50 badges): tap the tracker to claim it (R-044).
 - Screen: tabs Kingdom / Element / Goals; banner "Sylvan Relics" (Verdantglade); Draw x1 = 10 badges, Draw x10 = 100 badges; "Gacha Draws Today n/10000"; a guaranteed Rare in 10. We hold 230 badges (2026-11-11).
-- **Draws are pulls: never draw** until mae says so (asked 2026-11-11); same footing as Prayer pulls (R-093).
+- **Draw x10 whenever a full 10x pull is affordable on any tier**, paying only with Auroral Badges or pull tickets, **never Dawnium** (mae, 2026-11-11 05:22; this replaces "never draw without mae"). Never Draw x1.
+- Pulling earns extra pull tickets, shown by a counter in the upper left of the relic gacha screen: count them toward the next 10x pull.
+- Until a builder writes the pull function (status.md), a session draws by hand. Prayer pulls keep their own rule (R-093).
 *observed* · `home/aeonic_gacha.png` · node `aeonic_gacha` · R-043, R-093, R-159, R-166
 
 ### R-168 · Mailbox (the owl): Claim All daily, never Delete Read

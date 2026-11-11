@@ -1171,7 +1171,7 @@
     "docs/screens/home/furniture_workbench.png",
     "docs/screens/home/workbench_relics.png"
    ],
-   "notes": "House upper floor. Relic screen: element tabs, Affinity/Aegis, Resonance Level, tabs Relic / Goals. Never tap 'Go to Aeonic Gacha' (R-166, R-167)."
+   "notes": "House upper floor. Relic screen: element tabs, Affinity/Aegis, Resonance Level, tabs Relic / Goals. 'Go to Aeonic Gacha' links to the gacha (R-167)."
   },
   {
    "id": "aeonic_gacha",
@@ -1184,7 +1184,7 @@
     "docs/screens/home/furniture_aeonic_gacha.png",
     "docs/screens/home/aeonic_gacha.png"
    ],
-   "notes": "Stone left of the Cart. Tabs Kingdom / Element / Goals; Draw x1/x10 with Auroral Badges: never draw without mae (R-167)."
+   "notes": "Stone left of the Cart. Tabs Kingdom / Element / Goals; Draw x10 with Auroral Badges or tickets whenever a full 10x is affordable, never Dawnium, never x1; ticket counter upper left (R-167)."
   },
   {
    "id": "item_bag",

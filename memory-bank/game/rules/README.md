@@ -179,7 +179,7 @@ Rules of the world for an agent acting in Sword x Staff, split by situation. Rea
 | R-164 | `ui.md` | Story dialogue with choices and no Leave: stop, save the screen, ask mae |
 | R-165 | `home.md` | Dismantle in the Alchemy Pot is safe: use it for ore |
 | R-166 | `home.md` | Locked furniture: tap the crate, not the "Open" marker; Unlock is free |
-| R-167 | `home.md` | Aeonic Gacha: unlock it free, claim its quest, never draw without mae |
+| R-167 | `home.md` | Aeonic Gacha: draw x10 whenever a full 10x pull is affordable (badges and tickets only) |
 | R-168 | `home.md` | Mailbox (the owl): Claim All daily, never Delete Read |
 | R-169 | `home.md` | Item bag: open Treasure Chest items, leave gifts, ask on a choose-one box |
 | R-170 | `home.md` | Tap the little things around Home for small resources |
