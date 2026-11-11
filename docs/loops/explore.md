@@ -181,7 +181,7 @@ flowchart TD
 explored (the first unstick round's walk to the quest's area, or the marker leading across a zone line), the first
 move is not a fog search: find the entrance between the old and new zone on the big map, centre the camera there,
 then walk to ground next to the fog working outward from the entrance (never the fog itself, R-146). The quest
-marker takes over again once it shows. The same step opens the Fog Walk ([fogwalk.md](fogwalk.md)).
+marker takes over again once it shows. Clear Zone ([clear.md](clear.md)) follows the same ring as its first objective source.
 
 ### Where the code doesn't match this page yet (2026-11-10)
 
@@ -189,10 +189,10 @@ Checked against `sxs/loops/explore.py` on `main` and on PR #46. Details and reco
 
 | Box | Code today | Change that would make it fit |
 |---|---|---|
-| New-zone entry (R-150) | Not built: no entrance step | Builder is adding it (shared with Fog Walk) |
+| New-zone entry (R-150) | Not built: no entrance step | Roam's approach walks to the zone's way in (R-150); Clear Zone takes objectives from there |
 | Step 4 guard | Not on `main`; PR #46 adds it (`guard_marker`, then `attack_guard`, at most 6 taps a run) | Merge #46 |
 | Battle prep, "yes, 2 heals tried" | `_on_battle_prep` taps Start Battle anyway, under 70% HP | Call the shared `start_fight` (`sxs/actions/common.py`); when it returns False end `low_hp` (Q16) |
-| Step 5 find the marker | Its own ring follower (`Explore.Marker`, offsets 100/60/140/30 px) beside Fog Walk's live-proven `quest_step` (`find_quest_ring`, 80 px, sees edge rings at y≈50) | One shared quest-ring action for both loops (R-142) (Q18) |
+| Step 5 find the marker | Its own ring follower (`Explore.Marker`, offsets 100/60/140/30 px) beside Clear Zone's live-proven `mapnav.quest_step` (`find_quest_ring`, 80 px, sees edge rings at y≈50) | One shared quest-ring action for both loops (R-142) (Q18) |
 | Read the screen | Interrupts (tutorial, Choose Your Reward, rating, chat) run inside `detect()`; Explore registers no `resume_with` | None needed; the marker leads back. Shown as a note on the box |
 
 ## Card rules it uses (`resource/policy/cards.json`, goal `explore`)

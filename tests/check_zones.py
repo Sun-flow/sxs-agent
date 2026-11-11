@@ -59,8 +59,48 @@ check("1.25x power check on crossing", t.can_cross("Drasilgard", "Troll Lair", 1
 check("crossing from a town into a zone in reach", t.can_cross("Drasilgard", "Jungle Camp", 22.4)[0], True)
 check("Jungle Camp's missing way in is an open question",
       any(q.startswith("Jungle Camp: no known way in") for q in t.open_questions()), True)
+t.zones["Jungle Camp"]["lost_at"] = 22.4  # a fight lost there at 22.4K (Clear Zone's defeated screen)
+check("a zone we lost a fight in waits for more power", t.next_zone(22.6) != "Jungle Camp", True)
+check("and is tried again once power grows", t.next_zone(22.9), "Jungle Camp")
+t.zones["Jungle Camp"].pop("lost_at")
 check("name match keeps numerals apart", same("Verdantglade V", "Verdantglade VI"), False)
 check("name match takes a clipped label", same("tglade III", "Verdantglade III"), True)
+
+# Blessing a ready statue (roam.bless_once): never our own "!" or the tracker's gift badge (run 26 tapped us).
+from sxs.loops import roam  # noqa: E402
+SHOTS = Path(__file__).resolve().parent.parent / "docs" / "screens" / "world"
+xii = cv2.imread(str(SHOTS / "world_area_map_xii_statue_ready.png"))
+check("a Lost Statue's tan ready mark is found on the area map (run 35, XII)", roam.nearest_badge(xii), (74, 464))
+none = [n for n in ("area_map_survey_zoom", "area_map_v3", "world_area_map", "area_map_blue_bang")
+        if roam.statue_badges(cv2.imread(str(SHOTS / f"{n}.png")))]
+check("no ready statue read on area maps without one", none, [])
+own = roam.statue_on_screen(cv2.imread(str(SHOTS / "world_map_tracker_gift.png")), (262, 548))
+check("our own red ! is not a statue (an NPC's may be: a miss)", own is None or abs(own[0] - 302) > 60, True)
+check("the tracker panel's gift ! is not a statue",
+      roam.statue_on_screen(cv2.imread(str(SHOTS / "world_map_boss_beaten.png")), (360, 720)), None)
+
+# walk_toward: taps step up to 3 tiles toward the target (x east, y north) until within 2 tiles.
+pos = [94, 52]
+taps = []
+
+
+class Dev:
+    def tap(self, x, y):
+        taps.append((x, y))
+        pos[0] += max(-3, min(3, round((x - 360) / 104)))
+        pos[1] -= max(-3, min(3, round((y - 640) / 104)))
+
+
+saved = roam.goto.coords, roam.mapnav.off_me, roam.time.sleep
+roam.goto.coords = lambda det: tuple(pos)
+roam.mapnav.off_me = lambda det, p, frame=None: p
+roam.time.sleep = lambda s: None
+r = roam.Roamer.__new__(roam.Roamer)
+r.dev, r.det = Dev(), None
+r.walk_toward((78, 62))
+check("walking to a statue 16 tiles west and 10 north ends beside it", max(abs(pos[0] - 78), abs(pos[1] - 62)) <= 2, True)
+check("the first tap goes up-left (west and north)", taps[0][0] < 360 and taps[0][1] < 640, True)
+roam.goto.coords, roam.mapnav.off_me, roam.time.sleep = saved
 
 with tempfile.TemporaryDirectory() as d:
     t2 = Tree.load()

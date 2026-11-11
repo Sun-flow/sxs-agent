@@ -15,14 +15,16 @@
    "entries": []
   },
   "Bubble Lake": {
-   "kingdom": "Verdantglade Verdant",
+   "kingdom": "Verdantglade",
    "first_seen": "2026-11-10",
-   "pct": 0,
+   "pct": 36,
    "map_point": [
     148,
     624
    ],
-   "last_seen": "2026-11-10"
+   "last_seen": "2026-11-10",
+   "cp": 30.5,
+   "notes": "behind a Gate of Power (30.5K) SW of Verdantglade VIII ~(109,83); the gate shows a red ! at 35.9K (2026-11-11): passable now; run 27: Gate of Power opened, 0 -> 36%; the Blight Witch statue ~(95,80) opens a lore page then a curse card (one battle at max HP -100%, ATK -50%): part of exploration, heal before the next fight"
   },
   "Damp Woods": {
    "kingdom": "Verdantglade",
@@ -61,13 +63,15 @@
   "Grotto Peninsula": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-09",
-   "pct": 0,
+   "pct": 63,
    "cp": 23.0,
    "map_point": [
     311,
     -173
    ],
-   "last_seen": "2026-11-10"
+   "last_seen": "2026-11-11",
+   "notes": "run 22: 0 -> 63% in 4 legs. Run 24: the zone's northern fog lies behind the Ancient Fortress gate ~(116,148), an 'Energy Circuits' slab puzzle (R-153)",
+   "blocked": "puzzle gate near [116, 148] (Ancient Fortress, Energy Circuits; R-153)"
   },
   "Hidden Camp": {
    "kingdom": "Verdantglade",
@@ -128,6 +132,14 @@
     }
    ],
    "blessed": true
+  },
+  "Lakeside Camp": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-11",
+   "last_seen": "2026-11-11",
+   "lost_at": 28.5,
+   "lost_note": "lost to the bracketed boss group guarding the chest at 28.5K, 2026-11-11 (run 21); label green at 35.9K (2026-11-11), so roam retries it (lost_at + 0.5K passed)",
+   "cp": 32.0
   },
   "Leafy Corridor": {
    "kingdom": "Verdantglade",
@@ -195,7 +207,8 @@
     459,
     -149
    ],
-   "last_seen": "2026-11-10"
+   "last_seen": "2026-11-11",
+   "blocked": "Sealing Pillar needs a Gateway Key (0 owned; Clearing Item in the Verdantglade Kingdom Shop)"
   },
   "Stagnant Jungle": {
    "kingdom": "Verdantglade",
@@ -218,6 +231,12 @@
    ],
    "last_seen": "2026-11-10",
    "entries": []
+  },
+  "Stone Ruins II": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-11",
+   "last_seen": "2026-11-11",
+   "blocked": "floor puzzle (R-153)"
   },
   "Sunrise Isle": {
    "kingdom": "Verdantglade",
@@ -302,9 +321,9 @@
    "entries": []
   },
   "Verdantglade IX": {
-   "kingdom": "Verdantglade Verdant",
+   "kingdom": "Verdantglade",
    "first_seen": "2026-11-10",
-   "pct": 100,
+   "pct": 44,
    "cp": 30.0,
    "map_point": [
     423,
@@ -313,10 +332,15 @@
    "last_seen": "2026-11-10",
    "entries": [
     {
-     "via": "Verdantglade IV",
-     "day": "2026-11-10"
+     "via": "Verdantglade VIII",
+     "day": "2026-11-10",
+     "xy": [
+      124,
+      76
+     ]
     }
-   ]
+   ],
+   "notes": "Way in: Verdantglade VIII's south edge at about (124,76) (exploration thread, 2026-11-10). A 100% here was an OCR misread; live tracker 44/100 on 2026-11-11 (run 15)."
   },
   "Verdantglade V": {
    "kingdom": "Verdantglade",
@@ -440,6 +464,22 @@
     ]
    ],
    "blessed": true
+  },
+  "Verdantglade X": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-11",
+   "pct": 100,
+   "cp": 34.0,
+   "last_seen": "2026-11-11",
+   "blessed": true,
+   "notes": "run 25-26: 0 -> 100% (quest ring led in; the entrance pick returned no_move twice); blessed by hand 2026-11-11 (Blessing Lv 11)"
+  },
+  "Verdantglade XI": {
+   "kingdom": "Verdantglade",
+   "first_seen": "2026-11-11",
+   "cp": 37.0,
+   "last_seen": "2026-11-11",
+   "notes": "next main-quest Explore target after X (2026-11-11)"
   },
   "Wildbloom Coast": {
    "kingdom": "Verdantglade",

@@ -1,6 +1,6 @@
 # Decision Log
 
-> **Last updated**: 2026-11-10
+> **Last updated**: 2026-11-11
 > Decisions with lasting consequences (tech choices, structure, conventions, scope calls) and why they were made, so later sessions don't undo them by accident. One entry per decision, newest first; update `Status` when superseded; never delete an entry. Details and sources for the 2026-11-02 entries are in `docs/step1-emulator-and-game.md`.
 
 Entry format:
@@ -15,11 +15,22 @@ Entry format:
 
 ---
 
+### [2026-11-10] Yellow price buttons are their own detector class, btn_price
+- **Decision**: Mall, Vendor Booth and purchase-prompt price buttons (USD, Dawnium) are labelled `btn_price`, a new class appended to `resource/detect/classes.json`, never `btn_primary`.
+- **Rationale**: mae (2026-11-10, decision card). They look identical to action buttons; a separate class lets the bot refuse spend buttons by class as a second safeguard beside the text check.
+- **Alternatives considered**: label them `btn_primary` and rely on the text check only; leave shop screens unlabelled (the model would still fire on them).
+- **Status**: Accepted
+
 ### [2026-11-10] Screen checks: one OCR read per frame now; a trained UI detector works alongside it (hybrid)
 - **Decision**: `StateDetector.detect()` reads the whole screen once per frame and matches every plain OCR State node against that read (PR #48). The next step is a UI detector (YOLO26 Nano and RF-DETR Nano trained head to head on one private Roboflow dataset, keep the winner), labelled in our labeler with detector classes from `resource/detect/classes.json`. Once trained, it runs first for screens whose anchors it sees with high confidence; the text check still decides spend-risk screens (cards, shops, prayer, confirms), unsure frames and unknown screens. Minimap objects are detector classes too, trained on an enlarged minimap crop and on the full frame to compare; minimap terrain stays with the colour code.
 - **Rationale**: mae (2026-11-10): faster, cheaper processing first, then "why don't they work together?" Measured on her PC: old check 6.4 s median, new 1.3 s (1.0 s on DirectML). A model pass is ~40-60 ms, but only text gives wording safety (an allowed button verb), one-line new screens, unknown-stays-unknown, and numbers.
 - **Alternatives considered**: model-only state detection (no wording safety, confident on unseen screens); per-strip reads (only 1.1x); last-state-first (still has to check every popup above it); Roboflow 3.0 / YOLOLite (Roboflow licence and lock-in); full-frame-only minimap dots (2-10 px, near the detector's limit).
 - **Status**: Accepted (mae 2026-11-10); detector not trained yet
+
+### [2026-11-11] Drafts follow the bot's own readers; removed drafts are remembered
+- **Decision**: the pre-labeller drafts an area-map object only where `sxs/vision/area_map.objects()` reports one, never drafts item symbols on map areas, and skips anything in `docs/screens/rejected.json` (drafts mae removed). Review is one class at a time in the labeler's grid.
+- **Rationale**: a separate copy of the reader drifted and drafted red text, badges and the zoom knob; forgotten removals came back on every re-draft (`docs/labeler-diagnosis.md`).
+- **Alternatives considered**: tuning the copy's thresholds (would drift again); deleting "Confirm all drafts" (kept, but it now confirms only the shown category).
 
 ### [2026-11-09] The location tree is committed data the bot writes: `resource/world/zones.json`
 - **Decision**: zones, their CP, exploration %, blessed flag, links (walked / map_adjacent / inside) and known ways in live in one JSON file under `resource/world/`, read and written by `sxs/policy/zones.py`. Roam surveys and fog-walk zone changes update it at runtime; builders commit it with their session. Roam picks targets and entry neighbours from it, not from one area-map reading.
@@ -102,4 +113,10 @@ Entry format:
 ## 2026-11-10 · Item symbols are catalogued and taught to the detector (mae)
 - Every item, material and currency symbol gets a catalogue entry in `resource/items/` with its name and description read from its own in-game popup; the UI detector learns them (`item_icon`, one class per item in the export by default).
 - Standing rule for every thread: when you see a material or currency symbol that is not in the catalogue, find out what it is and add it (`python -m sxs items add`). Not all of them matter to the bot; all of them help training.
+
+## 2026-11-11 · Exploration moves by named objectives; the Fog Walk is scrapped (mae)
+- **Decision**: exploration (`python -m sxs clear`, called by roam) walks in legs, each toward an objective it can name: the zone's quest ring, a known object on screen, a minimap object a few tiles away, the nearest object in the zone on the big map, then a fog frontier (one long big-map walk). Progress is the zone's % or an object cleared, never a new tile. No objective left, or 4 legs without progress, ends the run with a named status.
+- **Rationale**: mae, 2026-11-10 23:48: "the idea of fog-walk has been poisoning our navigation". Counting new tiles as progress let the walk hop round one patch for minutes (run 13: 62 hops, 4 object legs; every % from objects, R-143). Her standing principle: consistent trackable progress, never wander. Design: `docs/step6-clear-zone.md`; post-mortem: `docs/fogwalk-postmortem.md`.
+- **Alternatives considered**: patching the fog walk (progress by %, ring first, longer frontier legs), as the exploration thread first proposed; rejected because mae asked for the approach to be replaced, not layered on.
+- **Status**: Accepted
 

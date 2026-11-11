@@ -125,6 +125,37 @@ def main() -> int:
                   f"vision finds the crop on a shifted frame ({hit})")
             check(vlabels.tap_point(np.zeros_like(img), "home_mystery", "go_button") is None, "no false match")
             check(vlabels.roi("home_mystery", "go_button") == (300, 1080, 121, 61), "roi lookup")
+
+            # Category filter and review grid (mae, 2026-11-11).
+            draft = {"kind": "icon", "w": 14, "h": 14, "note": "", "template": False, "draft": True}
+            call(base, "/api/save", {"key": "home/home.png", "fields": {"state": "home", "what": "note"}, "boxes": [
+                dict(draft, name="map_monster_1", x=100, y=100, cls="map_monster"),
+                dict(draft, name="map_monster_2", x=200, y=100, cls="map_monster"),
+                dict(draft, name="map_monster_3", x=300, y=100, cls="map_monster"),
+                dict(draft, name="map_item_1", x=400, y=100, cls="map_item")]})
+            listing = call(base, "/api/screens")
+            row = next(x for x in listing["screens"] if x["key"] == "home/home.png")
+            check(sum(1 for t in row["tags"] if t[0] == "map_monster") == 3, "screen list carries each box's class")
+            r = call(base, "/api/review?category=c:map_monster&drafts=1")
+            check(len(r["boxes"]) == 3 and all(e["box"]["cls"] == "map_monster" for e in r["boxes"]),
+                  "review lists one class only")
+            check(len(call(base, "/api/review?category=g:area_map")["boxes"]) == 4, "review by class group")
+            r = call(base, "/api/review", {"decisions": [
+                {"key": "home/home.png", "name": "map_monster_1", "action": "keep"},
+                {"key": "home/home.png", "name": "map_monster_2", "action": "reject"},
+                {"key": "home/home.png", "name": "map_monster_3", "action": "relabel", "cls": "map_building"}]})
+            check(r["counts"] == {"keep": 1, "reject": 1, "relabel": 1} and not r["problems"], "review decisions applied")
+            got = {b["name"]: b for b in labels.boxes_for("home/home.png")}
+            check("map_monster_2" not in got and not got["map_monster_1"].get("draft")
+                  and got["map_monster_3"]["cls"] == "map_building" and not got["map_monster_3"].get("draft"),
+                  "keep confirms, reject removes, relabel moves the box to the new class")
+            check(labels.is_rejected("home/home.png", {"cls": "map_monster", "x": 201, "y": 100, "w": 14, "h": 14})
+                  and labels.is_rejected("home/home.png", {"cls": "map_monster", "x": 300, "y": 100, "w": 14, "h": 14}),
+                  "a rejected draft and a relabelled box's old class are remembered")
+            call(base, "/api/save", {"key": "home/home.png", "fields": {"state": "home", "what": "note"},
+                                     "boxes": [b for b in got.values() if b["name"] != "map_item_1"]})
+            check(labels.is_rejected("home/home.png", {"cls": "map_item", "x": 400, "y": 100, "w": 14, "h": 14}),
+                  "a draft deleted on the screen view is remembered too")
         finally:
             server.shutdown()
     print(f"\n{len(problems)} problem(s)")
