@@ -213,7 +213,8 @@ A stone pillar card "Gate of Power": "Requires: Power reaches 15.5K (Current: 8.
 - Card: "This stone gate is sealed tight. To unlock, you need: Reach the Apprentice II rank (current: Apprentice II)", with a free Unlock button once the rank is met. Press Unlock (card rule `sealed_gate`, `resource/policy/cards.json`); it is free, not a spend. Short of the rank there is no button: dismiss.
 - Unlocked live 2026-11-10 about 03:32; Explore Verdantglade VI went 0 → 3%.
 - Another gate sits near (142, 149) on the Wildbloom Coast / Verdantglade VI side, where the minimap reads Verdantglade VI.
-*observed* · R-030, R-070, R-086, R-150
+- The gate between Verdantglade XI and XII needs Apprentice III; free Unlock as above (builder, run 27, 2026-11-11). New zones seen past it: Amber Gorge 44K, Gorge Camp 38K, Damp Coast.
+*observed* · `world/world_sealed_stone_gate_xi_apprentice_iii.png` · R-030, R-070, R-086, R-150, R-118
 
 ## Map objects and statues
 
