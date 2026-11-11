@@ -2,6 +2,12 @@
 
 Older entries moved from `memory-bank/log.md`, newest first.
 
+### 2026-11-10 (morning) · Rules: puzzles, Golden Beetles, item symbols (Claude Code, cloud, docs thread)
+- #46 merged (rules through R-152, VI blessed batch). Fresh docs branch from main.
+- mae (06:25): never spend Golden Beetles; skip puzzle areas for now (Fonik box puzzle gating Monolith Ruins II); puzzle solvers later (new R-153, policy.md never-do).
+- mae (06:24): identify every unrecognized item or currency symbol through its info card and add it to the items and currency database, for the Roboflow detector (new R-154, playbook).
+- Folded the builder's branch `claude/project-thread-dloc9z` (runs 1–8, through ace956a) with its rules: Fonik's puzzle in Monolith Ruins II (R-153); objects start only from the next tile (new R-155); monster group cards fought within 1.25x (new R-156, Limpid Legion solved); Timed Packs paid popup closes with a tap below (new R-157); HUD keep-out for walk taps, never Replace a charm (new R-158); area-map edge targets dragged to the middle (R-068); one locate tap per missing ring (R-022); mini-dungeon battles waited out (R-071); VII blessed, Blessing 7 → 8 (R-070); glowing pot = Refined Ore (R-122); stamina mark confirmed (R-065); VII, VIII, Leafy Corridor, Monolith Ruins II (R-135); survey OCR and trailing numerals (R-140). Menu map: Timed Packs popup node; three node kinds fixed so the graph checks again. R-154 names the items database path.
+
 ### 2026-11-10 (evening) · Detector data follow-ups (Claude Code, cloud)
 - After mae's labeler pass: `scripts/merge_labels.py` (merge two labels.json copies, mae's boxes win); dataset export balances splits so every class on 3+ screens is in valid and test (`--hash-split` for the old split); item `aliases` + `python -m sxs items rename` (unknown_1 -> growth_trial_points); `btn_quick_heal` = the Quick Heal button on the badly-wounded dialog; new class `btn_price` (mae); prelabel drops area-map label letters, `--redraft` / `--only`, clear stop when OCR models are missing.
 - Ran on labels/check-drafts (by the symbols thread): mae's 83 map/minimap marker boxes back to drafts plus the text drafter (zone names, % lines, Claim): 191 drafts on 23 screens for her to check.

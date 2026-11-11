@@ -48,7 +48,6 @@ Format: `- what — branch, PR, environment (started)`. Remove the line when it 
 - Code to do (mae 2026-11-11, R-118): `strengthen` / `get_stronger` checks the level cap first; at the cap it opens the rank page, gathers a short free material (Bellflowers via `gather --harvest bellflower --enter`), advances, then collects bed EXP, before gear and skills. Planned branch drawn dashed in `docs/loops/upgrade.md`; run live only at a time mae approves. Also (R-167): an Aeonic Gacha pull function: read badges and the ticket counter (upper left), Draw x10 on any tier while a full 10x is affordable, never Dawnium, never x1; add it to `strengthen` / the daily loop.
 - From mae's rules (2026-11-09), code to do: gather fights a monster guarding a pickup, then resumes it (R-139); a separate bed free speed-up task, called after the day's exploration, not in dailies (R-035); the gear pass treats a blue arrow pip on a slot as "enhance" (R-088); pickup reference crops for the fog walk (R-131).
 - Interrupt layer (`docs/interrupts.md`): ran under all 8 live runs of the strengthening session (2026-11-05) with no false trigger; still to watch live: the tutorial pause/resume path. Live check that a tutorial highlight on the island map pauses Fog Walk and resumes it; capture frames of tutorials on unknown overlays so the row can learn them. Companions invite is followed (mae 02:23: inviting is fine).
-
 0. Progress tracker live check: run `python -m sxs progress` on rif-love-su, confirm the profile/Journal/guild/area readings, then the daily run's report. Routes still missing: the bag (Lumium, Material Realm tools), relics (not unlocked).
 
 1. Conquest with tries left: watch it live after the 13:00Z reset.
@@ -58,6 +57,7 @@ Format: `- what — branch, PR, environment (started)`. Remove the line when it 
 5. Older: test HP logic when HP drops below 70% while alive; minimap classifier per area palette; model supervisor for `unknown_*` stops.
 
 ## Waiting on mae
+- Stamina Spend loop draft `docs/loops/stamina.md` (2026-11-11): edit it and answer its six questions; then the build follows.
 
 - Remaining questions in `docs/loops/open-questions.md`: Forge-full fallback (Q6), Notice sign-ins and Exploration Goals in the daily loop (Q7), Cart tie-break (Q8). Settled 2026-11-09: Q3, Q4, Q5, Q9, Q10, Q11, bed speed-up timing.
 
