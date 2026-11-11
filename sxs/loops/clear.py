@@ -300,7 +300,19 @@ class Clearer:
         if back == "no_move":
             mapnav.quest_step(self.dev, self.det, True)  # an enclosure (Auroradrasil): the quest pointer leads out
             back = goto.go_to(self.dev, self.det, self.home)
+        if back != "arrived" and self.cross_into_home():
+            return None
         return None if back == "arrived" else "not_in_zone"
+
+    def cross_into_home(self) -> bool:
+        """After a walk toward the zone: if the name under the minimap is still another zone, walk in where light
+        (explored) ground meets the zone's shaded ground (mae, 2026-11-11: live, the walks into Verdantglade XIII
+        kept ending at a wall). True when we stand in the zone afterwards."""
+        name = goto.area_name_here(self.det)
+        if not name or self.in_home(name):
+            return True
+        log.info("still in %s after the walk to %s: looking for a crossing into its shaded ground", name, self.home)
+        return mapnav.enter_next_zone(self.dev, self.det, arrived=lambda n: bool(n) and self.in_home(n))
 
     # ---------------------------------------------------------------- objective sources
     def start_leg(self, source: str, what: str, xy=None) -> Leg:
@@ -935,6 +947,7 @@ class Clearer:
                 return "not_on_map"
         if self.home and walk_there:
             goto.go_to(self.dev, self.det, self.home)
+            self.cross_into_home()
         if not self.home:
             self.home = mapnav.zone_here(self.dev, self.det, self.tree) or None
         if self.home and self.tree.get(self.home) and self.tree.explored(self.home):

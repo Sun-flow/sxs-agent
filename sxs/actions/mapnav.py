@@ -347,3 +347,38 @@ def label_is(label: str, zone: str) -> bool:
     if len(goto.squeeze(a)) < 6 or not b.lower().startswith(a.lower() + " "):
         return False
     return not re.fullmatch(r"[IVXl1|]+", b[len(a):].strip())
+
+
+CROSSING_HOPS = 5  # walk taps toward the nearest light-to-shaded crossing before giving up
+
+
+def enter_next_zone(dev, det, arrived=None, hops: int = CROSSING_HOPS) -> bool:
+    """Walk into the unexplored zone beside us (mae, 2026-11-11): from the minimap, the nearest light (explored)
+    ground that runs up to shaded (unexplored) ground over walkable tiles only, never toward a wall; walk there and
+    step across. `arrived(name)` says whether the area name under the minimap is the zone we want (default: any
+    change of name). True once it is."""
+    start = goto.area_name_here(det)
+    arrived = arrived or (lambda name: bool(name) and not goto.same_area(name, start))
+    skip: set = set()
+    for hop in range(1, hops + 1):
+        frame = dev.screenshot()
+        name = goto.area_name_here(det, frame)
+        if arrived(name):
+            log.info("zone entry: now in %s", name)
+            return True
+        mm = minimap.read(frame, True)  # we stand on the light (explored) side
+        path = minimap.path_to_crossing(mm, skip)
+        me = player_on_screen(det, frame)
+        if not path or me is None:
+            log.info("zone entry: no crossing from light to shaded ground on the minimap (hop %d)", hop)
+            return False
+        xy = goto.coords(det)
+        point = off_me(det, minimap.screen_point(me, mm, path[-1]), frame)
+        log.info("zone entry hop %d: crossing %d tiles away, toward shaded ground at minimap %s: tap %s", hop,
+                 len(path) - 1, path[-1], point)
+        dev.tap(*point)
+        time.sleep(4)
+        if xy is not None and goto.coords(det) == xy:
+            skip.add(path[-1])  # that crossing didn't take us anywhere: try the next one
+    name = goto.area_name_here(det)
+    return arrived(name)
