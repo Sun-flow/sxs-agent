@@ -28,6 +28,7 @@ Run from the repo root (`.venv\Scripts\python scripts\X.py` on Windows, `python3
 | `ocr.py IMG [X Y W H]` | Every OCR result MaaFramework finds in a region |
 | `crop.py SRC X Y W H OUT` | Crop a template |
 | `grid.py FOLDER i j ...` | Tile frames from a `captures/` subfolder into `captures/grid.jpg` |
+| `label_coverage.py [--write]` | Detector label coverage per class, item and item group (what `python -m sxs dataset` would export); `--write` refreshes `docs/detector-coverage.md` |
 
 ## Setup and housekeeping
 

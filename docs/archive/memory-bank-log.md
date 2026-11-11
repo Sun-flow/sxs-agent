@@ -2,6 +2,11 @@
 
 Older entries moved from `memory-bank/log.md`, newest first.
 
+### 2026-11-10 (evening) · Detector data follow-ups (Claude Code, cloud)
+- After mae's labeler pass: `scripts/merge_labels.py` (merge two labels.json copies, mae's boxes win); dataset export balances splits so every class on 3+ screens is in valid and test (`--hash-split` for the old split); item `aliases` + `python -m sxs items rename` (unknown_1 -> growth_trial_points); `btn_quick_heal` = the Quick Heal button on the badly-wounded dialog; new class `btn_price` (mae); prelabel drops area-map label letters, `--redraft` / `--only`, clear stop when OCR models are missing.
+- Ran on labels/check-drafts (by the symbols thread): mae's 83 map/minimap marker boxes back to drafts plus the text drafter (zone names, % lines, Claim): 191 drafts on 23 screens for her to check.
+- Open: mae re-checks those drafts; second labelling pass for empty classes (cards, close X); Roboflow upload waits for her go.
+
 ### 2026-11-09 (late) · Upgrade loops live test (Claude Code, mae's PC via Remote Control)
 - mae (23:52): test the upgrade loops. Cart: claimed, the free Chrono Sand Unlock pressed (R-137, first live run, worked), Stone/Wood capped at Lv 5 (Blessing Lv 6). Gear swap: weapon 1490 → 1960, head 1170 → 1820. Upgrade Loop: 1 skill Quick Upgrade, Goals claimed. Gear enhance: weapon +21 → 24, head +18 → 23, chest and boots +15 → 20. Power 22.4K → about 24.5K.
 - Fixed: the blue enhance pip finder found none live (discs bluer, S up to ~175; one merged with the chest slot's rim, 38x26): range H 85-116, S 45-190, size to 40 px, aspect 1.5; reference `character/character_pips_all4.png`. The gear pass stopped at the first piece short of materials (the weapon's +25 needs red ore, 299/300) though others could go on: a short or capped piece is left out, the rest keep banding. Gear pass budget 180 s (enhancing four slots took 60 s of 90).
