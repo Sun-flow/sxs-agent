@@ -65,10 +65,6 @@ Many branches write memory at once, and mae merges them in any order. Shared lin
   each file (`python3 scripts/index.py docs|tests|rules|work`). Adding a doc, test or rule means giving the new file
   its metadata line, not adding a table row. No generated index is committed, so there is nothing to regenerate
   after a merge.
-- **Narrow edits to the files that stay shared** (`status.md`, `notes.md`, `context.md`, the rule files,
-  `docs/loops/`, `scripts/README.md`): add or change only the lines your work is about. Don't reorder, rewrap,
-  reformat or tidy neighbouring lines, and don't add "last updated" stamps. A tidy-up or reformat of a shared file
-  goes in its own docs-only PR, merged when few PRs are open.
 - **New rule IDs** come from `python3 scripts/check-rules.py --next` after `git fetch`; if two branches still take
   the same ID, `scripts/check-rules.py` fails on main and the second branch renumbers.
 - This repo departs from `.agents/prompts/memory-bank.md` here: that prompt describes a single log file and a
