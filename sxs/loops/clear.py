@@ -51,7 +51,7 @@ LORE_SWIPES = 8  # swipes up a lore page before giving up on its Close button
 LORE_CLOSE_ROI = [160, 900, 400, 340]  # where Close shows at the end of a lore page (about (360, 1104))
 BAN_PX = 25  # area-map px within which a candidate is the object a walk already failed to reach from here
 SETTLE_RECHECK_S = 2.0  # after handling a screen, the map must still show this long later to count as clear
-FRONTIER_LEGS = 6  # frontier legs per run: fog matters only when it hides objects (3 ran short in Grotto Peninsula)
+FRONTIER_LEGS = 2  # frontier legs per run: fog matters only when it hides objects; uncovered fog alone never earns another (mae's call pending, 2026-11-11 18:16: no fog-chasing)
 FOG_REVEALED = 0.05  # drop in the fog share round the frontier spot, before the walk to after, that counts as revealed
 RING_MISSES = 2  # ring legs in a row without a gain before the ring waits for another source's gain
 SPOT_FAILS = 2  # legs at one map spot without a gain before that spot is skipped for the run
@@ -554,7 +554,12 @@ class Clearer:
         return leg
 
     def frontier_result(self, leg: Leg, here, choice: dict) -> None:
-        """A frontier leg uncovers objects (a gain), or at least fog (the next frontier lies past it), or nothing.
+        """A frontier leg uncovers objects (a gain), or nothing that counts.
+
+        2026-11-11 18:16 (mae asked how this differs from the fog walk): fog that shrank with no object used to let
+        the next frontier carry on deeper from here. That is fog-chasing, the fog walk's habit, so it no longer
+        does: only objects count; a leg that uncovers only fog is spent like an empty one (its direction is not
+        tried again) and the frontier source is used up after FRONTIER_LEGS. History below.
         Live 2026-11-11, run 22 (Grotto Peninsula, 63%): the one frontier leg found no object on the minimap, and
         "revealed nothing" then ended every frontier leg while the zone's ground ran on north into fog. Walking to
         the fog's edge is what uncovers it, so fog that shrank means the leg worked: the next frontier, farther in,
@@ -573,10 +578,9 @@ class Clearer:
         after = self.fog_here()
         before = choice.get("fog")
         if after is not None and before is not None and after <= before - FOG_REVEALED:
-            leg.events.append("fog_revealed")
-            log.info("[leg %d] frontier uncovered fog (%.0f%% -> %.0f%% round us), no object yet: the next frontier "
-                     "goes on from here", leg.n, 100 * before, 100 * after)
-            return
+            leg.events.append("fog_revealed")  # logged only: not a gain, and not a reason to go deeper
+            log.info("[leg %d] frontier uncovered fog (%.0f%% -> %.0f%% round us) but no object: spent",
+                     leg.n, 100 * before, 100 * after)
         if "dir" in choice:
             self.frontier_away.append(choice["dir"])
         log.info("[leg %d] frontier uncovered nothing (fog round us %s -> %s): the next one goes another way "
