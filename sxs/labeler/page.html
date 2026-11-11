@@ -51,6 +51,20 @@
   .bar { display:flex; gap:6px; margin-top:10px; flex-wrap:wrap; }
   .muted { color:var(--dim); font-size:12px; }
   kbd { background:#2a2e38; border-radius:3px; padding:0 4px; font-size:11px; }
+  #category { width:100%; margin-top:6px; }
+  .catbar { display:flex; gap:6px; margin-top:6px; align-items:center; }
+  #grid { display:none; position:absolute; inset:0; overflow:auto; padding:12px; background:var(--bg); }
+  #grid.on { display:block; }
+  #gridbar { position:sticky; top:-12px; z-index:2; background:var(--bg); padding:8px 0; display:flex; gap:8px;
+             align-items:center; flex-wrap:wrap; border-bottom:1px solid var(--line); margin-bottom:10px; }
+  #tiles { display:grid; grid-template-columns:repeat(auto-fill, minmax(168px, 1fr)); gap:10px; }
+  .tile { border:3px solid var(--line); border-radius:8px; padding:4px; background:var(--panel); cursor:pointer; }
+  .tile canvas { width:100%; aspect-ratio:1; display:block; background:#000; border-radius:4px; image-rendering:pixelated; }
+  .tile .t { font-size:11px; color:var(--dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .tile.cur { outline:2px solid var(--sel); outline-offset:2px; }
+  .tile.keep { border-color:var(--ok); } .tile.reject { border-color:#ff6b6b; opacity:.6; }
+  .tile.relabel { border-color:#c792ea; }
+  .tile .d { font-size:11px; font-weight:600; }
 </style>
 </head>
 <body>
@@ -59,6 +73,9 @@
     <input id="filter" placeholder="Filter screens" autocomplete="off">
     <label><input type="checkbox" id="onlyTodo"> only screens with no state yet</label>
     <label><input type="checkbox" id="onlyDrafts"> only screens with draft boxes to check</label>
+    <select id="category" title="Show one label category at a time"><option value="">All label categories</option></select>
+    <div class="catbar"><button id="reviewBtn" disabled title="Every box of this category from every screen, side by side">Review grid</button>
+      <span class="muted" id="catCount"></span></div>
   </header>
   <div id="items"></div>
 </aside>
@@ -67,6 +84,20 @@
   <div id="wrap">
     <img id="img" alt="">
     <canvas id="canvas"></canvas>
+  </div>
+  <div id="grid">
+    <div id="gridbar">
+      <strong id="gridTitle"></strong>
+      <label class="muted"><input type="checkbox" id="gridDrafts" checked> drafts only</label>
+      <select id="moveTo" title="Move the selected box to another class"><option value="">move selected to class…</option></select>
+      <button class="primary" id="applyBtn">Apply</button>
+      <button id="closeGrid">Back to screens</button>
+      <span class="muted" id="gridMsg"></span>
+    </div>
+    <div class="muted" style="margin-bottom:8px"><kbd>Y</kbd> keep · <kbd>N</kbd> reject · <kbd>U</kbd> undo ·
+      arrows move · <kbd>Enter</kbd> opens the screen · click a tile to select it. Nothing is saved until Apply.
+      Rejected drafts are remembered so the pre-labeller never drafts them again.</div>
+    <div id="tiles"></div>
   </div>
 </section>
 
@@ -100,6 +131,8 @@ const $ = s => document.querySelector(s);
 const img = $('#img'), cv = $('#canvas'), ctx = cv.getContext('2d');
 let screens = [], kinds = [], tmplKinds = [], classes = [], items = [], cur = null, boxes = [], sel = -1, dirty = false, size = [720, 1280];
 let drag = null;
+let category = '', groups = {}, itemGroups = {};
+let grid = null;  // {boxes:[...], dec:{i: {action, cls}}, cur}
 
 async function api(path, body) {
   const r = await fetch(path, body ? {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)} : {});
@@ -115,25 +148,72 @@ async function loadList(keepKey) {
   const j = await api('/api/screens');
   screens = j.screens; kinds = j.kinds; tmplKinds = j.template_kinds; classes = j.classes || []; items = j.items || [];
   $('#states').innerHTML = j.states.map(s => `<option value="${s}">`).join('');
+  groups = Object.fromEntries(classes.map(c => [c.name, c.group]));
+  itemGroups = Object.fromEntries(items.map(i => [i.id, i.group || '']));
+  fillCategories();
   renderList();
   const key = keepKey || (screens[0] && screens[0].key);
   if (key && (!cur || cur.key !== key)) open(key); else renderList();
 }
 
+// --- category filter (mae, 2026-11-11: one label category at a time) ----------------------------------------------
+function matches(b, cat) {
+  if (!cat) return true;
+  const [kind, value] = [cat.slice(0, cat.indexOf(':')), cat.slice(cat.indexOf(':') + 1)];
+  const cls = b.cls || '';
+  if (kind === 'c') return cls === value;
+  if (kind === 'g') return groups[cls] === value;
+  if (kind === 'i') return cls === 'item_icon' && b.item === value;
+  if (kind === 'ig') return cls === 'item_icon' && (itemGroups[b.item] || '') === value;
+  return false;
+}
+const tagBox = t => ({cls: t[0], item: t[1], draft: t[2]});
+function fillCategories() {
+  const count = {};
+  for (const s of screens) for (const t of s.tags || []) {
+    const b = tagBox(t), keys = [];
+    if (b.cls) keys.push('c:' + b.cls, 'g:' + (groups[b.cls] || ''));
+    if (b.cls === 'item_icon' && b.item) keys.push('i:' + b.item, 'ig:' + (itemGroups[b.item] || ''));
+    for (const k of keys) { count[k] = count[k] || [0, 0]; count[k][0]++; if (b.draft) count[k][1]++; }
+  }
+  const n = k => count[k] ? ` (${count[k][0]}${count[k][1] ? ', ' + count[k][1] + ' drafts' : ''})` : ' (0)';
+  const gs = [...new Set(classes.map(c => c.group))];
+  const igs = [...new Set(items.map(i => i.group).filter(Boolean))].sort();
+  let html = '<option value="">All label categories</option><optgroup label="Class groups">'
+    + gs.map(g => `<option value="g:${g}">all ${g}${n('g:' + g)}</option>`).join('') + '</optgroup>';
+  for (const g of gs) html += `<optgroup label="${g}">` + classes.filter(c => c.group === g)
+    .map(c => `<option value="c:${c.name}" title="${esc(c.about)}">${c.name}${n('c:' + c.name)}</option>`).join('') + '</optgroup>';
+  html += '<optgroup label="Item groups">' + igs.map(g => `<option value="ig:${g}">items: ${g}${n('ig:' + g)}</option>`).join('') + '</optgroup>';
+  html += '<optgroup label="Items">' + items.filter(i => count['i:' + i.id])
+    .map(i => `<option value="i:${i.id}">${esc(i.name || i.id)}${n('i:' + i.id)}</option>`).join('') + '</optgroup>';
+  const sel = $('#category'); sel.innerHTML = html; sel.value = category;
+  $('#moveTo').innerHTML = '<option value="">move selected to class…</option>'
+    + classes.map(c => `<option value="${c.name}">${c.group} · ${c.name}</option>`).join('');
+}
+function setCategory(cat) {
+  category = cat; $('#category').value = cat; $('#reviewBtn').disabled = !cat;
+  sel = -1; renderList(); renderBoxes(); draw();
+}
+$('#category').addEventListener('change', e => setCategory(e.target.value));
+
 function renderList() {
   const q = $('#filter').value.toLowerCase(), todo = $('#onlyTodo').checked, dr = $('#onlyDrafts').checked;
-  let html = '', group = null;
+  let html = '', group = null, total = 0, shown = 0;
   for (const s of screens) {
     if (q && !s.key.toLowerCase().includes(q) && !(s.state || '').includes(q)) continue;
     if (todo && s.labelled) continue;
-    if (dr && !s.drafts) continue;
+    const mine = category ? (s.tags || []).map(tagBox).filter(b => matches(b, category)) : null;
+    if (category && !mine.length) continue;
+    if (dr && !(mine ? mine.some(b => b.draft) : s.drafts)) continue;
+    if (mine) { total += mine.length; shown++; }
     const g = s.banked ? 'unlabeled (the bank)' : s.folder;
     if (g !== group) { html += `<div class="group">${g}</div>`; group = g; }
     html += `<div class="item${cur && cur.key === s.key ? ' cur' : ''}" data-key="${s.key}">
       <span class="dot${s.labelled ? ' done' : ''}" title="${s.labelled ? 'has a state' : 'no state yet'}"></span>
-      <span class="f">${s.file.replace('.png','')}</span>${s.drafts ? `<span class="n" title="draft boxes to check">${s.drafts}?</span>` : ''}${s.boxes ? `<span class="n">${s.boxes}▢</span>` : ''}</div>`;
+      <span class="f">${s.file.replace('.png','')}</span>${category ? `<span class="n" title="boxes of this category">${mine.length}◆</span>` : ''}${s.drafts ? `<span class="n" title="draft boxes to check">${s.drafts}?</span>` : ''}${s.boxes ? `<span class="n">${s.boxes}▢</span>` : ''}</div>`;
   }
   $('#items').innerHTML = html || '<div class="muted" style="padding:10px">Nothing matches.</div>';
+  $('#catCount').textContent = category ? `${total} box(es) on ${shown} screen(s)` : '';
 }
 
 $('#items').addEventListener('click', e => { const it = e.target.closest('.item'); if (it) open(it.dataset.key); });
@@ -143,6 +223,7 @@ $('#onlyDrafts').addEventListener('change', renderList);
 
 async function open(key) {
   if (dirty && cur && !confirm('Unsaved changes on ' + cur.key + '. Leave without saving?')) return;
+  if (grid) closeGrid();
   const d = await api('/api/screen?key=' + encodeURIComponent(key));
   cur = d; boxes = d.boxes.map(b => ({...b})); sel = -1; size = d.size;
   $('#key').textContent = d.key + (d.banked ? ' · in the bank' : '');
@@ -165,6 +246,7 @@ const HANDLE = () => 14 * size[0] / cv.getBoundingClientRect().width;  // corner
 function hit(x, y) {
   for (let i = boxes.length - 1; i >= 0; i--) {
     const b = boxes[i], h = HANDLE();
+    if (!matches(b, category)) continue;
     if (Math.abs(x - (b.x + b.w)) < h && Math.abs(y - (b.y + b.h)) < h) return [i, 'resize'];
     if (x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h) return [i, 'move'];
   }
@@ -208,6 +290,7 @@ function draw() {
   const lw = Math.max(2, size[0] / 360), fs = Math.max(14, size[0] / 36);
   ctx.font = `600 ${fs}px system-ui, sans-serif`;
   boxes.forEach((b, i) => {
+    if (!matches(b, category)) return;  // the category filter hides other boxes (they are kept and saved)
     const c = i === sel ? '#ffd34d' : COLORS[b.kind] || '#aab';
     ctx.strokeStyle = c; ctx.lineWidth = i === sel ? lw * 1.6 : lw;
     if (b.draft) ctx.setLineDash([10, 6]);
@@ -230,7 +313,7 @@ function esc(s) { return String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','
 function renderBoxes() {
   $('#count').textContent = boxes.length ? `(${boxes.length})` : '';
   if (!boxes.length) { $('#boxes').innerHTML = '<div class="muted">Drag on the screen to mark a button, text, icon or area.</div>'; return; }
-  $('#boxes').innerHTML = boxes.map((b, i) => `
+  $('#boxes').innerHTML = boxes.map((b, i) => !matches(b, category) ? '' : `
     <div class="box${i === sel ? ' sel' : ''}" data-i="${i}">
       <div class="row"><input type="text" data-k="name" value="${esc(b.name)}" placeholder="name, e.g. upgrade_button">
         <select data-k="kind">${kinds.map(k => `<option${k === b.kind ? ' selected' : ''}>${k}</option>`).join('')}</select></div>
@@ -269,7 +352,7 @@ $('#boxes').addEventListener('input', e => {
 });
 for (const k of ['name','folder','state','what']) $('#f_' + k).addEventListener('input', () => setDirty(true));
 function uniqueName(base) { let n = 1; while (boxes.some(b => b.name === `${base}_${n}`)) n++; return `${base}_${n}`; }
-$('#confirmAll').addEventListener('click', () => { let n = 0; boxes.forEach(b => { if (b.draft) { b.draft = false; n++; } }); if (n) { setDirty(true); renderBoxes(); draw(); } msg(n ? `${n} draft(s) confirmed; Save to keep.` : 'No drafts on this screen.', 'ok'); });
+$('#confirmAll').addEventListener('click', () => { let n = 0; boxes.forEach(b => { if (b.draft && matches(b, category)) { b.draft = false; n++; } }); if (n) { setDirty(true); renderBoxes(); draw(); } msg(n ? `${n} draft(s) confirmed; Save to keep.` : 'No drafts on this screen.', 'ok'); });
 
 // --- save / file -------------------------------------------------------------------------------------------------
 async function save() {
@@ -297,6 +380,7 @@ $('#file').addEventListener('click', async () => {
 
 window.addEventListener('keydown', e => {
   const typing = ['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName);
+  if (grid && !typing) { gridKey(e); return; }
   if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); save(); return; }
   if (typing) return;
   if ((e.key === 'Delete' || e.key === 'Backspace') && sel >= 0) { boxes.splice(sel, 1); sel = -1; setDirty(true); renderBoxes(); draw(); }
@@ -309,7 +393,98 @@ window.addEventListener('keydown', e => {
 });
 window.addEventListener('beforeunload', e => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
 window.addEventListener('resize', draw);
-loadList();
+
+// --- review grid -------------------------------------------------------------------------------------------------
+const imgCache = {};
+function screenImage(key) {
+  if (!imgCache[key]) {
+    imgCache[key] = new Promise(res => { const im = new Image(); im.onload = () => res(im); im.onerror = () => res(null);
+      im.src = '/img/' + encodeURIComponent(key).replace(/%2F/g, '/'); });
+  }
+  return imgCache[key];
+}
+async function openGrid() {
+  if (!category) return;
+  if (dirty && cur && !confirm('Unsaved changes on ' + cur.key + '. Leave without saving?')) return;
+  setDirty(false);
+  const j = await api('/api/review?category=' + encodeURIComponent(category) + '&drafts=' + ($('#gridDrafts').checked ? 1 : 0));
+  grid = {boxes: j.boxes, dec: {}, cur: 0};
+  $('#grid').classList.add('on'); $('#wrap').style.visibility = 'hidden';
+  $('#gridTitle').textContent = $('#category').selectedOptions[0].textContent.replace(/ \(.*\)$/, '') + ` · ${grid.boxes.length} box(es)`;
+  $('#gridMsg').textContent = grid.boxes.length ? '' : ($('#gridDrafts').checked ? 'No drafts in this category. Untick "drafts only" to check confirmed boxes too.' : 'No boxes in this category.');
+  $('#tiles').innerHTML = grid.boxes.map((e, i) => `<div class="tile" data-i="${i}"><canvas width="168" height="168"></canvas>
+    <div class="d"></div><div class="t" title="${esc(e.key)}">${esc(e.key.replace(/\.png$/, ''))}</div>
+    <div class="t">${esc(e.box.item || e.box.cls || '')} · ${e.box.w}×${e.box.h}${e.box.draft ? ' · draft' : ''}</div></div>`).join('');
+  grid.boxes.forEach((e, i) => drawTile(i));
+  markTiles();
+  location.hash = 'review=' + category.replace(/^c:/, '');
+}
+async function drawTile(i) {
+  const e = grid.boxes[i], b = e.box, im = await screenImage(e.key);
+  const c = document.querySelector(`.tile[data-i="${i}"] canvas`); if (!c || !im) return;
+  const g = c.getContext('2d'), side = Math.max(48, 3 * Math.max(b.w, b.h));
+  const cx = b.x + b.w / 2, cy = b.y + b.h / 2, x0 = cx - side / 2, y0 = cy - side / 2, k = c.width / side;
+  g.imageSmoothingEnabled = false; g.fillStyle = '#000'; g.fillRect(0, 0, c.width, c.height);
+  g.drawImage(im, x0, y0, side, side, 0, 0, c.width, c.height);
+  g.strokeStyle = '#ff3df5'; g.lineWidth = 2; if (b.draft) g.setLineDash([6, 4]);
+  g.strokeRect((b.x - x0) * k, (b.y - y0) * k, b.w * k, b.h * k); g.setLineDash([]);
+}
+function markTiles() {
+  let n = {keep: 0, reject: 0, relabel: 0};
+  document.querySelectorAll('.tile').forEach(t => {
+    const i = +t.dataset.i, d = grid.dec[i];
+    t.className = 'tile' + (i === grid.cur ? ' cur' : '') + (d ? ' ' + d.action : '');
+    t.querySelector('.d').textContent = d ? (d.action === 'relabel' ? '→ ' + d.cls : d.action) : '';
+    if (d) n[d.action]++;
+  });
+  $('#applyBtn').textContent = `Apply (${n.keep} keep, ${n.reject} reject, ${n.relabel} move)`;
+  const t = document.querySelector(`.tile[data-i="${grid.cur}"]`); t && t.scrollIntoView({block: 'nearest'});
+}
+function closeGrid() { grid = null; $('#grid').classList.remove('on'); $('#wrap').style.visibility = ''; history.replaceState(null, '', location.pathname); }
+function decide(action, cls) {
+  if (!grid || !grid.boxes.length) return;
+  if (action) grid.dec[grid.cur] = {action, cls}; else delete grid.dec[grid.cur];
+  if (action && grid.cur < grid.boxes.length - 1) grid.cur++;
+  markTiles();
+}
+function gridKey(e) {
+  const cols = Math.max(1, Math.round($('#tiles').clientWidth / 178)), last = grid.boxes.length - 1;
+  const k = e.key.toLowerCase();
+  if (k === 'y') decide('keep'); else if (k === 'n' || e.key === 'Delete') decide('reject'); else if (k === 'u') decide(null);
+  else if (e.key === 'ArrowRight') grid.cur = Math.min(last, grid.cur + 1);
+  else if (e.key === 'ArrowLeft') grid.cur = Math.max(0, grid.cur - 1);
+  else if (e.key === 'ArrowDown') grid.cur = Math.min(last, grid.cur + cols);
+  else if (e.key === 'ArrowUp') grid.cur = Math.max(0, grid.cur - cols);
+  else if (e.key === 'Enter') { const key = grid.boxes[grid.cur].key; if (Object.keys(grid.dec).length && !confirm('Leave the grid without applying?')) return; closeGrid(); open(key); return; }
+  else if (e.key === 'Escape') { closeGrid(); return; }
+  else return;
+  e.preventDefault(); markTiles();
+}
+$('#tiles').addEventListener('click', e => { const t = e.target.closest('.tile'); if (t) { grid.cur = +t.dataset.i; markTiles(); } });
+$('#moveTo').addEventListener('change', e => { if (e.target.value) decide('relabel', e.target.value); e.target.value = ''; });
+$('#reviewBtn').addEventListener('click', openGrid);
+$('#gridDrafts').addEventListener('change', () => { if (grid && (!Object.keys(grid.dec).length || confirm('Drop the decisions not yet applied?'))) openGrid(); });
+$('#closeGrid').addEventListener('click', () => { if (!Object.keys(grid.dec).length || confirm('Leave without applying?')) closeGrid(); });
+$('#applyBtn').addEventListener('click', async () => {
+  const decisions = Object.entries(grid.dec).map(([i, d]) => ({key: grid.boxes[i].key, name: grid.boxes[i].box.name, action: d.action, cls: d.cls}));
+  if (!decisions.length) { $('#gridMsg').textContent = 'Nothing marked yet.'; return; }
+  try {
+    const r = await api('/api/review', {decisions});
+    await loadList(cur && cur.key);
+    await openGrid();
+    $('#gridMsg').textContent = `Applied: ${r.counts.keep} kept, ${r.counts.reject} rejected, ${r.counts.relabel} moved.` + (r.problems.length ? ' Problems: ' + r.problems.join('; ') : '');
+  } catch (err) { $('#gridMsg').textContent = 'Apply failed: ' + err.message; }
+});
+
+async function start() {
+  await loadList();
+  const m = location.hash.match(/^#review=(.+)$/);
+  if (m) {
+    const v = decodeURIComponent(m[1]), cat = v.includes(':') ? v : 'c:' + v;
+    setCategory(cat); openGrid();
+  }
+}
+start();
 </script>
 </body>
 </html>

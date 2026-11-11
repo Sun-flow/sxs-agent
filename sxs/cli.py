@@ -8,6 +8,7 @@
     python -m sxs report [--day YYYY-MM-DD]  the day's progress report from saved snapshots (no emulator)
     python -m sxs zones                      the location tree: zones, CP, %, blessed, connections, open questions
     python -m sxs prelabel [--ocr]           draft detector boxes on the reference screens for mae to check in the labeler
+    python -m sxs prelabel --one CLASS       draft one class only, then check it in the labeler's review grid
     python -m sxs dataset [--zip]            export the labelled boxes as a YOLO dataset (account name blacked out)
     python -m sxs items [add|find]           the item and currency symbol catalogue (resource/items/)
     python -m sxs bench [--one-per-state]    time the screen check on the reference screens, old way vs new (no emulator)
@@ -19,6 +20,8 @@
     python -m sxs start | stop               launch or kill the game
     python -m sxs state [--save DIR]         print the detected screen state as JSON
     python -m sxs capture NAME               save a reference screenshot to docs/screens/<folder>/NAME.png
+    python -m sxs capture NAME --burst N [--every S]   N frames S seconds apart into captures/sequences/NAME/
+                                             (approach sequences for training data, docs/collectibles-capture-plan.md)
     python -m sxs watch [--interval 2]       print the state whenever it changes (Ctrl+C to stop)
 
 Coordinates are in the game's portrait frame, 720 wide by 1280 tall.
@@ -59,6 +62,32 @@ def _save_reference(img, path: Path) -> Path:
     rgb = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
     rgb.quantize(256, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).save(path, optimize=True)
     return path
+
+
+def _burst(dev, name: str, n: int, every: float) -> Path:
+    """Save n frames, `every` seconds apart, as captures/sequences/<name>/NN.png with a frames.json (time of each).
+    Used to record a walk up to a world collectible and its pickup (docs/collectibles-capture-plan.md). The folder
+    is gitignored: frames go to docs/screens only after picking (`python -m sxs bank` style), never in bulk."""
+    from .core.paths import CAPTURES
+    from .core.screens import NAME
+
+    if not NAME.match(name):
+        raise SystemExit(f"capture name {name!r} must be lower case letters, digits and _")
+    out = CAPTURES / "sequences" / name
+    out.mkdir(parents=True, exist_ok=True)
+    rows = []
+    start = time.time()
+    for i in range(1, n + 1):
+        t = time.time()
+        frame = dev.screenshot()
+        path = _save_reference(frame, out / f"{i:02d}.png")
+        rows.append({"file": path.name, "t": round(t - start, 2)})
+        print(f"{name} {i}/{n} {path.name} at {t - start:.1f} s", flush=True)
+        if i < n:
+            time.sleep(max(0.0, every - (time.time() - t)))
+    (out / "frames.json").write_text(json.dumps({"name": name, "every": every, "frames": rows}, indent=1) + "\n",
+                                     encoding="utf-8")
+    return out
 
 
 def _loop_list() -> str:
@@ -145,6 +174,8 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("back"); sub.add_parser("start"); sub.add_parser("stop")
     s = sub.add_parser("state"); s.add_argument("--save", metavar="DIR", help="also save the frame here")
     s = sub.add_parser("capture"); s.add_argument("name")
+    s.add_argument("--burst", type=int, default=0, help="save N frames into captures/sequences/NAME/ instead")
+    s.add_argument("--every", type=float, default=0.5, help="seconds between burst frames (default 0.5)")
     s = sub.add_parser("watch"); s.add_argument("--interval", type=float, default=2.0)
     args = p.parse_args(argv)
 
@@ -162,6 +193,8 @@ def main(argv: list[str] | None = None) -> int:
         dev.start_game()
     elif args.cmd == "stop":
         dev.stop_game()
+    elif args.cmd == "capture" and args.burst:
+        print(_burst(dev, args.name, args.burst, args.every))
     elif args.cmd == "capture":
         from .core.screens import folder_for
 
