@@ -39,7 +39,7 @@ flowchart TD
     PG -->|yes| LEGG["Leg: tap the group to fight it"]
     PG -->|no| P3{"3. Dot or structure anywhere<br/>on the minimap (up to 10 tiles)?"}
     P3 -->|yes| LEG3["Leg: walk along the minimap path until it is on screen<br/>(up to 3 walk taps), then tap it"]
-    P3 -->|no| P4{"4. Anything in our zone on the big map that counts for exploration?<br/>blue ! statues and wheels, green pickups, orange monsters,<br/>gold structures and chests"}
+    P3 -->|no| P4{"4. Anything in our zone on the big map that counts for exploration?<br/>blue ! statues and wheels, red ! structures (free Unlock: Sealed Stone Gate),<br/>green pickups, orange monsters, gold structures and chests"}
     P4 -->|yes| LEG4[["Leg: big-map walk to it, tap the centre<br/>(an object whose walk leaves us standing still is not picked again from there)"]]
     P4 -->|no| P5{"5. Frontier: the nearest fog in our zone<br/>touching walkable ground we can reach?<br/>(6 per run; one that uncovers fog leads on to the next;<br/>one whose fog did not shrink sends the next another way)"}
     P5 -->|yes| LEG5[["Leg: one big-map walk to the frontier"]]

@@ -461,11 +461,17 @@ class Clearer:
             labels = {a.name: a.point for a in areas}
             if not self.big_map_off and self.big_map_used < BIG_MAP_LEGS:
                 me = next((p for k, p in area_map.objects(frame) if k == "player"), None)
+                # A red "!" on a structure (live 2026-11-11, run 31: the Sealed Stone Gate between Verdantglade XI
+                # and XII, opened by hand) or on a ready statue: its card's free Unlock, by the card rules (R-145,
+                # never a paid button); unmet requirements leave the card dismissed and the spot skipped.
+                from .roam import statue_badges  # roam imports this module
+                red_bangs = [("red_bang", p) for p in statue_badges(frame)]
                 banned = [off for at, off in self.big_map_bans if near(at, self.pick_xy)] if me else []
                 skip: list = []
                 for _ in range(6):
-                    hit = area_map.nearest(frame, ("statue", "item", "monster", "building"), max_px=ZONE_PICK_PX,
-                                           labels=labels, home=self.home, is_home=mapnav.label_is, skip=skip)
+                    hit = area_map.nearest(frame, ("statue", "item", "monster", "building", "red_bang"),
+                                           max_px=ZONE_PICK_PX, labels=labels, home=self.home,
+                                           is_home=mapnav.label_is, skip=skip, extra=red_bangs)
                     if not hit or not any(abs(hit[1][0] - me[0] - dx) <= BAN_PX and abs(hit[1][1] - me[1] - dy)
                                           <= BAN_PX for dx, dy in banned):
                         break
