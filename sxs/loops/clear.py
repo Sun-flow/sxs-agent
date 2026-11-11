@@ -50,6 +50,7 @@ NO_PCT_DONE_FROM = 90  # % a zone must have reached before its label showing no 
 LORE_SWIPES = 8  # swipes up a lore page before giving up on its Close button
 LORE_CLOSE_ROI = [160, 900, 400, 340]  # where Close shows at the end of a lore page (about (360, 1104))
 BAN_PX = 25  # area-map px within which a candidate is the object a walk already failed to reach from here
+SETTLE_RECHECK_S = 2.0  # after handling a screen, the map must still show this long later to count as clear
 FRONTIER_LEGS = 6  # frontier legs per run: fog matters only when it hides objects (3 ran short in Grotto Peninsula)
 FOG_REVEALED = 0.05  # drop in the fog share round the frontier spot, before the walk to after, that counts as revealed
 RING_MISSES = 2  # ring legs in a row without a gain before the ring waits for another source's gain
@@ -603,13 +604,22 @@ class Clearer:
     def settle(self, deadline: float) -> Optional[str]:
         """Handle every screen until we're back on the island map. Returns a stop status or None."""
         until = min(deadline, time.monotonic() + SETTLE_S)
+        handled = False
         while time.monotonic() < until:
             d = self.det.detect()
             if self.unknown.seen(d.state):
                 log.warning("unfamiliar screen; frame saved to %s", save_unknown(self.dev, "clear"))
                 return "unknown_screen"
             if d.state == "world_map":
-                return None
+                if not handled:
+                    return None
+                # A reward can open a beat after the card closes (live 2026-11-11, run 34: a statue's Visit, then
+                # "Blessing of Nameless Warrior" with Tap to Continue over the map, and the next leg read nothing
+                # under it). Look once more before calling the map clear.
+                handled = False
+                time.sleep(SETTLE_RECHECK_S)
+                continue
+            handled = True
             stop = self.handle(d, deadline)
             if stop:
                 return stop
@@ -973,6 +983,9 @@ class Clearer:
                     log.warning("STUCK %s: %d legs in a row without progress (%s)", self.home, self.no_gain,
                                 "; ".join(f"{x.source} {x.result}" for x in self.legs[-STALL_LEGS:]))
                     return self.summary("no_progress")
+                stop = self.settle(deadline)  # nothing left over the map (a late reward card, run 34)
+                if stop:
+                    return self.summary(stop)
                 pct_before, xy_before = self.pct, _xy(self.det)
                 leg = self.plan()
                 if leg is None:
