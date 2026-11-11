@@ -17,14 +17,20 @@
   "Bubble Lake": {
    "kingdom": "Verdantglade",
    "first_seen": "2026-11-10",
-   "pct": 0,
+   "pct": 36,
    "map_point": [
     148,
     624
    ],
    "last_seen": "2026-11-10",
    "cp": 30.5,
-   "notes": "behind a Gate of Power (30.5K) SW of Verdantglade VIII ~(109,83); the gate shows a red ! at 35.9K (2026-11-11): passable now"
+   "notes": "behind a Gate of Power (30.5K) SW of Verdantglade VIII ~(109,83); the gate shows a red ! at 35.9K (2026-11-11): passable now; run 27: Gate of Power opened, 0 -> 36%; the Blight Witch statue ~(95,80) opens a lore page then a curse card (avoid)",
+   "avoid_spots": [
+    [
+     95,
+     80
+    ]
+   ]
   },
   "Damp Woods": {
    "kingdom": "Verdantglade",
