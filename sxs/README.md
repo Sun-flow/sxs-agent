@@ -22,7 +22,7 @@ Coordinates are in the 720×1280 portrait frame. No module calls a model.
 
 | Folder | Holds | Rule |
 |---|---|---|
-| `core/` | Device, state detector, navigator, paths, shared screen coordinates (`ui.py`), daily marks, run and progress records (`records.py`), the loop contract (`loop.py`) | Knows nothing about any one game system |
+| `core/` | Device, state detector, navigator, paths, shared screen coordinates (`ui.py`), daily marks, run and progress records (`records.py`), the loop contract (`loop.py`), the pre-roll buffer of recent frames saved at each collect or fight (`preroll.py`, training data) | Knows nothing about any one game system |
 | `vision/` | Reading the screen: OCR helpers, HP bar, HUD numbers, account stats (`stats.py`), player label, tracker, pickups, badges, minimap, gift | Never taps |
 | `detect/` | UI detector data (docs/detector-design.md): `prelabel.py` drafts boxes from the existing detectors, `dataset.py` exports the YOLO dataset with names blacked out, `items.py` keeps the item and currency symbol catalogue (resource/items) | Never taps; no model yet |
 | `policy/` | Decisions from `resource/policy/*.json`: card/popup decider, free-claim presser; `fights.py` (1.25x power rule), `zones.py` (location tree in `resource/world/zones.json`: next zone, crossing check, ways in) | The spend blocklists live here (**safeguard**) |

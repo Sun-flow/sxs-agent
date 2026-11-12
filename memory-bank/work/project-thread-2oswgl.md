@@ -1,5 +1,6 @@
-# Labeler review (mae, 2026-11-11)
+# World collectibles (mae, 2026-11-11 22:58)
 
-Branch: `claude/project-thread-2oswgl` · PR: #55 · Where: cloud
+Branch: `claude/project-thread-2oswgl` · PR: #67 · Where: cloud
 
-- map drafter fixed, `prelabel --one CLASS`, Category filter + review grid, rejected drafts remembered, burst capture; `docs/labeler-diagnosis.md`, `docs/collectibles-capture-plan.md`. Waiting on mae: collectible class option, a capture-session time; her 04:22 labels (all drafts reviewed) still to commit to #55.
+- Classes world_collectible, stamina_cost, world_goddess_statue, world_lost_statue appended; `resource/world/collectibles.json` (resource_hunt / misc / chest / pickup); labeler collectible menu; `dataset --collectibles`; pre-roll buffer `sxs/core/preroll.py` (not run live). Statue boxes were 0: 6 card drafts to confirm. Waiting on mae: capture session time.
+- Earlier (PR #64, merged): map drafter fix, `prelabel --one`, Category filter + review grid, rejected drafts (`docs/labeler-diagnosis.md`).

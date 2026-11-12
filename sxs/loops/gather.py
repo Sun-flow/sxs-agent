@@ -300,6 +300,9 @@ class Gatherer:
                 if gained > 0:
                     taken += gained
                     log.info("%s picked: %s -> %s (%d so far)", target.name, last, now, taken)
+                    from ..core import preroll
+
+                    preroll.save("pickup", target.name, "gather")  # the approach and the pick (core/preroll.py)
                     stale = self_taps = 0
                 elif action and action[0] == "special":
                     log.info("special node taken (free)")

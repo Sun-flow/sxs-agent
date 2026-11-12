@@ -42,7 +42,7 @@
   button:disabled { opacity:.5; cursor:default; }
   .box { border:1px solid var(--line); border-radius:6px; padding:6px; margin-bottom:6px; cursor:pointer; }
   .box.sel { border-color:var(--sel); }
-  .box .row { display:flex; gap:6px; margin-bottom:4px; }
+  .box .row { display:flex; gap:6px; margin-bottom:4px; flex-wrap:wrap; }
   .box .row input[type=text] { flex:1; min-width:0; }
   .box .row select[data-k=cls], .box .row select[data-k=item] { flex:1; min-width:0; }
   .box .xy { color:var(--dim); font-size:11px; }
@@ -131,7 +131,7 @@ const $ = s => document.querySelector(s);
 const img = $('#img'), cv = $('#canvas'), ctx = cv.getContext('2d');
 let screens = [], kinds = [], tmplKinds = [], classes = [], items = [], cur = null, boxes = [], sel = -1, dirty = false, size = [720, 1280];
 let drag = null;
-let category = '', groups = {}, itemGroups = {};
+let category = '', groups = {}, itemGroups = {}, colls = [], collFamily = {};
 let grid = null;  // {boxes:[...], dec:{i: {action, cls}}, cur}
 
 async function api(path, body) {
@@ -150,6 +150,7 @@ async function loadList(keepKey) {
   $('#states').innerHTML = j.states.map(s => `<option value="${s}">`).join('');
   groups = Object.fromEntries(classes.map(c => [c.name, c.group]));
   itemGroups = Object.fromEntries(items.map(i => [i.id, i.group || '']));
+  colls = j.collectibles || []; collFamily = Object.fromEntries(colls.map(c => [c.id, c.family]));
   fillCategories();
   renderList();
   const key = keepKey || (screens[0] && screens[0].key);
@@ -165,15 +166,18 @@ function matches(b, cat) {
   if (kind === 'g') return groups[cls] === value;
   if (kind === 'i') return cls === 'item_icon' && b.item === value;
   if (kind === 'ig') return cls === 'item_icon' && (itemGroups[b.item] || '') === value;
+  if (kind === 'w') return cls === 'world_collectible' && b.collectible === value;
+  if (kind === 'wf') return cls === 'world_collectible' && (collFamily[b.collectible] || '') === value;
   return false;
 }
-const tagBox = t => ({cls: t[0], item: t[1], draft: t[2]});
+const tagBox = t => ({cls: t[0], item: t[1], draft: t[2], collectible: t[3] || ''});
 function fillCategories() {
   const count = {};
   for (const s of screens) for (const t of s.tags || []) {
     const b = tagBox(t), keys = [];
     if (b.cls) keys.push('c:' + b.cls, 'g:' + (groups[b.cls] || ''));
     if (b.cls === 'item_icon' && b.item) keys.push('i:' + b.item, 'ig:' + (itemGroups[b.item] || ''));
+    if (b.cls === 'world_collectible' && b.collectible) keys.push('w:' + b.collectible, 'wf:' + (collFamily[b.collectible] || ''));
     for (const k of keys) { count[k] = count[k] || [0, 0]; count[k][0]++; if (b.draft) count[k][1]++; }
   }
   const n = k => count[k] ? ` (${count[k][0]}${count[k][1] ? ', ' + count[k][1] + ' drafts' : ''})` : ' (0)';
@@ -184,6 +188,9 @@ function fillCategories() {
   for (const g of gs) html += `<optgroup label="${g}">` + classes.filter(c => c.group === g)
     .map(c => `<option value="c:${c.name}" title="${esc(c.about)}">${c.name}${n('c:' + c.name)}</option>`).join('') + '</optgroup>';
   html += '<optgroup label="Item groups">' + igs.map(g => `<option value="ig:${g}">items: ${g}${n('ig:' + g)}</option>`).join('') + '</optgroup>';
+  const fams = [...new Set(colls.map(c => c.family))];
+  html += '<optgroup label="World collectibles">' + fams.map(f => `<option value="wf:${f}">collectibles: ${f}${n('wf:' + f)}</option>`).join('')
+    + colls.map(c => `<option value="w:${c.id}">${esc(c.name || c.id)}${n('w:' + c.id)}</option>`).join('') + '</optgroup>';
   html += '<optgroup label="Items">' + items.filter(i => count['i:' + i.id])
     .map(i => `<option value="i:${i.id}">${esc(i.name || i.id)}${n('i:' + i.id)}</option>`).join('') + '</optgroup>';
   const sel = $('#category'); sel.innerHTML = html; sel.value = category;
@@ -296,7 +303,7 @@ function draw() {
     if (b.draft) ctx.setLineDash([10, 6]);
     ctx.fillStyle = c + (b.draft ? '11' : '22'); ctx.fillRect(b.x, b.y, b.w, b.h); ctx.strokeRect(b.x, b.y, b.w, b.h);
     ctx.setLineDash([]);
-    const label = (b.draft ? 'draft · ' : '') + (b.item || b.cls || b.name || '(unnamed)') + ' · ' + b.kind, tw = ctx.measureText(label).width;
+    const label = (b.draft ? 'draft · ' : '') + (b.item || b.collectible || b.cls || b.name || '(unnamed)') + ' · ' + b.kind, tw = ctx.measureText(label).width;
     const ly = b.y - fs - 4 < 0 ? b.y + b.h : b.y - fs - 4;
     ctx.fillStyle = '#000b'; ctx.fillRect(b.x, ly, tw + 8, fs + 4);
     ctx.fillStyle = c; ctx.fillText(label, b.x + 4, ly + fs - 1);
@@ -319,6 +326,7 @@ function renderBoxes() {
         <select data-k="kind">${kinds.map(k => `<option${k === b.kind ? ' selected' : ''}>${k}</option>`).join('')}</select></div>
       <div class="row"><select data-k="cls" title="detector class (resource/detect/classes.json)"><option value="">no detector class</option>${classes.map(c => `<option value="${c.name}"${c.name === b.cls ? ' selected' : ''} title="${esc(c.about)}">${c.group} · ${c.name}</option>`).join('')}</select>
         ${b.cls === 'item_icon' ? `<select data-k="item" title="which item (resource/items/items.json; add new ones with python -m sxs items add)"><option value="">which item?</option>${items.map(it => `<option value="${it.id}"${it.id === b.item ? ' selected' : ''}>${esc(it.name || it.id)}</option>`).join('')}</select>` : ''}
+        ${b.cls === 'world_collectible' ? `<select data-k="collectible" title="which collectible (resource/world/collectibles.json)"><option value="">which collectible?</option>${colls.map(c => `<option value="${c.id}"${c.id === b.collectible ? ' selected' : ''}>${esc(c.family)} · ${esc(c.name || c.id)}</option>`).join('')}</select><select data-k="cost" title="costs stamina here? (default: the kind's own)"><option value="">cost: default</option>${['free', 'stamina'].map(v => `<option${v === b.cost ? ' selected' : ''}>${v}</option>`).join('')}</select>` : ''}
         ${b.draft ? `<button data-confirm="${i}" title="The box is right: keep it">Confirm</button>` : ''}</div>
       <div class="row"><input type="text" data-k="note" value="${esc(b.note)}" placeholder="what to do with it (optional)"></div>
       <div class="row" style="justify-content:space-between;align-items:center">
@@ -340,11 +348,13 @@ $('#boxes').addEventListener('input', e => {
   if (k === 'template') b.template = e.target.checked;
   else if (k === 'cls') {
     b.cls = e.target.value; b.draft = false; if (b.cls !== 'item_icon') delete b.item;
+    if (b.cls !== 'world_collectible') { delete b.collectible; delete b.cost; }
     const c = classes.find(c => c.name === b.cls);
     if (c) { b.kind = c.kind; if (!b.name) b.name = uniqueName(b.cls); }
     renderBoxes();
   }
   else if (k === 'item') { b.item = e.target.value; b.draft = false; }
+  else if (k === 'collectible' || k === 'cost') { if (e.target.value) b[k] = e.target.value; else delete b[k]; b.draft = false; }
   else if (k === 'kind') { b.kind = e.target.value; b.template = tmplKinds.includes(b.kind); card.querySelector('[data-k=template]').checked = b.template; }
   else b[k] = k === 'name' ? e.target.value.toLowerCase().replace(/[^a-z0-9_]+/g, '_') : e.target.value;
   if (k === 'name' && e.target.value !== b.name) e.target.value = b.name;
@@ -414,7 +424,7 @@ async function openGrid() {
   $('#gridMsg').textContent = grid.boxes.length ? '' : ($('#gridDrafts').checked ? 'No drafts in this category. Untick "drafts only" to check confirmed boxes too.' : 'No boxes in this category.');
   $('#tiles').innerHTML = grid.boxes.map((e, i) => `<div class="tile" data-i="${i}"><canvas width="168" height="168"></canvas>
     <div class="d"></div><div class="t" title="${esc(e.key)}">${esc(e.key.replace(/\.png$/, ''))}</div>
-    <div class="t">${esc(e.box.item || e.box.cls || '')} · ${e.box.w}×${e.box.h}${e.box.draft ? ' · draft' : ''}</div></div>`).join('');
+    <div class="t">${esc(e.box.item || e.box.collectible || e.box.cls || '')} · ${e.box.w}×${e.box.h}${e.box.draft ? ' · draft' : ''}</div></div>`).join('');
   grid.boxes.forEach((e, i) => drawTile(i));
   markTiles();
   location.hash = 'review=' + category.replace(/^c:/, '');
