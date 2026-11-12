@@ -1,5 +1,7 @@
 # Step 5: upgrade systems and gathering
 
+<!-- index: Upgrade Loop and Gather Loop -->
+
 Two composable loops, also run from `sxs.loops.daily` (steps `strengthen` and `gather`).
 
 ## Upgrade Loop (`sxs/loops/upgrade.py`)

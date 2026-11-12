@@ -58,8 +58,16 @@ CLASS_TABS = {"change": (230, 1216), "hierarchy": (428, 1216), "goals": (610, 12
 CLASS_CARD_FROM_BADGE = (-75, 125)  # class card centre relative to its "!" badge
 BADGE_POPUP_OK = (360, 916)
 CLASS_UPGRADE_BUTTON = (360, 1090)
-# Rank
+# Rank (docs/screens/character/rank_advancement_apprentice3.png)
 RANK_ADVANCE = (360, 1088)
+RANK_LEVEL_ROI = [40, 595, 280, 40]  # "Level: 30/30" (left column; "Max Level: 40" is on the right)
+RANK_COST_ROI = [130, 985, 460, 30]  # material costs "18/5", "14/30", "189K/10.5K", left to right
+RANK_AVAILABLE_ROI = [130, 925, 460, 50]  # "Available" tag over a material with a free source (Bellflowers)
+RANK_MIDDLE_X = 360  # the middle cost slot: Bellflowers (gather.RANK_BELLFLOWER_ICON)
+CHAR_LEVEL_ROI = [10, 870, 480, 80]  # Character screen: "Level 38 /40" (big digits) left of the rank badge
+RANK_BADGE_ROI = [480, 840, 240, 140]  # Character screen: the rank badge and the red "!" or blue pip on its corner
+RANK_BANG_AT = (RANK_BADGE[0] + 90, RANK_BADGE[1] - 30)
+PRECOLLECT_LEVELS = 3  # within this many levels of the cap, check the rank costs and gather free materials early
 # Enhance Gear
 RESONANCE = (620, 256)
 
@@ -92,6 +100,49 @@ def relic_plan(levels: dict[str, list[int]], affinity: dict[str, float]) -> Opti
             if lv < target:
                 return element, i
     return None  # unreachable: the lowest relic is always below target
+
+
+def level_and_cap(text: str) -> Optional[tuple[int, int]]:
+    """"Level: 30/30" -> (30, 30)."""
+    m = re.search(r"Level\s*:?\s*(\d+)\s*/\s*(\d+)", text or "")
+    return (int(m.group(1)), int(m.group(2))) if m else None
+
+
+def character_level(texts: list[tuple[str, list[int]]]) -> Optional[tuple[int, int]]:
+    """Character screen OCR -> (level, cap). The big digits OCR as one line ("Level 2 /10") or apart ("Level",
+    "24/30"); read left to right. The EXP counter ("479/4.92K") sits further right and has no "Level" before it."""
+    joined = " ".join(t for t, _ in sorted(texts, key=lambda tb: tb[1][0]))
+    return level_and_cap(joined)
+
+
+def rank_due(level: Optional[tuple[int, int]], bang: bool) -> str:
+    """When strengthen opens the rank page (mae, 2026-11-11 18:15): a red "!" or blue pip on the rank badge, or the
+    level at its cap ("advance"); a few levels below the cap only to gather free materials early ("precollect");
+    otherwise not at all ("no_signal")."""
+    if bang or (level and level[0] >= level[1]):
+        return "advance"
+    if level and level[1] - level[0] <= PRECOLLECT_LEVELS:
+        return "precollect"
+    return "no_signal"
+
+
+def cost_slots(texts: list[tuple[str, list[int]]]) -> list[tuple[float, float, int]]:
+    """Material cost lines -> (have, need, x centre), left to right ("189K/10.5K" -> (189000, 10500, x))."""
+    from ..vision.ocr import amount_in
+    out = []
+    for t, (x, y, w, h) in sorted(texts, key=lambda tb: tb[1][0]):
+        m = re.fullmatch(r"\s*([\d.,]+\s*[KMB]?)\s*/\s*([\d.,]+\s*[KMB]?)\s*", t)
+        if m:
+            have, need = amount_in(m.group(1)), amount_in(m.group(2))
+            if have is not None and need is not None:
+                out.append((have, need, x + w // 2))
+    return out
+
+
+def bellflowers_short(costs: list[tuple[float, float, int]], available_xs: list[int]) -> bool:
+    """The middle cost (Bellflowers) is short and carries the "Available" tag: a free Flower Harvest fixes it."""
+    return any(have < need and abs(x - RANK_MIDDLE_X) < 60 and any(abs(x - a) < 60 for a in available_xs)
+               for have, need, x in costs)
 
 
 class Upgrader:
@@ -306,6 +357,66 @@ class Upgrader:
         log.info("rank: %s", out)
         return out
 
+    def rank_signal(self) -> tuple[Optional[tuple[int, int]], bool]:
+        """Character screen open: (level, cap) and whether the rank badge carries a red "!" or a blue pip."""
+        frame = self.dev.screenshot()
+        level = character_level(self.det.read_text(CHAR_LEVEL_ROI, frame))
+        bang = near_any(self._badges(RANK_BADGE_ROI), RANK_BANG_AT, 50) or \
+            near_any(find_up_pips(frame, RANK_BADGE_ROI), RANK_BANG_AT, 50)
+        return level, bang
+
+    def rank_first(self, gather: bool = True) -> dict:
+        """Rank advancement as soon as it is noticed (mae, 2026-11-11 05:20 and 18:15, R-118). The Character screen
+        says when: a red "!" or blue pip on the rank badge, or "Level N/N" (the cap). Without either the rank page
+        isn't opened, except within PRECOLLECT_LEVELS of the cap, to gather free materials early. On the page:
+        Advance while it carries "!", tap through RANK UP, claim rank Goals, collect the bed's EXP. Bellflowers that
+        are short with an "Available" tag are gathered for free (R-123), then Advance is tried once more."""
+        if not self._character():
+            return {"end": "unknown_screen"}
+        level, bang = self.rank_signal()
+        due = rank_due(level, bang)
+        out: dict = {"level": level, "bang": bang, "due": due}
+        if due == "no_signal":
+            log.info("rank: level %s, no bang on the rank badge: nothing to do", level)
+            return {**out, "end": "no_signal"}
+        log.info("rank: level %s, bang %s: %s", level, bang, "advance now (R-118)" if due == "advance"
+                 else "near the cap, checking the materials early")
+        self._tap(RANK_BADGE, 2.5)
+        if self.det.detect().state != "rank_advancement":
+            return {**out, "end": f"unknown_screen ({save_unknown(self.dev, 'rank_first')})"}
+        advanced = self._press_while_badged(RANK_ADVANCE, wait=4)
+        if advanced:
+            for _ in range(3):  # "RANK UP ... Tap to Continue", then a reward card
+                if self.det.detect().state == "rank_advancement":
+                    break
+                self._tap(ui.BELOW_POPUP, 2)
+            if near_any(self._badges([620, 1150, 100, 80]), (688, 1193), 30):
+                out["goals"] = self.claim_goals(BOTTOM_RIGHT_TAB, GOALS_SUBTABS)
+            self.nav.go_home()
+            from .daily import Dailies
+            out["bed"] = Dailies(self.dev, self.det).bed()  # banked EXP applies on the new cap
+            log.info("rank: advanced %d time(s)", advanced)
+            return {**out, "advanced": advanced, "end": "advanced"}
+        if near_any(self._badges([620, 1150, 100, 80]), (688, 1193), 30):
+            out["goals"] = self.claim_goals(BOTTOM_RIGHT_TAB, GOALS_SUBTABS)  # the bang may have meant Goals
+            self._tap((280, 1216), 2)  # back to the Rank tab for the costs
+        costs = cost_slots(self.det.read_text(RANK_COST_ROI))
+        tags = [b[0] + b[2] // 2 for t, b in self.det.read_text(RANK_AVAILABLE_ROI) if re.search(r"Available", t)]
+        short = [(h, n) for h, n, _ in costs if h < n]
+        out["costs"] = [(h, n) for h, n, _ in costs]
+        log.info("rank: Advance has no \"!\"; costs %s, short %s", out["costs"], short or "none read")
+        if gather and bellflowers_short(costs, tags):
+            from .gather import TARGETS, Gatherer, load_policy
+            log.info("rank: Bellflowers short and free to pick: gathering them now (R-123)")
+            g = Gatherer(self.dev, self.det)
+            got = g.collect(TARGETS["bellflower"], keep=int(load_policy().get("keep_stamina", 70))) \
+                if g.enter_bellflower_field() else {"end": "unknown_screen"}
+            self.nav.go_home()
+            out["gathered"] = got.get("end")
+            again = self.rank_first(gather=False)
+            return {**out, "retry": again, "end": again.get("end")}
+        return {**out, "end": "short" if short else "waiting"}
+
     def goals(self, pages=("skills", "gear", "class_levels", "rank")) -> dict:
         """Claim every lit Goals tab first (mae, 2026-11-04, reversing R-116): a Goals "!" lights the Skill / Class /
         rank / gear badge on the Character screen too, so clearing them leaves only badges that mean a real
@@ -337,10 +448,10 @@ class Upgrader:
         return out
 
     def relics(self) -> dict:
-        """Relics aren't unlocked on the account yet (2026-11-04). When they are: map the screen, read each
-        element's 4 relic levels and the affinities, and enhance one level at a time with relic_plan()."""
-        log.info("relics: not unlocked yet; nothing to do")
-        return {"relics": "not_unlocked"}
+        """Workbench relics (R-172, R-105): sxs.loops.relics. The Character screen carries no relic badge, so this
+        pass runs only with --only relics; strengthen runs the relic step itself, after the gacha."""
+        from .relics import RelicBench
+        return RelicBench(self.dev, self.det).run()
 
     # --- the loop ---
 
@@ -398,22 +509,59 @@ class Upgrader:
         return results
 
 
-def get_stronger(dev, det) -> dict:
-    """Everything that raises power with soft resources, in one call (mae, 2026-11-09): claim the Cart, put on
-    better gear wherever a slot shows a red "!" (gearswap, R-088), fill empty charm slots from the profile, then the
-    Upgrade Loop (Goals, Quick Upgrade and ascensions, banded gear enhancing, class, rank). The same pieces as the
-    daily loop's gear_swap and strengthen steps. Used by explore after repeated losses and by `python -m sxs strengthen`."""
+STRENGTHEN_STEPS = ["cart", "rank", "gacha", "relics", "gear_swap", "charms", "upgrade"]
+STEP_BUDGET_S = {"cart": 150, "rank": 360, "gacha": 180, "relics": 240, "gear_swap": 120, "charms": 90,
+                 "upgrade": len(Upgrader.PASSES) * PASS_BUDGET_S + sum(PASS_BUDGET_OVERRIDE.values())}
+
+
+def get_stronger(dev, det, only: Optional[set] = None, skip: frozenset = frozenset()) -> dict:
+    """Everything that raises power with soft resources, in one call (mae, 2026-11-09; order 2026-11-11):
+    claim the Cart; rank advancement as soon as the rank badge shows a bang or the level hits its cap (R-118, mae 05:20 and 18:15); Aeonic Gacha x10 draws whenever a
+    full x10 is affordable (R-167, mae 05:22); Workbench relics, so new relics get activated and enhanced (R-172);
+    then better gear where a slot shows a red "!" (gearswap, R-088), empty charm slots, and the Upgrade Loop.
+    Each step has its own time budget and stall check; one step failing never stops the next. Used by explore
+    after repeated losses, by the daily strengthen step and by `python -m sxs strengthen`. Flowchart:
+    docs/loops/upgrade.md (Get stronger)."""
+    from .gacha import Gacha
     from .gearswap import GearSwap
+    from .relics import RelicBench
 
     st = Strengthener(dev, det)
-    out: dict = {"cart": st.claim_cart()}
-    out["gear_swap"] = GearSwap(dev, det).run().get("end")
     nav = Navigator(dev, det)
-    nav.go_home()
-    ui.tap(dev, ui.HUD_PORTRAIT, 2.5)  # -> player profile
-    out["charms"] = st.equip_charms(from_profile=True) if det.detect().state == "player_profile" else 0
-    nav.go_home()
-    out["upgrade"] = Upgrader(dev, det).run()
+
+    def charms():
+        nav.go_home()
+        ui.tap(dev, ui.HUD_PORTRAIT, 2.5)  # -> player profile
+        return st.equip_charms(from_profile=True) if det.detect().state == "player_profile" else 0
+
+    steps = {
+        "cart": st.claim_cart,
+        "rank": lambda: Upgrader(dev, det).rank_first().get("end"),
+        "gacha": lambda: Gacha(dev, det).run().get("end"),
+        "relics": lambda: RelicBench(dev, det).run().get("end"),
+        "gear_swap": lambda: GearSwap(dev, det).run().get("end"),
+        "charms": charms,
+        "upgrade": lambda: Upgrader(dev, det).run(),
+    }
+    out: dict = {}
+    for name in STRENGTHEN_STEPS:
+        if (only and name not in only) or name in skip:
+            continue
+        progress(("step", name))
+        with task(name, STEP_BUDGET_S[name]) as t:
+            try:
+                out[name] = steps[name]()
+            except Exception as e:  # noqa: BLE001  one step must not take the rest down
+                log.warning("[strengthen %s] failed: %s; frame %s", name, e, save_unknown(dev, f"strengthen_{name}"))
+                out[name] = "error"
+        if t.status:
+            log.warning("[strengthen %s] %s after %d s; next step", name, t.status, STEP_BUDGET_S[name])
+            out[name] = t.status
+        try:
+            nav.go_home()
+        except Exception as e:  # noqa: BLE001
+            log.warning("could not get home after %s: %s", name, e)
+        log.info("[strengthen %s] %s", name, out[name] if name != "upgrade" else "done")
     return out
 
 

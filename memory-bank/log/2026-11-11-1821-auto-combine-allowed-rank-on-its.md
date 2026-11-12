@@ -1,0 +1,5 @@
+# 2026-11-11 18:21 · Auto-combine allowed, rank on its bang; #62 brought to main (Claude Code, cloud)
+
+- #59 was merged into main 11 s before #62 landed on its branch, so gacha, relics, rank-first, the swipe fallback and the docs thread's rule updates (e20d027) never reached main; merged npg43i into a fresh branch off main.
+- mae (18:15): auto-combine on material shortage always allowed in any menu: relics enhance on the button's pip even with a cost short, accept a combine prompt unless it shows a spend word (R-172, policy.md). Rank: read "Level N/M" and the rank badge's corner on the Character screen, open the rank page only on a red "!" or blue pip or at the cap (and within 3 levels of it to gather Bellflowers early), advance at once (R-118). Docs: gacha.md, upgrade.md, open-questions (settled), live test plan steps 4-5. Offline checks pass (check_strengthen: rank_due, Character level reads, a pasted "!").
+- Open: the combine prompt's layout (frame saved when it shows); live test at a time mae approves.

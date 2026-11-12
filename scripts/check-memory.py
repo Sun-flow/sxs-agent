@@ -1,10 +1,11 @@
-"""Check the memory bank for drift: broken paths, unmapped files, missing dates, size budgets and
-section references (§N) that no longer exist. Also lists commits that changed the repo since the
+"""Check the memory bank for drift: broken paths, unmapped files, size budgets, section references (§N) that no
+longer exist, and the names and headings of the one-file-per-entry folders (log/, decisions/; see scripts/entries.py). Also lists commits that changed the repo since the
 memory bank was last updated, so a new session knows what to re-check.
 
 Usage: python3 scripts/check-memory.py   (exits 1 if anything needs fixing; stale-memory notes are warnings)
 """
 
+import importlib.util
 import re
 import subprocess
 import sys
@@ -14,16 +15,14 @@ ROOT = Path(__file__).resolve().parent.parent
 BANK = ROOT / "memory-bank"
 ENTRY_FILES = [ROOT / "AGENTS.md", ROOT / "CLAUDE.md"]
 
-# Line budgets from memory-bank/README.md; log.md is budgeted in entries instead.
+# Line budgets from memory-bank/README.md. log/ and decisions/ have none: one file per entry, views show the newest.
 LINE_BUDGETS = {"README.md": 120, "context.md": 100, "status.md": 80, "notes.md": 100}
-LOG_MAX_ENTRIES = 15
 
-# Where log.md's oldest entries go once it passes LOG_MAX_ENTRIES (created the first time).
-LOG_ARCHIVE = "docs/archive/memory-bank-log.md"
+# Folders of the bank, each a row in the map in memory-bank/README.md.
+BANK_FOLDERS = ["log/", "decisions/", "work/", "game/"]
 
 # Paths the docs name on purpose before they exist. Remove an entry once the path is real.
 PLANNED_PATHS = {
-    LOG_ARCHIVE,
     "captures/unknown/",  # runtime output of the loops (gitignored)
     "logs/daily.json",  # runtime daily-run markers (gitignored)
 }
@@ -88,8 +87,6 @@ def main():
         if not doc.exists():
             problems.append(f"{doc.relative_to(ROOT)} is missing")
             continue
-        if doc.name == "log.md":
-            continue  # history: it may name paths that have since moved or gone
         for token in CODE_SPAN.findall(doc.read_text(encoding="utf-8")):
             if looks_like_path(token) and token not in PLANNED_PATHS and not path_exists(token, doc):
                 problems.append(f"{doc.relative_to(ROOT)}: `{token}` doesn't exist")
@@ -99,8 +96,6 @@ def main():
         text = f.read_text(encoding="utf-8")
         if f"| `{f.name}` |" not in readme:
             problems.append(f"memory-bank/{f.name} isn't in the map in memory-bank/README.md")
-        if "Last updated" not in text:
-            problems.append(f"memory-bank/{f.name} has no 'Last updated' line")
         budget = LINE_BUDGETS.get(f.name)
         lines = len(text.splitlines())
         if budget and lines > budget:
@@ -108,12 +103,16 @@ def main():
 
     problems += section_problems([d for d in ENTRY_FILES + bank_files if d.exists()], readme)
 
-    log = BANK / "log.md"
-    if log.exists():
-        entries = sum(1 for line in log.read_text(encoding="utf-8").splitlines() if line.startswith("### "))
-        if entries > LOG_MAX_ENTRIES:
-            problems.append(f"memory-bank/log.md has {entries} entries (max {LOG_MAX_ENTRIES}): "
-                            f"move the oldest to {LOG_ARCHIVE}")
+    for folder in BANK_FOLDERS:
+        if f"| `{folder}` |" not in readme:
+            problems.append(f"memory-bank/{folder} isn't in the map in memory-bank/README.md")
+    for name in ("log.md", "decisions.md"):
+        if (BANK / name).exists():
+            problems.append(f"memory-bank/{name} is back: write one file per entry instead (python3 scripts/entries.py new)")
+    spec = importlib.util.spec_from_file_location("entries", ROOT / "scripts" / "entries.py")
+    entries = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(entries)
+    problems += entries.problems()
 
     for p in problems:
         print(f"FAIL  {p}")

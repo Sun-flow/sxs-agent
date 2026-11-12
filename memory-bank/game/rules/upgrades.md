@@ -82,7 +82,8 @@ Skill page, Quick Upgrade icon at about (0.73, 0.47), captioned "Upgrade". No se
 - While a material is short the Advance button shows a **blue pip**, not "!"; the Rank Goals tab carries the "!" (claim it, R-116).
 - Collect the Bellflowers with `python -m sxs gather --harvest bellflower --enter` (enters the Flower Harvest field itself).
 - Apprentice III reached 2026-11-11 (strengthening pass): the banked bed EXP applied on rank-up, Lv 30 → 37 (cap 40). The next rank's needs are not read yet ❓.
-- Code: rank-first is built (Upgrader.rank_first, PR #62); the flowchart in `docs/loops/upgrade.md` shows it as a solid branch.
+- **When to look** (mae, 2026-11-11 18:15): rank-up is predictable. The rank badge on the Character screen shows a red "!" or a blue pip (or its Goals tab is lit) and the level reaches its cap ("Level 40/40"; at 38/40 the badge already carried a red "!"). Strengthen doesn't open the rank page every pass: only when that bang or the cap is noticed, and then it advances at once. Collect the next rank's free materials (Bellflowers) before the cap when they can be reached.
+- Code: `Upgrader.rank_first` (PR #62, reworked after mae's 18:15 answer) reads the level and the badge corner on the Character screen; it opens the rank page on a bang or at the cap, and within 3 levels of the cap to gather free materials early. Flowchart: `docs/loops/upgrade.md`.
 *observed, told* · `character/rank_advancement.png`, `character/rank_up_result.png`, `character/rank_advancement_apprentice3.png` · node `rank_advancement` · R-101, R-116, R-123
 
 ## Relics

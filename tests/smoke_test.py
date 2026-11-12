@@ -4,6 +4,9 @@
 
 Needs MuMu running with the game installed and signed in. Exits 0 on success. On failure the last frame is saved
 to captures/smoke-failure.png.
+
+Needs: Live emulator
+Checks: Cold start → home → menus → home
 """
 
 import argparse

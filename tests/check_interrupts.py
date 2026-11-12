@@ -12,6 +12,10 @@ Checks, with a scripted fake detector:
 - the table's tutorial row fires on the live tutorial frames and on no other reference screen in the states it
   watches (docs/screens + expected.json), so the finder's known false matches (Mall, prayer, tower rows, furniture
   popups) can't pause a loop.
+
+Needs: OpenCV
+Checks: Interrupt layer: pause, handle, resume, owned rows, mutes, LoopStop through the runner; the tutorial row
+  fires on no reference screen it watches
 """
 
 from __future__ import annotations

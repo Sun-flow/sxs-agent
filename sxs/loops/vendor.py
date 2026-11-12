@@ -43,8 +43,7 @@ class Vendor:
         self.nav.go_home()
         for pan in PANS:
             if pan:
-                self.dev.swipe(*pan, 500)
-                time.sleep(1.5)
+                self.dev.pan(*pan, 500)  # adb fallback when MaaFramework's swipe stops (2026-11-11)
             hits = self.det.find_all("Home.VendorBooth")
             if hits:
                 x, y, w, h = hits[0]

@@ -1,5 +1,7 @@
 # Home tap pass: implementation and test plan
 
+<!-- index: Plan for the Home tap pass (R-170): where it fits in the dailies, detection, captures, tests; not built yet -->
+
 Rule: R-170 (mae, 2026-11-11 04:57). Tiny creatures (mice, some in burrows), pink leaf piles and clay jars or pots around the Home base give a small amount of resources when tapped. The plan is written so a builder can pick it up at a time mae approves. It does not run on the emulator until she does.
 
 ## Where it fits

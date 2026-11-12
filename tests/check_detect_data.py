@@ -5,6 +5,10 @@ the pre-labeller's merge rules, and the YOLO dataset export (format, split, mini
 
 Needs Pillow, OpenCV and numpy; no MaaFramework, no emulator. Works in a temp copy, never touches the repo's files
 (it reads the real resource/detect/classes.json).
+
+Needs: Pillow, OpenCV
+Checks: UI detector data: class list, `cls`/draft on boxes, pre-label merge keeps mae's boxes, YOLO export (format,
+  split, minimap crop, name and chat masking, private screens left out)
 """
 
 from __future__ import annotations

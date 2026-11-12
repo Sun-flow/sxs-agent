@@ -1,5 +1,7 @@
 # Step 1: emulator choice and game survey
 
+<!-- index: Emulator choice, architecture, daily-content catalogue, iteration 1 scope -->
+
 _2026-11-02. Living copy: https://claude.ai/artifact/9GFhA9oaZMDx4G57ypLgAD_
 
 ## Decisions

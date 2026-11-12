@@ -9,6 +9,8 @@ import time
 from pathlib import Path
 from typing import Optional
 
+import logging
+
 import numpy as np
 from maa.controller import AdbController
 from maa.toolkit import Toolkit
@@ -20,6 +22,33 @@ DEFAULT_ADDRESS = os.environ.get("SXS_ADB_ADDRESS", "127.0.0.1:16384")
 MAA_USER_DIR = REPO_ROOT / ".maa"
 
 _toolkit_ready = False
+log = logging.getLogger("sxs.core.device")
+
+# Device.pan: a pan "moved" when the scene band differs by more than this (mean absolute grey difference on a 1/4
+# scale copy, 0-255). Home's idle animation (clouds, the character, chat) stays under 4; a 150 px pan is above 20.
+PAN_BAND = (260, 940)  # y range compared: below the HUD and top-right icons, above the chat strip
+PAN_MOVED = 8.0
+
+
+def frames_moved(before: np.ndarray, after: np.ndarray, band=PAN_BAND, threshold: float = PAN_MOVED) -> bool:
+    """True when the scene between `band` rows changed enough to count as a pan, not just animation."""
+    import cv2
+
+    def small(f):
+        g = cv2.cvtColor(f[band[0]:band[1]], cv2.COLOR_BGR2GRAY)
+        return cv2.resize(g, None, fx=0.25, fy=0.25, interpolation=cv2.INTER_AREA).astype(np.int16)
+
+    if before is None or after is None or before.shape != after.shape:
+        return True  # can't compare: don't claim it failed
+    return float(np.abs(small(before) - small(after)).mean()) > threshold
+
+
+def adb_scale(wm_size: str, frame_width: int = 720) -> float:
+    """Device pixels per frame pixel from `adb shell wm size` ("Physical size: 1080x1920", maybe an "Override size"
+    line, which wins). MaaFramework frames are 720 wide; `input swipe` takes device pixels."""
+    sizes = dict(re.findall(r"(Physical|Override) size: (\d+)x\d+", wm_size))
+    width = int(sizes.get("Override") or sizes.get("Physical") or frame_width)
+    return width / frame_width
 
 
 def _init_toolkit() -> None:
@@ -52,6 +81,10 @@ class Device:
         )
         if not self.controller.post_connection().wait().succeeded:
             raise RuntimeError(f"MaaFramework could not connect to {address}")
+        # Set by pan() once MaaFramework's swipe stopped moving the scene while adb's did (seen 2026-11-11 after a
+        # game restart): every later swipe of this run then goes through adb.
+        self.swipe_via_adb = False
+        self._adb_scale: Optional[float] = None
 
     def screenshot(self) -> np.ndarray:
         """Return the current frame as a BGR array, 720x1280x3."""
@@ -62,7 +95,42 @@ class Device:
         self.controller.post_click(x, y).wait()
 
     def swipe(self, x1: int, y1: int, x2: int, y2: int, duration_ms: int = 300) -> None:
-        self.controller.post_swipe(x1, y1, x2, y2, duration_ms).wait()
+        if self.swipe_via_adb:
+            self.adb_swipe(x1, y1, x2, y2, duration_ms)
+        else:
+            self.controller.post_swipe(x1, y1, x2, y2, duration_ms).wait()
+
+    def adb_swipe(self, x1: int, y1: int, x2: int, y2: int, duration_ms: int = 300) -> None:
+        """The same swipe through `adb shell input swipe`, in device pixels."""
+        if self._adb_scale is None:
+            try:
+                self._adb_scale = adb_scale(self.shell("wm", "size"))
+            except Exception as e:  # noqa: BLE001 - a frame-sized device is the usual case
+                log.warning("could not read the device size (%s); assuming 720 wide", e)
+                self._adb_scale = 1.0
+        k = self._adb_scale
+        self.shell("input", "swipe", *(str(round(v * k)) for v in (x1, y1, x2, y2)), str(int(duration_ms)))
+        time.sleep(duration_ms / 1000)  # `input swipe` returns at once on some images; wait out the gesture
+
+    def pan(self, x1: int, y1: int, x2: int, y2: int, duration_ms: int = 1000, settle: float = 1.5) -> bool:
+        """A camera pan that checks it worked: swipe, then compare the scene before and after. If nothing moved,
+        try the same swipe through adb; if that moves it, use adb for every swipe from now on (mae's stuck point,
+        2026-11-11: after a game restart MaaFramework's swipe stopped panning Home, adb's still worked). Returns
+        whether the scene moved: False at a scene's end too, which callers use to stop sweeping that way."""
+        before = self.screenshot().copy()
+        self.swipe(x1, y1, x2, y2, duration_ms)
+        time.sleep(settle)
+        if frames_moved(before, self.screenshot()):
+            return True
+        if self.swipe_via_adb:
+            return False  # already on adb: the scene's end, or nothing to pan
+        self.adb_swipe(x1, y1, x2, y2, duration_ms)
+        time.sleep(settle)
+        if frames_moved(before, self.screenshot()):
+            log.warning("MaaFramework's swipe did not move the scene, adb's did: swiping through adb from now on")
+            self.swipe_via_adb = True
+            return True
+        return False
 
     def back(self) -> None:
         self.controller.post_click_key(4).wait()  # KEYCODE_BACK
