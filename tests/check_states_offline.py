@@ -6,6 +6,10 @@ expected state.
 No emulator needed. Expected states are in docs/screens/expected.json ("states"); a screen without an entry is
 run but not checked. `python -m sxs label` adds entries for screens mae labels. icons/, minimap/ and unlabeled/
 are skipped.
+
+Needs: MaaFramework + OCR models
+Checks: State detector over `docs/screens/<folder>/*.png` against `docs/screens/expected.json` (add an entry with
+  each new screen); `NAME ...` checks only those
 """
 
 import sys

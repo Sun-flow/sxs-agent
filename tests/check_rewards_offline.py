@@ -1,6 +1,9 @@
 """Offline check of the tracker reward detector (sxs/vision/gift.py) on docs/screens. Prints "all good" or the misses.
 
     python tests/check_rewards_offline.py
+
+Needs: OpenCV
+Checks: Tracker gift + "!" detector over `docs/screens` (claimable set, badge painted out)
 """
 
 from __future__ import annotations

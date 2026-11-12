@@ -1,5 +1,7 @@
 # docs/screens: reference screenshots
 
+<!-- index: Reference screenshots in folders by situation, `expected.json`, the `unlabeled/` bank; index in `screens/README.md` -->
+
 Full 720×1280 frames, saved as 256-colour PNGs by `python -m sxs capture NAME`. Each screen is one file, sorted
 into a folder by situation. The name's prefix picks the folder (`sxs/core/screens.py` FOLDERS), so
 `capture guild_shop_top` writes `guild/guild_shop_top.png`.

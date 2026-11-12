@@ -26,7 +26,7 @@ Coordinates are in the 720×1280 portrait frame. No module calls a model.
 | `vision/` | Reading the screen: OCR helpers, HP bar, HUD numbers, account stats (`stats.py`), player label, tracker, pickups, badges, minimap, gift | Never taps |
 | `detect/` | UI detector data (docs/detector-design.md): `prelabel.py` drafts boxes from the existing detectors, `dataset.py` exports the YOLO dataset with names blacked out, `items.py` keeps the item and currency symbol catalogue (resource/items) | Never taps; no model yet |
 | `policy/` | Decisions from `resource/policy/*.json`: card/popup decider, free-claim presser; `fights.py` (1.25x power rule), `zones.py` (location tree in `resource/world/zones.json`: next zone, crossing check, ways in) | The spend blocklists live here (**safeguard**) |
-| `actions/` | Small reusable steps that tap: heal, close rewards / step dialogue, go to an area, unstick, camera, watchdog | No loop of its own, except `goto` |
+| `actions/` | Small reusable steps that tap: heal, close rewards / step dialogue, go to an area, unstick, camera, watchdog; `bigmap.py` keeps what each big-map opening read (glances, discovery survey once a day, zoom knob) | No loop of its own, except `goto` |
 | `loops/` | Goal-driven loops, one module each, each exposing `LOOP` | Registered in `loops/__init__.py` |
 
 ## The loop contract (`core/loop.py`, mae 2026-11-04)
@@ -70,12 +70,14 @@ Every loop has the same inputs, outputs and readouts:
 | `roam` | `loops/roam.py` | Unexplored areas under our power, bless statues | `--minutes 30`, `--area NAME` |
 | `clear` | `loops/clear.py` | Clear Zone: one zone to 100%, every leg toward a named objective (replaced the Fog Walk) | `--area "Verdantglade IX" --minutes 10` |
 | `seqcap` | `loops/seqcap.py` | Sequence Capture: approach sequences for detector training (pre-roll buffer, resumable job of steps: stamina nodes via Resource Hunt above 150, statue walks, free pickups) | `--job collectibles_1` then `--job collectibles_1 --resume` |
-| `goto` | `actions/goto.py` | Walk somewhere via the area map | `"Highland Woods"` or `X Y` |
+| `goto` | `actions/goto.py` | Walk somewhere via the area map (a glance at the walking zoom, recorded in `actions/bigmap.py`) | `"Highland Woods"` or `X Y` |
 | `gather` | `loops/gather.py` | Generic `collect(Target)` for ore, sand, essence, rolla, bellflower | `--material sand`, `--check`, `--harvest` |
 | `upgrade` | `loops/upgrade.py` | Every "!" on the Character screen | `--only skills` |
 | `cart` | `loops/cart.py` | Claim the Cart, then raise its Stone and Wood rows evenly (R-136); ends when capped or short | `--check`, `--max N` |
 | `gearswap` | `loops/gearswap.py` | Equip the better piece wherever a gear slot shows "!" (separate from enhancing) | `--check`, `--all` |
-| `strengthen` | `loops/strengthen.py` | `upgrade.get_stronger`: Cart, gear swap, charms, Upgrade Loop | |
+| `strengthen` | `loops/strengthen.py` | `upgrade.get_stronger`: Cart, rank first at the cap, gacha, relics, gear swap, charms, Upgrade Loop | `--only rank,gacha` |
+| `gacha` | `loops/gacha.py` | Aeonic Gacha: Draw x10 on every tier with a full x10 of badges, ticket counter, Goals (never Dawnium, x1 or short xN) | `--check` |
+| `relics` | `loops/relics.py` | Workbench: activate new relics, ascend with own shards, enhance in bands (never Replace) | `--check` |
 | `tower` | `loops/tower.py` | Fantasia Ascent, one run a day | `--tower "Moonveil Woods"` |
 | `guild` | `loops/guild.py` | Donate x2, Forge AFK, Conquest | `--only donate,afk` |
 | `mall` | `loops/mall.py` | Mall free gift boxes, never a price (**safeguard**) | |
@@ -87,13 +89,14 @@ Every loop has the same inputs, outputs and readouts:
 Who calls whom: `daily` → `mall`, `vendor`, `gearswap`, `tower`, `guild`, `gather`, `strengthen`, `upgrade`, `policy.claims`, `progress`.
 `progress` → `guild` (island and building taps), `roam` (area map reader).
 `roam` → `actions.goto`, `clear`; `clear` → `actions.mapnav` (zone check, quest ring, object taps), `explore` (HP reader), `actions.rewards`;
-`explore` → `tower`, `upgrade.get_stronger` (→ `gearswap`, `upgrade`). Everything → `core`.
+`explore` → `tower`, `upgrade.get_stronger` (→ `strengthen` Cart, rank, `gacha`, `relics`, `gearswap`, `upgrade`); daily's `strengthen` step → `get_stronger` too. `gacha`, `relics` → `actions.home` (find on Home). Everything → `core`.
 
 ## Shared pieces worth knowing
 
 | Need | Use |
 |---|---|
 | A fixed button position | `core/ui.py` (bottom nav, back arrow, popup edges, OK/Cancel, portrait, Quick Heal); `ui.tap(dev, xy, wait)` |
+| Find something on the panning Home scene | `actions/home.py`: `find_on_home(dev, det, finder)`, `template_finder(name)`; pans use `Device.pan` (adb fallback) |
 | Tap and wait for a screen | `Navigator.tap(xy, wait)`, `Navigator.open(xy, state)`; `go_home()` from anywhere |
 | Read a line, number, amount, a/b | `vision/ocr.py`: `read_line`, `read_int`, `read_amount`, `read_fraction`, `boxes_of` |
 | Fight / loading / dialogue / reward screens in a loop | `actions/common.py`: `pass_through(dev, d)`, `close_rewards(dev, det)` |

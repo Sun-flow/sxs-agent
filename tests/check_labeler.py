@@ -4,6 +4,10 @@
     python tests/check_labeler.py
 
 Needs Pillow, OpenCV and numpy; no MaaFramework, no emulator. Works in a temp copy, never touches the repo's files.
+
+Needs: Pillow, OpenCV
+Checks: Labeler page API in a temp copy: save boxes, crops and manifest, bank row, filing moves boxes and crops,
+  paths outside docs/screens refused, `vision/labels.py` finds a crop
 """
 
 from __future__ import annotations

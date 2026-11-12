@@ -1,5 +1,7 @@
 # Step 3: exploring and following quests without a model
 
+<!-- index: Explore loop, card decisions, tutorial follower, minimap (its fog walk was replaced by step 6) -->
+
 _Started 2026-11-03 on maes2024 (account Lv 2 → 10, Originisle II–IV and the Guardian Colossi cleared)._
 
 ## Commands

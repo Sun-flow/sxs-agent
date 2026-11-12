@@ -1,5 +1,7 @@
 # Interrupts: switching tasks when the screen changes
 
+<!-- index: How a loop is paused for a tutorial, reward choice or popup and resumed (the interrupt table) -->
+
 mae, 2026-11-05: the state detector should let the bot move between tasks (explore and tutorial, say) when it sees
 the screen change. Seen that night: a yellow tutorial highlight framed the Auroradrasil tree, Fog Walk kept tapping
 the map underneath it, and the builder had to stop Fog Walk and run the tutorial loop by hand.

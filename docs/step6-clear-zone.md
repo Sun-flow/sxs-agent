@@ -1,5 +1,7 @@
 # Step 6: Clear Zone, goal-directed exploration (replaces the Fog Walk)
 
+<!-- index: Clear Zone: goal-directed exploration (every leg a named objective, progress = % or objects), which replaced the Fog Walk -->
+
 mae, 2026-11-10 23:48: the fog walk "is candidly bad, and we need to scrap it"; the idea of fog-walking has been
 poisoning navigation. Why it failed is in [fogwalk-postmortem.md](fogwalk-postmortem.md). In short: it counted
 "stood on a new tile" as progress, so it could hop 1-3 tiles at a time round the same patch for minutes while the
@@ -30,7 +32,9 @@ This page is the design of its replacement. The flowchart is [loops/clear.md](lo
    gain. Fog that shrank round the spot (the area map's fog share there, before the walk and after) means the leg
    worked but found nothing yet: the next frontier, farther in, follows; it isn't a gain, so 4 of those in a row
    still stop the run `no_progress`. A spot whose fog didn't shrink is spent, and the next frontier aims more than
-   45 degrees away from it. Up to 6 frontier legs a run (run 22, Grotto Peninsula: the first frontier found no
+   45 degrees away from it. The spot is framed half ground, half fog (mae, 2026-11-11 18:23): on revealed ground
+   of the patch we stand on, a few px back from the fog, with both in view round it, never in the middle of the
+   fog: a tap on fog paths to the nearest valid tile, which can be across an impassable wall. Up to 6 frontier legs a run (run 22, Grotto Peninsula: the first frontier found no
    object, and "revealed nothing" ended all frontier legs while the zone's ground ran on north into fog).
 4. **No objective, or no progress, means stop and say why.** The run ends with a named status instead of
    wandering:

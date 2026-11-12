@@ -5,6 +5,10 @@ snapshots in a temporary logs folder.
 
 Needs MaaFramework and the OCR models (like check_states_offline.py). Expected values were read by eye from each
 screenshot. Writes nothing under the repo's logs/.
+
+Needs: MaaFramework + OCR models
+Checks: Progress tracker: stat readers on reference screens, bands, the day report (temp logs), the home > profile >
+  Journal route replayed
 """
 
 from __future__ import annotations

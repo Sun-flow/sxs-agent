@@ -1,5 +1,7 @@
 # Function check: what the bot can do (2026-11-04, updated after the live shakedown)
 
+<!-- index: What each loop does, how to run it, what it reports, whether it has run live -->
+
 Every loop runs as `python -m sxs <loop> [options]` from the repo root (`.venv\Scripts\python`). Each one logs
 mae's banner (`[Running X Loop]` / `[Goal]` / `[End condition]`), and ends with one JSON line such as
 `{"loop": "explore", "status": "complete", "ok": true, "seconds": 84}`. Exit code 0 = ok, 1 = needs a look,
@@ -12,7 +14,9 @@ progress also stop as `stalled` after `--stall` seconds (default 60) with no cha
 |---|---|---|---|
 | `upgrade` | Follows every red "!" on the Character screen: banded gear enhance, Resonance, skill Quick Upgrade, technique ascension, class levels, rank goals | no badge left | Yes, partly (skills/class/rank passes were done by hand) |
 | `gearswap` | New: equips the better piece wherever a gear slot shows "!"; power compare decides; separate from enhancing; also a daily step | no flagged slot left | Not yet (the old blind version inside `strengthen` has) |
-| `strengthen` | Cart loot, equip better gear and charms, enhance gear, upgrade techniques | materials short | Yes |
+| `strengthen` | Cart loot, rank first at the level cap, Aeonic Gacha x10, Workbench relics, better gear and charms, Upgrade loop (`--only` picks steps) | every step once, each with its own budget | Yes for the old order; the 2026-11-11 order not yet |
+| `gacha` | Aeonic Gacha: ticket counter, Draw x10 on every tier with a full x10 of badges (never x1, short xN or Dawnium), Goals | no tier can pay a full x10 | Not yet (`docs/strengthen-live-test-plan.md`) |
+| `relics` | Workbench: activate new relics, ascend with own shards, enhance in bands with Chrono Sand (never Replace) | short, or 30 presses | Not yet; needs the Workbench template first |
 | `daily` | Sign-in, Mall gifts, Vendor stamina, Cart, bed EXP, Growth Trial, Fantasia Ascent, quests, guild x3, gather, strengthen (120 s per step) | every step tried once | Yes, all steps |
 | `explore` | Follows the quest tracker marker; fights, cards, dialogue, healing, unsticking | tracker 100/100, no marker, unknown screen | Yes (`--chain` played the quest line) |
 | `clear` | Clears one zone: each leg toward a named objective (quest ring, objects, big map, fog frontier) | zone_done, no_objective, no_progress | No (replaced the fog walk 2026-11-10; to be tested live) |

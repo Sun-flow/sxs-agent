@@ -16,7 +16,7 @@ Needs a look: `not_on_map`, `no_area_map`, `no_progress`, `defeated`, `unknown_s
 flowchart TD
     S(["Start"]) --> W{"On the island map?<br/>else home, World, Verdantglade's island"}
     W -->|no| NOM(["not_on_map"])
-    W -->|yes| SV["1. Survey: open the area map, zoom out fully then one step in,<br/>read a 3x3 grid of pans (stitched), every label, % and power line,<br/>statue ! badges; save it all to the location tree; close"]
+    W -->|yes| SV["1. Look around (docs/big-map-survey.md): a discovery survey only if due<br/>(first pass of the server day, --discover, or the tree has nothing to pick):<br/>survey zoom, full 3x3 pan grid, every label, % and power line, statue ! badges,<br/>saved to the location tree, back to the walking zoom.<br/>Otherwise no map at all: the location tree's zones + statues seen in glances"]
     SV --> SV2{"Any zone read?"}
     SV2 -->|no| NAM(["no_area_map"])
     SV2 -->|yes| BL{"2. Statue with a red ! on the map?"}
@@ -29,7 +29,7 @@ flowchart TD
     AP --> FW[["5. Clear Zone in the target zone<br/>(the neighbour counts as inside)"]]
     FW --> FW2{"Clear Zone ended defeated, unknown_screen,<br/>needs_decision, repeating_card or at home?"}
     FW2 -->|yes| STOP(["that status"])
-    FW2 -->|no| RS["6. Survey again"]
+    FW2 -->|no| RS["6. Clear Zone's last glance if under a minute old and showing the zone,<br/>else one glance at the walking zoom (no survey)"]
     RS --> RS2{"Target zone now?"}
     RS2 -->|"no % line read, label near the bottom edge"| SV
     RS2 -->|"no % shown: 100%"| BN["Walk to the statue icon near its label,<br/>tap the centre, card rules: Unlock"] --> CNT{"Zones done = --max-areas?"}

@@ -253,6 +253,8 @@ def nearest(frame: np.ndarray, kinds=("item", "monster", "building"), max_px: in
 
 FOG_S_MAX, FOG_V_MAX = 25, 80  # unrevealed fog on the area map: dark and grey (HSV ~100/8/40 at the survey zoom)
 FRONTIER_BAND = 14  # px: walkable ground this close to fog is on the frontier
+FRONTIER_INSET = 6  # px: but at least this far from the fog, so the tap lands on revealed ground, not fog (mae 2026-11-11)
+FRONTIER_MIN_GROUND = 0.25  # share of the window that must be the reachable ground we stand on (mae: half ground, half fog)
 FRONTIER_WINDOW = 61  # px square round a frontier point in which the fog is measured
 FRONTIER_MIN_FOG = 0.2  # share of that window that must be fog: a sliver along a wall isn't a patch worth a leg
 FRONTIER_MAX_PX = 380  # from our zone's label: a frontier farther than this is another zone's
@@ -301,7 +303,9 @@ def frontier(frame: np.ndarray, home: tuple[int, int], others=(), me: Optional[t
     fog share of the window round it), nearest to us first, or None.
 
     Fog only matters because it hides objects, so this is one big-map leg to a named spot, never a string of short
-    hops (the fog walk's failure, docs/fogwalk-postmortem.md)."""
+    hops (the fog walk's failure, docs/fogwalk-postmortem.md). The spot is framed half ground, half fog (mae,
+    2026-11-11): on our reachable ground FRONTIER_INSET-FRONTIER_BAND px back from the fog, with at least
+    FRONTIER_MIN_GROUND of that ground and FRONTIER_MIN_FOG of fog round it, never in the middle of the fog."""
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     s, v = hsv[..., 1].astype(int), hsv[..., 2].astype(int)
     x0, y0, w, hh = MAP_AREA
@@ -324,8 +328,13 @@ def frontier(frame: np.ndarray, home: tuple[int, int], others=(), me: Optional[t
     if d0[i0] > START_REACH_PX ** 2:
         return None  # no walkable ground near us on this view
     reach = comp == comp[ys[i0], xs[i0]]
-    near_fog = cv2.dilate(fog, np.ones((FRONTIER_BAND, FRONTIER_BAND), np.uint8)).astype(bool)
-    ys, xs = np.nonzero(reach & near_fog & ~text & region)
+    # mae, 2026-11-11 18:23: a tap on fog paths the character to the nearest valid tile, which can be across an
+    # impassable wall. So the spot is on revealed ground of the patch we stand on, a few px back from the fog, and
+    # the view centred on it holds both that ground and the fog it touches (FRONTIER_MIN_GROUND / FRONTIER_MIN_FOG):
+    # the centre tap then lands on ground connected to us, at the edge of the fog to uncover.
+    to_fog = cv2.distanceTransform((~fog.astype(bool)).astype(np.uint8), cv2.DIST_L2, 3)
+    band = (to_fog >= FRONTIER_INSET) & (to_fog <= FRONTIER_BAND)
+    ys, xs = np.nonzero(reach & band & ~text & region)
     if len(xs) == 0:
         return None
     keep = np.arange(len(xs)) % 3 == 0  # thinned: neighbouring pixels are the same spot
@@ -346,6 +355,8 @@ def frontier(frame: np.ndarray, home: tuple[int, int], others=(), me: Optional[t
             ok &= (dx * ax + dy * ay) / (dn * an) < np.cos(np.radians(FRONTIER_AWAY_DEG))
     share = cv2.blur(fog.astype(np.float32), (FRONTIER_WINDOW, FRONTIER_WINDOW))[ys, xs]
     ok &= share >= FRONTIER_MIN_FOG
+    ground_share = cv2.blur(reach.astype(np.float32), (FRONTIER_WINDOW, FRONTIER_WINDOW))[ys, xs]
+    ok &= ground_share >= FRONTIER_MIN_GROUND
     if not ok.any():
         return None
     dist = np.where(ok, (xs - sx) ** 2 + (ys - sy) ** 2, np.inf)

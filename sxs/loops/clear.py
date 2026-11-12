@@ -22,7 +22,7 @@ import time
 from dataclasses import dataclass, field
 from typing import Optional
 
-from ..actions import goto, heal, mapnav, rewards
+from ..actions import bigmap, goto, heal, mapnav, rewards
 from ..actions.camera import centre_player
 from ..actions.unstick import attack_guard
 from ..actions.common import REWARD_STATES, TOWER_STATES, pass_through
@@ -172,6 +172,7 @@ class Clearer:
         self.power: Optional[float] = None  # K, read from the HUD when the run starts
         self.no_pct_reads = 0  # area-map reads in a row of our label with no % line under it
         self.map_read_leg = 0  # leg count at the last map_pct
+        self.judged_at = 0.0  # when the last leg was judged: a big-map look after it belongs to the current leg
         self.inert_gold = 0  # minimap legs at gold squares that opened no card or fight and moved no % (puzzle tiles)
         self.repeats, self.last_card = 0, None
         self.heal_tries = 0
@@ -208,24 +209,36 @@ class Clearer:
         progress(("event", len(self.legs), name))
 
     def map_pct(self) -> None:
-        """No tracker quest for this zone (a side zone): read its label's "Exploration: N%" on the area map at the
-        survey zoom (live 2026-11-11, run 20: the % stayed None all run, so it could never show progress or 100%).
-        A label read three times running with room for a % line and none under it means the zone is explored, once
-        it has read NO_PCT_DONE_FROM% or more."""
-        from .roam import merge_readings, read_areas, same  # roam imports this module
-        if not self.home or not goto.open_area_map(self.dev, self.det):
+        """No tracker quest for this zone (a side zone): read its label's "Exploration: N%" on the area map (live
+        2026-11-11, run 20: the % stayed None all run, so it could never show progress or 100%). A label read three
+        times running with room for a % line and none under it means the zone is explored, once it has read
+        NO_PCT_DONE_FROM% or more.
+
+        docs/big-map-survey.md: no opening of its own when this leg (or roam's walk in) already looked at the map in the
+        last minute; otherwise a glance at the walking zoom, never the survey zoom. A label with no % line under it is
+        read again from an enlarged crop of the same frame before it counts."""
+        from .roam import merge_readings, same  # roam imports this module
+        if not self.home:
             return
-        goto.survey_zoom(self.dev)
-        time.sleep(1)
-        areas = merge_readings([(read_areas(self.det, self.dev.screenshot()), (0, 0))])
-        ui.tap(self.dev, ui.BACK_ARROW, 2)
-        if self.det.detect().state == "area_map":
-            ui.tap(self.dev, ui.BACK_ARROW, 2)
+        bm = bigmap.get(self.dev, self.det)
+        look = bm.recent(bigmap.CURRENT_ZONE_S)
+        if look is not None and look.at >= self.judged_at and look.frame is not None:
+            look = bm.reuse(f"{self.home}'s %", look)
+        else:
+            look = bm.glance(f"{self.home}'s %")
+        if look is None or look.frame is None:
+            return
+        areas = merge_readings([(look.areas, (0, 0))])
         mine = [a for a in areas if same(a.name, self.home) or mapnav.label_is(a.name, self.home)]
         if not mine:
-            log.info("area map: %s's label not read", self.home)
+            log.info("area map: %s's label not in view", self.home)
             return
         a = next((m for m in mine if m.pct is not None), mine[0])
+        if a.pct is None and not a.unsure:
+            again = bigmap.reread_pct(self.det, look.frame, a.box)
+            if again is not None:
+                log.info("area map: %s's %% line read from an enlarged crop: %d%%", self.home, again)
+                a.pct = again
         if a.pct is not None:
             self.no_pct_reads = 0
             if self.pct is None or a.pct > self.pct:
@@ -260,6 +273,7 @@ class Clearer:
             by[leg.source][1] += leg.result == "gain"
         log.info("[Result] %s: %s; %s%% -> %s%%; %d legs (%s)", self.home, status, self.pct_start, self.pct,
                  len(self.legs), ", ".join(f"{k} {g}/{n} gained" for k, (n, g) in by.items()) or "none")
+        log.info("[map] so far: %s", bigmap.get(self.dev, self.det).summary())
         return status
 
     # ---------------------------------------------------------------- zone checks
@@ -601,7 +615,7 @@ class Clearer:
             return None
         time.sleep(0.5)
         frame = self.dev.screenshot()
-        me = next((p for k, p in area_map.objects(frame) if k == "player"), None)
+        me = bigmap.get(self.dev, self.det).record(frame, "fog check").dot  # same zoom as the pick (walking)
         ui.tap(self.dev, ui.BACK_ARROW, 2)
         if self.det.detect().state == "area_map":
             ui.tap(self.dev, ui.BACK_ARROW, 2)
@@ -884,7 +898,9 @@ class Clearer:
                 self.inert_gold += 1
         log.info("[leg %d] result: %s | %s%% -> %s%% | events %s", leg.n, leg.result, pct_before, pct,
                  ", ".join(e for e in leg.events if e != "no_move") or "none")
+        self.judged_at = time.monotonic()
         if gained:
+            bigmap.get(self.dev, self.det).invalidate("gain", self.home)
             self.no_gain = 0
             self.ring_misses = 0
             if "acted" in leg.events and leg.source != "ring":

@@ -1,0 +1,6 @@
+# 2026-11-04 11:51 · Rules split by situation, memory bank slimmed
+
+- **Decision**: The single rules file (memory-bank/game/rules.md) became `memory-bank/game/rules/`: one file per situation (policy, ui, home, world, overworld, quests, combat, dailies, guild, gathering, upgrades, economy) plus a README index. Rules were rewritten to what an acting agent needs (no sources, dates, batch history or account snapshots). IDs are kept; merged duplicates are listed as retired IDs in the index, and `scripts/check-rules.py` checks every cited ID resolves. The handoff file was split into `playbook.md` (stable process) and `status.md` (state and next steps); machine facts moved from `notes.md` to `environments.md`.
+- **Rationale**: mae (2026-11-04): context had grown bloated; organise rules by content type so an agent in one environment reads one file. The 101 KB rules file and a 22 KB handoff with seven appended updates cost every session ~8.6K tokens, about half duplicated.
+- **Alternatives considered**: renumbering rules per file (breaks the R-IDs cited in code, policy files and the nav graph); keeping one file with better headings (still loads everything for every situation).
+- **Status**: Accepted
