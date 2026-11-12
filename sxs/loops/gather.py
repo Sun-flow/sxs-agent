@@ -180,7 +180,8 @@ class Gatherer:
     def plan(self, target: Target, frame) -> Optional[tuple[str, tuple[int, int]]]:
         """Next tap: special node > material object on the ground > tracking ring on the map (not over us) >
         edge ring (pans the camera) > minimap ring (walk toward it). None when nothing is visible."""
-        me = self._player(frame) or (360, 600)
+        seen = self._player(frame)
+        me = seen or (360, 600)
         for x, y, r in find_rings(frame, "green"):
             if ui.inside((x, y), PLAY_ROI) and not ui.inside((x, y), MINIMAP_ROI):
                 return "special", (x - 30, y + 30)  # the timer circle sits at the node's upper right
@@ -188,7 +189,14 @@ class Gatherer:
         if items:
             return "item", items[0]
         rings = [(x, y) for x, y, _ in find_rings(frame) if not ui.inside((x, y), MINIMAP_ROI)]
-        far = [xy for xy in rings if not ui.near(xy, me, SELF_RADIUS + 20)]
+        # Live 2026-11-11: Resource Hunt's Go no longer walks us there; the material shows as a ringed edge pointer, and
+        # tapping it pans the camera onto the node's ring at the screen centre with us off screen. The old default
+        # "me" at the centre then hid that ring, and the plan tapped our own portrait pointer at the left edge (48, 316)
+        # instead, over and over. With us off screen, nothing is excluded round the centre and the ring nearest the
+        # centre (the one the pan brought into view) goes first.
+        far = [xy for xy in rings if seen is None or not ui.near(xy, me, SELF_RADIUS + 20)]
+        if seen is None:
+            far.sort(key=lambda p: (p[0] - 360) ** 2 + (p[1] - 640) ** 2)
         on_map = [xy for xy in far if ui.inside(xy, PLAY_ROI) and 30 < xy[0] < 690 and xy[1] > 150]
         if on_map:
             return "ring", on_map[0]

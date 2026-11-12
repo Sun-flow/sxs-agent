@@ -411,3 +411,48 @@ def frontier(frame: np.ndarray, home: tuple[int, int], others=(), me: Optional[t
     dist = np.where(ok, (xs - sx) ** 2 + (ys - sy) ** 2, np.inf)
     i = int(np.argmin(dist))
     return (int(xs[i]), int(ys[i])), float(share[i])
+
+
+# --- zone entrances (mae, 2026-11-11) ---------------------------------------------------------------------------------
+# Explored (blessed) ground is light (HSV ~41/72/147), a not-yet-explored zone's ground shaded (~42/80/81); walls are a
+# greener hue (explored ~54/117/109, shaded ~54/128/60) and fog is grey. An entrance into an unexplored zone is where
+# light walkable ground touches shaded walkable ground (mae: "valid ground that runs up to an explored zone's edge,
+# where it connects to unexplored ground in the next zone"). Checked on mae's PC at the survey zoom (2026-11-11).
+CROSS_TOUCH_PX = 9  # light and shaded ground within this many px of each other touch
+CROSS_MIN_PX = 25  # an overlap band smaller than this is a speck (label anti-aliasing, a dot's rim)
+
+
+def crossings(frame: np.ndarray) -> list[tuple[tuple[int, int], tuple[int, int, int, int]]]:
+    """Entrances on the area map: [(centre, (x, y, w, h) box)], light-to-shaded ground contacts, biggest first."""
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    h, s, v = (hsv[..., i].astype(int) for i in range(3))
+    light = (h >= 36) & (h <= 47) & (s >= 55) & (s <= 90) & (v >= 125) & (v <= 170)
+    shade = (h >= 36) & (h <= 48) & (s >= 62) & (s <= 95) & (v >= 68) & (v <= 95)
+    region = np.zeros(h.shape, bool)
+    x0, y0, w, hh = MAP_AREA
+    region[y0:min(y0 + hh, SAFE_TAP_MAX_Y), x0:x0 + w] = True
+    for (a, b, c, d) in (LEGEND, SLIDER):
+        region[b:b + d, a:a + c] = False
+    k = np.ones((5, 5), np.uint8)
+    light = cv2.morphologyEx((light & region).astype(np.uint8), cv2.MORPH_OPEN, k)
+    shade = cv2.morphologyEx((shade & region).astype(np.uint8), cv2.MORPH_OPEN, k)
+    t = np.ones((CROSS_TOUCH_PX, CROSS_TOUCH_PX), np.uint8)
+    band = cv2.dilate(light, t) & cv2.dilate(shade, t)
+    n, _, stats, cents = cv2.connectedComponentsWithStats(band)
+    out = [(stats[i][4], (int(cents[i][0]), int(cents[i][1])), tuple(int(q) for q in stats[i][:4]))
+           for i in range(1, n) if stats[i][4] >= CROSS_MIN_PX]
+    return [(c, b) for _, c, b in sorted(out, reverse=True)]
+
+
+def light_side(frame: np.ndarray, point: tuple[int, int], reach: int = 25) -> tuple[int, int]:
+    """The light (explored) ground pixel nearest an entrance's centre: where to stand before stepping across."""
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    h, s, v = (hsv[..., i].astype(int) for i in range(3))
+    x, y = point
+    win = ((h >= 36) & (h <= 47) & (s >= 55) & (s <= 90) & (v >= 125) & (v <= 170))[
+        max(0, y - reach):y + reach + 1, max(0, x - reach):x + reach + 1]
+    ys, xs = np.nonzero(win)
+    if len(xs) == 0:
+        return point
+    i = int(np.argmin((xs - min(reach, x)) ** 2 + (ys - min(reach, y)) ** 2))
+    return int(xs[i] + max(0, x - reach)), int(ys[i] + max(0, y - reach))

@@ -338,3 +338,47 @@ def screen_point(player_xy: tuple[int, int], mm: Minimap, tile: tuple[int, int],
             return int(x), int(y)
         t *= 0.8
     return player_xy
+
+
+# --- zone entries (mae, 2026-11-11) ----------------------------------------------------------------------------------
+# "When we want to go to a zone, look for the nearest connected area that doesn't end in a wall: valid ground that runs
+# up to an explored zone's edge, and see where it connects to unexplored ground in the next zone. That is where we
+# should be walking from." On the minimap an explored (blessed) zone's ground is light (walk_explored) and an
+# unexplored zone's ground is shaded (walk_unexplored); walls are their own colours. A crossing is a light walkable
+# tile with a shaded walkable tile beside it, reached over walkable ground only.
+LIGHT_GROUND = {"walk_explored", "item", "building", "monster", "icon"}
+
+
+def path_to_crossing(mm: Minimap, skip=frozenset()) -> list[tuple[int, int]]:
+    """Breadth-first path over walkable tiles from the player to the nearest light ground tile that touches shaded
+    ground (4-neighbours), ending with that shaded tile: the way into the unexplored zone next door. Empty if the
+    minimap shows no such crossing we can reach. Border lines are not walls here: crossing one is the point. Tiles
+    in `skip` (crossings that led nowhere) are passed over."""
+    from collections import deque
+
+    n = len(mm.grid)
+    start = mm.centre
+    prev = {start: None}
+    q = deque([start])
+    while q:
+        cur = q.popleft()
+        r, c = cur
+        ring = max(abs(r - start[0]), abs(c - start[1])) <= 1
+        if mm.grid[r][c] in LIGHT_GROUND or ring:
+            for dr, dc in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                nr, nc = r + dr, c + dc
+                if (0 <= nr < n and 0 <= nc < n and mm.grid[nr][nc] == "walk_unexplored"
+                        and max(abs(nr - start[0]), abs(nc - start[1])) > 1 and (nr, nc) not in skip):
+                    path = [(nr, nc)]
+                    while cur is not None:
+                        path.append(cur)
+                        cur = prev[cur]
+                    return path[::-1]
+        for dr, dc in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            nr, nc = r + dr, c + dc
+            ring = max(abs(nr - start[0]), abs(nc - start[1])) <= 1
+            if (0 <= nr < n and 0 <= nc < n and (nr, nc) not in prev
+                    and (mm.grid[nr][nc] in LIGHT_GROUND or ring)):
+                prev[(nr, nc)] = cur
+                q.append((nr, nc))
+    return []

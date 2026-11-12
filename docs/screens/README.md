@@ -20,6 +20,7 @@ into a folder by situation. The name's prefix picks the folder (`sxs/core/screen
 | `items/` | Item symbol survey: screens the catalogue's icons were cropped from and each item's info card (`items/README.md`) |
 | `icons/` | Crops and pictures mae sent (not full frames); not run by the detector test |
 | `minimap/` | Minimap crops and tile samples for the minimap classifier; `legend_*` are mae's legend screenshots and crops (R-066, R-130) |
+| `sequences/` | Picked frames of world-collectible approach sequences (`python -m sxs seqcap`), one folder per sequence; not run by the detector test |
 | `unlabeled/` | **The bank:** screens nobody has named yet, with a table for mae to fill in (`unlabeled/README.md`) |
 
 `labels.json` holds the boxes mae drew on screens in the labeler (see below); `rejected.json` the drafts she removed,

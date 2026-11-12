@@ -144,6 +144,9 @@ def option_rows(boxes) -> list[int]:
 
 
 class Clearer:
+    MINIMAP_GOALS = ("item", "monster", "building")  # minimap dots a leg may head for (seqcap: items only)
+    BIG_MAP_GOALS = ("statue", "item", "monster", "building", "red_bang")  # big-map objects a leg may head for
+
     def __init__(self, dev, det, area: Optional[str] = None, allowed=()):
         self.dev, self.det = dev, det
         self.tree = Tree.load()
@@ -311,7 +314,30 @@ class Clearer:
         if back == "no_move":
             mapnav.quest_step(self.dev, self.det, True)  # an enclosure (Auroradrasil): the quest pointer leads out
             back = goto.go_to(self.dev, self.det, self.home)
+        if back != "arrived" and self.cross_into_home():
+            return None
         return None if back == "arrived" else "not_in_zone"
+
+    def cross_into_home(self) -> bool:
+        """After a walk toward the zone: if the name under the minimap is still another zone, walk in where light
+        (explored) ground meets the zone's shaded ground (mae, 2026-11-11: live, the walks into Verdantglade XIII
+        kept ending at a wall). True when we stand in the zone afterwards."""
+        name = goto.area_name_here(self.det)
+        if not name:
+            name = mapnav.zone_by_map(self.dev, self.det, self.home or "") or ""
+        if name and (goto.same_area(name, self.home or "") or mapnav.label_is(name, self.home or "")):
+            return True
+        log.info("still in %s after the walk to %s: looking for a crossing into its shaded ground", name, self.home)
+        # Strict match here: in_home's loose rules took "Verdantglade XiI" (XII, OCR) for XIII (live 2026-11-11).
+        arrived = lambda n: bool(n) and (goto.same_area(n, self.home or "") or mapnav.label_is(n, self.home or ""))
+        if mapnav.enter_next_zone(self.dev, self.det, arrived=arrived):
+            return True
+        if self.det.detect().state != "world_map":
+            return False  # a fight with a monster blocking the way in: settle handles it, the next check retries
+        # Nothing on the minimap: the entrance nearest the zone's label on the big map, then step across there.
+        why = mapnav.walk_to_entrance(self.dev, self.det, self.home or "")
+        log.info("big-map entrance walk toward %s: %s", self.home, why)
+        return why != "no_entrance" and mapnav.enter_next_zone(self.dev, self.det, arrived=arrived)
 
     # ---------------------------------------------------------------- objective sources
     def start_leg(self, source: str, what: str, xy=None) -> Leg:
@@ -363,7 +389,7 @@ class Clearer:
         n = len(mm.grid)
         skip = ring | {(r, c) for r in range(n) for c in range(n)
                        if self.failed_spot(minimap.world_tile(mm, (r, c), xy))}
-        path = minimap.path_to_nearest(mm, goals=("item", "monster", "building"), skip=skip)
+        path = minimap.path_to_nearest(mm, goals=self.MINIMAP_GOALS, skip=skip)
         if len(path) < 2 or len(path) - 1 > MINIMAP_REACH:
             return None
         goal = mm.grid[path[-1][0]][path[-1][1]]
@@ -484,7 +510,7 @@ class Clearer:
                 banned = [off for at, off in self.big_map_bans if near(at, self.pick_xy)] if me else []
                 skip: list = []
                 for _ in range(6):
-                    hit = area_map.nearest(frame, ("statue", "item", "monster", "building", "red_bang"),
+                    hit = area_map.nearest(frame, self.BIG_MAP_GOALS,
                                            max_px=ZONE_PICK_PX, labels=labels, home=self.home,
                                            is_home=mapnav.label_is, skip=skip, extra=red_bangs)
                     if not hit or not any(abs(hit[1][0] - me[0] - dx) <= BAN_PX and abs(hit[1][1] - me[1] - dy)
@@ -948,6 +974,7 @@ class Clearer:
                 return "not_on_map"
         if self.home and walk_there:
             goto.go_to(self.dev, self.det, self.home)
+            self.cross_into_home()
         if not self.home:
             self.home = mapnav.zone_here(self.dev, self.det, self.tree) or None
         if self.home and self.tree.get(self.home) and self.tree.explored(self.home):

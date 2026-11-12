@@ -1,0 +1,29 @@
+{
+ "name": "seq_monster_hurricane_heights_02",
+ "kind": "monster",
+ "zone": "Hurricane Heights",
+ "what": "monster 6 tiles away",
+ "at": "2026-11-11T15:10:17",
+ "picked": [
+  {
+   "file": "seq_monster_hurricane_heights_02_f01.png",
+   "t": -9.3
+  },
+  {
+   "file": "seq_monster_hurricane_heights_02_f06.png",
+   "t": -6.36
+  },
+  {
+   "file": "seq_monster_hurricane_heights_02_f11.png",
+   "t": -3.09
+  },
+  {
+   "file": "seq_monster_hurricane_heights_02_f16.png",
+   "t": -0.43
+  },
+  {
+   "file": "seq_monster_hurricane_heights_02_f24.png",
+   "t": 2.61
+  }
+ ]
+}

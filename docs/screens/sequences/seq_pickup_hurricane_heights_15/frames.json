@@ -1,0 +1,29 @@
+{
+ "name": "seq_pickup_hurricane_heights_15",
+ "kind": "pickup",
+ "zone": "Hurricane Heights",
+ "what": "item 8 tiles away",
+ "at": "2026-11-11T16:53:28",
+ "picked": [
+  {
+   "file": "seq_pickup_hurricane_heights_15_f01.png",
+   "t": -9.88
+  },
+  {
+   "file": "seq_pickup_hurricane_heights_15_f06.png",
+   "t": -5.71
+  },
+  {
+   "file": "seq_pickup_hurricane_heights_15_f10.png",
+   "t": -3.1
+  },
+  {
+   "file": "seq_pickup_hurricane_heights_15_f15.png",
+   "t": -0.07
+  },
+  {
+   "file": "seq_pickup_hurricane_heights_15_f24.png",
+   "t": 2.69
+  }
+ ]
+}

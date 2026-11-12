@@ -347,3 +347,95 @@ def label_is(label: str, zone: str) -> bool:
     if len(goto.squeeze(a)) < 6 or not b.lower().startswith(a.lower() + " "):
         return False
     return not re.fullmatch(r"[IVXl1|]+", b[len(a):].strip())
+
+
+CROSSING_HOPS = 5  # walk taps toward the nearest light-to-shaded crossing before giving up
+
+
+def enter_next_zone(dev, det, arrived=None, hops: int = CROSSING_HOPS) -> bool:
+    """Walk into the unexplored zone beside us (mae, 2026-11-11): from the minimap, the nearest light (explored)
+    ground that runs up to shaded (unexplored) ground over walkable tiles only, never toward a wall; walk there and
+    step across. `arrived(name)` says whether the area name under the minimap is the zone we want (default: any
+    change of name). True once it is."""
+    start = goto.area_name_here(det)
+    arrived = arrived or (lambda name: bool(name) and not goto.same_area(name, start))
+    skip: set = set()
+    for hop in range(1, hops + 1):
+        frame = dev.screenshot()
+        name = goto.area_name_here(det, frame)
+        if arrived(name):
+            log.info("zone entry: now in %s", name)
+            return True
+        mm = minimap.read(frame, True)  # we stand on the light (explored) side
+        pr, pc = mm.centre
+        near = [mm.grid[r][c] for r in range(pr - 3, pr + 4) for c in range(pc - 3, pc + 4)
+                if 0 <= r < len(mm.grid) and 0 <= c < len(mm.grid) and max(abs(r - pr), abs(c - pc)) > 1]
+        if sum(k == "walk_explored" for k in near) < sum(k == "walk_unexplored" for k in near):
+            # Live 2026-11-11: in Grotto Peninsula (63%, not blessed) the "crossing" was the zone's own fog, three taps
+            # at the same tile. A crossing means standing on an explored zone's light ground.
+            log.info("zone entry: we stand on shaded ground (this zone isn't explored): no crossing to look for")
+            return False
+        path = minimap.path_to_crossing(mm, skip)
+        me = player_on_screen(det, frame)
+        if not path or me is None:
+            log.info("zone entry: no crossing from light to shaded ground on the minimap (hop %d)", hop)
+            return False
+        xy = goto.coords(det)
+        point = off_me(det, minimap.screen_point(me, mm, path[-1]), frame)
+        log.info("zone entry hop %d: crossing %d tiles away, toward shaded ground at minimap %s: tap %s", hop,
+                 len(path) - 1, path[-1], point)
+        dev.tap(*point)
+        time.sleep(4)
+        if xy is None or goto.coords(det) == xy:
+            # mae (2026-11-11, watching XIII): the walk reached the fog edge, but monsters stood in the entrance and
+            # the character couldn't pass without beating them. A walk that didn't move with a monster on or beside
+            # the way in: fight it (the caller's settle handles battle prep), then try the same crossing again.
+            if block_fight(dev, det, mm, path, me):
+                return False
+            skip.add(path[-1])  # that crossing didn't take us anywhere: try the next one
+    name = goto.area_name_here(det)
+    return arrived(name)
+
+
+def walk_to_entrance(dev, det, zone: str) -> str:
+    """mae (2026-11-11): the minimap shows ~10 tiles; when no crossing shows there, find it on the big map. Opens the
+    area map, picks the light-to-shaded entrance nearest `zone`'s label (area_map.crossings), walks to its light
+    side. Returns goto.go_to's result, or "no_entrance" when the map shows none near that label."""
+    chosen: dict = {}
+
+    def pick(frame):
+        labels = map_labels(det, frame)
+        target = next((p for name, p in labels.items() if label_is(name, zone)), None)
+        found = area_map.crossings(frame)
+        if target is None or not found:
+            log.info("zone entry (big map): %s", "no label for " + zone if target is None else "no entrances shown")
+            return None
+        c, box = min(found, key=lambda e: (e[0][0] - target[0]) ** 2 + (e[0][1] - target[1]) ** 2)
+        chosen.update(centre=c, box=box)
+        p = area_map.light_side(frame, c)
+        log.info("zone entry (big map): entrance %s nearest the %s label at %s; walking to its light side %s",
+                 box, zone, target, p)
+        return p
+
+    why = goto.go_to(dev, det, pick)
+    return why if chosen else "no_entrance"
+
+
+BLOCK_TILES = 2  # a monster this many minimap tiles from the way in blocks it
+
+
+def block_fight(dev, det, mm, path, me) -> bool:
+    """Tap a monster standing in or beside the way into a zone (a bracketed guard first). True when a fight (or any
+    screen off the map) started: the caller's settle handles it."""
+    if attack_guard(dev, det):
+        return det.detect().state != "world_map"
+    mons = [t for t in mm.tiles("monster") if any(abs(t[0] - p[0]) + abs(t[1] - p[1]) <= BLOCK_TILES for p in path)]
+    if not mons or me is None:
+        return False
+    t = min(mons, key=lambda t: abs(t[0] - mm.centre[0]) + abs(t[1] - mm.centre[1]))
+    point = off_me(det, minimap.screen_point(me, mm, t))
+    log.info("zone entry: the walk didn't move and a monster stands by the way in (minimap %s): fighting it at %s",
+             t, point)
+    dev.tap(*point)
+    time.sleep(4)
+    return det.detect().state != "world_map"
