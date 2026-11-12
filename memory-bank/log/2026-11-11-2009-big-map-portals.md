@@ -1,0 +1,5 @@
+# 2026-11-11 20:09 · Big-map portals (Claude Code, cloud)
+
+- mae (20:01): portals on the big map teleport you to areas where you activated them; a camera tap or drag that opens the portal of the zone we're heading to should press Teleport. Rule R-175 (R-152 now points to it).
+- Built (branch `claude/project-thread-csl1bt`): `area_map.portal_boxes()/portals()` (H 94-103 swirls, 40-400 px, max 24 px; portal blue is deeper than the statue badge: median S >= 172 vs 150-160), the same test stops `blue_badges` taking a portal with a label's letters on it for a statue badge; `goto.on_portal()` after every area-map tap and drag (Teleport into the target zone, else close; Activate is never pressed from the map); `go_to(zone)` taps a portal within 60 px of the target's label first when we are in another zone; `Teleport` added to the card button list (the portal card rule still only Activates). Class `map_portal` appended after #67's four collectible classes (id 48) and drafted by `prelabel`; mae's 4 crops in `docs/screens/icons/`. Checks in `tests/check_zones.py`.
+- Open: not run live (Teleport load time, where the card's close tap lands on the area map).

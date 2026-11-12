@@ -288,6 +288,12 @@
    "group": "world",
    "kind": "region",
    "about": "The smaller Lost Goddess Statue on the island map, blessed or not (R-070)"
+  },
+  {
+   "name": "map_portal",
+   "group": "area_map",
+   "kind": "icon",
+   "about": "Blue swirl portal icon on the area map, often under a zone label; tap opens the Portal card (Teleport once activated) (R-175)"
   }
  ]
 }

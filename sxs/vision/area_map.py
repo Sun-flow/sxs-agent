@@ -67,7 +67,7 @@ def blue_badges(frame: np.ndarray) -> list[tuple[int, int]]:
     m[y0:y0 + hh, x0:x0 + w] = blue[y0:y0 + hh, x0:x0 + w]
     m[ly:ly + lh, lx:lx + lw] = 0
     m = cv2.morphologyEx(m, cv2.MORPH_CLOSE, np.ones((3, 3), np.uint8))
-    n, _, stats, cents = cv2.connectedComponentsWithStats(m)
+    n, lab, stats, cents = cv2.connectedComponentsWithStats(m)
     out = []
     for i in range(1, n):
         bx, by, bw, bh, area = stats[i]
@@ -77,11 +77,60 @@ def blue_badges(frame: np.ndarray) -> list[tuple[int, int]]:
             continue  # not a filled disc (a portal swirl)
         if white[by:by + bh, bx:bx + bw].sum() < 6:
             continue  # no white "!" inside
+        if _swirl_blue(s, lab == i):
+            continue  # a portal swirl with a zone label's white letters touching it (R-175), not a badge
         x, y = int(cents[i][0]), int(cents[i][1]) + STATUE_BELOW
         if y > SAFE_TAP_MAX_Y:
             continue  # too close to the back arrow and kingdom buttons to tap (live 2026-11-10): pan first
         out.append((x, y))
     return out
+
+
+PORTAL_PX = (40, 400)  # pixel count of a portal swirl: ~45 at the survey zoom, ~220 at the walking zoom, ~280 zoomed in
+PORTAL_MAX_SIDE = 24  # px (real swirls are 9-19 px across); lakes and the sea are the same blue but far bigger, and
+# the legend filter panel's icons (Portal, Voyage Obelisk, 25-29 px) only show while that panel is open
+
+
+PORTAL_SAT = 172  # median saturation: portal swirls 165-188, statue badge discs 150-160 (reference frames, 2026-11-11)
+
+
+def _swirl_blue(s: np.ndarray, blob: np.ndarray) -> bool:
+    """A blue blob coloured like a portal swirl rather than a statue badge (deeper blue; mae's crops
+    `icons/map_portal_*.png`). Both can have white touching them: a zone label's letters."""
+    return bool(blob.any()) and float(np.median(s[blob])) >= PORTAL_SAT
+
+
+def portal_boxes(frame: np.ndarray) -> list[tuple[int, int, int, int]]:
+    """mae, 2026-11-11 (R-175): portals show on the area map as small teal-blue swirls (`world/map_portal_*.png`),
+    often right under a zone label. Returns (x, y, w, h) boxes. Same blue as the statue badge (H 96-100, S 105-196,
+    V 145-225), told apart by size (lakes are larger) and by having no white "!" inside (blue_badges)."""
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    h, s, v = hsv[..., 0].astype(int), hsv[..., 1].astype(int), hsv[..., 2].astype(int)
+    blue = ((h >= 94) & (h <= 103) & (s > 100) & (v > 140)).astype(np.uint8)
+    white = (s < 30) & (v > 175)
+    x0, y0, w, hh = MAP_AREA
+    lx, ly, lw, lh = LEGEND
+    m = np.zeros(blue.shape, np.uint8)
+    m[y0:y0 + hh, x0:x0 + w] = blue[y0:y0 + hh, x0:x0 + w]
+    m[ly:ly + lh, lx:lx + lw] = 0
+    m = cv2.morphologyEx(m, cv2.MORPH_CLOSE, np.ones((3, 3), np.uint8))  # the swirl's three arms are one blob
+    n, lab, stats, _ = cv2.connectedComponentsWithStats(m)
+    out = []
+    for i in range(1, n):
+        bx, by, bw, bh, area = (int(t) for t in stats[i])
+        if not (PORTAL_PX[0] <= area <= PORTAL_PX[1]) or max(bw, bh) > PORTAL_MAX_SIDE:
+            continue
+        if max(bw, bh) > 1.6 * max(1, min(bw, bh)):
+            continue
+        if white[by:by + bh, bx:bx + bw].sum() >= 6 and not _swirl_blue(s, lab == i):
+            continue  # white inside and the badge's paler blue: a statue badge (a zone label's white can touch a portal)
+        out.append((bx, by, bw, bh))
+    return out
+
+
+def portals(frame: np.ndarray) -> list[tuple[int, int]]:
+    """Centres of the portal swirls on the area map (portal_boxes)."""
+    return [(x + w // 2, y + h // 2) for x, y, w, h in portal_boxes(frame)]
 
 
 ENTRANCE_MIN_PX = 45  # an entrance point keeps this far from the target's label (the label sits on fog/shade)

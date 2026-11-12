@@ -145,5 +145,68 @@ check("blue ! on Jungle Camp", len(blue_badges(cv2.imread(str(SCREENS / "world/a
 for name in ("area_map_lv22", "area_map_survey_zoom", "area_map_v3", "world_area_map"):
     check(f"no blue ! on {name}", blue_badges(cv2.imread(str(SCREENS / f"world/{name}.png"))), [])
 
+# Portals on the area map (mae, 2026-11-11, R-175): blue swirls, told apart from the blue statue "!" badge.
+import numpy as np  # noqa: E402
+from sxs.vision.area_map import portals  # noqa: E402
+for i in range(1, 5):  # mae's crops, two with a zone label's letters touching the swirl
+    crop = cv2.imread(str(SCREENS / f"icons/map_portal_{i}.png"))
+    frame = np.full((1280, 720, 3), (40, 140, 100), np.uint8)
+    frame[400:400 + crop.shape[0], 300:300 + crop.shape[1]] = crop
+    check(f"portal in crop {i}", len(portals(frame)), 1)
+    check(f"crop {i} is no blue !", blue_badges(frame), [])
+check("portals on Stone Ruins", len(portals(cv2.imread(str(SCREENS / "world/world_area_map_stone_ruins.png")))), 3)
+check("portals at the survey zoom", len(portals(cv2.imread(str(SCREENS / "world/area_map_survey_zoom.png")))), 2)
+check("the blue ! is not a portal",
+      [p for p in portals(cv2.imread(str(SCREENS / "world/area_map_blue_bang.png"))) if abs(p[0] - 540) < 20 and abs(p[1] - 795) < 25], [])
+for name in ("area_map_lv22", "world_area_map", "world_area_map_zoomin0"):
+    check(f"no portal on {name}", portals(cv2.imread(str(SCREENS / f"world/{name}.png"))), [])
+
+# Portal cards opened by a tap or drag on the area map (R-175): Teleport only into the zone we're heading to.
+from sxs.actions import goto  # noqa: E402
+from sxs.policy.decide import Card  # noqa: E402
+
+
+class _Dev:
+    def __init__(self):
+        self.taps = []
+
+    def tap(self, x, y):
+        self.taps.append((x, y))
+
+
+class _Det:
+    def __init__(self, states):
+        self.states = list(states)
+
+    def detect(self):
+        class D:
+            pass
+        d = D()
+        d.state = self.states.pop(0) if len(self.states) > 1 else self.states[0]
+        d.text = "(100, 100)" if d.state == "world_map" else ""
+        return d
+
+
+_sleep, _card = goto.time.sleep, goto.portal_card
+goto.time.sleep = lambda s: None
+try:
+    goto.portal_card = lambda det: Card("Portal", "", {"Teleport": (360, 913)})
+    dev = _Dev()
+    check("our zone's portal: Teleport", goto.on_portal(dev, _Det(["world_map"]), True), "teleported")
+    check("Teleport tapped", dev.taps, [(360, 913)])
+    dev = _Dev()
+    check("another zone's portal: closed", goto.on_portal(dev, _Det(["area_map"]), False), "closed")
+    check("closed without Teleport", (360, 913) in dev.taps, False)
+    goto.portal_card = lambda det: Card("Portal", "", {"Activate": (360, 895)})
+    dev = _Dev()
+    check("not activated: closed, never Activate from the map", goto.on_portal(dev, _Det(["area_map"]), True), "closed")
+    check("Activate not tapped", (360, 895) in dev.taps, False)
+    goto.portal_card = lambda det: None
+    check("no card: nothing", goto.on_portal(_Dev(), _Det(["area_map"]), True), "none")
+finally:
+    goto.time.sleep, goto.portal_card = _sleep, _card
+labels = {"Verdantglade VI": [300, 400, 160, 30], "Auroradrasil": [300, 700, 140, 30]}
+check("nearest label to a point", goto.nearest_label(labels, (380, 440)), "Verdantglade VI")
+
 print("all good" if not fails else f"{fails} failed")
 sys.exit(1 if fails else 0)

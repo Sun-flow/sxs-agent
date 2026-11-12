@@ -29,7 +29,10 @@ AREA_MAP_ZOOM_OUT = (682, 1113)  # the "-" under the area map's zoom slider
 SCREEN_CENTRE = ui.SCREEN_CENTRE  # where the area-map point lands after the camera re-centres
 COORDS = re.compile(r"\(?(\d+) ?[,.] ?(\d+)\)?")  # OCR reads the comma as "." sometimes
 WALK_TIMEOUT_S = 60
-LABEL_DY = -26  # just above the label: it sits on its zone, and a Portal can sit right under it (mae, 2026-11-10: Verdantglade VI; the tap opened the portal card)
+LABEL_DY = -26  # just above the label: it sits on its zone, and a Portal can sit right under it (mae, 2026-11-10: Verdantglade VI; the tap opened the portal card). A portal card is handled by on_portal (R-175)
+PORTAL_NEAR_LABEL_PX = 60  # a portal swirl this close to the target zone's label is that zone's portal (R-175)
+PORTAL_DODGE_DY = -30  # a destination tap that opened another zone's portal card is retried this far higher
+PORTAL_WAIT_S = 20  # after Teleport: how long the load may take before the island map shows coordinates again
 
 
 def squeeze(t: str) -> str:
@@ -176,6 +179,64 @@ def open_area_map(dev, det) -> bool:
     return det.detect().state == "area_map"
 
 
+def portal_card(det):
+    """The Portal card (R-175) open over the area map, or None. A tap or a drag on the area map can land on a portal
+    swirl and open it (mae, 2026-11-11). Cheap while the map still shows: no OCR then."""
+    if det.detect().state == "area_map":
+        return None
+    from ..policy.decide import Decider
+    card = Decider(det).read_card()
+    return card if re.match(r"^Portal$", card.title) else None
+
+
+def on_portal(dev, det, ours: bool) -> str:
+    """After a tap or a drag on the area map: if a Portal card opened, press Teleport when the portal is in the zone
+    we are heading to (`ours`), else close the card and carry on (mae, 2026-11-11, R-175: we move the camera to go
+    somewhere, and a portal there gets us there at once). Returns "none" (no card), "closed" or "teleported"."""
+    card = portal_card(det)
+    if card is None:
+        return "none"
+    teleport = card.buttons.get("Teleport")
+    if not (ours and teleport):
+        # Another zone's portal, or one not activated yet (its card shows Activate, which needs us standing there).
+        log.info("portal card opened on the area map (%s): closing it", "not activated" if ours else "another zone")
+        dev.tap(*ui.ABOVE_POPUP)
+        time.sleep(1.2)
+        if det.detect().state != "area_map":
+            dev.tap(*ui.BACK_ARROW)
+            time.sleep(1.2)
+        return "closed"
+    log.info("portal in the zone we are heading to: Teleport")
+    dev.tap(*teleport)
+    deadline = time.monotonic() + PORTAL_WAIT_S
+    while time.monotonic() < deadline:
+        time.sleep(2)
+        if coords(det) is not None:
+            return "teleported"
+    log.warning("pressed Teleport but no island map after %ss; frame %s", PORTAL_WAIT_S, save_unknown(dev, "portal"))
+    return "teleported"
+
+
+def nearest_label(labels: dict, point) -> str:
+    """The zone label (area_labels) closest to a point on the area map: the zone that point is in, roughly."""
+    best, dist = "", 1e9
+    for t, (x, y, w, h) in labels.items():
+        d = ((x + w / 2 - point[0]) ** 2 + (y + h / 2 - point[1]) ** 2) ** 0.5
+        if d < dist:
+            best, dist = t, d
+    return best
+
+
+def _portal_by_label(dev, det, box) -> Optional[tuple[int, int]]:
+    """A portal swirl next to a zone label (R-175: they often sit right under it), as a tap point, or None."""
+    from ..vision.area_map import portals, SAFE_TAP_MAX_Y
+    x, y, w, h = box
+    cx, cy = x + w // 2, y + h // 2
+    near = [p for p in portals(dev.screenshot()) if p[1] <= SAFE_TAP_MAX_Y
+            and ((p[0] - cx) ** 2 + (p[1] - cy) ** 2) ** 0.5 <= PORTAL_NEAR_LABEL_PX]
+    return min(near, key=lambda p: (p[0] - cx) ** 2 + (p[1] - cy) ** 2) if near else None
+
+
 EDGE_X, EDGE_TOP, EDGE_BOTTOM = 110, 260, 1000  # area-map taps outside this box are dragged to the middle first
 ME_AT_CENTRE_PX = 70 # our character's point (just above its label) this close to the centre means a tap there hits us
 
@@ -189,7 +250,8 @@ def _me_at_centre(dev, det) -> bool:
 
 def go_to(dev, det, target, pan_for_target: bool = False, toward=None, purpose: str = "") -> str:
     """target: an area name on the area map, or an (x, y) point there. Returns "arrived" (walked and stopped),
-    "no_move" (coordinates didn't change: blocked or unreachable), "no_label", or "not_on_map".
+    "no_move" (coordinates didn't change: blocked or unreachable), "no_label", or "not_on_map". "arrived" also covers
+    a Teleport through a portal in the target zone (R-175): the walk is skipped and we stand at that portal.
 
     The map opens at the walking zoom (docs/big-map-survey.md): its frame is recorded in the shared BigMap (a glance)
     before anything is tapped. A label or target not in view is looked for by drags `toward` it (a unit vector from
@@ -207,6 +269,7 @@ def go_to(dev, det, target, pan_for_target: bool = False, toward=None, purpose: 
         start = coords(det)
     if start is None:
         return "not_on_map"
+    here = area_name_here(det) if isinstance(target, str) else ""
     dev.tap(*MINIMAP)
     time.sleep(2)
     t0 = time.monotonic() - 2
@@ -257,6 +320,9 @@ def go_to(dev, det, target, pan_for_target: bool = False, toward=None, purpose: 
         for drag in (_pans(toward) if not hit else ()):
             dev.swipe(*drag, PAN_MS)
             time.sleep(1.2)
+            # A drag that starts on a portal swirl opens its card instead of panning (R-175).
+            if on_portal(dev, det, same_area(nearest_label(labels, drag[:2]), target)) == "teleported":
+                return "arrived"
             labels, hit = find(dev.screenshot())
             if hit:
                 log.info("found %r after panning the area map", target)
@@ -268,6 +334,15 @@ def go_to(dev, det, target, pan_for_target: bool = False, toward=None, purpose: 
             return "no_label"
         x, y, w, h = hit[0]
         point = (x + w // 2, y + h // 2 + LABEL_DY)
+        portal = None if same_area(here, target) else _portal_by_label(dev, det, hit[0])
+        if portal is not None:
+            # Going to another zone and its portal shows by its label: try it first (R-175). Not activated yet, the
+            # card shows Activate instead and on_portal closes it; then walk as usual.
+            log.info("portal by %r's label at %s: trying it", target, portal)
+            dev.tap(*portal)
+            time.sleep(1.5)
+            if on_portal(dev, det, True) == "teleported":
+                return "arrived"
     elif callable(target):
         # A picker reads this opening of the map (mae, 2026-11-05: tap the target on the big map, close it, tap the
         # element now in the middle of the screen).
@@ -281,6 +356,7 @@ def go_to(dev, det, target, pan_for_target: bool = False, toward=None, purpose: 
             # Off screen or under the dark bottom-left corner (live 2026-11-10: Jungle Camp's blue "!"): pan, look again.
             dev.swipe(*drag, PAN_MS)
             time.sleep(1.2)
+            on_portal(dev, det, False)  # a drag started on a portal: its zone is unknown here, so close it (R-175)
             point = target(dev.screenshot())
             if point is not None:
                 break
@@ -296,6 +372,7 @@ def go_to(dev, det, target, pan_for_target: bool = False, toward=None, purpose: 
             sx, sy = SCREEN_CENTRE[0] - dx // 2, SCREEN_CENTRE[1] - dy // 2
             dev.swipe(sx, sy, sx + dx, sy + dy, 1500)
             time.sleep(1.2)
+            on_portal(dev, det, False)
             again = target(dev.screenshot())
             if again is not None:
                 log.info("target near the map edge at %s: dragged it to %s", point, again)
@@ -305,6 +382,21 @@ def go_to(dev, det, target, pan_for_target: bool = False, toward=None, purpose: 
     log.info("area map: centring on %s", point)
     dev.tap(*point)
     time.sleep(1.5)
+    # The tap can land on a portal swirl (R-152, R-175). A zone label tap is on the target zone; a picked point is the
+    # destination itself; a point between two labels is in whichever zone's label is nearer.
+    if isinstance(target, tuple) and len(target) == 3 and isinstance(target[0], str):
+        ours = nearest_label({target[0]: [*pa, 0, 0], target[1]: [*pb, 0, 0]}, point) == target[1]
+    else:
+        ours = True
+    seen = on_portal(dev, det, ours)
+    if seen == "teleported":
+        return "arrived"
+    if seen == "closed":
+        point = (point[0], point[1] + PORTAL_DODGE_DY)
+        log.info("area map: centring on %s instead (a portal sat on the first point)", point)
+        dev.tap(*point)
+        time.sleep(1.5)
+        on_portal(dev, det, False)
     dev.tap(*ui.BACK_ARROW)
     time.sleep(2)
     for _ in range(2):
