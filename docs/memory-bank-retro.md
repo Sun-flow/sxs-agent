@@ -7,7 +7,7 @@ mae asked (2026-11-12): using what happened in this repo, how would we improve t
 the improvements from day one, and where were the consistent stress points and gaps in how the bank was used?
 
 Evidence is from `main` at `3fee45d` (after #61) and the open PR #70 branch. Commands used are listed at the end so
-the numbers can be re-run. `entries.py` and `index.py` below are the `scripts/` helpers #70 adds; `landed.py` is
+the numbers can be re-run. Drafts of the revised prompt and of a replacement check tool are in `.agents/prompts/v2/` (`memory-bank.md`, `bank.py`, and a README). `entries.py` and `index.py` below are the `scripts/` helpers #70 adds; `landed.py` is
 proposed here and doesn't exist yet. This doc changes no memory files on purpose (it would conflict with #70); the
 decisions it leads to get their own entries once mae picks.
 
