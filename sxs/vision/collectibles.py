@@ -78,6 +78,9 @@ def save(frame: np.ndarray, xy: tuple[int, int], name: str, kind: str, area: str
     m["tag"] = TAG
     _save_manifest(m)
     log.info("collectibles: saved %s (%s, %s)", fname, kind, area or "any area")
+    from ..core import preroll
+
+    preroll.save(kind, name, area)  # the frames leading up to it, for detector training (core/preroll.py)
     return fname
 
 

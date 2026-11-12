@@ -7,6 +7,9 @@ builds and parses a minimal command line; `as_result` maps str / dict / None the
 loop refuses (exit 2) without --pulls N --handler-approved or with a pull count that isn't a multiple of 10,
 before it touches the device. Also checks the time budget and stall watchdog (`task`, `progress`) stop a block
 and let the code after it carry on (about 4 seconds).
+
+Needs: Python, OpenCV, MaaFramework (imports only)
+Checks: Every registered loop meets the loop contract; pray refuses without approval
 """
 
 from __future__ import annotations

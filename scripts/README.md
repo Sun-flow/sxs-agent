@@ -7,7 +7,9 @@ Run from the repo root (`.venv\Scripts\python scripts\X.py` on Windows, `python3
 | Script | Does |
 |---|---|
 | `check-memory.py` | Memory-bank drift: broken paths, unmapped files, dates, budgets; lists commits since the bank was updated |
-| `check-rules.py` | Every cited R-ID resolves to a live rule; image paths in rules exist |
+| `check-rules.py [--next]` | Every cited R-ID resolves to a live rule; image paths in rules exist; `--next` gives the next free rule ID (counts fetched branches) |
+| `index.py docs\|tests\|rules [R-NNN]\|work\|check` | Print an index built from metadata in the files (doc `<!-- index: -->` lines, test `Needs:`/`Checks:`, rule headings, work files); `check` fails on a file without it |
+| `entries.py log\|decisions [-n N] [--titles] [--grep W]`, `entries.py new KIND "Title"` | Read the one-file-per-entry log and decisions newest first; `new` writes an entry file with the UTC time |
 | `nav-graph.py check\|render\|path FROM TO` | Validate, re-render or query `memory-bank/game/nav-graph.json` |
 | `../tests/check_repo.py` | Repo structure: pipelines, templates, policies, module references in docs (no emulator, no MaaFramework) |
 

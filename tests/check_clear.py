@@ -1,7 +1,12 @@
 """Offline checks for the Clear Zone loop (no emulator): python tests/check_clear.py
 
 The frontier picker on a reference area map, the minimap planner's goals (objects only, no fog leads), and the leg
-bookkeeping: what counts as a gain, spot skipping, the ring resting, a frontier that reveals nothing."""
+bookkeeping: what counts as a gain, spot skipping, the ring resting, a frontier that reveals nothing.
+
+Needs: OpenCV, MaaFramework (imports only)
+Checks: Clear Zone: fog frontier on a reference area map, minimap goals are objects only, leg bookkeeping (gain,
+  failed spots, ring resting, stall count)
+"""
 
 import sys
 from pathlib import Path
@@ -75,6 +80,29 @@ gf = area_map.frontier(g, gl["Grotto Peninsula"], [p for k, p in gl.items() if k
 check("Grotto Peninsula: a frontier north of us, into the zone's fog", bool(gf) and gf[0][1] < gme[1] - 40, True)
 if gf:
     check("fog round it", gf[1] >= area_map.FRONTIER_MIN_FOG, True)
+
+
+def framing(img, spot):
+    """mae, 2026-11-11: the frontier spot sits on revealed ground (not fog), a few px back from the fog, with both
+    ground and fog in the window round it, so the centre tap lands on ground connected to us."""
+    import numpy as np
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    region = np.ones(hsv.shape[:2], bool)
+    fog = area_map._fog(hsv[..., 1].astype(int), hsv[..., 2].astype(int), region).astype(bool)
+    x, y = spot
+    r = area_map.FRONTIER_WINDOW // 2
+    win = fog[y - r:y + r + 1, x - r:x + r + 1]
+    ground = area_map.walkable(hsv)[y - r:y + r + 1, x - r:x + r + 1]
+    near = fog[y - area_map.FRONTIER_INSET + 1:y + area_map.FRONTIER_INSET, x - area_map.FRONTIER_INSET + 1:
+               x + area_map.FRONTIER_INSET]
+    return bool(not fog[y, x] and not near.any() and win.mean() >= area_map.FRONTIER_MIN_FOG
+                and ground.mean() >= area_map.FRONTIER_MIN_GROUND)
+
+
+for nm, f_ in (("Grotto", gf), ("Verdantglade V", v)):
+    if f_:
+        check(f"{nm}: frontier spot on ground beside the fog, framed half and half", framing(
+            g if nm == "Grotto" else frame, f_[0]), True)
 
 # Minimap goals: objects only. Ground (fog leads, shaded tiles) is never a goal any more (R-143).
 check("minimap goals", minimap.GOALS, ("item", "monster", "building"))

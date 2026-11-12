@@ -6,8 +6,13 @@
 - every `python -m sxs <loop>`, `sxs/.../X.py`, `scripts/X.py` and `tests/X.py` named in docs, memory-bank and module
   docstrings exists (the retired `python -m sxs.X` form is flagged)
 - every Python file compiles
+- every doc, test and work file carries the metadata `scripts/index.py` builds the indexes from
 
 Exits 1 and lists the problems if anything fails.
+
+Needs: Python only
+Checks: Pipelines parse, every template and policy file exists, every `python -m sxs <loop>` / `sxs/.../X.py` /
+  `scripts/X.py` named in docs exists (old `python -m sxs.X` flagged), all modules compile
 """
 
 from __future__ import annotations
@@ -15,6 +20,7 @@ from __future__ import annotations
 import json
 import py_compile
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -81,7 +87,7 @@ texts += list((ROOT / "sxs").rglob("*.py")) + list((ROOT / "scripts").glob("*.py
 texts += list((ROOT / "sxs").glob("README.md")) + list((ROOT / "scripts").glob("README.md")) + list((ROOT / "tests").glob("README.md"))
 texts += list((ROOT / "resource").rglob("*.md")) + [ROOT / "AGENTS.md"]
 for path in sorted(set(texts)):
-    if "archive" in path.parts or path.name == "log.md" or path == Path(__file__).resolve():
+    if "archive" in path.parts or path.parent == ROOT / "memory-bank" / "log" or path == Path(__file__).resolve():
         continue  # history may name things that are gone
     text = path.read_text(encoding="utf-8", errors="replace")
     for m in sorted(set(OLD_REF.findall(text))):
@@ -110,6 +116,10 @@ names = {p.stem for p in screens.rglob("*.png")}
 for name in sorted(json.loads((screens / "expected.json").read_text(encoding="utf-8"))["states"]):
     if name not in names:
         problems.append(f"docs/screens/expected.json: {name} has no screenshot")
+
+# Indexes are built from metadata in the files (scripts/index.py): every doc, test and workstream file carries it.
+_index = subprocess.run([sys.executable, str(ROOT / "scripts" / "index.py"), "check"], capture_output=True, text=True)
+problems += [line[6:] for line in _index.stdout.splitlines() if line.startswith("FAIL  ")]
 
 if problems:
     print("\n".join(problems))

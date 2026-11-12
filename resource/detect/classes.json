@@ -266,6 +266,30 @@
    "about": "Yellow price button that spends money or Dawnium (USD packs, Mall, Vendor Booth Vault, purchase prompts): never tap (mae, 2026-11-10); never label these btn_primary"
   },
   {
+   "name": "world_collectible",
+   "group": "world",
+   "kind": "region",
+   "about": "A collectible on the island map (ore rock, flower, chest, pickup). The box names which one in \"collectible\" (resource/world/collectibles.json); the export can train one class per kind, per family, or one for all"
+  },
+  {
+   "name": "stamina_cost",
+   "group": "world",
+   "kind": "badge",
+   "about": "The \"stamina 5\" board over something that costs stamina: a Resource Hunt node or, in a blessed zone, a monster fight that gives Battle Essence (mae 2026-11-11)"
+  },
+  {
+   "name": "world_goddess_statue",
+   "group": "world",
+   "kind": "region",
+   "about": "The large Goddess Statue on the island map, blessed or not (R-070)"
+  },
+  {
+   "name": "world_lost_statue",
+   "group": "world",
+   "kind": "region",
+   "about": "The smaller Lost Goddess Statue on the island map, blessed or not (R-070)"
+  },
+  {
    "name": "map_portal",
    "group": "area_map",
    "kind": "icon",

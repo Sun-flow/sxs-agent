@@ -6803,6 +6803,26 @@
     }
    ]
   },
+  "unlabeled/lost_goddess_statue_auroradrasil.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "card_goddess_statue_1",
+     "kind": "region",
+     "x": 34,
+     "y": 181,
+     "w": 652,
+     "h": 919,
+     "note": "pre-labelled (card edge); goddess or lost goddess statue card",
+     "template": false,
+     "cls": "card_goddess_statue",
+     "draft": true
+    }
+   ]
+  },
   "world/area_map_blue_bang.png": {
    "size": [
     720,
@@ -8418,6 +8438,46 @@
     }
    ]
   },
+  "world/interact_goddess_statue.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "card_goddess_statue_1",
+     "kind": "region",
+     "x": 34,
+     "y": 208,
+     "w": 652,
+     "h": 864,
+     "note": "pre-labelled (card edge); goddess or lost goddess statue card",
+     "template": false,
+     "cls": "card_goddess_statue",
+     "draft": true
+    }
+   ]
+  },
+  "world/interact_goddess_statue_blessed.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "card_goddess_statue_1",
+     "kind": "region",
+     "x": 34,
+     "y": 270,
+     "w": 652,
+     "h": 740,
+     "note": "pre-labelled (card edge); goddess or lost goddess statue card",
+     "template": false,
+     "cls": "card_goddess_statue",
+     "draft": true
+    }
+   ]
+  },
   "world/interact_ironvein_pit.png": {
    "size": [
     720,
@@ -8586,6 +8646,26 @@
      "template": false,
      "cls": "item_icon",
      "item": "iron_hammer"
+    }
+   ]
+  },
+  "world/lost_goddess_statue.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "card_goddess_statue_1",
+     "kind": "region",
+     "x": 34,
+     "y": 181,
+     "w": 652,
+     "h": 918,
+     "note": "pre-labelled (card edge); goddess or lost goddess statue card",
+     "template": false,
+     "cls": "card_goddess_statue",
+     "draft": true
     }
    ]
   },
@@ -9087,6 +9167,46 @@
      "note": "pre-labelled",
      "template": false,
      "cls": "map_pct_line"
+    }
+   ]
+  },
+  "world/world_goddess_statue_unlock_ix.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "card_goddess_statue_1",
+     "kind": "region",
+     "x": 34,
+     "y": 208,
+     "w": 652,
+     "h": 865,
+     "note": "pre-labelled (card edge); goddess or lost goddess statue card",
+     "template": false,
+     "cls": "card_goddess_statue",
+     "draft": true
+    }
+   ]
+  },
+  "world/world_lost_statue_unlock_troll_lair.png": {
+   "size": [
+    720,
+    1280
+   ],
+   "boxes": [
+    {
+     "name": "card_goddess_statue_1",
+     "kind": "region",
+     "x": 34,
+     "y": 181,
+     "w": 652,
+     "h": 919,
+     "note": "pre-labelled (card edge); goddess or lost goddess statue card",
+     "template": false,
+     "cls": "card_goddess_statue",
+     "draft": true
     }
    ]
   },

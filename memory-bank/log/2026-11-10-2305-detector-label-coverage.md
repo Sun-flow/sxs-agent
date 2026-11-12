@@ -1,0 +1,4 @@
+# 2026-11-10 23:05 · Detector label coverage (Claude Code, cloud)
+
+- mae asked for statistics on which elements the screenshot dataset covers, compared with Roboflow's guidance, and a plan for short classes. New `docs/detector-coverage.md` (matrix per element class, item and item group; generated block from new `scripts/label_coverage.py --write`, read-only). Numbers from labels/check-drafts `aee0169`: 609 exportable boxes on 105 screens (354 item_icon), 85 more on private screens; 19 of 43 classes had no box; only `badge_red_bang` met the minimum; per group only `prayer_ticket` and `currency_token`.
+- Target: minimum 50 boxes on 20 screens per class, good 100 on 50. mae chose a new class `btn_price` for price buttons (decisions.md). Second labeling pass handed to the vision thread's drafter (mae's yes, 23:54Z); capture list taken by the exploration thread.

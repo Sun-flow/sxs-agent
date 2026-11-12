@@ -1,5 +1,10 @@
 """Offline checks for zone borders, the location tree, the area-map survey merge and the Cart unlock finder (no
-emulator): python tests/check_zones.py"""
+emulator): python tests/check_zones.py
+
+Needs: OpenCV, MaaFramework (imports only)
+Checks: Minimap zone-border detector on reference frames, border blocks the planner, location tree decisions (R-132,
+  R-135), area-map pan merge, Cart Unlock finder (R-137)
+"""
 
 import sys
 import tempfile

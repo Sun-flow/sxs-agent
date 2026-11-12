@@ -1,0 +1,6 @@
+# 2026-11-04 21:42 · Layered package and one loop contract
+
+- **Decision**: `sxs/` is split into `sxs/core/`, `sxs/vision/` (never taps), `sxs/policy/`, `sxs/actions/` and `sxs/loops/`. Every loop is a `Loop` spec (`sxs/core/loop.py`) run by one runner: same inputs (`ctx` with device, detector, navigator, plus its own options), same output (`Result(status, ok, data)`), same readouts (banner at start, `[Result X]` log line and one JSON line at the end, exit 0/1/2). Commands are `python -m sxs <loop>`. Runs are short: a 120 s budget per loop and per daily step, and a stall stop after 60 s without progress (mae, 2026-11-04 21:45: "1-2 min max", exit shortly after a task stops moving). Code used in two places becomes one helper (`sxs/core/ui.py` coordinates, `sxs/vision/ocr.py`, `sxs/actions/heal.py`, `sxs/actions/common.py`).
+- **Rationale**: mae (2026-11-04 21:25): "clear inputs, outputs, and readouts, that are consistent and operationalizable", used "structurally as often as possible"; duplicated code becomes functions; smaller modules so an agent reads less context per task.
+- **Alternatives considered**: keep flat modules with per-module `main()` (each printed its own format and exit code); drop MaaFramework (mae: keep Maa).
+- **Status**: Accepted

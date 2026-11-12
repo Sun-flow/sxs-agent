@@ -1,4 +1,8 @@
-"""Offline checks for the upgrade and gather decision logic (no emulator): python tests/check_upgrade_logic.py"""
+"""Offline checks for the upgrade and gather decision logic (no emulator): python tests/check_upgrade_logic.py
+
+Needs: MaaFramework, OpenCV
+Checks: Badge finder, gather pickup choice, relic banding plan, Cart row pick and cost icons
+"""
 
 import sys
 from pathlib import Path

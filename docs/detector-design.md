@@ -1,5 +1,7 @@
 # UI detector: Roboflow design
 
+<!-- index: Plan for a Roboflow-trained UI detector: classes, the three model choices with pros and cons, dataset pipeline, adoption -->
+
 mae, 2026-11-10: "let's start designing a roboflow implementation ... recommend me the three best choices with pro
 and con lists for each." Background and the case for a detector: `docs/vision-upgrade.md` (Part 2). This note is
 the plan. Built so far: the screen-check speed-ups (Part 1, PR #48), and step 1 below (class list in the labeler,
@@ -16,7 +18,7 @@ One pass over a frame that returns boxes with a class and a score, wherever the 
 | buttons | `btn_primary`, `btn_close_x`, `btn_back_arrow`, `btn_tap_to_spin`, `btn_claim`, `btn_quick_heal`, `btn_price` (spend buttons, never tapped; mae 2026-11-10) | Where to tap |
 | badges | `badge_red_bang`, `badge_blue_pip`, `badge_gold_ring`, `badge_gift` | What needs attention |
 | area_map | `map_player`, `map_item`, `map_monster`, `map_building`, `map_statue_bang`, `map_chest`, `map_zone_label`, `map_pct_line`, `map_portal` | Big-map targets; label boxes for clean OCR |
-| world | `player_character`, `monster`, `npc_alert`, `tracker_box` | Never tap ourselves; fights; NPCs |
+| world | `player_character`, `monster`, `npc_alert`, `tracker_box`, `world_collectible` (+ kind from `resource/world/collectibles.json`), `stamina_cost`, `world_goddess_statue`, `world_lost_statue` (mae 2026-11-11, `docs/collectibles-capture-plan.md`) | Never tap ourselves; fights; NPCs; what to collect, what costs stamina, statues to bless |
 | minimap | `mm_item`, `mm_monster`, `mm_building`, `mm_icon` | Minimap objects (mae, 2026-11-10), see below |
 | screen | `anchor_minimap_ring`, `anchor_tab_bar`, `anchor_hud_portrait`, `anchor_battle_round`, `anchor_dialogue_box`, `anchor_popup_panel`, `anchor_page_title`, `anchor_area_map_legend` | Model-first screen checks, see below |
 

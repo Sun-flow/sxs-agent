@@ -20,6 +20,8 @@ REGISTRY = {
     "gather": "sxs.loops.gather",
     "upgrade": "sxs.loops.upgrade",
     "strengthen": "sxs.loops.strengthen",
+    "gacha": "sxs.loops.gacha",
+    "relics": "sxs.loops.relics",
     "gearswap": "sxs.loops.gearswap",
     "cart": "sxs.loops.cart",
     "tower": "sxs.loops.tower",

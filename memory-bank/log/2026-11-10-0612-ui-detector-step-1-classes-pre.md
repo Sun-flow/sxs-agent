@@ -1,0 +1,5 @@
+# 2026-11-10 06:12 · UI detector step 1: classes, pre-labels, dataset export (Claude Code, cloud)
+
+- mae agreed: YOLO26n vs RF-DETR Nano on one Roboflow dataset; minimap objects in the model (crop + full frame, training decides); hybrid with the text check (model-first for confident anchors, text for spend-risk/unsure/unknown). Bench on mae's PC (PR #48 code): old 6.4 s -> new 1.3 s median, DirectML 1.0 s (run order may favour DirectML); recommended `SXS_INFERENCE=directml`.
+- Built: `resource/detect/classes.json` (42 classes: cards, buttons, badges, area map, world, minimap, screen anchors); labeler class menu, dashed drafts with Confirm / Confirm all / `C`, "only screens with drafts" filter; `python -m sxs prelabel [--ocr]` (365 drafts on 76 reference screens, committed in docs/screens/labels.json); `python -m sxs dataset [--zip] [--minimap both|crop|full]` (HUD name strip always blacked out, name lines and chat lines with SXS_ACCOUNT_NAME, private screens skipped); `tests/check_detect_data.py`.
+- Next for mae: confirm/fix drafts in the labeler; Roboflow account + API key env var. Next for code: runtime detect module, offline detector check.
