@@ -19,7 +19,7 @@ An automated agent that plays **Sword x Staff** (BOLTRAY GAMES, Play Store id `c
 
 ## Stack
 
-- **Emulator**: MuMu Player 12 on Windows (fallback BlueStacks 5). Machines and ports: `environments.md`. Why: `decisions.md`.
+- **Emulator**: MuMu Player 12 on Windows (fallback BlueStacks 5). Machines and ports: `environments.md`. Why: `decisions/`.
 - **Toolkit**: MaaFramework (JSON pipelines, template matching, OCR) with Python custom logic; MaaMCP so Claude can drive the device.
 - **Models**: Claude now, a local model later; called only when stuck or planning.
 - **Code**: Python 3.12 in a repo-local `.venv`; package `sxs/`, MaaFramework bundle `resource/`, checks in `tests/`.
@@ -41,7 +41,7 @@ python3 scripts/nav-graph.py check|render|path FROM TO  # menu graph
 | Kind of fact | File |
 |---|---|
 | Never-do rules and their exceptions (spending, pulls, social, class) | `game/rules/policy.md` |
-| Game rules by situation (home, overworld, combat, upgrades, ...) and the ID index | `game/rules/README.md` |
+| Game rules by situation (home, overworld, combat, upgrades, ...) | `game/rules/README.md`; ID index: `python3 scripts/index.py rules` |
 | How screens connect, and the taps between them | `game/nav-graph.json` (diagram `game/nav-graph.md`) |
 | Card and dialog decisions; gather priorities | `resource/policy/cards.json`, `resource/policy/gather.json` |
 | What each step built, its design and limits | `docs/step1-emulator-and-game.md` … `docs/step5-upgrades.md`; index `docs/README.md` |
@@ -52,6 +52,6 @@ python3 scripts/nav-graph.py check|render|path FROM TO  # menu graph
 | How a game-playing session works | `playbook.md` |
 | mae's preferences and the loop rules | `notes.md` |
 | Machines, emulator and tool gotchas | `environments.md` |
-| Why a decision was made | `decisions.md` |
-| Past sessions | `log.md`, then `docs/archive/memory-bank-log.md` |
+| Why a decision was made | `decisions/` (`python3 scripts/entries.py decisions --titles`) |
+| Past sessions | `log/` (`python3 scripts/entries.py log`), then `docs/archive/memory-bank-log.md` |
 | How agents work here | `AGENTS.md` |

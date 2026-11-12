@@ -1,5 +1,7 @@
 # Step 4: dailies
 
+<!-- index: `sxs.loops.daily` steps and routes -->
+
 ```bash
 python -m sxs daily                     # every step not yet done today
 python -m sxs daily --only a,b          # some steps

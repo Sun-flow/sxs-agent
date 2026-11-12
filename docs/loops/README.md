@@ -1,5 +1,7 @@
 # Loop diagrams
 
+<!-- index: Diagrams of every loop: goal, step order, checks, sub-loops, what it does on each screen; `loops/open-questions.md` lists where code and rules disagree (index `loops/README.md`) -->
+
 The bot's decision flow, one page per loop, drawn from the code as it is on `main` (after PR #42). Each page says
 what the loop is for, the order it does and checks things in, which other loops it can call, and what it does on
 every screen it can meet. Edit these pages in any text editor; GitHub draws the diagrams.

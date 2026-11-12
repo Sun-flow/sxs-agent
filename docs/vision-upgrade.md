@@ -1,5 +1,7 @@
 # Vision upgrade: faster screen checks, and whether to train a detector
 
+<!-- index: How a screen check works and where its time goes (measured), no-ML speed-ups to approve, and whether to train a YOLO/Roboflow UI detector -->
+
 mae, 2026-11-10: "I am curious about training a roboflow image detection model on many of the UI elements in the game,
 so that we could have much faster state detection and tagging ... How are we determining what screen we are on
 currently, each time we do a state check? I would like to start with optimizing our interface for even faster,
