@@ -1,5 +1,7 @@
 # Live test plan: gacha, relics, rank-first strengthen, swipe fallback
 
+<!-- index: Live test steps for the gacha, relic, rank-first and swipe-fallback build: commands, expected readouts, stop conditions -->
+
 For the builder session on the emulator, at a time mae approves. Code: PR for branch `claude/project-thread-6napxz`
 (`sxs/loops/gacha.py`, `sxs/loops/relics.py`, `sxs/actions/home.py`, `Upgrader.rank_first` and `get_stronger` in
 `sxs/loops/upgrade.py`, `Device.pan` in `sxs/core/device.py`). Flowcharts: `docs/loops/gacha.md`,

@@ -1,5 +1,7 @@
 # World collectibles: training-data capture plan (2026-11-11)
 
+<!-- index: Training data for world collectibles: what they are, class options, burst capture of approach sequences, session plan, pre-roll buffer -->
+
 mae (2026-11-11): the detector needs a lot of training data for map items, and it should include collectible items
 in the world, with reference images leading up to collection, so the Roboflow model can spot them. This is the plan.
 It needs emulator time, so nothing here runs until mae approves a time; the builder thread runs it. No Roboflow

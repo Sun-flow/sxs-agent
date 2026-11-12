@@ -5,7 +5,7 @@
 
 | File | What it holds | How to change it |
 |---|---|---|
-| `rules/` | Rules of the world, one file per situation (policy, ui, home, overworld, quests, combat, dailies, guild, gathering, upgrades, economy, world). `rules/README.md` is the index: which file to read when, every ID's file, and retired IDs. | Add an entry under the right heading of the right file with the next free ID (in `rules/README.md`), and add it to the index. Never reuse or renumber an ID. When a rule is merged into another, add the old ID to the retired table. Run `python3 scripts/check-rules.py`. |
+| `rules/` | Rules of the world, one file per situation (policy, ui, home, overworld, quests, combat, dailies, guild, gathering, upgrades, economy, world). `rules/README.md` says which file to read when and lists retired IDs; `python3 scripts/index.py rules` prints every ID's file and title. | Add an entry under the right heading of the right file with the ID from `python3 scripts/check-rules.py --next` (after `git fetch`); the heading is its index entry. Never reuse or renumber an ID. When a rule is merged into another, add the old ID to the retired table. Run `python3 scripts/check-rules.py`. |
 | `nav-graph.json` | Machine-readable graph of screens (nodes) and the actions that move between them (edges). The bot and the supervisor traverse this. | Edit the JSON, then run `python3 scripts/nav-graph.py check` and `python3 scripts/nav-graph.py render`. |
 | `nav-graph.md` | Generated diagram and tables of the graph. | Don't edit by hand; `python3 scripts/nav-graph.py render` rewrites it. |
 

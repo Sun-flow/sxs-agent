@@ -51,4 +51,4 @@ Filter MaaFramework chatter in logs: `grep -v -i "nemu\|product:\|same day\|^x:\
 
 ## Context resets
 
-When a builder thread gets long: finish the task, send the final rules batch, update `status.md` (state + next steps) and `log.md`, push, and let the coordinator start a fresh builder from this file.
+When a builder thread gets long: finish the task, send the final rules batch, update `status.md` (state + next steps) and the thread's `work/` file, add a log entry (`python3 scripts/entries.py new log "Title"`), push, and let the coordinator start a fresh builder from this file.

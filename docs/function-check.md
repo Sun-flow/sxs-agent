@@ -1,5 +1,7 @@
 # Function check: what the bot can do (2026-11-04, updated after the live shakedown)
 
+<!-- index: What each loop does, how to run it, what it reports, whether it has run live -->
+
 Every loop runs as `python -m sxs <loop> [options]` from the repo root (`.venv\Scripts\python`). Each one logs
 mae's banner (`[Running X Loop]` / `[Goal]` / `[End condition]`), and ends with one JSON line such as
 `{"loop": "explore", "status": "complete", "ok": true, "seconds": 84}`. Exit code 0 = ok, 1 = needs a look,

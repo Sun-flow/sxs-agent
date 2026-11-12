@@ -1,5 +1,7 @@
 # Big-map survey: why the bot reads the big map again and again, and one survey that replaces the repeats
 
+<!-- index: Why the big map is surveyed again and again (every caller, measured costs) and the shared-survey design proposed to replace the repeats (2026-11-11, for mae's review) -->
+
 mae, 2026-11-11: "when our bot scans the big map for zones, it will often do it multiple times in a row." This page
 diagnoses where those scans come from, then proposes a design in the same shape as the Clear Zone redesign
 ([step6-clear-zone.md](step6-clear-zone.md)). mae answered the design questions on 2026-11-11 (see

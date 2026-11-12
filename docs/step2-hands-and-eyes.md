@@ -1,5 +1,7 @@
 # Step 2: hands and eyes
 
+<!-- index: Device layer, state detector, CLI, adding a screen -->
+
 _2026-11-03, built and tested on maes2024._
 
 ## What it is

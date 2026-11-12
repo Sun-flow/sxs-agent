@@ -1,0 +1,6 @@
+# 2026-11-11 06:13 · Gacha, relics, rank-first strengthen, swipe fallback built (Claude Code, cloud)
+
+- Branch `claude/project-thread-6napxz` (off m2ql7o + e1kt6z + docs npg43i). Plan first: `docs/loops/gacha.md` (gacha and relic flowcharts), Get stronger in `docs/loops/upgrade.md` now solid, swipe fallback in `docs/loops/runner.md`.
+- Code: `sxs/loops/gacha.py` (Draw x10 only when the button reads "Draw x10", cost 100, card and top count >= 100; ticket counter; Goals; timed pack dismissed; result screens saved to captures/gacha/), `sxs/loops/relics.py` (activate, ascend only with own shards and the button's pip, enhance in R-105 bands only while every cost reads have >= need, never Replace), `sxs/actions/home.py` (find_on_home sweep, ends a direction at the scene's end), `Upgrader.rank_first` (Level N/M on the rank page; Bellflower gather when its cost is short and tagged Available), `get_stronger` steps with own budgets and `strengthen --only`, `Device.pan` (adb fallback, sticky for the run). Cart, vendor, bed pans use it.
+- Offline: new `tests/check_strengthen.py` (reference screens with OCR, a replayed draw pass, fake pans); all other offline checks pass.
+- Open: Home templates for the machine and the Workbench (live plan step 1); auto-combine on the Enhance Relic screen (mae's call, open-questions.md); live test at a time mae approves.

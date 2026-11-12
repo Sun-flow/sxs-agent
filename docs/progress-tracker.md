@@ -1,5 +1,7 @@
 # Progress tracker
 
+<!-- index: `python -m sxs progress` / `report`: what each stat is read from, what still needs a route, stats worth adding -->
+
 mae, 2026-11-04: "a script for tracking daily progress. Every session it should record CP changes, gear
 improvements, relics, resource pools with daily delta, overworld zones cleared today, Fantasia Ascent progress, Cart
 upgrades, skill level change as bands, and other statistics worth tracking."

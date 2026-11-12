@@ -1,5 +1,7 @@
 # Detector label coverage
 
+<!-- index: Training-set coverage: boxes and images per detector class, item and item group, Roboflow's guidance and our minimum, and the labeling and capture plan for short classes -->
+
 How many labelled examples the UI detector's training set has for each element class, item and item group, what
 Roboflow's guidance says we need, and how to close the gap (mae, 2026-11-10). Design of the detector:
 `detector-design.md`. Numbers are what `python -m sxs dataset` would export: confirmed boxes only, private screens
