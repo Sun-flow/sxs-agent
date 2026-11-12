@@ -25,7 +25,7 @@ from sxs.core.loop import OVER_BUDGET, REFUSED, STALLED, Ctx, Result, as_result,
 from sxs.loops import REGISTRY, get  # noqa: E402
 
 
-MINIMAL_ARGV = {"goto": ["Highland Woods"]}  # loops with required positionals
+MINIMAL_ARGV = {"goto": ["Highland Woods"], "seqcap": ["--job", "check"]}  # loops with required arguments
 
 
 class NoDevice:
