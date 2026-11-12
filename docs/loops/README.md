@@ -43,6 +43,7 @@ flowchart TD
 | [roam.md](roam.md) | Roam | `python -m sxs roam` | Explore and bless every zone in reach, lowest power first |
 | [clear.md](clear.md) | Clear Zone | `python -m sxs clear` | Bring one zone to 100%, one named objective per leg (replaced the Fog Walk, 2026-11-10) |
 | [gather.md](gather.md) | Gather | `python -m sxs gather` | Spend stamina above 70 on the priority material |
+| [stamina.md](stamina.md) | Stamina Spend (draft, not built) | `python -m sxs spend` (proposed) | When stamina is spent, on what, and who calls it |
 | [cart.md](cart.md) | Cart Upgrade | `python -m sxs cart` | Claim the Cart, raise Stone and Wood evenly |
 | [upgrade.md](upgrade.md) | Upgrade, Strengthen | `python -m sxs upgrade`, `python -m sxs strengthen` | Take every upgrade a Character-screen "!" offers |
 | [gacha.md](gacha.md) | Gacha, Relics | `python -m sxs gacha`, `python -m sxs relics` | Draw x10 whenever a full x10 is affordable; activate and enhance relics |

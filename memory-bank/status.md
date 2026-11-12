@@ -41,7 +41,6 @@ One file per workstream in `work/`, owned by the thread that runs it: list them 
 - Built 2026-11-11, not run live (#62, then a follow-up PR on branch `claude/project-thread-6napxz` because #59 merged into main seconds before #62 reached its branch): rank as soon as its badge shows a red "!" or blue pip or the level hits its cap, Bellflowers gathered within 3 levels of the cap (`Upgrader.rank_first`, R-118, mae 18:15); Aeonic Gacha pull function (`python -m sxs gacha`, R-167); Workbench relics with auto-combine always allowed (`python -m sxs relics`, R-172, mae 18:15); `get_stronger` order cart, rank, gacha, relics, gear_swap, charms, upgrade (also the daily strengthen step, minus gear_swap); `Device.pan` with the adb swipe fallback. Live test plan: `docs/strengthen-live-test-plan.md` (its first step captures the two Home templates, gacha machine and Workbench, which don't exist yet). Run only at a time mae approves.
 - From mae's rules (2026-11-09), code to do: gather fights a monster guarding a pickup, then resumes it (R-139); a separate bed free speed-up task, called after the day's exploration, not in dailies (R-035); the gear pass treats a blue arrow pip on a slot as "enhance" (R-088); pickup reference crops for the fog walk (R-131).
 - Interrupt layer (`docs/interrupts.md`): ran under all 8 live runs of the strengthening session (2026-11-05) with no false trigger; still to watch live: the tutorial pause/resume path. Live check that a tutorial highlight on the island map pauses Fog Walk and resumes it; capture frames of tutorials on unknown overlays so the row can learn them. Companions invite is followed (mae 02:23: inviting is fine).
-
 0. Progress tracker live check: run `python -m sxs progress` on rif-love-su, confirm the profile/Journal/guild/area readings, then the daily run's report. Routes still missing: the bag (Lumium, Material Realm tools), relics (not unlocked).
 
 1. Conquest with tries left: watch it live after the 13:00Z reset.
@@ -51,6 +50,7 @@ One file per workstream in `work/`, owned by the thread that runs it: list them 
 5. Older: test HP logic when HP drops below 70% while alive; minimap classifier per area palette; model supervisor for `unknown_*` stops.
 
 ## Waiting on mae
+- Stamina Spend loop draft `docs/loops/stamina.md` (2026-11-11): edit it and answer its six questions; then the build follows.
 
 - Remaining questions in `docs/loops/open-questions.md`: Forge-full fallback (Q6), Notice sign-ins and Exploration Goals in the daily loop (Q7), Cart tie-break (Q8). Settled 2026-11-09: Q3, Q4, Q5, Q9, Q10, Q11, bed speed-up timing.
 
