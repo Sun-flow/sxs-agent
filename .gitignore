@@ -10,3 +10,8 @@ screenshot-*.png
 
 # knowledge/: fetched wiki text without a stated licence (working cache, see scripts/kb_fetch.py)
 knowledge/sources/raw/sxswiki/
+knowledge/sources/raw/zeroluck/
+knowledge/sources/raw/eog/
+knowledge/sources/raw/lootandwaifus/
+knowledge/sources/raw/official/
+knowledge/sources/raw/bwiki/
