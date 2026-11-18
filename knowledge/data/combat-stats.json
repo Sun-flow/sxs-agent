@@ -1,0 +1,271 @@
+{
+ "_meta": {
+  "description": "The 20 combat stats of Sword x Staff with the game's English labels, from zeroluck.gg's combat stats page (read through WebFetch 2026-11-18). opposed_stat is the stat it works against; opposition_stated_by_source=false means the pairing is our inference from the names. null = not stated. No formulas or caps are published.",
+  "sources": [
+   "S-80"
+  ],
+  "updated": "2026-11-18"
+ },
+ "stats": [
+  {
+   "id": "hp",
+   "name": "HP",
+   "group": "core",
+   "effect": "Health; set by class, raised by gear and Fantomons",
+   "opposed_stat": null,
+   "opposition_stated_by_source": null,
+   "formula": null,
+   "cap": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "atk",
+   "name": "ATK",
+   "group": "core",
+   "effect": "Base damage before crit, element and damage-boost multipliers",
+   "opposed_stat": null,
+   "opposition_stated_by_source": null,
+   "formula": null,
+   "cap": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "def",
+   "name": "DEF",
+   "group": "core",
+   "effect": "Lowers damage taken",
+   "opposed_stat": null,
+   "opposition_stated_by_source": null,
+   "formula": null,
+   "cap": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "spd",
+   "name": "SPD",
+   "group": "core",
+   "effect": "Turn order and how often a unit acts",
+   "opposed_stat": null,
+   "opposition_stated_by_source": null,
+   "formula": null,
+   "cap": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "crit-rate",
+   "name": "Crit Rate",
+   "group": "offence",
+   "effect": "Chance to crit",
+   "opposed_stat": "Crit RES",
+   "opposition_stated_by_source": false,
+   "formula": null,
+   "cap": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "crit-dmg",
+   "name": "Crit DMG",
+   "group": "offence",
+   "effect": "Extra damage of a crit",
+   "opposed_stat": null,
+   "opposition_stated_by_source": null,
+   "formula": null,
+   "cap": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "dmg-boost",
+   "name": "DMG Boost",
+   "group": "offence",
+   "effect": "Percentage increase to all damage dealt",
+   "opposed_stat": "DMG RES",
+   "opposition_stated_by_source": false,
+   "formula": null,
+   "cap": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "effect-hit-rate",
+   "name": "Effect Hit Rate",
+   "group": "offence",
+   "effect": "Chance that debuffs and status effects land (data name: Base Effect Hit Rate)",
+   "opposed_stat": "Effect RES",
+   "opposition_stated_by_source": false,
+   "formula": null,
+   "cap": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "pvp-bonus-dmg",
+   "name": "PvP Bonus DMG",
+   "group": "offence",
+   "effect": "Extra damage against players",
+   "opposed_stat": "PvP DMG RES",
+   "opposition_stated_by_source": false,
+   "formula": null,
+   "cap": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "pve-bonus-dmg",
+   "name": "PvE Bonus DMG",
+   "group": "offence",
+   "effect": "Extra damage against monsters",
+   "opposed_stat": "PvE DMG RES",
+   "opposition_stated_by_source": false,
+   "formula": null,
+   "cap": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "block-rate",
+   "name": "Block Rate",
+   "group": "defence",
+   "effect": "Chance to block a hit and reduce its damage",
+   "opposed_stat": "Accuracy",
+   "opposition_stated_by_source": false,
+   "formula": null,
+   "cap": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "block-efficiency",
+   "name": "Block Efficiency",
+   "group": "defence",
+   "effect": "How much damage a block removes",
+   "opposed_stat": null,
+   "opposition_stated_by_source": null,
+   "formula": null,
+   "cap": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "crit-res",
+   "name": "Crit RES",
+   "group": "defence",
+   "effect": "Lowers the enemy's chance to crit you",
+   "opposed_stat": "Crit Rate",
+   "opposition_stated_by_source": true,
+   "formula": null,
+   "cap": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "dmg-res",
+   "name": "DMG RES",
+   "group": "defence",
+   "effect": "Percentage reduction of all damage taken",
+   "opposed_stat": "DMG Boost",
+   "opposition_stated_by_source": false,
+   "formula": null,
+   "cap": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "resilience",
+   "name": "Resilience",
+   "group": "defence",
+   "effect": "Described as companion sturdiness against burst and control",
+   "opposed_stat": null,
+   "opposition_stated_by_source": null,
+   "formula": null,
+   "cap": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "effect-res",
+   "name": "Effect RES",
+   "group": "defence",
+   "effect": "Resists debuffs and status effects (data name: Base Effect RES)",
+   "opposed_stat": "Effect Hit Rate",
+   "opposition_stated_by_source": true,
+   "formula": null,
+   "cap": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "pvp-dmg-res",
+   "name": "PvP DMG RES",
+   "group": "defence",
+   "effect": "Less damage from players",
+   "opposed_stat": "PvP Bonus DMG",
+   "opposition_stated_by_source": false,
+   "formula": null,
+   "cap": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "pve-dmg-res",
+   "name": "PvE DMG RES",
+   "group": "defence",
+   "effect": "Less damage from monsters",
+   "opposed_stat": "PvE Bonus DMG",
+   "opposition_stated_by_source": false,
+   "formula": null,
+   "cap": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "accuracy",
+   "name": "Accuracy",
+   "group": "utility",
+   "effect": "Counters the enemy's Block Rate",
+   "opposed_stat": "Block Rate",
+   "opposition_stated_by_source": true,
+   "formula": null,
+   "cap": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "healing-boost",
+   "name": "Healing Boost",
+   "group": "utility",
+   "effect": "Stronger heals; no icon in game",
+   "opposed_stat": null,
+   "opposition_stated_by_source": null,
+   "formula": null,
+   "cap": null,
+   "sources": [
+    "S-80"
+   ]
+  }
+ ]
+}

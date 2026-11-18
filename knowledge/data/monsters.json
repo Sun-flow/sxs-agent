@@ -1,0 +1,529 @@
+{
+ "_meta": {
+  "description": "Named monsters of Sword x Staff with the game's own type label and attack range, from zeroluck.gg's bestiary (a sample: 37 of 275 data entries; totals are Minion Monster 159, Elite Monster 67, Boss 39, Hieromon 9, apex Boss 1; attack profiles Near Weak 78, Near Strong 70, Far Weak 81, Far Strong 46). null = not in the source. Prose: systems/monsters.md, sources/notes/zeroluck.md",
+  "sources": [
+   "S-80"
+  ],
+  "updated": "2026-11-18"
+ },
+ "monsters": [
+  {
+   "id": "wind-slime",
+   "name": "Wind Slime",
+   "tier": "minion",
+   "game_type_label": "Minion Monster",
+   "range": "melee",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "fire-slime",
+   "name": "Fire Slime",
+   "tier": "minion",
+   "game_type_label": "Minion Monster",
+   "range": "melee",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "water-slime",
+   "name": "Water Slime",
+   "tier": "minion",
+   "game_type_label": "Minion Monster",
+   "range": "ranged",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "sylvanwolf-bruiser",
+   "name": "Sylvanwolf Bruiser",
+   "tier": "minion",
+   "game_type_label": "Minion Monster",
+   "range": "melee",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "sylvanwolf-flinger",
+   "name": "Sylvanwolf Flinger",
+   "tier": "minion",
+   "game_type_label": "Minion Monster",
+   "range": "ranged",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "boar",
+   "name": "Boar",
+   "tier": "minion",
+   "game_type_label": "Minion Monster",
+   "range": "melee",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "stink-bomb",
+   "name": "Stink Bomb",
+   "tier": "minion",
+   "game_type_label": "Minion Monster",
+   "range": "ranged",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "light-slime",
+   "name": "Light Slime",
+   "tier": "minion",
+   "game_type_label": "Minion Monster",
+   "range": "ranged",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "dark-slime",
+   "name": "Dark Slime",
+   "tier": "minion",
+   "game_type_label": "Minion Monster",
+   "range": "melee",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "waterflow-spider",
+   "name": "Waterflow Spider",
+   "tier": "minion",
+   "game_type_label": "Minion Monster",
+   "range": "ranged",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "saber-rabbit",
+   "name": "Saber Rabbit",
+   "tier": "minion",
+   "game_type_label": "Minion Monster",
+   "range": "melee",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "sickle-mantis",
+   "name": "Sickle Mantis",
+   "tier": "minion",
+   "game_type_label": "Minion Monster",
+   "range": "melee",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "sylvanwolf-rider",
+   "name": "Sylvanwolf Rider",
+   "tier": "elite",
+   "game_type_label": "Elite Monster",
+   "range": "ranged",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "water-slime-king",
+   "name": "Water Slime King",
+   "tier": "elite",
+   "game_type_label": "Elite Monster",
+   "range": "melee",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "shielded-sylvanwolf-warrior",
+   "name": "Shielded Sylvanwolf Warrior",
+   "tier": "elite",
+   "game_type_label": "Elite Monster",
+   "range": "melee",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "sylvanwolf-shaman",
+   "name": "Sylvanwolf Shaman",
+   "tier": "elite",
+   "game_type_label": "Elite Monster",
+   "range": "ranged",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "two-headed-troll",
+   "name": "Two-Headed Troll",
+   "tier": "elite",
+   "game_type_label": "Elite Monster",
+   "range": "melee",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "fire-slime-king",
+   "name": "Fire Slime King",
+   "tier": "elite",
+   "game_type_label": "Elite Monster",
+   "range": "melee",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "wind-slime-king",
+   "name": "Wind Slime King",
+   "tier": "elite",
+   "game_type_label": "Elite Monster",
+   "range": "ranged",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "colossal-waterflow-spider",
+   "name": "Colossal Waterflow Spider",
+   "tier": "elite",
+   "game_type_label": "Elite Monster",
+   "range": "melee",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "bear-warrior",
+   "name": "Bear Warrior",
+   "tier": "elite",
+   "game_type_label": "Elite Monster",
+   "range": "melee",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "boar-king",
+   "name": "Boar King",
+   "tier": "elite",
+   "game_type_label": "Elite Monster",
+   "range": "melee",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "golem",
+   "name": "Golem",
+   "tier": "boss",
+   "game_type_label": "Boss",
+   "range": "melee",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "sylvanwolf-chieftain",
+   "name": "Sylvanwolf Chieftain",
+   "tier": "boss",
+   "game_type_label": "Boss",
+   "range": "melee",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "corrupted-guardian",
+   "name": "Corrupted Guardian",
+   "tier": "boss",
+   "game_type_label": "Boss",
+   "range": "melee",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "spider-queen",
+   "name": "Spider Queen",
+   "tier": "boss",
+   "game_type_label": "Boss",
+   "range": "melee",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "dimensional-golem",
+   "name": "Dimensional Golem",
+   "tier": "boss",
+   "game_type_label": "Boss",
+   "range": "ranged",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "polyhedral-sun",
+   "name": "Polyhedral Sun",
+   "tier": "boss",
+   "game_type_label": "Boss",
+   "range": "ranged",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "bovine-titan",
+   "name": "Bovine Titan",
+   "tier": "boss",
+   "game_type_label": "Boss",
+   "range": "ranged",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "cyclopean-geocrusher",
+   "name": "Cyclopean Geocrusher",
+   "tier": "boss",
+   "game_type_label": "Boss",
+   "range": "ranged",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "storm-griffin",
+   "name": "Storm Griffin",
+   "tier": "hieromon",
+   "game_type_label": "Hieromon",
+   "range": "melee",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "flamoenix",
+   "name": "Flamoenix",
+   "tier": "hieromon",
+   "game_type_label": "Hieromon",
+   "range": "ranged",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "yamata-no-orochi",
+   "name": "Yamata no Orochi",
+   "tier": "hieromon",
+   "game_type_label": "Hieromon",
+   "range": "ranged",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "primordial-loong",
+   "name": "Primordial Loong",
+   "tier": "hieromon",
+   "game_type_label": "Hieromon",
+   "range": "ranged",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "lord-of-decay",
+   "name": "Lord of Decay",
+   "tier": "hieromon",
+   "game_type_label": "Hieromon",
+   "range": "ranged",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "lord-of-ruin",
+   "name": "Lord of Ruin",
+   "tier": "hieromon",
+   "game_type_label": "Hieromon",
+   "range": "melee",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "chaos-tyrant",
+   "name": "Chaos Tyrant",
+   "tier": "apex-boss",
+   "game_type_label": "Boss (own monster type)",
+   "range": "melee",
+   "element": null,
+   "level": null,
+   "region": null,
+   "drops": null,
+   "sources": [
+    "S-80"
+   ]
+  }
+ ]
+}
