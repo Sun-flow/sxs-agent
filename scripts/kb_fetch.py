@@ -1,7 +1,11 @@
-"""Fetch the public Sword x Staff wikis into knowledge/sources/raw/ so research works from local text.
+"""Fetch the public Sword x Staff sites into knowledge/sources/raw/ so research works from local text.
 
     python3 scripts/kb_fetch.py fandom            # every article of swordxstaff.fandom.com, as wikitext
     python3 scripts/kb_fetch.py sxswiki           # every English page in www.sword-x-staff.wiki's sitemap, as text
+    python3 scripts/kb_fetch.py zeroluck          # zeroluck.gg/sword-x-staff/... (section pages)
+    python3 scripts/kb_fetch.py eog               # eog.gg/games/sword-x-staff/... (guides and tool pages)
+    python3 scripts/kb_fetch.py lootandwaifus     # lootandwaifus.com pages with sword-x-staff in the path
+    python3 scripts/kb_fetch.py official          # swordxstaff.boltray.com home and news posts
     python3 scripts/kb_fetch.py all [--delay 1.0]
     python3 scripts/kb_fetch.py status            # what is cached, and how old
 
@@ -13,10 +17,21 @@ How each source is read (details: knowledge/sources/README.md):
   reduced to their article text. The site states no content licence, so that text goes to the gitignored
   knowledge/sources/raw/sxswiki/ cache: a working copy to read, never committed. Facts taken from it are cited
   by URL in the knowledge files.
-- A site that answers with a bot check (Cloudflare "Just a moment...", as www.prydwen.gg does) is skipped and
-  reported. This script never tries to get past one.
+- zeroluck, eog, lootandwaifus, official: "section sites", all driven by the SITES table below. For each one
+  the script reads robots.txt first (urllib.robotparser, plus the Content-Signal lines some sites add), takes
+  the section's URLs from the sitemaps robots.txt names and from links on the seed pages, and fetches each
+  page once with the delay. A page is stored as <slug>.txt (article text) and, when it carries a Next.js
+  `__NEXT_DATA__` block, also as <slug>.next.json (the page's own data: the cleanest thing to parse).
+  All four folders are gitignored working caches with a manifest.json (pages, skipped URLs and why, the
+  robots.txt facts used). Nothing is fetched from a site whose robots.txt forbids our user agent or whose
+  Content-Signal says ai-input=no; a URL robots.txt disallows is skipped and listed.
+- A site that answers with a bot check (Cloudflare "Just a moment...", sent with HTTP 403 or 503, as
+  www.prydwen.gg does) is skipped and reported. This script never tries to get past one.
+- A seed that answers 404 is listed under "skipped" in the manifest. On 2026-11-18 zeroluck.gg and
+  lootandwaifus.com answered 404 for every Sword x Staff URL from this environment and listed none in their
+  sitemaps, so those two manifests hold zero pages until the sites serve the section here.
 
-Standard library only. Needs network access to the two hosts (the cloud environment's allowed domains).
+Standard library only. Needs network access to the hosts (the cloud environment's allowed domains).
 """
 
 from __future__ import annotations
@@ -49,10 +64,21 @@ class BotCheck(Exception):
     """The site answered with a bot-check page instead of content."""
 
 
+BOT_MARKS = ("<title>Just a moment...</title>", "cf-browser-verification", "challenge-platform")
+
+
 def get(url: str, timeout: int = 30) -> str:
     req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept-Language": "en"})
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        text = r.read().decode("utf-8", errors="replace")
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            text = r.read().decode("utf-8", errors="replace")
+    except urllib.error.HTTPError as e:
+        # Cloudflare sends its challenge page with 403 or 503: that is a bot check, not a missing page.
+        if e.code in (403, 429, 503):
+            body = e.read(4000).decode("utf-8", errors="replace")
+            if e.headers.get("cf-mitigated") == "challenge" or any(m in body for m in BOT_MARKS):
+                raise BotCheck(url) from None
+        raise
     if "<title>Just a moment...</title>" in text[:600]:
         raise BotCheck(url)
     return text
@@ -185,15 +211,18 @@ class ArticleText(HTMLParser):
         return re.sub(r"\n{3,}", "\n\n", t).strip() + "\n"
 
 
-def sitemap_urls(url: str, seen: set[str] | None = None) -> list[str]:
+def sitemap_urls(url: str, seen: set[str] | None = None, delay: float = 0.0) -> list[str]:
+    """Every page URL in a sitemap, following sitemap indexes (one request per file, `delay` apart)."""
     seen = seen if seen is not None else set()
     if url in seen:
         return []
+    if seen:
+        time.sleep(delay)
     seen.add(url)
     locs = [html.unescape(u) for u in re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", get(url))]
     out: list[str] = []
     for u in locs:
-        out += sitemap_urls(u, seen) if u.endswith(".xml") else [u]
+        out += sitemap_urls(u, seen, delay) if u.endswith(".xml") else [u]
     return out
 
 
@@ -235,33 +264,225 @@ def fetch_sxswiki(delay: float) -> int:
     return 0
 
 
+# ---------------------------------------------------------------- section sites (robots + sitemap + links)
+
+# include/exclude are regular expressions matched against the URL path. seeds are fetched first and their
+# links are followed (same host, include matches, no query string), so a section missing from the sitemap is
+# still found. Add a site by adding a row: it becomes a subcommand with its own folder and manifest.
+SITES: dict[str, dict] = {
+    "zeroluck": {
+        "base": "https://zeroluck.gg", "include": r"^/sword-x-staff(/|$)", "exclude": r"/(profile|my)(/|$)",
+        "seeds": ["/sword-x-staff/", "/sword-x-staff/guides/"] + [f"/sword-x-staff/{p}/" for p in (
+            "classes", "companions", "bestiary", "gear", "combat-stats", "game-modes", "currencies",
+            "life-skills", "reroll", "relics", "battle-pass", "summoning", "codes")],
+        "license": "none stated: working cache only, not committed",
+    },
+    "eog": {
+        "base": "https://eog.gg", "include": r"^/games/sword-x-staff(/|$)", "exclude": r"^/api/",
+        "seeds": ["/games/sword-x-staff/", "/games/sword-x-staff/tools/"],
+        "license": "none stated; robots.txt Content-Signal ai-train=no, use=reference: working cache only",
+    },
+    "lootandwaifus": {
+        "base": "https://lootandwaifus.com", "include": r"sword-x-staff", "exclude": r"^/api/auth/",
+        "seeds": ["/sword-x-staff/", "/sword-x-staff-relic-database/", "/sword-x-staff-ingredient-database/",
+                  "/sword-x-staff-interactive-map/", "/sword-x-staff-custom-tier-list/",
+                  "/guides/sword-x-staff-codes/", "/guides/sword-x-staff-api/"],
+        "license": "none stated; robots.txt Content-Signal ai-train=no, use=reference: working cache only",
+    },
+    "official": {
+        "base": "https://swordxstaff.boltray.com", "include": r"^/($|news(/|$))", "exclude": r"^/(api|topup)(/|$)",
+        "seeds": ["/", "/news", "/news/news", "/news/lore", "/news/guide"],
+        "license": "publisher's copyright: working cache only, not committed",
+    },
+}
+MAX_PAGES = 300
+NEXT_DATA = re.compile(r'<script id="__NEXT_DATA__"[^>]*>(.*?)</script>', re.S)
+HREF = re.compile(r'href="([^"#]+)')
+
+
+class RobotsForbid(Exception):
+    """robots.txt (or its Content-Signal) does not allow this script to read the site."""
+
+
+def read_robots(base: str) -> tuple[urllib.robotparser.RobotFileParser, dict]:
+    """Parse robots.txt. A missing file (404) allows everything; a bot check or server error stops the site."""
+    rp = urllib.robotparser.RobotFileParser()
+    info: dict = {"url": base + "/robots.txt", "content_signal": None}
+    try:
+        text = get(info["url"])
+    except urllib.error.HTTPError as e:
+        if e.code != 404:
+            raise
+        text = ""
+        info["missing"] = True
+    rp.parse(text.splitlines())
+    # Content-Signal (contentsignals.org) is not known to robotparser: read the one in the "*" group.
+    agents: list[str] = []
+    in_rules = False
+    for line in text.splitlines():
+        line = line.split("#", 1)[0].strip()
+        if ":" not in line:
+            continue
+        key, val = (x.strip() for x in line.split(":", 1))
+        key = key.lower()
+        if key == "user-agent":
+            if in_rules:
+                agents, in_rules = [], False
+            agents.append(val.lower())
+        else:
+            in_rules = True
+            if key == "content-signal" and "*" in agents:
+                info["content_signal"] = dict(
+                    (k.strip().lower(), v.strip().lower())
+                    for k, v in (kv.split("=", 1) for kv in val.split(",") if "=" in kv))
+    sig = info["content_signal"] or {}
+    # We read pages so an AI agent can look facts up (ai-input / reference use), never for training.
+    if sig.get("ai-input") == "no" or sig.get("use") == "no":
+        raise RobotsForbid(f"Content-Signal {sig} forbids AI reference use")
+    return rp, info
+
+
+def page_file(path: str) -> str:
+    path = path.strip("/")
+    return slug(path.replace("/", "--")) if path else "home"
+
+
+def fetch_site(name: str, delay: float) -> int:
+    cfg = SITES[name]
+    base = cfg["base"]
+    host = urllib.parse.urlparse(base).netloc
+    include, exclude = re.compile(cfg["include"]), re.compile(cfg["exclude"])
+    out = RAW / name
+    robots, robots_info = read_robots(base)
+    time.sleep(delay)
+    if not robots.can_fetch(UA, base + cfg["seeds"][0]):
+        raise RobotsForbid(f"robots.txt disallows {cfg['seeds'][0]} for this user agent")
+    out.mkdir(parents=True, exist_ok=True)
+
+    def wanted(u: str) -> str | None:
+        """Return the URL in fetchable form if it belongs to the section, else None."""
+        p = urllib.parse.urlparse(urllib.parse.urljoin(base + "/", u.strip()))
+        if p.scheme not in ("http", "https") or p.netloc != host or p.query:
+            return None
+        path = p.path or "/"
+        if not include.search(path) or exclude.search(path) or re.search(r"\.[a-z0-9]{2,5}$", path):
+            return None
+        return base + path
+
+    queue: list[str] = []
+    known: set[str] = set()
+
+    def add(u: str | None) -> None:
+        if u and u.rstrip("/") not in known:
+            known.add(u.rstrip("/"))
+            queue.append(u)
+
+    sitemaps = robots.site_maps() or [base + "/sitemap.xml"]
+    sitemap_note = []
+    for sm in sitemaps:
+        try:
+            found = [w for w in map(wanted, sitemap_urls(sm, delay=delay)) if w]
+            sitemap_note.append({"url": sm, "section_urls": len(found)})
+        except BotCheck:
+            raise
+        except (urllib.error.URLError, TimeoutError) as e:
+            found = []
+            sitemap_note.append({"url": sm, "error": str(e)})
+        time.sleep(delay)
+        for u in sorted(found):
+            add(u)
+    for s in cfg["seeds"]:
+        add(base + s)
+    seeds = {(base + s).rstrip("/") for s in cfg["seeds"]}
+
+    manifest, skipped = [], []
+    while queue and len(manifest) < MAX_PAGES:
+        u = queue.pop(0)
+        if not robots.can_fetch(UA, u):
+            skipped.append((u, "robots.txt disallows"))
+            continue
+        try:
+            page = get(u)
+        except BotCheck:
+            skipped.append((u, "bot check"))
+            time.sleep(delay)
+            continue
+        except urllib.error.HTTPError as e:
+            skipped.append((u, f"HTTP {e.code}" + (" (seed)" if u.rstrip("/") in seeds else "")))
+            time.sleep(delay)
+            continue
+        except (urllib.error.URLError, TimeoutError) as e:
+            skipped.append((u, str(e)))
+            time.sleep(delay)
+            continue
+        parser = ArticleText()
+        parser.feed(page)
+        text = parser.text()
+        stem = page_file(urllib.parse.urlparse(u).path)
+        (out / (stem + ".txt")).write_text(
+            f"source: {u}\nfetched: {now()}\ntitle: {parser.title.strip()}\n\n{text}", encoding="utf-8")
+        entry = {"url": u, "file": stem + ".txt", "title": parser.title.strip(), "chars": len(text)}
+        m = NEXT_DATA.search(page)
+        if m:
+            try:
+                data = json.loads(m.group(1))
+                (out / (stem + ".next.json")).write_text(
+                    json.dumps(data.get("props", {}).get("pageProps", data), ensure_ascii=False, indent=1) + "\n",
+                    encoding="utf-8")
+                entry["next_data"] = stem + ".next.json"
+            except json.JSONDecodeError:
+                pass
+        manifest.append(entry)
+        for href in HREF.findall(page):
+            add(wanted(html.unescape(href)))
+        time.sleep(delay)
+
+    (out / "manifest.json").write_text(json.dumps({
+        "source": host, "license": cfg["license"], "fetched": now(), "robots": robots_info,
+        "sitemaps": sitemap_note, "pages": manifest, "skipped": skipped,
+        "not_fetched_page_cap": queue}, indent=1) + "\n", encoding="utf-8")
+    print(f"{name}: {len(manifest)} pages, {len(skipped)} skipped -> {out.relative_to(ROOT)} (gitignored)")
+    for u, why in skipped:
+        print(f"  skipped {u}: {why}")
+    if not manifest:
+        print(f"  {name}: no section page was served. Check the seeds in SITES against the live site.")
+        return 1
+    return 0
+
+
 def status() -> int:
-    for name in ("fandom", "sxswiki"):
+    for name in ("fandom", "sxswiki", *SITES):
         m = RAW / name / "manifest.json"
         if not m.is_file():
             print(f"{name}: not fetched (python3 scripts/kb_fetch.py {name})")
             continue
         d = json.loads(m.read_text(encoding="utf-8"))
-        print(f"{name}: {len(d['pages'])} pages, fetched {d['fetched']}, licence: {d['license']}")
+        extra = f", {len(d['skipped'])} skipped" if d.get("skipped") else ""
+        print(f"{name}: {len(d['pages'])} pages{extra}, fetched {d['fetched']}, licence: {d['license']}")
     return 0
 
 
 def main() -> int:
+    sources = {"fandom": fetch_fandom, "sxswiki": fetch_sxswiki,
+               **{n: (lambda delay, n=n: fetch_site(n, delay)) for n in SITES}}
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("what", choices=["fandom", "sxswiki", "all", "status"])
+    ap.add_argument("what", choices=[*sources, "all", "status"])
     ap.add_argument("--delay", type=float, default=1.0, help="seconds between requests (default 1.0)")
     a = ap.parse_args()
     if a.what == "status":
         return status()
     rc = 0
-    for name, fn in (("fandom", fetch_fandom), ("sxswiki", fetch_sxswiki)):
+    for name, fn in sources.items():
         if a.what in (name, "all"):
             try:
                 rc |= fn(a.delay)
             except BotCheck as e:
                 print(f"{name}: bot check at {e}; skipped (this script does not bypass bot checks)")
                 rc = 1
-            except urllib.error.URLError as e:
+            except RobotsForbid as e:
+                print(f"{name}: not fetched: {e}")
+                rc = 1
+            except (urllib.error.URLError, TimeoutError) as e:
                 print(f"{name}: network error ({e}); is the host in the environment's allowed domains?")
                 rc = 1
     return rc
