@@ -1,0 +1,293 @@
+{
+ "_meta": {
+  "description": "Guild Map facilities (session tiers, yields) and cooking summary with the dishes named, from zeroluck.gg's life skills page (read through WebFetch 2026-11-18). One list with a 'kind' field. null = not stated. Prose: systems/guild.md, systems/cooking-and-dishes.md, sources/notes/zeroluck.md",
+  "sources": [
+   "S-80"
+  ],
+  "updated": "2026-11-18"
+ },
+ "records": [
+  {
+   "id": "garden",
+   "kind": "facility",
+   "name": "Garden",
+   "group": "planting and breeding",
+   "produces": "Oil",
+   "use": "Activates Fantomon aptitudes; sessions also give Treats (Fantomon EXP)",
+   "tool_tiers": 5,
+   "sessions": [
+    {
+     "tier": 1,
+     "minutes": 6,
+     "treats": "Basic Treats",
+     "treats_amount": 60,
+     "aptitude_materials": 6
+    },
+    {
+     "tier": 2,
+     "minutes": 9,
+     "treats": "Premium Treats",
+     "treats_amount": 20,
+     "aptitude_materials": 12
+    },
+    {
+     "tier": 3,
+     "minutes": 12,
+     "treats": "Premium Treats",
+     "treats_amount": 60,
+     "aptitude_materials": 24
+    }
+   ],
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "sheepfold",
+   "kind": "facility",
+   "name": "Sheepfold",
+   "group": "planting and breeding",
+   "produces": "Wool",
+   "use": "Activates Fantomon aptitudes; sessions also give Treats (Fantomon EXP)",
+   "tool_tiers": 5,
+   "sessions": [
+    {
+     "tier": 1,
+     "minutes": 6,
+     "treats": "Basic Treats",
+     "treats_amount": 60,
+     "aptitude_materials": 6
+    },
+    {
+     "tier": 2,
+     "minutes": 9,
+     "treats": "Premium Treats",
+     "treats_amount": 20,
+     "aptitude_materials": 12
+    },
+    {
+     "tier": 3,
+     "minutes": 12,
+     "treats": "Premium Treats",
+     "treats_amount": 60,
+     "aptitude_materials": 24
+    }
+   ],
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "roost",
+   "kind": "facility",
+   "name": "Roost",
+   "group": "planting and breeding",
+   "produces": "Eggs",
+   "use": "Activates Fantomon aptitudes; sessions also give Treats (Fantomon EXP)",
+   "tool_tiers": 5,
+   "sessions": [
+    {
+     "tier": 1,
+     "minutes": 6,
+     "treats": "Basic Treats",
+     "treats_amount": 60,
+     "aptitude_materials": 6
+    },
+    {
+     "tier": 2,
+     "minutes": 9,
+     "treats": "Premium Treats",
+     "treats_amount": 20,
+     "aptitude_materials": 12
+    },
+    {
+     "tier": 3,
+     "minutes": 12,
+     "treats": "Premium Treats",
+     "treats_amount": 60,
+     "aptitude_materials": 24
+    }
+   ],
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "forge",
+   "kind": "facility",
+   "name": "Forge",
+   "group": "gathering",
+   "produces": "Steel",
+   "use": "Guild building projects",
+   "tool_tiers": 3,
+   "sessions": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "power-station",
+   "kind": "facility",
+   "name": "Power Station",
+   "group": "gathering",
+   "produces": "Kanstein Cell",
+   "use": "Fuel for Glyph Research",
+   "tool_tiers": 3,
+   "sessions": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "mana-vein",
+   "kind": "facility",
+   "name": "Mana Vein",
+   "group": "gathering",
+   "produces": "Mana Cluster",
+   "use": "Many guild projects",
+   "tool_tiers": 3,
+   "sessions": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "cooking",
+   "kind": "cooking_summary",
+   "recipes": 67,
+   "recovery_dishes": 5,
+   "buff_dishes": 62,
+   "max_proficiency_level": 5,
+   "buff_stats": [
+    "HP",
+    "ATK",
+    "DEF",
+    "SPD"
+   ],
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "dish-green-rice-ball",
+   "kind": "dish",
+   "name": "Green Rice Ball",
+   "category": "recovery",
+   "effect": "Restore HP",
+   "ingredients": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "dish-chargrilled-mushroom",
+   "kind": "dish",
+   "name": "Chargrilled Mushroom",
+   "category": "recovery",
+   "effect": "Restore HP",
+   "ingredients": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "dish-verdant-dew",
+   "kind": "dish",
+   "name": "Verdant Dew",
+   "category": "recovery",
+   "effect": "Restore HP",
+   "ingredients": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "dish-shepherd-s-purse-pancake",
+   "kind": "dish",
+   "name": "Shepherd's Purse Pancake",
+   "category": "recovery",
+   "effect": "Restore HP",
+   "ingredients": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "dish-starlight-bread",
+   "kind": "dish",
+   "name": "Starlight Bread",
+   "category": "recovery",
+   "effect": "Restores Stamina",
+   "ingredients": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "dish-stir-fried-cabbage",
+   "kind": "dish",
+   "name": "Stir-Fried Cabbage",
+   "category": "buff",
+   "effect": "ATK",
+   "ingredients": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "dish-adventurer-s-special-platter",
+   "kind": "dish",
+   "name": "Adventurer's Special Platter",
+   "category": "buff",
+   "effect": "ATK",
+   "ingredients": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "dish-wonder-skewers",
+   "kind": "dish",
+   "name": "Wonder Skewers",
+   "category": "buff",
+   "effect": "ATK",
+   "ingredients": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "dish-wonder-hotpot",
+   "kind": "dish",
+   "name": "Wonder Hotpot",
+   "category": "buff",
+   "effect": "DEF",
+   "ingredients": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "dish-jelly-bean-pals",
+   "kind": "dish",
+   "name": "Jelly Bean Pals",
+   "category": "buff",
+   "effect": null,
+   "ingredients": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "dish-cheerful-greens",
+   "kind": "dish",
+   "name": "Cheerful Greens",
+   "category": "buff",
+   "effect": null,
+   "ingredients": null,
+   "sources": [
+    "S-80"
+   ]
+  }
+ ]
+}

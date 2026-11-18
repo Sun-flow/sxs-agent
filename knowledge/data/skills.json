@@ -1,0 +1,3554 @@
+{
+ "_meta": {
+  "description": "Every Sword x Staff technique and charm found in the sources, by class. base_rarity is the rarity the skill is pulled at (it can be ascended up to Immortal). verified=false means only tier D sources name it. null = unknown.",
+  "sources": [
+   "S-01",
+   "S-03",
+   "S-04",
+   "S-10",
+   "S-11",
+   "S-12",
+   "S-14",
+   "S-16",
+   "R-115",
+   "R-158"
+  ],
+  "updated": "2026-11-18"
+ },
+ "skills": [
+  {
+   "id": "water-shot",
+   "name": "Water Shot",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "technique",
+   "element": "Water",
+   "base_rarity": "Rare",
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Water DMG once to 1 enemy within 4 grids.",
+   "cooldown": null,
+   "notes": "Starting skill; outclassed quickly [S-14].",
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-14"
+   ]
+  },
+  {
+   "id": "ice-spike",
+   "name": "Ice Spike",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "technique",
+   "element": "Water",
+   "base_rarity": "Rare",
+   "tags": [
+    "DMG",
+    "Ailment"
+   ],
+   "effect": "Water DMG once to all enemies in a 1x5 line in front; 40% base chance to inflict Frozen for 1 turn.",
+   "cooldown": null,
+   "notes": "Seen in our game ascending Rare -> Epic [R-115].",
+   "verified": true,
+   "sources": [
+    "S-03",
+    "R-115",
+    "S-14"
+   ]
+  },
+  {
+   "id": "flame-jet",
+   "name": "Flame Jet",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "technique",
+   "element": "Fire",
+   "base_rarity": "Epic",
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Fire DMG 3 times to all enemies in a 1x3 line in front.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-14"
+   ]
+  },
+  {
+   "id": "iron-thorn",
+   "name": "Iron Thorn",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "technique",
+   "element": "Wind",
+   "base_rarity": "Rare",
+   "tags": [
+    "DMG",
+    "Ailment"
+   ],
+   "effect": "Pick a grid within 3; Wind DMG once to all enemies within 1 grid of it; 30% base chance to Immobilize for 1 turn.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-14"
+   ]
+  },
+  {
+   "id": "healing-touch",
+   "name": "Healing Touch",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "technique",
+   "element": null,
+   "base_rarity": "Epic",
+   "tags": [
+    "Ally",
+    "Heal",
+    "Dispel"
+   ],
+   "effect": "Heals 1 ally within 5 grids and dispels 1 random ailment or debuff.",
+   "cooldown": null,
+   "notes": "Triggers Overhealing at T3+ [S-16].",
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-14"
+   ]
+  },
+  {
+   "id": "stonechief-summon",
+   "name": "Stonechief Summon",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "technique",
+   "element": null,
+   "base_rarity": "Epic",
+   "tags": [
+    "Summon"
+   ],
+   "effect": "Summons a Stonechief in front of the caster that acts at once; inherits a percentage of caster stats; lasts up to 5 turns. Zero initial CD.",
+   "cooldown": null,
+   "notes": "Decoy; falls off late [S-14].",
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-14"
+   ]
+  },
+  {
+   "id": "fireball",
+   "name": "Fireball",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "technique",
+   "element": "Fire",
+   "base_rarity": "Epic",
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Pick a grid within 5; Fire DMG once to all enemies in a 1-grid square around it.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-14"
+   ]
+  },
+  {
+   "id": "cyclone",
+   "name": "Cyclone",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "technique",
+   "element": "Wind",
+   "base_rarity": "Epic",
+   "tags": [
+    "Drag"
+   ],
+   "effect": "Pick a grid within 6; Wind DMG once to all enemies within 2 grids, knocks them airborne and pulls them to the target grid.",
+   "cooldown": null,
+   "notes": "Groups enemies for AoE follow-ups.",
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-14"
+   ]
+  },
+  {
+   "id": "tempest-sphere",
+   "name": "Tempest Sphere",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "technique",
+   "element": "Wind",
+   "base_rarity": "Epic",
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Wind DMG 5 times to 1 enemy 3 to 5 grids away.",
+   "cooldown": null,
+   "notes": "5 hits = 5 chances to trigger on-hit charms (Unstable Aura) [S-04].",
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-14"
+   ]
+  },
+  {
+   "id": "void-blessing",
+   "name": "Void Blessing",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "technique",
+   "element": null,
+   "base_rarity": "Legendary",
+   "tags": [
+    "Ally",
+    "Buff",
+    "Heal"
+   ],
+   "effect": "Increases HP (ally buff and heal).",
+   "cooldown": null,
+   "notes": "Healer builds through T3 [S-04][S-11]; useless solo [S-14].",
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-14"
+   ]
+  },
+  {
+   "id": "blazing-fire-ring",
+   "name": "Blazing Fire Ring",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "technique",
+   "element": "Fire",
+   "base_rarity": "Legendary",
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Fire DMG once to all enemies within 2 grids of the caster.",
+   "cooldown": null,
+   "notes": "Needs the caster close to enemies.",
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-10",
+    "S-14"
+   ]
+  },
+  {
+   "id": "water-assault",
+   "name": "Water Assault",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "technique",
+   "element": "Water",
+   "base_rarity": "Legendary",
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Water DMG once to all enemies in a 3x4 area in front; DMG falls 25% for each further hit on the same target (multi-hits large targets).",
+   "cooldown": null,
+   "notes": "Main early AoE [S-04]; still used at T3 [S-12].",
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-10",
+    "S-14"
+   ]
+  },
+  {
+   "id": "winds-delight",
+   "name": "Wind's Delight",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "technique",
+   "element": "Wind",
+   "base_rarity": "Legendary",
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Pick a grid within 6; 7 waves of wind blades at the target grid and random enemies within 1 grid left/right; each wave Wind DMG once within 1 grid of its target; DMG falls 35% per further hit on the same target.",
+   "cooldown": null,
+   "notes": "Single-target option up to T3 [S-11]. Sources also spell it 'Wind of Light' / 'Winds of Light' [S-04][S-12].",
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-10",
+    "S-14"
+   ]
+  },
+  {
+   "id": "elemental-mystery",
+   "name": "Elemental Mystery",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Stats"
+   ],
+   "effect": "Increases the caster's Elemental Mastery.",
+   "cooldown": null,
+   "notes": "Seen in our game [R-115].",
+   "verified": true,
+   "sources": [
+    "S-03",
+    "R-115"
+   ]
+  },
+  {
+   "id": "winds-whisper",
+   "name": "Wind's Whisper",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "charm",
+   "element": "Wind",
+   "base_rarity": null,
+   "tags": [
+    "Stats"
+   ],
+   "effect": "Increases the caster's Wind DMG.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "dews-blessing",
+   "name": "Dew's Blessing",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "charm",
+   "element": "Water",
+   "base_rarity": null,
+   "tags": [
+    "Stats"
+   ],
+   "effect": "Increases the caster's Water DMG.",
+   "cooldown": null,
+   "notes": "'Deuce Blessing' in [S-12].",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "heart-of-flame",
+   "name": "Heart of Flame",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "charm",
+   "element": "Fire",
+   "base_rarity": "Rare",
+   "tags": [
+    "Stats"
+   ],
+   "effect": "Increases the caster's Fire DMG.",
+   "cooldown": null,
+   "notes": "Seen in our game as Rare [R-158]. Still in T3 Fire builds [S-12].",
+   "verified": true,
+   "sources": [
+    "S-03",
+    "R-158"
+   ]
+  },
+  {
+   "id": "unstable-aura",
+   "name": "Unstable Aura",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "charm",
+   "element": "Wind",
+   "base_rarity": null,
+   "tags": [
+    "DMG",
+    "Knockback"
+   ],
+   "effect": "When a Technique deals DMG, 25% chance to trigger Aura: extra Wind DMG once, 60% base chance to knock back 1 grid.",
+   "cooldown": null,
+   "notes": "Core T1 damage charm with multi-hit techniques [S-04].",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "elemental-body",
+   "name": "Elemental Body",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Stats"
+   ],
+   "effect": "Increases the caster's Elemental RES.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "curse-resonance",
+   "name": "Curse Resonance",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Buff"
+   ],
+   "effect": "For each ailment or debuff on the target, the caster's Technique DMG to it rises; stacks up to 3 times.",
+   "cooldown": null,
+   "notes": "Pairs with Frozen/Immobilize/Erosion.",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "insight",
+   "name": "Insight",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Stats"
+   ],
+   "effect": "Increases the caster's Effect Hit Rate.",
+   "cooldown": null,
+   "notes": "Erosion builds [S-04].",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "tough-soul",
+   "name": "Tough Soul",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Stats"
+   ],
+   "effect": "Increases the caster's HP.",
+   "cooldown": null,
+   "notes": "Healer builds [S-04].",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "flaming-path",
+   "name": "Flaming Path",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "charm",
+   "element": "Fire",
+   "base_rarity": null,
+   "tags": [
+    "Burn"
+   ],
+   "effect": "When the caster starts to move in their turn, 30% chance to inflict Burn on grids within 1 grid of the caster.",
+   "cooldown": null,
+   "notes": "Do not stack with Raging Wildfire: one burn per tile [S-12].",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "water-to-ice",
+   "name": "Water to Ice",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "charm",
+   "element": "Water",
+   "base_rarity": null,
+   "tags": [
+    "Stats"
+   ],
+   "effect": "Fandom text: increases the caster's Water DMG. sxswiki text: 50% chance to trigger Condensation on Water DMG (extra DMG, 30% chance to Freeze).",
+   "cooldown": null,
+   "notes": "Sources disagree on the effect; see Open questions.",
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-04"
+   ]
+  },
+  {
+   "id": "mana-surge",
+   "name": "Mana Surge",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Stats"
+   ],
+   "effect": "Increases the caster's Crit Rate.",
+   "cooldown": null,
+   "notes": "sxswiki gives 16% + a flat amount [S-04] (unverified). Kept in builds through T3/T4 [S-11][S-16].",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "gale-shield",
+   "name": "Gale Shield",
+   "class": "mage",
+   "class_tier": 1,
+   "type": "charm",
+   "element": "Wind",
+   "base_rarity": null,
+   "tags": [
+    "Shield",
+    "Knockback"
+   ],
+   "effect": "At battle start grants a shield based on max HP; when it disappears, Wind DMG once to all enemies in a 1-grid square around the caster, 100% base chance to knock back 1 grid.",
+   "cooldown": null,
+   "notes": "Main T1 survival charm [S-04].",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "heavy-impact",
+   "name": "Heavy Impact",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "technique",
+   "element": "Physical",
+   "base_rarity": "Legendary",
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Physical DMG once to 1 enemy within 1 grid, knocks it airborne (prioritises large targets).",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-10",
+    "S-14"
+   ]
+  },
+  {
+   "id": "lion-combo",
+   "name": "Lion Combo",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "technique",
+   "element": "Physical",
+   "base_rarity": "Legendary",
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Physical DMG 3 times to 1 enemy within 1 grid.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-10",
+    "S-14"
+   ]
+  },
+  {
+   "id": "whirlwind-slash",
+   "name": "Whirlwind Slash",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "technique",
+   "element": "Physical",
+   "base_rarity": "Legendary",
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Physical DMG 4 times to all enemies in a 1-grid square around the caster.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-10",
+    "S-14"
+   ]
+  },
+  {
+   "id": "mountain-collapse",
+   "name": "Mountain Collapse",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "technique",
+   "element": "Physical",
+   "base_rarity": "Legendary",
+   "tags": [
+    "DMG",
+    "Knockback"
+   ],
+   "effect": "Physical DMG once to all enemies within 2 grids, knocks airborne, 60% base chance to knock back 1 grid.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-10",
+    "S-14"
+   ]
+  },
+  {
+   "id": "wind-blade-slash",
+   "name": "Wind Blade Slash",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "technique",
+   "element": "Wind",
+   "base_rarity": "Epic",
+   "tags": [
+    "DMG",
+    "Knockback"
+   ],
+   "effect": "Wind DMG once to all enemies in a 1x4 line in front; 50% base chance to knock back 1 grid.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-14"
+   ]
+  },
+  {
+   "id": "quadrant-slash",
+   "name": "Quadrant Slash",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "technique",
+   "element": "Physical",
+   "base_rarity": "Epic",
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Physical DMG once to all enemies within 1 grid.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-14"
+   ]
+  },
+  {
+   "id": "luminous-shield",
+   "name": "Luminous Shield",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "technique",
+   "element": null,
+   "base_rarity": "Epic",
+   "tags": [
+    "Self Buff"
+   ],
+   "effect": "Raises the caster's Block Rate and Block Efficiency for 3 turns. Zero initial CD.",
+   "cooldown": null,
+   "notes": "Still in Knight/Guardian dungeon builds [S-11].",
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-14"
+   ]
+  },
+  {
+   "id": "boiling-bloodlust",
+   "name": "Boiling Bloodlust",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "technique",
+   "element": null,
+   "base_rarity": "Epic",
+   "tags": [
+    "Self",
+    "Buff"
+   ],
+   "effect": "Increases Crit Rate and Crit DMG.",
+   "cooldown": null,
+   "notes": "Worked example: Epic gives 30% Crit Rate, Immortal about 70% [S-03].",
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-14"
+   ]
+  },
+  {
+   "id": "phantom-assault",
+   "name": "Phantom Assault",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "technique",
+   "element": "Physical",
+   "base_rarity": "Epic",
+   "tags": [
+    "DMG",
+    "Move"
+   ],
+   "effect": "Physical DMG once to 1 enemy within 1 grid, then moves back 3 grids.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-14"
+   ]
+  },
+  {
+   "id": "gravity-pull",
+   "name": "Gravity Pull",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "technique",
+   "element": "Wind",
+   "base_rarity": "Rare",
+   "tags": [
+    "Drag"
+   ],
+   "effect": "Pick a grid within 7; Wind DMG once to all enemies in a 1-grid square there and pulls them to the caster.",
+   "cooldown": null,
+   "notes": "The pull that answers ranged, evasive enemies [S-03].",
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-14"
+   ]
+  },
+  {
+   "id": "diving-gale",
+   "name": "Diving Gale",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "technique",
+   "element": "Wind",
+   "base_rarity": "Rare",
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Pick a grid within 4; Wind DMG once to all enemies in a 1-grid square around it.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-14"
+   ]
+  },
+  {
+   "id": "edge-strike",
+   "name": "Edge Strike",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "technique",
+   "element": "Physical",
+   "base_rarity": "Rare",
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Physical DMG once to 1 enemy within 1 grid.",
+   "cooldown": null,
+   "notes": "Starting skill.",
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-14"
+   ]
+  },
+  {
+   "id": "leap-attack",
+   "name": "Leap Attack",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "technique",
+   "element": "Physical",
+   "base_rarity": "Rare",
+   "tags": [
+    "Move",
+    "DMG",
+    "Debuff"
+   ],
+   "effect": "Leaps to an empty space within 3 grids; Physical DMG once to all enemies within 1 grid; 50% base chance to inflict Armor Break 2 for 2 turns.",
+   "cooldown": null,
+   "notes": "Combo opener [S-11].",
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-14"
+   ]
+  },
+  {
+   "id": "insightful-eye",
+   "name": "Insightful Eye",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Stats"
+   ],
+   "effect": null,
+   "cooldown": null,
+   "notes": "Kept in the Conqueror (T4) build [S-11]; used as the example for pushing a T1 skill to Immortal [S-03].",
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-11"
+   ]
+  },
+  {
+   "id": "counter-blade",
+   "name": "Counter Blade",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Counterattack"
+   ],
+   "effect": "Counterattacks (exact text unknown).",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "blade-of-lament",
+   "name": "Blade of Lament",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "charm",
+   "element": null,
+   "base_rarity": "Legendary",
+   "tags": [
+    "Heal"
+   ],
+   "effect": "Lifesteal: Legendary 2.44%, then about 2.93% / 3.51% / 4.22% at Mythic / Divine / Immortal.",
+   "cooldown": null,
+   "notes": "Legendary per the ascension example [S-03]; a common 200-pull pick [S-04].",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "iron-fortress",
+   "name": "Iron Fortress",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Ally",
+    "Buff"
+   ],
+   "effect": null,
+   "cooldown": null,
+   "notes": "Knight dungeon build [S-11].",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "block-awareness",
+   "name": "Block Awareness",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Stats"
+   ],
+   "effect": "Block stat charm (exact text unknown).",
+   "cooldown": null,
+   "notes": "Used by Duelist, Knight and Guardian builds [S-11].",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "strength-rules",
+   "name": "Strength Rules",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Stats"
+   ],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "pure-protection",
+   "name": "Pure Protection",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Shield"
+   ],
+   "effect": "Grants a shield that re-triggers on being hit (exact text unknown).",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-04"
+   ]
+  },
+  {
+   "id": "relentless-frenzy",
+   "name": "Relentless Frenzy",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Buff"
+   ],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "crystal-armor",
+   "name": "Crystal Armor",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Stats"
+   ],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "life-blessing",
+   "name": "Life Blessing",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Stats"
+   ],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "feline-dance",
+   "name": "Feline Dance",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Stats"
+   ],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "warriors-essence",
+   "name": "Warrior's Essence",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Stats"
+   ],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "blade-tempest",
+   "name": "Blade Tempest",
+   "class": "warrior",
+   "class_tier": 1,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "DMG"
+   ],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "sunset-sword",
+   "name": "Sunset Sword",
+   "class": "duelist",
+   "class_tier": 2,
+   "type": "technique",
+   "element": "Physical",
+   "base_rarity": null,
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Physical DMG 5 times to all enemies in a 3x2 area in front.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-10"
+   ]
+  },
+  {
+   "id": "darkness-descends",
+   "name": "Darkness Descends",
+   "class": "duelist",
+   "class_tier": 2,
+   "type": "technique",
+   "element": "Dark",
+   "base_rarity": null,
+   "tags": [
+    "Move",
+    "DMG",
+    "Dispel"
+   ],
+   "effect": "Leaps to an empty grid within 5; Dark DMG once to 1 enemy within 1 grid and dispels 1 random buff (prioritises large targets).",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "flash-dash",
+   "name": "Flash Dash",
+   "class": "duelist",
+   "class_tier": 2,
+   "type": "technique",
+   "element": "Physical",
+   "base_rarity": null,
+   "tags": [
+    "Move",
+    "DMG"
+   ],
+   "effect": "Dashes 5 grids in a line; Physical Doom DMG once to all enemies in a 1x4 area on the path (cannot pass enemies larger than 4 grids).",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-10"
+   ]
+  },
+  {
+   "id": "shattering-sigil",
+   "name": "Shattering Sigil",
+   "class": "duelist",
+   "class_tier": 2,
+   "type": "technique",
+   "element": "Fire",
+   "base_rarity": null,
+   "tags": [
+    "Debuff"
+   ],
+   "effect": "Fire DMG once to 1 enemy within 1 grid and inflicts Sigil (prioritises large targets).",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-10"
+   ]
+  },
+  {
+   "id": "fire-slash",
+   "name": "Fire Slash",
+   "class": "duelist",
+   "class_tier": 2,
+   "type": "technique",
+   "element": "Fire",
+   "base_rarity": null,
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Fire Doom DMG once to all enemies in a 3x2 area in front.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-10"
+   ]
+  },
+  {
+   "id": "flame-aura",
+   "name": "Flame Aura",
+   "class": "duelist",
+   "class_tier": 2,
+   "type": "technique",
+   "element": "Fire",
+   "base_rarity": null,
+   "tags": [
+    "Ally",
+    "Buff",
+    "DMG"
+   ],
+   "effect": "Grants Flame to the caster and 3 random allies within 3 grids for 2 turns; cannot be dispelled.",
+   "cooldown": null,
+   "notes": "Kept in the Conqueror build [S-11].",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "indomitable-will",
+   "name": "Indomitable Will",
+   "class": "duelist",
+   "class_tier": 2,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Buff",
+    "Heal"
+   ],
+   "effect": "On the first lethal hit, survives at 1 HP, enters Indomitable for 2 turns (cannot be dispelled) and heals once.",
+   "cooldown": null,
+   "notes": "Kept in the Conqueror build [S-11].",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "frame-of-battles",
+   "name": "Frame of Battles",
+   "class": "duelist",
+   "class_tier": 2,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Buff"
+   ],
+   "effect": "Reduces DMG taken for every 15% HP lost; stacks up to 5 times; cannot be dispelled.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "blazing-clash",
+   "name": "Blazing Clash",
+   "class": "duelist",
+   "class_tier": 2,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Buff"
+   ],
+   "effect": "Raises DMG dealt for every 4 Techniques used; stacks up to 3 times.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "crit-mastery",
+   "name": "Crit Mastery",
+   "class": "duelist",
+   "class_tier": 2,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Stats"
+   ],
+   "effect": "Increases the caster's Crit DMG.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "potential-vitality",
+   "name": "Potential Vitality",
+   "class": "duelist",
+   "class_tier": 2,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Buff"
+   ],
+   "effect": "Raises healing received for every 15% HP lost; stacks up to 5 times; cannot be dispelled.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "ricocheting-shield",
+   "name": "Ricocheting Shield",
+   "class": "knight",
+   "class_tier": 2,
+   "type": "technique",
+   "element": "Physical",
+   "base_rarity": "Legendary",
+   "tags": [
+    "DMG",
+    "Ailment"
+   ],
+   "effect": "Physical DMG once to 1 enemy within 3 grids, then bounces to another random enemy within 3 grids up to 4 times; 30% base chance to Stun 1 turn per hit (large targets can be hit several times).",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-10"
+   ]
+  },
+  {
+   "id": "valor-surge",
+   "name": "Valor Surge",
+   "class": "knight",
+   "class_tier": 2,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Ally",
+    "Buff",
+    "Dispel"
+   ],
+   "effect": "DMG Boost to all allied characters within 5 grids for 2 turns and dispels 1 random ailment or debuff. Casts once before battle starts.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "stunning-strike",
+   "name": "Stunning Strike",
+   "class": "knight",
+   "class_tier": 2,
+   "type": "technique",
+   "element": "Physical",
+   "base_rarity": null,
+   "tags": [
+    "DMG",
+    "Ailment"
+   ],
+   "effect": "Physical DMG once to 1 enemy within 1 grid; 40% base chance to Stun 1 turn.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-10"
+   ]
+  },
+  {
+   "id": "heart-of-challenge",
+   "name": "Heart of Challenge",
+   "class": "knight",
+   "class_tier": 2,
+   "type": "technique",
+   "element": "Physical",
+   "base_rarity": null,
+   "tags": [
+    "DMG",
+    "Ailment"
+   ],
+   "effect": "Physical DMG once to all enemies within 3 grids; 85% chance to Taunt 1 turn (100% on non-character units). Casts once at the start of battle.",
+   "cooldown": null,
+   "notes": "The Knight taunt.",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "frostbite-blossom",
+   "name": "Frostbite Blossom",
+   "class": "knight",
+   "class_tier": 2,
+   "type": "technique",
+   "element": "Water",
+   "base_rarity": null,
+   "tags": [
+    "DMG"
+   ],
+   "effect": null,
+   "cooldown": null,
+   "notes": "Fandom's description is a copy of Fire Slash, so the real effect is unknown; the name suggests Water.",
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-10"
+   ]
+  },
+  {
+   "id": "guardian-ring",
+   "name": "Guardian Ring",
+   "class": "knight",
+   "class_tier": 2,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Self",
+    "Shield"
+   ],
+   "effect": "Shield on the caster based on DEF for 2 turns. Zero initial CD.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-10"
+   ]
+  },
+  {
+   "id": "pursuit-of-victory",
+   "name": "Pursuit of Victory",
+   "class": "knight",
+   "class_tier": 2,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Buff"
+   ],
+   "effect": "Raises Resilience Break efficiency of the caster's skills; more Technique DMG to enemies with ailments or debuffs.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "rebound",
+   "name": "Rebound",
+   "class": "knight",
+   "class_tier": 2,
+   "type": "charm",
+   "element": "Physical",
+   "base_rarity": null,
+   "tags": [
+    "Counterattack"
+   ],
+   "effect": "Each time the caster blocks an enemy Technique, Physical DMG once to the attacker based on the caster's DEF.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "eye-for-an-eye",
+   "name": "Eye for an Eye",
+   "class": "knight",
+   "class_tier": 2,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Buff"
+   ],
+   "effect": "Each time the caster takes Technique DMG, the next Technique attack deals more DMG; stacks up to 10 times.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "ripple-impact",
+   "name": "Ripple Impact",
+   "class": "knight",
+   "class_tier": 2,
+   "type": "charm",
+   "element": "Water",
+   "base_rarity": null,
+   "tags": [
+    "DMG",
+    "Debuff"
+   ],
+   "effect": "When the caster's shield is fully broken, Water DMG once to all enemies within 2 grids; 100% base chance to inflict 3 stacks of Cold for 2 turns.",
+   "cooldown": null,
+   "notes": "Shield-break engine of the Water Knight.",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "defensive-assault",
+   "name": "Defensive Assault",
+   "class": "knight",
+   "class_tier": 2,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Buff"
+   ],
+   "effect": "ATK boost while the caster is shielded.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "fiery-star-trail",
+   "name": "Fiery Star Trail",
+   "class": "sorcerer",
+   "class_tier": 2,
+   "type": "technique",
+   "element": "Fire",
+   "base_rarity": "Legendary",
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Fire Doom DMG twice to all enemies within a 3-grid circle around the caster.",
+   "cooldown": null,
+   "notes": "Still in T5 Fire builds [S-11].",
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-10"
+   ]
+  },
+  {
+   "id": "light-of-dawn",
+   "name": "Light of Dawn",
+   "class": "sorcerer",
+   "class_tier": 2,
+   "type": "technique",
+   "element": "Light",
+   "base_rarity": null,
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Light Doom DMG twice to all enemies in a 1x8 line in front.",
+   "cooldown": null,
+   "notes": "In the T3 Light build [S-12].",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "lightning-chain",
+   "name": "Lightning Chain",
+   "class": "sorcerer",
+   "class_tier": 2,
+   "type": "technique",
+   "element": "Light",
+   "base_rarity": null,
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Light DMG once to 1 enemy within 4 grids, then chains to 1 random enemy within 4 grids of the target up to 9 times; each enemy is hit once by the chain.",
+   "cooldown": null,
+   "notes": "T3 AoE build [S-11].",
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-10"
+   ]
+  },
+  {
+   "id": "energy-burst",
+   "name": "Energy Burst",
+   "class": "sorcerer",
+   "class_tier": 2,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Self Buff"
+   ],
+   "effect": "The next damaging Technique gains Accuracy and deals 50% more DMG.",
+   "cooldown": null,
+   "notes": "Order it directly before the biggest hit.",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "flickering-stars",
+   "name": "Flickering Stars",
+   "class": "sorcerer",
+   "class_tier": 2,
+   "type": "technique",
+   "element": "Light",
+   "base_rarity": null,
+   "tags": [
+    "DMG",
+    "Dispel"
+   ],
+   "effect": "Pick a grid within 6; Light DMG once to all enemies within 1 grid and dispels 1 random buff from them.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-10"
+   ]
+  },
+  {
+   "id": "frosty-nova",
+   "name": "Frosty Nova",
+   "class": "sorcerer",
+   "class_tier": 2,
+   "type": "technique",
+   "element": "Water",
+   "base_rarity": null,
+   "tags": [
+    "DMG",
+    "Ailment"
+   ],
+   "effect": "Pick a grid within 3; Water DMG once to all enemies in a 1-grid square; 30% base chance to inflict Frozen 1 turn.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-10"
+   ]
+  },
+  {
+   "id": "void-bubble",
+   "name": "Void Bubble",
+   "class": "sorcerer",
+   "class_tier": 2,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Shield",
+    "Buff"
+   ],
+   "effect": "First time HP drops below 50% in a battle: shield based on max HP for 2 turns and Dodge for 2 turns (cannot be dispelled).",
+   "cooldown": null,
+   "notes": "'Bubble Shield' in [S-12]. Kept in the T3 build [S-11].",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "raging-wildfire",
+   "name": "Raging Wildfire",
+   "class": "sorcerer",
+   "class_tier": 2,
+   "type": "charm",
+   "element": "Fire",
+   "base_rarity": null,
+   "tags": [
+    "Burn"
+   ],
+   "effect": "20% chance to inflict Burn on grids in range when casting a Fire Technique.",
+   "cooldown": null,
+   "notes": "Do not pair with Flaming Path [S-12].",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "winds-shadow",
+   "name": "Wind's Shadow",
+   "class": "sorcerer",
+   "class_tier": 2,
+   "type": "charm",
+   "element": "Wind",
+   "base_rarity": null,
+   "tags": [
+    "DMG",
+    "Debuff"
+   ],
+   "effect": "After dealing Wind DMG 3 times to an enemy with Techniques: 30% chance of extra Wind DMG once and 50% base chance to delay the target's action by 20%.",
+   "cooldown": null,
+   "notes": "'Wind Shadow' in [S-12].",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "elemental-harmony",
+   "name": "Elemental Harmony",
+   "class": "sorcerer",
+   "class_tier": 2,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Buff"
+   ],
+   "effect": "For each element among equipped damaging Techniques, raises the caster's Elemental Mastery; stacks up to 4 times.",
+   "cooldown": null,
+   "notes": "Basis of the four-element hybrid build [S-03]; rated S at T3 [S-12].",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "lightning-mystery",
+   "name": "Lightning Mystery",
+   "class": "sorcerer",
+   "class_tier": 2,
+   "type": "charm",
+   "element": "Light",
+   "base_rarity": null,
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Each time a Technique deals DMG, 30% chance to trigger Thunder Strike: extra Light DMG once.",
+   "cooldown": null,
+   "notes": "Light build: scales with hit count [S-03].",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "treantling-summon",
+   "name": "Treantling Summon",
+   "class": "sage",
+   "class_tier": 2,
+   "type": "technique",
+   "element": null,
+   "base_rarity": "Legendary",
+   "tags": [
+    "Summon",
+    "DMG"
+   ],
+   "effect": "Summons a Treantling behind the caster that acts at once; inherits a percentage of caster stats; cannot be the primary target of attacks or healing; lasts up to 5 turns. Zero initial CD.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-10"
+   ]
+  },
+  {
+   "id": "shadow-impact",
+   "name": "Shadow Impact",
+   "class": "sage",
+   "class_tier": 2,
+   "type": "technique",
+   "element": "Dark",
+   "base_rarity": null,
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Pick a grid within 3; Dark DMG once to all enemies within 2 grids; if the target carries Erosion, triggers the Erosion effect twice at once.",
+   "cooldown": null,
+   "notes": "AoE swap for Shadow of Termination at T3 [S-11].",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "flame-wolf-summon",
+   "name": "Flame Wolf Summon",
+   "class": "sage",
+   "class_tier": 2,
+   "type": "technique",
+   "element": "Fire",
+   "base_rarity": null,
+   "tags": [
+    "Summon",
+    "DMG"
+   ],
+   "effect": "Summons 2 Flame Wolves in front that act at once; inherit a percentage of caster stats; cannot be the primary target; last up to 2 turns. Zero initial CD.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-10"
+   ]
+  },
+  {
+   "id": "dark-bullet",
+   "name": "Dark Bullet",
+   "class": "sage",
+   "class_tier": 2,
+   "type": "technique",
+   "element": "Dark",
+   "base_rarity": null,
+   "tags": [
+    "DMG",
+    "Debuff"
+   ],
+   "effect": "Dark DMG once to 1 enemy within 4 grids; 50% base chance to inflict Erosion.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "radiant-restoration",
+   "name": "Radiant Restoration",
+   "class": "sage",
+   "class_tier": 2,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Ally",
+    "Heal"
+   ],
+   "effect": "Heals all allies within 4 grids once.",
+   "cooldown": null,
+   "notes": "Core group heal through T3 [S-11].",
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-10"
+   ]
+  },
+  {
+   "id": "weakening-hex",
+   "name": "Weakening Hex",
+   "class": "sage",
+   "class_tier": 2,
+   "type": "technique",
+   "element": "Dark",
+   "base_rarity": null,
+   "tags": [
+    "DMG",
+    "Debuff"
+   ],
+   "effect": "Pick a grid within 3; Dark DMG once to all enemies within 2 grids; 50% base chance to inflict Weakened 1 for 2 turns.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-10"
+   ]
+  },
+  {
+   "id": "soul-impact",
+   "name": "Soul Impact",
+   "class": "sage",
+   "class_tier": 2,
+   "type": "charm",
+   "element": "Dark",
+   "base_rarity": null,
+   "tags": [
+    "DMG"
+   ],
+   "effect": "When the caster's summon dies or expires, Dark DMG once to all enemies within 2 grids of it.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "resurrection",
+   "name": "Resurrection",
+   "class": "sage",
+   "class_tier": 2,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Ally",
+    "Revive",
+    "Buff",
+    "Heal"
+   ],
+   "effect": "When an allied adventurer dies, revives and heals them once and grants Revitalization for 2 turns (cannot be dispelled); once per battle. If several are dead at battle start, revives the one with the highest Power first.",
+   "cooldown": null,
+   "notes": "Only revive in the game [S-11].",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "shadow-erosion",
+   "name": "Shadow Erosion",
+   "class": "sage",
+   "class_tier": 2,
+   "type": "charm",
+   "element": "Dark",
+   "base_rarity": null,
+   "tags": [
+    "Debuff",
+    "DMG"
+   ],
+   "effect": "Each time a Technique deals Dark DMG to an enemy, 40% base chance to inflict Erosion.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "soul-spark",
+   "name": "Soul Spark",
+   "class": "sage",
+   "class_tier": 2,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Summon",
+    "Stats"
+   ],
+   "effect": "Raises the ATK of the caster's summons but cuts their duration by 2 turns (at least 1 turn; no effect on summons without a turn limit).",
+   "cooldown": null,
+   "notes": "Bad with Flame Wolves (2 turns) [S-04].",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "healing-mastery",
+   "name": "Healing Mastery",
+   "class": "sage",
+   "class_tier": 2,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Stats"
+   ],
+   "effect": "Enhances the caster's healing effects.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "asuras-grasp",
+   "name": "Asura's Grasp",
+   "class": "berserker",
+   "class_tier": 3,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "eclipse-slash",
+   "name": "Eclipse Slash",
+   "class": "berserker",
+   "class_tier": 3,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "doom-blade",
+   "name": "Doom Blade",
+   "class": "berserker",
+   "class_tier": 3,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "hunters-judgment",
+   "name": "Hunter's Judgment",
+   "class": "berserker",
+   "class_tier": 3,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "lunarwater-threads",
+   "name": "Lunarwater Threads",
+   "class": "paladin",
+   "class_tier": 3,
+   "type": "technique",
+   "element": "Water",
+   "base_rarity": null,
+   "tags": [],
+   "effect": "Part of the offensive Water (Cold) build.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10",
+    "S-11"
+   ]
+  },
+  {
+   "id": "desperate-protection",
+   "name": "Desperate Protection",
+   "class": "paladin",
+   "class_tier": 3,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": "Defensive technique used in the T4 support build.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10",
+    "S-11"
+   ]
+  },
+  {
+   "id": "star-shattering-slash",
+   "name": "Star Shattering Slash",
+   "class": "paladin",
+   "class_tier": 3,
+   "type": "technique",
+   "element": null,
+   "base_rarity": "Legendary",
+   "tags": [],
+   "effect": "Single-target strike.",
+   "cooldown": "3 turns [S-11]",
+   "notes": "Fandom calls it 'Star Shattering Strike'.",
+   "verified": true,
+   "sources": [
+    "S-10",
+    "S-03",
+    "S-11"
+   ]
+  },
+  {
+   "id": "forceful-charge",
+   "name": "Forceful Charge",
+   "class": "paladin",
+   "class_tier": 3,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "holy-redemption",
+   "name": "Holy Redemption",
+   "class": "paladin",
+   "class_tier": 3,
+   "type": "technique",
+   "element": null,
+   "base_rarity": "Legendary",
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": "Named as a Paladin Legendary; technique or charm not stated.",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "divine-wrath",
+   "name": "Divine Wrath",
+   "class": "archmage",
+   "class_tier": 3,
+   "type": "technique",
+   "element": "Light",
+   "base_rarity": "Legendary",
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Large AoE damage that prioritises large targets and bosses; main damage of the Light build.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10",
+    "S-12",
+    "S-11"
+   ]
+  },
+  {
+   "id": "howling-hurricane",
+   "name": "Howling Hurricane",
+   "class": "archmage",
+   "class_tier": 3,
+   "type": "technique",
+   "element": "Wind",
+   "base_rarity": null,
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Main Wind damage skill; knocks enemies airborne.",
+   "cooldown": null,
+   "notes": "Still used at T5 [S-11].",
+   "verified": true,
+   "sources": [
+    "S-10",
+    "S-12",
+    "S-11"
+   ]
+  },
+  {
+   "id": "aqua-vortex",
+   "name": "Aqua Vortex",
+   "class": "archmage",
+   "class_tier": 3,
+   "type": "technique",
+   "element": "Water",
+   "base_rarity": null,
+   "tags": [
+    "DMG",
+    "Debuff"
+   ],
+   "effect": "Applies Wet, which raises the chance to Freeze.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10",
+    "S-12"
+   ]
+  },
+  {
+   "id": "meteoric-flames",
+   "name": "Meteoric Flames",
+   "class": "archmage",
+   "class_tier": 3,
+   "type": "technique",
+   "element": "Fire",
+   "base_rarity": null,
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Strong Fire AoE.",
+   "cooldown": null,
+   "notes": "Still used at T5 [S-11].",
+   "verified": true,
+   "sources": [
+    "S-10",
+    "S-12",
+    "S-11"
+   ]
+  },
+  {
+   "id": "afflicting-stars",
+   "name": "Afflicting Stars",
+   "class": "archmage",
+   "class_tier": 3,
+   "type": "technique",
+   "element": "Light",
+   "base_rarity": null,
+   "tags": [
+    "DMG"
+   ],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": false,
+   "sources": [
+    "S-12"
+   ]
+  },
+  {
+   "id": "fire-blast",
+   "name": "Fire Blast",
+   "class": "archmage",
+   "class_tier": 3,
+   "type": "technique",
+   "element": "Fire",
+   "base_rarity": null,
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Single-target Fire hit with high base damage for a low cooldown.",
+   "cooldown": null,
+   "notes": null,
+   "verified": false,
+   "sources": [
+    "S-12"
+   ]
+  },
+  {
+   "id": "wind-clone",
+   "name": "Wind Clone",
+   "class": "archmage",
+   "class_tier": 3,
+   "type": "technique",
+   "element": "Wind",
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": false,
+   "sources": [
+    "S-12"
+   ]
+  },
+  {
+   "id": "radiance-sear",
+   "name": "Radiance Sear",
+   "class": "archmage",
+   "class_tier": 3,
+   "type": "charm",
+   "element": "Light",
+   "base_rarity": null,
+   "tags": [
+    "DMG"
+   ],
+   "effect": "50% chance to trigger extra Light damage when dealing damage.",
+   "cooldown": null,
+   "notes": "'Radiant Sear' in [S-11]; used in every element's build and still at T5.",
+   "verified": false,
+   "sources": [
+    "S-12",
+    "S-11"
+   ]
+  },
+  {
+   "id": "incarnation-of-light",
+   "name": "Incarnation of Light",
+   "class": "archmage",
+   "class_tier": 3,
+   "type": "charm",
+   "element": "Light",
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": false,
+   "sources": [
+    "S-12"
+   ]
+  },
+  {
+   "id": "rapid-cast",
+   "name": "Rapid Cast",
+   "class": "archmage",
+   "class_tier": 3,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Buff"
+   ],
+   "effect": "Cuts the cooldown of all Techniques at battle start, so the first Technique comes one turn earlier.",
+   "cooldown": null,
+   "notes": null,
+   "verified": false,
+   "sources": [
+    "S-12",
+    "S-11"
+   ]
+  },
+  {
+   "id": "wind-affinity",
+   "name": "Wind Affinity",
+   "class": "archmage",
+   "class_tier": 3,
+   "type": "charm",
+   "element": "Wind",
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": false,
+   "sources": [
+    "S-12"
+   ]
+  },
+  {
+   "id": "frog-guard",
+   "name": "Frog Guard",
+   "class": "archmage",
+   "class_tier": 3,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Buff"
+   ],
+   "effect": "Reduces incoming damage and restores HP when the effect ends; needs Techniques that have cooldowns.",
+   "cooldown": null,
+   "notes": null,
+   "verified": false,
+   "sources": [
+    "S-12"
+   ]
+  },
+  {
+   "id": "repelling-wind",
+   "name": "Repelling Wind",
+   "class": "archmage",
+   "class_tier": 3,
+   "type": "charm",
+   "element": "Wind",
+   "base_rarity": null,
+   "tags": [
+    "Knockback"
+   ],
+   "effect": "Pushes enemies away; for PvP and against melee.",
+   "cooldown": null,
+   "notes": "May be the source's name for Gale Shield or Unstable Aura.",
+   "verified": false,
+   "sources": [
+    "S-12"
+   ]
+  },
+  {
+   "id": "thunderbolt-mark",
+   "name": "Thunderbolt Mark",
+   "class": "archmage",
+   "class_tier": 3,
+   "type": "technique",
+   "element": "Light",
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": "Tier unknown; listed in an 'early Sorcerer' build that is not in the Fandom T1/T2 lists.",
+   "verified": false,
+   "sources": [
+    "S-04",
+    "S-11"
+   ]
+  },
+  {
+   "id": "elemental-power",
+   "name": "Elemental Power",
+   "class": "archmage",
+   "class_tier": 3,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": "Tier unknown; same build as Thunderbolt Mark.",
+   "verified": false,
+   "sources": [
+    "S-04",
+    "S-11"
+   ]
+  },
+  {
+   "id": "abyssal-hand",
+   "name": "Abyssal Hand",
+   "class": "arcanist",
+   "class_tier": 3,
+   "type": "technique",
+   "element": "Dark",
+   "base_rarity": null,
+   "tags": [
+    "DMG",
+    "Debuff"
+   ],
+   "effect": "Dark AoE that applies Erosion; shorter cooldown than Shadow of Termination.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10",
+    "S-11",
+    "S-16",
+    "S-04"
+   ]
+  },
+  {
+   "id": "mana-blast",
+   "name": "Mana Blast",
+   "class": "arcanist",
+   "class_tier": 3,
+   "type": "technique",
+   "element": "Dark",
+   "base_rarity": null,
+   "tags": [
+    "DMG",
+    "Debuff"
+   ],
+   "effect": "Dark DMG that applies Erosion.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10",
+    "S-11",
+    "S-04"
+   ]
+  },
+  {
+   "id": "waterling-summon",
+   "name": "Waterling Summon",
+   "class": "arcanist",
+   "class_tier": 3,
+   "type": "technique",
+   "element": "Water",
+   "base_rarity": null,
+   "tags": [
+    "Summon",
+    "Heal"
+   ],
+   "effect": "Summons a Waterling that heals allies; its heals do not trigger Overhealing.",
+   "cooldown": null,
+   "notes": "'Water Link Summon' in [S-16].",
+   "verified": true,
+   "sources": [
+    "S-10",
+    "S-11",
+    "S-16",
+    "S-04"
+   ]
+  },
+  {
+   "id": "shadow-of-termination",
+   "name": "Shadow of Termination",
+   "class": "arcanist",
+   "class_tier": 3,
+   "type": "technique",
+   "element": "Dark",
+   "base_rarity": null,
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Dark DMG that triggers every Erosion stack on the target at once; cast it last.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10",
+    "S-11",
+    "S-04"
+   ]
+  },
+  {
+   "id": "frenzy-totem",
+   "name": "Frenzy Totem",
+   "class": "arcanist",
+   "class_tier": 3,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Summon",
+    "Buff"
+   ],
+   "effect": "Places a totem that buffs allies; the totem has to stay alive.",
+   "cooldown": null,
+   "notes": null,
+   "verified": false,
+   "sources": [
+    "S-11",
+    "S-16",
+    "S-04"
+   ]
+  },
+  {
+   "id": "linked-misfortune",
+   "name": "Linked Misfortune",
+   "class": "arcanist",
+   "class_tier": 3,
+   "type": "charm",
+   "element": "Dark",
+   "base_rarity": null,
+   "tags": [
+    "Debuff"
+   ],
+   "effect": "60% chance to inflict Erosion again when Erosion is applied.",
+   "cooldown": null,
+   "notes": null,
+   "verified": false,
+   "sources": [
+    "S-11",
+    "S-04"
+   ]
+  },
+  {
+   "id": "shadow-vengeance",
+   "name": "Shadow Vengeance",
+   "class": "arcanist",
+   "class_tier": 3,
+   "type": "charm",
+   "element": "Dark",
+   "base_rarity": null,
+   "tags": [
+    "Buff"
+   ],
+   "effect": "Cheat death: the caster becomes a Shadow for one turn (takes no damage, reduced cooldowns, more damage).",
+   "cooldown": null,
+   "notes": null,
+   "verified": false,
+   "sources": [
+    "S-11",
+    "S-04",
+    "S-16"
+   ]
+  },
+  {
+   "id": "nights-blessing",
+   "name": "Night's Blessing",
+   "class": "arcanist",
+   "class_tier": 3,
+   "type": "charm",
+   "element": "Dark",
+   "base_rarity": null,
+   "tags": [
+    "Buff"
+   ],
+   "effect": "Strengthens Dark DMG and debuffs.",
+   "cooldown": null,
+   "notes": "'Knight's Blessing' in [S-16].",
+   "verified": false,
+   "sources": [
+    "S-11",
+    "S-04"
+   ]
+  },
+  {
+   "id": "overhealing",
+   "name": "Overhealing",
+   "class": "arcanist",
+   "class_tier": 3,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Heal"
+   ],
+   "effect": "30% chance for an extra heal on allies within 1 grid of the healed target.",
+   "cooldown": null,
+   "notes": "Triggers from Healing Touch, not from Waterling [S-16].",
+   "verified": false,
+   "sources": [
+    "S-11",
+    "S-04",
+    "S-16"
+   ]
+  },
+  {
+   "id": "summoners-frenzy",
+   "name": "Summoner's Frenzy",
+   "class": "arcanist",
+   "class_tier": 3,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Summon"
+   ],
+   "effect": "Raises summon damage and duration.",
+   "cooldown": null,
+   "notes": null,
+   "verified": false,
+   "sources": [
+    "S-04"
+   ]
+  },
+  {
+   "id": "hellfire-requiem",
+   "name": "Hellfire Requiem",
+   "class": "conqueror",
+   "class_tier": 4,
+   "type": "technique",
+   "element": "Fire",
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "blade-storm",
+   "name": "Blade Storm",
+   "class": "conqueror",
+   "class_tier": 4,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Conqueror AoE.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10",
+    "S-11"
+   ]
+  },
+  {
+   "id": "soul-piercer",
+   "name": "Soul Piercer",
+   "class": "conqueror",
+   "class_tier": 4,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "flickering-blade",
+   "name": "Flickering Blade",
+   "class": "conqueror",
+   "class_tier": 4,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Single-target strike with no cooldown; repeats while the target survives.",
+   "cooldown": "none [S-11]",
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10",
+    "S-11"
+   ]
+  },
+  {
+   "id": "flash-fire",
+   "name": "Flash Fire",
+   "class": "conqueror",
+   "class_tier": 4,
+   "type": "technique",
+   "element": "Fire",
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": false,
+   "sources": [
+    "S-11"
+   ]
+  },
+  {
+   "id": "piercing-assault",
+   "name": "Piercing Assault",
+   "class": "conqueror",
+   "class_tier": 4,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Buff"
+   ],
+   "effect": "Lets attacks ignore part of enemy DEF.",
+   "cooldown": null,
+   "notes": "Persists past T4; the named target for Skill Shard Vouchers on the Duelist line [S-01].",
+   "verified": true,
+   "sources": [
+    "S-01",
+    "S-11"
+   ]
+  },
+  {
+   "id": "tactical-adaptation",
+   "name": "Tactical Adaptation",
+   "class": "conqueror",
+   "class_tier": 4,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": false,
+   "sources": [
+    "S-11"
+   ]
+  },
+  {
+   "id": "seismic-tide",
+   "name": "Seismic Tide",
+   "class": "guardian",
+   "class_tier": 4,
+   "type": "technique",
+   "element": "Water",
+   "base_rarity": null,
+   "tags": [],
+   "effect": "Offensive Water build.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10",
+    "S-11"
+   ]
+  },
+  {
+   "id": "swirling-blade",
+   "name": "Swirling Blade",
+   "class": "guardian",
+   "class_tier": 4,
+   "type": "technique",
+   "element": "Water",
+   "base_rarity": null,
+   "tags": [],
+   "effect": "Offensive Water build; may be Fandom's 'Aqua Dance Blade'.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10",
+    "S-11",
+    "S-03"
+   ]
+  },
+  {
+   "id": "light-sword-array",
+   "name": "Light Sword Array",
+   "class": "guardian",
+   "class_tier": 4,
+   "type": "technique",
+   "element": "Light",
+   "base_rarity": null,
+   "tags": [],
+   "effect": "Light Knight attack; Fandom calls it 'Luminous Sword Array'.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10",
+    "S-03"
+   ]
+  },
+  {
+   "id": "hamper-strike",
+   "name": "Hamper Strike",
+   "class": "guardian",
+   "class_tier": 4,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "raging-maelstrom",
+   "name": "Raging Maelstrom",
+   "class": "guardian",
+   "class_tier": 4,
+   "type": "technique",
+   "element": "Water",
+   "base_rarity": null,
+   "tags": [],
+   "effect": "Offensive Water build.",
+   "cooldown": null,
+   "notes": null,
+   "verified": false,
+   "sources": [
+    "S-11"
+   ]
+  },
+  {
+   "id": "iron-will",
+   "name": "Iron Will",
+   "class": "guardian",
+   "class_tier": 4,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Buff"
+   ],
+   "effect": "Reduces damage taken from Taunted enemies.",
+   "cooldown": null,
+   "notes": null,
+   "verified": false,
+   "sources": [
+    "S-11"
+   ]
+  },
+  {
+   "id": "holy-aegis",
+   "name": "Holy Aegis",
+   "class": "guardian",
+   "class_tier": 4,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Buff"
+   ],
+   "effect": "Raises DEF and DEF-based shields.",
+   "cooldown": null,
+   "notes": null,
+   "verified": false,
+   "sources": [
+    "S-11"
+   ]
+  },
+  {
+   "id": "soul-protection",
+   "name": "Soul Protection",
+   "class": "guardian",
+   "class_tier": 4,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Shield"
+   ],
+   "effect": "Converts part of HP into a large shield.",
+   "cooldown": null,
+   "notes": null,
+   "verified": false,
+   "sources": [
+    "S-11"
+   ]
+  },
+  {
+   "id": "starlight-burst",
+   "name": "Starlight Burst",
+   "class": "destroyer",
+   "class_tier": 4,
+   "type": "technique",
+   "element": "Light",
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "flowing-doom",
+   "name": "Flowing Doom",
+   "class": "destroyer",
+   "class_tier": 4,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "wind-blade-spiral",
+   "name": "Wind Blade Spiral",
+   "class": "destroyer",
+   "class_tier": 4,
+   "type": "technique",
+   "element": "Wind",
+   "base_rarity": null,
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Wind AoE.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10",
+    "S-11"
+   ]
+  },
+  {
+   "id": "formation-breaker",
+   "name": "Formation Breaker",
+   "class": "destroyer",
+   "class_tier": 4,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "DMG",
+    "Debuff"
+   ],
+   "effect": "Utility strike that breaks enemy defences.",
+   "cooldown": null,
+   "notes": "Used in both T5 builds [S-11].",
+   "verified": true,
+   "sources": [
+    "S-10",
+    "S-03",
+    "S-11"
+   ]
+  },
+  {
+   "id": "thunder-of-judgment",
+   "name": "Thunder of Judgment",
+   "class": "destroyer",
+   "class_tier": 4,
+   "type": "technique",
+   "element": "Light",
+   "base_rarity": null,
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Light AoE named for the Destroyer.",
+   "cooldown": null,
+   "notes": "[S-11] lists a charm 'Thunder Judgment' that may be the same skill.",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "secret-fire-core-explosion",
+   "name": "Secret Fire Core Explosion",
+   "class": "destroyer",
+   "class_tier": 4,
+   "type": "technique",
+   "element": "Fire",
+   "base_rarity": null,
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Fire AoE named for the Destroyer.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "radiant-warp",
+   "name": "Radiant Warp",
+   "class": "destroyer",
+   "class_tier": 4,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": "Listed in T5 builds; tier (T4 or T5) not stated.",
+   "verified": false,
+   "sources": [
+    "S-11"
+   ]
+  },
+  {
+   "id": "cyclone-lament",
+   "name": "Cyclone Lament",
+   "class": "destroyer",
+   "class_tier": 4,
+   "type": "charm",
+   "element": "Wind",
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": "Listed in the T5 Wind build; tier not stated.",
+   "verified": false,
+   "sources": [
+    "S-11"
+   ]
+  },
+  {
+   "id": "ember-flare",
+   "name": "Ember Flare",
+   "class": "destroyer",
+   "class_tier": 4,
+   "type": "charm",
+   "element": "Fire",
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": "Listed in the T5 Fire build; tier not stated.",
+   "verified": false,
+   "sources": [
+    "S-11"
+   ]
+  },
+  {
+   "id": "explosive-spirit",
+   "name": "Explosive Spirit",
+   "class": "destroyer",
+   "class_tier": 4,
+   "type": "charm",
+   "element": "Fire",
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": "Listed in the T5 Fire build; tier not stated.",
+   "verified": false,
+   "sources": [
+    "S-11"
+   ]
+  },
+  {
+   "id": "fiery-burst",
+   "name": "Fiery Burst",
+   "class": "destroyer",
+   "class_tier": 4,
+   "type": "charm",
+   "element": "Fire",
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": "Listed in the T5 Fire build; tier not stated.",
+   "verified": false,
+   "sources": [
+    "S-11"
+   ]
+  },
+  {
+   "id": "chaos-rune",
+   "name": "Chaos Rune",
+   "class": "dominator",
+   "class_tier": 4,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": "Used in the 4v4 build.",
+   "cooldown": null,
+   "notes": "'Kisha Rune' in [S-16].",
+   "verified": true,
+   "sources": [
+    "S-10",
+    "S-16"
+   ]
+  },
+  {
+   "id": "spirit-aegis",
+   "name": "Spirit Aegis",
+   "class": "dominator",
+   "class_tier": 4,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "rock-rex-summon",
+   "name": "Rock Rex Summon",
+   "class": "dominator",
+   "class_tier": 4,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Summon"
+   ],
+   "effect": "Summons a very durable stone summon (Fandom: 'Stone Emperor'); reported to hold 4-5 turns against enemies about 800K CP stronger.",
+   "cooldown": null,
+   "notes": "'Rockrick Summon' in [S-16].",
+   "verified": true,
+   "sources": [
+    "S-10",
+    "S-03",
+    "S-16"
+   ]
+  },
+  {
+   "id": "rejuvenating-rain",
+   "name": "Rejuvenating Rain",
+   "class": "dominator",
+   "class_tier": 4,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Ally",
+    "Heal"
+   ],
+   "effect": "Group heal of the pure-healer path (Fandom: 'Rain of Revival').",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10",
+    "S-03"
+   ]
+  },
+  {
+   "id": "dark-star-burst",
+   "name": "Dark Star Burst",
+   "class": "dominator",
+   "class_tier": 4,
+   "type": "technique",
+   "element": "Dark",
+   "base_rarity": null,
+   "tags": [
+    "DMG"
+   ],
+   "effect": "Single-target Dark pressure; sets off Erosion through charms.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-03",
+    "S-16"
+   ]
+  },
+  {
+   "id": "phantom-light-strategy",
+   "name": "Phantom Light Strategy",
+   "class": "dominator",
+   "class_tier": 4,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Ally"
+   ],
+   "effect": "Healer-path skill.",
+   "cooldown": null,
+   "notes": "Technique or charm not stated.",
+   "verified": true,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "decoy-clone",
+   "name": "Decoy Clone",
+   "class": "dominator",
+   "class_tier": 4,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Summon"
+   ],
+   "effect": "Decoy for raids and 4v4; several clones do not stack, so one per party.",
+   "cooldown": null,
+   "notes": "Tier (T3 or T4) not stated.",
+   "verified": false,
+   "sources": [
+    "S-16"
+   ]
+  },
+  {
+   "id": "soul-pact-resonance",
+   "name": "Soul Pact Resonance",
+   "class": "dominator",
+   "class_tier": 4,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Buff"
+   ],
+   "effect": "Damage boost while Rock Rex is alive.",
+   "cooldown": null,
+   "notes": null,
+   "verified": false,
+   "sources": [
+    "S-16"
+   ]
+  },
+  {
+   "id": "mantra-of-blessings",
+   "name": "Mantra of Blessings",
+   "class": "dominator",
+   "class_tier": 4,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Ally",
+    "Buff"
+   ],
+   "effect": "Grants Void Blessing (more HP for teammates) and gives the strongest teammate +21% damage; several casters on one ally do not appear to stack.",
+   "cooldown": null,
+   "notes": null,
+   "verified": false,
+   "sources": [
+    "S-16"
+   ]
+  },
+  {
+   "id": "chaos-resonance",
+   "name": "Chaos Resonance",
+   "class": "dominator",
+   "class_tier": 4,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": "Damage alternative to Mana Surge.",
+   "cooldown": null,
+   "notes": null,
+   "verified": false,
+   "sources": [
+    "S-16"
+   ]
+  },
+  {
+   "id": "aberrancy",
+   "name": "Aberrancy",
+   "class": "dominator",
+   "class_tier": 4,
+   "type": "charm",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": "Survivability in 4v4.",
+   "cooldown": null,
+   "notes": null,
+   "verified": false,
+   "sources": [
+    "S-16"
+   ]
+  },
+  {
+   "id": "air-break",
+   "name": "Air Break",
+   "class": "ravager",
+   "class_tier": 5,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "night-curse",
+   "name": "Night Curse",
+   "class": "ravager",
+   "class_tier": 5,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "shattering-dance",
+   "name": "Shattering Dance",
+   "class": "ravager",
+   "class_tier": 5,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "solaris-storm",
+   "name": "Solaris Storm",
+   "class": "ravager",
+   "class_tier": 5,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "last-stand",
+   "name": "Last Stand",
+   "class": "templar",
+   "class_tier": 5,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "first-light",
+   "name": "First Light",
+   "class": "templar",
+   "class_tier": 5,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "dawnburst",
+   "name": "Dawnburst",
+   "class": "templar",
+   "class_tier": 5,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "sacred-shine",
+   "name": "Sacred Shine",
+   "class": "templar",
+   "class_tier": 5,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "blast-spirit",
+   "name": "Blast Spirit",
+   "class": "magister",
+   "class_tier": 5,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "frost-thorn",
+   "name": "Frost Thorn",
+   "class": "magister",
+   "class_tier": 5,
+   "type": "technique",
+   "element": "Water",
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "crimson-whirl",
+   "name": "Crimson Whirl",
+   "class": "magister",
+   "class_tier": 5,
+   "type": "technique",
+   "element": "Fire",
+   "base_rarity": null,
+   "tags": [],
+   "effect": "Fire AoE build.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10",
+    "S-11"
+   ]
+  },
+  {
+   "id": "storm-rhapsody",
+   "name": "Storm Rhapsody",
+   "class": "magister",
+   "class_tier": 5,
+   "type": "technique",
+   "element": "Wind",
+   "base_rarity": null,
+   "tags": [],
+   "effect": "Wind AoE build.",
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10",
+    "S-11"
+   ]
+  },
+  {
+   "id": "thalasson-summon",
+   "name": "Thalasson Summon",
+   "class": "prophet",
+   "class_tier": 5,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [
+    "Summon"
+   ],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "soul-reap",
+   "name": "Soul Reap",
+   "class": "prophet",
+   "class_tier": 5,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "hexed-blast",
+   "name": "Hexed Blast",
+   "class": "prophet",
+   "class_tier": 5,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "desperate-shadow",
+   "name": "Desperate Shadow",
+   "class": "prophet",
+   "class_tier": 5,
+   "type": "technique",
+   "element": null,
+   "base_rarity": null,
+   "tags": [],
+   "effect": null,
+   "cooldown": null,
+   "notes": null,
+   "verified": true,
+   "sources": [
+    "S-10"
+   ]
+  }
+ ]
+}

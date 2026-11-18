@@ -1,0 +1,809 @@
+{
+  "_meta": {
+    "description": "Season milestones from the SOF guides: dungeon unlocks with CP thresholds, Treasure Hunt save/buy weeks, relic pools, Fantomon releases, level unlocks and caps. Dates are for the guide author's server (date_author_server, ISO). server_day is only filled where the infographic states it (server day 47 = 2026-09-23). season_day_derived is computed by us for Season 2 records as date minus 2026-09-23 plus 1. CP values are whole numbers; a threshold of 0 means 'no power requirement'; null means not listed or not available (see notes).",
+    "sources": [
+      "S-01",
+      "S-02",
+      "S-85"
+    ],
+    "updated": "2026-11-18",
+    "global_server": {
+      "day_1": "2026-05-19",
+      "note": "eog.gg's roadmap counts server days from the global launch [S-85]; the SOF calendar is for the guide author's server (day 47 = 2026-09-23). Our server's day 1 is unknown."
+    }
+  },
+  "milestones": [
+    {
+      "id": "s1-th3",
+      "season": 1,
+      "type": "treasure_hunt",
+      "name": "Treasure Hunt #3",
+      "date_author_server": "2026-08-29",
+      "server_day": null,
+      "season_day_derived": null,
+      "action": "save",
+      "target_item": null,
+      "side_event": "Lucky Scratch",
+      "sources": [
+        "S-01"
+      ],
+      "page": 6
+    },
+    {
+      "id": "s1-dungeon-aquaorigin",
+      "season": 1,
+      "type": "dungeon_unlock",
+      "name": "Aquorigin Shrine",
+      "date_author_server": "2026-08-31",
+      "server_day": 24,
+      "season_day_derived": null,
+      "cp_threshold": {
+        "normal": 930000,
+        "hard": 1450000,
+        "nightmare": 2050000,
+        "purgatory": null
+      },
+      "notes": "Purgatory not listed on the calendar.",
+      "sources": [
+        "S-01",
+        "S-85"
+      ],
+      "page": 6,
+      "aliases": [
+        "Aquaorigin"
+      ],
+      "unlock_level": 100
+    },
+    {
+      "id": "s1-whaleback-island",
+      "season": 1,
+      "type": "content_unlock",
+      "name": "Whaleback Island",
+      "date_author_server": "2026-09-02",
+      "server_day": 26,
+      "season_day_derived": null,
+      "notes": "Listed on the calendar without explanation.",
+      "sources": [
+        "S-01",
+        "S-85"
+      ],
+      "page": 6
+    },
+    {
+      "id": "s1-th4",
+      "season": 1,
+      "type": "treasure_hunt",
+      "name": "Treasure Hunt #4",
+      "date_author_server": "2026-09-05",
+      "server_day": null,
+      "season_day_derived": null,
+      "action": "must_buy",
+      "target_item": "Primal Gem",
+      "side_event": "Feneck's Puzzle",
+      "sources": [
+        "S-01"
+      ],
+      "page": 6
+    },
+    {
+      "id": "s1-dungeon-hellhold",
+      "season": 1,
+      "type": "dungeon_unlock",
+      "name": "Hellhold",
+      "date_author_server": "2026-09-09",
+      "server_day": null,
+      "season_day_derived": null,
+      "cp_threshold": {
+        "normal": 2250000,
+        "hard": 2750000,
+        "nightmare": 3900000,
+        "purgatory": 6200000
+      },
+      "sources": [
+        "S-01"
+      ],
+      "page": 6
+    },
+    {
+      "id": "s1-th5",
+      "season": 1,
+      "type": "treasure_hunt",
+      "name": "Treasure Hunt #5",
+      "date_author_server": "2026-09-12",
+      "server_day": null,
+      "season_day_derived": null,
+      "action": "save",
+      "target_item": null,
+      "side_event": "Bingo Draw",
+      "sources": [
+        "S-01"
+      ],
+      "page": 6
+    },
+    {
+      "id": "s1-th6",
+      "season": 1,
+      "type": "treasure_hunt",
+      "name": "Treasure Hunt #6",
+      "date_author_server": "2026-09-19",
+      "server_day": null,
+      "season_day_derived": null,
+      "action": "must_buy",
+      "target_item": "Lucky Statue",
+      "side_event": "Lucky Scratch",
+      "sources": [
+        "S-01"
+      ],
+      "page": 6
+    },
+    {
+      "id": "s1-resonance-soft-cap",
+      "season": 1,
+      "type": "level_cap",
+      "name": "Relic Resonance soft cap +10",
+      "date_author_server": null,
+      "server_day": null,
+      "season_day_derived": null,
+      "value": 10,
+      "notes": "Levels above the cap reset at season end.",
+      "sources": [
+        "S-01"
+      ],
+      "page": 11
+    },
+    {
+      "id": "s1-primostar-target-f2p",
+      "season": 1,
+      "type": "threshold",
+      "name": "Primostar target F2P",
+      "date_author_server": null,
+      "server_day": null,
+      "season_day_derived": null,
+      "value": 104,
+      "notes": "S-02 p.4 gives F2P 104 or 128, light/mid spender 152 or 176, stretch 200.",
+      "sources": [
+        "S-01"
+      ],
+      "page": 20
+    },
+    {
+      "id": "s1-gem-sockets",
+      "season": 1,
+      "type": "level_cap",
+      "name": "Gem sockets per gear piece",
+      "date_author_server": null,
+      "server_day": null,
+      "season_day_derived": null,
+      "value": 1,
+      "sources": [
+        "S-01"
+      ],
+      "page": 18
+    },
+    {
+      "id": "s2-start",
+      "season": 2,
+      "type": "season_start",
+      "name": "Season 2 Loong Haven starts (pre-season)",
+      "date_author_server": "2026-09-23",
+      "server_day": 47,
+      "season_day_derived": 1,
+      "notes": "S-01 p.6 labels this date 'Season 3 Loong Haven'. First dungeon is pre-season and does not count toward seasonal milestones (S-02 p.4).",
+      "sources": [
+        "S-02"
+      ],
+      "page": 5
+    },
+    {
+      "id": "s2-relic-pool-1",
+      "season": 2,
+      "type": "relic_pool",
+      "name": "Relic Pool #1 (Celestial Crafts)",
+      "date_author_server": "2026-09-23",
+      "server_day": null,
+      "season_day_derived": 1,
+      "source_of_relics": [
+        "gacha",
+        "Destiny Fruit"
+      ],
+      "special_stat_relics": {
+        "mythic": {
+          "DMG Boost": 1,
+          "Block Rate": 1,
+          "Accuracy": 1,
+          "Crit Rate": 1,
+          "Crit RES": 2,
+          "DMG RES": 2
+        },
+        "legendary": {
+          "DMG Boost": 1,
+          "DMG RES": 1,
+          "Crit Rate": 1,
+          "Crit RES": 1,
+          "Block Rate": 1,
+          "Accuracy": 1
+        }
+      },
+      "notes": "Stat counts from p.22. Gacha name Celestial Crafts is from the p.22 table image; pool-to-name match inferred from the Mythic rows.",
+      "sources": [
+        "S-02"
+      ],
+      "page": 15
+    },
+    {
+      "id": "s2-dungeon-demonseal-gorge",
+      "season": 2,
+      "type": "dungeon_unlock",
+      "name": "Demonseal Gorge",
+      "date_author_server": "2026-09-23",
+      "server_day": 47,
+      "season_day_derived": 1,
+      "cp_threshold": {
+        "normal": 0,
+        "hard": 2350000,
+        "nightmare": null,
+        "purgatory": null
+      },
+      "level_required": null,
+      "gear_level": 130,
+      "max_gear_rarity": "Mythic",
+      "notes": "Normal has no power requirement; Nightmare not available; Mythic gear only. Pre-season dungeon: affixes roll without the seasonal bonus.",
+      "sources": [
+        "S-02"
+      ],
+      "page": 8
+    },
+    {
+      "id": "s2-unlock-t4-class",
+      "season": 2,
+      "type": "level_unlock",
+      "name": "Tier 4 class change",
+      "date_author_server": null,
+      "server_day": null,
+      "season_day_derived": null,
+      "level": 106,
+      "sources": [
+        "S-02"
+      ],
+      "page": 15
+    },
+    {
+      "id": "s2-unlock-adult-fantomon",
+      "season": 2,
+      "type": "level_unlock",
+      "name": "Adult Fantomon evolution",
+      "date_author_server": null,
+      "server_day": null,
+      "season_day_derived": null,
+      "level": 108,
+      "sources": [
+        "S-02"
+      ],
+      "page": 16
+    },
+    {
+      "id": "s2-unlock-demonbind-tower",
+      "season": 2,
+      "type": "level_unlock",
+      "name": "Demonbind Tower (gems)",
+      "date_author_server": null,
+      "server_day": null,
+      "season_day_derived": null,
+      "level": 116,
+      "sources": [
+        "S-02"
+      ],
+      "page": 15
+    },
+    {
+      "id": "s2-max-kingdom-rank",
+      "season": 2,
+      "type": "level_cap",
+      "name": "Max Kingdom rank Champion III",
+      "date_author_server": null,
+      "server_day": null,
+      "season_day_derived": null,
+      "level": 120,
+      "notes": "Expected at about level 120; spend saved Material Realm tools after this.",
+      "sources": [
+        "S-02"
+      ],
+      "page": 15
+    },
+    {
+      "id": "s2-resonance-soft-cap",
+      "season": 2,
+      "type": "level_cap",
+      "name": "Relic Resonance soft cap +13",
+      "date_author_server": null,
+      "server_day": null,
+      "season_day_derived": null,
+      "value": 13,
+      "sources": [
+        "S-01"
+      ],
+      "page": 11
+    },
+    {
+      "id": "s2-gem-sockets",
+      "season": 2,
+      "type": "level_cap",
+      "name": "Gem sockets per gear piece",
+      "date_author_server": null,
+      "server_day": null,
+      "season_day_derived": null,
+      "value": 2,
+      "notes": "10 gems in total.",
+      "sources": [
+        "S-02"
+      ],
+      "page": 20
+    },
+    {
+      "id": "s2-th1",
+      "season": 2,
+      "type": "treasure_hunt",
+      "name": "Treasure Hunt #1",
+      "date_author_server": "2026-09-26",
+      "server_day": null,
+      "season_day_derived": 4,
+      "action": "save",
+      "target_item": "4th Job Skill Fragment",
+      "side_event": "Feneck's Puzzle",
+      "sources": [
+        "S-02"
+      ],
+      "page": 5
+    },
+    {
+      "id": "s2-th2",
+      "season": 2,
+      "type": "treasure_hunt",
+      "name": "Treasure Hunt #2",
+      "date_author_server": "2026-10-03",
+      "server_day": null,
+      "season_day_derived": 11,
+      "action": "must_buy",
+      "target_item": "Primal Gem",
+      "side_event": "Bingo Draw",
+      "sources": [
+        "S-02"
+      ],
+      "page": 6
+    },
+    {
+      "id": "s2-dungeon-warlords-rest",
+      "season": 2,
+      "type": "dungeon_unlock",
+      "name": "Warlord's Rest",
+      "date_author_server": "2026-10-06",
+      "server_day": 60,
+      "season_day_derived": 14,
+      "cp_threshold": {
+        "normal": 3550000,
+        "hard": 5000000,
+        "nightmare": 6000000,
+        "purgatory": null
+      },
+      "level_required": 130,
+      "gear_level": 165,
+      "max_gear_rarity": "Divine",
+      "divine_sets": [
+        "Assimilation",
+        "Indomitable"
+      ],
+      "sources": [
+        "S-02"
+      ],
+      "page": 8
+    },
+    {
+      "id": "s2-th3",
+      "season": 2,
+      "type": "treasure_hunt",
+      "name": "Treasure Hunt #3",
+      "date_author_server": "2026-10-10",
+      "server_day": null,
+      "season_day_derived": 18,
+      "action": "save",
+      "target_item": "LH Mythic Relic Selection",
+      "side_event": "Lucky Scratch",
+      "sources": [
+        "S-02"
+      ],
+      "page": 6
+    },
+    {
+      "id": "s2-acme-nexus",
+      "season": 2,
+      "type": "content_unlock",
+      "name": "Acme Nexus",
+      "date_author_server": "2026-10-17",
+      "server_day": null,
+      "season_day_derived": 25,
+      "notes": "Listed on the calendar without explanation.",
+      "sources": [
+        "S-02"
+      ],
+      "page": 6
+    },
+    {
+      "id": "s2-th4",
+      "season": 2,
+      "type": "treasure_hunt",
+      "name": "Treasure Hunt #4",
+      "date_author_server": "2026-10-17",
+      "server_day": null,
+      "season_day_derived": 25,
+      "action": "must_buy",
+      "target_item": "Lucky Statue",
+      "side_event": "Feneck's Puzzle",
+      "sources": [
+        "S-02"
+      ],
+      "page": 6
+    },
+    {
+      "id": "s2-dungeon-cloudcrest-temple",
+      "season": 2,
+      "type": "dungeon_unlock",
+      "name": "Cloudcrest Temple",
+      "date_author_server": "2026-10-19",
+      "server_day": 73,
+      "season_day_derived": 27,
+      "cp_threshold": {
+        "normal": 6200000,
+        "hard": 7700000,
+        "nightmare": 9800000,
+        "purgatory": null
+      },
+      "level_required": null,
+      "gear_level": 195,
+      "max_gear_rarity": "Divine",
+      "divine_sets": [
+        "Ephemeral",
+        "Cratering"
+      ],
+      "sources": [
+        "S-02"
+      ],
+      "page": 8
+    },
+    {
+      "id": "s2-relic-pool-2",
+      "season": 2,
+      "type": "relic_pool",
+      "name": "Relic Pool #2 (Ethereal Oracle)",
+      "date_author_server": "2026-10-24",
+      "server_day": null,
+      "season_day_derived": 32,
+      "source_of_relics": [
+        "gacha"
+      ],
+      "special_stat_relics": {
+        "mythic": {
+          "DMG Boost": 1,
+          "Block Rate": 1,
+          "Accuracy": 1,
+          "Crit DMG": 2,
+          "Crit RES": 2,
+          "DMG RES": 1
+        },
+        "legendary": {
+          "Crit Rate": 1,
+          "Crit RES": 1,
+          "Block Rate": 1,
+          "Accuracy": 1
+        }
+      },
+      "notes": "Stat counts from the p.22 text. The p.22 table image shows only Crit Rate 1 in the Legendary row (unresolved mismatch).",
+      "sources": [
+        "S-02"
+      ],
+      "page": 6
+    },
+    {
+      "id": "s2-th5",
+      "season": 2,
+      "type": "treasure_hunt",
+      "name": "Treasure Hunt #5",
+      "date_author_server": "2026-10-24",
+      "server_day": null,
+      "season_day_derived": 32,
+      "action": "save",
+      "target_item": "T4 Skill Fragment",
+      "side_event": "Bingo Draw",
+      "sources": [
+        "S-02"
+      ],
+      "page": 6
+    },
+    {
+      "id": "s2-th6",
+      "season": 2,
+      "type": "treasure_hunt",
+      "name": "Treasure Hunt #6",
+      "date_author_server": "2026-10-31",
+      "server_day": null,
+      "season_day_derived": 39,
+      "action": "must_buy",
+      "target_item": "Primal Gem",
+      "side_event": "Lucky Scratch",
+      "sources": [
+        "S-02"
+      ],
+      "page": 6
+    },
+    {
+      "id": "s2-dungeon-bladeshire",
+      "season": 2,
+      "type": "dungeon_unlock",
+      "name": "Bladeshire",
+      "date_author_server": "2026-11-01",
+      "server_day": 86,
+      "season_day_derived": 40,
+      "cp_threshold": {
+        "normal": 10000000,
+        "hard": 12500000,
+        "nightmare": 15800000,
+        "purgatory": null
+      },
+      "level_required": null,
+      "gear_level": 225,
+      "max_gear_rarity": "Divine",
+      "divine_sets": [
+        "Masterful",
+        "Pursuit"
+      ],
+      "sources": [
+        "S-02"
+      ],
+      "page": 8
+    },
+    {
+      "id": "s2-fantomon-pandarial",
+      "season": 2,
+      "type": "fantomon_release",
+      "name": "Pandarial",
+      "date_author_server": "2026-11-07",
+      "server_day": null,
+      "season_day_derived": 46,
+      "notes": "Guide text: day 46 of the season, roughly 7 November.",
+      "sources": [
+        "S-02"
+      ],
+      "page": 16
+    },
+    {
+      "id": "s2-th7",
+      "season": 2,
+      "type": "treasure_hunt",
+      "name": "Treasure Hunt #7",
+      "date_author_server": "2026-11-07",
+      "server_day": null,
+      "season_day_derived": 46,
+      "action": "save",
+      "target_item": "LH Mythic Relic Selection",
+      "side_event": "Feneck's Puzzle",
+      "sources": [
+        "S-02"
+      ],
+      "page": 7
+    },
+    {
+      "id": "s2-dungeon-celestship",
+      "season": 2,
+      "type": "dungeon_unlock",
+      "name": "Celestship",
+      "date_author_server": "2026-11-14",
+      "server_day": 99,
+      "season_day_derived": 53,
+      "cp_threshold": {
+        "normal": 16500000,
+        "hard": 20000000,
+        "nightmare": 24500000,
+        "purgatory": 40000000
+      },
+      "level_required": null,
+      "gear_level": 250,
+      "max_gear_rarity": "Divine",
+      "divine_sets": [
+        "Trial by Fire",
+        "Cold"
+      ],
+      "sources": [
+        "S-02"
+      ],
+      "page": 8
+    },
+    {
+      "id": "s2-th8",
+      "season": 2,
+      "type": "treasure_hunt",
+      "name": "Treasure Hunt #8",
+      "date_author_server": "2026-11-14",
+      "server_day": null,
+      "season_day_derived": 53,
+      "action": "must_buy",
+      "target_item": "Lucky Statue",
+      "side_event": "Bingo Draw",
+      "sources": [
+        "S-02"
+      ],
+      "page": 7
+    },
+    {
+      "id": "s2-th9",
+      "season": 2,
+      "type": "treasure_hunt",
+      "name": "Treasure Hunt #9",
+      "date_author_server": "2026-11-21",
+      "server_day": null,
+      "season_day_derived": 60,
+      "action": "save",
+      "target_item": "T4 Skill Fragment",
+      "side_event": "Lucky Scratch",
+      "sources": [
+        "S-02"
+      ],
+      "page": 7
+    },
+    {
+      "id": "s2-th10",
+      "season": 2,
+      "type": "treasure_hunt",
+      "name": "Treasure Hunt #10",
+      "date_author_server": "2026-11-28",
+      "server_day": null,
+      "season_day_derived": 67,
+      "action": "must_buy",
+      "target_item": "Primal Gem",
+      "side_event": "Feneck's Puzzle",
+      "sources": [
+        "S-02"
+      ],
+      "page": 7
+    },
+    {
+      "id": "s2-primostar-target-f2p-680",
+      "season": 2,
+      "type": "threshold",
+      "name": "Primostar target 680",
+      "date_author_server": null,
+      "server_day": null,
+      "season_day_derived": null,
+      "value": 680,
+      "player_type": "f2p",
+      "reward": "Exp Gain +2%",
+      "notes": "Not stated whether cumulative across seasons.",
+      "sources": [
+        "S-02"
+      ],
+      "page": 23
+    },
+    {
+      "id": "s2-primostar-target-f2p-800",
+      "season": 2,
+      "type": "threshold",
+      "name": "Primostar target 800",
+      "date_author_server": null,
+      "server_day": null,
+      "season_day_derived": null,
+      "value": 800,
+      "player_type": "f2p",
+      "reward": "Gem Drop +5%",
+      "notes": "Not stated whether cumulative across seasons.",
+      "sources": [
+        "S-02"
+      ],
+      "page": 23
+    },
+    {
+      "id": "s2-primostar-target-light-mid-spender-920",
+      "season": 2,
+      "type": "threshold",
+      "name": "Primostar target 920",
+      "date_author_server": null,
+      "server_day": null,
+      "season_day_derived": null,
+      "value": 920,
+      "player_type": "light_mid_spender",
+      "reward": "Exp Gain +2%",
+      "notes": "Not stated whether cumulative across seasons.",
+      "sources": [
+        "S-02"
+      ],
+      "page": 23
+    },
+    {
+      "id": "s2-primostar-target-light-mid-spender-990",
+      "season": 2,
+      "type": "threshold",
+      "name": "Primostar target 990",
+      "date_author_server": null,
+      "server_day": null,
+      "season_day_derived": null,
+      "value": 990,
+      "player_type": "light_mid_spender",
+      "reward": "Ascension +3%",
+      "notes": "Not stated whether cumulative across seasons.",
+      "sources": [
+        "S-02"
+      ],
+      "page": 23
+    },
+    {
+      "id": "s2-primostar-target-light-mid-spender-1060",
+      "season": 2,
+      "type": "threshold",
+      "name": "Primostar target 1060",
+      "date_author_server": null,
+      "server_day": null,
+      "season_day_derived": null,
+      "value": 1060,
+      "player_type": "light_mid_spender",
+      "reward": "Gem Drop +5%",
+      "notes": "Not stated whether cumulative across seasons.",
+      "sources": [
+        "S-02"
+      ],
+      "page": 23
+    },
+    {
+      "id": "s3-start",
+      "season": 3,
+      "type": "season_start",
+      "name": "Season 3 Aethyris starts",
+      "date_author_server": "2026-11-29",
+      "server_day": 114,
+      "season_day_derived": null,
+      "sources": [
+        "S-02",
+        "S-85"
+      ],
+      "page": 7
+    },
+    {
+      "id": "s4-start",
+      "season": 4,
+      "type": "season_start",
+      "name": "Season 4 Harpadia starts",
+      "date_author_server": null,
+      "server_day": 226,
+      "season_day_derived": null,
+      "notes": "CN schedule projected onto global by eog; not confirmed for global.",
+      "sources": [
+        "S-85"
+      ],
+      "page": null
+    },
+    {
+      "id": "s5-start",
+      "season": 5,
+      "type": "season_start",
+      "name": "Season 5 Ignis starts",
+      "date_author_server": null,
+      "server_day": 335,
+      "season_day_derived": null,
+      "notes": "CN schedule projected onto global by eog; not confirmed for global.",
+      "sources": [
+        "S-85"
+      ],
+      "page": null
+    },
+    {
+      "id": "s2-fantomon-pandarial-eog",
+      "season": 2,
+      "type": "fantomon_release",
+      "name": "Pandarial (eog date)",
+      "date_author_server": null,
+      "server_day": 92,
+      "season_day_derived": 46,
+      "notes": "eog roadmap gives server day 92, which is season day 46 and so agrees with SOF's record s2-fantomon-pandarial.",
+      "sources": [
+        "S-85"
+      ],
+      "page": null
+    }
+  ]
+}

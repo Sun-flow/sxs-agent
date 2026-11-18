@@ -1,0 +1,73 @@
+== Fantomon Type& Fantomon Aptitude Material ==
+{| class="fandom-table"
+|Fantomon Type
+|Fantomon Aptitude Material
+|
+|-
+|DPS
+|Magic Wool
+|[[File:Magic Wool.png|center|50x50px]]
+|-
+|Tank
+|Brown Egg
+|[[File:Brown Egg.png|center|50x50px]]
+|-
+|Support
+|Fresh Essence
+|[[File:Fresh Essence.png|center|50x50px]]
+|}
+
+== Fantomons& Skills ==
+{| class="fandom-table"
+|[[File:Nyxarchon.png|center|156x156px]]
+|Nyxarchon
+|Requiem Blast
+When a damaging Technique is used on enemies, dealsDark DMG once to one of the targets and all enemies2 grids around, with a 100% chance to inflict 1 stackof 10% DEF Reduction (max 3 stacks) for 2 turns.Can trigger only twice every 2 turns. (Large targetsmay take multiple hits.)
+|-
+|[[File:Aegiswing.png|center|156x156px]]
+|Aegiswing
+|Radiant Sanctuary
+At the start of battle, grants the character GuardianAngel for 3 turns. When this status expires, restores50% of their lost HP and grants them PowerUnsealed for the entire battle.
+|-
+|[[File:Armopi.png|center|156x156px]]
+|Armopi
+|Armor Protection
+Grants 1 stack of DEF Up at the end of the caster'sturn. At 3 stacks, removes all stacks to grant a shieldbased on the caster's DEF.
+|-
+|[[File:Sylvaerie.png|center|156x156px]]
+|Sylvaerie
+|Wind Embrace
+Increases the caster's ATK and SPD for 1 turn afterthe caster's turn ends.
+|-
+|[[File:Kels.png|center|156x156px]]
+|Kels
+|Purging Spell
+When a damaging Technique is used on enemies, dealsWater DMG once to one of the targets and randomlydispels 1 buff. Can trigger only once per turn.
+|-
+|[[File:Zeioletus.png|center|156x156px]]
+|Zeioletus
+|Lotus Step
+When a damaging Technique is used on enemies, dealsLight DMG once to one of the targets and all enemies1 grid around, knocking them airborne. Can triggeronly twice every 2 turns. (Deals 20% more DMG tolarge targets.)
+|-
+|[[File:Herbote.png|center|156x156px]]
+|Herbote
+|Emergency Aid
+If the caster starts a turn with HP below 80%,healsthe caster once, with a 50% chance to randomlydispel 1 status ailment or debuff.
+|-
+|[[File:Terragon.png|center|156x156px]]
+|Terragon
+|Sandstone Shot
+When a damaging Technique is used on enemies, dealsPhysical DMG once to one of the targets, with a 50%base chance to reduce their ATK by 25% for 1 turn.Can trigger only once per turn.
+|-
+|[[File:Mandragora.png|center|180x180px]]
+|Mandragora
+|When a Technique is used on allies, heals 1 targetonce.
+|-
+|[[File:Falko.png|center|156x156px]]
+|Falko
+|When a damaging Technique is used on enemies, dealsPhysical DMG once to one of the targets and allenemies 1 grid around.
+|-
+|[[File:Boaro.png|center|156x156px]]
+|Boaro
+|Triggers when the caster cumulatively loses 15% ofmax HP, granting a shield based on the caster's DEF.Can trigger up to 5 times per battle.
+|}

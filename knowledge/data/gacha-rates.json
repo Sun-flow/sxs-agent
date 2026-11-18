@@ -1,0 +1,397 @@
+{
+ "_meta": {
+  "description": "Base per-pull rate tables of every Prayer / gacha banner as published by zeroluck.gg (read through WebFetch 2026-11-18). 'name' is our term, 'source_label' the site's. null = not stated. Prose: sources/notes/zeroluck.md, systems/gacha.md",
+  "sources": [
+   "S-80"
+  ],
+  "updated": "2026-11-18"
+ },
+ "banners": [
+  {
+   "id": "standard-prayer",
+   "name": "Standard Prayer",
+   "source_label": "Skill Prayer, Standard",
+   "currency": "Stellatie",
+   "cost_per_pull": null,
+   "cost_note": null,
+   "pity": null,
+   "rates_percent": [
+    {
+     "result": "Common skill shard",
+     "chance": 65.69
+    },
+    {
+     "result": "Rare skill",
+     "chance": 24
+    },
+    {
+     "result": "Epic skill",
+     "chance": 7.9
+    },
+    {
+     "result": "Legendary skill",
+     "chance": 2.41
+    }
+   ],
+   "note": "Base per-pull table from game data per the site; not verified on the in-game rate card. EOG.GG gives different Standard Prayer rates (see systems/skills.md).",
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "premium-prayer",
+   "name": "Premium Prayer",
+   "source_label": "Skill Prayer, Premium",
+   "currency": "Covenite",
+   "cost_per_pull": null,
+   "cost_note": null,
+   "pity": null,
+   "rates_percent": [
+    {
+     "result": "Common skill shard",
+     "chance": 65.69
+    },
+    {
+     "result": "Rare skill",
+     "chance": 24
+    },
+    {
+     "result": "Epic skill",
+     "chance": 7.9
+    },
+    {
+     "result": "Legendary skill",
+     "chance": 2.41
+    }
+   ],
+   "note": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "affection-prayer",
+   "name": "Affection banner",
+   "source_label": "Friend Prayer",
+   "currency": "Affection Token",
+   "cost_per_pull": null,
+   "cost_note": null,
+   "pity": null,
+   "rates_percent": null,
+   "note": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "fantomon-summon",
+   "name": "Fantomon summon",
+   "source_label": "Pet Prayer",
+   "currency": "Bond Trinket",
+   "cost_per_pull": null,
+   "cost_note": null,
+   "pity": null,
+   "rates_percent": [
+    {
+     "result": "Rare aptitude food",
+     "chance": 44.24
+    },
+    {
+     "result": "Epic aptitude food",
+     "chance": 14.16
+    },
+    {
+     "result": "Legendary Fantomon shard",
+     "chance": 13.27
+    },
+    {
+     "result": "Legendary other (unexplained)",
+     "chance": 12.04
+    },
+    {
+     "result": "Epic Fantomon shard",
+     "chance": 7.96
+    },
+    {
+     "result": "Epic Fantomon",
+     "chance": 6.37
+    },
+    {
+     "result": "Legendary Fantomon",
+     "chance": 1.96
+    }
+   ],
+   "note": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "aeonic-rare",
+   "name": "Aeonic Gacha, Rare",
+   "source_label": "Gear Prayer, Rare",
+   "currency": "Rare Auroral Badge",
+   "cost_per_pull": 10,
+   "cost_note": "10 badges per capsule (zeroluck currencies page)",
+   "pity": null,
+   "rates_percent": [
+    {
+     "result": "Rare relic shard",
+     "chance": 73.55
+    },
+    {
+     "result": "Rare relic",
+     "chance": 12.46
+    },
+    {
+     "result": "Epic relic shard",
+     "chance": 11.03
+    },
+    {
+     "result": "Legendary relic shard",
+     "chance": 1.84
+    },
+    {
+     "result": "Epic relic",
+     "chance": 1
+    },
+    {
+     "result": "Legendary relic",
+     "chance": 0.12
+    }
+   ],
+   "note": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "aeonic-epic",
+   "name": "Aeonic Gacha, Epic",
+   "source_label": "Gear Prayer, Epic",
+   "currency": "Epic Auroral Badge",
+   "cost_per_pull": 10,
+   "cost_note": "10 badges per capsule (zeroluck currencies page)",
+   "pity": null,
+   "rates_percent": [
+    {
+     "result": "Epic relic shard",
+     "chance": 69.87
+    },
+    {
+     "result": "Legendary relic shard",
+     "chance": 13.79
+    },
+    {
+     "result": "Epic relic",
+     "chance": 12.46
+    },
+    {
+     "result": "Mythic relic shard",
+     "chance": 2.76
+    },
+    {
+     "result": "Legendary relic",
+     "chance": 1
+    },
+    {
+     "result": "Mythic relic",
+     "chance": 0.12
+    }
+   ],
+   "note": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "aeonic-legendary",
+   "name": "Aeonic Gacha, Legendary",
+   "source_label": "Gear Prayer, Legendary",
+   "currency": "Legendary Auroral Badge",
+   "cost_per_pull": 10,
+   "cost_note": "10 badges per capsule (zeroluck currencies page)",
+   "pity": null,
+   "rates_percent": [
+    {
+     "result": "Legendary relic shard",
+     "chance": 68.09
+    },
+    {
+     "result": "Legendary relic",
+     "chance": 16.63
+    },
+    {
+     "result": "Mythic relic shard",
+     "chance": 14.19
+    },
+    {
+     "result": "Mythic relic",
+     "chance": 1.09
+    }
+   ],
+   "note": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "aeonic-mythic",
+   "name": "Aeonic Gacha, Mythic",
+   "source_label": "Gear Prayer, Mythic",
+   "currency": "Mythic Auroral Badge",
+   "cost_per_pull": 10,
+   "cost_note": "10 badges per capsule (zeroluck currencies page)",
+   "pity": null,
+   "rates_percent": [
+    {
+     "result": "Mythic relic shard",
+     "chance": 81.32
+    },
+    {
+     "result": "Mythic relic",
+     "chance": 18.68
+    }
+   ],
+   "note": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "aeonic-fire",
+   "name": "Aeonic Gacha, Fire",
+   "source_label": "Elemental Gear, Fire",
+   "currency": "Auroral Elemental Badge",
+   "cost_per_pull": 10,
+   "cost_note": "10 badges per capsule (zeroluck currencies page)",
+   "pity": null,
+   "rates_percent": [
+    {
+     "result": "Epic relic",
+     "chance": 79.11
+    },
+    {
+     "result": "Legendary relic",
+     "chance": 16.63
+    },
+    {
+     "result": "Mythic relic",
+     "chance": 4.26
+    }
+   ],
+   "note": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "aeonic-water",
+   "name": "Aeonic Gacha, Water",
+   "source_label": "Elemental Gear, Water",
+   "currency": "Auroral Elemental Badge",
+   "cost_per_pull": 10,
+   "cost_note": "10 badges per capsule (zeroluck currencies page)",
+   "pity": null,
+   "rates_percent": [
+    {
+     "result": "Epic relic",
+     "chance": 79.11
+    },
+    {
+     "result": "Legendary relic",
+     "chance": 16.63
+    },
+    {
+     "result": "Mythic relic",
+     "chance": 4.26
+    }
+   ],
+   "note": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "aeonic-wind",
+   "name": "Aeonic Gacha, Wind",
+   "source_label": "Elemental Gear, Wind",
+   "currency": "Auroral Elemental Badge",
+   "cost_per_pull": 10,
+   "cost_note": "10 badges per capsule (zeroluck currencies page)",
+   "pity": null,
+   "rates_percent": [
+    {
+     "result": "Epic relic",
+     "chance": 79.11
+    },
+    {
+     "result": "Legendary relic",
+     "chance": 16.63
+    },
+    {
+     "result": "Mythic relic",
+     "chance": 4.26
+    }
+   ],
+   "note": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "aeonic-light",
+   "name": "Aeonic Gacha, Light",
+   "source_label": "Elemental Gear, Light",
+   "currency": "Auroral Elemental Badge",
+   "cost_per_pull": 10,
+   "cost_note": "10 badges per capsule (zeroluck currencies page)",
+   "pity": null,
+   "rates_percent": [
+    {
+     "result": "Epic relic",
+     "chance": 79.11
+    },
+    {
+     "result": "Legendary relic",
+     "chance": 16.63
+    },
+    {
+     "result": "Mythic relic",
+     "chance": 4.26
+    }
+   ],
+   "note": null,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "aeonic-dark",
+   "name": "Aeonic Gacha, Dark",
+   "source_label": "Elemental Gear, Dark",
+   "currency": "Auroral Elemental Badge",
+   "cost_per_pull": 10,
+   "cost_note": "10 badges per capsule (zeroluck currencies page)",
+   "pity": null,
+   "rates_percent": [
+    {
+     "result": "Epic relic",
+     "chance": 79.11
+    },
+    {
+     "result": "Legendary relic",
+     "chance": 16.63
+    },
+    {
+     "result": "Mythic relic",
+     "chance": 4.26
+    }
+   ],
+   "note": null,
+   "sources": [
+    "S-80"
+   ]
+  }
+ ]
+}

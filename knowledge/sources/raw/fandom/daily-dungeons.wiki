@@ -1,0 +1,67 @@
+{| class="fandom-table"
+!'''Kingdoms'''
+!'''Daily Dungeon'''
+!'''Difficulty'''
+!'''Power'''
+!'''Notes'''
+|-
+| rowspan="2" |Verdantglade
+| rowspan="2" |Auroradrasil
+|Normal
+|/
+|Server Launch Day 1
+|-
+|Hard
+|36K
+|
+|-
+| rowspan="2" |Cinder Ridge
+| rowspan="2" |Mecha Summit
+|Normal
+|/
+|Server Launch Day 4
+|-
+|Hard
+|180K
+|
+|-
+| rowspan="9" |Aqualis
+| rowspan="2" |Ocean Palace Ruins
+|Normal
+|/
+|Server Launch Day 12
+|-
+|Hard
+|580K
+|
+|-
+| rowspan="3" |Aquorigin Shrine
+|Normal
+|930K
+|Server Launch Day 24 + Level 100
+|-
+|Hard
+|1.45M
+|
+|-
+|Nightmare
+|2.05M
+|
+|-
+| rowspan="4" |Hellhold
+|Normal
+|2.25M
+|Server Launch Day 33
+|-
+|Hard
+|2.75M
+|
+|-
+|Nightmare
+|3.9M
+|
+|-
+|Purgatory
+|6.2M
+|
+|}

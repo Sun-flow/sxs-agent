@@ -1,0 +1,2405 @@
+{
+ "_meta": {
+  "description": "Mage-line skills of the Chinese version (杖剑传说), tiers 1-8, collected from CN player guides (no clean BWIKI skill table exists). Forecast for the global game, tier C at best. type: technique = 战技 (active), charm = 秘法 (passive); null where the guide does not say. en_name_official=true: the English name is a global skill name from our own data, matched to the Chinese name by meaning and role (an inference, not a confirmed mapping). en_name null: no global name known; our translation is in notes. In CN, thunder (雷) skills count as Light. rarity is null throughout: CN guides give the upgrade track (blue, purple, orange, gold, red, rainbow), not a base rarity per skill. Tier is the tier the CN guide files the skill under; where a guide only mentions the skill in a later-tier build the tier is the earliest tier seen and may be too high.",
+  "sources": [
+   "S-92",
+   "S-93",
+   "S-94",
+   "S-68",
+   "S-97",
+   "S-03",
+   "S-10",
+   "S-11"
+  ],
+  "updated": "2026-11-18"
+ },
+ "skills": [
+  {
+   "id": "cn-sor-t1-01",
+   "cn_name": "水弹",
+   "en_name": "Water Shot",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 1,
+   "type": "technique",
+   "element": "Water",
+   "rarity": null,
+   "effect": "0-cooldown water shot; in later tiers used to stack Water Momentum quickly and to kite.",
+   "notes": null,
+   "sources": [
+    "S-93",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sor-t1-02",
+   "cn_name": "冰刺",
+   "en_name": "Ice Spike",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 1,
+   "type": "technique",
+   "element": "Water",
+   "rarity": null,
+   "effect": "Usable on the opening turn; still used at tier 8 as a third water action per turn.",
+   "notes": null,
+   "sources": [
+    "S-93",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sor-t1-03",
+   "cn_name": "不稳定气场",
+   "en_name": "Unstable Aura",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 1,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "Extra-damage passive with a low trigger rate; fallback when Water Momentum is not wanted.",
+   "notes": null,
+   "sources": [
+    "S-93",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sor-t1-04",
+   "cn_name": "魔力涌动",
+   "en_name": "Mana Surge",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 1,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "Crit filler: taken when crit rate from gear is too low, dropped once crit is capped.",
+   "notes": null,
+   "sources": [
+    "S-93",
+    "S-94",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sor-t1-05",
+   "cn_name": "凝水成冰",
+   "en_name": "Water to Ice",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 1,
+   "type": "charm",
+   "element": "Water",
+   "rarity": null,
+   "effect": "Freeze passive of the water build.",
+   "notes": null,
+   "sources": [
+    "S-93",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sor-t1-06",
+   "cn_name": "石酋",
+   "en_name": "Stonechief Summon",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 1,
+   "type": "technique",
+   "element": null,
+   "rarity": null,
+   "effect": "Tier-1 summon used only to pull enemies.",
+   "notes": null,
+   "sources": [
+    "S-93",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sor-t2-01",
+   "cn_name": "元素调和",
+   "en_name": "Elemental Harmony",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 2,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "Damage passive for mixed-element (\"fruit platter\") builds. Idle at tiers 4-5, needed again by the tier-6 mixed build together with Myriad Sigil; conflicts with Formation Breaker.",
+   "notes": null,
+   "sources": [
+    "S-93",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sor-t2-02",
+   "cn_name": "闪电链",
+   "en_name": "Lightning Chain",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 2,
+   "type": "technique",
+   "element": "Light",
+   "rarity": null,
+   "effect": "0-cooldown thunder skill; applies Shock; kiting and swing slot up to tier 6.",
+   "notes": null,
+   "sources": [
+    "S-93",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sor-t2-03",
+   "cn_name": "虚空泡影",
+   "en_name": "Void Bubble",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 2,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "Core defence passive that works through evasion, not shield size.",
+   "notes": null,
+   "sources": [
+    "S-93",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sor-t2-04",
+   "cn_name": "星辰闪烁",
+   "en_name": "Flickering Stars",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 2,
+   "type": "technique",
+   "element": "Light",
+   "rarity": null,
+   "effect": "Removes enemy buffs (for example a Knight shield) so that block can be broken.",
+   "notes": null,
+   "sources": [
+    "S-93",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sor-t2-05",
+   "cn_name": "风魔之影",
+   "en_name": "Wind's Shadow",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 2,
+   "type": "charm",
+   "element": "Wind",
+   "rarity": null,
+   "effect": "Offensive wind passive taken for extreme stage pushing.",
+   "notes": null,
+   "sources": [
+    "S-93",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sor-t2-06",
+   "cn_name": "雷电奥秘",
+   "en_name": "Lightning Mystery",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 2,
+   "type": "charm",
+   "element": "Light",
+   "rarity": null,
+   "effect": "Extra-damage passive; low trigger rate, weaker than Radiance Sear.",
+   "notes": "Also written 雷电奥义.",
+   "sources": [
+    "S-93",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sor-t3-01",
+   "cn_name": "天神怒雷",
+   "en_name": "Divine Wrath",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 3,
+   "type": "technique",
+   "element": "Light",
+   "rarity": null,
+   "effect": "2-turn cooldown multi-hit thunder; up to 16 hits on a Hieromon; AoE with target lock, at least 3 hits. Called 天雷; used from tier 3 to tier 6, retired at tier 7.",
+   "notes": null,
+   "sources": [
+    "S-92",
+    "S-93",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sor-t3-02",
+   "cn_name": "光能灼射",
+   "en_name": "Radiance Sear",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 3,
+   "type": "charm",
+   "element": "Light",
+   "rarity": null,
+   "effect": "Extra light damage on multi-hit skills and a chance to Blind. All-round damage passive from tier 3 to tier 6; replaced by Gale (烈风) at tier 7.",
+   "notes": null,
+   "sources": [
+    "S-92",
+    "S-93",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sor-t3-03",
+   "cn_name": "快速吟唱",
+   "en_name": "Rapid Cast",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 3,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "Reduces cooldown by 1 turn and adds damage. Pandarial supplies the same effect, which frees this slot.",
+   "notes": null,
+   "sources": [
+    "S-92",
+    "S-93",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sor-t3-04",
+   "cn_name": "流星火陨",
+   "en_name": "Meteoric Flames",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 3,
+   "type": "technique",
+   "element": "Fire",
+   "rarity": null,
+   "effect": "High-multiplier fire strike (\"meteor\"); at tier 8 used as the burn-tile trigger for Flame Domain. Replaced in Light-Fire builds by Dark Fire at tier 6.",
+   "notes": null,
+   "sources": [
+    "S-93",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sor-t3-05",
+   "cn_name": "抗拒之风",
+   "en_name": "Repelling Wind",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 3,
+   "type": "charm",
+   "element": "Wind",
+   "rarity": null,
+   "effect": "Knockback passive; mandatory against Duelist and Knight opponents in PvP at every tier. A \"plus\" version at tier 8 triggers reliably below 10% HP.",
+   "notes": null,
+   "sources": [
+    "S-93",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sor-t3-06",
+   "cn_name": "漩涡",
+   "en_name": "Aqua Vortex",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 3,
+   "type": "technique",
+   "element": "Water",
+   "rarity": null,
+   "effect": "1-turn-cooldown pull; drags a Decoy Clone to the boss; fits the water \"fridge\" passive.",
+   "notes": null,
+   "sources": [
+    "S-93",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sor-t3-07",
+   "cn_name": "炎爆术",
+   "en_name": "Fire Blast",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 3,
+   "type": "technique",
+   "element": "Fire",
+   "rarity": null,
+   "effect": "Used for positioning in PvP when a teammate already brings Formation Breaker.",
+   "notes": null,
+   "sources": [
+    "S-93",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sor-t3-08",
+   "cn_name": "光明化身",
+   "en_name": "Incarnation of Light",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 3,
+   "type": "charm",
+   "element": "Light",
+   "rarity": null,
+   "effect": "Light damage passive, \"nice to have\".",
+   "notes": null,
+   "sources": [
+    "S-93",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sor-t3-09",
+   "cn_name": "水龙术",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 3,
+   "type": "technique",
+   "element": "Water",
+   "rarity": null,
+   "effect": "Old multi-hit trigger with low damage; the multi-hit added-damage style is obsolete by tier 4.",
+   "notes": "Our translation: Water Dragon.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t3-10",
+   "cn_name": "风神之羽",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 3,
+   "type": "technique",
+   "element": "Wind",
+   "rarity": null,
+   "effect": "Old multi-hit trigger with low damage; obsolete by tier 4.",
+   "notes": "Our translation: Wind God's Feather.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t4-01",
+   "cn_name": "破阵之意",
+   "en_name": "Formation Breaker",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 4,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "Pure damage support: large attack bonus for the team and a chance to advance the team's action bar. Top investment priority from tier 4 to tier 8 (\"the only skill that keeps its value before tier 6\"); its base value falls at tier 8. Cannot be combined with Elemental Harmony builds; dropped against Knights.",
+   "notes": "CN guides treat it as a passive (charm); our Tier 4 page lists it as a technique from a tier D source.",
+   "sources": [
+    "S-92",
+    "S-93",
+    "S-10"
+   ]
+  },
+  {
+   "id": "cn-sor-t4-02",
+   "cn_name": "审判轰雷",
+   "en_name": "Thunder of Judgment",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 4,
+   "type": "technique",
+   "element": "Light",
+   "rarity": null,
+   "effect": "Single-target 3-hit thunder that triggers Radiance Sear; best value rainbow skill at tier 4. Replaced by Heaven's Wrath Thunder at tier 6.",
+   "notes": null,
+   "sources": [
+    "S-92",
+    "S-93",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sor-t4-03",
+   "cn_name": "火核爆裂",
+   "en_name": "Secret Fire Core Explosion",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 4,
+   "type": "charm",
+   "element": "Fire",
+   "rarity": null,
+   "effect": "Triggers an AoE when a hit crits; core of stage pushing at tiers 4-5; needs high crit rate.",
+   "notes": "CN guides describe a crit-triggered passive.",
+   "sources": [
+    "S-92",
+    "S-93",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sor-t4-04",
+   "cn_name": "过载保护",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 4,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "Gives a shield when HP drops by 15%; triggers repeatedly against many small hits. Standard survival passive through tier 7.",
+   "notes": "Our translation: Overload Protection.",
+   "sources": [
+    "S-92",
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t4-05",
+   "cn_name": "护身魔纹",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 4,
+   "type": "technique",
+   "element": null,
+   "rarity": null,
+   "effect": "Active damage reduction; slot 1 of the tier-6 all-element build.",
+   "notes": "Our translation: Protective Sigil.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t4-06",
+   "cn_name": "飓风之殇",
+   "en_name": "Cyclone Lament",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 4,
+   "type": "charm",
+   "element": "Wind",
+   "rarity": null,
+   "effect": "Raises wind damage with a chance to add Laceration; core of the tier-5 wind kiting build. One CN guide files it under tier 4, another under tier 5.",
+   "notes": null,
+   "sources": [
+    "S-92",
+    "S-93",
+    "S-11"
+   ]
+  },
+  {
+   "id": "cn-sor-t4-07",
+   "cn_name": "光辉折跃",
+   "en_name": "Radiant Warp",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 4,
+   "type": "charm",
+   "element": "Light",
+   "rarity": null,
+   "effect": "Direct damage reduction plus displacement; the skill that keeps its value longest for stage pushing and PvP; mandatory in PvP builds through tier 7.",
+   "notes": "Tier (4 or 5) not stated.",
+   "sources": [
+    "S-93",
+    "S-11"
+   ]
+  },
+  {
+   "id": "cn-sor-t5-01",
+   "cn_name": "风暴狂想",
+   "en_name": "Storm Rhapsody",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 5,
+   "type": "technique",
+   "element": "Wind",
+   "rarity": null,
+   "effect": "Very large AoE with a small knockback and a small chance of Laceration; standard stage-pushing skill once rainbow; still used at tier 8.",
+   "notes": null,
+   "sources": [
+    "S-93",
+    "S-11"
+   ]
+  },
+  {
+   "id": "cn-sor-t5-02",
+   "cn_name": "双重旋风",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 5,
+   "type": "technique",
+   "element": "Wind",
+   "rarity": null,
+   "effect": "0 cooldown, high multiplier and base value; forces the caster to step back after use.",
+   "notes": "Our translation: Double Cyclone.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t5-03",
+   "cn_name": "爆裂之灵",
+   "en_name": "Blast Spirit",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 5,
+   "type": "technique",
+   "element": "Fire",
+   "rarity": null,
+   "effect": "High damage, castable at the start of battle (\"potato mine\").",
+   "notes": "Our data also has the name Explosive Spirit; one of them.",
+   "sources": [
+    "S-93",
+    "S-11"
+   ]
+  },
+  {
+   "id": "cn-sor-t5-04",
+   "cn_name": "深红旋风",
+   "en_name": "Crimson Whirl",
+   "en_name_official": true,
+   "class": "sorcerer_line",
+   "tier": 5,
+   "type": "technique",
+   "element": "Fire",
+   "rarity": null,
+   "effect": "3-hit high-multiplier AoE, 2-turn cooldown, can trigger Fire Core.",
+   "notes": null,
+   "sources": [
+    "S-93",
+    "S-11"
+   ]
+  },
+  {
+   "id": "cn-sor-t5-05",
+   "cn_name": "燧火炎灵",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 5,
+   "type": "charm",
+   "element": "Fire",
+   "rarity": null,
+   "effect": "Core fire passive: large fire affinity and releases Blast Spirit. Nerfed at tier 6 (needs six turns for the full bonus).",
+   "notes": "Our translation: Flint Fire Spirit. Possibly the global charm Ember Flare (guess).",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t5-06",
+   "cn_name": "雷光刻印",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 5,
+   "type": "charm",
+   "element": "Light",
+   "rarity": null,
+   "effect": "Frequent small-AoE added light damage; strongest light added-damage passive through tier 6; core for Hieromon damage.",
+   "notes": "Our translation: Thunderlight Seal.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t5-07",
+   "cn_name": "百裂光爆",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 5,
+   "type": "technique",
+   "element": "Light",
+   "rarity": null,
+   "effect": "High multiplier, bounces 3 times; best against three large enemies.",
+   "notes": "Our translation: Hundred-Burst Light. Possibly the global Starlight Burst (guess).",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t5-08",
+   "cn_name": "雷弓",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 5,
+   "type": "technique",
+   "element": "Light",
+   "rarity": null,
+   "effect": "Thunder bow; applies Shock from slot 2; group-fight alternative to Light Ripple at tier 7.",
+   "notes": "Our translation: Thunder Bow (player short name).",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t5-09",
+   "cn_name": "天雷裁决",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 5,
+   "type": "technique",
+   "element": "Light",
+   "rarity": null,
+   "effect": "Thunder strike that combines with Ice Ward for a freeze-then-reflect combo.",
+   "notes": "Our translation: Thunder Verdict.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t5-10",
+   "cn_name": "冰彻灵护",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 5,
+   "type": "charm",
+   "element": "Water",
+   "rarity": null,
+   "effect": "\"Fridge\" passive: damage reduction and healing for the water front-line build.",
+   "notes": "Our translation: Ice Ward.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t5-11",
+   "cn_name": "生命之律",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 5,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "Blocks one skill hit (\"small Unyielding\"); taken against Sages and one-shot threats.",
+   "notes": "Our translation: Law of Life.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t6-01",
+   "cn_name": "天谴神雷",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 6,
+   "type": "technique",
+   "element": "Light",
+   "rarity": null,
+   "effect": "New Divine Wrath: 2-turn cooldown, 9 hits, very high damage; mandatory against Hieromon; strongest light active at tier 6.",
+   "notes": "Our translation: Heaven's Wrath Thunder (players: 神雷).",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t6-02",
+   "cn_name": "裂空风轮",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 6,
+   "type": "technique",
+   "element": "Wind",
+   "rarity": null,
+   "effect": "4 high-damage hits in a very small area; duel skill.",
+   "notes": "Our translation: Sky-Splitting Wind Wheel.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t6-03",
+   "cn_name": "极寒冰刺",
+   "en_name": "Frost Thorn",
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 6,
+   "type": "technique",
+   "element": "Water",
+   "rarity": null,
+   "effect": "High multiplier with a chance to Freeze; castable on the opening turn.",
+   "notes": "Our translation: Extreme Frost Spike. Our data lists a tier-5 technique Frost Thorn that may be this skill (guess).",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t6-04",
+   "cn_name": "灼燃暗火",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 6,
+   "type": "technique",
+   "element": "Fire",
+   "rarity": null,
+   "effect": "Applies Burn and leaves a stable 9-tile fire field; upgraded Meteoric Flames; combo with Flame-Gathering Burst.",
+   "notes": "Our translation: Burning Dark Fire (players: 暗火).",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t6-05",
+   "cn_name": "聚炎爆裂",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 6,
+   "type": "technique",
+   "element": "Fire",
+   "rarity": null,
+   "effect": "Absorbs Burn to raise its damage and breaks shields; core burst of tier 6; at tier 8 it is the last skill of the \"consume fire\" build.",
+   "notes": "Our translation: Flame-Gathering Burst. Possibly the global Fiery Burst (guess).",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t6-06",
+   "cn_name": "源水爆裂",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 6,
+   "type": "technique",
+   "element": "Water",
+   "rarity": null,
+   "effect": "Applies Wet; weaker than Extreme Frost Spike; opener that raises freeze chance.",
+   "notes": "Our translation: Source Water Burst.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t6-07",
+   "cn_name": "激流水势",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 6,
+   "type": "charm",
+   "element": "Water",
+   "rarity": null,
+   "effect": "Water Momentum: after enough water techniques it gives a large damage burst and control. Basis of the strongest ranking-damage builds at tiers 6-8; upgraded at tier 7.",
+   "notes": "Our translation: Torrent Momentum (players: 水势).",
+   "sources": [
+    "S-93",
+    "S-68"
+   ]
+  },
+  {
+   "id": "cn-sor-t6-08",
+   "cn_name": "灵火爆破",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 6,
+   "type": "charm",
+   "element": "Fire",
+   "rarity": null,
+   "effect": "Fire-spirit damage passive: takes 3 turns to start; the spirit tracks enemies within 3 tiles.",
+   "notes": "Our translation: Spirit Fire Blast.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t6-09",
+   "cn_name": "蓄流潮涌",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 6,
+   "type": "charm",
+   "element": "Water",
+   "rarity": null,
+   "effect": "Raises elemental resistance and gives action points when hit; semi-tank water passive.",
+   "notes": "Our translation: Tide Surge.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t6-10",
+   "cn_name": "狂岚风劲",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 6,
+   "type": "charm",
+   "element": "Wind",
+   "rarity": null,
+   "effect": "Raises Laceration damage; adds a Laceration stack when Airborne triggers; replaces the knockback passive against Sages.",
+   "notes": "Our translation: Gale Force.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t6-11",
+   "cn_name": "万象魔纹",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 6,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "Raises the stats of all four elements after one cast (\"Elemental Harmony Pro Max\"); the only general damage passive of tier 6 and the skill said to keep its value best; conflicts with Formation Breaker.",
+   "notes": "Our translation: Myriad Sigil.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t6-12",
+   "cn_name": "光耀聚变",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 6,
+   "type": "charm",
+   "element": "Light",
+   "rarity": null,
+   "effect": "Adds light damage; each skill cast adds a stack, 4 stacks boost the next light skill.",
+   "notes": "Our translation: Radiant Fusion.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t6-13",
+   "cn_name": "火炎生息",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 6,
+   "type": "charm",
+   "element": "Fire",
+   "rarity": null,
+   "effect": "The Sorcerer's only self-heal: heals from fire tiles (\"lay fire, regain HP\").",
+   "notes": "Our translation: Flame Respite. Tier not stated.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t7-01",
+   "cn_name": "惊雷电网",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 7,
+   "type": "technique",
+   "element": "Light",
+   "rarity": null,
+   "effect": "\"Electric Net\": 2-turn cooldown, very high multiplier, damage does not decay and is unaffected by passives. Top investment priority at tiers 7 and 8.",
+   "notes": "Our translation: Thunder Net (players: 电网).",
+   "sources": [
+    "S-93",
+    "S-92"
+   ]
+  },
+  {
+   "id": "cn-sor-t7-02",
+   "cn_name": "光澜",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 7,
+   "type": "technique",
+   "element": "Light",
+   "rarity": null,
+   "effect": "4 hits (first three deal triple damage); best on maps with many bosses.",
+   "notes": "Our translation: Light Ripple.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t7-03",
+   "cn_name": "魔纹融合",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 7,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "Tier-7 sigil: a very large amount of elemental mastery for every build; flat value, so its share shrinks late in a season. Sigils also give accuracy and crit damage.",
+   "notes": "Our translation: Sigil Fusion. Also written 魔纹通合.",
+   "sources": [
+    "S-93",
+    "S-68"
+   ]
+  },
+  {
+   "id": "cn-sor-t7-04",
+   "cn_name": "烈风",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 7,
+   "type": "charm",
+   "element": "Wind",
+   "rarity": null,
+   "effect": "Upgrade of Radiance Sear: a gold copy is about as strong as a rainbow Radiance Sear; can Cripple.",
+   "notes": "Our translation: Gale.",
+   "sources": [
+    "S-93",
+    "S-68"
+   ]
+  },
+  {
+   "id": "cn-sor-t7-05",
+   "cn_name": "魔纹水势",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 7,
+   "type": "charm",
+   "element": "Water",
+   "rarity": null,
+   "effect": "Stronger Water Momentum; with a new 0-cooldown water skill it beats the old Water Shot set-up for ranking damage.",
+   "notes": "Our translation: Sigil Water Momentum.",
+   "sources": [
+    "S-68",
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t7-06",
+   "cn_name": "灼火共鸣",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 7,
+   "type": "charm",
+   "element": "Fire",
+   "rarity": null,
+   "effect": "Fire-affinity passive.",
+   "notes": "Our translation: Searing Resonance.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t7-07",
+   "cn_name": "风袭",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 7,
+   "type": "technique",
+   "element": "Wind",
+   "rarity": null,
+   "effect": "Higher numbers than older wind skills; weak passive part; used in slot 1 or 4 to keep distance.",
+   "notes": "Our translation: Wind Raid.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t8-01",
+   "cn_name": "烬土疆域",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 8,
+   "type": "charm",
+   "element": "Fire",
+   "rarity": null,
+   "effect": "Core of tier 8: burn-field mechanic that lets fire builds deal single-target damage; triggers repeatedly from fire tiles. First skill to take to rainbow.",
+   "notes": "Our translation: Ashland Domain (players: 疆域).",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t8-02",
+   "cn_name": "烬灭烈火",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 8,
+   "type": "technique",
+   "element": "Fire",
+   "rarity": null,
+   "effect": "Strong AoE follow-up damage that cannot trigger passives; cast after fire-laying skills; mandatory for PvE.",
+   "notes": "Our translation: Ash-Ending Blaze.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t8-03",
+   "cn_name": "炎域守护",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 8,
+   "type": "charm",
+   "element": "Fire",
+   "rarity": null,
+   "effect": "Flame Domain guard: 4-tile range, up to +300% at full stacks and large damage reduction.",
+   "notes": "Our translation: Flame Domain Guard.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t8-04",
+   "cn_name": "烈火燎原",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 8,
+   "type": "technique",
+   "element": "Fire",
+   "rarity": null,
+   "effect": "Wide fire-laying skill; optional AoE slot.",
+   "notes": "Our translation: Prairie Fire. Tier unclear in the source.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t8-05",
+   "cn_name": "焦土狱焰",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 8,
+   "type": "technique",
+   "element": "Fire",
+   "rarity": null,
+   "effect": "2-turn cooldown, low damage; rated weak.",
+   "notes": "Our translation: Scorched Hellflame.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t8-06",
+   "cn_name": "凤凰蛋",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 8,
+   "type": "charm",
+   "element": "Fire",
+   "rarity": null,
+   "effect": "Absorbs nearby fire and revives at 50% HP after about 2 idle turns; group PvP and PvE survival.",
+   "notes": "Player nickname \"phoenix egg\"; real name not given.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t8-07",
+   "cn_name": "辉光脉冲",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 8,
+   "type": "technique",
+   "element": "Light",
+   "rarity": null,
+   "effect": "No damage; applies Blind (rainbow copy); PvP only, not advised for low spenders.",
+   "notes": "Our translation: Radiance Pulse.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t8-08",
+   "cn_name": "霜缚之环",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 8,
+   "type": "technique",
+   "element": "Water",
+   "rarity": null,
+   "effect": "Large AoE that can Root; boosted by Water Momentum.",
+   "notes": "Our translation: Frostbind Ring.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t8-09",
+   "cn_name": "凛冬霜袭",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 8,
+   "type": "technique",
+   "element": "Water",
+   "rarity": null,
+   "effect": "Mid-size AoE with about 40% base Freeze chance.",
+   "notes": "Our translation: Winter Frost Raid.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t8-10",
+   "cn_name": "冰寒霜破",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 8,
+   "type": "technique",
+   "element": "Water",
+   "rarity": null,
+   "effect": "0 cooldown; counts as two skills toward Water Momentum.",
+   "notes": "Our translation: Frost Break.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t8-11",
+   "cn_name": "霜流之契",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 8,
+   "type": "charm",
+   "element": "Water",
+   "rarity": null,
+   "effect": "Root and Frost Mark plus a damage increase; mandatory for water builds.",
+   "notes": "Our translation: Frostflow Pact.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t8-12",
+   "cn_name": "液化身躯",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 8,
+   "type": "charm",
+   "element": "Water",
+   "rarity": null,
+   "effect": "Base damage reduction, and part of incoming damage (10%, +5% per extra offensive water technique, 30% with four) is deferred over three turns; prevents one-shots; preferred in PvP.",
+   "notes": "Our translation: Liquefied Body.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t8-13",
+   "cn_name": "斥退之风",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 8,
+   "type": "charm",
+   "element": "Wind",
+   "rarity": null,
+   "effect": "For every 10% of HP lost, damages nearby enemies and knocks them back; triggers many times; main stage-pushing damage source of wind builds at tier 8.",
+   "notes": "Our translation: Wind of Repulsion.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t8-14",
+   "cn_name": "无常风刃",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 8,
+   "type": "technique",
+   "element": "Wind",
+   "rarity": null,
+   "effect": "0 cooldown, 1-3 random hits, mostly Laceration damage.",
+   "notes": "Our translation: Fickle Wind Blade.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sor-t8-15",
+   "cn_name": "影逐光罚",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sorcerer_line",
+   "tier": 8,
+   "type": "charm",
+   "element": "Light",
+   "rarity": null,
+   "effect": "6-tile pull-style passive used with the old Repelling Wind against Duelists and Knights.",
+   "notes": "Our translation: Shadow-Chasing Light.",
+   "sources": [
+    "S-93"
+   ]
+  },
+  {
+   "id": "cn-sag-t2-01",
+   "cn_name": "暗影侵蚀",
+   "en_name": "Shadow Erosion",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 2,
+   "type": "charm",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "Erosion (damage-over-time) passive; core of the Shadow Priest erosion build from tier 2; still required by the tier-7 group erosion charm.",
+   "notes": null,
+   "sources": [
+    "S-92",
+    "S-94",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sag-t2-02",
+   "cn_name": "暗影弹",
+   "en_name": "Dark Bullet",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 2,
+   "type": "technique",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "Erosion-build filler active.",
+   "notes": null,
+   "sources": [
+    "S-94",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sag-t2-03",
+   "cn_name": "治愈精通",
+   "en_name": "Healing Mastery",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 2,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "Large healing bonus; healer passive through tier 8.",
+   "notes": null,
+   "sources": [
+    "S-94",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sag-t2-04",
+   "cn_name": "亡者复苏",
+   "en_name": "Resurrection",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 2,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "Revives a fallen ally; taken by healers in dungeons at every tier.",
+   "notes": null,
+   "sources": [
+    "S-94",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sag-t3-01",
+   "cn_name": "厄运链接",
+   "en_name": "Linked Misfortune",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 3,
+   "type": "charm",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "Erosion-spread passive (fixed 60% chance after a rework).",
+   "notes": null,
+   "sources": [
+    "S-92",
+    "S-94",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sag-t3-02",
+   "cn_name": "超量治疗",
+   "en_name": "Overhealing",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 3,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "Overheal passive for healers.",
+   "notes": null,
+   "sources": [
+    "S-92",
+    "S-94",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sag-t3-03",
+   "cn_name": "唤灵·水妖",
+   "en_name": "Waterling Summon",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 3,
+   "type": "technique",
+   "element": "Water",
+   "rarity": null,
+   "effect": "Summon that heals the whole team and dispels; used by all three Sage styles; still a utility pick at tier 7.",
+   "notes": null,
+   "sources": [
+    "S-92",
+    "S-94",
+    "S-68",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sag-t3-04",
+   "cn_name": "暗影复仇",
+   "en_name": "Shadow Vengeance",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 3,
+   "type": "charm",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "After death: large damage bonus and a short revival (\"Revenge\"). Core of direct-damage builds from tier 3 to tier 8.",
+   "notes": null,
+   "sources": [
+    "S-92",
+    "S-94",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sag-t3-05",
+   "cn_name": "终结之影",
+   "en_name": "Shadow of Termination",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 3,
+   "type": "technique",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "Detonates Erosion stacks; finisher of the erosion build.",
+   "notes": null,
+   "sources": [
+    "S-94",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sag-t3-06",
+   "cn_name": "暗夜赐福",
+   "en_name": "Night's Blessing",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 3,
+   "type": "charm",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "Dark-affinity passive; overtaken by Shadow-Devouring Undercurrent at tier 5.",
+   "notes": null,
+   "sources": [
+    "S-94",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sag-t3-07",
+   "cn_name": "狂热图腾",
+   "en_name": "Frenzy Totem",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 3,
+   "type": "technique",
+   "element": null,
+   "rarity": null,
+   "effect": "Totem that triggers Soul Pact Resonance and advances the action bar.",
+   "notes": null,
+   "sources": [
+    "S-94",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sag-t3-08",
+   "cn_name": "深渊之手",
+   "en_name": "Abyssal Hand",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 3,
+   "type": "technique",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "Damage active swapped in when healing is not needed.",
+   "notes": null,
+   "sources": [
+    "S-94",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sag-t3-09",
+   "cn_name": "魔能爆破",
+   "en_name": "Mana Blast",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 3,
+   "type": "technique",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "Direct-damage active of the tier-3 kit.",
+   "notes": null,
+   "sources": [
+    "S-94",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sag-t4-01",
+   "cn_name": "灵契共鸣",
+   "en_name": "Soul Pact Resonance",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 4,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "One of the strongest damage passives in the game: large attack bonus while a summon is alive (about +40-50% late, near double early when rainbow). Top voucher target at tier 4 and still central at tier 8.",
+   "notes": null,
+   "sources": [
+    "S-92",
+    "S-94",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sag-t4-02",
+   "cn_name": "幻光秘策",
+   "en_name": "Phantom Light Strategy",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 4,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "Turns overflow healing into shields; healer core; only healers should invest.",
+   "notes": null,
+   "sources": [
+    "S-92",
+    "S-94",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sag-t4-03",
+   "cn_name": "真言祝福",
+   "en_name": "Mantra of Blessings",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 4,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "Direct damage buff, can target self or a teammate; used through tier 7 in support set-ups.",
+   "notes": null,
+   "sources": [
+    "S-92",
+    "S-94",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sag-t4-04",
+   "cn_name": "异化效应",
+   "en_name": "Aberrancy",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 4,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "The Sage's damage-reduction passive at tiers 4-5; weak against enemies that cannot be poisoned.",
+   "notes": null,
+   "sources": [
+    "S-94",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sag-t4-05",
+   "cn_name": "回天雨滴",
+   "en_name": "Rejuvenating Rain",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 4,
+   "type": "technique",
+   "element": null,
+   "rarity": null,
+   "effect": "Only 0-cooldown heal (single target); triggers Overhealing.",
+   "notes": "Also written 回天雨露.",
+   "sources": [
+    "S-92",
+    "S-94",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sag-t4-06",
+   "cn_name": "唤灵：岩帝",
+   "en_name": "Rock Rex Summon",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 4,
+   "type": "technique",
+   "element": null,
+   "rarity": null,
+   "effect": "Tank summon with good HP and defence, low speed.",
+   "notes": null,
+   "sources": [
+    "S-94",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sag-t4-07",
+   "cn_name": "暗星爆裂",
+   "en_name": "Dark Star Burst",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 4,
+   "type": "technique",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "Single target, 3 hits, 1-turn cooldown; mandatory in the erosion direct-damage build at tier 4.",
+   "notes": null,
+   "sources": [
+    "S-94",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sag-t4-08",
+   "cn_name": "映射替身",
+   "en_name": "Decoy Clone",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 4,
+   "type": "technique",
+   "element": null,
+   "rarity": null,
+   "effect": "\"Scarecrow\": decoy with 60% of the caster's stats; boss raids and PvP; called one of the Sage's two over-tuned mechanic skills even at tier 8.",
+   "notes": null,
+   "sources": [
+    "S-94",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sag-t4-09",
+   "cn_name": "混沌咒文",
+   "en_name": "Chaos Rune",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 4,
+   "type": "technique",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "2-turn cooldown damage active; only useful at tier 4.",
+   "notes": null,
+   "sources": [
+    "S-94",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sag-t4-10",
+   "cn_name": "灵能庇护",
+   "en_name": "Spirit Aegis",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 4,
+   "type": "technique",
+   "element": null,
+   "rarity": null,
+   "effect": "Rated useless at tier 4.",
+   "notes": null,
+   "sources": [
+    "S-94",
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sag-t4-11",
+   "cn_name": "暗星降临",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 4,
+   "type": "technique",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "Random stat buff; do not invest.",
+   "notes": "Our translation: Dark Star Descent.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t4-12",
+   "cn_name": "灵契疗愈",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 4,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "Summon-related heal; rated useless.",
+   "notes": "Our translation: Soul Pact Healing.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t5-01",
+   "cn_name": "咒术爆破",
+   "en_name": "Hexed Blast",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 5,
+   "type": "technique",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "Core AoE of tier 5: 4 hits, full damage only when the target has three different debuffs. Later nerfed because it stacked poison.",
+   "notes": null,
+   "sources": [
+    "S-94",
+    "S-11"
+   ]
+  },
+  {
+   "id": "cn-sag-t5-02",
+   "cn_name": "灵魂收割",
+   "en_name": "Soul Reap",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 5,
+   "type": "technique",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "Direct-damage finisher; damage rises as enemy HP falls; last slot.",
+   "notes": null,
+   "sources": [
+    "S-94",
+    "S-11"
+   ]
+  },
+  {
+   "id": "cn-sag-t5-03",
+   "cn_name": "绝境幽影",
+   "en_name": "Desperate Shadow",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 5,
+   "type": "technique",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "Shadow Priest core damage with a random debuff; still used with the tier-7 link mechanic.",
+   "notes": null,
+   "sources": [
+    "S-94",
+    "S-11"
+   ]
+  },
+  {
+   "id": "cn-sag-t5-04",
+   "cn_name": "唤灵：海皇",
+   "en_name": "Thalasson Summon",
+   "en_name_official": true,
+   "class": "sage_line",
+   "tier": 5,
+   "type": "technique",
+   "element": "Water",
+   "rarity": null,
+   "effect": "Very high-damage, very fragile summon (50% of base HP); best trigger for Soul Pact Resonance when chasing damage.",
+   "notes": null,
+   "sources": [
+    "S-94",
+    "S-11"
+   ]
+  },
+  {
+   "id": "cn-sag-t5-05",
+   "cn_name": "影噬暗流",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 5,
+   "type": "charm",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "More dark affinity than Night's Blessing and explodes on kill; carried by almost every damage build.",
+   "notes": "Our translation: Shadow-Devouring Undercurrent. Also written 影蚀暗流.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t5-06",
+   "cn_name": "恶兆之环",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 5,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "Lowers effect resistance and applies 25% Vulnerability; used by every build; needs a high rarity for the erosion build.",
+   "notes": "Our translation: Ring of Ill Omen.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t5-07",
+   "cn_name": "辐光律动",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 5,
+   "type": "technique",
+   "element": null,
+   "rarity": null,
+   "effect": "Best heal of tier 5: bounces between targets.",
+   "notes": "Our translation: Radiant Rhythm.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t5-08",
+   "cn_name": "重生灵液",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 5,
+   "type": "technique",
+   "element": null,
+   "rarity": null,
+   "effect": "Healing potion skill for short fights (potion cap later raised to 5).",
+   "notes": "Our translation: Rebirth Elixir.",
+   "sources": [
+    "S-94",
+    "S-97"
+   ]
+  },
+  {
+   "id": "cn-sag-t5-09",
+   "cn_name": "聚灵奇术",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 5,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "Summoner core; high damage but slow to start (2-3 turns).",
+   "notes": "Our translation: Spirit-Gathering Art.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t5-10",
+   "cn_name": "虚空言灵",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 5,
+   "type": "technique",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "PvP-oriented, unused at tier 5.",
+   "notes": "Our translation: Void Word.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t5-11",
+   "cn_name": "唤灵契约",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 5,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "Summon passive of little value.",
+   "notes": "Our translation: Summoning Contract.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t5-12",
+   "cn_name": "咒蚀冥铠",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 5,
+   "type": "charm",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "Applies Erosion to attackers; PvP pick for long fights.",
+   "notes": "Our translation: Hex-Eroding Armour.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t6-01",
+   "cn_name": "幽影魂甲",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 6,
+   "type": "charm",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "The only direct damage-reduction passive; general defensive core.",
+   "notes": "Our translation: Shadow Soul Armour.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t6-02",
+   "cn_name": "真理冥契",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 6,
+   "type": "charm",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "Lifesteal and damage after 8 skill casts including dark skills; sustain for stage pushing; a tier-6 skill that only becomes worth using at tier 8.",
+   "notes": "Our translation: Truth Covenant.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t6-03",
+   "cn_name": "虚无侵袭",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 6,
+   "type": "technique",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "\"Dart\": 0 cooldown, 2 Erosion applications; erosion core.",
+   "notes": "Our translation: Void Assault.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t6-04",
+   "cn_name": "真言审判",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 6,
+   "type": "technique",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "\"Cross\": direct-damage core, 2-turn cooldown.",
+   "notes": "Our translation: Verdict of Truth.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t6-05",
+   "cn_name": "祭夜法阵",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 6,
+   "type": "technique",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "Erosion AoE; opener at tier 8 for double hits and fast stacking.",
+   "notes": "Our translation: Night Rite Circle.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t6-06",
+   "cn_name": "疗愈之辉",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 6,
+   "type": "technique",
+   "element": null,
+   "rarity": null,
+   "effect": "Group heal plus group dispel; healer core.",
+   "notes": "Our translation: Radiance of Healing.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t6-07",
+   "cn_name": "唤灵：暗影",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 6,
+   "type": "technique",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "Summoner AoE source.",
+   "notes": "Our translation: Summon: Shadow.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t6-08",
+   "cn_name": "唤灵：炎龙",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 6,
+   "type": "technique",
+   "element": "Fire",
+   "rarity": null,
+   "effect": "Summoner AoE source.",
+   "notes": "Our translation: Summon: Flame Dragon.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t6-09",
+   "cn_name": "唤灵秘语",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 6,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "Raises summon attack and advances the Fantomon's action bar; summoner core.",
+   "notes": "Our translation: Summoner's Whisper.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t6-10",
+   "cn_name": "咒影律令",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 6,
+   "type": "charm",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "New erosion passive with a low trigger rate.",
+   "notes": "Our translation: Hex-Shadow Decree.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t6-11",
+   "cn_name": "灵契秘咒",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 6,
+   "type": "charm",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "Dark damage next to summons; low numbers.",
+   "notes": "Our translation: Soul Pact Incantation.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t6-12",
+   "cn_name": "真贤庇护",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 6,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "Healer damage-reduction buff with strict conditions (faster than the ally, 50%, 1 turn).",
+   "notes": "Our translation: True Sage's Protection.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t7-01",
+   "cn_name": "咒影连携",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 7,
+   "type": "charm",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "\"Link\": each debuff applied by a technique has about a 50% chance to deal direct damage. The main direct-damage source at tiers 7 and 8 and the core of the merged \"debuff Sage\" style.",
+   "notes": "Our translation: Hex-Shadow Link.",
+   "sources": [
+    "S-94",
+    "S-68"
+   ]
+  },
+  {
+   "id": "cn-sag-t7-02",
+   "cn_name": "狂噬咒文",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 7,
+   "type": "technique",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "0-cooldown group debuff; core of the link build.",
+   "notes": "Our translation: Devouring Hex.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t7-03",
+   "cn_name": "夜影游魂",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 7,
+   "type": "technique",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "Bouncing group direct damage, multi-hit on large enemies; rainbow full stacks about 550%.",
+   "notes": "Our translation: Night-Shadow Wraith.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t7-04",
+   "cn_name": "暗蚀瞬爆",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 7,
+   "type": "technique",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "Single-target debuff plus damage; fits all three styles; cannot lock large enemies.",
+   "notes": "Our translation: Dark Erosion Burst.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t7-05",
+   "cn_name": "侵魂蚀骨",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 7,
+   "type": "charm",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "Group erosion passive; needs the tier-2 and tier-3 erosion charms beside it.",
+   "notes": "Our translation: Soul Erosion.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t7-06",
+   "cn_name": "唤灵：灵铠",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 7,
+   "type": "technique",
+   "element": null,
+   "rarity": null,
+   "effect": "Spirit Armour summon: 0 cooldown, 100% taunt in PvE, gives block (50) and block resistance (75); protects the party better than a Knight companion.",
+   "notes": "Our translation: Summon: Spirit Armour.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t7-07",
+   "cn_name": "守护图腾",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 7,
+   "type": "technique",
+   "element": null,
+   "rarity": null,
+   "effect": "Guardian Totem: team utility in group PvP; paired with Spirit Armour for stage pushing.",
+   "notes": "Our translation: Guardian Totem.",
+   "sources": [
+    "S-94",
+    "S-68"
+   ]
+  },
+  {
+   "id": "cn-sag-t7-08",
+   "cn_name": "仁心之愿",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 7,
+   "type": "technique",
+   "element": null,
+   "rarity": null,
+   "effect": "Healer utility added at tier 7.",
+   "notes": "Our translation: Benevolent Wish.",
+   "sources": [
+    "S-94",
+    "S-68"
+   ]
+  },
+  {
+   "id": "cn-sag-t7-09",
+   "cn_name": "唤灵凝魂",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 7,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "Summon sustain passive for long fights.",
+   "notes": "Our translation: Soul-Binding Summon.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t8-01",
+   "cn_name": "三相魔弹",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 8,
+   "type": "technique",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "2-turn cooldown, high numbers, applies debuffs and triggers Link; random targeting; highest rainbow priority (already nerfed in testing).",
+   "notes": "Our translation: Triphase Bolt.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t8-02",
+   "cn_name": "夜穹落辉",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 8,
+   "type": "technique",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "AoE, 1-turn cooldown, applies Eternal Night (永夜: the tier-8 replacement for Erosion, 8 turns, last 4 doubled); mandatory for stage pushing.",
+   "notes": "Our translation: Night-Sky Falling Light.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t8-03",
+   "cn_name": "暗涌穿行",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 8,
+   "type": "technique",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "0 cooldown, 1x5 line, about 40% base chance of Eternal Night; triggers Link often.",
+   "notes": "Our translation: Undercurrent Passage.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t8-04",
+   "cn_name": "命运叠罚",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 8,
+   "type": "technique",
+   "element": null,
+   "rarity": null,
+   "effect": "Target-locked; gives the enemy a stacking mark; decent multiplier without stacks; does not trigger Link.",
+   "notes": "Our translation: Fate's Stacked Punishment.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t8-05",
+   "cn_name": "双生回元",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 8,
+   "type": "technique",
+   "element": null,
+   "rarity": null,
+   "effect": "0-cooldown double heal; healers take it to rainbow.",
+   "notes": "Our translation: Twin Restoration.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t8-06",
+   "cn_name": "唤灵：汐卫",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 8,
+   "type": "technique",
+   "element": "Water",
+   "rarity": null,
+   "effect": "Damage summon without a turn limit; summoner style is weak at tier 8.",
+   "notes": "Our translation: Summon: Tide Guard.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t8-07",
+   "cn_name": "咒影回响",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 8,
+   "type": "charm",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "+8% attack per stack up to 5 (40%) and effect accuracy; obtained from the codex; rainbow early.",
+   "notes": "Our translation: Hex-Shadow Echo.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t8-08",
+   "cn_name": "临界祈佑",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 8,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "Healer version of the Knight's team-protection passives; very strong; active from the codex unlock.",
+   "notes": "Our translation: Threshold Prayer.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t8-09",
+   "cn_name": "慈怀固佑",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 8,
+   "type": "charm",
+   "element": null,
+   "rarity": null,
+   "effect": "Healer-only damage reduction for group PvP.",
+   "notes": "Our translation: Merciful Ward.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t8-10",
+   "cn_name": "夜辉流转",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 8,
+   "type": "charm",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "Group self-heal (about 6% healing at 30 stacks); rated weak.",
+   "notes": "Our translation: Night-Glow Flow.",
+   "sources": [
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sag-t8-11",
+   "cn_name": "幻影奇术",
+   "en_name": null,
+   "en_name_official": false,
+   "class": "sage_line",
+   "tier": 8,
+   "type": "charm",
+   "element": "Dark",
+   "rarity": null,
+   "effect": "Summons a fragile Shadow Fiend; rated weak.",
+   "notes": "Our translation: Phantom Art.",
+   "sources": [
+    "S-94"
+   ]
+  }
+ ]
+}

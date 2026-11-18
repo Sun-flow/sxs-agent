@@ -1,0 +1,512 @@
+{
+ "_meta": {
+  "description": "Recurring, seasonal and limited events of Sword x Staff with schedule, currency, party need and best free-to-play choice; plus the weekly Grand Treasure Hunt calendar from the SOF guides (server day derived from Loong Haven = day 47 = 2026-09-23). null = unknown.",
+  "sources": [
+   "S-01",
+   "S-02",
+   "S-03",
+   "S-42",
+   "S-43",
+   "S-44",
+   "S-46",
+   "S-47",
+   "R-024",
+   "R-051",
+   "R-094",
+   "R-096",
+   "R-097",
+   "R-098",
+   "R-099",
+   "R-111",
+   "R-114",
+   "R-121",
+   "R-147",
+   "S-80",
+   "S-85",
+   "S-87"
+  ],
+  "updated": "2026-11-18"
+ },
+ "events": [
+  {
+   "id": "grand-treasure-hunt",
+   "name": "Grand Treasure Hunt",
+   "category": "recurring",
+   "schedule": "Every Saturday (first on server day 8, then every 7 days); unique relic on alternate weeks",
+   "unlock_level": null,
+   "currency": "Aurodrasil Energy",
+   "party": "solo",
+   "best_f2p_choice": "Save on SAVE weeks; buy Lucky Statue or Primal Gem (Level 5) on MUST BUY weeks",
+   "notes": "Five reward Levels (also called floors or stages). About 3,240 Energy clears Levels 1 to 5; a free player gathers about 4,440 in two weeks or 5,640 in three. Level 5 order: left item (unique relic), far right, middle. Reward cycle: Mythic relic box, Lucky Statue, skill shards x180, Primal Gem. Before Loong Haven a free player skips hunts 1 and 3 and takes 2 and 5. Mini-games: Bingo Draw, Lucky Scratch, Feneck's Puzzle [S-85].",
+   "sources": [
+    "S-01",
+    "S-02",
+    "S-43",
+    "S-85"
+   ]
+  },
+  {
+   "id": "chaos-invasion",
+   "name": "Chaos Invasion",
+   "category": "recurring",
+   "schedule": "Recurring, starts after a 7-day countdown; alternates Sundays with Void Rift",
+   "unlock_level": 50,
+   "currency": "Chaos Shards (entry, cap 100), Chaos Crystals (merchant)",
+   "party": "4 recommended: 1 damage dealer + 3 supports, rotate over 4 runs",
+   "best_f2p_choice": "Buy only the Primal Forge from the Mysterious Merchant until maxed; otherwise dismiss him and save crystals",
+   "notes": "Ranking is per class. Rank 1: 30 Primal Forge Shards, 20 Covenite, 20 Legendary Auroral Badges, 200 Chaos Crystals; rank 501+: 8 Covenite, 100 Chaos Crystals. Boss has very low armor. Companions not allowed.",
+   "sources": [
+    "S-01",
+    "S-03",
+    "S-42",
+    "S-85"
+   ]
+  },
+  {
+   "id": "void-rift",
+   "name": "Void Rift",
+   "category": "recurring",
+   "schedule": "Every other Sunday, alternating with Chaos Invasion; 24-hour window, 10 attempts",
+   "unlock_level": 50,
+   "currency": null,
+   "party": "up to 4 (1 healer, 1 tank, 2 DPS)",
+   "best_f2p_choice": "Use all 10 reward attempts in a group; aim for floors 3-5",
+   "notes": "Up to 5 floors; next floor decided by a roll; relic rewards up to Mythic.",
+   "sources": [
+    "S-42",
+    "S-43",
+    "R-094",
+    "S-85"
+   ]
+  },
+  {
+   "id": "wheel-of-destiny",
+   "name": "Wheel of Destiny",
+   "category": "recurring",
+   "schedule": "Any time with Lucky Tickets; one free spin per map wheel while its zone is unexplored",
+   "unlock_level": null,
+   "currency": "Lucky Ticket",
+   "party": "solo",
+   "best_f2p_choice": "Priority: Skill Shard Vouchers > Gateway Keys and Auroral Elemental Badges > Legendary Auroral Badges, Covenite, Bond Trinkets > Legendary Fantomon resources, 2888 Dawnium, extra Lucky Tickets",
+   "notes": "Lucky Ticket in Guild Shop: 1.5K Guild Tokens, limit 1 per week.",
+   "sources": [
+    "S-01",
+    "R-147",
+    "R-114"
+   ]
+  },
+  {
+   "id": "daily-sign-in",
+   "name": "Daily Sign-in",
+   "category": "sign_in",
+   "schedule": "Daily, 30-tile calendar; reset 8:00 UTC-5",
+   "unlock_level": null,
+   "currency": null,
+   "party": "solo",
+   "best_f2p_choice": "Claim today's tile; never Catch Up",
+   "notes": null,
+   "sources": [
+    "R-097",
+    "R-024"
+   ]
+  },
+  {
+   "id": "growth-trial",
+   "name": "Growth Trial",
+   "category": "new_account",
+   "schedule": "First 19 days",
+   "unlock_level": null,
+   "currency": "Trial points (chest track 100-700)",
+   "party": "solo",
+   "best_f2p_choice": "Claim free trial quests; never Advanced Trial",
+   "notes": null,
+   "sources": [
+    "R-098"
+   ]
+  },
+  {
+   "id": "dawnstar-prelude",
+   "name": "Dawnstar Prelude",
+   "category": "featured",
+   "schedule": "Featured card in Thrilling Events",
+   "unlock_level": null,
+   "currency": null,
+   "party": "solo",
+   "best_f2p_choice": "None for the bot (gacha draws)",
+   "notes": "Contents not documented.",
+   "sources": [
+    "R-096"
+   ]
+  },
+  {
+   "id": "pilgrimage-pass",
+   "name": "Pilgrimage (battle pass)",
+   "category": "battle_pass",
+   "schedule": "Normal passes and rotating Season passes; 70 tiers",
+   "unlock_level": null,
+   "currency": "Pilgrimage Points",
+   "party": "solo",
+   "best_f2p_choice": "Free lane only; do not buy the pass or skip tiers (100 Dawnium per tier)",
+   "notes": "70 tiers; 16 Normal and 4 Season passes; buying the premium lane later pays out the tiers already passed; Season pass headline is a chosen Legendary Fantomon [S-80]. Free-lane rewards not listed.",
+   "sources": [
+    "S-46",
+    "R-121",
+    "S-80"
+   ]
+  },
+  {
+   "id": "journey-overture",
+   "name": "Journey Overture",
+   "category": "seasonal",
+   "schedule": "19 May to 1 June 2026 (launch)",
+   "unlock_level": null,
+   "currency": "Overture Badges, Overture Tickets",
+   "party": "solo",
+   "best_f2p_choice": "14-day sign-in (Visage: Salted Splash), free quests, exchange shop",
+   "notes": "Parts: Overture Sign-In, Outfit, Shuffle, Prize Punch, Shop, Packs.",
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "haunted-carnival",
+   "name": "Haunted Carnival",
+   "category": "seasonal",
+   "schedule": "Seen running to 14 November 2026 on our server",
+   "unlock_level": null,
+   "currency": null,
+   "party": "solo",
+   "best_f2p_choice": "Daily Carnival Sign-In",
+   "notes": "Halloween event; Mall packs are paid.",
+   "sources": [
+    "R-051",
+    "R-096",
+    "R-121"
+   ]
+  },
+  {
+   "id": "voice-of-kanstein",
+   "name": "Voice of Kanstein: Live Everywhere",
+   "category": "limited",
+   "schedule": "19 May to 2 June 2026, 13:00 UTC (web event)",
+   "unlock_level": null,
+   "currency": null,
+   "party": "solo",
+   "best_f2p_choice": "Free draws for sharing",
+   "notes": null,
+   "sources": [
+    "S-47"
+   ]
+  },
+  {
+   "id": "konosuba-collab",
+   "name": "KonoSuba collaboration",
+   "category": "limited",
+   "schedule": "Live 5 June 2026",
+   "unlock_level": null,
+   "currency": null,
+   "party": "solo",
+   "best_f2p_choice": null,
+   "notes": "Milestones reported to pay Stellatie.",
+   "sources": [
+    "S-43",
+    "S-44"
+   ]
+  },
+  {
+   "id": "mollys-deals",
+   "name": "Molly's Deals",
+   "category": "recurring",
+   "schedule": "Weekly, up to 10 purchases; found through the friends list (orange house mark)",
+   "unlock_level": null,
+   "currency": "Dawnium and others",
+   "party": "solo",
+   "best_f2p_choice": "Check through the week; discounted Stellatie, Covenite, relic gacha badges",
+   "notes": null,
+   "sources": [
+    "S-01"
+   ]
+  },
+  {
+   "id": "guild-clash",
+   "name": "Guild Clash",
+   "category": "guild",
+   "schedule": "Unlocked 2026-11-12 on our server; schedule unknown",
+   "unlock_level": null,
+   "currency": null,
+   "party": "guild",
+   "best_f2p_choice": null,
+   "notes": "Format and rewards unknown.",
+   "sources": [
+    "R-111"
+   ]
+  },
+  {
+   "id": "crucible-of-hieromon",
+   "name": "Crucible of Hieromon",
+   "category": "daily_event",
+   "schedule": "Daily event; weekly achievement resets Monday 8:00 UTC-5",
+   "unlock_level": null,
+   "currency": null,
+   "party": "6 players",
+   "best_f2p_choice": null,
+   "notes": "10 rounds, boss with 200 life bars.",
+   "sources": [
+    "S-42",
+    "R-099"
+   ]
+  },
+  {
+   "id": "treasure-hunt-s1-3",
+   "name": "Grand Treasure Hunt S1 #3",
+   "category": "treasure_hunt_week",
+   "schedule": "2026-08-29 on the SOF guide author's server",
+   "server_day": 22,
+   "call": "save",
+   "unique_item": null,
+   "side_activity": "Lucky Scratch",
+   "unlock_level": null,
+   "currency": null,
+   "party": "solo",
+   "best_f2p_choice": "spend nothing, save currency",
+   "notes": null,
+   "sources": [
+    "S-01"
+   ]
+  },
+  {
+   "id": "treasure-hunt-s1-4",
+   "name": "Grand Treasure Hunt S1 #4",
+   "category": "treasure_hunt_week",
+   "schedule": "2026-09-05 on the SOF guide author's server",
+   "server_day": 29,
+   "call": "must_buy",
+   "unique_item": "Primal Gem",
+   "side_activity": "Feneck's Puzzle",
+   "unlock_level": null,
+   "currency": null,
+   "party": "solo",
+   "best_f2p_choice": "buy the unique relic",
+   "notes": null,
+   "sources": [
+    "S-01"
+   ]
+  },
+  {
+   "id": "treasure-hunt-s1-5",
+   "name": "Grand Treasure Hunt S1 #5",
+   "category": "treasure_hunt_week",
+   "schedule": "2026-09-12 on the SOF guide author's server",
+   "server_day": 36,
+   "call": "save",
+   "unique_item": null,
+   "side_activity": "Bingo Draw",
+   "unlock_level": null,
+   "currency": null,
+   "party": "solo",
+   "best_f2p_choice": "spend nothing, save currency",
+   "notes": null,
+   "sources": [
+    "S-01"
+   ]
+  },
+  {
+   "id": "treasure-hunt-s1-6",
+   "name": "Grand Treasure Hunt S1 #6",
+   "category": "treasure_hunt_week",
+   "schedule": "2026-09-19 on the SOF guide author's server",
+   "server_day": 43,
+   "call": "must_buy",
+   "unique_item": "Lucky Statue",
+   "side_activity": "Lucky Scratch",
+   "unlock_level": null,
+   "currency": null,
+   "party": "solo",
+   "best_f2p_choice": "buy the unique relic",
+   "notes": null,
+   "sources": [
+    "S-01"
+   ]
+  },
+  {
+   "id": "treasure-hunt-s2-1",
+   "name": "Grand Treasure Hunt S2 #1",
+   "category": "treasure_hunt_week",
+   "schedule": "2026-09-26 on the SOF guide author's server",
+   "server_day": 50,
+   "call": "save",
+   "unique_item": "4th Job Skill Fragment",
+   "side_activity": "Feneck's Puzzle",
+   "unlock_level": null,
+   "currency": null,
+   "party": "solo",
+   "best_f2p_choice": "spend nothing, save currency",
+   "notes": null,
+   "sources": [
+    "S-02"
+   ]
+  },
+  {
+   "id": "treasure-hunt-s2-2",
+   "name": "Grand Treasure Hunt S2 #2",
+   "category": "treasure_hunt_week",
+   "schedule": "2026-10-03 on the SOF guide author's server",
+   "server_day": 57,
+   "call": "must_buy",
+   "unique_item": "Primal Gem",
+   "side_activity": "Bingo Draw",
+   "unlock_level": null,
+   "currency": null,
+   "party": "solo",
+   "best_f2p_choice": "buy the unique relic",
+   "notes": null,
+   "sources": [
+    "S-02"
+   ]
+  },
+  {
+   "id": "treasure-hunt-s2-3",
+   "name": "Grand Treasure Hunt S2 #3",
+   "category": "treasure_hunt_week",
+   "schedule": "2026-10-10 on the SOF guide author's server",
+   "server_day": 64,
+   "call": "save",
+   "unique_item": "Loong Haven Mythic Relic Selection",
+   "side_activity": "Lucky Scratch",
+   "unlock_level": null,
+   "currency": null,
+   "party": "solo",
+   "best_f2p_choice": "spend nothing, save currency",
+   "notes": null,
+   "sources": [
+    "S-02"
+   ]
+  },
+  {
+   "id": "treasure-hunt-s2-4",
+   "name": "Grand Treasure Hunt S2 #4",
+   "category": "treasure_hunt_week",
+   "schedule": "2026-10-17 on the SOF guide author's server",
+   "server_day": 71,
+   "call": "must_buy",
+   "unique_item": "Lucky Statue",
+   "side_activity": "Feneck's Puzzle",
+   "unlock_level": null,
+   "currency": null,
+   "party": "solo",
+   "best_f2p_choice": "buy the unique relic",
+   "notes": null,
+   "sources": [
+    "S-02"
+   ]
+  },
+  {
+   "id": "treasure-hunt-s2-5",
+   "name": "Grand Treasure Hunt S2 #5",
+   "category": "treasure_hunt_week",
+   "schedule": "2026-10-24 on the SOF guide author's server",
+   "server_day": 78,
+   "call": "save",
+   "unique_item": "T4 Skill Fragment",
+   "side_activity": "Bingo Draw",
+   "unlock_level": null,
+   "currency": null,
+   "party": "solo",
+   "best_f2p_choice": "spend nothing, save currency",
+   "notes": null,
+   "sources": [
+    "S-02"
+   ]
+  },
+  {
+   "id": "treasure-hunt-s2-6",
+   "name": "Grand Treasure Hunt S2 #6",
+   "category": "treasure_hunt_week",
+   "schedule": "2026-10-31 on the SOF guide author's server",
+   "server_day": 85,
+   "call": "must_buy",
+   "unique_item": "Primal Gem",
+   "side_activity": "Lucky Scratch",
+   "unlock_level": null,
+   "currency": null,
+   "party": "solo",
+   "best_f2p_choice": "buy the unique relic",
+   "notes": null,
+   "sources": [
+    "S-02"
+   ]
+  },
+  {
+   "id": "treasure-hunt-s2-7",
+   "name": "Grand Treasure Hunt S2 #7",
+   "category": "treasure_hunt_week",
+   "schedule": "2026-11-07 on the SOF guide author's server",
+   "server_day": 92,
+   "call": "save",
+   "unique_item": "Loong Haven Mythic Relic Selection",
+   "side_activity": "Feneck's Puzzle",
+   "unlock_level": null,
+   "currency": null,
+   "party": "solo",
+   "best_f2p_choice": "spend nothing, save currency",
+   "notes": null,
+   "sources": [
+    "S-02"
+   ]
+  },
+  {
+   "id": "treasure-hunt-s2-8",
+   "name": "Grand Treasure Hunt S2 #8",
+   "category": "treasure_hunt_week",
+   "schedule": "2026-11-14 on the SOF guide author's server",
+   "server_day": 99,
+   "call": "must_buy",
+   "unique_item": "Lucky Statue",
+   "side_activity": "Bingo Draw",
+   "unlock_level": null,
+   "currency": null,
+   "party": "solo",
+   "best_f2p_choice": "buy the unique relic",
+   "notes": null,
+   "sources": [
+    "S-02"
+   ]
+  },
+  {
+   "id": "treasure-hunt-s2-9",
+   "name": "Grand Treasure Hunt S2 #9",
+   "category": "treasure_hunt_week",
+   "schedule": "2026-11-21 on the SOF guide author's server",
+   "server_day": 106,
+   "call": "save",
+   "unique_item": "T4 Skill Fragment",
+   "side_activity": "Lucky Scratch",
+   "unlock_level": null,
+   "currency": null,
+   "party": "solo",
+   "best_f2p_choice": "spend nothing, save currency",
+   "notes": null,
+   "sources": [
+    "S-02"
+   ]
+  },
+  {
+   "id": "treasure-hunt-s2-10",
+   "name": "Grand Treasure Hunt S2 #10",
+   "category": "treasure_hunt_week",
+   "schedule": "2026-11-28 on the SOF guide author's server",
+   "server_day": 113,
+   "call": "must_buy",
+   "unique_item": "Primal Gem",
+   "side_activity": "Feneck's Puzzle",
+   "unlock_level": null,
+   "currency": null,
+   "party": "solo",
+   "best_f2p_choice": "buy the unique relic",
+   "notes": null,
+   "sources": [
+    "S-02"
+   ]
+  }
+ ]
+}

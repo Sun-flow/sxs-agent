@@ -1,0 +1,5 @@
+
+{{Item|title=Elemental Mystery|image=Elemental Mystery info.png|type=Charm (Stats)}}
+
+== Description ==
+Increases the caster's Elemental Mastery.

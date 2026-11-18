@@ -1,0 +1,437 @@
+{
+ "_meta": {
+  "description": "Dungeons, towers and other instanced combat content of Sword x Staff: unlock server day and level, CP threshold per difficulty (raw CP numbers; 0 = no requirement; 'not_available' = difficulty does not exist; null = unknown), party size, attempts. Daily Dungeons share: 2 free attempts a day, 3rd and 4th for 100 and 150 Dawnium, unused attempts bank up to 6.",
+  "sources": [
+   "S-01",
+   "S-02",
+   "S-03",
+   "S-42",
+   "S-43",
+   "S-45",
+   "R-040",
+   "R-071",
+   "R-079",
+   "R-082",
+   "R-094",
+   "R-099",
+   "R-111",
+   "R-133",
+   "S-85"
+  ],
+  "updated": "2026-11-18"
+ },
+ "dungeons": [
+  {
+   "id": "auroradrasil",
+   "name": "Auroradrasil",
+   "aliases": [],
+   "type": "daily_dungeon",
+   "season": 1,
+   "kingdom": "Verdantglade",
+   "unlock_server_day": 1,
+   "unlock_level": null,
+   "cp_threshold": {
+    "normal": 0,
+    "hard": 36000,
+    "nightmare": "not_available",
+    "purgatory": "not_available"
+   },
+   "gear_level": null,
+   "best_rarity": null,
+   "party_size": 4,
+   "free_attempts_per_day": 2,
+   "notes": "Normal has no power requirement. 4-player story dungeon; NPC companions fill seats; drop level 18-30 on first clear.",
+   "sources": [
+    "S-03",
+    "R-133"
+   ]
+  },
+  {
+   "id": "mecha-summit",
+   "name": "Mecha Summit",
+   "aliases": [],
+   "type": "daily_dungeon",
+   "season": 1,
+   "kingdom": "Cinder Ridge",
+   "unlock_server_day": 4,
+   "unlock_level": null,
+   "cp_threshold": {
+    "normal": 0,
+    "hard": 180000,
+    "nightmare": "not_available",
+    "purgatory": "not_available"
+   },
+   "gear_level": null,
+   "best_rarity": "Mythic",
+   "party_size": 4,
+   "free_attempts_per_day": 2,
+   "notes": "Normal has no power requirement. Mythic shards start in Cinder Ridge.",
+   "sources": [
+    "S-03",
+    "S-42"
+   ]
+  },
+  {
+   "id": "ocean-palace-ruins",
+   "name": "Ocean Palace Ruins",
+   "aliases": [],
+   "type": "daily_dungeon",
+   "season": 1,
+   "kingdom": "Aqualis",
+   "unlock_server_day": 12,
+   "unlock_level": null,
+   "cp_threshold": {
+    "normal": 0,
+    "hard": 580000,
+    "nightmare": "not_available",
+    "purgatory": "not_available"
+   },
+   "gear_level": null,
+   "best_rarity": "Mythic",
+   "party_size": 4,
+   "free_attempts_per_day": 2,
+   "notes": "Normal has no power requirement.",
+   "sources": [
+    "S-03",
+    "S-42"
+   ]
+  },
+  {
+   "id": "aquaorigin",
+   "name": "Aquorigin Shrine",
+   "aliases": [
+    "Aquaorigin",
+    "Aquorigin",
+    "Aqua"
+   ],
+   "type": "daily_dungeon",
+   "season": 1,
+   "kingdom": "Aqualis",
+   "unlock_server_day": 24,
+   "unlock_level": 100,
+   "cp_threshold": {
+    "normal": 930000,
+    "hard": 1450000,
+    "nightmare": 2050000,
+    "purgatory": "not_available"
+   },
+   "gear_level": null,
+   "best_rarity": "Divine",
+   "party_size": 4,
+   "free_attempts_per_day": 2,
+   "notes": "31 Aug 2026 on the SOF guide author's server.",
+   "sources": [
+    "S-01",
+    "S-03",
+    "S-02",
+    "S-85"
+   ],
+   "name_note": "Main spelling follows Fandom and eog.gg [S-03][S-85]; the SOF guides write Aquaorigin [S-01][S-02]. The id keeps the old spelling."
+  },
+  {
+   "id": "hellhold",
+   "name": "Hellhold",
+   "aliases": [],
+   "type": "daily_dungeon",
+   "season": 1,
+   "kingdom": "Aqualis",
+   "unlock_server_day": 33,
+   "unlock_level": null,
+   "cp_threshold": {
+    "normal": 2250000,
+    "hard": 2750000,
+    "nightmare": 3900000,
+    "purgatory": 6200000
+   },
+   "gear_level": null,
+   "best_rarity": "Divine",
+   "party_size": 4,
+   "free_attempts_per_day": 2,
+   "notes": "Kingdom per the Fandom table block; not confirmed. 2 Divine + 3 Mythic Hellhold pieces = SSS gear rating.",
+   "sources": [
+    "S-01",
+    "S-03",
+    "S-02"
+   ]
+  },
+  {
+   "id": "demonseal-gorge",
+   "name": "Demonseal Gorge",
+   "aliases": [],
+   "type": "daily_dungeon",
+   "season": 2,
+   "kingdom": "Loong Haven",
+   "unlock_server_day": 47,
+   "unlock_level": null,
+   "cp_threshold": {
+    "normal": 0,
+    "hard": 2350000,
+    "nightmare": "not_available",
+    "purgatory": "not_available"
+   },
+   "gear_level": 130,
+   "best_rarity": "Mythic",
+   "party_size": 4,
+   "free_attempts_per_day": 2,
+   "notes": "Pre-season dungeon: Mythic only, does not count as seasonal gear; Nightmare not available.",
+   "sources": [
+    "S-02"
+   ]
+  },
+  {
+   "id": "warlords-rest",
+   "name": "Warlord's Rest",
+   "aliases": [],
+   "type": "daily_dungeon",
+   "season": 2,
+   "kingdom": "Loong Haven",
+   "unlock_server_day": 60,
+   "unlock_level": 130,
+   "cp_threshold": {
+    "normal": 3550000,
+    "hard": 5000000,
+    "nightmare": 6000000,
+    "purgatory": "not_available"
+   },
+   "gear_level": 165,
+   "best_rarity": "Divine",
+   "party_size": 4,
+   "free_attempts_per_day": 2,
+   "notes": "Example gear: Ink Blade Mythic 428K / Divine 508K; sets Assimilation, Indomitable.",
+   "sources": [
+    "S-02",
+    "S-85"
+   ]
+  },
+  {
+   "id": "cloudcrest-temple",
+   "name": "Cloudcrest Temple",
+   "aliases": [],
+   "type": "daily_dungeon",
+   "season": 2,
+   "kingdom": "Loong Haven",
+   "unlock_server_day": 73,
+   "unlock_level": null,
+   "cp_threshold": {
+    "normal": 6200000,
+    "hard": 7700000,
+    "nightmare": 9800000,
+    "purgatory": "not_available"
+   },
+   "gear_level": 195,
+   "best_rarity": "Divine",
+   "party_size": 4,
+   "free_attempts_per_day": 2,
+   "notes": "Example gear: Blessed Divider Mythic 761K / Divine 842K; sets Ephemeral, Cratering.",
+   "sources": [
+    "S-02"
+   ]
+  },
+  {
+   "id": "bladeshire",
+   "name": "Bladeshire",
+   "aliases": [],
+   "type": "daily_dungeon",
+   "season": 2,
+   "kingdom": "Loong Haven",
+   "unlock_server_day": 86,
+   "unlock_level": null,
+   "cp_threshold": {
+    "normal": 10000000,
+    "hard": 12500000,
+    "nightmare": 15800000,
+    "purgatory": "not_available"
+   },
+   "gear_level": 225,
+   "best_rarity": "Divine",
+   "party_size": 4,
+   "free_attempts_per_day": 2,
+   "notes": "Example gear: Flame Blade Mythic 1.57M / Divine 1.69M; sets Masterful, Pursuit.",
+   "sources": [
+    "S-02"
+   ]
+  },
+  {
+   "id": "celestship",
+   "name": "Celestship",
+   "aliases": [],
+   "type": "daily_dungeon",
+   "season": 2,
+   "kingdom": "Loong Haven",
+   "unlock_server_day": 99,
+   "unlock_level": null,
+   "cp_threshold": {
+    "normal": 16500000,
+    "hard": 20000000,
+    "nightmare": 24500000,
+    "purgatory": 40000000
+   },
+   "gear_level": 250,
+   "best_rarity": "Divine",
+   "party_size": 4,
+   "free_attempts_per_day": 2,
+   "notes": "Example gear: Qilin's Oracle Staff Mythic 2.33M / Qilin's Holy Sword Divine 2.59M; sets Trial by Fire, Cold.",
+   "sources": [
+    "S-02"
+   ]
+  },
+  {
+   "id": "fantasia-ascent",
+   "name": "Fantasia Ascent",
+   "aliases": [],
+   "type": "tower",
+   "season": null,
+   "kingdom": "Verdantglade",
+   "unlock_server_day": null,
+   "unlock_level": null,
+   "cp_threshold": null,
+   "gear_level": null,
+   "best_rarity": null,
+   "party_size": 1,
+   "free_attempts_per_day": null,
+   "notes": "Tower cards read Fn/110; Auto Challenge after floor 3; rewards ore, Refined Ore, Worn Knuckles.",
+   "sources": [
+    "R-079",
+    "S-45"
+   ]
+  },
+  {
+   "id": "demonbind-tower",
+   "name": "Demonbind Tower",
+   "aliases": [],
+   "type": "tower",
+   "season": null,
+   "kingdom": "Loong Haven",
+   "unlock_server_day": null,
+   "unlock_level": 116,
+   "cp_threshold": null,
+   "gear_level": null,
+   "best_rarity": null,
+   "party_size": 1,
+   "free_attempts_per_day": null,
+   "notes": "Season 2 tower; drops gems.",
+   "sources": [
+    "S-02",
+    "S-85"
+   ]
+  },
+  {
+   "id": "temple-ruins",
+   "name": "Temple Ruins",
+   "aliases": [],
+   "type": "mini_dungeon",
+   "season": null,
+   "kingdom": "Originisle",
+   "unlock_server_day": null,
+   "unlock_level": null,
+   "cp_threshold": null,
+   "gear_level": null,
+   "best_rarity": null,
+   "party_size": 1,
+   "free_attempts_per_day": null,
+   "notes": "Multi-floor map mini-dungeon, 6 enemies per floor; floor count unknown.",
+   "sources": [
+    "R-040"
+   ]
+  },
+  {
+   "id": "ironvein-pit-mine",
+   "name": "Ironvein Pit (map mine)",
+   "aliases": [],
+   "type": "mini_dungeon",
+   "season": null,
+   "kingdom": "Verdantglade",
+   "unlock_server_day": null,
+   "unlock_level": null,
+   "cp_threshold": null,
+   "gear_level": null,
+   "best_rarity": null,
+   "party_size": 1,
+   "free_attempts_per_day": null,
+   "notes": "First Clear Rewards: Refined Ore 100, Raw Ore 640; battles up to 25 rounds.",
+   "sources": [
+    "R-071"
+   ]
+  },
+  {
+   "id": "moonveil-woods-gate",
+   "name": "Moonveil Woods gate",
+   "aliases": [],
+   "type": "gate",
+   "season": null,
+   "kingdom": "Verdantglade",
+   "unlock_server_day": null,
+   "unlock_level": null,
+   "cp_threshold": null,
+   "gear_level": null,
+   "best_rarity": null,
+   "party_size": 1,
+   "free_attempts_per_day": null,
+   "notes": "Wolf boss and 3 wolves, 20 rounds; unlocks Moonveil Woods.",
+   "sources": [
+    "R-082"
+   ]
+  },
+  {
+   "id": "void-rift",
+   "name": "Void Rift",
+   "aliases": [],
+   "type": "event_dungeon",
+   "season": null,
+   "kingdom": null,
+   "unlock_server_day": null,
+   "unlock_level": 50,
+   "cp_threshold": null,
+   "gear_level": null,
+   "best_rarity": null,
+   "party_size": 4,
+   "free_attempts_per_day": null,
+   "notes": "Up to 5 floors; 10 reward attempts per event window. Every other Sunday, alternating with Chaos Invasion; 10 attempts inside the 24-hour window [S-85].",
+   "sources": [
+    "S-42",
+    "S-43",
+    "R-094",
+    "S-85"
+   ]
+  },
+  {
+   "id": "crucible-of-hieromon",
+   "name": "Crucible of Hieromon",
+   "aliases": [],
+   "type": "boss_event",
+   "season": null,
+   "kingdom": null,
+   "unlock_server_day": null,
+   "unlock_level": null,
+   "cp_threshold": null,
+   "gear_level": null,
+   "best_rarity": null,
+   "party_size": 6,
+   "free_attempts_per_day": null,
+   "notes": "6-player boss, 10 rounds, 200 life bars.",
+   "sources": [
+    "S-42",
+    "R-099"
+   ]
+  },
+  {
+   "id": "conquest",
+   "name": "Conquest",
+   "aliases": [],
+   "type": "guild_boss",
+   "season": null,
+   "kingdom": null,
+   "unlock_server_day": null,
+   "unlock_level": null,
+   "cp_threshold": null,
+   "gear_level": null,
+   "best_rarity": null,
+   "party_size": 1,
+   "free_attempts_per_day": 2,
+   "notes": "Shared guild boss per floor; 50-round background fight; 10 Dawnium + 150 Guild Tokens per attempt.",
+   "sources": [
+    "R-111"
+   ]
+  }
+ ]
+}

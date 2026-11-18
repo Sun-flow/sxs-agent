@@ -1,0 +1,92 @@
+
+== Sorcerer Techniques ==
+{| class="wikitable" style="width:100%; table-layout:fixed; text-align:center;"
+! style="width:10%;" |icon
+! style="width:15%;" |name
+! style="width:15%;" |type
+! style="width:50%;" |description
+! style="width:20%;" |images
+|-
+|[[File:Fiery Star Trail.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Fiery Star Trail
+| style="color:#c62828;" |DMG
+| style="text-align:left; color:#c62828; padding:10px;" |Deals Fire Doom DMG twice to all enemies within a 3-grid circular area of the caster.
+|
+|-
+|[[File:Light of Dawn.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Light of Dawn
+| style="color:#c62828;" |DMG
+| style="text-align:left; color:#c62828; padding:10px;" |Deals Light Doom DMG twice to all enemies in a 1x8grid area in front of the caster.
+|
+|-
+|[[File:Lightning Chain.png|50x50px]]
+|Lightning Chain
+|DMG
+|Deals Light DMG once to 1 enemy within 4 grids ofthe caster. The effect then chains to 1 randomenemy within 4 grids of the target, up to 9 times.Each enemy can only be hit once by the chain effect.
+|
+|-
+|[[File:Energy Burst.png|50x50px]]
+|Energy Burst
+|Self
+Buff
+|Your next damaging Technique gains increasedAccuracy and deals 50% more DMG.
+|
+|-
+|[[File:Flickering Stars.png|50x50px]]
+|Flickering Stars
+|DMG
+Dispel
+|Selects a grid within 6 grids of the caster. DealsLight DMG once to all enemies within 1 grid of thetarget grid and dispels 1 random buff from them.
+|
+|-
+|[[File:Frosty Nova.png|50x50px]]
+|Frosty Nova
+|DMG
+Ailment
+|Selects a grid within 3 grids of the caster. DealsWater DMG once to all enemies within a 1-gridsquare area of the target grid, with a 30% basechance to inflict Frozen for 1 turn.
+|
+|}
+
+== Sorcerer Charms ==
+{| class="wikitable" style="width:100%; table-layout:fixed; text-align:center;"
+! style="width:10%;" |icon
+! style="width:15%;" |name
+! style="width:15%;" |type
+! style="width:50%;" |description
+! style="width:20%;" |images
+|-
+|[[File:Void Bubble.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Void Bubble
+| style="color:#c62828;" |Shield
+Buff
+| style="text-align:left; color:#c62828; padding:10px;" |When the caster's HP drops below 50% for the firsttime in a battle, grants a shield to the caster basedon max HP for 2 turns and Dodge for 2 turns (cannotbe dispelled).
+|
+|-
+|[[File:Raging Wildfire.png|50x50px]]
+|Raging Wildfire
+|Burn
+|Has a 20% chance to inflict Burn to grids withinrange when casting a Fire Technique.
+|
+|-
+|[[File:Wind's Shadow.png|50x50px]]
+|Wind's Shadow
+|DMG
+Debuff
+|Has a 30% chance to deal additional Wind DMG onceand a 50% base chance to delay the target's actionby 20% after dealing Wind DMG 3 times to an enemywith Techniques.
+|
+|-
+|[[File:Elemental Harmony.png|50x50px]]
+|Elemental Harmony
+|Buff
+|For each element among equipped Techniques thatdeal DMG, increases the caster's Elemental Mastery.Stacks up to 4 times.
+|
+|-
+|[[File:Lightning Mystery.png|50x50px]]
+|Lightning Mystery
+|DMG
+|Each time the caster's Technique deals DMG to anenemy, there's a 30% chance to trigger ThunderStrike that deals additional Light DMG once.
+|
+|}
+
+
+Written by: <u>[[QY Maple]]</u>, <u>[[Jinjiko]]</u>

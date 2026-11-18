@@ -1,0 +1,7 @@
+The Fantomon system unlocks at '''Lv. Character 50''', providing powerful allies that boost your overall Power.
+
+Acquisition: Summon Fantomons at the Arborisfatum or exchange Summon Crystals for Mythic Fantomons. The [Arena Shop] also offers special Fantomon shards.
+
+Upgrade & Resonance: Feed Fantomons with Treats to level them up. Only the 4 deployed Fantomons need to be leveled—the Resonance Level is set by the lowest level among them, and all other Fantomons automatically match it. Level them evenly to maximize overall Power.
+
+Auto-Pick: Activates when a Fantomon is deployed. Automatically collects all items dropped during exploration.

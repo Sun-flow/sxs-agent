@@ -1,0 +1,45 @@
+<mainpage-leftcolumn-start />
+{{Home|header=Welcome to the Sword x Staff Wiki!|body=<br><gallery type="slider" orientation="bottom">
+File:Site-background-light
+File:Dragon.png
+File:20251029-132856.jpg
+File:KV.png
+</gallery>
+[[Sword X Staff|About]] • [https://game.boltray.com/SwordxStaff?lang=en Official Website] • [https://www.facebook.com/profile.php?id=61579592385490# Official Facebook]
+
+Sword x Staff is a one-of-a-kind RPG — a “Third Way RPG.” Strategy, massive world exploration, idle—why pick one when you can have it all? Go hardcore, or just vibe—either way, you’ll find your own kind of fun here. The kind that actually feels different. No pressure, no one way to play—just jump in, explore, and let the adventure click your way.
+Curious what the gameplay is really like?
+
+Over [[Skill Overview|200+ skills]] are waiting for you to mix, match, and experiment, so your battles can be 100% you. And you're not alone! You'll meet [[companions]] from far and wide and take on mysterious Hieromons together!  
+
+'''<big>Please read the [[Special:Community|Community Page]] and [[Project:Wiki rules|Rules]] before editing and discussing!</big>'''
+<gallery widths="50" bordersize="none">
+File:Facebook Icon.png|link=https://www.facebook.com/profile.php?id=61579592385490|[https://www.facebook.com/profile.php?id=61579592385490 Facebook]
+File:Discord Logo.png|link=https://discord.gg/b6xekW7U8z|[https://discord.gg/b6xekW7U8z Discord]
+File:X.png|link=https://x.com/SwordxStaff|[https://x.com/SwordxStaff X]  
+</gallery>}}
+
+{{Home
+|header=Mix & Match! Master of Skills
+|body=[[File:2 STORE PHOTO.jpg|thumb|490x490px]]
+<br>Forget ordinary "lots of skills". It's about tactics, strategies, and yep, wild combos too! With in the classic dual-class system, you can mix and match however you like. Sequence techniques, switch elements, and  200+ skills try a new style every fight!
+
+Features a classic<ref>[[Classes Overview]]</ref> Warrior–Mage foundation, expanded through multiple class branches and advanced specializations. The current version includes 6 class ranks, with a 7th rank currently in development.
+
+Players can switch classes for free once per week<ref>[[Class Change]]</ref>, fully retaining their overall level and skill progression.
+
+<br>The invasion is looming, protect the realm!
+<gallery widths="150" bordersize="50">
+File:Googleplay.png|link=https://play.google.com/store/apps/details?id=com.zjcs.android.us
+File:AppStore.png|link=https://apps.apple.com/app/id6751270546
+</gallery>}}
+
+<mainpage-endcolumn />
+<mainpage-rightcolumn-start />
+{{Home
+|header=Get Started
+|body=[[File:Join Us.png|150px|center]]
+We are an ever-growing community with plenty to offer and, as such, we welcome you to add any relevant information to our articles.
+
+[[Special:UserSignup|Create an account]] and join us! We are [[Special:Recentchanges|currently editing]] over [[Special:Allpages|{{NUMBEROFARTICLES}}]] articles, and [[Special:Newimages|{{NUMBEROFFILES}} files]]
+}}

@@ -1,0 +1,5 @@
+# 2026-11-18 19:39 · Knowledge base built from guides and wikis (Claude Code, cloud)
+
+- What changed: new top-level `knowledge/` (game wiki and strategy guides): glossary, 31 system pages, 11 class pages, 10 strategy pages (roadmap, daily and weekly routine, Dawnium plan, stamina, seasons, Mage path), 38 data tables, a source register with tiers, `conflicts.md`. Built from mae's two SOF guides, the Fandom wiki (raw wikitext committed, CC BY-SA), eog.gg, zeroluck.gg, the official site and Chinese-version sources (forecast only). Scripts: `scripts/kb_fetch.py` (download, honours robots.txt, stops at bot checks), `scripts/kb_check.py` (links, tags, rule IDs, data). Branch `claude/project-thread-gk1zj7`.
+- Where it ran: cloud only; nothing touched the emulator or mae's PC.
+- Open: mae decides the advice-versus-rule conflicts in `knowledge/conflicts.md` (first: the Dawnium never-spend rules against the spend plan mae now allows; Sorcerer or Sage at Lv 44). Rules were not changed. Research left for later is listed in `knowledge/sources/research-leads.md` (Prydwen is behind a bot check and was not read).

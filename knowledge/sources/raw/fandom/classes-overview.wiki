@@ -1,0 +1,60 @@
+[[File:Classes.webp|thumb]]
+
+== Story of the Classes ==
+In the world of '''Sword x Staff''', a hero’s journey is more than just a climb in power—it is a spiritual awakening through iron and arcane. From a simple blade or a weathered staff, you will navigate four tiers of destiny, ultimately ascending to a mythic entity amidst the clouds of the Dragon Realm.
+
+=== The Genesis: Initial Classes ===
+Every legend begins with a fundamental choice. Will you trust in the weight of cold steel or the resonance of the elements?
+
+* '''Sword ([[Warrior]])''': The vanguard of melee combat. Every strike is heavy with intent, holding the latent potential to evolve into a bastion of defense or an engine of destruction.
+* '''Staff ([[Mage]])''': The seeker of arcane truths. Channeling raw primordial energies, a Mage can conjure devastating lightning storms or a gentle rain to mend the wounded soul.
+* [[File:Mage.jpg|center|800x800px]]
+[[File:Warrior.jpg|center|800x800px]]
+
+=== The Divergence: 2nd Advancement ===
+As your prowess grows, your path splits. This is where a character’s true identity begins to crystallize.
+
+* '''Fighter''': Shedding heavy armor for absolute agility. They dance on the edge of a blade, utilizing explosive bursts and incredible resilience to turn a near-fatal wound into a lethal counter-offensive.
+* '''Knight''': An unyielding monument of the team's will. Clad in plate and bearing a massive shield, they exist to block the tides of calamity and shield their allies at any cost.
+* '''Sorcerer''': A master of elemental destruction. They trade precision for scale, invoking vast area-of-effect spells that cleanse the battlefield in spectacular displays of magical power.
+* '''Sage''': The ultimate tactical polymath. Whether summoning familiars, manipulating status effects, or providing critical heals, they are the pivot upon which the tide of battle turns.
+[[File:2nd.png|center]]
+
+=== The Mastery: 3rd Advancement ===
+By this stage, adventurers are no longer mere soldiers—they are the core of any elite squad, pushing their specializations to the absolute limit.
+
+* '''Berserker''': The zenith of the Fighter’s rage. They are willing to burn their very life essence to fuel a momentary burst of apocalyptic power. They are the frenzied beasts of the front lines.
+* '''Paladin (Heavy Knight)''': The core of a team's defense. Immovable as a mountain, where their shield rests, a "No-Fly Zone" is established. They are the most reliable pillars of safety.
+* '''Archmage''': An architect of elemental truth. They have mastered the deepest secrets of mass destruction, capable of dismantling enemy formations with a single incantation.
+* '''Arcanist''': The grand strategist. By weaving summons, healing, and crowd control together, they dictate the very rhythm of war, playing the enemy like a puppet on a string.
+
+
+
+=== The Legend: 4th Advancement ===
+Upon reaching Level 106 and entering the Dragon Realm's '''Unrakumotogo''', the mentor '''Mei''' will guide you through your final ascension. At this peak, boundaries vanish, and the most versatile playstyles emerge.
+
+==== 【Conqueror】 (Ascended from Berserker) ====
+The overlord who has surpassed the laws of physics. Their blades now resonate with '''Elemental Mastery'''. You may follow the path of the '''Traditional Physical Combo''', or weave steel and spirit together in a devastating '''Elemental Hybrid''' build.
+
+==== 【Guardian】 (Ascended from Paladin) ====
+Proof that defense can be the ultimate offense. While maintaining god-tier shields, they gain aggressive skills like '''Aqua Dance Blade''' and '''Luminous Sword Array'''. Whether you choose the fluid '''Water Knight''' or the radiant '''Light Knight''', enemies will learn to fear the Guardian’s wrath.
+
+==== 【Destroyer】 (Ascended from Archmage) ====
+The ultimate vessel of elemental power. Their light and fire AOE capabilities are perfected through '''Thunder of Judgment''' and '''Secret Fire Core Explosion'''. With the addition of the '''Formation Breaker''' utility, they can vaporize threats while simultaneously shattering enemy defenses.
+
+==== 【Dominator】 (Ascended from Arcanist) ====
+The highest dimension of battlefield dominance, offering three distinct paths:
+
+* '''Shadow Priest''': Unleashes terrifying single-target Dark pressure with '''Dark Star Burst'''.
+* '''Pure Healer''': Creates miracles with '''Rain of Revival''' and '''Phantom Light Strategy''', ensuring the team remains immortal.
+* '''Summoner''': Awakes the high-durability '''Stone Emperor''', erecting a living fortress on the battlefield that can never be toppled.
+
+== General Class Comparisons ==
+When choosing a class to play, and specifically one of the four main development paths, there is no distinctly "best" class. Each one specializes in different things and all of them are still fully functional in all aspects of gameplay especially if you just crank up your stats more, so it's more of a flavor choice for each player.
+
+* The Warrior path is the simpler of the two core types due to mainly focusing on Physical damage. Nothing is vulnerable to it but nothing is resistant to it either, so you know whatever you equip will work. Solid, dependable, quite decent defense in general, with the Knight subpath focusing more on defence and protecting allies while the Duelist subpath focuses more on damage output. It is, however, rather short-ranged, and aside from a pulling technique it can have some trouble against ranged evasive opponents.
+* The Mage path is the more complicated of the two core types for a number of reasons: 
+** The main complication is the use of the three main Elements for their spells of Wind, Water and Fire. Wind beats Water, Water beats Fire, Fire beats Wind. Many enemies are of one of these elements, and they are all at minimum Resistant to the element that they beat which means they take half damage (i.e. a Water creature would take half damage from Fire attacks). Some enemies such as elemental slimes are straight up IMMUNE to damage from the element they beat. However, they take significantly increased damage from the element that beats them (i.e. Fire takes much more damage from Water attacks). So a Mage will need to pre-plan builds accordingly, setting up multiple saved Loadouts both for general-purpose and focused purely into each main Element, switching to a more viable one given the enemies they plan to face.
+** The other complication with Mages and their sub-paths is the almost blinding variety of possible builds. Elemental attacks and buffs, heals, summons; with only 4 skill slots and 4 charm slots, swapping just a couple of them can completely and drastically rewrite how the class functions so it can take a bit of time to develop viable setups for yourself.
+** The Sage sub-path is more supportive and tactical. They have the widest spread of party heals and buffs, and they can summon a mixture of minions to help them fight. Their raw damage output is in general lower than the other classes (except perhaps the Knight), but their support of party members is peerless.
+** The Sorcerer sub-path is focused on pure, raw firepower. They hit hard, they hit wide, and while they are probably the most fragile of the four sub-paths their focus on quickly killing vast swathes of enemies before they themselves take too many hits helps make up for it.

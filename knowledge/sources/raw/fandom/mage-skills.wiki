@@ -1,0 +1,174 @@
+== Mage Techniques ==
+{| class="wikitable" style="width:100%; table-layout:fixed; text-align:center;"
+! style="width:10%;" |icon
+! style="width:15%;" |name
+! style="width:15%;" |type
+! style="width:50%;" |description
+! style="width:20%;" |images
+|-
+|[[File:Water_Shot.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Water Shot
+| style="color:#c62828;" |DMG
+| style="text-align:left; color:#c62828; padding:10px;" |Deals Water DMG once to 1 enemy within 4 grids of the caster.
+|[[File:Water_Shot_info.png|89x89px]]
+|-
+|[[File:IceSpike.png|center|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Ice Spike
+| style="color:#c62828;" |DMG, Ailment
+| style="text-align:left; color:#c62828; padding:10px;" |Deals Water DMG once to all enemies in a 1x5 grid area in front of the caster, with a 40% base chance to inflict Frozen for 1 turn.
+|<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 4px">[[File:Ice_Spike_info1.png|71x71px]] [[File:Ice_Spike_info2.png|71x71px]] [[File:Ice_Spike_info3.png|71x71px]]</div>
+|-
+|[[File:Flame_Jet.png|50x50px]]
+|Flame Jet
+|DMG
+|Deals Fire DMG 3 times to all enemies in a 1×3 grid area in front of the caster.
+|
+|-
+|[[File:Iron_Thorn.png|50x50px]]
+|Iron Thorn
+|DMG, Ailment
+|Selects a grid within 3 grids of the caster. Deals Wind DMG once to all enemies within 1 grid of the target grid, with a 30% base chance to inflict Immobilize for 1 turn.
+|
+|-
+|[[File:Healing_Touch.png|50x50px]]
+|Healing Touch
+|Ally, Heal, Dispel
+|Heals 1 ally within 5 grids of the caster and dispels 1 random ailment or debuff from them.
+|
+|-
+|[[File:Stonechief_Summon.png|50x50px]]
+|Stonechief Summon
+|Summon
+|Summons a Stonechief in front of the caster that immediately acts. The summon inherits a percentage of the caster's stats and remains for up to 5 turns. (Zero Initial CD)
+|
+|-
+|[[File:Fireball.png|50x50px]]
+|Fireball
+|DMG
+|Selects a grid within 5 grids of the caster. Deals Fire DMG once to all enemies in a 1-grid square around the target grid.
+|
+|-
+|[[File:Cyclone.png|50x50px]]
+|Cyclone
+|Drag
+|Selects a grid within 6 grids of the caster. Deals Wind DMG once to all enemies within 2 grids of the target grid, knocking them airborne and pulling them to the target grid.
+|
+|-
+|[[File:Tempest_Sphere.png|50x50px]]
+|Tempest Sphere
+|DMG
+|Deals Wind DMG 5 times to 1 enemy within 3 to 5 grids of the caster.
+|
+|-
+|[[File:Void_Blessing.png|50x50px]]
+|Void Blessing
+|Ally, Buff, Heal
+|Increases HP.
+|
+|-
+|[[File:Blazing_Fire_Ring.png|50x50px]]
+|Blazing Fire Ring
+|DMG
+|Deals Fire DMG once to all enemies within 2 grids of the caster.
+|
+|-
+|[[File:Water_Assault.png|50x50px]]
+|Water Assault
+|DMG
+|Deals Water DMG once to all enemies in a 3×4 grid area in front of the caster. DMG decreases by 25% for each subsequent hit on the same target. (Deals multiple-hit damage to large targets.)
+|
+|-
+|[[File:Wind's_Delight.png|center|50x50px]]
+|Wind's Delight
+|DMG
+|Selects a grid within 6 grids of the caster. Launches 7 waves of wind blades at the target grid and random enemies within 1 grid to the target grid's left and right. Each wave deals Wind DMG once to all enemies within 1 grid of the enemy target. DMG decreases by 35% for each subsequent hit on the same target.
+|
+|}
+
+== Mage Charms ==
+{| class="wikitable" style="width:100%; table-layout:fixed; text-align:center;"
+! style="width:10%;" |icon
+! style="width:15%;" |name
+! style="width:15%;" |type
+! style="width:50%;" |description
+! style="width:20%;" |images
+|-
+|[[File:Elemental_Mystery.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Elemental Mystery
+| style="color:#c62828;" |Stats
+| style="text-align:left; color:#c62828; padding:10px;" |Increases the caster's Elemental Mastery.
+|[[File:Elemental_Mystery_info.png|89x89px]]
+|-
+|[[File:Wind's_Whisper_icon.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Wind's Whisper
+| style="color:#c62828;" |Stats
+| style="text-align:left; color:#c62828; padding:10px;" |Increases the caster's Wind DMG.
+|[[File:Wind's_Whisper_info.png|89x89px]]
+|-
+|[[File:Dew's_Blessing.png|50x50px]]
+|Dew's Blessing
+|Stats
+|Increases the caster's Water DMG.
+|
+|-
+|[[File:Heart_of_Flame.png|50x50px]]
+|Heart of Flame
+|Stats
+|Increases the caster's Fire DMG.
+|
+|-
+|[[File:Unstable_Aura.png|50x50px]]
+|Unstable Aura
+|DMG, Knockback
+|When the caster's Technique deals DMG to an enemy,there's a 25% chance to trigger Aura, dealingadditional Wind DMG once, with a 60% base chanceto knock them back by 1 grid.
+|
+|-
+|[[File:Elemental_Body.png|50x50px]]
+|Elemental Body
+|Stats
+|Increases the caster's Elemental RES.
+|
+|-
+|[[File:Curse_Resonance.png|50x50px]]
+|Curse Resonance
+|Buff
+|For each ailment or debuff the target carries,Technique DMG dealt by the caster to that targetincreases. Stacks up to 3 times.
+|
+|-
+|[[File:Insight.png|50x50px]]
+|Insight
+|Stats
+|Increases the caster's Effect Hit Rate.
+|
+|-
+|[[File:Tough_Soul.png|50x50px]]
+|Tough Soul
+|Stats
+|Increases the caster's HP.
+|
+|-
+|[[File:Flaming_Path.png|50x50px]]
+|Flaming Path
+|Burn
+|When the caster starts to move in their turn, there isa 30% chance to inflict Burn to grids within 1 grid ofthe caster.
+|
+|-
+|[[File:Water_to_Ice.png|50x50px]]
+|Water to Ice
+|Stats
+|Increases the caster's Water DMG.
+|
+|-
+|[[File:Mana_Surge.png|50x50px]]
+|Mana Surge
+|Stats
+|Increases the caster's Crit Rate.woc
+|
+|-
+|[[File:Gale_Shield.png|50x50px]]
+|Gale Shield
+|Shield, Knockback
+|Grants a shield based on the caster's max HP at thestart of battle. When the shield disappears, dealsWind DMG once to all enemies within a 1-grid squarearea of the caster, with a 100% base chance to knockthem back by 1 grid.
+|
+|}
+Written by: <u>[[QY Maple]]</u>, <u>[[Jinjiko]]</u>

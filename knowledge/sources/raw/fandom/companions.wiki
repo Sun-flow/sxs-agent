@@ -1,0 +1,74 @@
+{| class="fandom-table"
+|Molly
+|A child favored by fortune.
+A traveling merchant who shows up wherever you go. 
+As the saying goes, there's nowhere Molly can't go—only wares adventurers haven't seen yet.
+|[[File:Molly.png|center|200x200px]]
+|-
+|Akane
+|A mysterious girl of unknown origin. No one quite knows how she got here, yet she's somehow taken it upon herself to guide adventurers through this world. She insists she's several hundred years old... though, judging by appearances, that's a bit hard to believe.
+|[[File:Akane.png|center|200x200px]]
+|-
+|Reina
+|A quiet girl.
+She seems to be Akane's older sister—and the second person the adventurer meets in this world.
+Somehow, their very first conversation ends with the adventurer agreeing to save her.
+And just when they're about to ask what exactly that means, she's already drifted off into her own world. ...Guess that'll have to wait.
+|[[File:Reina.png|center|200x200px]]
+|-
+|Narss (Chief)
+|The chief of Drasilgard—and a man perpetually being chased. He encounters enemies more often than an adventurer blinks. Honestly, you have to wonder what he did in his youth to earn such relentless hatred from the Sylvanwolves.
+|[[File:Narss (Chief).png|center|300x300px]]
+|-
+|Hermes
+|A merchant and alchemist of Drasilgard.
+He's remarkably skilled at selling ordinary goods for extraordinary prices, and spends his days squeezing every last bit of value out of even the smallest scraps.
+He's clearly made a fortune... yet somehow, his own lifestyle hasn't changed at all. Makes you wonder—where is all that money going?
+|[[File:Hermes.png|center|300x300px]]
+|-
+|Qin
+|A young Loongborn girl.
+She lives with her older brother, a Dryason. Unlike her calm and composed sibling, she's bursting with energy and never sits still. Small as she is, she wields surprising strength—and in battle, she truly shines.
+|[[File:Qin.png|center|thumb|300x300px]]
+|-
+|Killian
+|A gentle young Dryason.
+If he's not buried in ancient texts, he's out searching for more. He can spend days without rest, completely absorbed in deciphering stone tablets—no wonder he's already called an archaeologist.
+Careful, earnest, and meticulous, he always plans every detail before entering a ruin. Sadly, even the best plans don't survive his sister's ever-changing moods.
+|[[File:Killian.png|center|300x300px]]
+|-
+|Mysterious Merchant
+|A mysterious figure who never parts with his cloak.
+Always shrouded in mist, even his name insists he's the very definition of "mysterious." The adventurer has often wondered where he gets all those oddly valuable trinkets. Honestly... he really is a mystery.
+|[[File:Mysterious Merchant.png|thumb|300x300px]]
+|-
+|Naira
+|A commanding, larger-than-life woman.
+Ruler of Fortburg and the Cinder Ridge's ace Ascended One. Be it a boulder in her path or a monster gone berserk, nothing stands long against her crushing blows. Driven by the mission to restore her homeland, Naira bears a burden as vast as the mountains themselves.
+|[[File:Naira.png|center|300x300px]]
+|-
+|Micaela
+|The forge's resident genius inventor.
+Anything Micaela lays her hands on becomes truly one of a kind—there's simply no second copy anywhere in the world.
+"To surpass is to stand at the summit and reach for the sky!
+So if I just make a teeny tiny adjustment to what's already there, that sky called 'dreams' will be within reach... probably!"—Or so Micaela claims.
+|[[File:Micaela.png|center|300x300px]]
+|-
+|Karlos
+|The Cinder Ridge's most hot-blooded boy!
+There's nothing training can't fix—and if there is, just tack on another ten kilometers of weighted handstand sprints!
+Naturally, this method has only ever been tested on Karlos. Anyone else trying it would be risking their life. It may be a bit harsh to say, but... he's a complete muscle-brained fool. Honestly, the sheer intensity of his training is hard to believe.
+|[[File:Karlos.png|center|thumb|300x300px]]
+|-
+|Braulio
+|A burly merchant and the ever-reliable big brother
+Among the folks, even those without blood ties live as family, with the eldest caring for the rest. Braulio has always been that elder brother—shouldering the burden early, crossing mountain after mountain with goods on his back, earning a living for them all.
+Now that his siblings have grown, Braulio still hasn't quite learned to let go.
+|[[File:Braulio.png|center|thumb|300x300px]]
+|-
+|Mateo
+|Small in stature, big in brains.
+The folks are usually all energy and muscle, thriving on hard work and sweat. Mateo, aside from his horns and sun-browned skin, couldn't be further from that image. He avoids exercise, spends his days half-asleep, and can sit with a book from morning till night—sometimes forgetting to eat entirely.
+...Maybe that's why he never grew any taller.
+|[[File:Mateo.png|center|300x300px]]
+|}

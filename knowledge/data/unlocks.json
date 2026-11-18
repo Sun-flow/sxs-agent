@@ -1,0 +1,353 @@
+{
+ "_meta": {
+  "description": "Feature unlocks by character level (level null = gated by another condition). See systems/levels-and-unlocks.md.",
+  "sources": [
+   "S-02",
+   "S-03",
+   "S-51",
+   "S-52",
+   "S-53",
+   "S-54",
+   "R-011",
+   "R-118",
+   "S-85",
+   "S-87"
+  ],
+  "updated": "2026-11-18",
+  "field_notes": {
+   "level": "Where a rule (R-NNN, our own account) and a guide disagree, level follows the rule and level_other holds the other figure."
+  }
+ },
+ "unlocks": [
+  {
+   "id": "alchemy-pot",
+   "level": 7,
+   "feature": "Alchemy Pot furniture slot",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "R-035"
+   ]
+  },
+  {
+   "id": "guild",
+   "level": 20,
+   "feature": "Guild and Guild Donation",
+   "gate": "level",
+   "note": "Lit at Lv 20 on our account [R-011]; the tab text, Fandom and the official handbook say Lv 15 [S-03][S-87]",
+   "sources": [
+    "R-011",
+    "S-03",
+    "S-87"
+   ],
+   "level_other": 15
+  },
+  {
+   "id": "vendor-booth",
+   "level": 18,
+   "feature": "Vendor Booth",
+   "gate": "level",
+   "note": "Lv 18 on our account, reached early through the Bellflower tutorial [R-011]; Fandom and the official handbook say Lv 20 [S-03][S-87]",
+   "sources": [
+    "R-011",
+    "S-03",
+    "S-87"
+   ],
+   "level_other": 20
+  },
+  {
+   "id": "rank-apprentice-2",
+   "level": 20,
+   "feature": "Level cap 20; Rank Advancement to Apprentice II (cap 30)",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "R-118"
+   ]
+  },
+  {
+   "id": "rank-apprentice-3",
+   "level": 30,
+   "feature": "Level cap 30; Rank Advancement to Apprentice III (cap 40)",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "R-118"
+   ]
+  },
+  {
+   "id": "rank-after-apprentice-3",
+   "level": 40,
+   "feature": "Level cap 40; next rank (name unknown)",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "R-118"
+   ]
+  },
+  {
+   "id": "grand-arena",
+   "level": 40,
+   "feature": "Grand Arena in Cinder Ridge (also needs Rank Advancement)",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-03",
+    "S-87"
+   ]
+  },
+  {
+   "id": "commercium",
+   "level": 40,
+   "feature": "Commercium: Trading House and Auction House",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-03",
+    "S-87"
+   ]
+  },
+  {
+   "id": "skill-test",
+   "level": 40,
+   "feature": "Skill Test (DPS dummy)",
+   "gate": "level",
+   "note": "eog only (hub and dummy-test guide): Home > Character > Skills > Test",
+   "sources": [
+    "S-54",
+    "S-85"
+   ]
+  },
+  {
+   "id": "class-change-2",
+   "level": 44,
+   "feature": "Second class change (Duelist/Knight, Sorcerer/Sage) in Cinder Ridge",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-03",
+    "S-54"
+   ]
+  },
+  {
+   "id": "fantomons",
+   "level": 51,
+   "feature": "Fantomons",
+   "gate": "level",
+   "note": "Rule R-011 records 51 (reported); the official site, Fandom and eog say Lv 50 [S-87][S-03][S-85]. To verify when the tutorial fires (conflicts V-01)",
+   "sources": [
+    "R-011",
+    "S-03",
+    "S-52",
+    "S-54",
+    "S-85",
+    "S-87"
+   ],
+   "level_other": 50
+  },
+  {
+   "id": "companion-skin",
+   "level": 60,
+   "feature": "A companion skin",
+   "gate": "level",
+   "note": "single source",
+   "sources": [
+    "S-54"
+   ]
+  },
+  {
+   "id": "lossless-class-change",
+   "level": 100,
+   "feature": "Lossless class change and Class Rollback",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-03",
+    "R-117"
+   ]
+  },
+  {
+   "id": "aquorigin-shrine",
+   "level": 100,
+   "feature": "Aquorigin Shrine dungeon (also server day 24)",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-03",
+    "S-85"
+   ]
+  },
+  {
+   "id": "seasonal-boundary",
+   "level": 100,
+   "feature": "Progress above this level is seasonal and resets",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "t4-class",
+   "level": 106,
+   "feature": "T4 class (4th advancement)",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-02",
+    "S-03",
+    "S-53",
+    "S-85"
+   ]
+  },
+  {
+   "id": "adult-fantomon",
+   "level": 108,
+   "feature": "Adult Fantomon evolution",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-02",
+    "S-53",
+    "S-85"
+   ]
+  },
+  {
+   "id": "demonbind-tower",
+   "level": 116,
+   "feature": "Demonbind Tower (gems)",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-02",
+    "S-53",
+    "S-85"
+   ]
+  },
+  {
+   "id": "rank-champion-3",
+   "level": 120,
+   "feature": "Champion III, top Kingdom Rank of Season 2",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-02"
+   ]
+  },
+  {
+   "id": "warlords-rest",
+   "level": 130,
+   "feature": "Warlord's Rest, second Season 2 dungeon",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-02",
+    "S-53",
+    "S-85"
+   ]
+  },
+  {
+   "id": "travel-journal",
+   "level": null,
+   "feature": "Travel Journal: unlock any mode",
+   "gate": "condition",
+   "note": null,
+   "sources": [
+    "R-011"
+   ]
+  },
+  {
+   "id": "premium-skill-banner",
+   "level": null,
+   "feature": "Premium skill banner: clear Verdantglade and make the second-tier class change (Lv 44, in Cinder Ridge)",
+   "gate": "condition",
+   "note": null,
+   "sources": [
+    "S-54",
+    "S-85"
+   ]
+  },
+  {
+   "id": "offhand-slot",
+   "level": null,
+   "feature": "Offhand gear slot: after the Class II change per the official handbook; not unlocked at Lv 37 on our account",
+   "gate": "condition",
+   "note": null,
+   "sources": [
+    "R-023",
+    "S-87"
+   ]
+  },
+  {
+   "id": "charm-slot-4",
+   "level": null,
+   "feature": "4th charm slot: trigger unknown, locked at Lv 13",
+   "gate": "condition",
+   "note": null,
+   "sources": [
+    "R-080"
+   ]
+  },
+  {
+   "id": "dismantle",
+   "level": 12,
+   "feature": "Dismantle (Alchemy Pot turns gear into Refined Ore and Raw Ore)",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-87"
+   ]
+  },
+  {
+   "id": "class-change-3",
+   "level": 82,
+   "feature": "Third class change (Archmage, Arcanist ...); also total class level 48 and class level 16 in the Tier 2 class",
+   "gate": "level",
+   "note": "eog roadmap; class-level gates also on zeroluck",
+   "sources": [
+    "S-85",
+    "S-80"
+   ]
+  },
+  {
+   "id": "class-change-5",
+   "level": 136,
+   "feature": "Fifth class change (Sorcerer line: Magister); total class level 180",
+   "gate": "level",
+   "note": "From the CN schedule, via eog",
+   "sources": [
+    "S-85"
+   ]
+  },
+  {
+   "id": "class-change-6",
+   "level": 172,
+   "feature": "Sixth class change (Sorcerer line: Cataclyst); total class level 280",
+   "gate": "level",
+   "note": "From the CN schedule, via eog",
+   "sources": [
+    "S-85"
+   ]
+  },
+  {
+   "id": "class-change-7",
+   "level": 198,
+   "feature": "Seventh class change (Sorcerer line: Voidcaller); total class level 380",
+   "gate": "level",
+   "note": "From the CN schedule, via eog",
+   "sources": [
+    "S-85"
+   ]
+  },
+  {
+   "id": "acme-nexus",
+   "level": 130,
+   "feature": "Acme Nexus seasonal map (also server day 71)",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-85"
+   ]
+  }
+ ]
+}

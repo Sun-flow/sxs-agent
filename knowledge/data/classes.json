@@ -1,0 +1,564 @@
+{
+ "_meta": {
+  "description": "Sword x Staff class tree: tier, parent, role, unlock level and place, class trait, relative base stats (from S-10), elements, off-hand weapon. null = unknown.",
+  "sources": [
+   "S-02",
+   "S-03",
+   "S-10",
+   "S-11",
+   "R-054"
+  ],
+  "updated": "2026-11-18"
+ },
+ "classes": [
+  {
+   "id": "warrior",
+   "name": "Warrior",
+   "tier": 1,
+   "parent": null,
+   "line": "warrior",
+   "role": "Melee starter: durable physical fighter",
+   "unlock_level": null,
+   "unlock_place": "Originisle V (after the Guardian Colossi boss)",
+   "class_trait": null,
+   "base_stats": {
+    "hp": 900,
+    "atk": 600,
+    "def": 900,
+    "spd": 600
+   },
+   "elements": [
+    "Physical",
+    "Wind"
+   ],
+   "offhand": null,
+   "next": [
+    "duelist",
+    "knight"
+   ],
+   "page": "classes/warrior.md",
+   "sources": [
+    "S-03",
+    "S-10",
+    "R-054"
+   ]
+  },
+  {
+   "id": "mage",
+   "name": "Mage",
+   "tier": 1,
+   "parent": null,
+   "line": "mage",
+   "role": "Ranged starter: elemental damage, heals, control, summons",
+   "unlock_level": null,
+   "unlock_place": "Originisle V (after the Guardian Colossi boss)",
+   "class_trait": null,
+   "base_stats": {
+    "hp": 500,
+    "atk": 1400,
+    "def": 500,
+    "spd": 600
+   },
+   "elements": [
+    "Water",
+    "Fire",
+    "Wind"
+   ],
+   "offhand": null,
+   "next": [
+    "sorcerer",
+    "sage"
+   ],
+   "page": "classes/mage.md",
+   "sources": [
+    "S-03",
+    "S-10",
+    "R-054"
+   ]
+  },
+  {
+   "id": "duelist",
+   "name": "Duelist",
+   "tier": 2,
+   "parent": "warrior",
+   "line": "warrior",
+   "role": "Melee burst DPS",
+   "unlock_level": 44,
+   "unlock_place": "Cinder Ridge",
+   "class_trait": "Crit Rate",
+   "base_stats": {
+    "hp": 1000,
+    "atk": 1500,
+    "def": 1000,
+    "spd": 1500
+   },
+   "elements": [
+    "Physical",
+    "Dark",
+    "Fire"
+   ],
+   "offhand": "Gauntlets",
+   "next": [
+    "berserker"
+   ],
+   "page": "classes/duelist.md",
+   "sources": [
+    "S-03",
+    "S-10",
+    "S-11"
+   ]
+  },
+  {
+   "id": "knight",
+   "name": "Knight",
+   "tier": 2,
+   "parent": "warrior",
+   "line": "warrior",
+   "role": "Tank",
+   "unlock_level": 44,
+   "unlock_place": "Cinder Ridge",
+   "class_trait": "Block",
+   "base_stats": {
+    "hp": 1500,
+    "atk": 900,
+    "def": 1500,
+    "spd": 1100
+   },
+   "elements": [
+    "Physical",
+    "Light",
+    "Water"
+   ],
+   "offhand": "Shield",
+   "next": [
+    "paladin"
+   ],
+   "page": "classes/knight.md",
+   "sources": [
+    "S-03",
+    "S-10",
+    "S-11"
+   ]
+  },
+  {
+   "id": "sorcerer",
+   "name": "Sorcerer",
+   "tier": 2,
+   "parent": "mage",
+   "line": "mage",
+   "role": "Ranged AoE DPS",
+   "unlock_level": 44,
+   "unlock_place": "Cinder Ridge",
+   "class_trait": "Block Penetration / Accuracy",
+   "base_stats": {
+    "hp": 1000,
+    "atk": 1900,
+    "def": 900,
+    "spd": 1200
+   },
+   "elements": [
+    "Fire",
+    "Water",
+    "Wind",
+    "Light"
+   ],
+   "offhand": "Spellbook",
+   "next": [
+    "archmage"
+   ],
+   "page": "classes/sorcerer.md",
+   "sources": [
+    "S-03",
+    "S-10",
+    "S-11"
+   ]
+  },
+  {
+   "id": "sage",
+   "name": "Sage",
+   "tier": 2,
+   "parent": "mage",
+   "line": "mage",
+   "role": "Healer / debuffer / summoner",
+   "unlock_level": 44,
+   "unlock_place": "Cinder Ridge",
+   "class_trait": "Crit Resistance, Healing Boost",
+   "base_stats": {
+    "hp": 1250,
+    "atk": 1250,
+    "def": 1250,
+    "spd": 1250
+   },
+   "elements": [
+    "Dark"
+   ],
+   "offhand": "Orb",
+   "next": [
+    "arcanist"
+   ],
+   "page": "classes/sage.md",
+   "sources": [
+    "S-03",
+    "S-10",
+    "S-11"
+   ]
+  },
+  {
+   "id": "berserker",
+   "name": "Berserker",
+   "tier": 3,
+   "parent": "duelist",
+   "line": "warrior",
+   "role": "Melee burst and AoE DPS",
+   "unlock_level": 82,
+   "unlock_place": "Aqualis",
+   "class_trait": "Crit Rate",
+   "base_stats": {
+    "hp": 1700,
+    "atk": 2400,
+    "def": 1700,
+    "spd": 2400
+   },
+   "elements": [
+    "Physical",
+    "Dark",
+    "Fire"
+   ],
+   "offhand": "Gauntlets",
+   "next": [
+    "conqueror"
+   ],
+   "page": "classes/berserker.md",
+   "sources": [
+    "S-03",
+    "S-10",
+    "S-11"
+   ]
+  },
+  {
+   "id": "paladin",
+   "name": "Paladin",
+   "tier": 3,
+   "parent": "knight",
+   "line": "warrior",
+   "role": "Tank",
+   "unlock_level": 82,
+   "unlock_place": "Aqualis",
+   "class_trait": "Block",
+   "base_stats": {
+    "hp": 2400,
+    "atk": 1600,
+    "def": 2400,
+    "spd": 1800
+   },
+   "elements": [
+    "Physical",
+    "Light",
+    "Water"
+   ],
+   "offhand": "Shield",
+   "next": [
+    "guardian"
+   ],
+   "page": "classes/paladin.md",
+   "sources": [
+    "S-03",
+    "S-10",
+    "S-11"
+   ]
+  },
+  {
+   "id": "archmage",
+   "name": "Archmage",
+   "tier": 3,
+   "parent": "sorcerer",
+   "line": "mage",
+   "role": "Ranged AoE DPS",
+   "unlock_level": 82,
+   "unlock_place": "Aqualis",
+   "class_trait": "Block Penetration / Accuracy",
+   "base_stats": {
+    "hp": 1650,
+    "atk": 2950,
+    "def": 1600,
+    "spd": 2000
+   },
+   "elements": [
+    "Fire",
+    "Water",
+    "Wind",
+    "Light"
+   ],
+   "offhand": "Spellbook",
+   "next": [
+    "destroyer"
+   ],
+   "page": "classes/archmage.md",
+   "sources": [
+    "S-03",
+    "S-10",
+    "S-11"
+   ]
+  },
+  {
+   "id": "arcanist",
+   "name": "Arcanist",
+   "tier": 3,
+   "parent": "sage",
+   "line": "mage",
+   "role": "Healer / Erosion DPS / summoner",
+   "unlock_level": 82,
+   "unlock_place": "Aqualis",
+   "class_trait": "Crit Resistance, Healing Boost",
+   "base_stats": {
+    "hp": 2050,
+    "atk": 2050,
+    "def": 2050,
+    "spd": 2050
+   },
+   "elements": [
+    "Dark"
+   ],
+   "offhand": "Orb",
+   "next": [
+    "dominator"
+   ],
+   "page": "classes/arcanist.md",
+   "sources": [
+    "S-03",
+    "S-10",
+    "S-11"
+   ]
+  },
+  {
+   "id": "conqueror",
+   "name": "Conqueror",
+   "tier": 4,
+   "parent": "berserker",
+   "line": "warrior",
+   "role": "Melee DPS (physical combo or elemental hybrid)",
+   "unlock_level": 106,
+   "unlock_place": "Loong Haven",
+   "class_trait": "Crit Rate",
+   "base_stats": {
+    "hp": 2650,
+    "atk": 3450,
+    "def": 2700,
+    "spd": 3400
+   },
+   "elements": [
+    "Physical",
+    "Fire",
+    "Dark"
+   ],
+   "offhand": "Gauntlets",
+   "next": [
+    "ravager"
+   ],
+   "page": "classes/tier-4.md",
+   "sources": [
+    "S-03",
+    "S-10",
+    "S-11",
+    "S-02"
+   ]
+  },
+  {
+   "id": "guardian",
+   "name": "Guardian",
+   "tier": 4,
+   "parent": "paladin",
+   "line": "warrior",
+   "role": "Tank with Water or Light offence",
+   "unlock_level": 106,
+   "unlock_place": "Loong Haven",
+   "class_trait": "Block",
+   "base_stats": {
+    "hp": 3400,
+    "atk": 2600,
+    "def": 3400,
+    "spd": 2800
+   },
+   "elements": [
+    "Physical",
+    "Water",
+    "Light"
+   ],
+   "offhand": "Shield",
+   "next": [
+    "templar"
+   ],
+   "page": "classes/tier-4.md",
+   "sources": [
+    "S-03",
+    "S-10",
+    "S-11",
+    "S-02"
+   ]
+  },
+  {
+   "id": "destroyer",
+   "name": "Destroyer",
+   "tier": 4,
+   "parent": "archmage",
+   "line": "mage",
+   "role": "Ranged AoE DPS (Light and Fire)",
+   "unlock_level": 106,
+   "unlock_place": "Loong Haven",
+   "class_trait": "Block Penetration / Accuracy",
+   "base_stats": {
+    "hp": 2700,
+    "atk": 3900,
+    "def": 2600,
+    "spd": 3000
+   },
+   "elements": [
+    "Light",
+    "Fire",
+    "Wind",
+    "Water"
+   ],
+   "offhand": "Spellbook",
+   "next": [
+    "magister"
+   ],
+   "page": "classes/tier-4.md",
+   "sources": [
+    "S-03",
+    "S-10",
+    "S-11",
+    "S-02"
+   ]
+  },
+  {
+   "id": "dominator",
+   "name": "Dominator",
+   "tier": 4,
+   "parent": "arcanist",
+   "line": "mage",
+   "role": "Shadow Priest (Dark DPS) / pure healer / summoner",
+   "unlock_level": 106,
+   "unlock_place": "Loong Haven",
+   "class_trait": "Crit Resistance, Healing Boost",
+   "base_stats": {
+    "hp": 3050,
+    "atk": 3050,
+    "def": 3050,
+    "spd": 3050
+   },
+   "elements": [
+    "Dark"
+   ],
+   "offhand": "Orb",
+   "next": [
+    "prophet"
+   ],
+   "page": "classes/tier-4.md",
+   "sources": [
+    "S-03",
+    "S-10",
+    "S-11",
+    "S-02"
+   ]
+  },
+  {
+   "id": "ravager",
+   "name": "Ravager",
+   "tier": 5,
+   "parent": "conqueror",
+   "line": "warrior",
+   "role": "Melee DPS",
+   "unlock_level": null,
+   "unlock_place": null,
+   "class_trait": "Crit Rate",
+   "base_stats": {
+    "hp": 3700,
+    "atk": 4400,
+    "def": 3700,
+    "spd": 4900
+   },
+   "elements": [],
+   "offhand": "Gauntlets",
+   "next": [],
+   "page": "classes/tier-4.md",
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "templar",
+   "name": "Templar",
+   "tier": 5,
+   "parent": "guardian",
+   "line": "warrior",
+   "role": "Tank",
+   "unlock_level": null,
+   "unlock_place": null,
+   "class_trait": "Block",
+   "base_stats": {
+    "hp": 4400,
+    "atk": 3600,
+    "def": 4900,
+    "spd": 3800
+   },
+   "elements": [],
+   "offhand": "Shield",
+   "next": [],
+   "page": "classes/tier-4.md",
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "magister",
+   "name": "Magister",
+   "tier": 5,
+   "parent": "destroyer",
+   "line": "mage",
+   "role": "Ranged AoE DPS (Wind or Fire)",
+   "unlock_level": null,
+   "unlock_place": null,
+   "class_trait": "Block Penetration / Accuracy",
+   "base_stats": {
+    "hp": 3700,
+    "atk": 5400,
+    "def": 3600,
+    "spd": 4000
+   },
+   "elements": [
+    "Wind",
+    "Fire"
+   ],
+   "offhand": "Spellbook",
+   "next": [],
+   "page": "classes/tier-4.md",
+   "sources": [
+    "S-10"
+   ]
+  },
+  {
+   "id": "prophet",
+   "name": "Prophet",
+   "tier": 5,
+   "parent": "dominator",
+   "line": "mage",
+   "role": "Support / summoner",
+   "unlock_level": null,
+   "unlock_place": null,
+   "class_trait": "Crit Resistance, Healing Boost",
+   "base_stats": {
+    "hp": 4550,
+    "atk": 4050,
+    "def": 4050,
+    "spd": 4050
+   },
+   "elements": [],
+   "offhand": "Orb",
+   "next": [],
+   "page": "classes/tier-4.md",
+   "sources": [
+    "S-10"
+   ]
+  }
+ ]
+}

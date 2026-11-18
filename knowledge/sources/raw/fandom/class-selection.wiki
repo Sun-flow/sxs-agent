@@ -1,0 +1,137 @@
+
+== Second Class Change – Cinder Ridge (Level 44) ==
+At level 44, in Cinder Ridge, you unlock your second class change and can choose one of two classes:
+
+==== Warrior ====
+
+* Duelist
+* Knight
+
+==== Mage ====
+
+* Sorcerer
+* Sage
+
+This is where the distinction between damage and support begins to appear—although true builds don’t exist yet. I’ll briefly explain each class’s core playstyle here. The real build system doesn’t fully appear until the third class change. If you’re unhappy with your class, you can still switch later.
+
+In future, instead of calling class like "Berserker", "Paladin", "Archmage", or "Arcanist", As a professional guider, I highly recommend everyone just call them: "3rd Duelist", "3rd Knight", "3rd Sorcerer", and "3rd Sage". This happens because when you play longer and longer in this game, there will be more higher class branches add in game. For example, the next class of "Arcanist" is called: "Dominator," which is called 4th Sage by me. It will became hard for players to memorize 10, 20, or even 30+ different class names.(When I was writing this page, SxS is about to finish 8th hierarchy, which is 30 classes already.) Simply, we just call them "xth class" since there will be no extra branch such as "Duel-Sage" or finer branches after Duelist, Knight, Sorcerer, and Sage.
+
+== Core Builds of the Four Classes ==
+
+=== Duelist ===
+Duelist has two main builds:
+
+* "Multi-Strike" that relies on multi-attacks, letting Charms do most of the damage
+* "Spellblade" centered around Techniques and direct combat
+
+=== Knight ===
+Knight has three main builds:
+
+* "Block Knight" sustain build for long fights. (While all Knights need block, only the sustain build is called "Block".)
+* "Water Knight," focused on Water-element skills and strong AoE damage
+* "Light Knight," centered on Light-element attacks with cool skill effects
+
+=== Sorcerer ===
+Sorcerer has five builds:
+
+* "Light" focus on solo fight. It relies on its combo count to trigger its charm damage, which is one of the mainstream options
+* "Fire" has higher crit chance and advantage at AoE damage, which is one of the mainstream options
+* "Wind" focus on repel enemies so melee range enemies will not have enough "proactiveness", or "energy" to use their skills
+* "Water" can control enemies, focus on freeze them for rounds to avoid their attack round
+* "Four-element hybrid" contains all four elements features and deal mixed damage
+
+=== Sage ===
+Sage offers three builds:
+
+* "Erosion," stacking erosion debuff for massive instant burst damage
+* "Direct damage," similar to battle-focused Duelist
+* "Summonor" relies on summons during the fight, function as distinct class roles (As a pro, I don't recommend anyone focus on this build.)
+
+Note: "Healer" is a style, not a build.
+
+Notes: If you’re wondering whether I left something out — the answer is no. Any build not mentioned simply hasn’t held up over time or through player testing. And I am trying to make all things easier to memorize instead of using formal name of the styles.
+
+== Styles vs. Builds vs. Mechanics ==
+It may confuse you when I say "Style," "Build," or even "Mechanic" when I am talking about classes. After my explain, you will be totally understand the difference between these three terms.
+
+=== Style ===
+Style refers to character attributes that players choose. Players cannot switch it easily. For example, when a Duelist says: "I am Block Duelist," which means his relics and gear attributions are mainly focus on block instead of crit chance. Here is another example, when you ask me: "What is your playstyle?" and I say: "I am Heal Knight," which means instead of accuracy and crit chance as the secondary attributions (primary is block), I choose to collect heal boost to higher my combat abaility to stay longer during the fight. I cannot switch heal boost to crit chance in seconds. Sometimes I need monthes to switch my style if I feel my current style is not my favorite. (This is why I don't recommend most player switch their classes.)
+
+Here are some examples of styles:
+
+Crit Duelist/Sorcerer, Tank (Knight), Healer (Sage)
+
+And here are some examples of rare styles:
+
+Crit Knight, Heal Knight, Accuracy Duelist, Shadow Priest (Damage Sage), Block Sorcerer/Duelist/Sage
+
+=== Build ===
+Build refers to the core skills that you choose for most of your combats. It is often connect with your character progression (so do style). And players don't usually switch their builds (not Loadout) unless is nessary. For example, when I ask you: "What is your build?" And you say: "Light Sorcerer," which means you choose light element skill combinations in your combat, most of your damage are come from light skills. Here is another example: when a Duelist says: "I am a Dark Duelist," which means most of his damage skills are dark element in his Loadouts. Just remember, how you use your Skill Shard Voucher and how you choose your element of your relics will affact your builds ability and might causes you became weaker of stronger when you switch your builds.
+
+Here are some examples of builds:
+
+Water Knight, Light Sorcerer, Hybrid (Sorcerer), Erosion (Sage), Multi-Strike (Duelist)
+
+=== Mechanic ===
+Mechanic is a finer term between Style and Build. Basicly means "The way how player fight in combat." Players can choose same mechanic on differernt Builds or Styles and they can easily switch their mechanic in their loadouts. For example, I am a Light Knight, and my mechanic is shield, so you can easily understand, or imagine what is my loadout and how I play during combat.
+
+Here are some examples of mechanices:
+
+Shield (Knight), Taunt (Knight), Fridge (Sorcerer), Lifesteal (Duelist)
+
+== Damage vs Support – A Key Reminder ==
+Although these four classes do differ in damage and support roles, remember this:  Everyone has to clear the main storyline (Kingdom) solo. Because of that, every class can function as a damage dealer to some extent. Even Knight can later choose a pure damage build or a full tank-oriented sustain build. The same flexibility applies to Sage. When choosing a class, I strongly recommend prioritizing playstyle enjoyment over raw power. One defining trait of this game is that if a class is overly strong in one stage, it will almost certainly receive weaker skills in the next class hierarchy. There is no permanent “best class.” Some classes are stronger or weaker at different classes hierarchy, or season, and since class-change skills are random, switching or sticking with a class is largely personal preference.
+
+== Attribute Differences Between Classes ==
+If you’ve read my Cinder Ridge guide, you already know that each class scales differently.
+
+=== DUELIST ===
+
+* Duelist has high Crit Rate but low Accuracy
+* Crits can deal 150% damage above
+* But blocked hits instantly of your damage, making output unstable, damage range between 50% ~ 300%
+
+=== KNIGHT ===
+
+* Knight has high Block
+* Allows sustained fights
+* A bit of Crit enables strong damage when luck aligns, damage range between 50% ~ 200%
+
+=== SORCERER ===
+
+* Sorcerer trades Crit for stability
+* Class-based Accuracy means attacks are rarely blocked
+* Less explosive than Duelist, but far more consistent overall, damage range between 100% ~ 250%
+
+=== SAGE ===
+
+* Sage has higher base stats
+* This gives it extreme build flexibility, damage range between 50% ~ 200%
+
+One note: Sage lacks strong innate damage reduction, so I don’t recommend stacking Block. Crit, reliable damage boosts, and damage reduction also perform well in practice.
+
+== Class Transfer ==
+
+=== What Class Should I Choose? ===
+One of the most common questions I see from players is: “Which class should I choose?” Early on, you’re forced to make a tough choice between Warrior and Mage, and later the game throws four more classes at you. That’s where many players start to hesitate. So in this guide, I’ll break down the differences between these four classes and help you decide which one truly fits your playstyle. Let’s get started.
+
+=== Lossless Class Transfer & Early Choices ===
+First, it’s important to understand that this game uses a lossless class transfer system. When you reach Aqualis and change classes, all previously pulled skills are fully and randomly converted into skills for your new class. You’re given three options and can choose one of them. Coincidentally, Aqualis is also where class archetypes and playstyles start to clearly diverge. Because of this, your early Warrior vs Mage choice isn’t that important. At that stage, the game hasn’t clearly separated damage dealers and supports yet. My advice is simple:  Pick whatever you normally enjoy playing in other games.
+
+More Information about why you want to change class, welcome to read: [[Everything about Class Change]]
+
+== Why “Meta Advice” Hurts the Game ==
+To be honest, I don’t want players choosing classes based on phrases like:
+
+'''•    “xxxx is T0 class”'''
+
+'''•    “xxxx is strongest if you spend money”'''
+
+'''•    “xxxx the best free-to-play class”'''
+
+That mindset directly harms dungeon composition and creates long-term problems across the server. A server can only hold thousands players. It’s impossible for everyone to constantly group with whales. I’ve seen high-spending players unable to find a tank and regular players repeatedly matched with only support classes. Too many of the same class in a dungeon reduces overall performance, no matter how strong that class is. A whale Knight creates a comfort environment for damage dealers (is damage dealers, not damage classes). A whale Sage can heals way more than a standard one. When free-to-play Sage heals you 25% of your health in a whole round, a whale Sage can heal over 100% of your health in one skill, and you know is impossible to use all four techniques every single round. Every class matters. Never underestimate their roles.
+
+== Ending ==
+That’s my overview of the four classes. I hope this guide helps you understand their playstyles, builds, strengths, and progression paths more clearly.
+
+Written by: QY Maple

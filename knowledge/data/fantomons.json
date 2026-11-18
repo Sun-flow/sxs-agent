@@ -1,0 +1,279 @@
+{
+  "_meta": {
+    "description": "Known Fantomons of Sword x Staff: type, rarity, skill, how obtained. type/rarity are null where no source states them; *_inferred holds our best guess (see systems/fantomons.md). tier is S/A/B from S-02 (S) and S-26 (A/B, tier D).",
+    "sources": [
+      "S-01",
+      "S-02",
+      "S-03",
+      "S-04",
+      "S-20",
+      "S-25",
+      "S-26",
+      "S-27",
+      "S-28"
+    ],
+    "updated": "2026-11-18"
+  },
+  "fantomons": [
+    {
+      "id": "nyxarchon",
+      "name": "Nyxarchon",
+      "type": "Attack",
+      "type_inferred": null,
+      "rarity": "Mythic",
+      "rarity_inferred": null,
+      "aptitude_material": "Magic Wool",
+      "skill_name": "Requiem Blast",
+      "skill_effect": "When a damaging Technique is used, deals Dark DMG once to one target and all enemies within 2 grids; 100% chance of 1 stack of 10% DEF Reduction (max 3) for 2 turns; at most twice every 2 turns.",
+      "adult_notes": null,
+      "obtain": "Summon Crystal exchange (60, tier D number)",
+      "tier": "S",
+      "notes": "Best DPS Main; aptitudes give Crit Rate and Accuracy; Immortal skill gives about 30% Crit Rate and Accuracy.",
+      "sources": [
+        "S-01",
+        "S-02",
+        "S-03",
+        "S-20"
+      ]
+    },
+    {
+      "id": "aegiswing",
+      "name": "Aegiswing",
+      "type": "Tank",
+      "type_inferred": null,
+      "rarity": "Mythic",
+      "rarity_inferred": null,
+      "aptitude_material": "Brown Egg",
+      "skill_name": "Radiant Sanctuary",
+      "skill_effect": "At battle start grants Guardian Angel for 3 turns; when it expires, restores 50% of lost HP and grants Power Unsealed for the battle.",
+      "adult_notes": "Adult form adds Taunt/Retribution effects (tier D).",
+      "obtain": "Summon Crystal exchange (60, tier D number)",
+      "tier": "S",
+      "notes": "Best Tank Main; aptitudes give Block and Block Efficiency; PvP utility.",
+      "sources": [
+        "S-01",
+        "S-02",
+        "S-03",
+        "S-20",
+        "S-26"
+      ]
+    },
+    {
+      "id": "pandarial",
+      "name": "Pandarial",
+      "type": "Support",
+      "type_inferred": null,
+      "rarity": null,
+      "rarity_inferred": "Mythic",
+      "aptitude_material": "Fresh Essence",
+      "skill_name": "Ink Burst",
+      "skill_effect": "At battle start reduces every Technique's cooldown by 1 turn and gives a battle-long damage boost (tier D wording).",
+      "adult_notes": "Adult skills (tier D): Bamboo Gale / Verdant Spikes (damage, Fragility: +5% damage taken), Emerald Dew (heals allies within 4 grids).",
+      "obtain": "Summon Crystal exchange from day 46 of Season 2",
+      "tier": "S",
+      "notes": "Best Deployed Fantomon for every class; Healing Boost aptitude for supports; better than Aegiswing in 4v4.",
+      "sources": [
+        "S-02",
+        "S-26",
+        "S-28"
+      ]
+    },
+    {
+      "id": "sylvaerie",
+      "name": "Sylvaerie",
+      "type": "Support",
+      "type_inferred": null,
+      "rarity": null,
+      "rarity_inferred": "Legendary",
+      "aptitude_material": "Fresh Essence",
+      "skill_name": "Wind Embrace",
+      "skill_effect": "Raises the caster's ATK and SPD for 1 turn after the caster's turn ends.",
+      "adult_notes": null,
+      "obtain": "Summon; rotating Legendary in the Summon Crystal shop (18, tier D)",
+      "tier": "A",
+      "notes": "Support sub in SOF's lineup.",
+      "sources": [
+        "S-01",
+        "S-03",
+        "S-20",
+        "S-26"
+      ]
+    },
+    {
+      "id": "zeioletus",
+      "name": "Zeioletus",
+      "type": "Attack",
+      "type_inferred": null,
+      "rarity": null,
+      "rarity_inferred": "Legendary",
+      "aptitude_material": "Magic Wool",
+      "skill_name": "Lotus Step",
+      "skill_effect": "When a damaging Technique is used, deals Light DMG once to one target and all enemies within 1 grid and knocks them airborne; at most twice every 2 turns; +20% DMG to large targets.",
+      "adult_notes": null,
+      "obtain": "Summon",
+      "tier": "A",
+      "notes": "Attack sub in SOF's lineup; named as an Adult filler.",
+      "sources": [
+        "S-01",
+        "S-02",
+        "S-03",
+        "S-26"
+      ]
+    },
+    {
+      "id": "armopi",
+      "name": "Armopi",
+      "type": null,
+      "type_inferred": "Tank",
+      "rarity": null,
+      "rarity_inferred": "Legendary",
+      "aptitude_material": "Brown Egg",
+      "skill_name": "Armor Protection",
+      "skill_effect": "1 stack of DEF Up at the end of the caster's turn; at 3 stacks removes them and grants a shield based on the caster's DEF.",
+      "adult_notes": null,
+      "obtain": "Summon",
+      "tier": "B",
+      "notes": "Named by SOF as an Adult filler.",
+      "sources": [
+        "S-02",
+        "S-03",
+        "S-26"
+      ]
+    },
+    {
+      "id": "kels",
+      "name": "Kels",
+      "type": null,
+      "type_inferred": "Support",
+      "rarity": null,
+      "rarity_inferred": "Legendary",
+      "aptitude_material": "Fresh Essence",
+      "skill_name": "Purging Spell",
+      "skill_effect": "When a damaging Technique is used, deals Water DMG once to one target and dispels 1 random buff; once per turn.",
+      "adult_notes": "Adult 'Water Drill': 50% base chance of -20% DEF for 2 turns (tier D).",
+      "obtain": "Arena shop shards (60 shards, tier D); not in the summon pool (tier D)",
+      "tier": "A",
+      "notes": null,
+      "sources": [
+        "S-03",
+        "S-04",
+        "S-26"
+      ]
+    },
+    {
+      "id": "terragon",
+      "name": "Terragon",
+      "type": null,
+      "type_inferred": "Tank",
+      "rarity": null,
+      "rarity_inferred": "Legendary",
+      "aptitude_material": "Brown Egg",
+      "skill_name": "Sandstone Shot",
+      "skill_effect": "When a damaging Technique is used, deals Physical DMG once to one target, 50% base chance to reduce its ATK by 25% for 1 turn; once per turn.",
+      "adult_notes": null,
+      "obtain": "Summon",
+      "tier": "A",
+      "notes": null,
+      "sources": [
+        "S-03",
+        "S-26"
+      ]
+    },
+    {
+      "id": "herbote",
+      "name": "Herbote",
+      "type": null,
+      "type_inferred": "Support",
+      "rarity": null,
+      "rarity_inferred": "Legendary",
+      "aptitude_material": "Fresh Essence",
+      "skill_name": "Emergency Aid",
+      "skill_effect": "If the caster starts a turn below 80% HP, heals the caster once, with a 50% chance to dispel 1 ailment or debuff.",
+      "adult_notes": null,
+      "obtain": "Summon",
+      "tier": "B",
+      "notes": "S-04 calls it Epic.",
+      "sources": [
+        "S-03",
+        "S-04",
+        "S-26"
+      ]
+    },
+    {
+      "id": "mandragora",
+      "name": "Mandragora",
+      "type": null,
+      "type_inferred": "Support",
+      "rarity": null,
+      "rarity_inferred": "Epic",
+      "aptitude_material": "Fresh Essence",
+      "skill_name": null,
+      "skill_effect": "When a Technique is used on allies, heals 1 target once.",
+      "adult_notes": null,
+      "obtain": "Summon",
+      "tier": "B",
+      "notes": null,
+      "sources": [
+        "S-03",
+        "S-26"
+      ]
+    },
+    {
+      "id": "falko",
+      "name": "Falko",
+      "type": null,
+      "type_inferred": "Attack",
+      "rarity": null,
+      "rarity_inferred": "Epic",
+      "aptitude_material": "Magic Wool",
+      "skill_name": null,
+      "skill_effect": "When a damaging Technique is used, deals Physical DMG once to one target and all enemies within 1 grid.",
+      "adult_notes": null,
+      "obtain": "Summon",
+      "tier": "B",
+      "notes": "Skill named 'Golden Flash' by S-26.",
+      "sources": [
+        "S-03",
+        "S-26"
+      ]
+    },
+    {
+      "id": "boaro",
+      "name": "Boaro",
+      "type": null,
+      "type_inferred": "Tank",
+      "rarity": null,
+      "rarity_inferred": "Epic",
+      "aptitude_material": "Brown Egg",
+      "skill_name": null,
+      "skill_effect": "Each time the caster cumulatively loses 15% of max HP, grants a shield based on the caster's DEF; up to 5 times per battle.",
+      "adult_notes": null,
+      "obtain": "Summon",
+      "tier": "B",
+      "notes": null,
+      "sources": [
+        "S-03",
+        "S-04",
+        "S-26"
+      ]
+    },
+    {
+      "id": "chomusuke",
+      "name": "Chomusuke",
+      "type": null,
+      "type_inferred": "Attack",
+      "rarity": "Epic",
+      "rarity_inferred": null,
+      "aptitude_material": "Magic Wool",
+      "skill_name": null,
+      "skill_effect": "Extra Physical area attack after a damaging Technique, 50% chance of -15% DEF (tier D).",
+      "adult_notes": null,
+      "obtain": null,
+      "tier": "B",
+      "notes": "Only in S-26; probably a KonoSuba collaboration Fantomon.",
+      "sources": [
+        "S-26"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,278 @@
+{
+ "_meta": {
+  "description": "Gear tables from zeroluck.gg's gear page (read through WebFetch 2026-11-18): quality ladder, enhancement cost points, Resonance rule, slots, counts. One list with a 'kind' field. null = not stated. Prose: systems/gear.md, sources/notes/zeroluck.md",
+  "sources": [
+   "S-80"
+  ],
+  "updated": "2026-11-18"
+ },
+ "records": [
+  {
+   "id": "quality-white",
+   "kind": "quality",
+   "quality_colour": "white",
+   "rarity_name": null,
+   "example_weapon": "Novice's Longsword",
+   "substat_lines_min": 0,
+   "substat_lines_max": 0,
+   "roll_multiplier_min": 0.7,
+   "roll_multiplier_max": 0.8,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "quality-blue",
+   "kind": "quality",
+   "quality_colour": "blue",
+   "rarity_name": null,
+   "example_weapon": "Explorer's Blade",
+   "substat_lines_min": 1,
+   "substat_lines_max": 2,
+   "roll_multiplier_min": 0.7,
+   "roll_multiplier_max": 0.9,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "quality-purple",
+   "kind": "quality",
+   "quality_colour": "purple",
+   "rarity_name": null,
+   "example_weapon": "Beastfang Sword",
+   "substat_lines_min": 3,
+   "substat_lines_max": 3,
+   "roll_multiplier_min": 0.8,
+   "roll_multiplier_max": 1.0,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "quality-orange",
+   "kind": "quality",
+   "quality_colour": "orange",
+   "rarity_name": null,
+   "example_weapon": "Stone Blade",
+   "substat_lines_min": 4,
+   "substat_lines_max": 4,
+   "roll_multiplier_min": 0.8,
+   "roll_multiplier_max": 1.15,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "quality-gold",
+   "kind": "quality",
+   "quality_colour": "gold",
+   "rarity_name": null,
+   "example_weapon": "Lavaborn Mech Saber",
+   "substat_lines_min": 4,
+   "substat_lines_max": 4,
+   "roll_multiplier_min": 0.8,
+   "roll_multiplier_max": 1.25,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "quality-red",
+   "kind": "quality",
+   "quality_colour": "red",
+   "rarity_name": null,
+   "example_weapon": "Soulflare Blade",
+   "substat_lines_min": 4,
+   "substat_lines_max": 4,
+   "roll_multiplier_min": 0.8,
+   "roll_multiplier_max": 1.25,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "enhance-level-1",
+   "kind": "enhance_cost",
+   "level": 1,
+   "rolla": 70,
+   "raw_ore": 35,
+   "refined_ore": 0,
+   "note": "cost of this single level, one piece",
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "enhance-level-5",
+   "kind": "enhance_cost",
+   "level": 5,
+   "rolla": 110,
+   "raw_ore": 55,
+   "refined_ore": 10,
+   "note": "cost of this single level, one piece",
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "enhance-level-10",
+   "kind": "enhance_cost",
+   "level": 10,
+   "rolla": 160,
+   "raw_ore": 80,
+   "refined_ore": 30,
+   "note": "cost of this single level, one piece",
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "enhance-level-20",
+   "kind": "enhance_cost",
+   "level": 20,
+   "rolla": 1160,
+   "raw_ore": 580,
+   "refined_ore": 170,
+   "note": "cost of this single level, one piece",
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "enhance-level-30",
+   "kind": "enhance_cost",
+   "level": 30,
+   "rolla": 2560,
+   "raw_ore": 1280,
+   "refined_ore": 310,
+   "note": "cost of this single level, one piece",
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "enhance-level-40",
+   "kind": "enhance_cost",
+   "level": 40,
+   "rolla": 4160,
+   "raw_ore": 2080,
+   "refined_ore": 330,
+   "note": "cost of this single level, one piece",
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "enhance-level-250",
+   "kind": "enhance_cost",
+   "level": 250,
+   "rolla": 200000,
+   "raw_ore": 100000,
+   "refined_ore": 550,
+   "note": "cost of this single level, one piece",
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "enhance-total-0-250",
+   "kind": "enhance_total",
+   "from_level": 0,
+   "to_level": 250,
+   "rolla": 17402400,
+   "raw_ore": 8701200,
+   "refined_ore": 22280,
+   "note": "one piece; +250 is the data maximum, live season caps are lower (see systems/gear.md)",
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "resonance-rule",
+   "kind": "resonance",
+   "every_levels": 5,
+   "bonus": "+20% flat to one stat per step (what the percentage applies to is not stated)",
+   "stat_cycle": [
+    "HP",
+    "ATK",
+    "DEF",
+    "SPD"
+   ],
+   "steps_in_data": 240,
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "slot-weapon",
+   "kind": "slot",
+   "slot": "weapon",
+   "types": [
+    "Sword",
+    "Wand"
+   ],
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "slot-helmet",
+   "kind": "slot",
+   "slot": "helmet",
+   "types": [],
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "slot-armor",
+   "kind": "slot",
+   "slot": "armor",
+   "types": [],
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "slot-boots",
+   "kind": "slot",
+   "slot": "boots",
+   "types": [],
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "slot-off-hand",
+   "kind": "slot",
+   "slot": "off-hand",
+   "types": [
+    "Shield",
+    "Glove",
+    "Book",
+    "Ball"
+   ],
+   "sources": [
+    "S-80"
+   ]
+  },
+  {
+   "id": "counts",
+   "kind": "counts",
+   "equipment_pieces": 629,
+   "slots": 5,
+   "qualities": 6,
+   "sets": 28,
+   "set_bonus_sizes": [
+    2,
+    4
+   ],
+   "gem_types": 8,
+   "gems": 360,
+   "sources": [
+    "S-80"
+   ]
+  }
+ ]
+}

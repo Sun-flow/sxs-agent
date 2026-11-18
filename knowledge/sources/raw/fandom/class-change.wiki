@@ -1,0 +1,21 @@
+There are two primary ways to change class in this game.
+
+This is the simple approach, and is basically available at any level.
+
+* It costs ''10 Dawnium'' each time.
+* You keep all upgrades and skill levels in your current class.
+* You must pull all new skills for your new class.
+* You do not automatically advance to the next class.
+
+What that means is that you must upgrade your job level sufficiently so you can advance to the next job. For example, if you're a Berserker and switch to a Knight, you'll start as a Swordsman. You can advance to Knight since you had enough job levels to get to Duelist. However, you are now job level 1 as a Knight. You must pull enough Knight skills to get job level 18 so you can advance to Paladin.
+
+This method unlocks at level 100, and is a bit more complicated. Essentially, you lose your skills in your current class as they are converted to your new class.
+
+* It is free the first time (and once every 7 days, it seems).
+* You are transferred to the same job tier and do NOT need to unlock job advancements.
+* Skills are converted to skills of the same tier.
+* You are given the option of 3 different skill loadouts when you switch. This determines which skills are converted to which within the same tier.
+
+The second point means that, for example, a Berserker will instantly become a Paladin without going through Knight. Tier in my guide means not only the job but also the rarity of the skill. For example, legendary skills appear to be converted to the other class' legendary skill. Refer to the screenshots for more info, but the loadouts appear to give you (limited) flexibility about which skills you want to have highest within a tier. For example, a Paladin has Star Shattering Strike and Holy Redemption as its legendary. The loadouts let you pick which you want to prioritize the conversion with. The loadouts seem to be based on the recommended class skill build archetypes as provided in the game. For example, the first screenshot is more offensive, while the second is more classic Paladin oriented with taunt and shield boomerang being focused.
+
+Written by Nero

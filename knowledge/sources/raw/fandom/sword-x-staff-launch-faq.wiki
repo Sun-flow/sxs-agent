@@ -1,0 +1,65 @@
+[[File:Faq.png|right|400x400px]]
+
+== Launch Day FAQ: Everything You Need to know ==
+We've gathered your most frequent questions to help everyone prepare for the journey into Kanstein!
+
+'''✦ Launch & Download ✦'''
+
+Official Launch: '''May 19, 2026, at 8:30 AM''' (UTC-5)
+
+Launch Regions: Primarily North America and Europe. (Singapore, Southeast Asia, and Australia are not included in this launch region.)
+
+Platforms: available on both Android and iOS via Google Play and the App Store.
+
+Pre-Download: There are currently no plans for a pre-download period.
+
+'''✦ Frequently Asked Questions ✦'''
+
+'''>> Download, Installation, Device, and Account Issues'''
+
+'''Q: What are the recommended device specs for official launch?'''
+
+A: Please refer to the recommended specs below:
+
+iOS: iOS 12.0 or higher, iPhone XS or newer
+
+Android: Android 13.0 or higher, with at least 4GB RAM, running a 64-bit operating system
+
+Note: Due to the wide variety of Android devices available, performance may vary on lower-end models.
+
+'''Q: Can I use an emulator to play?'''
+
+A: Yes, emulators are supported. We recommend using at least an Android 9 instance with 1 CPU core and 2GB RAM. Lower specs may cause game crashing on startup or stability issues.
+
+'''Q: How do I contact customer support if I encounter bugs or issues after the official launch?'''
+
+A: You can reach us through the following methods:
+
+Method 1: In-game, go to Home > Main Menu (bottom-right corner) > User Center > Helper Center.
+
+Method 2: On the login screen, tap Customer Service in the top-right corner.
+
+You can also send a private message to our official Facebook page or seek help in our official Discord server: Kanstein Hub.
+
+'''Q: My game update is slow or stuck downloading. What should I do?'''
+
+A: We recommend using a stable Wi-Fi connection when downloading or updating the game for the best experience. If the download is still slow, try switching to a different network.
+>> Top-Up Rebate and Reward Claim
+
+'''>> Top-Up Rebate and Reward Claim'''
+
+'''Q: How do I claim the Vouchers from Top-Up Rebate?'''
+
+A: Home > Thrilling Events > Top-Up Rebate. Eligible adventurers can tap the claim button on the event screen to receive their corresponding Vouchers.
+
+<nowiki>#</nowiki>Please carefully select the character you wish to claim on. Once confirmed, #this action cannot be reversed!
+
+'''Q: What is the Beta Test Top-Up Points Rewards Program?'''
+
+A: To thank Adventurers who journeyed with us during the beta test, corresponding Top-Up Points will be credited on the official top-up platform based on your total beta test top-ups. These points can also be combined with points earned after official launch. Reach specific point milestones to claim valuable rewards, including the [Eternal Night Ancestor] Outfit!
+
+View full program details here: <nowiki>https://www.facebook.com/share/p/1KuHgZ9cyh/</nowiki>
+
+'''Q: How do I redeem gift codes after official launch?'''
+
+A: After logging in the game, go to Home > Main Menu (bottom-right corner) > User Center > Gift Code, then enter your gift code there to claim your rewards.

@@ -1,0 +1,671 @@
+{
+ "_meta": {
+  "description": "Class tiers 1-8 of the four class lines as seen in the Chinese version (杖剑传说). Forecast for the global game (tier C at best): levels and names may differ. cn_name is null where the Chinese tier title was not found (the CN community names tiers by number plus the tier-2 class name). en_name_official=true means the English name is the global game name as used in our own sources; false or null en_name means no official English name is known.",
+  "sources": [
+   "S-90",
+   "S-91",
+   "S-92",
+   "S-93",
+   "S-94",
+   "S-97",
+   "S-63",
+   "S-03",
+   "S-02"
+  ],
+  "updated": "2026-11-18"
+ },
+ "class_tiers": [
+  {
+   "id": "cn-sorcerer-t1",
+   "line": "sorcerer",
+   "cn_line_name": "术士",
+   "base_class": "mage",
+   "tier": 1,
+   "cn_tier_label": "一转",
+   "cn_name": "法师",
+   "en_name": "Mage",
+   "en_name_official": true,
+   "unlock_level": 1,
+   "kingdom_cn": null,
+   "kingdom": "Originisle / Verdantglade",
+   "cn_season": 1,
+   "notes": "Starting class; the CN community does not count a separate unlock.",
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sorcerer-t2",
+   "line": "sorcerer",
+   "cn_line_name": "术士",
+   "base_class": "mage",
+   "tier": 2,
+   "cn_tier_label": "二转",
+   "cn_name": "术士",
+   "en_name": "Sorcerer",
+   "en_name_official": true,
+   "unlock_level": 44,
+   "kingdom_cn": "山之国",
+   "kingdom": "Cinder Ridge",
+   "cn_season": 1,
+   "notes": "CN: chapter \"Mountain 5\", Lv 44.",
+   "sources": [
+    "S-03",
+    "S-63",
+    "S-91",
+    "S-92"
+   ]
+  },
+  {
+   "id": "cn-sorcerer-t3",
+   "line": "sorcerer",
+   "cn_line_name": "术士",
+   "base_class": "mage",
+   "tier": 3,
+   "cn_tier_label": "三转",
+   "cn_name": "魔导师",
+   "en_name": "Archmage",
+   "en_name_official": true,
+   "unlock_level": 82,
+   "kingdom_cn": "泽之国",
+   "kingdom": "Aqualis",
+   "cn_season": 1,
+   "notes": "CN tier name seen in one guide title (\"术士三转魔导师\").; CN: chapter \"Marsh 9\", Lv 82.",
+   "sources": [
+    "S-03",
+    "S-79",
+    "S-91",
+    "S-92"
+   ]
+  },
+  {
+   "id": "cn-sorcerer-t4",
+   "line": "sorcerer",
+   "cn_line_name": "术士",
+   "base_class": "mage",
+   "tier": 4,
+   "cn_tier_label": "四转",
+   "cn_name": null,
+   "en_name": "Destroyer",
+   "en_name_official": true,
+   "unlock_level": 106,
+   "kingdom_cn": "龙之国",
+   "kingdom": "Loong Haven",
+   "cn_season": 2,
+   "notes": "CN tier name not found (probably 毁灭者: guess).; CN: chapter \"Dragon 5\", Lv 106. Same level in global.",
+   "sources": [
+    "S-02",
+    "S-03",
+    "S-91",
+    "S-92"
+   ]
+  },
+  {
+   "id": "cn-sorcerer-t5",
+   "line": "sorcerer",
+   "cn_line_name": "术士",
+   "base_class": "mage",
+   "tier": 5,
+   "cn_tier_label": "五转",
+   "cn_name": null,
+   "en_name": "Magister",
+   "en_name_official": true,
+   "unlock_level": 136,
+   "kingdom_cn": "羽之国",
+   "kingdom": "Aethyris (inferred match)",
+   "cn_season": 3,
+   "notes": "EN name from our classes.json (tier D source there). CN tier name not found.; GameKee timeline says Lv 136; a TapTap season post reads \"Feather 5 / Lv 140\" (garbled in our reading). 136 is followed.",
+   "sources": [
+    "S-91",
+    "S-92"
+   ]
+  },
+  {
+   "id": "cn-sorcerer-t6",
+   "line": "sorcerer",
+   "cn_line_name": "术士",
+   "base_class": "mage",
+   "tier": 6,
+   "cn_tier_label": "六转",
+   "cn_name": null,
+   "en_name": null,
+   "en_name_official": false,
+   "unlock_level": 172,
+   "kingdom_cn": "哈帕迪",
+   "kingdom": "Hapadi (our transliteration)",
+   "cn_season": 4,
+   "notes": "Tier name not found in any source read. CN players call it \"六转术士\" (tier-6 sorcerer line).; Fantomon Sync follows at Lv 180.",
+   "sources": [
+    "S-91"
+   ]
+  },
+  {
+   "id": "cn-sorcerer-t7",
+   "line": "sorcerer",
+   "cn_line_name": "术士",
+   "base_class": "mage",
+   "tier": 7,
+   "cn_tier_label": "七转",
+   "cn_name": null,
+   "en_name": null,
+   "en_name_official": false,
+   "unlock_level": null,
+   "kingdom_cn": "伊格尼斯",
+   "kingdom": "Ignis (our transliteration)",
+   "cn_season": 5,
+   "notes": "Tier name not found in any source read. CN players call it \"七转术士\" (tier-7 sorcerer line).; Added by the 2026-04-29 CN patch; unlock level not published in the sources read.",
+   "sources": [
+    "S-97"
+   ]
+  },
+  {
+   "id": "cn-sorcerer-t8",
+   "line": "sorcerer",
+   "cn_line_name": "术士",
+   "base_class": "mage",
+   "tier": 8,
+   "cn_tier_label": "八转",
+   "cn_name": null,
+   "en_name": null,
+   "en_name_official": false,
+   "unlock_level": null,
+   "kingdom_cn": null,
+   "kingdom": null,
+   "cn_season": 6,
+   "notes": "Tier name not found in any source read. CN players call it \"八转术士\" (tier-8 sorcerer line).; Entered CN official testing 2026-07-29; live with the season that began 2026-07-30. Kingdom name and unlock level not found.",
+   "sources": [
+    "S-93",
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sage-t1",
+   "line": "sage",
+   "cn_line_name": "贤者",
+   "base_class": "mage",
+   "tier": 1,
+   "cn_tier_label": "一转",
+   "cn_name": "法师",
+   "en_name": "Mage",
+   "en_name_official": true,
+   "unlock_level": 1,
+   "kingdom_cn": null,
+   "kingdom": "Originisle / Verdantglade",
+   "cn_season": 1,
+   "notes": "Starting class; the CN community does not count a separate unlock.",
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-sage-t2",
+   "line": "sage",
+   "cn_line_name": "贤者",
+   "base_class": "mage",
+   "tier": 2,
+   "cn_tier_label": "二转",
+   "cn_name": "贤者",
+   "en_name": "Sage",
+   "en_name_official": true,
+   "unlock_level": 44,
+   "kingdom_cn": "山之国",
+   "kingdom": "Cinder Ridge",
+   "cn_season": 1,
+   "notes": "CN: chapter \"Mountain 5\", Lv 44.",
+   "sources": [
+    "S-03",
+    "S-63",
+    "S-91",
+    "S-92"
+   ]
+  },
+  {
+   "id": "cn-sage-t3",
+   "line": "sage",
+   "cn_line_name": "贤者",
+   "base_class": "mage",
+   "tier": 3,
+   "cn_tier_label": "三转",
+   "cn_name": null,
+   "en_name": "Arcanist",
+   "en_name_official": true,
+   "unlock_level": 82,
+   "kingdom_cn": "泽之国",
+   "kingdom": "Aqualis",
+   "cn_season": 1,
+   "notes": "CN tier name not found; CN players say \"三转贤者\".; CN: chapter \"Marsh 9\", Lv 82.",
+   "sources": [
+    "S-03",
+    "S-91",
+    "S-92"
+   ]
+  },
+  {
+   "id": "cn-sage-t4",
+   "line": "sage",
+   "cn_line_name": "贤者",
+   "base_class": "mage",
+   "tier": 4,
+   "cn_tier_label": "四转",
+   "cn_name": null,
+   "en_name": "Dominator",
+   "en_name_official": true,
+   "unlock_level": 106,
+   "kingdom_cn": "龙之国",
+   "kingdom": "Loong Haven",
+   "cn_season": 2,
+   "notes": "CN tier name not found (probably 支配者: guess).; CN: chapter \"Dragon 5\", Lv 106. Same level in global.",
+   "sources": [
+    "S-02",
+    "S-03",
+    "S-91",
+    "S-92"
+   ]
+  },
+  {
+   "id": "cn-sage-t5",
+   "line": "sage",
+   "cn_line_name": "贤者",
+   "base_class": "mage",
+   "tier": 5,
+   "cn_tier_label": "五转",
+   "cn_name": "秘法先知",
+   "en_name": "Prophet",
+   "en_name_official": true,
+   "unlock_level": 136,
+   "kingdom_cn": "羽之国",
+   "kingdom": "Aethyris (inferred match)",
+   "cn_season": 3,
+   "notes": "CN name from a TapTap guide title (\"贤者五转秘法先知\"); literal \"Arcane Prophet\". EN name from our classes.json.; GameKee timeline says Lv 136; a TapTap season post reads \"Feather 5 / Lv 140\" (garbled in our reading). 136 is followed.",
+   "sources": [
+    "S-91",
+    "S-92",
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-sage-t6",
+   "line": "sage",
+   "cn_line_name": "贤者",
+   "base_class": "mage",
+   "tier": 6,
+   "cn_tier_label": "六转",
+   "cn_name": null,
+   "en_name": null,
+   "en_name_official": false,
+   "unlock_level": 172,
+   "kingdom_cn": "哈帕迪",
+   "kingdom": "Hapadi (our transliteration)",
+   "cn_season": 4,
+   "notes": "Tier name not found in any source read. CN players call it \"六转贤者\" (tier-6 sage line).; Fantomon Sync follows at Lv 180.",
+   "sources": [
+    "S-91"
+   ]
+  },
+  {
+   "id": "cn-sage-t7",
+   "line": "sage",
+   "cn_line_name": "贤者",
+   "base_class": "mage",
+   "tier": 7,
+   "cn_tier_label": "七转",
+   "cn_name": null,
+   "en_name": null,
+   "en_name_official": false,
+   "unlock_level": null,
+   "kingdom_cn": "伊格尼斯",
+   "kingdom": "Ignis (our transliteration)",
+   "cn_season": 5,
+   "notes": "Tier name not found in any source read. CN players call it \"七转贤者\" (tier-7 sage line).; Added by the 2026-04-29 CN patch; unlock level not published in the sources read.",
+   "sources": [
+    "S-97"
+   ]
+  },
+  {
+   "id": "cn-sage-t8",
+   "line": "sage",
+   "cn_line_name": "贤者",
+   "base_class": "mage",
+   "tier": 8,
+   "cn_tier_label": "八转",
+   "cn_name": null,
+   "en_name": null,
+   "en_name_official": false,
+   "unlock_level": null,
+   "kingdom_cn": null,
+   "kingdom": null,
+   "cn_season": 6,
+   "notes": "Tier name not found in any source read. CN players call it \"八转贤者\" (tier-8 sage line).; Entered CN official testing 2026-07-29; live with the season that began 2026-07-30. Kingdom name and unlock level not found.",
+   "sources": [
+    "S-93",
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-duelist-t1",
+   "line": "duelist",
+   "cn_line_name": "斗士",
+   "base_class": "warrior",
+   "tier": 1,
+   "cn_tier_label": "一转",
+   "cn_name": "战士",
+   "en_name": "Warrior",
+   "en_name_official": true,
+   "unlock_level": 1,
+   "kingdom_cn": null,
+   "kingdom": "Originisle / Verdantglade",
+   "cn_season": 1,
+   "notes": "Starting class; the CN community does not count a separate unlock.",
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-duelist-t2",
+   "line": "duelist",
+   "cn_line_name": "斗士",
+   "base_class": "warrior",
+   "tier": 2,
+   "cn_tier_label": "二转",
+   "cn_name": "斗士",
+   "en_name": "Duelist",
+   "en_name_official": true,
+   "unlock_level": 44,
+   "kingdom_cn": "山之国",
+   "kingdom": "Cinder Ridge",
+   "cn_season": 1,
+   "notes": "Literal meaning \"fighter\"; Duelist is the global name of the same branch.; CN: chapter \"Mountain 5\", Lv 44.",
+   "sources": [
+    "S-03",
+    "S-63",
+    "S-91",
+    "S-92"
+   ]
+  },
+  {
+   "id": "cn-duelist-t3",
+   "line": "duelist",
+   "cn_line_name": "斗士",
+   "base_class": "warrior",
+   "tier": 3,
+   "cn_tier_label": "三转",
+   "cn_name": null,
+   "en_name": "Berserker",
+   "en_name_official": true,
+   "unlock_level": 82,
+   "kingdom_cn": "泽之国",
+   "kingdom": "Aqualis",
+   "cn_season": 1,
+   "notes": "CN tier name not found; CN players say \"三转斗士\".; CN: chapter \"Marsh 9\", Lv 82.",
+   "sources": [
+    "S-03",
+    "S-91",
+    "S-92"
+   ]
+  },
+  {
+   "id": "cn-duelist-t4",
+   "line": "duelist",
+   "cn_line_name": "斗士",
+   "base_class": "warrior",
+   "tier": 4,
+   "cn_tier_label": "四转",
+   "cn_name": "征服者",
+   "en_name": "Conqueror",
+   "en_name_official": true,
+   "unlock_level": 106,
+   "kingdom_cn": "龙之国",
+   "kingdom": "Loong Haven",
+   "cn_season": 2,
+   "notes": "CN name confirmed on a BWIKI skill page and a TapTap guide title.; CN: chapter \"Dragon 5\", Lv 106. Same level in global.",
+   "sources": [
+    "S-02",
+    "S-03",
+    "S-63",
+    "S-90",
+    "S-91",
+    "S-92"
+   ]
+  },
+  {
+   "id": "cn-duelist-t5",
+   "line": "duelist",
+   "cn_line_name": "斗士",
+   "base_class": "warrior",
+   "tier": 5,
+   "cn_tier_label": "五转",
+   "cn_name": null,
+   "en_name": "Ravager",
+   "en_name_official": true,
+   "unlock_level": 136,
+   "kingdom_cn": "羽之国",
+   "kingdom": "Aethyris (inferred match)",
+   "cn_season": 3,
+   "notes": "EN name from our classes.json (tier D source there). CN tier name not found.; GameKee timeline says Lv 136; a TapTap season post reads \"Feather 5 / Lv 140\" (garbled in our reading). 136 is followed.",
+   "sources": [
+    "S-91",
+    "S-92"
+   ]
+  },
+  {
+   "id": "cn-duelist-t6",
+   "line": "duelist",
+   "cn_line_name": "斗士",
+   "base_class": "warrior",
+   "tier": 6,
+   "cn_tier_label": "六转",
+   "cn_name": null,
+   "en_name": null,
+   "en_name_official": false,
+   "unlock_level": 172,
+   "kingdom_cn": "哈帕迪",
+   "kingdom": "Hapadi (our transliteration)",
+   "cn_season": 4,
+   "notes": "Tier name not found in any source read. CN players call it \"六转斗士\" (tier-6 duelist line).; Fantomon Sync follows at Lv 180.",
+   "sources": [
+    "S-91"
+   ]
+  },
+  {
+   "id": "cn-duelist-t7",
+   "line": "duelist",
+   "cn_line_name": "斗士",
+   "base_class": "warrior",
+   "tier": 7,
+   "cn_tier_label": "七转",
+   "cn_name": null,
+   "en_name": null,
+   "en_name_official": false,
+   "unlock_level": null,
+   "kingdom_cn": "伊格尼斯",
+   "kingdom": "Ignis (our transliteration)",
+   "cn_season": 5,
+   "notes": "Tier name not found in any source read. CN players call it \"七转斗士\" (tier-7 duelist line).; Added by the 2026-04-29 CN patch; unlock level not published in the sources read.",
+   "sources": [
+    "S-97"
+   ]
+  },
+  {
+   "id": "cn-duelist-t8",
+   "line": "duelist",
+   "cn_line_name": "斗士",
+   "base_class": "warrior",
+   "tier": 8,
+   "cn_tier_label": "八转",
+   "cn_name": null,
+   "en_name": null,
+   "en_name_official": false,
+   "unlock_level": null,
+   "kingdom_cn": null,
+   "kingdom": null,
+   "cn_season": 6,
+   "notes": "Tier name not found in any source read. CN players call it \"八转斗士\" (tier-8 duelist line).; Entered CN official testing 2026-07-29; live with the season that began 2026-07-30. Kingdom name and unlock level not found.",
+   "sources": [
+    "S-93",
+    "S-94"
+   ]
+  },
+  {
+   "id": "cn-knight-t1",
+   "line": "knight",
+   "cn_line_name": "骑士",
+   "base_class": "warrior",
+   "tier": 1,
+   "cn_tier_label": "一转",
+   "cn_name": "战士",
+   "en_name": "Warrior",
+   "en_name_official": true,
+   "unlock_level": 1,
+   "kingdom_cn": null,
+   "kingdom": "Originisle / Verdantglade",
+   "cn_season": 1,
+   "notes": "Starting class; the CN community does not count a separate unlock.",
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "cn-knight-t2",
+   "line": "knight",
+   "cn_line_name": "骑士",
+   "base_class": "warrior",
+   "tier": 2,
+   "cn_tier_label": "二转",
+   "cn_name": "骑士",
+   "en_name": "Knight",
+   "en_name_official": true,
+   "unlock_level": 44,
+   "kingdom_cn": "山之国",
+   "kingdom": "Cinder Ridge",
+   "cn_season": 1,
+   "notes": "CN: chapter \"Mountain 5\", Lv 44.",
+   "sources": [
+    "S-03",
+    "S-63",
+    "S-91",
+    "S-92"
+   ]
+  },
+  {
+   "id": "cn-knight-t3",
+   "line": "knight",
+   "cn_line_name": "骑士",
+   "base_class": "warrior",
+   "tier": 3,
+   "cn_tier_label": "三转",
+   "cn_name": null,
+   "en_name": "Paladin",
+   "en_name_official": true,
+   "unlock_level": 82,
+   "kingdom_cn": "泽之国",
+   "kingdom": "Aqualis",
+   "cn_season": 1,
+   "notes": "CN tier name not found; CN players say \"三转骑士\".; CN: chapter \"Marsh 9\", Lv 82.",
+   "sources": [
+    "S-03",
+    "S-91",
+    "S-92"
+   ]
+  },
+  {
+   "id": "cn-knight-t4",
+   "line": "knight",
+   "cn_line_name": "骑士",
+   "base_class": "warrior",
+   "tier": 4,
+   "cn_tier_label": "四转",
+   "cn_name": null,
+   "en_name": "Guardian",
+   "en_name_official": true,
+   "unlock_level": 106,
+   "kingdom_cn": "龙之国",
+   "kingdom": "Loong Haven",
+   "cn_season": 2,
+   "notes": "CN tier name not found (probably 守护者: guess).; CN: chapter \"Dragon 5\", Lv 106. Same level in global.",
+   "sources": [
+    "S-02",
+    "S-03",
+    "S-91",
+    "S-92"
+   ]
+  },
+  {
+   "id": "cn-knight-t5",
+   "line": "knight",
+   "cn_line_name": "骑士",
+   "base_class": "warrior",
+   "tier": 5,
+   "cn_tier_label": "五转",
+   "cn_name": null,
+   "en_name": "Templar",
+   "en_name_official": true,
+   "unlock_level": 136,
+   "kingdom_cn": "羽之国",
+   "kingdom": "Aethyris (inferred match)",
+   "cn_season": 3,
+   "notes": "EN name from our classes.json (tier D source there). CN tier name not found.; GameKee timeline says Lv 136; a TapTap season post reads \"Feather 5 / Lv 140\" (garbled in our reading). 136 is followed.",
+   "sources": [
+    "S-91",
+    "S-92"
+   ]
+  },
+  {
+   "id": "cn-knight-t6",
+   "line": "knight",
+   "cn_line_name": "骑士",
+   "base_class": "warrior",
+   "tier": 6,
+   "cn_tier_label": "六转",
+   "cn_name": null,
+   "en_name": null,
+   "en_name_official": false,
+   "unlock_level": 172,
+   "kingdom_cn": "哈帕迪",
+   "kingdom": "Hapadi (our transliteration)",
+   "cn_season": 4,
+   "notes": "Tier name not found in any source read. CN players call it \"六转骑士\" (tier-6 knight line).; Fantomon Sync follows at Lv 180.",
+   "sources": [
+    "S-91"
+   ]
+  },
+  {
+   "id": "cn-knight-t7",
+   "line": "knight",
+   "cn_line_name": "骑士",
+   "base_class": "warrior",
+   "tier": 7,
+   "cn_tier_label": "七转",
+   "cn_name": null,
+   "en_name": null,
+   "en_name_official": false,
+   "unlock_level": null,
+   "kingdom_cn": "伊格尼斯",
+   "kingdom": "Ignis (our transliteration)",
+   "cn_season": 5,
+   "notes": "Tier name not found in any source read. CN players call it \"七转骑士\" (tier-7 knight line).; Added by the 2026-04-29 CN patch; unlock level not published in the sources read.",
+   "sources": [
+    "S-97"
+   ]
+  },
+  {
+   "id": "cn-knight-t8",
+   "line": "knight",
+   "cn_line_name": "骑士",
+   "base_class": "warrior",
+   "tier": 8,
+   "cn_tier_label": "八转",
+   "cn_name": null,
+   "en_name": null,
+   "en_name_official": false,
+   "unlock_level": null,
+   "kingdom_cn": null,
+   "kingdom": null,
+   "cn_season": 6,
+   "notes": "Tier name not found in any source read. CN players call it \"八转骑士\" (tier-8 knight line).; Entered CN official testing 2026-07-29; live with the season that began 2026-07-30. Kingdom name and unlock level not found.",
+   "sources": [
+    "S-93",
+    "S-94"
+   ]
+  }
+ ]
+}

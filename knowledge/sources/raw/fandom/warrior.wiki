@@ -1,0 +1,184 @@
+{{Character|name=Male Warrior|image=File: 男战士 - 1阶白毛.png}}
+{{Character|name=Female Warrior|image=File: 女战士 - 1阶白毛.png}}
+
+== OVERVIEW ==
+A strong fighter with high HPand DEF, enduring heavy hitswhile excelling in melee pursuitand counter-blocking.
+
+[[File:Warrior Class1.png|889x889px]]
+
+
+
+
+== Warrior Techniques ==
+{| class="wikitable" style="width:100%; table-layout:fixed; text-align:center;"
+! style="width:10%;" |icon
+! style="width:20%;" |name
+! style="width:15%;" |type
+! style="width:45%;" |description
+! style="width:20%;" |images
+|-
+|[[File:Heavy Impact.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Heavy Impact
+| style="color:#c62828;" |DMG
+| style="text-align:left; color:#c62828; padding:10px;" |Attacks 1 enemy within 1 grid of the caster, dealing Physical DMG once and knocking them airborne (Prioritizes large targets)
+|
+|-
+|[[File:Lion Combo.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Lion Combo
+| style="color:#c62828;" |DMG
+| style="text-align:left; color:#c62828; padding:10px;" |Deals Physical DMG 3 times to 1 enemy within 1 grid of the caster.
+|
+|-
+|[[File:Whirlwind Slash.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Whirlwind Slash
+| style="color:#c62828;" |DMG
+| style="text-align:left; color:#c62828; padding:10px;" |Deals Physical DMG 4 times to all enemies within a 1 grid square area of the caster.
+|
+|-
+|[[File:Mountain Collapse.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Mountain Collapse
+| style="color:#c62828;" |DMG, Knockback
+| style="text-align:left; color:#c62828; padding:10px;" |Deals Physical DMG once to all enemies within 2 grids of the caster, knocking them airborne, with a 60% base chance to knock them back by 1 grid.
+|
+|-
+|[[File:Wind Blade Slash.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Wind Blade Slash
+| style="color:#c62828;" |DMG Knockback
+| style="text-align:left; color:#c62828; padding:10px;" |Deals Wind DMG once to all enemies in a 1×4 grid area in front of the caster, with a 50% base chance to knock them back by 1 grid.
+|
+|-
+|[[File:Quadrant Slash.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Quadrant Slash
+| style="color:#c62828;" |DMG
+| style="text-align:left; color:#c62828; padding:10px;" |Deals Physical DMG once to all enemies within 1 grid of the caster.
+|
+|-
+|[[File:Luminous Shield.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Luminous Shield
+| style="color:#c62828;" |Self Buff
+| style="text-align:left; color:#c62828; padding:10px;" |Increases the caster's Block Rate and Block Efficiency for 3 turns. (Zero Initial CD)
+|
+|-
+|[[File:Boiling Bloodlust.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Boiling Bloodlust
+| style="color:#c62828;" |Self, Buff
+| style="text-align:left; color:#c62828; padding:10px;" |Increases Crit Rate and Crit DMG.
+|
+|-
+|[[File:Phantom Assault.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Phantom Assault
+| style="color:#c62828;" |DMG, Move
+| style="text-align:left; color:#c62828; padding:10px;" |Deals Physical DMG 1 times to 1 enemy within 1 grid of the caster, then moves back 3 grids.
+|
+|-
+|[[File:Gravity Pull.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Gravity Pull
+| style="color:#c62828;" |Drag
+| style="text-align:left; color:#c62828; padding:10px;" |Selects a grid within 7 grids of the caster. Deals Wind DMG once to all enemies within a 1-grid square area of the target grid and pulls them to the caster's location.
+|
+|-
+|[[File:Diving Gale.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Diving Gale
+| style="color:#c62828;" |DMG
+| style="text-align:left; color:#c62828; padding:10px;" |Selects a grid within 4 grids of the caster. Deals Wind DMG once to all enemies in a 1-grid square around the target grid.
+|
+|-
+|[[File:Edge Strike.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Edge Strike
+| style="color:#c62828;" |DMG
+| style="text-align:left; color:#c62828; padding:10px;" |Deals Physical DMG once to 1 enemy within 1 grid of the caster.
+|
+|-
+|[[File:Leap Attack.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Leap Attack
+| style="color:#c62828;" |Move, DMG, Debuff
+| style="text-align:left; color:#c62828; padding:10px;" |Leaps to any empty space within 3 grids of the caster, dealing Physical DMG once to all enemies within 1 grid of the caster, with a 50% base chance to inflict Armor Break 2 for 2 turns.
+|
+|}
+
+== Warrior Charms ==
+{| class="wikitable" style="width:100%; table-layout:fixed; text-align:center;"
+! style="width:10%;" |icon
+! style="width:20%;" |name
+! style="width:15%;" |type
+! style="width:45%;" |description
+! style="width:20%;" |images
+|-
+|[[File:Insightful Eye.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Insightful Eye
+| style="color:#c62828;" |Stats
+| style="text-align:left; color:#c62828; padding:10px;" |Increases the caster's Elemental Mastery.
+|
+|-
+|[[File:Counter Blade.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Counter Blade
+| style="color:#c62828;" |Counterattack
+| style="text-align:left; color:#c62828; padding:10px;" |Increases the caster's Wind DMG.
+|
+|-
+|[[File:Blade of Lament.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Blade of Lament
+| style="color:#c62828;" |Heal
+| style="text-align:left; color:#c62828; padding:10px;" |Increases the caster's Water DMG.
+|
+|-
+|[[File:Iron Fortress.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Iron Fortress
+| style="color:#c62828;" |Ally, Buff
+| style="text-align:left; color:#c62828; padding:10px;" |Increases the caster's Fire DMG.
+|
+|-
+|[[File:Block Awareness.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Block Awareness
+| style="color:#c62828;" |Stats
+| style="text-align:left; color:#c62828; padding:10px;" |When the caster's Technique deals DMG to an enemy,there's a 25% chance to trigger Aura, dealing additional Wind DMG once, with a 60% base chance to knock them back by 1 grid.
+|
+|-
+|[[File:Strength Rules.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Strength Rules
+| style="color:#c62828;" |Stats
+| style="text-align:left; color:#c62828; padding:10px;" |Increases the caster's Elemental RES.
+|
+|-
+|[[File:Pure Protection.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Pure Protection
+| style="color:#c62828;" |Shield
+| style="text-align:left; color:#c62828; padding:10px;" |For each ailment or debuff the target carries,Technique DMG dealt by the caster to that target increases. Stacks up to 3 times.
+|
+|-
+|[[File:Relentless Frenzy.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Relentless Frenzy
+| style="color:#c62828;" |Buff
+| style="text-align:left; color:#c62828; padding:10px;" |Increases the caster's Effect Hit Rate.
+|
+|-
+|[[File:Crystal Armor.png|51x51px]]
+| style="color:#2e7d32; font-weight:bold;" |Crystal Armor
+| style="color:#c62828;" |Stats
+| style="text-align:left; color:#c62828; padding:10px;" |Increases the caster's HP.
+|
+|-
+|[[File:Life Blessing.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Life Blessing
+| style="color:#c62828;" |Stats
+| style="text-align:left; color:#c62828; padding:10px;" |When the caster starts to move in their turn, there isa 30% chance to inflict Burn to grids within 1 grid of the caster.
+|
+|-
+|[[File:Feline Dance.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Feline Dance
+| style="color:#c62828;" |Stats
+| style="text-align:left; color:#c62828; padding:10px;" |Increases the caster's Water DMG.
+|
+|-
+|[[File:Warrior's Essence.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Warrior's Essence
+| style="color:#c62828;" |Stats
+| style="text-align:left; color:#c62828; padding:10px;" |Increases the caster's Crit Rate.woc
+|
+|-
+|[[File:Blade Tempest.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Blade Tempest
+| style="color:#c62828;" |DMG
+| style="text-align:left; color:#c62828; padding:10px;" |Grants a shield based on the caster's max HP at the start of battle. When the shield disappears, deals Wind DMG once to all enemies within a 1-grid square area of the caster, with a 100% base chance to knock them back by 1 grid.
+|
+|}

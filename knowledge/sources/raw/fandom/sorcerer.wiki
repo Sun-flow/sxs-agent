@@ -1,0 +1,96 @@
+{{Character|name=Male Sorcerer|image=File: 二阶-男术.png}}{{Character|name=Female Sorcerer|image=File: 二阶-女术士.png}}
+
+== OVERVIEW ==
+Destroyers who command the power of the elements, excelling in sweeping the battlefield with magnificent magical storms. With a staff and grimoire in hand, they can pour out devastatingly high damage in the blink of an eye.
+
+Hailed as a walking elemental torrent on the battlefield, every spell they cast inflicts heavy trauma on the enemy, making them the most dazzling core of firepower within any team.
+
+While their '''DEF''' is relatively low, they leverage agile movement and precise control over the battlefield to launch attacks from a safe distance. Whether clearing out minor mobs or focusing a concentrated bombardment on powerful foes, the '''Sorcerer''' is an undisputed expert.
+
+When multiple elemental powers intertwine and explode across the battlefield, it is their moment to shine brightest.
+[[File:Sorcererss.png|center|889x889px]]
+
+
+== Sorcerer Techniques ==
+{| class="wikitable" style="width:100%; table-layout:fixed; text-align:center;"
+! style="width:10%;" |icon
+! style="width:20%;" |name
+! style="width:15%;" |type
+! style="width:45%;" |description
+! style="width:20%;" |images
+|-
+|[[File:Fiery Star Trail.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Fiery Star Trail
+| style="color:#c62828;" |DMG
+| style="text-align:left; color:#c62828; padding:10px;" |Deals Fire Doom DMG twice to all enemies within a 3-grid circular area of the caster.
+|
+|-
+|[[File:Light of Dawn.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Light of Dawn
+| style="color:#c62828;" |DMG
+| style="text-align:left; color:#c62828; padding:10px;" |Deals Light Doom DMG twice to all enemies in a 1x8grid area in front of the caster.
+|
+|-
+|[[File:Lightning Chain.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Lightning Chain
+| style="color:#c62828;" |DMG
+| style="text-align:left; color:#c62828; padding:10px;" |Deals Light DMG once to 1 enemy within 4 grids of the caster. The effect then chains to 1 random enemy within 4 grids of the target, up to 9 times.Each enemy can only be hit once by the chain effect.
+|
+|-
+|[[File:Energy Burst.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Energy Burst
+| style="color:#c62828;" |Self Buff
+| style="text-align:left; color:#c62828; padding:10px;" |Your next damaging Technique gains increased Accuracy and deals 50% more DMG.
+|
+|-
+|[[File:Flickering Stars.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Flickering Stars
+| style="color:#c62828;" |DMG, Dispel
+| style="text-align:left; color:#c62828; padding:10px;" |Selects a grid within 6 grids of the caster. DealsLight DMG once to all enemies within 1 grid of thetarget grid and dispels 1 random buff from them.
+|
+|-
+|[[File:Frosty Nova.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Frosty Nova
+| style="color:#c62828;" |DMG, Ailment
+| style="text-align:left; color:#c62828; padding:10px;" |Selects a grid within 3 grids of the caster. Deals Water DMG once to all enemies within a 1-grid square area of the target grid, with a 30% base chance to inflict Frozen for 1 turn.
+|
+|}
+
+== Sorcerer Charms ==
+{| class="wikitable" style="width:100%; table-layout:fixed; text-align:center;"
+! style="width:10%;" |icon
+! style="width:20%;" |name
+! style="width:15%;" |type
+! style="width:45%;" |description
+! style="width:20%;" |images
+|-
+|[[File:Void Bubble.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Void Bubble
+| style="color:#c62828;" |Shield, Buff
+| style="text-align:left; color:#c62828; padding:10px;" |When the caster's HP drops below 50% for the firsttime in a battle, grants a shield to the caster basedon max HP for 2 turns and Dodge for 2 turns (cannotbe dispelled).
+|
+|-
+|[[File:Raging Wildfire.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Raging Wildfire
+| style="color:#c62828;" |Burn
+| style="text-align:left; color:#c62828; padding:10px;" |Has a 20% chance to inflict Burn to grids withinrange when casting a Fire Technique.
+|
+|-
+|[[File:Wind's Shadow.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Wind's Shadow
+| style="color:#c62828;" |DMG, Debuff
+| style="text-align:left; color:#c62828; padding:10px;" |Has a 30% chance to deal additional Wind DMG onceand a 50% base chance to delay the target's actionby 20% after dealing Wind DMG 3 times to an enemywith Techniques.
+|
+|-
+|[[File:Elemental Harmony.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Elemental Harmony
+| style="color:#c62828;" |Buff
+| style="text-align:left; color:#c62828; padding:10px;" |For each element among equipped Techniques thatdeal DMG, increases the caster's Elemental Mastery.Stacks up to 4 times.
+|
+|-
+|[[File:Lightning Mystery.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Lightning Mystery
+| style="color:#c62828;" |DMG
+| style="text-align:left; color:#c62828; padding:10px;" |Each time the caster's Technique deals DMG to anenemy, there's a 30% chance to trigger ThunderStrike that deals additional Light DMG once.
+|
+|}

@@ -1,0 +1,137 @@
+{
+  "_meta": {
+    "description": "SOF's ideal daily Dawnium spend in priority order (spend from the top; cut optional lines first when short). Line totals from the 'Dawnium Daily Spend' infographic: 250 + 1080 + 270 + 400 = 2000. Per-unit prices are not in the SOF guides; unit_costs are filled from other sources where known (null = unknown). Extra Dawnium beyond this: relic gacha early in a season, more Material Realm tools toward mid season (S-02 p.19).",
+    "sources": [
+      "S-01",
+      "S-02",
+      "S-30",
+      "S-85",
+      "S-87",
+      "R-103"
+    ],
+    "updated": "2026-11-18",
+    "total_daily_dawnium": 2000
+  },
+  "purchases": [
+    {
+      "id": "daily-dungeon-refresh",
+      "priority": 1,
+      "line": "Daily Dungeon",
+      "what": "Refresh the daily dungeon 2 times",
+      "dawnium": 250,
+      "optional": false,
+      "unit_costs": [
+        100,
+        150
+      ],
+      "sources": [
+        "S-01",
+        "S-02",
+        "S-85"
+      ],
+      "pages": {
+        "S-01": 14,
+        "S-02": 19
+      }
+    },
+    {
+      "id": "material-realm-tools",
+      "priority": 2,
+      "line": "Material Realms",
+      "what": "Buy extra Material Realm tools in the 4/2/4/4 split",
+      "dawnium": 1080,
+      "optional": false,
+      "split": {
+        "ore": 4,
+        "rolla": 2,
+        "battle_essence": 4,
+        "sand": 4
+      },
+      "unit_costs": {
+        "per_realm_ladder": [
+          60,
+          60,
+          100,
+          100,
+          150,
+          150,
+          200,
+          200,
+          250,
+          300
+        ],
+        "check": "4/2/4/4 = 320 + 120 + 320 + 320 = 1,080"
+      },
+      "notes": "Alternative splits named by the guides: 4444 (most popular), 6446 (if desperate for power, S-02 p.18). Their Dawnium cost is not given. Early season skew toward Sand, mid season toward Ore.",
+      "sources": [
+        "S-01",
+        "S-02",
+        "S-30"
+      ],
+      "pages": {
+        "S-01": 14,
+        "S-02": 19
+      }
+    },
+    {
+      "id": "guild-donations",
+      "priority": 3,
+      "line": "Guild Donations",
+      "what": "Donate only 3 times",
+      "dawnium": 70,
+      "optional": false,
+      "unit_costs": [
+        0,
+        20,
+        50
+      ],
+      "sources": [
+        "S-01",
+        "S-02",
+        "R-103",
+        "S-87"
+      ],
+      "pages": {
+        "S-01": 14,
+        "S-02": 19
+      },
+      "notes": "First donation free, then 20 and 50 [R-103]; the official handbook allows up to 5 a day and recommends paying 70 for two more [S-87]."
+    },
+    {
+      "id": "guild-gold-tool",
+      "priority": 3,
+      "line": "Guild Donations",
+      "what": "Gold Tool",
+      "dawnium": 200,
+      "optional": true,
+      "unit_costs": null,
+      "notes": "Named by S-01 p.14 as one of the first purchases to cut when short on Dawnium. Not the Gold Pickaxe: probably a 24-hour guild gathering boost (unconfirmed; see currencies.json guild_gold_tool).",
+      "sources": [
+        "S-01",
+        "S-02"
+      ],
+      "pages": {
+        "S-01": 14,
+        "S-02": 19
+      }
+    },
+    {
+      "id": "vault",
+      "priority": 4,
+      "line": "Vault",
+      "what": "Vault purchases (variable; valuable items and limited resources)",
+      "dawnium": 400,
+      "optional": true,
+      "unit_costs": null,
+      "notes": "Variable; cut first when short on Dawnium (S-01 p.14).",
+      "sources": [
+        "S-01",
+        "S-02"
+      ],
+      "pages": {
+        "S-01": 14,
+        "S-02": 19
+      }
+    }
+  ]
+}

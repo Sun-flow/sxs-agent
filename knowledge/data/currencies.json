@@ -1,0 +1,1278 @@
+{
+ "_meta": {
+  "description": "Every known currency, material and key item of Sword x Staff with income, sinks and season behaviour. null = unknown. Prose: systems/currencies.md",
+  "sources": [
+   "S-01",
+   "S-02",
+   "S-03",
+   "S-04",
+   "S-30",
+   "S-31",
+   "S-32",
+   "S-33",
+   "S-34",
+   "S-35",
+   "S-36",
+   "S-37",
+   "S-38",
+   "memory-bank/game/rules",
+   "docs/shop-tables.md",
+   "S-42",
+   "S-80",
+   "S-85",
+   "S-87"
+  ],
+  "updated": "2026-11-18",
+  "field_notes": {
+   "dawnium_value_eog": "eog.gg's own valuation of one unit in Dawnium (data/item-values.json) [S-85]; a planning figure, not a shop price"
+  }
+ },
+ "currencies": [
+  {
+   "id": "dawnium",
+   "name": "Dawnium",
+   "aliases": [
+    "diamonds",
+    "Donium",
+    "Dan",
+    "DM"
+   ],
+   "sources_of_income": [
+    "daily quests and daily content (about 100+ a day)",
+    "story, feature unlock and achievement one-time rewards",
+    "mailbox",
+    "mall free gift boxes",
+    "gift codes",
+    "events and login campaigns",
+    "Wheel of Destiny (2,888 option)",
+    "arena",
+    "selling shards, gear, gems and recipes on the player market",
+    "Luminium exchange 1:1 (paid)",
+    "Guild Conquest (2 attempts a day)"
+   ],
+   "sinks": [
+    "daily dungeon extra runs (100, 150)",
+    "material realm tools (60,60,100,100,150,150,200,200,250,300 per realm per day)",
+    "guild donations 2 and 3 (20, 50)",
+    "guild Gold Tool (200; a guild item, not the Gold Pickaxe)",
+    "Vendor Booth Vault",
+    "Aeonic Gacha relic pulls",
+    "Molly's Deals",
+    "arena extra fights (10,15,20,30,40,60,80,100)",
+    "skill pulls",
+    "battle pass tier skip (100 per tier; never)"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-01",
+    "S-02",
+    "S-30",
+    "S-35",
+    "S-36",
+    "S-37",
+    "S-38",
+    "R-018",
+    "R-103",
+    "R-120",
+    "R-121",
+    "R-168",
+    "S-80",
+    "S-85",
+    "S-87"
+   ],
+   "kind": "premium currency",
+   "priority": "high",
+   "daily_spend_target": 2000
+  },
+  {
+   "id": "luminium",
+   "name": "Luminium",
+   "aliases": [],
+   "sources_of_income": [
+    "Mall top-up (real money)"
+   ],
+   "sinks": [
+    "Auction House bids on premium gear",
+    "permanent food in the Auction House",
+    "converts 1:1 to Dawnium"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-03",
+    "S-31",
+    "S-35",
+    "S-38",
+    "S-85",
+    "S-80"
+   ],
+   "kind": "paid currency",
+   "priority": null,
+   "dawnium_value_eog": 1
+  },
+  {
+   "id": "voucher",
+   "name": "Voucher",
+   "aliases": [],
+   "sources_of_income": [
+    "top-up",
+    "beta Top-Up Rebate"
+   ],
+   "sinks": [
+    "outfits and paid offers"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-03",
+    "S-38"
+   ],
+   "kind": "paid currency",
+   "priority": null
+  },
+  {
+   "id": "rolla",
+   "name": "Rolla",
+   "aliases": [
+    "gold",
+    "coins",
+    "Rolio",
+    "Rolo",
+    "Rola",
+    "Lora"
+   ],
+   "sources_of_income": [
+    "Cart",
+    "Gilded Depths realm",
+    "overworld pickups (5 stamina)",
+    "quests, mail, commissions",
+    "home critters and jars"
+   ],
+   "sinks": [
+    "gear enhancement",
+    "relic enhancement",
+    "Rank Advancement",
+    "Cart row upgrades",
+    "healing dishes",
+    "Vendor Booth General tab",
+    "Vendor Booth refresh (4K)"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-01",
+    "S-03",
+    "R-019",
+    "R-020",
+    "R-023",
+    "R-118",
+    "R-120",
+    "R-136",
+    "R-138",
+    "R-172"
+   ],
+   "kind": "common currency",
+   "priority": "medium"
+  },
+  {
+   "id": "raw_ore",
+   "name": "Raw Ore",
+   "aliases": [
+    "ore",
+    "iron ore",
+    "Aura"
+   ],
+   "sources_of_income": [
+    "Ironvein Pit realm",
+    "Cart",
+    "overworld mine pickups",
+    "Alchemy Pot dismantle",
+    "Raw Ore Caskets",
+    "Guidance quests",
+    "Fantasia Ascent",
+    "Vendor Booth General",
+    "gift codes"
+   ],
+   "sinks": [
+    "gear enhancement"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-01",
+    "R-023",
+    "R-095",
+    "R-099",
+    "R-108",
+    "R-165",
+    "R-169"
+   ],
+   "kind": "gear material",
+   "priority": "high mid-season"
+  },
+  {
+   "id": "refined_ore",
+   "name": "Refined Ore",
+   "aliases": [
+    "red ore"
+   ],
+   "sources_of_income": [
+    "Ironvein Pit realm",
+    "blue-aura pickups",
+    "dismantling advanced gear",
+    "Guidance quests",
+    "Vendor Booth Vault (180 for 180 Dawnium)",
+    "Kingdom Shop"
+   ],
+   "sinks": [
+    "higher gear enhancement steps"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "R-023",
+    "R-095",
+    "R-122",
+    "R-125",
+    "R-134",
+    "R-165"
+   ],
+   "kind": "gear material",
+   "priority": "high mid-season"
+  },
+  {
+   "id": "chrono_sand",
+   "name": "Chrono Sand",
+   "aliases": [
+    "sand",
+    "relic sand",
+    "Chronosand",
+    "Relic Dust"
+   ],
+   "sources_of_income": [
+    "sand Material Realm",
+    "Cart (row must be unlocked)",
+    "overworld pickups and Grand Sand Mines",
+    "gift codes"
+   ],
+   "sinks": [
+    "relic enhancement and Relic Resonance"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-01",
+    "S-02",
+    "R-106",
+    "R-109",
+    "R-137",
+    "R-172"
+   ],
+   "kind": "relic material",
+   "priority": "high early season"
+  },
+  {
+   "id": "battle_essence",
+   "name": "Battle Essence",
+   "aliases": [
+    "essence",
+    "Purple Orbs",
+    "Skill Orbs"
+   ],
+   "sources_of_income": [
+    "Dread Hollow realm",
+    "Cart",
+    "overworld pickups",
+    "Battle Essence Caskets",
+    "Vendor Booth General",
+    "gift codes"
+   ],
+   "sinks": [
+    "technique and charm levels"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-01",
+    "R-037",
+    "R-106",
+    "R-125",
+    "R-169"
+   ],
+   "kind": "skill material",
+   "priority": "medium"
+  },
+  {
+   "id": "wood",
+   "name": "Wood",
+   "aliases": [],
+   "sources_of_income": [
+    "Cart",
+    "Vendor Booth General (150 for 3K Rolla)",
+    "Grand Treasure Hunt low floors"
+   ],
+   "sinks": [
+    "Cart row upgrades"
+   ],
+   "resets_each_season": false,
+   "sources": [
+    "S-01",
+    "S-02",
+    "S-03",
+    "S-33",
+    "R-120",
+    "R-136"
+   ],
+   "kind": "furniture material",
+   "priority": "high early"
+  },
+  {
+   "id": "stone",
+   "name": "Stone",
+   "aliases": [],
+   "sources_of_income": [
+    "Cart",
+    "Vendor Booth General (150 for 2.4K Rolla)",
+    "Grand Treasure Hunt low floors",
+    "gift code SS000"
+   ],
+   "sinks": [
+    "Cart row upgrades"
+   ],
+   "resets_each_season": false,
+   "sources": [
+    "S-01",
+    "S-02",
+    "S-03",
+    "S-33",
+    "S-37",
+    "R-120",
+    "R-136"
+   ],
+   "kind": "furniture material",
+   "priority": "high early"
+  },
+  {
+   "id": "treats",
+   "name": "Treats",
+   "aliases": [
+    "Basic Treats",
+    "pet food"
+   ],
+   "sources_of_income": [
+    "Cart Treats row (Lv 45)",
+    "Grand Treasure Hunt low floors",
+    "gift code SS999"
+   ],
+   "sinks": [
+    "Fantomon EXP"
+   ],
+   "resets_each_season": false,
+   "sources": [
+    "S-01",
+    "S-33",
+    "S-37",
+    "S-38",
+    "R-020"
+   ],
+   "kind": "fantomon material",
+   "priority": "medium"
+  },
+  {
+   "id": "stamina",
+   "name": "Stamina",
+   "aliases": [],
+   "sources_of_income": [
+    "regeneration 5 per hour to 300",
+    "Vendor Booth Vault free 30 a day",
+    "gift code SS888 (25)",
+    "items (up to 1,200)"
+   ],
+   "sinks": [
+    "overworld pickups (5 each)",
+    "commissions"
+   ],
+   "resets_each_season": false,
+   "sources": [
+    "S-01",
+    "S-02",
+    "S-37",
+    "R-106",
+    "R-107",
+    "R-120",
+    "S-85"
+   ],
+   "kind": "energy",
+   "priority": "high",
+   "dawnium_value_eog": 4.8
+  },
+  {
+   "id": "stellatie",
+   "name": "Stellatie",
+   "aliases": [
+    "Stellati",
+    "Stellaties",
+    "Stellalites",
+    "Stellatite",
+    "Stellar Tide"
+   ],
+   "sources_of_income": [
+    "Daily Sign-in",
+    "mailbox",
+    "Wheel of Destiny free spins",
+    "Vendor Booth General and Vault",
+    "Kingdom Shop",
+    "Guild Shop (500 tokens)",
+    "Molly's Deals",
+    "gift codes"
+   ],
+   "sinks": [
+    "Standard Prayer (skill pulls), x10 = 10"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-01",
+    "S-03",
+    "S-38",
+    "R-093",
+    "R-097",
+    "R-114",
+    "R-120",
+    "R-134",
+    "R-147",
+    "R-168",
+    "S-85"
+   ],
+   "kind": "pull ticket",
+   "priority": "high",
+   "dawnium_value_eog": 100
+  },
+  {
+   "id": "covenite",
+   "name": "Covenite",
+   "aliases": [
+    "skill selection ticket",
+    "Premium Prayer ticket"
+   ],
+   "sources_of_income": [
+    "Molly's Deals",
+    "Wheel of Destiny",
+    "Chaos Invasion ranking rewards (20 at rank 1, 8 at rank 501+)",
+    "Arena Shop (500 Arena coins, limit 1)"
+   ],
+   "sinks": [
+    "Goddess Prayer for skills of the current class"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-01",
+    "S-38",
+    "S-85",
+    "S-42"
+   ],
+   "kind": "pull ticket",
+   "priority": "high",
+   "dawnium_value_eog": 1000,
+   "note": "Canonical reading: a skill selection ticket for the Premium (current class) Prayer. eog.gg and one tier D site say it is earned from Standard pulls and cannot be bought [S-85]; not followed (conflicts X-05)."
+  },
+  {
+   "id": "affection_token",
+   "name": "Affection Token",
+   "aliases": [
+    "Friend Prayer token"
+   ],
+   "sources_of_income": [
+    "praying (capped at 1,000 a week) [S-85]",
+    "partying in daily events with friends or guildmates (one player blog, unconfirmed) [S-42]"
+   ],
+   "sinks": [
+    "Affection Prayer (x10 = 250)"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-38",
+    "R-093",
+    "S-85",
+    "S-42",
+    "S-80"
+   ],
+   "kind": "pull ticket",
+   "priority": null
+  },
+  {
+   "id": "auroral_badge_rare",
+   "name": "Rare Auroral Badge",
+   "aliases": [
+    "relic gacha badge"
+   ],
+   "sources_of_income": [
+    "Aeonic Gacha unlock quest",
+    "mailbox",
+    "Guild Shop",
+    "gift codes"
+   ],
+   "sinks": [
+    "Rare Aeonic Gacha capsule (10 each)"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-38",
+    "R-114",
+    "R-167",
+    "R-168",
+    "S-85"
+   ],
+   "kind": "pull token",
+   "priority": "high",
+   "dawnium_value_eog": 8
+  },
+  {
+   "id": "auroral_badge_epic",
+   "name": "Epic Auroral Badge",
+   "aliases": [],
+   "sources_of_income": [
+    "Aeonic Gacha ticket counter",
+    "Vendor Booth Vault",
+    "gift code ZJ888"
+   ],
+   "sinks": [
+    "Epic Aeonic Gacha capsule (10 each)"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-35",
+    "S-37",
+    "S-38",
+    "R-167",
+    "S-85"
+   ],
+   "kind": "pull token",
+   "priority": "high",
+   "dawnium_value_eog": 15
+  },
+  {
+   "id": "auroral_badge_legendary",
+   "name": "Legendary Auroral Badge",
+   "aliases": [],
+   "sources_of_income": [
+    "Wheel of Destiny",
+    "Grand Treasure Hunt",
+    "gift code ZJ888"
+   ],
+   "sinks": [
+    "Legendary Aeonic Gacha capsule (10 each)"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-01",
+    "S-33",
+    "S-37",
+    "S-38",
+    "S-85"
+   ],
+   "kind": "pull token",
+   "priority": "high",
+   "dawnium_value_eog": 56
+  },
+  {
+   "id": "auroral_badge_mythic",
+   "name": "Mythic Auroral Badge",
+   "aliases": [],
+   "sources_of_income": [],
+   "sinks": [
+    "Mythic Aeonic Gacha capsule (10 each)"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-38",
+    "S-85"
+   ],
+   "kind": "pull token",
+   "priority": "high",
+   "dawnium_value_eog": 74
+  },
+  {
+   "id": "auroral_elemental_badge",
+   "name": "Auroral Elemental Badge",
+   "aliases": [],
+   "sources_of_income": [
+    "Wheel of Destiny"
+   ],
+   "sinks": [
+    "Aeonic Gacha capsule of a chosen element (10 each)"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-01",
+    "S-38",
+    "S-85"
+   ],
+   "kind": "pull token",
+   "priority": "high",
+   "dawnium_value_eog": 72
+  },
+  {
+   "id": "bond_trinket",
+   "name": "Bond Trinket",
+   "aliases": [],
+   "sources_of_income": [
+    "mailbox",
+    "Guild Shop",
+    "Vendor Booth refreshes",
+    "Wheel of Destiny",
+    "Grand Treasure Hunt",
+    "gift code SS999"
+   ],
+   "sinks": [
+    "Fantomon summons at Arborisfatum"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-01",
+    "S-33",
+    "S-37",
+    "S-38",
+    "R-114",
+    "R-168",
+    "S-85"
+   ],
+   "kind": "pull token",
+   "priority": "high",
+   "dawnium_value_eog": 160
+  },
+  {
+   "id": "summon_crystal",
+   "name": "Summon Crystal",
+   "aliases": [],
+   "sources_of_income": [
+    "Fantomon pulls (4.2% each, at least 1 per x10)"
+   ],
+   "sinks": [
+    "Mythic Fantomon copies in the exchange shop (60 each)",
+    "rotating Legendary Fantomon (18)"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-32",
+    "S-85"
+   ],
+   "kind": "exchange currency",
+   "priority": null,
+   "dawnium_value_eog": 1600
+  },
+  {
+   "id": "destiny_fruit",
+   "name": "Destiny Fruit",
+   "aliases": [
+    "peaches"
+   ],
+   "sources_of_income": [
+    "gift codes",
+    "exploration"
+   ],
+   "sinks": [
+    "relics of a season's first relic pool",
+    "Wheel of Destiny merchants"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-02",
+    "S-35",
+    "S-37",
+    "R-019",
+    "S-85"
+   ],
+   "kind": "relic item",
+   "priority": "medium",
+   "dawnium_value_eog": 60
+  },
+  {
+   "id": "abundance_leaf",
+   "name": "Abundance Leaf",
+   "aliases": [
+    "leaves",
+    "Abundance Leaves"
+   ],
+   "sources_of_income": [
+    "commissions",
+    "exploration",
+    "gift code SS888 (100)"
+   ],
+   "sinks": [
+    "Verdantglade Kingdom Shop: Withering Potion, Gateway Key, Stellatie, Refined Ore, recipes"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-01",
+    "S-37",
+    "R-134"
+   ],
+   "kind": "kingdom currency",
+   "kingdom": "Verdantglade",
+   "priority": "high"
+  },
+  {
+   "id": "kingdom_currency_cinder_ridge",
+   "name": null,
+   "aliases": [],
+   "sources_of_income": [
+    "commissions"
+   ],
+   "sinks": [
+    "Cinder Ridge Kingdom Shop: Magic Drill, Gateway Key"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-01",
+    "S-42"
+   ],
+   "kind": "kingdom currency",
+   "kingdom": "Cinder Ridge",
+   "priority": "high",
+   "candidate_names": [
+    "Feathers",
+    "Alloy"
+   ],
+   "name_note": "One player blog names Feathers and Alloy as kingdom merchant currencies without saying which kingdom [S-42]; unconfirmed, so name stays null."
+  },
+  {
+   "id": "kingdom_currency_aqualis",
+   "name": null,
+   "aliases": [],
+   "sources_of_income": [
+    "commissions"
+   ],
+   "sinks": [
+    "Aqualis Kingdom Shop: Water Mine, Gateway Key"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-01",
+    "S-42"
+   ],
+   "kind": "kingdom currency",
+   "kingdom": "Aqualis",
+   "priority": "high",
+   "candidate_names": [
+    "Feathers",
+    "Alloy"
+   ],
+   "name_note": "One player blog names Feathers and Alloy as kingdom merchant currencies without saying which kingdom [S-42]; unconfirmed, so name stays null."
+  },
+  {
+   "id": "kingdom_currency_loong_haven",
+   "name": null,
+   "aliases": [],
+   "sources_of_income": [
+    "commissions"
+   ],
+   "sinks": [
+    "Loong Haven Kingdom Shop"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-01",
+    "S-34",
+    "S-42"
+   ],
+   "kind": "kingdom currency",
+   "kingdom": "Loong Haven",
+   "priority": "high",
+   "candidate_names": [
+    "Feathers",
+    "Alloy"
+   ],
+   "name_note": "One player blog names Feathers and Alloy as kingdom merchant currencies without saying which kingdom [S-42]; unconfirmed, so name stays null."
+  },
+  {
+   "id": "guild_token",
+   "name": "Guild Tokens",
+   "aliases": [
+    "guild coins"
+   ],
+   "sources_of_income": [
+    "guild donations (300 each)",
+    "guild AFK gathering (120 an hour)"
+   ],
+   "sinks": [
+    "Guild Shop"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-01",
+    "S-03",
+    "R-103",
+    "R-110",
+    "R-114"
+   ],
+   "kind": "guild currency",
+   "priority": "medium"
+  },
+  {
+   "id": "arena_currency",
+   "name": "Arena coins",
+   "aliases": [
+    "Arena currency"
+   ],
+   "sources_of_income": [
+    "100 per won Grand Arena attack",
+    "weekly rank rewards"
+   ],
+   "sinks": [
+    "Arena Shop: Fantomon Shards, Bond Treat, Stellatie, Rare Auroral Badges, Covenite (see shops.json arena_shop)",
+    "permanent food"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-31",
+    "S-35",
+    "S-42"
+   ],
+   "kind": "arena currency",
+   "priority": null,
+   "note": "'Arena coins' is a player blog's name [S-42]; the in-game name is not confirmed."
+  },
+  {
+   "id": "aurodrasil_energy",
+   "name": "Aurodrasil Energy",
+   "aliases": [
+    "Grand Treasure Hunt currency"
+   ],
+   "sources_of_income": [
+    "weekly event allowance; a free player gathers about 4,440 in 2 weeks or 5,640 in 3 weeks",
+    "two 500-Energy packs per cycle (paid)"
+   ],
+   "sinks": [
+    "Grand Treasure Hunt reward floors (Lucky Statue, Primal Gem)"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-01",
+    "S-33",
+    "S-85"
+   ],
+   "kind": "event currency",
+   "priority": "high",
+   "note": "About 3,240 Energy clears Levels 1 to 5 of one hunt; unspent Energy carries over [S-85]."
+  },
+  {
+   "id": "chaos_crystal",
+   "name": "Chaos Crystals",
+   "aliases": [
+    "Chaos Invasion currency"
+   ],
+   "sources_of_income": [
+    "Chaos Invasion event"
+   ],
+   "sinks": [
+    "Mysterious Merchant shop: Primal Forge only"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-01",
+    "S-32"
+   ],
+   "kind": "event currency",
+   "priority": "high"
+  },
+  {
+   "id": "lucky_ticket",
+   "name": "Lucky Ticket",
+   "aliases": [
+    "Lucky Wheel ticket"
+   ],
+   "sources_of_income": [
+    "Guild Shop (1.5K tokens)",
+    "Wheel of Destiny reward"
+   ],
+   "sinks": [
+    "Wheel of Destiny spins"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-01",
+    "R-114",
+    "R-125",
+    "R-147",
+    "S-85"
+   ],
+   "kind": "event ticket",
+   "priority": "low",
+   "dawnium_value_eog": 360
+  },
+  {
+   "id": "vendor_booth_pts",
+   "name": "Vendor Booth Pts",
+   "aliases": [],
+   "sources_of_income": [
+    "buying at the Vendor Booth"
+   ],
+   "sinks": [
+    "Goals tab milestones (5K to 25K)"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "R-120"
+   ],
+   "kind": "points",
+   "priority": "low"
+  },
+  {
+   "id": "iron_hammer",
+   "name": "Iron Hammer",
+   "aliases": [
+    "hammer"
+   ],
+   "sources_of_income": [
+    "Goals tabs",
+    "daily quests",
+    "commissions",
+    "Vendor Booth Vault",
+    "Dawnium purchase at the realm"
+   ],
+   "sinks": [
+    "one Ironvein Pit attempt (Raw and Refined Ore)"
+   ],
+   "resets_each_season": false,
+   "sources": [
+    "S-02",
+    "S-03",
+    "R-093",
+    "R-095",
+    "S-85"
+   ],
+   "kind": "material realm tool",
+   "realm": "Ironvein Pit",
+   "priority": "high",
+   "dawnium_value_eog": 20
+  },
+  {
+   "id": "gold_pickaxe",
+   "name": "Gold Pickaxe",
+   "aliases": [],
+   "sources_of_income": [
+    "commissions",
+    "Vendor Booth Vault (5 for 60 Dawnium seen)",
+    "Dawnium purchase at the realm"
+   ],
+   "sinks": [
+    "one Gilded Depths attempt (Rolla)"
+   ],
+   "resets_each_season": false,
+   "sources": [
+    "S-02",
+    "S-03",
+    "R-120",
+    "R-125",
+    "S-85"
+   ],
+   "kind": "material realm tool",
+   "realm": "Gilded Depths",
+   "priority": "medium",
+   "dawnium_value_eog": 20,
+   "not_an_alias": [
+    "Gold Tool"
+   ],
+   "alias_note": "'Gold Tool' was listed here as an alias; it is the 200-Dawnium guild line in SOF's daily plan (see record guild_gold_tool), not this pickaxe."
+  },
+  {
+   "id": "worn_knuckles",
+   "name": "Worn Knuckles",
+   "aliases": [
+    "knuckles",
+    "gloves",
+    "Worn Gauntlet"
+   ],
+   "sources_of_income": [
+    "Vendor Booth Vault (5 for 40 Dawnium seen)",
+    "Dawnium purchase at the realm"
+   ],
+   "sinks": [
+    "one Dread Hollow attempt (Battle Essence)"
+   ],
+   "resets_each_season": false,
+   "sources": [
+    "S-02",
+    "S-03",
+    "R-120",
+    "R-125",
+    "S-85"
+   ],
+   "kind": "material realm tool",
+   "realm": "Dread Hollow",
+   "priority": "high",
+   "dawnium_value_eog": 20
+  },
+  {
+   "id": "sand_realm_tool",
+   "name": "Sand Shovel",
+   "aliases": [
+    "shovel",
+    "Crystal Shovel"
+   ],
+   "sources_of_income": [
+    "Dawnium purchase at the realm"
+   ],
+   "sinks": [
+    "one Sand Mine attempt (Chrono Sand)"
+   ],
+   "resets_each_season": false,
+   "sources": [
+    "S-01",
+    "S-02",
+    "S-04",
+    "S-85"
+   ],
+   "kind": "material realm tool",
+   "realm": "Sand Mine",
+   "priority": "high",
+   "dawnium_value_eog": 20,
+   "alias_note": "Name and realm from eog.gg [S-85]; 'Crystal Shovel' is a tier D site's name for the same tool. In-game spelling not yet read."
+  },
+  {
+   "id": "withering_potion",
+   "name": "Withering Potion",
+   "aliases": [],
+   "sources_of_income": [
+    "Verdantglade Kingdom Shop (1.8K discounted, 3K full)"
+   ],
+   "sinks": [
+    "clears a vine blockade"
+   ],
+   "resets_each_season": false,
+   "sources": [
+    "S-01",
+    "R-134"
+   ],
+   "kind": "kingdom tool",
+   "kingdom": "Verdantglade",
+   "priority": "high"
+  },
+  {
+   "id": "magic_drill",
+   "name": "Magic Drill",
+   "aliases": [
+    "drill bit"
+   ],
+   "sources_of_income": [
+    "Cinder Ridge Kingdom Shop"
+   ],
+   "sinks": [
+    "smashes a Boulder Blockade"
+   ],
+   "resets_each_season": false,
+   "sources": [
+    "S-01",
+    "R-151"
+   ],
+   "kind": "kingdom tool",
+   "kingdom": "Cinder Ridge",
+   "priority": "high"
+  },
+  {
+   "id": "water_mine",
+   "name": "Water Mine",
+   "aliases": [],
+   "sources_of_income": [
+    "Aqualis Kingdom Shop"
+   ],
+   "sinks": [
+    "opens a blocked Aqualis area"
+   ],
+   "resets_each_season": false,
+   "sources": [
+    "S-01"
+   ],
+   "kind": "kingdom tool",
+   "kingdom": "Aqualis",
+   "priority": "high"
+  },
+  {
+   "id": "gateway_key",
+   "name": "Gateway Key",
+   "aliases": [
+    "key",
+    "pass key"
+   ],
+   "sources_of_income": [
+    "Kingdom Shops (about 3K leaves in Verdantglade)",
+    "Wheel of Destiny"
+   ],
+   "sinks": [
+    "opens a locked gateway in any kingdom"
+   ],
+   "resets_each_season": false,
+   "sources": [
+    "S-01"
+   ],
+   "kind": "kingdom tool",
+   "kingdom": "all",
+   "priority": "high"
+  },
+  {
+   "id": "golden_beetle",
+   "name": "Golden Beetle",
+   "aliases": [],
+   "sources_of_income": [
+    "tutorial",
+    "Vendor Booth Vault (50 Dawnium)"
+   ],
+   "sinks": [
+    "skips a puzzle"
+   ],
+   "resets_each_season": false,
+   "sources": [
+    "R-120",
+    "R-125",
+    "R-153",
+    "S-85"
+   ],
+   "kind": "utility item",
+   "priority": "low",
+   "dawnium_value_eog": 50
+  },
+  {
+   "id": "temporal_crystal",
+   "name": "Temporal Crystal",
+   "aliases": [],
+   "sources_of_income": [],
+   "sinks": [
+    "2 hours of Bed and Cart income"
+   ],
+   "resets_each_season": false,
+   "sources": [
+    "S-02",
+    "S-03",
+    "S-87"
+   ],
+   "kind": "speed-up",
+   "priority": "medium",
+   "note": "Idle Bed and Cart rewards cap at 36 hours [S-87]."
+  },
+  {
+   "id": "skill_shard_voucher",
+   "name": "Skill Shard Voucher",
+   "aliases": [
+    "skill voucher"
+   ],
+   "sources_of_income": [
+    "Wheel of Destiny (top priority)",
+    "events"
+   ],
+   "sinks": [
+    "shards of a chosen skill"
+   ],
+   "resets_each_season": false,
+   "sources": [
+    "S-01"
+   ],
+   "kind": "skill item",
+   "priority": "high"
+  },
+  {
+   "id": "divinecraft_stone",
+   "name": "Divinecraft Stone",
+   "aliases": [],
+   "sources_of_income": [
+    "dismantling gear"
+   ],
+   "sinks": [
+    "Affix Refinement rerolls (100 / 300 / 1,200 / 3,200 by locked affixes)"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-02"
+   ],
+   "kind": "gear item",
+   "priority": "medium"
+  },
+  {
+   "id": "primostar",
+   "name": "Primostar",
+   "aliases": [
+    "Primo Star"
+   ],
+   "sources_of_income": [
+    "end-of-season rating (gear, character, Fantomon, skill, relic level)"
+   ],
+   "sinks": [
+    "Astral Pact levels (1 Primostar = 1 level)"
+   ],
+   "resets_each_season": true,
+   "sources": [
+    "S-01",
+    "S-02"
+   ],
+   "kind": "season rating",
+   "priority": "high"
+  },
+  {
+   "id": "class_badge",
+   "name": "Class Badge",
+   "aliases": [],
+   "sources_of_income": [
+    "+2 per owned skill of the class"
+   ],
+   "sinks": [
+    "class levels (10 per level)"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "R-117"
+   ],
+   "kind": "class item",
+   "priority": "medium"
+  },
+  {
+   "id": "shapeshifting_mirror",
+   "name": "Shapeshifting Mirror",
+   "aliases": [],
+   "sources_of_income": [
+    "Carol (first meeting)",
+    "Vendor Booth Vault (100 Dawnium)"
+   ],
+   "sinks": [
+    "change appearance"
+   ],
+   "resets_each_season": false,
+   "sources": [
+    "R-120",
+    "R-134",
+    "S-85"
+   ],
+   "kind": "cosmetic item",
+   "priority": "low",
+   "dawnium_value_eog": 100
+  },
+  {
+   "id": "rename_card",
+   "name": "Rename Card",
+   "aliases": [],
+   "sources_of_income": [
+    "Vendor Booth Vault (500 Dawnium, 1 a week)"
+   ],
+   "sinks": [
+    "change the character name"
+   ],
+   "resets_each_season": false,
+   "sources": [
+    "R-120"
+   ],
+   "kind": "cosmetic item",
+   "priority": "low"
+  },
+  {
+   "id": "guild_gold_tool",
+   "name": "Gold Tool",
+   "aliases": [
+    "guild Gold Tool"
+   ],
+   "sources_of_income": [
+    "bought for 200 Dawnium in the guild (SOF daily plan, optional line)"
+   ],
+   "sinks": [
+    "probably a 24-hour guild gathering boost; unconfirmed, read the guild facility screen"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-01"
+   ],
+   "kind": "guild tool",
+   "priority": "low",
+   "note": "Not the Gold Pickaxe. Guild gathering tools come in 3 tiers per zeroluck [S-80]; which tier the Gold Tool is, is not stated."
+  }
+ ]
+}
