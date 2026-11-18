@@ -34,11 +34,11 @@
 | Item | Value | Source |
 |---|---|---|
 | Free attempts | 2 per day | [S-42] [S-43] |
-| Paid attempts | 2 more per day: the 3rd run costs 100 Dawnium, the 4th 150 Dawnium | [S-43] [S-45] |
+| Paid attempts | 2 more per day: the 3rd run costs 100 Dawnium, the 4th 150 Dawnium | [S-43] [S-45] [S-85] |
 | More than 4 runs a day | Only through paid cards and packs (not for us) | [S-43] |
 | Gear-claim chances | 2 per day, more with spending | [S-42] |
 | Bank / rest bonus | Unused attempts stack; the stack holds at most 6 attempts and overflow is lost | [S-02] [S-43] |
-| Daily reset | 8:00 server time (UTC-5) | [R-024] |
+| Daily reset | 8:00 server time (UTC-5) = 13:00 UTC | [R-024] [S-85] |
 
 - The SOF guide calls the stack the "dungeon rest bonus" and says to arrive at a new dungeon with it stacked for 6 attempts [S-02]. EOG says the same thing as "banked runs cap at 6" and adds: stop claiming dungeon rewards one day before a new season, which banks 2 extra attempts [S-43].
 - ❓ Whether the rest bonus is literally stored attempts or a reward bonus applied to the next 6 runs is not confirmed by our own play. Either way the action is the same: skip the old dungeon for two days before a new dungeon opens, then run 6 times on day one.
@@ -46,24 +46,27 @@
 
 ### Unlock schedule and CP thresholds
 
-Dungeons open by **server day** (day 1 = the day the server launched), not by calendar date. Fandom gives server days; the SOF calendars give dates for the author's server, where Loong Haven opened on 23 September 2026 = server day 47 [S-02], which puts Aquaorigin (31 August) on day 24 and Hellhold (9 September) on day 33, matching Fandom exactly [S-01] [S-03].
+Dungeons open by **server day** (day 1 = the day the server launched), not by calendar date. Fandom gives server days; the SOF calendars give dates for the author's server, where Loong Haven opened on 23 September 2026 = server day 47 [S-02], which puts Aquorigin Shrine (31 August) on day 24 and Hellhold (9 September) on day 33, matching Fandom exactly [S-01] [S-03].
 
 | Season | Kingdom | Dungeon | Opens (server day) | Level gate | Normal | Hard | Nightmare | Purgatory | Best rarity | Source |
 |---|---|---|---|---|---|---|---|---|---|---|
 | 1 | Verdantglade | Auroradrasil | 1 | story quest | none | 36K | - | - | Legendary ❓ | [S-03] [R-133] |
 | 1 | Cinder Ridge | Mecha Summit | 4 | ❓ | none | 180K | - | - | Mythic (first Mythic shards) | [S-03] [S-42] |
 | 1 | Aqualis | Ocean Palace Ruins | 12 | ❓ | none | 580K | - | - | Mythic | [S-03] [S-42] |
-| 1 | Aqualis | Aquaorigin (Aquorigin Shrine) | 24 | Lv 100 | 930K | 1.45M | 2.05M | - | Divine | [S-01] [S-03] |
+| 1 | Aqualis | Aquorigin Shrine (alias Aquaorigin) | 24 | Lv 100 | 930K | 1.45M | 2.05M | - | Divine | [S-01] [S-03] [S-85] |
 | 1 | Aqualis ❓ | Hellhold | 33 | ❓ | 2.25M | 2.75M | 3.9M | 6.2M | Divine | [S-01] [S-03] |
 | 2 (pre-season) | Loong Haven | Demonseal Gorge | 47 | ❓ | none | 2.35M | not available | - | Mythic only | [S-02] |
-| 2 | Loong Haven | Warlord's Rest | 60 | Lv 130 | 3.55M | 5M | 6M | - | Divine | [S-02] |
+| 2 | Loong Haven | Warlord's Rest | 60 | Lv 130 | 3.55M | 5M | 6M | - | Divine | [S-02] [S-85] |
 | 2 | Loong Haven | Cloudcrest Temple | 73 | ❓ | 6.2M | 7.7M | 9.8M | - | Divine | [S-02] |
 | 2 | Loong Haven | Bladeshire | 86 | ❓ | 10M | 12.5M | 15.8M | - | Divine | [S-02] |
 | 2 | Loong Haven | Celestship | 99 | ❓ | 16.5M | 20M | 24.5M | 40M | Divine | [S-02] |
-| 3 | Aethyris | ❓ | 114 ❓ (29 Nov 2026 on the author's server) | ❓ | ❓ | ❓ | ❓ | ❓ | ❓ | [S-02] |
+| 3 | Aethyris | Crystalline Spiralwood ❓ (eog's name) | 114 (29 Nov 2026 on the author's server) | ❓ | none | 9M | - | - | ❓ | [S-02] [S-85] |
 
 Notes on the table:
-- Spelling: the SOF guide writes "Aquaorigin" (once "Aquorigin"), Fandom writes "Aquorigin Shrine" [S-01] [S-03]. Use what the game shows when we get there.
+- Spelling: this knowledge base uses **Aquorigin Shrine** (Fandom, and eog's roadmap) as the main name [S-03] [S-85]; "Aquaorigin" is an alias, the SOF guide's usual spelling (it also writes "Aquorigin" once) [S-01]. Confirm on the game's own card when we get there.
+- Level gates: eog's roadmap gives the same two gates as the SOF guides, Aquorigin Shrine Lv 100 (day 24) and Warlord's Rest Lv 130 (day 60), and the same server days for every Season 1 and 2 dungeon [S-85]. No source gives a level gate for the other dungeons.
+- Later seasons, from eog's roadmap (read from the Chinese server and projected onto global, so ❓ throughout; names are eog's translations) [S-85]: Season 3 has seven dungeons on days 114 to 197, every 13 to 14 days: Crystalline Spiralwood (114, Hard 9M), Eternal Blossom Courtyard (127, needs Lv 160, Normal 12.5M to Inferno 28.5M), Abyssal Bastion (141), Courtyard of Purification (155), Temple of Order (169), Solar Spire (183), Sovereign's Nest (197, Normal 125M to Inferno 250M; final Season 3 power wall 350M "Abyss" on day 203). Season 4 dungeons run days 226 to 309 and Season 5 days 335 to 418, with a last power wall of 1.8 billion. Every dungeon with power per difficulty: [server-day-roadmap.json](../data/server-day-roadmap.json); gear sets per dungeon: [dungeon-gear-sets.json](../data/dungeon-gear-sets.json).
+- eog names the top difficulties "Inferno" and "Abyss" where the SOF guides say "Purgatory" [S-85] [S-01]; this page keeps Purgatory (tier B).
 - Fandom lists Hellhold in the Aqualis block of its table [S-03]; no source names a separate kingdom for it.
 - A new dungeon arrives every 13 days in Season 2 (days 47, 60, 73, 86, 99) [S-02].
 - The thresholds are hard entry gates ("get through the door"); once inside, stronger players can do the clearing [S-01]. Dungeon difficulties are gated by both character level and CP [S-01].
@@ -74,7 +77,7 @@ Notes on the table:
 | Server | Day 1 | Example |
 |---|---|---|
 | Launch servers | 19 May 2026 (official launch, 8:30 UTC-5) [S-03] [S-47] | Mecha Summit 22 May, Ocean Palace Ruins 30 May |
-| SOF guide author's server | about 8 August 2026 (derived from day 47 = 23 September) [S-02] | Aquaorigin 31 August, Hellhold 9 September |
+| SOF guide author's server | about 8 August 2026 (derived from day 47 = 23 September) [S-02] | Aquorigin Shrine 31 August, Hellhold 9 September |
 | Our server | ❓ not read yet: check the server day in game (our account began 3 November 2026) | date = day 1 + (server day - 1) |
 
 ### Drops: gear, shards and rating
@@ -85,8 +88,8 @@ Notes on the table:
 - Shards per run by rating (after Cinder Ridge): B = 6, A = 7, S = 8 Mythic shards; Hard with an S rating gives 12. With up to 4 runs a day a Mythic item takes about 3 days [S-42].
 - Auroradrasil's first clear (rating B) dropped 96 Raw Ore, Beastclaw Boots and Beasthide Armor, drop level 18 to 30 [R-133].
 - Shards and gear of the **current** dungeon can be sold to other players for Dawnium ([Auction house](auction-house.md)). When the next dungeon opens, old shards lose their sale value and can only be dismantled, so sell them before that (within a day of the unlock notice) [S-43] [S-02].
-- Late in a season, Aquaorigin Divine shards and gear become cheap; buy them if you need gear rating for the [Astral Pact](astral-pact.md) [S-02].
-- Rating target for the end of Season 1: 2 Divine + 3 Mythic pieces from Hellhold give an SSS gear rating; 2 Divine Hellhold + 2 Divine Aquaorigin + 1 Mythic Hellhold also reaches SSS [S-02].
+- Late in a season, Aquorigin Shrine Divine shards and gear become cheap; buy them if you need gear rating for the [Astral Pact](astral-pact.md) [S-02].
+- Rating target for the end of Season 1: 2 Divine + 3 Mythic pieces from Hellhold give an SSS gear rating; 2 Divine Hellhold + 2 Divine Aquorigin Shrine + 1 Mythic Hellhold also reaches SSS [S-02].
 
 ### Season 2 dungeon gear (power per piece)
 
@@ -108,7 +111,7 @@ Example pieces from the Season 2 gear comparison chart in the SOF guide [S-02]:
 - Loong Haven opens with a **pre-season**: its first dungeon (Demonseal Gorge) does not count toward seasonal progression milestones, and its gear is not "seasonal gear" [S-02].
 - Affixes rolled on first-dungeon gear are at their weakest value; gear from every later dungeon of the season gets a bonus (200% on unique affix lines, 20% on standard lines). Affixes can be moved from first-dungeon gear to later gear, and the bonus then applies [S-02]. See [Gear](gear.md).
 - Two valid plans for the first dungeon: sell the shards and gear for sure Dawnium (the Cart soon drops Legendary gear stronger than this dungeon's Mythic), or keep rolling for a top affix to carry forward. Either way, making the next dungeon's CP threshold comes first [S-02].
-- The Cart helps on opening days: a high-level Cart can drop Legendary gear of the new tier at once (the author got a piece 15K CP above his Mythic on the Aquaorigin opening) [S-01]. See [Cart and home](cart-and-home.md).
+- The Cart helps on opening days: a high-level Cart can drop Legendary gear of the new tier at once (the author got a piece 15K CP above his Mythic on the Aquorigin Shrine opening) [S-01]. See [Cart and home](cart-and-home.md).
 
 ## The carry strategy and "+dungeon reward" gear
 
@@ -124,7 +127,7 @@ The fastest gearing loop in the game, from the SOF guide [S-01]:
 |---|---|---|---|
 | "Aqualis Dungeons - 2x Rating Reward Rate: +5%" | Chance to double the rating reward (shards and gear) | Legendary boots (Ocean Greaves) | [S-01] |
 | "Aqualis Dungeons - Gear Drop Quality Ascension Rate +10%" | Chance that a gear drop comes one rarity higher (Legendary becomes Mythic) | Epic boots (Tidechaser's Leggings) | [S-01] |
-| Lucky Statue relic: "Dungeon: 2x Rating Reward Rate 10%" | Same doubling chance, from a relic; 10% at Shard 0, +2% in the pictured resonance, up to 60% with ascensions ❓ | Grand Treasure Hunt relic | [S-01] [S-43] |
+| Lucky Statue relic: "Dungeon: 2x Rating Reward Rate 10%" | Same doubling chance, from a relic; 10% at Shard 0, +2% in the pictured resonance, rising to 60% with ascensions [S-85] | Grand Treasure Hunt relic | [S-01] [S-43] [S-85] |
 
 - These gear stats are **region specific**: an "Aqualis Dungeons" stat works only in Aqualis dungeons. Keep one set per kingdom and wear the right one [S-01].
 - Keep such pieces even when they are low rarity; they are swap-in gear, not your fighting set [S-01].
@@ -163,17 +166,17 @@ Resets: daily at 8:00 server time (UTC-5 = 13:00 UTC); weekly achievement quests
 | Daily Dungeon | 2 free (+2 for 100 and 150 Dawnium); banks to 6 | Yes, 4 (NPC companions or players) | Server day and CP per dungeon | Gear, shards | this page |
 | Material Realms | Free tools daily; extra tools for Dawnium (4244 or 4444 plan) | No | Verdantglade | Ore, Rolla, Battle Essence, Sand | [Material Realms](material-realms.md) |
 | Fantasia Ascent | Climb while floors are within power; Auto Challenge runs in the background | No | Moonveil Woods quest | Ore, tools | [Towers](towers.md) |
-| Demonbind Tower | ❓ | No ❓ | Lv 116 (Season 2) | Gems | [Towers](towers.md) |
+| Demonbind Tower | ❓ | No ❓ | Lv 116 (Season 2) [S-85] | Gems | [Towers](towers.md) |
 | Arena | 5 tickets a day ❓, more for Dawnium | No (PvP vs defence teams) | Lv 40 + Rank Advancement | Arena coins, weekly points | [Arena and PvP](arena-and-pvp.md) |
 | Crucible of Hieromon | ❓ (listed as a daily event) | Yes, 6 players | ❓ | ❓ | [Monsters](monsters.md) |
-| Guild donation | 5 max; 1 free, then Dawnium | No | Guild (Lv 15) | 300 Guild Tokens each | [Guild](guild.md) |
+| Guild donation | 5 max; 1 free, then Dawnium [S-87] | No | Guild (Lv 15 [S-87]) | 300 Guild Tokens each | [Guild](guild.md) |
 | Guild AFK gathering | 1 slot, collect within 36 h | No | Guild | 120 Guild Tokens per hour | [Guild](guild.md) |
 | Guild Conquest | 2 attempts | Guild-wide boss, fought solo | Guild | Dawnium, Guild Tokens | [Guild](guild.md) |
 | Commissions | Daily set; keep 70 stamina for them | No | Lv 30 ❓ | Kingdom currency, journals | [Commissions](commissions.md) |
 | Stamina spend | Regenerates 5 per hour to 300 | No | start | Ore, Sand, Essence, Rolla | [Stamina](stamina.md) |
 | Bed speed-up, Cart and Bed collection | 1 free speed-up; idle rewards cap at 36 h | No | start | EXP, resources | [Cart and home](cart-and-home.md) |
-| Vendor Booth Vault | Free +30 stamina, daily refresh | No | Lv 18-20 | Stamina, discounted tools | [Shops](shops.md) |
-| Statue of Witch / Statue of the Brave | Interact once a day each | No | on the map | Stellatie or stamina ("a lightning bolt") | [S-40] |
+| Vendor Booth Vault | Free +30 stamina, daily refresh | No | Lv 18 [R-011] (the publisher says Lv 20 [S-87]) | Stamina, discounted tools | [Shops](shops.md) |
+| Hero / Witch statues ("Statue of <name>"; the publisher's "Statue of the Brave" and "Statue of Witch") | Visit; daily visit attempts on the card | No | on the map | Permanent stat boost and a full heal [R-144] (tier A); the publisher adds a daily chance of a Stellatie or stamina ("a lightning bolt") [S-40] [S-87]. See [Exploration](exploration.md) | [R-144] [S-40] [S-87] |
 
 ### Weekly and longer
 
@@ -184,8 +187,8 @@ Resets: daily at 8:00 server time (UTC-5 = 13:00 UTC); weekly achievement quests
 | Guild Shop | Weekly refresh | No | Fantomon aptitude materials and summon tokens first | [Guild](guild.md) |
 | Molly's Deals | Up to 10 deals per week | No (uses friends list) | Check the friends list for the orange house mark | [Shops](shops.md) |
 | Grand Treasure Hunt | Every Saturday | No | Save one week, buy the unique relic the next | [Events](events.md) |
-| Void Rift | Every other Sunday ❓, 24 h | Yes, up to 4 | 10 reward attempts, aim for floors 3 to 5 | [Events](events.md) |
-| Chaos Invasion | Alternating with Void Rift ❓ | Recommended 4 (1 damage dealer + 3 supports) | Damage ranking, then buy only the Primal Forge | [Events](events.md) |
+| Void Rift | Every other Sunday, 24 h [S-85] | Yes, up to 4 | 10 reward attempts, aim for floors 3 to 5 | [Events](events.md) |
+| Chaos Invasion | Alternating Sundays with Void Rift [S-85] | Recommended 4 (1 damage dealer + 3 supports) | Damage ranking, then buy only the Primal Forge | [Events](events.md) |
 | Guild Clash | Guild event (schedule ❓) | Guild | Take part | [Guild](guild.md) |
 | New dungeon unlock | Every 13 days in Season 2 | Yes | Arrive with 6 banked attempts and the CP threshold met | this page |
 | Season end | About day 46 (Season 1), day 113 (Season 2) | No | Push gear level for Primostars | [Astral Pact](astral-pact.md), [Seasons](seasons.md) |
@@ -193,9 +196,9 @@ Resets: daily at 8:00 server time (UTC-5 = 13:00 UTC); weekly achievement quests
 ## Open questions
 
 - ❓ Exact rest-bonus rule (stored attempts vs boosted rewards) and whether it carries across a season change. Confirm on the dungeon entry screen.
-- ❓ Level gates for Mecha Summit, Ocean Palace Ruins, Hellhold, Demonseal Gorge, Cloudcrest Temple, Bladeshire and Celestship.
+- ❓ Level gates for Mecha Summit, Ocean Palace Ruins, Hellhold, Demonseal Gorge, Cloudcrest Temple, Bladeshire and Celestship (eog's roadmap names gates only for Aquorigin Shrine and Warlord's Rest [S-85]).
 - ❓ Our server's day 1, needed to turn the server-day table into dates.
-- ❓ Season 3 (Aethyris) dungeon names and thresholds.
+- ❓ Season 3 (Aethyris) dungeon names in the global client and whether global keeps the Chinese schedule (eog's names and power walls are above [S-85]).
 - ❓ Whether Normal-difficulty rewards differ in rarity from Hard and above (the chart says only that Demonseal Gorge is Mythic only).
 - ❓ What "Highest tier" and "1 More Floor(s)" cards inside Auroradrasil mean [R-133].
 - ❓ What Split Mirage is (named only in the weekly achievement list, R-099).
@@ -208,5 +211,6 @@ Resets: daily at 8:00 server time (UTC-5 = 13:00 UTC); weekly achievement quests
 - [S-40] official checklist post (daily statues)
 - [S-42] player blog: Daily Dungeon numbers, shards per rating
 - [S-43] EOG: Daily Dungeons, Important Tips, Season 2 Preparation
+- [S-85] eog.gg roadmap and hub: level gates, later-season dungeons, daily reset hour, Lucky Statue range ([server-day-roadmap.json](../data/server-day-roadmap.json)); [S-87] official posts (statues, donations, unlock levels)
 - [S-44] Kanstein Codex: reset clock; [S-45] All Things How: refresh prices; [S-47] launch date; [S-49] loadout slots
-- Rules R-001, R-015, R-024, R-040, R-057, R-065, R-071, R-077, R-082, R-086, R-091, R-097, R-099, R-128, R-133, R-145, R-159
+- Rules R-001, R-011, R-015, R-024, R-040, R-057, R-065, R-071, R-077, R-082, R-086, R-091, R-097, R-099, R-128, R-133, R-144, R-145, R-159

@@ -34,18 +34,18 @@ Order follows the in-game grid on Fandom (roughly rising rarity). Base rarity is
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
 | Water Shot | Water | Rare | DMG | Water DMG once to 1 enemy within 4 grids. | ❓ | Starting skill; outclassed quickly [S-14]. | [S-03][S-14] |
-| Ice Spike | Water | Rare | DMG, Ailment | Water DMG once to all enemies in a 1x5 line in front; 40% base chance to inflict Frozen for 1 turn. | ❓ | Seen in our game ascending Rare -> Epic [R-115]. | [S-03][R-115][S-14] |
-| Flame Jet | Fire | Epic | DMG | Fire DMG 3 times to all enemies in a 1x3 line in front. | ❓ |  | [S-03][S-14] |
-| Iron Thorn | Wind | Rare | DMG, Ailment | Pick a grid within 3; Wind DMG once to all enemies within 1 grid of it; 30% base chance to Immobilize for 1 turn. | ❓ |  | [S-03][S-14] |
-| Healing Touch | - | Epic | Ally, Heal, Dispel | Heals 1 ally within 5 grids and dispels 1 random ailment or debuff. | ❓ | Triggers Overhealing at T3+ [S-16]. | [S-03][S-14] |
-| Stonechief Summon | - | Epic | Summon | Summons a Stonechief in front of the caster that acts at once; inherits a percentage of caster stats; lasts up to 5 turns. Zero initial CD. | ❓ | Decoy; falls off late [S-14]. | [S-03][S-14] |
-| Fireball | Fire | Epic | DMG | Pick a grid within 5; Fire DMG once to all enemies in a 1-grid square around it. | ❓ |  | [S-03][S-14] |
-| Cyclone | Wind | Epic | Drag | Pick a grid within 6; Wind DMG once to all enemies within 2 grids, knocks them airborne and pulls them to the target grid. | ❓ | Groups enemies for AoE follow-ups. | [S-03][S-14] |
-| Tempest Sphere | Wind | Epic | DMG | Wind DMG 5 times to 1 enemy 3 to 5 grids away. | ❓ | 5 hits = 5 chances to trigger on-hit charms (Unstable Aura) [S-04]. | [S-03][S-14] |
-| Void Blessing | - | Legendary | Ally, Buff, Heal | Increases HP (ally buff and heal). | ❓ | Healer builds through T3 [S-04][S-11]; useless solo [S-14]. | [S-03][S-14] |
-| Blazing Fire Ring | Fire | Legendary | DMG | Fire DMG once to all enemies within 2 grids of the caster. | ❓ | Needs the caster close to enemies. | [S-03][S-10][S-14] |
-| Water Assault | Water | Legendary | DMG | Water DMG once to all enemies in a 3x4 area in front; DMG falls 25% for each further hit on the same target (multi-hits large targets). | ❓ | Main early AoE [S-04]; still used at T3 [S-12]. | [S-03][S-10][S-14] |
-| Wind's Delight | Wind | Legendary | DMG | Pick a grid within 6; 7 waves of wind blades at the target grid and random enemies within 1 grid left/right; each wave Wind DMG once within 1 grid of its target; DMG falls 35% per further hit on the same target. | ❓ | Single-target option up to T3 [S-11]. Sources also spell it 'Wind of Light' / 'Winds of Light' [S-04][S-12]. | [S-03][S-10][S-14] |
+| Ice Spike | Water | Rare | DMG, Ailment | Water DMG once to all enemies in a 1x5 line in front; 40% base chance to inflict Frozen for 1 turn. | 1 turn [S-85] | Seen in our game ascending Rare -> Epic [R-115]. | [S-03][R-115][S-14] |
+| Flame Jet | Fire | Epic | DMG | Fire DMG 3 times to all enemies in a 1x3 line in front. | 1 turn [S-85] |  | [S-03][S-14] |
+| Iron Thorn | Wind | Rare | DMG, Ailment | Pick a grid within 3; Wind DMG once to all enemies within 1 grid of it; 30% base chance to Immobilize for 1 turn. | 1 turn [S-85] |  | [S-03][S-14] |
+| Healing Touch | - | Epic | Ally, Heal, Dispel | Heals 1 ally within 5 grids and dispels 1 random ailment or debuff. | 1 turn [S-85] | Triggers Overhealing at T3+ [S-16]. | [S-03][S-14] |
+| Stonechief Summon | - | Epic | Summon | Summons a Stonechief in front of the caster that acts at once; inherits a percentage of caster stats; lasts up to 5 turns. Zero initial CD. | 5 turns [S-85] | Decoy; falls off late [S-14]. | [S-03][S-14] |
+| Fireball | Fire | Epic | DMG | Pick a grid within 5; Fire DMG once to all enemies in a 1-grid square around it. | 1 turn [S-85] |  | [S-03][S-14] |
+| Cyclone | Wind | Epic | Drag | Pick a grid within 6; Wind DMG once to all enemies within 2 grids, knocks them airborne and pulls them to the target grid. | 1 turn [S-85] | Groups enemies for AoE follow-ups. | [S-03][S-14] |
+| Tempest Sphere | Wind | Epic | DMG | Wind DMG 5 times to 1 enemy 3 to 5 grids away. | 1 turn [S-85] | 5 hits = 5 chances to trigger on-hit charms (Unstable Aura) [S-04]. | [S-03][S-14] |
+| Void Blessing | - | Legendary | Ally, Buff, Heal | Increases HP (ally buff and heal). | 2 turns [S-85] | Healer builds through T3 [S-04][S-11]; useless solo [S-14]. | [S-03][S-14] |
+| Blazing Fire Ring | Fire | Legendary | DMG | Fire DMG once to all enemies within 2 grids of the caster. | 1 turn [S-85] | Needs the caster close to enemies. | [S-03][S-10][S-14] |
+| Water Assault | Water | Legendary | DMG | Water DMG once to all enemies in a 3x4 area in front; DMG falls 25% for each further hit on the same target (multi-hits large targets). | 1 turn [S-85] | Main early AoE [S-04]; still used at T3 [S-12]. | [S-03][S-10][S-14] |
+| Wind's Delight | Wind | Legendary | DMG | Pick a grid within 6; 7 waves of wind blades at the target grid and random enemies within 1 grid left/right; each wave Wind DMG once within 1 grid of its target; DMG falls 35% per further hit on the same target. | 1 turn [S-85] | Single-target option up to T3 [S-11]. Sources also spell it 'Wind of Light' / 'Winds of Light' [S-04][S-12]. | [S-03][S-10][S-14] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
 
@@ -54,19 +54,19 @@ A ❓ after a name means only tier D sources name the skill; a ❓ in a cell mea
 
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
-| Elemental Mystery | - | ❓ | Stats | Increases the caster's Elemental Mastery. | ❓ | Seen in our game [R-115]. | [S-03][R-115] |
-| Wind's Whisper | Wind | ❓ | Stats | Increases the caster's Wind DMG. | ❓ |  | [S-03] |
-| Dew's Blessing | Water | ❓ | Stats | Increases the caster's Water DMG. | ❓ | 'Deuce Blessing' in [S-12]. | [S-03] |
-| Heart of Flame | Fire | Rare | Stats | Increases the caster's Fire DMG. | ❓ | Seen in our game as Rare [R-158]. Still in T3 Fire builds [S-12]. | [S-03][R-158] |
-| Unstable Aura | Wind | ❓ | DMG, Knockback | When a Technique deals DMG, 25% chance to trigger Aura: extra Wind DMG once, 60% base chance to knock back 1 grid. | ❓ | Core T1 damage charm with multi-hit techniques [S-04]. | [S-03] |
-| Elemental Body | - | ❓ | Stats | Increases the caster's Elemental RES. | ❓ |  | [S-03] |
-| Curse Resonance | - | ❓ | Buff | For each ailment or debuff on the target, the caster's Technique DMG to it rises; stacks up to 3 times. | ❓ | Pairs with Frozen/Immobilize/Erosion. | [S-03] |
-| Insight | - | ❓ | Stats | Increases the caster's Effect Hit Rate. | ❓ | Erosion builds [S-04]. | [S-03] |
-| Tough Soul | - | ❓ | Stats | Increases the caster's HP. | ❓ | Healer builds [S-04]. | [S-03] |
-| Flaming Path | Fire | ❓ | Burn | When the caster starts to move in their turn, 30% chance to inflict Burn on grids within 1 grid of the caster. | ❓ | Do not stack with Raging Wildfire: one burn per tile [S-12]. | [S-03] |
-| Water to Ice | Water | ❓ | Stats | Fandom text: increases the caster's Water DMG. sxswiki text: 50% chance to trigger Condensation on Water DMG (extra DMG, 30% chance to Freeze). | ❓ | Sources disagree on the effect; see Open questions. | [S-03][S-04] |
-| Mana Surge | - | ❓ | Stats | Increases the caster's Crit Rate. | ❓ | sxswiki gives 16% + a flat amount [S-04] (unverified). Kept in builds through T3/T4 [S-11][S-16]. | [S-03] |
-| Gale Shield | Wind | ❓ | Shield, Knockback | At battle start grants a shield based on max HP; when it disappears, Wind DMG once to all enemies in a 1-grid square around the caster, 100% base chance to knock back 1 grid. | ❓ | Main T1 survival charm [S-04]. | [S-03] |
+| Elemental Mystery | - | ❓ | Stats | Increases the caster's Elemental Mastery. | none (Charm) [S-85] | Seen in our game [R-115]. | [S-03][R-115] |
+| Wind's Whisper | Wind | ❓ | Stats | Increases the caster's Wind DMG. | none (Charm) [S-85] |  | [S-03] |
+| Dew's Blessing | Water | ❓ | Stats | Increases the caster's Water DMG. | none (Charm) [S-85] | 'Deuce Blessing' in [S-12]. | [S-03] |
+| Heart of Flame | Fire | Rare | Stats | Increases the caster's Fire DMG. | none (Charm) [S-85] | Seen in our game as Rare [R-158]. Still in T3 Fire builds [S-12]. | [S-03][R-158] |
+| Unstable Aura | Wind | ❓ | DMG, Knockback | When a Technique deals DMG, 25% chance to trigger Aura: extra Wind DMG once, 60% base chance to knock back 1 grid. | none (Charm) [S-85] | Core T1 damage charm with multi-hit techniques [S-04]. | [S-03] |
+| Elemental Body | - | ❓ | Stats | Increases the caster's Elemental RES. | none (Charm) [S-85] |  | [S-03] |
+| Curse Resonance | - | ❓ | Buff | For each ailment or debuff on the target, the caster's Technique DMG to it rises; stacks up to 3 times. | none (Charm) [S-85] | Pairs with Frozen/Immobilize/Erosion. | [S-03] |
+| Insight | - | ❓ | Stats | Increases the caster's Effect Hit Rate. | none (Charm) [S-85] | Erosion builds [S-04]. | [S-03] |
+| Tough Soul | - | ❓ | Stats | Increases the caster's HP. | none (Charm) [S-85] | Healer builds [S-04]. | [S-03] |
+| Flaming Path | Fire | ❓ | Burn | When the caster starts to move in their turn, 30% chance to inflict Burn on grids within 1 grid of the caster. | none (Charm) [S-85] | Do not stack with Raging Wildfire: one burn per tile [S-12]. | [S-03] |
+| Water to Ice | Water | ❓ | Stats | Fandom text: increases the caster's Water DMG. sxswiki text: 50% chance to trigger Condensation on Water DMG (extra DMG, 30% chance to Freeze). | none (Charm) [S-85] | Sources disagree on the effect; see Open questions. | [S-03][S-04] |
+| Mana Surge | - | ❓ | Stats | Increases the caster's Crit Rate. | none (Charm) [S-85] | sxswiki gives 16% + a flat amount [S-04] (unverified). Kept in builds through T3/T4 [S-11][S-16]. | [S-03] |
+| Gale Shield | Wind | ❓ | Shield, Knockback | At battle start grants a shield based on max HP; when it disappears, Wind DMG once to all enemies in a 1-grid square around the caster, 100% base chance to knock back 1 grid. | none (Charm) [S-85] | Main T1 survival charm [S-04]. | [S-03] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
 
@@ -172,12 +172,13 @@ This is the path for our account. Spending Dawnium is allowed in advice; real mo
 
 - ❓ Base rarity of each Mage charm (only Heart of Flame is confirmed Rare).
 - ❓ Real text of Water to Ice (stat charm or Condensation / freeze trigger).
-- ❓ Cooldown of every Mage technique.
+- ❓ Cooldowns seen in our game (the tables' turn counts are eog's [S-85]).
 - ❓ Mana Surge's Crit Rate value by quality.
 - ❓ Which Legendary the 200-prayer pick offers to a Mage.
 
 ## Sources
 
+- [S-85] eog.gg skill database: cooldowns in turns, effect text and damage per quality for every skill ([skill-database.json](../data/skill-database.json))
 - [S-01] relic elements, Fantomon and companion rules, gems, skill vouchers
 - [S-02] Tier 4 at Lv 106
 - [S-03] Fandom: Mage, Mage Skills, Classes Overview, Class Selection, Everything about Class Change

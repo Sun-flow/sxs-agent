@@ -26,13 +26,15 @@ Chrono Sand + Rolla -------------------------------------------------> Enhance d
 
 - Relics are a progression layer of their own; they are not worn in gear slots [S-25]. They live at the
   **Workbench** in the house (R-166, R-172) and are drawn at the **Aeonic Gacha** stone at Home (R-167).
-- Size of the system: about 855 relic pieces across 6 regions [S-25]. The Relic Gallery has tabs
-  Verdantglade, Cinder Ridge, Aqualis, Loong Haven and Other [S-22] ❓.
+- Size of the system: about 855 relic pieces across 6 regions [S-25][S-80]; eog's database lists 1,128 relics
+  in 12 pools, later seasons included [S-85]. The Relic Gallery has tabs Verdantglade, Cinder Ridge, Aqualis,
+  Loong Haven and Other [S-22][S-85].
 
 ## Elements, Affinity and Aegis
 
 - Five elements: **Fire, Water, Wind, Light, Dark** [S-01, S-25]. The Workbench has one tab per element (R-166).
-- Each relic carries an elemental **Affinity** (damage side) or **Aegis** (resist side) line; the Workbench
+- Each relic carries an elemental **Affinity** (damage dealt with that element) or **Aegis** (resistance to
+  it) line, grown by its stars [S-80]; the Workbench
   shows Affinity and Aegis counters per element (R-166) [S-25]. Example: Lucky Statue has Light Affinity 200
   [S-01, page image].
 - Total elemental Affinity also opens **Gates of Elements** on the map (R-159).
@@ -52,10 +54,10 @@ Chrono Sand + Rolla -------------------------------------------------> Enhance d
 |---|---|---|---|
 | **Aeonic Gacha** (kingdom banner) | Relics of one kingdom's pool; duplicates arrive as 3-shard bundles | Draw x10 = 100 badges of the tier; guaranteed Rare in 10 on the Rare tier | R-167 |
 | Aeonic Gacha (Element tab) | Relics of one chosen element | Paid with Auroral Elemental Badges | R-167, [S-25] |
-| **Destiny Fruits** (Destiny Exploration) | Relics hidden in the region where the fruit is used; can also summon Molly or the Mysterious Merchant to Home | The Relic Set screen shows the missing pieces and where to find them; the nearest Goddess Statue lists the region's relics. Only pool 1 of Loong Haven can drop from fruits | [S-03], [S-02] |
+| **Destiny Fruits** (Destiny Exploration) | Relics hidden in the region where the fruit is used; can also summon Molly or the Mysterious Merchant to Home [S-03] (the merchant's main, scheduled visit is the day after Chaos Invasion [S-85]; see [Shops](shops.md)) | The Relic Set screen shows the missing pieces and where to find them; the nearest Goddess Statue lists the region's relics. Only pool 1 of Loong Haven can drop from fruits | [S-03], [S-02] |
 | **Grand Treasure Hunt** | Unique relics Lucky Statue and Primal Gem; a selectable Mythic kingdom relic in some phases ❓ | Save event currency every other week to afford them | [S-01]; phases [S-23] ❓ |
 | Events and packs | E.g. Divine Relic "Sword x Staff" (free in the launch event), Legendary Relic "Merri Doll" (paid) | | [S-03] |
-| Paid track | "Hero's Guide" relic (EXP gain and a 20% resonance bonus) from the Stellaris Path: real money, out of scope ❓ | | [S-24] |
+| Paid track | "Hero's Guide" relic (EXP gain and a 20% resonance bonus) from the Stellaris Path: real money, out of scope ❓ | | [S-52][S-85] |
 
 Badge sources and gacha rates are on the [Gacha](gacha.md#aeonic-gacha-relics) page.
 
@@ -65,14 +67,21 @@ Badge sources and gacha rates are on the [Gacha](gacha.md#aeonic-gacha-relics) p
 |---|---|---|---|
 | **Activate** | A newly drawn relic shows under its rarity with "Activate"; activating adds its Aegis/Affinity and stats and places it on a display slot if one is free | Free | R-172 |
 | **Enhance** | Raises a displayed relic's level (+1, +2, ...) | Chrono Sand and Rolla: 1K sand / 1.8K Rolla for +1 -> +2 and +2 -> +3; 2K / 3.6K for +3 -> +4 | R-172 |
-| **Ascend** | Raises the relic's stars; grows its Affinity/Aegis line; permanent | 20 of the relic's own shards (first star observed); up to 6 stars ❓ | R-172; [S-25], [S-03] |
+| **Ascend** | Raises the relic's stars; grows its Affinity/Aegis line; permanent | 20 of the relic's own shards (first star observed); up to 6 stars [S-25][S-80] | R-172; [S-25], [S-80], [S-03] |
 | **Replace** | Swaps which relic sits in a display slot | Free ❓; the bot must not press it (R-172) | R-172 |
 
 - Levelling a relic grows one main stat (most relics: SPD, ATK, DEF or HP; a minority: DMG RES, DMG Boost,
-  Crit Rate, Crit RES); starring grows the elemental line [S-25].
-- About 75 relics have an extra bonus that grows by completing a task, many tied to a gear slot [S-25] ❓.
+  Crit Rate, Crit RES); starring grows the elemental line [S-25][S-80]. Counts by main stat: SPD 66, ATK 65,
+  DEF 65, HP 65, DMG RES 20, DMG Boost 19, Crit Rate 15, Crit RES 14 [S-80].
+- Caps: the database site says level and star **both max at 6** [S-80] ❓. The star cap fits; the level cap does
+  not fit the +10 and higher enhance levels of SOF's screenshots [S-01] (tier B) and our Enhance screen
+  (R-172), so it is probably a different scale (per-relic data level against Resonance Level). This page
+  follows [S-01].
+- About 75 relics have an extra bonus that grows by completing a task, many tied to a gear slot (Boots 9,
+  Weapon 9, Helmet 6, Armor 5, Off-hand 2); the tasks are not listed [S-25][S-80] ❓.
 - Some relic groups form **sets** with bonuses at 2, 3 and 4 owned pieces (example: Cinder Ridge "Faint Ember
-  Glow": Quake Pick, Pyrecrown, Ignic Loop, Blade Saw) [S-22] ❓. QY Maple's pool table also has "Complete
+  Glow": Quake Pick, Pyrecrown, Ignic Loop, Blade Saw) [S-22][S-85] ❓. Every relic with pool, rarity, element,
+  main stat and set, under eog's own translated names: [data/relic-database.json](../data/relic-database.json) [S-85]. QY Maple's pool table also has "Complete
   Set" and "Epic Set" rows [S-02, page image].
 
 ## Relic Resonance
@@ -88,15 +97,19 @@ Badge sources and gacha rates are on the [Gacha](gacha.md#aeonic-gacha-relics) p
 
 ### Soft cap per season
 
-| Season | Resonance soft cap | Source |
-|---|---|---|
-| Season 1 | +10 | [S-01] |
-| Season 2 | +13 | [S-01] |
-| Later | Rises with the seasonal level cap | [S-01] |
+"Soft cap" on this page means the level that is **kept**; levels above it can be bought during the season, are
+scored by the Astral Pact and reset.
+
+| Season | Soft cap (kept, and the Astral Pact's scoring floor) | Seasonal levels above it | Source |
+|---|---|---|---|
+| Season 1 | +10 | +11 to +13 (20 relics x 3 levels are scored) | [S-01][S-51][S-85] |
+| Season 2 | +13 | above +13 ❓ | [S-01][S-85] |
+| Season 3 | +16 ❓ | ❓ | [S-85] |
 
 - Levels above the cap reset at season end [S-01]; Fandom states it as "Relic level above +10" is seasonal and
-  resets [S-03]. This page reads the two together as: +10 is kept forever; anything above it lasts for the
-  season ❓ (whether the kept level rises in later seasons is not stated).
+  resets [S-03]. So in Season 1 resonance could be pushed to +13, with +10 kept; [Seasons](seasons.md) and
+  [Astral Pact](astral-pact.md) say the same. eog's scoring table puts the floor at +10, +13 and +16 for
+  Seasons 1 to 3 [S-85], which is why this page reads SOF's "+13 in Season 2" as the kept level rising ❓.
 
 ### What to display (resonance stat priority)
 
@@ -140,9 +153,14 @@ each other; SOF says to max the preferred element first. See [conflicts](../conf
 ## Kingdom relic pools and the 70% target
 
 - Every kingdom has its own relic pool and gacha banner (Verdantglade's banner is "Sylvan Relics", R-167).
+- Pool sizes [S-85]: Verdantglade, Cinder Ridge and Aqualis have 70 relics each (20 Rare, 20 Epic, 20
+  Legendary, 10 Mythic; 14 per element; 20 sets). Each Loong Haven pool has 80 (20 of each rarity, 16 per
+  element). An "Other" pool holds event, shop and unique relics. The Legendary and Mythic special stats of each
+  pool and the Mythic relic lists for Cinder Ridge and Aqualis are in the [eog notes](../sources/notes/eog.md)
+  ("Hub tab: Relics"); pool names there (Forest, Mountain, Marsh, Dragon I and II) are eog's, not the game's.
 - **Target: about 70% overall completion per region, with as many Rare/Epic relics as possible, before moving
   on** [S-01]. Same target for Loong Haven, "especially in the first pool, since you can get relics with
-  destiny fruit" [S-02]. EOG gives 50-70% and says F2P accounts typically end near 70%, paying accounts near
+  destiny fruit" [S-02]. Switch from the banner to Destiny Fruits at about 70% of a pool [S-85]. EOG gives 50-70% and says F2P accounts typically end near 70%, paying accounts near
   90% [S-20, S-24] ❓.
 - Why early pulls matter: a new pool is empty, so each pull is far more likely to be a new relic than in a
   saturated pool [S-02].
@@ -195,6 +213,8 @@ power (Material Realms).
 - Using a Destiny Fruit during exploration ("Destiny Exploration") unearths relics hidden in that region and
   may summon Molly or the Mysterious Merchant to Home with discounted goods ("some deals may not be what they
   seem") [S-03].
+- A Destiny Exploration is run at the place on a relic's source list, shown as "<Kingdom> <Area> Destiny
+  Exploration"; the fruit cost varies and is shown in the dialog [S-85].
 - Check the Relic Set for missing pieces and their exact locations; the nearest Goddess Statue card lists the
   region's relics [S-03] (our statue cards show "Regional Relics", R-070).
 - Destiny Fruits lie on the map as pickups (R-161) and come from codes and events ❓ [S-04].
@@ -206,9 +226,9 @@ power (Material Realms).
 
 | Relic | Element | Effect | How to get | Sources |
 |---|---|---|---|---|
-| **Lucky Statue** ("Grand Treasure Hunt relic") | Light (Light Affinity 200) | "Dungeon: 2x Rating Reward Rate 10%": chance to double dungeon reward drops; +2% more when displayed; scales to 60% with ascension ❓ | Grand Treasure Hunt | [S-01] page image; scaling [S-23] ❓ |
-| **Primal Gem** | ❓ | Raises gem acquisition from all sources except packs and the trading house; 10% scaling to 60% ❓ | Grand Treasure Hunt | [S-01] (name, priority); effect [S-23] ❓ |
-| Hero's Guide | ❓ | EXP gain and a 20% resonance bonus ❓ | Paid Stellaris Path (not for us) | [S-24] ❓ |
+| **Lucky Statue** ("Grand Treasure Hunt relic") | Light (Light Affinity 200) | "Dungeon: 2x Rating Reward Rate 10%": chance to double dungeon reward drops; +2% more when displayed; scales to 60% with ascension (eog calls it "Lucky Idol") | Grand Treasure Hunt | [S-01] page image; scaling [S-23][S-85] ❓ |
+| **Primal Gem** | ❓ | Raises gem acquisition from all sources except packs and the trading house; 10% scaling to 60% (eog: "Primordial Gem") ❓ | Grand Treasure Hunt | [S-01] (name, priority); effect [S-23][S-85] ❓ |
+| Hero's Guide | ❓ | EXP gain and a 20% resonance bonus ❓ | Paid Stellaris Path (not for us) | [S-52][S-85] ❓ |
 | Sword x Staff (Divine Relic) | ❓ | ❓ | Free in the Journey Overture launch event packs page | [S-03] |
 | Merri Doll (Legendary Relic) | ❓ | ❓ | Paid launch pack | [S-03] |
 
@@ -225,7 +245,7 @@ power (Material Realms).
 | Owning/activating relics (collection, Affinity/Aegis) | Permanent | [S-01] |
 | Relic ascensions (stars) | Permanent | [S-03] |
 | Relic level / Resonance up to +10 | Permanent | [S-03], [S-01] |
-| Relic level above the cap (+11 to +13 in Season 2) | Seasonal: reset at season end | [S-01], [S-03] |
+| Relic level above the cap (+11 to +13 in Season 1) | Seasonal: reset at season end | [S-01], [S-03], [S-51] |
 | "Season relic level" | Rated by the Astral Pact at season end, converting seasonal effort into permanent Primostars | [S-01] |
 
 Relics can still be pulled in later seasons, which is why SOF ranks the once-per-season Astral Pact above
@@ -239,13 +259,18 @@ them for end-of-season decisions [S-01].
   listed in [conflicts](../conflicts.md) for mae to decide.
 
 ## Open questions
-- ❓ Exact gacha rates per tier in the live game, and whether a pity exists above the 10-pull Rare guarantee.
-- ❓ Enhance costs beyond +4 and shard costs for stars 2 to 6; what "Awakened" requires.
-- ❓ Whether the permanent resonance level stays +10 forever or rises with later seasons.
-- ❓ Relic pool names and Mythic/Legendary stat lists for Verdantglade (beyond "Sylvan Relics"), Cinder Ridge and Aqualis.
+- ❓ Gacha rates per tier checked in the live game (the database table is on the [Gacha](gacha.md) page), and
+  whether a pity exists above the 10-pull Rare guarantee (none is stated [S-80]).
+- ❓ Enhance costs beyond +4 and shard costs for stars 2 to 6; what "Awakened" requires; what the "level max 6"
+  of [S-80] measures.
+- ❓ Confirm in game that the kept resonance level rises to +13 and +16 in Seasons 2 and 3, and the seasonal
+  maximum above it.
+- ❓ In-game relic pool names for Cinder Ridge and Aqualis (Verdantglade's is "Sylvan Relics").
 - ❓ Primal Gem element and exact numbers; Lucky Statue cost in event currency.
 - ❓ Destiny Fruit drop rates and cost per attempt.
-- ❓ The individual relic list (names, stats) per kingdom: read the Relic Set screens in game.
+- ❓ The global client's relic names: [data/relic-database.json](../data/relic-database.json) has every relic
+  under eog's translations; read the Relic Set screens in game to match them.
+- ❓ Relic drop chance and drop place per relic (the site that had them is offline [S-86]).
 
 ## Sources
 - [S-01] "Relics" page with resonance screenshot; "Combat Power" page (Lucky Statue card); Permanent vs Seasonal; Additional Tips
@@ -253,5 +278,6 @@ them for end-of-season decisions [S-01].
 - [S-03] Fandom "Destiny Fruits", "Seasonal Systems", "Journey Overture"
 - [S-04] sword-x-staff.wiki Aeonic Gacha and Wheel of Destiny pages (leads only)
 - [S-20] [S-22] [S-23] [S-24] EOG.GG pages
-- [S-25] zeroluck.gg relics and summoning pages
+- [S-25] zeroluck.gg relics and summoning pages; [S-80] second reading ([notes](../sources/notes/zeroluck.md))
+- [S-85] eog.gg relic database, Destiny Fruit guide, Astral Pact scoring ([notes](../sources/notes/eog.md)); [S-51] Season 1 calculator; [S-52] EOG tips (Hero's Guide); [S-86] lootandwaifus (offline)
 - Rules R-020, R-070, R-105, R-106, R-116, R-159, R-161, R-166, R-167, R-172

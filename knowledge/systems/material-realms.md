@@ -2,7 +2,7 @@
 
 <!-- index: Read when deciding how many Material Realm attempts to run or buy, which realm to favour, or whether to save tools -->
 
-> **Summary:** Four realms turn tools into ore, Rolla, Battle Essence and Chrono Sand. Extra tools are the main Dawnium sink: SOF buys 4 ore / 2 Rolla / 4 essence / 4 sand a day (1,080 Dawnium). Rewards scale with Kingdom Rank, so unused tools can be saved for the top rank, running only the Rolla realm for the daily quest meanwhile, as long as that does not cost you a progression threshold.
+> **Summary:** Four realms (Ironvein Pit, Gilded Depths, Dread Hollow and the Sand Mine) turn tools into ore, Rolla, Battle Essence and Chrono Sand. Extra tools are the main Dawnium sink: SOF buys 4 ore / 2 Rolla / 4 essence / 4 sand a day (1,080 Dawnium). Rewards scale with Kingdom Rank, so unused tools can be saved for the top rank, running only the Rolla realm for the daily quest meanwhile, as long as that does not cost you a progression threshold.
 > **Applies:** all seasons
 > **Related:** [Currencies](currencies.md), [Kingdom rank](kingdom-rank.md), [Stamina](stamina.md), [Seasons](seasons.md), [Shops](shops.md), rules R-015, R-095, R-128
 
@@ -14,11 +14,16 @@ Reached from Journal > Material Realms [R-094]. Each realm has its own tab set: 
 |---|---|---|---|---|
 | Ironvein Pit | Iron Hammer | Raw Ore and Refined Ore | first realm; after Verdantglade II ❓ | [R-095][S-35] |
 | Gilded Depths | Gold Pickaxe | Rolla | ❓ | [R-125][S-35] |
-| Dread Hollow | Worn Knuckles | Battle Essence (fights monsters) | after Verdantglade IV ❓ | [R-125][S-35] |
-| ❓ (sand realm) | ❓ (a shovel, per one site [S-04]) | Chrono Sand | ❓ | [S-01] |
+| Dread Hollow | Worn Knuckles (eog: "Worn Gauntlet") | Battle Essence (fights monsters) | after Verdantglade IV ❓ | [R-125][S-35][S-87] |
+| Sand Mine ❓ (eog's name; in-game name not seen) | Sand Shovel [S-85] ("a shovel" [S-04]) | Chrono Sand | ❓ | [S-85][S-01] |
+
+eog calls the first three Iron Mine, Gold Mine and Monster Cave [S-85]; this page keeps the names seen in game.
 
 - One tool is one attempt. In Ironvein Pit, one Iron Hammer mined about +115 Raw Ore at our rank (Apprentice)
   [R-095].
+- eog's model of a run [S-85] ❓: each tool use (swing) deals 10 damage (80%) or 15 (20%) to the current target;
+  a target pays on every hit and again when it breaks, then a new one is rolled by weight. Targets, weights and
+  rewards: [data/gathering-yields.json](../data/gathering-yields.json).
 - The realm's Goals tab pays for totals mined (Iron Mined 5 to 25 goals) [R-095].
 - "Material Realms x5" is a Daily Quest [R-128].
 
@@ -29,7 +34,7 @@ Reached from Journal > Material Realms [R-094]. Each realm has its own tab set: 
 | Goals tabs | e.g. 10 Standard Prayers paid 3 Iron Hammers | [R-093][R-095] |
 | Daily quests | "a set amount of Iron Hammers daily" ❓ | [S-04] |
 | Commissions ("Delegate Tasks") | Iron Hammers and Gold Pickaxes ❓ | [S-36] |
-| Vendor Booth Vault | bundles at a discount: 5 Gold Pickaxes for 60 Dawnium, 5 Worn Knuckles for 40 | [R-120][S-03] |
+| Vendor Booth Vault | bundles at a discount: 5 Gold Pickaxes for 60 Dawnium, 5 Worn Knuckles for 40; the publisher also lists Iron Hammers there | [R-120][S-03][S-87] |
 | Buying at the realm | button opens "Purchase Iron Hammer" at 0 tools; first price 60 Dawnium, limit 20 a day | [R-095] |
 
 How many attempts are free each day is not stated exactly in any good source: our early note says two free attempts
@@ -69,11 +74,27 @@ Splits are written as four digits in the order **ore / Rolla / Battle Essence / 
 ## Rewards scale with Kingdom Rank
 
 - "Material Realm rewards scale with your Rank. Unless materials are needed immediately, save your attempts for
-  higher Ranks to maximize drops" [S-03].
+  higher Ranks to maximize drops" [S-03][S-87].
 - From Season 2 every kingdom has only three ranks, so waiting for the top rank is a short wait [S-01].
 - Loong Haven's top rank is Champion III, reached at about level 120 [S-02]. One site says the jump already comes at
   Champion I, and applies to stamina rewards too ❓ [S-34].
-- The size of the bonus per rank is not given anywhere ❓. See [Kingdom rank](kingdom-rank.md).
+- Size of the bonus, from eog's calculator (tier C, not checked in game ❓) [S-85]: a realm rank multiplier that
+  runs from 1.6 at the lowest rank to 45 at the highest, equal to the Rolla-per-5-stamina figure divided by 1,200.
+
+| Rank band (eog's names) | Rolla per 5 stamina, three sub-ranks | Realm multiplier |
+|---|---|---|
+| Black Iron | 1,920 / 2,520 / 3,180 | 1.6 / 2.1 / 2.65 |
+| Bronze | 4,020 / 4,980 / 5,940 | 3.35 / 4.15 / 4.95 |
+| Silver | 6,900 / 7,980 / 9,240 | 5.75 / 6.65 / 7.7 |
+| Gold | 12,000 / 12,960 / 14,160 | 10 / 10.8 / 11.8 |
+| Sanctuary | 22,800 / 23,400 / 24,000 | 19 / 19.5 / 20 |
+| Legend | 48,000 / 51,000 / 54,000 | 40 / 42.5 / 45 |
+
+- Raw Ore is one tenth of the Rolla figure, Chrono Sand one twelfth, Battle Essence one eighth [S-85]. The band
+  names are eog's translations; how they map to Apprentice ... Champion is not stated ❓. Our one data point fits
+  the lowest band: an ore rock gave about +178 Raw Ore at Apprentice [R-108] against eog's 192.
+- The jump between bands is large (Gold to Sanctuary nearly doubles), which is the case for saving tools. See
+  [Kingdom rank](kingdom-rank.md).
 
 ## The save-attempts strategy
 
@@ -108,10 +129,11 @@ The same order applies to stamina spending [S-01]. See [Stamina](stamina.md).
   saving a stockpile and spending it in one day to top a ranking is a plausible one ❓.
 
 ## Open questions
-- ❓ Name and tool of the sand realm; unlock conditions of realms 2 to 4.
+- ❓ In-game name of the sand realm (eog: Sand Mine, tool Sand Shovel); unlock conditions of realms 2 to 4.
 - ❓ Free attempts or free tools per day, per realm.
 - ❓ Whether the price ladder resets daily and continues past 10 (our game showed a limit of 20 a day).
-- ❓ Reward multiplier per Kingdom Rank: compare one hammer's yield before and after a rank-up.
+- ❓ Check eog's rank multipliers in game (compare one hammer's yield before and after a rank-up) and map its
+  rank band names to the game's rank names.
 - ❓ Ranking rewards and when rankings settle.
 
 ## Sources
@@ -119,5 +141,6 @@ The same order applies to stamina spending [S-01]. See [Stamina](stamina.md).
 - [S-02] Sections IV and VI
 - [S-03] material-realm, progression
 - [S-04] material realms and covenite pages (leads)
+- [S-85] eog.gg stamina and gathering calculator ([notes](../sources/notes/eog.md)); [S-87] official Handbook Vol. 2
 - [S-30], [S-35] price ladder; [S-32] refresh ladder by spender tier; [S-34] rank note; [S-36] tool sources; [S-39] 3233 split
-- Rules R-015, R-093, R-094, R-095, R-120, R-125, R-128
+- Rules R-015, R-093, R-094, R-095, R-108, R-120, R-125, R-128

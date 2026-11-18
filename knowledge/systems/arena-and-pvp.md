@@ -26,12 +26,12 @@
 | Extra attempts | Up to 8 more per day ❓ for Dawnium at a rising price | [S-42] |
 | Price ladder (player blog) | 10, 25, 45, 75, 115, 175, 255, 355 Dawnium | [S-42] |
 | Price ladder (All Things How) | 10, 15, 20, 30, 40, 60, 80, 100 Dawnium | [S-45] |
-| Ticket storage | Tickets can be saved; one site says a player holds up to 20 saved tickets ❓ | [S-01] [S-43] |
+| Ticket storage | Tickets can be saved [S-01] [S-87]; eog says to spend 20 saved tickets on day one of the week, which implies a store of at least 20 ❓ (cap itself not stated) | [S-01] [S-87] [S-43] [S-85] |
 | Win reward | 100 Arena coins per successful attack | [S-42] |
 | Skip battle | A much weaker opponent gives the reward at once, with no battle | [S-42] |
 | One-time unlock reward | A Dawnium chunk for unlocking the feature | [S-45] |
 
-- The two price ladders disagree; both start at 10 Dawnium and rise per fight within a day [S-42] [S-45]. Read the real price on the buy dialog.
+- The two price ladders disagree; both start at 10 Dawnium and rise per fight within a day [S-42] [S-45]. This page follows the player blog [S-42] (a first-hand Season 1 account) as the main ladder: 10, 25, 45, 75, 115, 175, 255, 355. The other reading (10, 15, 20, 30, 40, 60, 80, 100) is from a tier D site [S-45]. Neither is confirmed in our game ❓: read the real price on the buy dialog.
 - F2P advice on extra fights: about 2 extra fights a day is the cheap part of the ladder; it ranks below dungeon attempts, Material Realm tools and shop refreshes in Dawnium priority ❓ [S-45].
 
 ### The weekly reset trick
@@ -41,7 +41,7 @@
 3. Even if you cannot hold the rank, the time spent high up gives a big head start in weekly Arena points [S-01]. Early-week rank also pays a daily Dawnium income for the rest of the week ❓ [S-43].
 4. After the first day the ladder sorts itself by power, so later tickets move you little; buying more tickets later in the week is poor value ❓ [S-43].
 
-- The official checklist gives the same tip: save tickets before the weekly reset and use them early in the new Arena season [S-40].
+- The official checklist and the official Tips post give the same tip: save tickets before the weekly reset and use them early in the new Arena season [S-40] [S-87]. eog puts a number on it: spend 20 saved tickets on day one [S-85].
 - The reset weekday is not confirmed ❓. Weekly achievement quests reset Monday 8:00 server time [R-024], and a fan site says the Arena week resets on the same clock as the daily reset [S-44].
 
 ### Points, rankings and rewards
@@ -52,7 +52,7 @@
 
 ### Arena Shop
 
-Paid with Arena coins. Example stock from a Season 1 player (limits are per shop refresh ❓):
+Paid with Arena coins (the name the player blog uses [S-42]; the in-game name is not confirmed ❓). Example stock from a Season 1 player (limits are per shop refresh ❓):
 
 | Item | Price (coins) | Limit | Use | Source |
 |---|---|---|---|---|
@@ -60,7 +60,7 @@ Paid with Arena coins. Example stock from a Season 1 player (limits are per shop
 | Bond Treat | 1.6K | 2 | Fantomon growth ❓ | [S-42] |
 | Stellatie | 1K | 3 | Skill prayer ticket | [S-42] |
 | Rare Auroral Badge x10 | 800 | 5 | Relic gacha (Aeonic Gacha) | [S-42] |
-| Covenite | 500 | 1 | Skill selection currency | [S-42] |
+| Covenite | 500 | 1 | Skill selection ticket (also from Molly's Deals, the Wheel of Destiny and Chaos Invasion; see [Currencies](currencies.md)) | [S-42] |
 | Bond Trinket | 160 Dawnium, limit 2 ❓ | 2 | Fantomon summon ticket | [S-42] [S-43] |
 | Kels shards | ❓ | ❓ | The Fantomon Kels is only obtainable here ❓ | [S-04] |
 
@@ -78,7 +78,7 @@ Paid with Arena coins. Example stock from a Season 1 player (limits are per shop
 | Kels | A dispel Fantomon, used in Arena setups ❓ | [S-43] [S-04] |
 | Stellaris relics | Paid-points relics give PvP Bonus DMG +4.8% and PvP DMG RES +4.8%; not available to F2P | [S-42] |
 | Crit vs block | A crit deals 150% damage by default, reduced to 50% when the target blocks, so Block and Crit Res matter for PvP tanks ❓ | [S-49] |
-| Elements | Fire is weak to Water, Dark is weak to Light, Wind is effective against Water; a unit is immune to its own element | [S-42] |
+| Elements | Fire is weak to Water, Dark is weak to Light, Wind is effective against Water; a unit is immune to its own element. The Wind > Water > Fire > Wind triangle is in [Classes overview](classes-overview.md) | [S-42] |
 | Power | After the first day the ladder is ordered by power: CP decides most fights | [S-43] |
 
 - Mage line: a Sorcerer who wants Arena results levels Wind resonance first; a Sage levels Dark [S-01]. See [Sorcerer](../classes/sorcerer.md), [Sage](../classes/sage.md) and [Mage](../classes/mage.md).
@@ -102,5 +102,6 @@ Paid with Arena coins. Example stock from a Season 1 player (limits are per shop
 - [S-02] Section V (Fantomons for PvP and 4v4)
 - [S-03] Fandom Arena page; [S-40] official checklist (Grand Arena, Arena Shop)
 - [S-42] player blog: attempts, prices, coins, shop stock, elements
+- [S-85] eog.gg section notes (20 saved tickets on day one); [S-87] official Tips post 199 (Arena location, unlock, ticket timing)
 - [S-43] EOG Important Tips; [S-44] Kanstein Codex; [S-45] All Things How; [S-49] BlueStacks; [S-04] sxswiki (Kels)
 - Rules R-024, R-057, R-095, R-111

@@ -16,16 +16,16 @@
 
 ## Unlock and next class
 
-Lv 82 in Aqualis from Duelist [S-11] ❓ (Duelist class level 16 [S-10]); next Conqueror at Lv 106 [S-02].
+Lv 82 in Aqualis from Duelist [S-11][S-85] (Duelist class level 16 [S-10][S-85]); next Conqueror at Lv 106 [S-02].
 
 ## Techniques
 
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
-| Asura's Grasp | - | ❓ | ❓ | ❓ | ❓ |  | [S-10] |
-| Eclipse Slash | - | ❓ | ❓ | ❓ | ❓ |  | [S-10] |
-| Doom Blade | - | ❓ | ❓ | ❓ | ❓ |  | [S-10] |
-| Hunter's Judgment | - | ❓ | ❓ | ❓ | ❓ |  | [S-10] |
+| Asura's Grasp | - | ❓ | ❓ | ❓ | 1 turn [S-85] |  | [S-10] |
+| Eclipse Slash | - | ❓ | ❓ | ❓ | 1 turn [S-85] |  | [S-10] |
+| Doom Blade | - | ❓ | ❓ | ❓ | 1 turn [S-85] |  | [S-10] |
+| Hunter's Judgment | - | ❓ | ❓ | ❓ | 1 turn [S-85] |  | [S-10] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
 
@@ -45,8 +45,9 @@ Before Tier 4: save pulls and Skill Shard Vouchers for the Conqueror charm Pierc
 
 ## Open questions
 
-- ❓ Effects, elements, rarities and cooldowns of all Berserker skills; all Berserker charms.
+- ❓ Rarities of Berserker skills seen in our game (effects, cooldowns and charms: eog's [skill-database.json](../data/skill-database.json) [S-85]).
 
 ## Sources
 
+- [S-85] eog.gg skill database: cooldowns in turns, effect text and damage per quality for every skill ([skill-database.json](../data/skill-database.json))
 - [S-01], [S-02]; [S-03] Fandom: Classes Overview, Everything about Class Change, Berserker (placeholder); [S-10]; [S-11]; [S-13]

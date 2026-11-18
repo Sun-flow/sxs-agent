@@ -16,16 +16,16 @@
 
 ## Unlock and next class
 
-Lv 82 in Aqualis from Knight [S-11] ❓ (Knight class level 16 per [S-10]; a Fandom example says Knight job level 18 [S-03]); next Guardian at Lv 106 [S-02].
+Lv 82 in Aqualis from Knight [S-11][S-85] (Knight class level 16 per [S-10][S-85], the figure we follow; other reading: a Fandom example says Knight job level 18 [S-03]); next Guardian at Lv 106 [S-02].
 
 ## Techniques
 
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
-| Lunarwater Threads | Water | ❓ | ❓ | Part of the offensive Water (Cold) build. | ❓ |  | [S-10][S-11] |
-| Desperate Protection | - | ❓ | ❓ | Defensive technique used in the T4 support build. | ❓ |  | [S-10][S-11] |
+| Lunarwater Threads | Water | ❓ | ❓ | Part of the offensive Water (Cold) build. | 1 turn [S-85] |  | [S-10][S-11] |
+| Desperate Protection | - | ❓ | ❓ | Defensive technique used in the T4 support build. | 2 turns [S-85] |  | [S-10][S-11] |
 | Star Shattering Slash | - | Legendary | ❓ | Single-target strike. | 3 turns [S-11] | Fandom calls it 'Star Shattering Strike'. | [S-10][S-03][S-11] |
-| Forceful Charge | - | ❓ | ❓ | ❓ | ❓ |  | [S-10] |
+| Forceful Charge | - | ❓ | ❓ | ❓ | 2 turns [S-85] |  | [S-10] |
 | Holy Redemption | - | Legendary | ❓ | ❓ | ❓ | Named as a Paladin Legendary; technique or charm not stated. | [S-03] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
@@ -44,8 +44,9 @@ As for the [Knight](knight.md): Water (AoE) or Light relics [S-01]; Aegiswing / 
 
 ## Open questions
 
-- ❓ Effects, elements, rarities and cooldowns of Paladin skills; Paladin charm names.
+- ❓ Rarities of Paladin skills (effects, cooldowns and charm names: eog's [skill-database.json](../data/skill-database.json) [S-85]; Holy Redemption is not there under that name).
 
 ## Sources
 
+- [S-85] eog.gg skill database: cooldowns in turns, effect text and damage per quality for every skill ([skill-database.json](../data/skill-database.json))
 - [S-01], [S-02]; [S-03] Fandom: Classes Overview, Class Change, Everything about Class Change, Paladin (placeholder); [S-10]; [S-11]; [S-13]

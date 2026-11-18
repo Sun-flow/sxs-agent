@@ -8,8 +8,8 @@
 
 ## How to redeem
 
-1. Home > Main Menu (bottom-right corner) > User Center > Gift Code [S-03].
-2. Type the code exactly (codes are case-sensitive, mostly capitals) and confirm ❓ [S-04].
+1. Home > Main Menu (bottom-right corner) > User Center > Gift Code [S-03][S-85][S-80].
+2. Type the code exactly (codes are case-sensitive capitals) and confirm [S-80][S-04].
 3. Collect from the Mailbox: the owl on the house's left balcony, Claim All [R-168].
 
 On iOS, codes are entered on a web page after linking the account, not in the app [S-37]. Our bot runs the Android
@@ -43,6 +43,17 @@ Status for every row: **unverified, may be expired**. "Date seen" is the date of
 
 The launch codes (ZJ and SS series) and their rewards agree between [S-37] and [S-04]. If all sixteen still work,
 they pay 640 Dawnium, 190 Rare Auroral Badges and 8 Stellatie in total.
+
+### Cross-check with two other lists [S-80] [S-85]
+
+- zeroluck lists 16 codes as active "as of 2026-06-14" [S-80]; eog lists 16 said to work "as of August 2026"
+  [S-85]. Both lists are the same sixteen: the fifteen codes above without ISLA, plus the one below. Rewards agree
+  with the table above for every shared code.
+- Neither list is newer than [S-37] (2026-10-07), so the table above stays the main list.
+
+| Code | Rewards | Date seen | Status |
+|---|---|---|---|
+| SXSFBTHANKS | 40 Rare Auroral Badges, 3 Destiny Fruit, 180 Dawnium [S-80] | 2026-06-14 [S-80], August 2026 [S-85]; absent from the 2026-10-07 list [S-37] | unverified, may be expired |
 
 ### Listed as expired on 2026-10-07 [S-37]
 
@@ -83,4 +94,5 @@ one-off task with mae's go-ahead, try each code once, and record working and dea
 - [S-03] launch FAQ (redeem path, support channels)
 - [S-04] gift-code, vouchers and abundance-leaf pages
 - [S-37] code list with update date 2026-10-07
+- [S-80] zeroluck codes page (16 codes, 2026-06-14); [S-85] eog hub (16 codes, August 2026, redeem path)
 - Rules R-096, R-168

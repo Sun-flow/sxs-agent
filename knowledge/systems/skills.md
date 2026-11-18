@@ -19,7 +19,7 @@
 - Damage is booked in categories: Technique Damage, Charm Damage, Buff Damage, and Unclassified Damage (Fantomon, NPC and gear skills) [S-03]. Affixes such as "Technique damage dealt to enemies with debuffs" only boost the first category [S-02].
 - Every skill is built from a **flat part** ("Basic Damage", the number on the right of the skill card) and a **percentage part** (on the left), or only one of them [S-03].
 - Every skill carries **tags**: DMG, Knockback, Drag, Move, Self Buff, Ally, Buff, Heal, Dispel, Debuff, Ailment, Summon, Shield, Stats, Burn, Counterattack, Revive. Some effects only apply to skills with a given tag [S-03].
-- The game has more than 200 skills [S-03]; a database site counts 238 player skills: 85 Legendary, 78 Epic, 75 Rare [S-10].
+- The game has more than 200 skills [S-03]; a database site counts 238 player skills: 85 Legendary, 78 Epic, 75 Rare [S-10][S-80]. The publisher said "over 200" in April and "300+" at launch [S-87]; eog's database lists 361 across all classes and tiers, with cooldown and damage per quality: [data/skill-database.json](../data/skill-database.json) [S-85].
 - Each class tier adds its own set. Tier 1 has 13 Techniques and 13 Charms per starting class; each Tier 2 class page lists 6 Techniques and 5 Charms [S-03]. A Tier 3 class has four Legendary skills (2 Techniques, 2 Charms) [S-03].
 - You can equip skills of your current class and of the lower classes on your line: Tier 1 Mage skills stay usable as Sorcerer, Archmage and beyond, and several stay in the best builds [S-03][S-11].
 
@@ -42,11 +42,11 @@ Skills come from the Prayer statue at home (the goddess Statue furniture beside 
 
 | Banner | Currency | Cost | Pool | Notes | Sources |
 |---|---|---|---|---|---|
-| Standard (blue orb) | Stellatie | x10 = 10 Stellatie | The skills your current class can use | The only banner our bot uses, x10 only, through mae's pull script | R-093, [S-10][S-15] |
+| Standard (blue orb) | Stellatie | x10 = 10 Stellatie | The skills your current class can use: its own tier plus the lower tiers of its line | The only banner our bot uses, x10 only, through mae's pull script | R-093, [S-10][S-15] |
 | Affection / Friend Prayer | Affection tokens (red) | x10 = 250 | ❓ | Not used by the bot | R-093, [S-10] |
-| Premium (pink orb) | Covenite | ❓ | A smaller pool of your class branch's advanced skills | Unlocks in Cinder Ridge / after the Tier 2 change. Covenite is earned by pulling on the Standard banner, not bought with Dawnium | [S-11][S-15] ❓ |
+| Premium (pink orb) | Covenite | ❓ | Skills of your current class only; each new class has its own, selectable premium pool [S-85] | Unlocks after clearing Verdantglade and making the Tier 2 class change (so in Cinder Ridge) [S-85]. Covenite is a skill selection ticket from Molly's Deals, the Wheel of Destiny [S-01], Chaos Invasion [S-03] and the Arena Shop [S-42]; eog's reading, "earned from Standard pulls, not bought with Dawnium" [S-15][S-85], is lower tier and not followed | [S-11][S-15][S-85] ❓ |
 
-Rates (two sources that disagree; both unverified against the in-game rate card):
+Rates (two tier C sources that disagree; a second reading of each site repeated its own numbers [S-80][S-85]; both unverified against the in-game rate card; zeroluck gives the Premium banner the same rates [S-80]):
 
 | Result | zeroluck.gg [S-10] | EOG.GG [S-15] |
 |---|---|---|
@@ -58,7 +58,7 @@ Rates (two sources that disagree; both unverified against the in-game rate card)
 Pity and guarantees:
 
 - **200 Prayers Bonus: a Legendary skill of your choice** every 200 Standard prayers [R-093][S-11][S-04]. One source says the choice is among Tier 1 Legendaries [S-15] ❓.
-- Rare or better within 10 pulls, Epic or better within 30, Legendary within 70 [S-15] ❓.
+- Rare or better within 10 pulls, Epic or better within 30, Legendary within 70 [S-15][S-85] ❓. zeroluck states no pity [S-80].
 - Pity is account-wide and is not reset by changing class [S-15] ❓.
 - What you can pull depends on your class and tier [S-10]. That is the point of the Class Rollback: dropping to a lower tier shrinks the pool so pulls land on low-tier skills [S-03].
 - A skill you already own arrives as shards of that skill, which feed ascension (below).
@@ -79,7 +79,7 @@ Pull policy:
 - High skill level is one of the cheapest large power gains, and the flat part protects your damage floor when a debuff cuts your ATK [S-03].
 - Not every skill grows well: some Charms have low growth, and lower-class skills grow less than current-class skills [S-03]. Level what is equipped first.
 - Skill level above 100 is seasonal: it resets to 100 at the season change [S-03]. "Season skill level" is one of the five things the [Astral Pact](astral-pact.md) rates at season end [S-01].
-- One guide says upgrades belong to the slot and a swapped-in skill inherits the level [S-11]; our game shows per-skill levels with new techniques at Lv 1 [R-037]. This page follows the rule.
+- One guide says upgrades belong to the slot and a swapped-in skill inherits the level [S-11]; our game shows per-skill levels with new techniques at Lv 1 [R-037]. The publisher's handbook also says Battle Essence "upgrades skill slots" [S-87] (tier B). The rule is tier A, so this page follows the rule; check again if a swapped-in skill ever shows the old level.
 
 Battle Essence sources: the Cart (hourly) [R-020]; overworld pickups at 5 stamina each [R-106]; the Battle Essence Material Realm (guides buy 4 extra tools a day in the 4-2-4-4 or 4-4-4-4 split) [S-01][S-02]; Battle Essence Caskets from mail and rewards (T1 400, T2 530, T4 840 each) [R-169]; Skill Goals pay out for essence spent (8.8K, 13.1K, ...) [R-116]. Do not spend Cart upgrades on the Battle Essence row before Wood and Stone [S-01], R-136.
 
@@ -87,7 +87,7 @@ Battle Essence sources: the Cart (hourly) [R-020]; overworld pickups at 5 stamin
 
 - Ascension raises a skill's star and quality with the skill's **own shards**: 10 shards per step, no Dawnium. Seen: Rare -> Rare 1-star -> Epic [R-115].
 - A "!" on a skill icon (equipped or in the bag) means it can ascend: do it [R-115].
-- Qualities: **Rare -> Epic -> Legendary -> Mythic -> Divine -> Immortal** [S-03]. A skill keeps its *base* rarity for class-change conversion however far it is ascended [S-03].
+- Qualities: **Rare -> Epic -> Legendary -> Mythic -> Divine -> Immortal** [S-03]. eog counts the ascension steps inside each quality as Rare 2, Epic 3, Legendary 4, Mythic 6, Divine 8, Immortal 11 (34 in all) [S-85] ❓. A skill keeps its *base* rarity for class-change conversion however far it is ascended [S-03].
 - A star inside a quality raises only the flat part, about 15% per star (15-30% depending on the skill). A quality step raises both flat and percentage parts: about 25% for Techniques and 20% for Charms [S-03].
 - Worked examples [S-03]: Boiling Bloodlust gives 30% Crit Rate at Epic, then about 38 / 47 / 59 / 73% (in game 70% at Immortal). Blade of Lament gives 2.44% lifesteal at Legendary, then about 2.93 / 3.51 / 4.22%.
 - Because flat and percentage are each about half of a skill, one star on a skill that does 30% of your damage is only about +5% total damage. The quality step is what matters: push a skill to the next quality, then stop and move to another skill [S-03].
@@ -146,7 +146,7 @@ SOF's guide files "Skills" under seasonal power for this reason: the levels rese
 | Stun | Loses its turn | Ricocheting Shield, Stunning Strike | [S-03] |
 | Taunt | Must attack the taunter | Heart of Challenge | [S-03] |
 | Burn (on grids) | Burning tiles damage whoever stands on them; one burn per tile | Flaming Path, Raging Wildfire | [S-03][S-12] |
-| Erosion | Stacking Dark damage-over-time that some skills set off at once | Dark Bullet, Shadow Erosion, Shadow Impact, Shadow of Termination | [S-03] |
+| Erosion | Stacking Dark damage-over-time lasting 3 turns [S-85] that some skills set off at once | Dark Bullet, Shadow Erosion, Shadow Impact, Shadow of Termination | [S-03] |
 | Weakened | Target deals less | Weakening Hex | [S-03] |
 | Armor Break | Target's defence cut | Leap Attack | [S-03] |
 | Cold | Stacking Water debuff | Ripple Impact | [S-03] |
@@ -154,7 +154,14 @@ SOF's guide files "Skills" under seasonal power for this reason: the levels rese
 | Flame | Ally buff | Flame Aura | [S-03] |
 | Airborne, knockback, drag, action delay | Displacement and turn-order control | Heavy Impact, Unstable Aura, Cyclone, Wind's Shadow | [S-03] |
 | Indomitable, Revitalization, Dodge | Survival buffs that cannot be dispelled | Indomitable Will, Resurrection, Void Bubble | [S-03] |
-| "Doom DMG" | A damage label on some Tier 2 skills; meaning ❓ | Flash Dash, Fire Slash, Fiery Star Trail, Light of Dawn | [S-03] |
+| Doom DMG | Damage type that deals +100% to shields and summons | Flash Dash, Fire Slash, Fiery Star Trail, Light of Dawn | [S-03][S-85] |
+
+Heals scale with max HP [S-85]. All 70 skill keywords: [data/skill-database.json](../data/skill-database.json).
+
+### Skill Test
+
+- A damage dummy at Home > Character > Skills > Test, from Lv 40: a Boss with unlimited HP, no element, 50 rounds [S-85]. Use it to compare loadouts. A loadout cannot be named "Test" [S-85].
+- eog's test result: 40 Elemental or Physical Mastery is about +1% damage; Wind's Delight tested best for Sorcerer [S-85] ❓.
 
 Knocking melee enemies back or delaying them denies them the "proactiveness" (energy) to use their skills, which is the idea behind Wind builds [S-03].
 
@@ -171,12 +178,12 @@ Knocking melee enemies back or delaying them denies them the "proactiveness" (en
 
 - ❓ Unlock levels of the 4 technique and 4 charm slots.
 - ❓ Number of loadout slots (seven per one tier D source).
-- ❓ True Standard Prayer rates and pity (two sources disagree); read the in-game rate card.
-- ❓ Premium banner: unlock condition, Covenite cost per pull, how Covenite is earned per Standard pull.
+- ❓ True Standard Prayer rates and pity (zeroluck [S-80] and eog [S-85] still disagree after a second pass); read the in-game rate card.
+- ❓ Premium banner: Covenite cost per pull; confirm the unlock in game.
 - ❓ Whether the 200-prayer pick covers every Legendary in the current pool or only Tier 1.
 - ❓ How many shards one Skill Shard Voucher is worth and whether it has a rarity.
 - ❓ Shards needed per step above Epic (10 per step seen up to Epic).
-- ❓ Exact rule for cast order (slot order, cooldown order or AI priority) and each skill's cooldown.
+- ❓ Exact rule for cast order (slot order, cooldown order or AI priority). Cooldowns per skill are now in [data/skill-database.json](../data/skill-database.json) [S-85], unchecked in game.
 - ❓ Whether the Prayer pity counter resets with a season.
 
 ## Sources
@@ -188,4 +195,5 @@ Knocking melee enemies back or delaying them denies them the "proactiveness" (en
 - [S-10] zeroluck.gg summoning page: banners, rates, skill counts
 - [S-11] BlueStacks guides: 200-pull pick, Premium banner, loadout slots
 - [S-12] Roonby Archmage builds; [S-14] Pro Game Guides; [S-15] EOG.GG gacha and pity; [S-16] Treyex Dominator builds
+- [S-80] zeroluck.gg second reading; [S-85] eog.gg section (skill database, Skill Test, keywords); [S-87] official site posts; [S-42] player blog (Arena Shop)
 - R-001, R-020, R-037, R-080, R-093, R-097, R-104, R-106, R-115, R-116, R-136, R-158, R-169

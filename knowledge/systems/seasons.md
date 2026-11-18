@@ -5,7 +5,7 @@
 > **Summary:** Everything above the "100 line" (character, skill and Fantomon levels above 100, gear above +100,
 > relic resonance above the cap, the season's gear stats) is seasonal and resets; collections and ascensions
 > (relics, Fantomons, companions, skill ascensions, Cart, Astral Pact) are permanent. Seasons run on server days:
-> Season 1 is days 1-46, Season 2 (Loong Haven) days 47-113, Season 3 (Aethyris) from day 114. Stay on the dungeon
+> Season 1 is days 1-46, Season 2 (Loong Haven) days 47-113, Season 3 (Aethyris) from day 114, Season 4 (Harpadia) from day 226 and Season 5 (Ignis) from day 335 on the CN schedule. Stay on the dungeon
 > schedule, convert the season into Primostars at the end, and enter the next season with 36 h of bed EXP,
 > 300 stamina and 6 banked dungeon runs.
 > **Applies:** all seasons
@@ -20,7 +20,7 @@
 | Character level | Levels above 100 return to 100 | Levels 1-100 | [S-03] |
 | Skills | Skill levels above 100 | Skill ascensions (rarity and stars); skills owned | [S-03][S-01] |
 | Gear | Enhancement above +100 returns to +100; the season's gear is scaled down to level 100 (a 617K weapon becomes 64.2K) | Enhancement up to +100; the pieces themselves; from Season 2 their affixes can be inherited | [S-03][S-02] |
-| Relics | Resonance levels above the soft cap (+10 in Season 1) | Relic collection and ascensions; resonance up to the cap | [S-03][S-01] |
+| Relics | Resonance levels above the soft cap (+11 to +13 in Season 1) | Relic collection and ascensions; resonance up to the soft cap (+10 in Season 1) | [S-03][S-01][S-51] |
 | Fantomons | Levels above 100 | Fantomons owned, ascensions, aptitudes | [S-03][S-01] |
 | Companions | - | Companions and affinity levels | [S-03][S-01] |
 | Guild | - | Guild buffs | [S-03] |
@@ -33,9 +33,11 @@
 
 - Short form from the guides: permanent = Relics, Fantomons, Companions, Astral Pact; seasonal = Skills, Gear,
   Relic Resonance ("sort of") [S-01].
-- Relic resonance cap: Season 1 soft cap +10, Season 2 +13, rising with each season's level cap; levels above the
-  cap reset at season end [S-01]. A Season 1 calculator scores relic levels from +11 to +13 as seasonal [S-51], so
-  in Season 1 resonance could be pushed to +13 with +10 kept.
+- Relic resonance cap: the soft cap is the level that is kept: +10 in Season 1, +13 in Season 2, rising with each
+  season's level cap; levels above it reset at season end [S-01]. A Season 1 calculator scores relic levels from
+  +11 to +13 as seasonal [S-51], so in Season 1 resonance could be pushed to +13 with +10 kept. eog's scoring
+  floors agree and continue the series: +10, +13, +16 for Seasons 1 to 3 [S-85]. Same wording in
+  [Relics](relics.md#soft-cap-per-season).
 - Seasonal systems give far bigger power than permanent ones while they last; most players lose much of their CP
   at the reset [S-03].
 - At the end, the season's levels are rated and converted into Primostars for the [Astral Pact](astral-pact.md)
@@ -47,10 +49,17 @@
 |---|---|---|---|---|---|
 | 1 | "Witching Hours": Verdantglade, Cinder Ridge, Aqualis | 1-46 | 46 days | Ends with Hellhold as the last dungeon | [S-01][S-02][S-03] |
 | 2 | Loong Haven | 47-113 | 67 days | Days 47-59 are pre-season (first dungeon does not count) | [S-02] |
-| 3 | Aethyris | 114- | ❓ | Named on the calendar only | [S-02] |
-| 4, 5 | ❓ | ❓ | ❓ | A guide site mentions a roadmap "to Season 5" | [S-54] |
+| 3 | Aethyris | 114-225 | 112 days ❓ | Dungeons on days 114 to 203; seasonal map Astral Odyssey on day 128 | [S-02][S-85] |
+| 4 | Harpadia | 226-334 | 109 days ❓ | Dungeons on days 226 to 309; seasonal map Grotesque Fairground on day 240 | [S-85] |
+| 5 | Ignis | 335- | ❓ | Dungeons on days 335 to 418, last power wall 1.8 billion; seasonal map Frostfire Voyage on day 349 | [S-85][S-54] |
+| 6 | "Shining Bond" | 444- | ❓ | CN server only so far | [S-85] |
 
-- Dates are per server: every server runs the same day count from its own launch [S-03][S-02]. Our note in R-011
+Seasons 3 and later are the CN server's schedule projected onto global by eog (tier C); whether global keeps it
+is not known ❓. Every dated row, with power per difficulty: [data/server-day-roadmap.json](../data/server-day-roadmap.json)
+and [data/season-schedule.json](../data/season-schedule.json). Later seasons in detail: [Future content](future-content.md).
+
+- Dates are per server: every server runs the same day count from its own launch [S-03][S-02]; global day 1 was
+  2026-05-19 [S-85]. Our note in R-011
   ("first season about a month, later 2-3 months") fits these lengths.
 - **Pre-season:** the first dungeon of a new season opens with the season but is not seasonal content: it "does
   not count towards your seasonal progression milestones", its gear is not seasonal gear and its affixes get no
@@ -70,7 +79,7 @@ spacing.
 | 12 | Aug 19 | Ocean Palace Ruins (Aqualis) | Hard 580K | [S-03] |
 | 22 | Aug 29 | Grand Treasure Hunt #3 (Lucky Scratch) | SAVE the event currency | [S-01] |
 | 24 | Aug 31 | Aquorigin Shrine (needs Lv 100) | Normal 930K, Hard 1.45M, Nightmare 2.05M | [S-01][S-03] |
-| 26 | Sep 2 | Whaleback Island | ❓ new area or event | [S-01] |
+| 26 | Sep 2 | Whaleback Island | Seasonal map (Season 1's) | [S-01][S-85] |
 | 29 | Sep 5 | Grand Treasure Hunt #4 (Feneck's Puzzle) | MUST BUY Primal Gem | [S-01] |
 | 33 | Sep 9 | Hellhold | Normal 2.25M, Hard 2.75M, Nightmare 3.9M, Purgatory 6.2M | [S-01][S-03] |
 | 36 | Sep 12 | Grand Treasure Hunt #5 (Bingo Draw) | SAVE | [S-01] |
@@ -78,7 +87,8 @@ spacing.
 | 46 | Sep 22 | Last day: season rating converts to Primostars | | [S-01] |
 | 47 | Sep 23 | Season 2, Loong Haven | | [S-01][S-02] |
 
-- Grand Treasure Hunts #1 and #2 would fall on days 8 and 15 (weekly, Saturdays on that server) ❓.
+- Grand Treasure Hunts #1 and #2 fall on days 8 and 15: the first is on day 8, then every 7 days [S-85]. Free
+  players skip hunts 1 and 3 and take 2 and 5 [S-85] ❓.
 - The gem system arrived late in Season 1 [S-01].
 - Hellhold Purgatory: the wiki table says 6.2M [S-03]; the calendar image is too small to tell 5.2M from 6.2M
   [S-01]. This page follows the wiki.
@@ -93,7 +103,7 @@ spacing.
 | 57 | 11 | Oct 3 | Grand Treasure Hunt #2 (Bingo Draw) | MUST BUY Primal Gem | [S-02] |
 | 60 | 14 | Oct 6 | Warlord's Rest (needs Lv 130): first seasonal gear | Normal 3.55M, Hard 5M, Nightmare 6M | [S-02] |
 | 64 | 18 | Oct 10 | Grand Treasure Hunt #3 (Lucky Scratch) | SAVE: LH Mythic Relic Selection | [S-02] |
-| 71 | 25 | Oct 17 | Acme Nexus; Grand Treasure Hunt #4 (Feneck's Puzzle) | MUST BUY Lucky Statue | [S-02] |
+| 71 | 25 | Oct 17 | Acme Nexus (seasonal map, needs Lv 130 [S-85]); Grand Treasure Hunt #4 (Feneck's Puzzle) | MUST BUY Lucky Statue | [S-02] |
 | 73 | 27 | Oct 19 | Cloudcrest Temple | Normal 6.2M, Hard 7.7M, Nightmare 9.8M | [S-02] |
 | 78 | 32 | Oct 24 | Relic Pool #2 (gacha only); Grand Treasure Hunt #5 (Bingo Draw) | SAVE: T4 Skill Fragment | [S-02] |
 | 85 | 39 | Oct 31 | Grand Treasure Hunt #6 (Lucky Scratch) | MUST BUY Primal Gem | [S-02] |
@@ -107,8 +117,10 @@ spacing.
 - Dungeon rhythm: a new dungeon every 13 days (47, 60, 73, 86, 99) [S-02].
 - Grand Treasure Hunt rhythm: weekly; alternate weeks are "SAVE" and "MUST BUY", so that the saved currency buys
   the Primal Gem or Lucky Statue relic on the buy week; its mini-game rotates Feneck's Puzzle, Bingo Draw, Lucky
-  Scratch [S-01][S-02]. What "SAVE: item" means exactly (save for it, or skip it) is not spelled out ❓.
-- "Acme Nexus" is not explained in the guide ❓.
+  Scratch [S-01][S-02]. What "SAVE: item" means exactly (save for it, or skip it) is not spelled out ❓. eog gives
+  the reward cycle as four: Mythic Relic Box, Lucky Statue, skill shards x180, Primal Gem [S-85].
+- Acme Nexus is Season 2's seasonal map, as Whaleback Island is Season 1's; each later season has one too
+  [S-85]. What a seasonal map holds is not described ❓.
 
 ## Before a season ends
 
@@ -117,20 +129,23 @@ Final week checklist:
 1. Check your Primostar target ([Astral Pact](astral-pact.md)); put spare resources into gear enhancement, the
    heaviest category [S-01][S-02].
 2. Fix the gear rating: buy cheap old-dungeon Divine shards or pieces if a rating letter is within reach [S-02].
-3. Stop collecting bed EXP 36 hours before the new season opens; turn off Auto Collect ("Bed Quick Claim")
-   [S-02][S-53].
+3. Stop collecting bed EXP 36 hours before the new season opens; turn off **Auto Collect** (the name this
+   knowledge base uses; eog calls the same switch "Quick Claim") [S-02][S-53][S-85]. See
+   [Cart and home](cart-and-home.md).
 4. Bank 300 stamina if possible [S-02]; hoard stamina beyond daily needs until the first new rank [S-53].
 5. Stack the dungeon rest bonus: leave daily dungeon runs unused so 6 attempts are banked for the new dungeon
-   [S-02][S-53].
+   [S-02][S-53]; eog: stop claiming dungeon rewards one day before, runs stack to 6 [S-85].
 6. Save Material Realm tools for the new season's top rank [S-01][S-02][S-53].
 7. Sell spare shards and gear before the rollover, while they have a price [S-53][S-02].
-8. Stock area tools for the new kingdom: Gateway Keys, Water Mines, a Magic Drill, a Withering Potion [S-53].
+8. Stock area tools for the new kingdom: Gateway Key x5, Water Mine x2, Magic Drill x1, Withering Potion x1
+   [S-53][S-85]. Loong Haven's own item, Cloud Jade (7 needed), is bought there [S-85].
 9. Collect what the first new rank needs in advance [S-53].
 10. Stop skill pulls late in Season 1 and save pull resources for the T4 pool [S-01].
 
 ## First day and first week of a new season
 
-1. Claim the season rewards and spend all Primostars in the Astral Pact [S-53].
+1. Claim the season rewards and spend all Primostars in the Astral Pact [S-53][S-85]; relic pulls come after the
+   map push [S-85].
 2. Enter the new kingdom and claim the stored bed EXP there [S-02].
 3. Push the map for statues first. Do not use the free daily speed-up or Temporal Crystals until the new statues
    are lit [S-02].
@@ -165,9 +180,10 @@ Final week checklist:
 - ❓ Our server's launch date and current server day (turns this page into a calendar for our account).
 - ❓ Whether late starters on an old server are held to the same server-day calendar (they are, as far as the
   day-based dungeon table shows).
-- ❓ Season 3 length and content; whether the resonance cap is +16 there.
+- ❓ Whether global keeps the CN day schedule after Season 2 (Aethyris 114, Harpadia 226, Ignis 335 [S-85]);
+  confirm the +16 resonance floor of Season 3.
 - ❓ Whether Kingdom Rank, Blessing Level and gems carry over.
-- ❓ What "Acme Nexus" and "Whaleback Island" are.
+- ❓ What a seasonal map (Whaleback Island, Acme Nexus) contains and rewards.
 
 ## Sources
 
@@ -175,4 +191,5 @@ Final week checklist:
 - [S-02] sections I, II (calendars; server-day infographic), III, IV, VI
 - [S-03] Seasonal Systems, Daily Dungeons, Launch FAQ
 - [S-51] relic and level scoring floors; [S-53] season preparation checklist; [S-54]
+- [S-85] eog.gg roadmap, Season 2 prep guide, Astral Pact scoring ([notes](../sources/notes/eog.md))
 - Rule R-011

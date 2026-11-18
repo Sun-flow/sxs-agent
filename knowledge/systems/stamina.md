@@ -15,6 +15,7 @@
 | Hard cap with items | 1,200 | [R-107] |
 | Cost of an overworld pickup | 5 | [R-106] |
 | Daily Quest | consume 30 stamina | [R-128] |
+| Daily reset | 8:00 server time (UTC-5), which is 13:00 UTC | [R-024][S-85] |
 
 One auto-written site says stamina regenerates every minute ❓ [S-04]; our own observation (5 an hour) stands.
 
@@ -34,12 +35,25 @@ About 150 free stamina a day, which is 30 pickups.
 
 | Use | Cost | Gives | Source |
 |---|---|---|---|
-| Resource Hunt pickups (Journal > Map Exploration) | 5 each | Rolla, ore, sand or Battle Essence; an ore rock gave about +178 Raw Ore | [R-106][R-108] |
+| Resource Hunt pickups (Journal > Map Exploration) | 5 each | Rolla, ore, sand or Battle Essence; an ore rock gave about +178 Raw Ore. Yield rises with Kingdom Rank (table below) | [R-106][R-108][S-85] |
 | Daily and Premium Commissions | some need stamina (kill or collect tasks) | kingdom currency, journals, recipes, Rolla | [S-01] |
 | Monsters marked with a stamina 5 label | 5 | ❓ | [R-108] |
 
 Free of stamina: special nodes with a green timer circle such as a Grand Mine (one free collection) [R-109];
 Bellflower picks [R-123]. Blue-aura pickups give bonus ingredients for the same cost: take them first [R-122].
+
+## Yield per 5 stamina by Kingdom Rank
+
+From eog's stamina calculator (tier C, not checked in game ❓) [S-85]. Rolla per pickup runs from 1,920 at the
+lowest rank to 54,000 at the highest; Raw Ore is one tenth of the Rolla figure, Chrono Sand one twelfth, Battle
+Essence one eighth. Lowest band (eog: "Black Iron", three sub-ranks): Rolla 1,920 / 2,520 / 3,180, Raw Ore
+192 / 252 / 318, Chrono Sand 160 / 210 / 265, Battle Essence 240 / 315 / 397. Our +178 Raw Ore rock at
+Apprentice fits that band [R-108]. All bands: [Material Realms](material-realms.md#rewards-scale-with-kingdom-rank)
+and [data/gathering-yields.json](../data/gathering-yields.json).
+
+- Each ore pickup has a 5% chance of a "big mine" that pays double extra, guaranteed within 75 attempts; fights
+  have none. Expected output is about 1.10 times the base [S-85] ❓.
+- eog values 1 stamina at 4.8 Dawnium (its own valuation, not a shop price) [S-85] ❓.
 
 ## Best uses
 
@@ -71,17 +85,19 @@ and is due to switch to sand [R-107].
   bar for its commissions and its new, richer pickups.
 - One site adds: in the last days spend only enough for daily missions and hold the rest until the first Kingdom
   Rank step (Champion I) of the new season, because rank raises stamina rewards ❓ [S-34]. Material Realm rewards do
-  scale with rank [S-03]; whether pickups do is unconfirmed ❓.
+  scale with rank [S-03][S-87], and eog's calculator scales pickups the same way [S-85] ❓, so two tier C
+  sources now agree; still unconfirmed in game.
 
 ## Open questions
 - ❓ Which items add stamina above the cap, and whether Dawnium can buy stamina.
 - ❓ Stamina cost of each commission type.
-- ❓ Whether pickup yield scales with Kingdom Rank: compare one ore rock before and after a rank-up.
+- ❓ Confirm in game that pickup yield scales with Kingdom Rank as eog's table says: compare one ore rock before
+  and after a rank-up.
 - ❓ What a stamina-labelled monster gives.
 
 ## Sources
 - [S-01] Exploration, Permanent vs Seasonal Power tips, Cart (Rolla strategy)
 - [S-02] Section I, Section VI
-- [S-03] material-realm
+- [S-03] material-realm; [S-87] official Handbook Vol. 2; [S-85] eog.gg stamina calculator ([notes](../sources/notes/eog.md))
 - [S-04] material realms page (rejected claim); [S-34] banking note; [S-37] code; [S-39] Rolla-first note
-- Rules R-106, R-107, R-108, R-109, R-120, R-122, R-123, R-128
+- Rules R-024, R-106, R-107, R-108, R-109, R-120, R-122, R-123, R-128

@@ -10,7 +10,7 @@
 
 - "A master of elemental destruction": trades precision for scale, with large AoE spells [S-03]. Pure, raw firepower; hits hard and wide [S-03].
 - Uses a staff with a Spellbook off-hand [S-11] ❓. Elements: Fire, Water, Wind and Light, everything except Dark [S-11][S-01].
-- Class stat: Accuracy, so its attacks are rarely blocked. It gives up Crit for stability: damage per hit ranges 100% to 250%, less explosive than a Duelist (50% to 300%) but far more consistent [S-03]. A database site labels the class trait Block Penetration [S-10].
+- Class stat: Accuracy, so its attacks are rarely blocked. It gives up Crit for stability: damage per hit ranges 100% to 250%, less explosive than a Duelist (50% to 300%) but far more consistent [S-03]. The main name here is Accuracy; "Block Penetration" is zeroluck's data label for the same trait [S-10][S-80]. The Sorcerer line has the top ATK weight at every tier (1900, 2950, 3900, 5400) [S-80].
 - Base stat weighting: HP 1000, ATK 1900, DEF 900, SPD 1200: highest ATK and lowest DEF of the Tier 2 classes [S-10].
 
 | Strengths | Weaknesses |
@@ -23,19 +23,19 @@
 ## Unlock and next class
 
 - Unlock: Lv 44 at Cinder Ridge, from Mage (Mage class level 18) [S-03][S-10].
-- Next: [Archmage](archmage.md) at Lv 82 in Aqualis (Sorcerer class level 16 per [S-10]; level per [S-11] ❓).
+- Next: [Archmage](archmage.md) at Lv 82 in Aqualis (Sorcerer class level 16 per [S-10][S-85]; level per [S-11][S-85]).
 - Switching to another line: free and lossless from Lv 100 [S-03]. See [Classes overview](../systems/classes-overview.md#how-changing-class-works).
 
 ## Techniques
 
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
-| Fiery Star Trail | Fire | Legendary | DMG | Fire Doom DMG twice to all enemies within a 3-grid circle around the caster. | ❓ | Still in T5 Fire builds [S-11]. | [S-03][S-10] |
-| Light of Dawn | Light | ❓ | DMG | Light Doom DMG twice to all enemies in a 1x8 line in front. | ❓ | In the T3 Light build [S-12]. | [S-03] |
+| Fiery Star Trail | Fire | Legendary | DMG | Fire Doom DMG twice to all enemies within a 3-grid circle around the caster. | 1 turn [S-85] | Still in T5 Fire builds [S-11]. | [S-03][S-10] |
+| Light of Dawn | Light | ❓ | DMG | Light Doom DMG twice to all enemies in a 1x8 line in front. | 1 turn [S-85] | In the T3 Light build [S-12]. | [S-03] |
 | Lightning Chain | Light | ❓ | DMG | Light DMG once to 1 enemy within 4 grids, then chains to 1 random enemy within 4 grids of the target up to 9 times; each enemy is hit once by the chain. | ❓ | T3 AoE build [S-11]. | [S-03][S-10] |
-| Energy Burst | - | ❓ | Self Buff | The next damaging Technique gains Accuracy and deals 50% more DMG. | ❓ | Order it directly before the biggest hit. | [S-03] |
-| Flickering Stars | Light | ❓ | DMG, Dispel | Pick a grid within 6; Light DMG once to all enemies within 1 grid and dispels 1 random buff from them. | ❓ |  | [S-03][S-10] |
-| Frosty Nova | Water | ❓ | DMG, Ailment | Pick a grid within 3; Water DMG once to all enemies in a 1-grid square; 30% base chance to inflict Frozen 1 turn. | ❓ |  | [S-03][S-10] |
+| Energy Burst | - | ❓ | Self Buff | The next damaging Technique gains Accuracy and deals 50% more DMG. | 1 turn [S-85] | Order it directly before the biggest hit. | [S-03] |
+| Flickering Stars | Light | ❓ | DMG, Dispel | Pick a grid within 6; Light DMG once to all enemies within 1 grid and dispels 1 random buff from them. | 1 turn [S-85] |  | [S-03][S-10] |
+| Frosty Nova | Water | ❓ | DMG, Ailment | Pick a grid within 3; Water DMG once to all enemies in a 1-grid square; 30% base chance to inflict Frozen 1 turn. | 1 turn [S-85] |  | [S-03][S-10] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
 
@@ -44,11 +44,11 @@ A ❓ after a name means only tier D sources name the skill; a ❓ in a cell mea
 
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
-| Void Bubble | - | ❓ | Shield, Buff | First time HP drops below 50% in a battle: shield based on max HP for 2 turns and Dodge for 2 turns (cannot be dispelled). | ❓ | 'Bubble Shield' in [S-12]. Kept in the T3 build [S-11]. | [S-03] |
-| Raging Wildfire | Fire | ❓ | Burn | 20% chance to inflict Burn on grids in range when casting a Fire Technique. | ❓ | Do not pair with Flaming Path [S-12]. | [S-03] |
-| Wind's Shadow | Wind | ❓ | DMG, Debuff | After dealing Wind DMG 3 times to an enemy with Techniques: 30% chance of extra Wind DMG once and 50% base chance to delay the target's action by 20%. | ❓ | 'Wind Shadow' in [S-12]. | [S-03] |
-| Elemental Harmony | - | ❓ | Buff | For each element among equipped damaging Techniques, raises the caster's Elemental Mastery; stacks up to 4 times. | ❓ | Basis of the four-element hybrid build [S-03]; rated S at T3 [S-12]. | [S-03] |
-| Lightning Mystery | Light | ❓ | DMG | Each time a Technique deals DMG, 30% chance to trigger Thunder Strike: extra Light DMG once. | ❓ | Light build: scales with hit count [S-03]. | [S-03] |
+| Void Bubble | - | ❓ | Shield, Buff | First time HP drops below 50% in a battle: shield based on max HP for 2 turns and Dodge for 2 turns (cannot be dispelled). | none (Charm) [S-85] | 'Bubble Shield' in [S-12]. Kept in the T3 build [S-11]. | [S-03] |
+| Raging Wildfire | Fire | ❓ | Burn | 20% chance to inflict Burn on grids in range when casting a Fire Technique. | none (Charm) [S-85] | Do not pair with Flaming Path [S-12]. | [S-03] |
+| Wind's Shadow | Wind | ❓ | DMG, Debuff | After dealing Wind DMG 3 times to an enemy with Techniques: 30% chance of extra Wind DMG once and 50% base chance to delay the target's action by 20%. | none (Charm) [S-85] | 'Wind Shadow' in [S-12]. | [S-03] |
+| Elemental Harmony | - | ❓ | Buff | For each element among equipped damaging Techniques, raises the caster's Elemental Mastery; stacks up to 4 times. | none (Charm) [S-85] | Basis of the four-element hybrid build [S-03]; rated S at T3 [S-12]. | [S-03] |
+| Lightning Mystery | Light | ❓ | DMG | Each time a Technique deals DMG, 30% chance to trigger Thunder Strike: extra Light DMG once. | none (Charm) [S-85] | Light build: scales with hit count [S-03]. | [S-03] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
 
@@ -113,18 +113,20 @@ One or two good affixes per piece is enough for a free-to-play account [S-02]. S
 
 ## When to move on
 
+- Damage-dummy test (Skill Test, Lv 40, Home > Character > Skills > Test) for Sorcerer: Wind's Delight tested best, then Water Assault; Water Shot has no cooldown; Stonechief Summon was worst [S-85]. eog's boss build: Water Assault, Flame Jet, Light of Dawn, Wind's Delight with charms Unstable Aura, Elemental Harmony, Mana Surge, Lightning Mystery [S-85]; all builds in [class-tier-list.json](../data/class-tier-list.json).
 - Promote to Archmage as soon as Lv 82 and the class-level gate are met; nothing is lost by promoting, and Sorcerer skills stay usable [S-03].
 - Consider the Sage line instead only at Lv 100+, with the free lossless change, if the account will mostly play party content as a healer [S-03].
 
 ## Open questions
 
 - ❓ Base rarity of Sorcerer skills other than Fiery Star Trail (Legendary).
-- ❓ What "Doom DMG" means on Fiery Star Trail and Light of Dawn.
-- ❓ Cooldowns.
+- ❓ "Doom DMG" seen in our game: eog's keyword list says it deals +100% to shields and summons [S-85].
+- ❓ Base cooldowns seen in our game (the table's turn counts are eog's [S-85]).
 - ❓ Whether the Fandom lists (6 techniques, 5 charms) are the complete Tier 2 set.
 
 ## Sources
 
+- [S-85] eog.gg skill database: cooldowns in turns, effect text and damage per quality for every skill ([skill-database.json](../data/skill-database.json))
 - [S-01] relic element, Fantomon, companions, gems
 - [S-02] top gear affixes, Season 2 Fantomon order, Season 2 companions
 - [S-03] Fandom: Sorcerer, Sorcerer Skills, Class Selection, Classes Overview

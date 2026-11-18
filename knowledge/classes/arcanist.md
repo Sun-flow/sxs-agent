@@ -15,18 +15,18 @@
 
 ## Unlock and next class
 
-- Unlock: Lv 82 in Aqualis from Sage [S-11] ❓, with Sage class level 16 and total class level 48 [S-10].
-- Next: Dominator at Lv 106 in Loong Haven (Arcanist class level 19, total 89) [S-02][S-10].
+- Unlock: Lv 82 in Aqualis from Sage [S-11][S-85], with Sage class level 16 and total class level 48 [S-10][S-85].
+- Next: Dominator at Lv 106 in Loong Haven (Arcanist class level 19, total 89) [S-02][S-10][S-85]. eog grades the Arcanist B at Tier 3 and the Dominator B at Tier 4, against the S of the tier D lists [S-85].
 
 ## Techniques
 
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
-| Abyssal Hand | Dark | ❓ | DMG, Debuff | Dark AoE that applies Erosion; shorter cooldown than Shadow of Termination. | ❓ |  | [S-10][S-11][S-16][S-04] |
-| Mana Blast | Dark | ❓ | DMG, Debuff | Dark DMG that applies Erosion. | ❓ |  | [S-10][S-11][S-04] |
-| Waterling Summon | Water | ❓ | Summon, Heal | Summons a Waterling that heals allies; its heals do not trigger Overhealing. | ❓ | 'Water Link Summon' in [S-16]. | [S-10][S-11][S-16][S-04] |
-| Shadow of Termination | Dark | ❓ | DMG | Dark DMG that triggers every Erosion stack on the target at once; cast it last. | ❓ |  | [S-10][S-11][S-04] |
-| Frenzy Totem ❓ | - | ❓ | Summon, Buff | Places a totem that buffs allies; the totem has to stay alive. | ❓ |  | [S-11][S-16][S-04] |
+| Abyssal Hand | Dark | ❓ | DMG, Debuff | Dark AoE that applies Erosion; shorter cooldown than Shadow of Termination. | 1 turn [S-85] |  | [S-10][S-11][S-16][S-04] |
+| Mana Blast | Dark | ❓ | DMG, Debuff | Dark DMG that applies Erosion. | 1 turn [S-85] |  | [S-10][S-11][S-04] |
+| Waterling Summon | Water | ❓ | Summon, Heal | Summons a Waterling that heals allies; its heals do not trigger Overhealing. | 3 turns [S-85] | 'Water Link Summon' in [S-16]. | [S-10][S-11][S-16][S-04] |
+| Shadow of Termination | Dark | ❓ | DMG | Dark DMG that triggers every Erosion stack on the target at once; cast it last. | 2 turns [S-85] |  | [S-10][S-11][S-04] |
+| Frenzy Totem ❓ | - | ❓ | Summon, Buff | Places a totem that buffs allies; the totem has to stay alive. | 4 turns [S-85] |  | [S-11][S-16][S-04] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
 
@@ -35,11 +35,11 @@ A ❓ after a name means only tier D sources name the skill; a ❓ in a cell mea
 
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
-| Linked Misfortune ❓ | Dark | ❓ | Debuff | 60% chance to inflict Erosion again when Erosion is applied. | ❓ |  | [S-11][S-04] |
-| Shadow Vengeance ❓ | Dark | ❓ | Buff | Cheat death: the caster becomes a Shadow for one turn (takes no damage, reduced cooldowns, more damage). | ❓ |  | [S-11][S-04][S-16] |
-| Night's Blessing ❓ | Dark | ❓ | Buff | Strengthens Dark DMG and debuffs. | ❓ | 'Knight's Blessing' in [S-16]. | [S-11][S-04] |
-| Overhealing ❓ | - | ❓ | Heal | 30% chance for an extra heal on allies within 1 grid of the healed target. | ❓ | Triggers from Healing Touch, not from Waterling [S-16]. | [S-11][S-04][S-16] |
-| Summoner's Frenzy ❓ | - | ❓ | Summon | Raises summon damage and duration. | ❓ |  | [S-04] |
+| Linked Misfortune ❓ | Dark | ❓ | Debuff | 60% chance to inflict Erosion again when Erosion is applied. | none (Charm) [S-85] |  | [S-11][S-04] |
+| Shadow Vengeance ❓ | Dark | ❓ | Buff | Cheat death: the caster becomes a Shadow for one turn (takes no damage, reduced cooldowns, more damage). | none (Charm) [S-85] |  | [S-11][S-04][S-16] |
+| Night's Blessing ❓ | Dark | ❓ | Buff | Strengthens Dark DMG and debuffs. | none (Charm) [S-85] | 'Knight's Blessing' in [S-16]. | [S-11][S-04] |
+| Overhealing ❓ | - | ❓ | Heal | 30% chance for an extra heal on allies within 1 grid of the healed target. | none (Charm) [S-85] | Triggers from Healing Touch, not from Waterling [S-16]. | [S-11][S-04][S-16] |
+| Summoner's Frenzy ❓ | - | ❓ | Summon | Raises summon damage and duration. | none (Charm) [S-85] |  | [S-04] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
 
@@ -90,12 +90,13 @@ Unchanged from the Sage:
 
 ## Open questions
 
-- ❓ Official skill texts, rarities and cooldowns for every Arcanist skill.
+- ❓ Official skill texts and rarities for every Arcanist skill (eog's effect texts and cooldowns: [skill-database.json](../data/skill-database.json) [S-85]).
 - ❓ Which two techniques and two charms are the Arcanist's Legendaries.
 - ❓ Whether Frenzy Totem and Summoner's Frenzy are Tier 3 or Tier 4 skills.
 
 ## Sources
 
+- [S-85] eog.gg skill database: cooldowns in turns, effect text and damage per quality for every skill ([skill-database.json](../data/skill-database.json))
 - [S-01] relic element, Fantomon, companions, vouchers; [S-02] gear affixes, Tier 4 level, Season 2 companions
 - [S-03] Fandom: Classes Overview, Arcanist (placeholder), Sage Skills, Class Selection
 - [S-04] sxswiki Sage and Sage build pages; [S-10] zeroluck.gg classes; [S-11] BlueStacks guides; [S-13] Pocket Gamer; [S-16] Treyex Dominator builds

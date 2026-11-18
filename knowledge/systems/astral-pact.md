@@ -42,6 +42,25 @@ the rating letter, the Primostars it will convert to, and "Claimable in" with th
 - Gear is about 42% of the maximum and is the category that moves fastest per resource: "the more you level your
   gear, the more disproportionately high your Primostar score will increase" [S-01].
 - Share of the maximum: gear 42%, relics 20%, skills 14.5%, character 14%, Fantomons 10% [S-51].
+- eog's star calculator states the same Season 1 weights outright, per slot: gear 38 per level per piece (5
+  pieces), character 100 per level, skill 13 per slot (8 slots), relic 57 per slot (20), Fantomon 14 per slot (4),
+  all counted above the floor (Lv 100, relic +10) [S-85]. So the "derived" weights are confirmed by a second
+  tier C reading, and the gear level is the **sum over the five pieces**, not an average or the lowest piece
+  (7,220 = 38 x 5 pieces x 38 levels) [S-85].
+- Relic scale: resonance up to +10 is permanent; in Season 1 it can be pushed to +13, and only +11 to +13 is
+  scored here and resets with the season ([Relics](relics.md) calls +10 the soft cap for the same reason)
+  [S-51][S-85].
+
+### Later seasons
+
+| Season | Points per Primostar | Flat grant | Level floor | Relic floor | Gear per level per piece | Character per level | Skill per slot | Relic per slot | Fantomon per slot | Source |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | 100 | 10 | 100 | +10 | 38 | 100 | 13 | 57 | 14 | [S-85][S-51] |
+| 2 | 27 | 45 | 130 | +13 | 18 | 100 | 7 | 33 | 8 | [S-85] |
+| 3 | 13 | 65 | 160 | +16 | 14 | 100 | 5 | 26 | 6 | [S-85] |
+
+- Season 2 and 3 rows are community-maintained calculator values, not published by the developer ❓ [S-85]. Full
+  table, formula and calculator defaults: [astral-pact-scoring.json](../data/astral-pact-scoring.json).
 
 ## From rating to Primostars
 
@@ -60,7 +79,12 @@ the rating letter, the Primostars it will convert to, and "Claimable in" with th
 | 200 | 19,000 | Stretch goal | EXP gain +2% | [S-02][S-51] |
 
 - 200 Primostars needs more points than the 17,216 we can account for, so some source of points is missing from
-  the table above (a rating-letter bonus, off-class gear, or higher caps) ❓.
+  the table above (a rating-letter bonus, off-class gear, or higher caps) ❓. eog's milestone ladder even runs to
+  320 stars, with the same weights and no extra source named [S-85].
+- Season 1 milestone ladder [S-85]: 10, 20, 30, 40, 56, 72, 88, 104, 128, 152, 176, 200, 230, 260, 290, 320 stars,
+  cycling four bonuses in order: Ascension drop rate +3%, Gem acquisition +5%, Dungeon evaluation double reward
+  +2%, EXP gain +2%. This agrees with the rewards named at 176 and 200 above; rows in
+  [astral-pact-scoring.json](../data/astral-pact-scoring.json).
 - "Don't stress too much if you cannot hit this number": 104 is a reference point, more is better [S-01].
 
 | Season 2 target | Who | Reward at that level | Source |
@@ -72,8 +96,9 @@ the rating letter, the Primostars it will convert to, and "Claimable in" with th
 | 1060 | Light / mid spender | Gem Drop +5% | [S-02] |
 
 - "Nothing changes about how the Astral Pact works in Season 2" [S-02]. The Season 2 numbers are several times
-  the Season 1 ones; whether they are cumulative totals or a larger Season 2 scale is not stated ❓. Season 2
-  levels go much higher (gear to +180, level 130+), which would raise the score.
+  the Season 1 ones. eog's calculator explains it as both: Primostars carried from earlier seasons count toward
+  the total, and a Season 2 Primostar costs only 27 points (flat grant 45) against 100 in Season 1 [S-85] ❓
+  (community values; [S-02] itself does not say). Season 2 levels also go much higher (gear to +180, level 130+).
 
 ## The Astral Pact track
 
@@ -88,7 +113,8 @@ First levels of the track, from a screenshot [S-01]:
 | 25 | HP +1% |
 
 The pattern seems to repeat every 25 levels with rarer nodes mixed in (Exp Gain +2%, dungeon double reward +2%)
-❓ [S-51][S-02]. Bonuses add up across all seasons and are always active [S-01].
+❓ [S-51][S-02]. The rarer nodes are the 16 milestones listed under "From rating to Primostars" [S-85]; the
+screenshot's level 10 and 20 nodes match that ladder. Bonuses add up across all seasons and are always active [S-01].
 
 ## Rating letters
 
@@ -122,8 +148,8 @@ The pattern seems to repeat every 25 levels with rarer nodes mixed in (Exp Gain 
 
 - ❓ Rating letter thresholds and rewards. Read the Progression tab's info button late in a season.
 - ❓ Where the points beyond 17,216 come from (needed for 176-200 Primostars).
-- ❓ The full Astral Pact reward track beyond level 25, and whether Season 2 targets are cumulative.
-- ❓ Whether the "Season Gear Level" is the average or the lowest of the five pieces.
+- ❓ The stat nodes (ATK, DEF, HP) of the Astral Pact track beyond level 25; the 16 milestone bonuses are known [S-85].
+- ❓ Season 2 and 3 conversion values seen in our own game (27 and 13 points per Primostar are community values [S-85]).
 - ❓ Whether a mid-season joiner's low score is scaled in any way (it is not, as far as sources say).
 
 ## Sources
@@ -131,4 +157,5 @@ The pattern seems to repeat every 25 levels with rarer nodes mixed in (Exp Gain 
 - [S-01] section 6 (Astral Pact and Primostars, two screenshots), section 3
 - [S-02] section I (targets, SSS conditions), section VI (Season 2 targets)
 - [S-03] Seasonal Systems (Season Reset and Astral Destiny)
+- [S-85] eog.gg star calculator: per-slot weights for Seasons 1 to 3, flat grants, 16 Season 1 milestones ([astral-pact-scoring.json](../data/astral-pact-scoring.json))
 - [S-51] calculator: gear weight, caps, conversion, Season 1 milestones; [S-53] speed-up alternative

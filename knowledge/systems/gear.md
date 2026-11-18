@@ -16,8 +16,8 @@
 
 | Slot | In-game names seen | Notes | Source |
 |---|---|---|---|
-| Weapon | Main Hand (sword, staff, blade ...) | Class-typed: swords for the Warrior line, staffs for the Mage line | [S-01][S-02] |
-| Offhand | Off-hand (shield ...) | Not yet unlocked on our account at Lv 37; takes every gem colour | [R-023][S-01] |
+| Weapon | Main Hand (sword, staff, blade ...) | Class-typed: swords for the Warrior line, staffs for the Mage line; the data has two weapon types, Sword and Wand [S-80] | [S-01][S-02] |
+| Offhand | Off-hand (Shield, Glove, Book or Ball [S-80]) | Gear starts with 4 slots; the Off-hand opens after reaching Class II [S-87]. Not yet unlocked on our account at Lv 37; takes every gem colour | [R-023][S-01][S-87] |
 | Helmet | Headpiece | | [S-01][R-092] |
 | Armor | Body Armor, chest | | [S-01][S-02] |
 | Boots | Boots, leggings | | [S-01] |
@@ -28,6 +28,24 @@ another class can score higher and are equipped for seasonal ranking pushes afte
 ## Rarities
 
 Common, Rare, Epic, Legendary, Mythic, Divine, in rising order [R-165][S-02].
+
+A database site describes six quality colours instead and gives the affix ("substat") lines and the roll
+multiplier on a line's base value for each [S-80] ❓:
+
+| Colour | Substat lines | Roll multiplier |
+|---|---|---|
+| White | 0 | 0.7 to 0.8 |
+| Blue | 1-2 | 0.7 to 0.9 |
+| Purple | 3 | 0.8 to 1.0 |
+| Orange | 4 | 0.8 to 1.15 |
+| Gold | 4 | 0.8 to 1.25 |
+| Red | 4 | 0.8 to 1.25 |
+
+- The site does not say how the colours map to the rarity names; white to red most likely equals Common to
+  Divine in order ❓. Its advice: quality beats enhancement; enhance white and blue only as a stopgap [S-80].
+- Counts in the data: 629 pieces, 28 sets, each with a 2-piece and a 4-piece bonus [S-80]. Set names and
+  bonuses per dungeon (eog's translations): [data/dungeon-gear-sets.json](../data/dungeon-gear-sets.json) [S-85].
+- Tables: [data/gear-tables.json](../data/gear-tables.json).
 
 - Divine pieces of one dungeon form a set with 2-piece and 4-piece bonuses (Season 2 sets: Assimilation,
   Indomitable; Ephemeral, Cratering; Masterful, Pursuit; Trial by Fire, Cold) [S-02].
@@ -52,10 +70,18 @@ season, whose gear is outclassed within two weeks [S-02][S-01].
 - Character, gear slot, Enhance. Cost per step: Raw Ore and Rolla; higher steps add Refined Ore [R-023].
 - **Band rule:** raise all equipped pieces evenly in 5-level bands; lowest piece first [R-092].
 - **Gear Resonance:** a set bonus that activates each time all pieces reach +5, +10, +15 ... (e.g. HP +2%);
-  activate it whenever a band completes [R-119].
-- Enhancement levels stay on the slot when a piece is replaced, so replacing loses nothing [R-088].
+  activate it whenever a band completes [R-119]. The publisher says the same: every 5 enhancement levels across
+  all slots unlocks a Resonance step, a percent boost to base stats, so upgrade evenly [S-87]. A database site
+  has a step every 5 gear levels cycling HP, ATK, DEF, SPD, 240 steps in all, and calls each "+20% flat"
+  [S-80] ❓; that size disagrees with the small per-band bonus the rule shows (tier A), which this page follows.
+- Enhancement levels stay on the slot when a piece is replaced, so replacing loses nothing [R-088][S-87]. The
+  cap rises with character level [S-87].
 - Enhancement above +100 is seasonal and resets to +100 at season end [S-03]. Season 2 examples show +160 to +180
-  [S-02].
+  [S-02]. The game data runs to +250 [S-80]; that is most likely the data ceiling, not a live cap, and the
+  seasonal figures above (tier B) are what this page follows.
+- Cost of one level on one piece (Rolla / Raw Ore / Refined Ore) [S-80] ❓: +1 70/35/0; +10 160/80/30; +20
+  1,160/580/170; +40 4,160/2,080/330; +250 200,000/100,000/550. Rolla is always twice the Raw Ore. Total +0 to
+  +250: 17.4M Rolla, 8.7M Raw Ore, 22,280 Refined Ore. More points: [data/gear-tables.json](../data/gear-tables.json).
 - Ore sources: Cart (Raw Ore per hour), Material Realms (the ore realm; the standard purchase split is "4 Ore, 2
   or 4 Rolla, 4 Battle Essence, 4 Sand" extra tools a day), stamina gathering, dismantling, Guidance quests, Vault
   and Vendor Booth [R-092][R-165][S-01].
@@ -80,7 +106,8 @@ season, whose gear is outclassed within two weeks [S-02][S-01].
 
 ## Affixes
 
-Gear carries random affix lines. A community table (labelled Champion III, Season 2) gives four groups, the
+Gear carries random affix lines (0 to 4 by quality, see [Rarities](#rarities)). eog's list of 140 affixes:
+[data/equipment-affixes.json](../data/equipment-affixes.json) [S-85]. A community table (labelled Champion III, Season 2) gives four groups, the
 chance that one specific affix appears on a roll, and the roll range from low to high [S-02]:
 
 | Group | Affixes in group | Chance per specific affix | Whole group |
@@ -213,11 +240,16 @@ chance that one specific affix appears on a roll, and the roll range from low to
 
 ## Dismantling
 
-- Alchemy Pot, Dismantle tab. It only takes gear weaker than what is equipped; Common, Rare and Epic give Raw Ore,
+- Alchemy Pot at Home, Dismantle tab, from Lv 12 [S-87]. It only takes gear weaker than what is equipped; Common, Rare and Epic give Raw Ore,
   Epic and above also Refined Ore [R-165].
 - From Season 2 dismantling also yields Divinecraft Stones [S-02].
 - When a new dungeon opens, dismantle the previous dungeon's shards [S-52] (or sell them first if they still have
   a price [S-02]).
+
+## Gem sockets
+
+- Sockets are per piece: 2 on level-130 gear in Season 2, at most 4 [S-85]; SOF has one socket per piece in
+  Season 1 and one more each season [S-01][S-02]. See [Gems](gems.md).
 
 ## Gear and the Astral Pact
 
@@ -229,11 +261,11 @@ chance that one specific affix appears on a roll, and the roll range from low to
 
 ## Open questions
 
-- ❓ How many affix lines a piece has by rarity, and whether refinement re-rolls all unlocked lines at once.
+- ❓ How the six quality colours of [S-80] map to rarity names, and whether refinement re-rolls all unlocked lines at once.
 - ❓ Divinecraft Stones per dismantled piece by rarity.
 - ❓ Exact meaning of "200% rate" (value multiplier or roll chance) for unique lines.
-- ❓ When the offhand slot unlocks.
-- ❓ Enhancement cap per season (+100 base; +165 to +180 seen in Season 2).
+- ❓ Live enhancement cap per season (+100 base; +165 to +180 seen in Season 2; +250 in data [S-80]).
+- ❓ What gear Resonance's "+20%" in [S-80] applies to.
 - ❓ The full text of the Season 2 Divine set bonuses (the infographic is too small to read reliably).
 
 ## Sources
@@ -243,4 +275,5 @@ chance that one specific affix appears on a roll, and the roll range from low to
   and "Gear affixes"
 - [S-03] Seasonal Systems, Commercium, Everything about Class Change
 - [S-51] gear weight; [S-52] dismantle tip; [S-53], [S-54]
+- [S-80] zeroluck.gg gear page ([notes](../sources/notes/zeroluck.md)); [S-85] eog.gg data ([notes](../sources/notes/eog.md)); [S-87] official Handbook Vol. 1
 - Rules R-023, R-071, R-076, R-088, R-092, R-119, R-165

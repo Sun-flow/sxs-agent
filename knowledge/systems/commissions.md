@@ -22,7 +22,7 @@ first read in game.
 - Tasks are of the kill and collect kind, done on the overworld, which is why some cost stamina [S-01].
 - "Go" sends you to the task; "Combinable" is not explained ❓ (likely that it can be done together with another
   commission).
-- Other names for the same system on guide sites: "Delegate Tasks" ❓ [S-35].
+- Other names for the same system on guide sites: "Delegate Tasks" [S-35][S-85]. eog lists Delegate Tasks as a source of Bond Trinkets and of recipes [S-85].
 - Where the screen is, how many commissions there are a day and when they reset are not in our sources ❓; dailies
   in general reset at 8:00 server time (UTC-5) [R-024].
 

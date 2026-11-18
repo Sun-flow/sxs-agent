@@ -27,7 +27,7 @@ Priority: **H** = never waste, plan around it; **M** = spend steadily; **L** = s
 | Treats | Fantomon food | Cart (Lv 45 row), codes, events | Fantomon EXP | no (Fantomons are permanent) | M |
 | Stamina | energy | 5 per hour, Vault free 30, codes | pickups, commissions | no | H |
 | Stellatie | skill pull ticket | sign-in, mail, shops, wheels | Standard Prayer | ❓ | H |
-| Covenite | class skill pull ticket | Molly's Deals, Wheel of Destiny, events | class-targeted Prayer | ❓ | H |
+| Covenite | skill selection ticket (class skill pull) | Molly's Deals, Wheel of Destiny, Chaos Invasion, Arena Shop | class-targeted (premium) Prayer | ❓ | H |
 | Auroral Badges (Rare/Epic/Legendary/Mythic/Elemental) | relic pull token | quests, mail, codes, shops, events | Aeonic Gacha | ❓ | H |
 | Bond Trinket | Fantomon pull token | mail, codes, guild shop, events | Arborisfatum summons | ❓ | H |
 | Destiny Fruit | relic item | codes, exploration, merchants | relics of pool 1; Wheel merchants | ❓ | M |
@@ -35,7 +35,7 @@ Priority: **H** = never waste, plan around it; **M** = spend steadily; **L** = s
 | Guild Tokens | guild currency | donations (300 each), guild AFK (120 an hour) | Guild Shop | ❓ | M |
 | Material Realm tools | attempt tokens | goals, commissions, Vault, Dawnium | one realm attempt each | no: can be saved | H |
 | Kingdom tools | map keys | Kingdom Shop, Wheel of Destiny | open blocked areas with statues | no | H |
-| Temporal Crystal | speed-up | ❓ | 2 hours of Bed and Cart income | no | M (save for new statues) |
+| Temporal Crystal | speed-up | ❓ | 2 hours of Bed and Cart income [S-87] | no | M (save for new statues) |
 | Skill Shard Voucher | skill shard | Wheel of Destiny, events | rank up a chosen skill | no | H (hoard) |
 | Divinecraft Stone | gear reroll | dismantling gear | Affix Refinement | ❓ | M (Season 2+) |
 | Primostar | season rating | end-of-season rating | Astral Pact levels | granted per season | H |
@@ -50,12 +50,13 @@ Priority: **H** = never waste, plan around it; **M** = spend steadily; **L** = s
 
 ### Luminium and Vouchers (paid: never)
 
-- Luminium comes only from real-money purchases in the Mall and converts 1:1 into Dawnium [S-35][S-36][S-38].
+- Luminium comes only from real-money purchases in the Mall and converts 1:1 into Dawnium [S-35][S-36][S-38][S-80][S-85]. Four fan sources agree and none disagrees; the publisher's post only says premium bids need Luminium [S-87].
 - Bidding on premium gear in the Auction House needs Luminium [S-03]. Permanent-stat food is bought in the
   Auction House for Luminium [S-31].
 - Vouchers are a second paid currency: outfits are priced in them (the launch outfit cost 499 + 299 Vouchers), and
   beta testers got Vouchers back from the Top-Up Rebate event [S-03]. The database lists Voucher as its own wallet
-  currency [S-38].
+  currency [S-38]; zeroluck's second reading describes it as a Mythic-coloured wallet currency for in-game
+  purchases [S-80].
 - Real-money purchases are out of scope for this guide and banned for the bot [R-121].
 
 ### Rolla
@@ -132,13 +133,23 @@ Covered on its own page: [Stamina](stamina.md).
 
 ### Covenite
 
-- A Prayer currency that pulls skills **for your current class** [S-38].
-- Income: Molly's Deals at a discount [S-01]; Wheel of Destiny third-priority reward [S-01].
+- The **skill selection ticket**: a Prayer currency for the premium (pink) banner, which pulls skills **for your
+  current class** [S-38][S-80].
+- Income: Molly's Deals at a discount [S-01]; Wheel of Destiny third-priority reward [S-01]; Chaos Invasion
+  ([Events](events.md)); the Arena Shop, 500 Arena coins, limit 1 [S-42].
+- Other reading: eog says Covenite is "earned from Standard pulls and not sold for Dawnium" [S-85] (tier C). This
+  page follows the SOF guide (tier B) for the income list; the two are not exclusive.
+- eog values one Covenite at 1,000 Dawnium (its own valuation, not a shop price) ❓ [S-85]; see
+  [item-values.json](../data/item-values.json).
 - The premium (pink) banner is said to open in Cinder Ridge ❓ [S-39]. See [Gacha](gacha.md).
 
 ### Affection Token
 
-- Pays for the Affection Prayer at the Goddess Statue: x10 costs 250 red tokens [R-093][S-38]. Income ❓.
+- Pays for the Affection Prayer at the Goddess Statue: x10 costs 250 red tokens [R-093][S-38]; the banner
+  pays "rewards" that no source itemises [S-80].
+- Income, two readings, both tier C and not exclusive ❓: Affection gained from praying, capped at 1,000 a week
+  [S-85] (this page's main reading, as [Gacha](gacha.md)); and tokens for partying in daily events, more with
+  friends or guildmates than with strangers [S-42].
 
 ### Auroral Badges
 
@@ -159,7 +170,7 @@ Covered on its own page: [Stamina](stamina.md).
 
 ### Summon Crystals (Fantomon exchange)
 
-- Drop from Fantomon pulls (4.2% per pull, at least one per 10) and buy Mythic Fantomon copies at 60 each ❓ [S-32].
+- Drop from Fantomon pulls (4.2% per pull, at least one per 10) and buy Mythic Fantomon copies at 60 each [S-32][S-85]; the publisher confirms that Summon Crystals buy Mythics [S-87].
   See [Fantomons](fantomons.md).
 
 ### Destiny Fruit
@@ -181,6 +192,9 @@ Covered on its own page: [Stamina](stamina.md).
   [S-01]; code SS888 gives 100 [S-37]. One site says exploration tasks pay leaves ❓ [S-04].
 - SOF pushes commissions that pay kingdom currency until the next tool is affordable [S-01].
 - The Kingdom Shop has levels (1/4, "0/3500 toward Lv 2") [R-134]; what raises the level is unknown ❓.
+- Names beyond Abundance Leaf: a player blog calls the kingdom merchant currencies dropped by Resource Hunt
+  monsters "Feathers" and "Alloy" [S-42] (tier C; which kingdom each belongs to is not stated ❓, so the table
+  keeps ❓). See [Monsters](monsters.md).
 - Details and stock: [Shops](shops.md#kingdom-shops).
 
 ### Guild Tokens and guild resources
@@ -192,10 +206,14 @@ Covered on its own page: [Stamina](stamina.md).
 
 ### Arena currency and tickets
 
-- Arena tickets are saved toward the weekly reset and spent right after it [S-01]; up to 20 can be saved ❓ [S-32].
-- Extra fights cost Dawnium on a ladder: 10, 15, 20, 30, 40, 60, 80, 100 [S-30].
-- Arena earnings feed an Arena exchange shop ❓ [S-35], which sells permanent-stat food [S-31]. The name of the
-  arena currency is unknown ❓. See [Arena and PvP](arena-and-pvp.md).
+- Arena tickets are saved toward the weekly reset and spent right after it [S-01][S-87]; eog says to spend 20
+  saved tickets on day one [S-85][S-32] (the storage cap itself is not stated ❓).
+- Extra fights cost Dawnium on a rising ladder. Main reading, as on [Arena and PvP](arena-and-pvp.md): 10, 25, 45,
+  75, 115, 175, 255, 355 (a player's first-hand notes) [S-42]. Other reading: 10, 15, 20, 30, 40, 60, 80, 100
+  [S-30]. Neither is seen in our game ❓.
+- The currency is called **Arena coins** here (the player blog's name; in-game name not confirmed ❓): 100 per
+  successful attack, spent in the Arena Shop on Fantomon Shards, Bond Treats, Stellatie, Rare Auroral Badges and
+  Covenite [S-42]; the shop also sells permanent-stat food [S-31]. Stock table: [Arena and PvP](arena-and-pvp.md#arena-shop).
 
 ### Event currencies
 
@@ -216,12 +234,16 @@ See [Events](events.md).
 | Iron Hammer | Ironvein Pit | Raw and Refined Ore [R-095] |
 | Gold Pickaxe | Gilded Depths | Rolla [R-125] |
 | Worn Knuckles | Dread Hollow | Battle Essence [R-125] |
-| ❓ (a shovel, per one site [S-04]) | ❓ (sand realm) | Chrono Sand [S-01] |
+| Sand Shovel [S-85] ("a shovel" per [S-04]) | Sand Mine [S-85] (eog's name; client name not confirmed ❓) | Chrono Sand [S-01][S-85] |
 
 - One tool is one attempt. Income: Goals tabs (10 Standard Prayers paid 3 Iron Hammers) [R-093][R-095], commissions
   ("Delegate Tasks") ❓ [S-36], the Vault at a steep discount (5 Gold Pickaxes for 60 Dawnium, 5 Worn Knuckles for
   40) [R-120], direct purchase at the realm on a rising price ladder [S-30].
 - Tools can be kept in the bag and used later; SOF saved Season 1 tools for Season 2 [S-02].
+- eog calls the Dread Hollow tool "Worn Gauntlet"; the publisher and our game say Worn Knuckles [S-87][R-125].
+  The "Crystal Shovel" on [Guild](guild.md) is a different thing: a rentable guild tool named only by a tier D site
+  [S-04].
+- Rewards of every realm scale with Kingdom Rank [S-87]; yield per rank: [gathering-yields.json](../data/gathering-yields.json) [S-85].
 - Full detail: [Material Realms](material-realms.md).
 
 ### Kingdom tools (map keys)
@@ -247,9 +269,9 @@ See [Events](events.md).
 ### Temporal Crystal and the free speed-up
 
 - A Temporal Crystal gives 2 hours of income for both the Bed and the Cart; one free speed-up a day does the same
-  [S-03].
+  [S-03][S-87]. Idle income stops growing at 36 hours [S-87].
 - Use them only after activating every available statue, and at a new season only after the new kingdom's statues
-  [S-03][S-02]. One site suggests holding them to cross level milestones (106, 108, 116, 130 in Season 2) ❓ [S-34].
+  [S-03][S-02]. One site suggests holding them to cross level milestones (106, 108, 116, 130 in Season 2) ❓ [S-34][S-85].
 
 ### Skill Shard Vouchers
 
@@ -398,8 +420,12 @@ from the top and cut from the bottom, starting with the Gold Tool and the variab
 
 The numbers agree with prices from other sources: dungeon refreshes cost 100 then 150 [S-30]; realm tools cost 60,
 60, 100, 100, 150, 150, 200, 200, 250, 300 per realm per day, so 4 + 2 + 4 + 4 tools cost 320 + 120 + 320 + 320 =
-1,080 [S-30][S-35]; the second and third donations cost 20 and 50 [R-103]. The "Gold Tool" is not explained in the
-guide; it is probably the 24-hour guild gathering boost that another guide calls expensive for F2P ❓ [S-30].
+1,080 [S-30][S-35]; the second and third donations cost 20 and 50 [R-103], and the publisher gives the same rule:
+up to 5 donations a day, 1 free, 70 Dawnium for two more [S-87] (eog's "3 a day free, 5 for spenders" [S-85] is
+tier C and loses to both). The "Gold Tool" is not explained in the guide. This page reads it as the 24-hour guild
+gathering boost that another guide calls expensive for F2P ❓ [S-30]: it sits on the guild line "for best output of
+guild coins" [S-01], and 200 is not a first-step price of any realm tool. The other reading, an alias of the Gold
+Pickaxe (as `data/currencies.json` lists it), is less likely.
 
 ### Every known sink, with a verdict
 
@@ -413,9 +439,9 @@ guide; it is probably the 24-hour guild gathering boost that another guide calls
 | Vault: discounted Stellatie | 2 for 100 at 50% off | Buy when discounted | [S-03][R-120] |
 | Vault: Refined Ore | 180 for 180 | Skip as F2P ❓ | [S-04] |
 | Vault: Golden Beetle, Shapeshifting Mirror, Rename Card | 50, 100, 500 | Skip | [R-120][R-153] |
-| Aeonic Gacha (relic pulls) | ❓ per pull | The long-term choice: best early in a season when the pool is new; aim for 70% completion per region | [S-01][S-02] |
+| Aeonic Gacha (relic pulls) | 10 badges per capsule [S-80]; Dawnium price ❓ | The long-term choice: best early in a season when the pool is new; aim for 70% completion per region | [S-01][S-02] |
 | Molly's Deals | varies (one card showed 225) | Buy: up to 10 a week, "usually very good deals" | [S-01] |
-| Arena extra fights | 10, 15, 20, 30, 40, 60, 80, 100 | 2 a day is cheap; max out for two days after a reset | [S-30] |
+| Arena extra fights | 10, 25, 45, 75, 115, 175, 255, 355 [S-42] (or 10, 15, 20, 30, 40, 60, 80, 100 [S-30]) ❓ | 2 a day is cheap; max out for two days after a reset | [S-42][S-30] |
 | Vendor Booth General refresh | paid in Rolla (4K), not Dawnium | See [Shops](shops.md) | [R-120] |
 | Skill pulls with Dawnium | ❓ | Stop near season end; save for the next class tier | [S-01] |
 | Sign-in "Catch Up", Timed Packs, Starter Pack | Dawnium or real money | Never | [R-097][R-157] |
@@ -425,12 +451,12 @@ account strength; early-season Dawnium to the relic gacha, then tools as the poo
 
 ## Open questions
 - ❓ Names of the Cinder Ridge, Aqualis and Loong Haven kingdom currencies and their merchants: read the shop header in each kingdom.
-- ❓ The sand Material Realm's name and tool: read the Material Realms screen once it unlocks.
+- ❓ The sand Material Realm's name in our client (eog: Sand Mine, tool Sand Shovel [S-85]): read the Material Realms screen once it unlocks.
 - ❓ Whether Dawnium, Rolla, Stellatie and badges carry across a season reset: no source states it; watch the first season change.
 - ❓ What the guild "Gold Tool" (200 Dawnium) is: open the guild donation and facility screens.
-- ❓ Arena currency name and shop stock: open the Arena shop.
-- ❓ Sources of Temporal Crystals and Affection Tokens: read the items' info cards (R-125).
-- ❓ Dawnium price of an Aeonic Gacha or Prayer pull: read, do not press (R-043).
+- ❓ Arena currency's in-game name ("Arena coins" per [S-42]) and the real extra-fight ladder: open the Arena shop.
+- ❓ Sources of Temporal Crystals; which Affection Token income (praying cap [S-85] or partying [S-42]) is real: read the items' info cards (R-125).
+- ❓ Dawnium price of an Aeonic Gacha or Prayer pull: not on zeroluck or eog either (only 10 badges per capsule [S-80]); read, do not press (R-043).
 - ❓ Realistic F2P Dawnium income from the market per week.
 
 ## Sources
@@ -447,4 +473,6 @@ account strength; early-season Dawnium to the relic gacha, then tools as the poo
 - [S-37] code rewards
 - [S-38] currency database
 - [S-39] income estimates, banner note
+- [S-42] player blog: Arena coins, shop stock, price ladder, Feathers and Alloy, Affection from partying
+- [S-80] zeroluck second reading (Voucher, Luminium, badge cost); [S-85] eog section (Sand Mine, Covenite, Affection cap, item values); [S-87] official posts (donations, Temporal Crystal, idle cap)
 - Rules R-018, R-019, R-023, R-037, R-093, R-095, R-097, R-103, R-106, R-108, R-109, R-110, R-114, R-117, R-118, R-120, R-121, R-125, R-134, R-136, R-137, R-147, R-151, R-153, R-165, R-167, R-168, R-169, R-172; observed stock in [docs/shop-tables.md](../../docs/shop-tables.md)

@@ -16,12 +16,12 @@
 
 | Gacha | Where | Gives | Currency (per pull) | Bot policy |
 |---|---|---|---|---|
-| Prayer: Standard | Goddess Statue furniture at Home | Skills (Techniques, Charms) and skill shards from the whole pool your class can use | Stellatie (1 per prayer, x10 = 10) | Only mae's pull script, x10 only (R-093) |
-| Prayer: Affection | Same statue, banner selector | "Rewards" ❓ | Affection Tokens (x10 = 250) | Not used (R-093) |
-| Prayer: Premium | Same statue, unlocks later ❓ | Skills of your current class only | Covenite | Not seen yet |
+| Prayer: Standard | Goddess Statue furniture at Home | Skills (Techniques, Charms) and skill shards from the pool your current class can use (its own tier plus the lower tiers of its line) | Stellatie (1 per prayer, x10 = 10) | Only mae's pull script, x10 only (R-093) |
+| Prayer: Affection | Same statue, banner selector | "Rewards", not itemised by any source ❓ [S-80] | Affection Tokens (x10 = 250) | Not used (R-093) |
+| Prayer: Premium | Same statue, after clearing Verdantglade and the second-tier class change [S-85] | Skills of your current class only | Covenite | Not seen yet |
 | Aeonic Gacha: Kingdom | Stone left of the Cart at Home | Relics of one kingdom pool | Auroral Badges of a tier (10 per draw, x10 = 100) | x10 whenever affordable with badges or tickets; never Dawnium (R-167) |
 | Aeonic Gacha: Element | Same, Element tab | Relics of one chosen element | Auroral Elemental Badges (10 per draw) | Same rule |
-| Fantomon summon | Arborisfatum (tree at Home), from about Lv 50 | Fantomons, shards, ability food, Summon Crystals | Bond Trinkets | No rule yet |
+| Fantomon summon | Arborisfatum (tree at Home), from Lv 51 (R-011; Lv 50 per [S-87][S-85]) | Fantomons, shards, ability food, Summon Crystals | Bond Trinkets | No rule yet |
 | Wheel of Destiny (Lucky Wheel) | Lucky Wheel structures on the map | A prize from the wheel | First spin per wheel free; then Lucky Tickets | Only the free first spin (R-147) |
 | Dawnstar Prelude | Thrilling Events > Featured | Gacha draws; contents unknown ❓ | ❓ | Never (R-096) |
 
@@ -35,10 +35,11 @@ Event-only draws also exist (e.g. launch "Prize Punch" using Overture Tickets [S
   n/10000", a "200 Prayers Bonus" and a pity counter (R-093).
 - **200 Prayers Bonus:** after 200 prayers you choose a Legendary skill (R-093); S-20 describes it as a
   selectable Legendary T1 skill ❓.
-- Goals tab: "Total Standard Prayers" milestones at 10, 20 ... 60 are free claims; the 10-prayer one paid
-  3 Iron Hammers (R-093).
+- Goals tab ("Prayer Goals" [S-80]): "Total Standard Prayers" milestones at 10, 20 ... 60 are free claims; the
+  10-prayer one paid 3 Iron Hammers (R-093). The milestone rewards change over time [S-80].
 - What you can draw depends on your class [S-25]. The pool holds 238 player skills: 85 Legendary, 78 Epic,
-  75 Rare [S-25] ❓. Changing class before Lv 100 (before Aqualis) locks the old class's skills and forces
+  75 Rare, 47 of the Legendaries being attack skills [S-25][S-80] ❓. Other counts: 361 skills in eog's database
+  (all classes and tiers) [S-85]; "300+" in the publisher's launch post [S-87]. Changing class before Lv 100 (before Aqualis) locks the old class's skills and forces
   re-pulling; "Class Rollback" exists to shrink the pool and re-pull low-tier skills [S-03]. See
   [Skills](skills.md) and [Classes overview](classes-overview.md).
 
@@ -46,26 +47,31 @@ Event-only draws also exist (e.g. launch "Prize Punch" using Overture Tickets [S
 
 | Banner | Currency | Pool | Unlock | Sources |
 |---|---|---|---|---|
-| Standard | Stellatie | All skills available to your class line | From the start | R-093, [S-25] |
-| Affection ("Friend Prayer") | Affection Token (red token) | "Rewards" ❓; no rate table published | Visible from the start | R-093, [S-25] |
-| Premium | Covenite | Skills of your **current class** only | After the second-tier class change, or after clearing Verdantglade (the source says both) ❓ | [S-25], [S-20] |
+| Standard | Stellatie | Skills your current class can use: its own tier plus the lower tiers of its line (a Class Rollback shrinks it) | From the start | R-093, [S-25], [S-03] |
+| Affection ("Friend Prayer") | Affection Token (red token) | "Rewards" ❓; no rate table published | Visible from the start | R-093, [S-25], [S-80] |
+| Premium | Covenite | Skills of your **current class** only ("featured pool" [S-80]; each new class has its own premium pool, selectable [S-85]) | After clearing Verdantglade **and** making the second-tier class change (Lv 44 [S-85]), which puts you in Cinder Ridge ❓ | [S-25], [S-20], [S-85] |
 
-- Affection gained from praying is capped at 1,000 per week ❓ [S-24]; at 250 tokens per x10 (R-093) that would
-  be 40 Affection prayers a week ❓.
-- Covenite: "Goddess Prayer, for skills of your current class" [S-25]. S-20 calls it a pity currency that
-  cannot be bought; that does not fit SOF, who lists Covenite among Molly's Deals goods, Wheel of Destiny
-  prizes [S-01] and Chaos Invasion rewards [S-03]. This page follows [S-01]/[S-03]: Covenite is a ticket
-  earned from events, deals and wheels.
+- Affection Token income, two readings, both tier C and not exclusive ❓: Affection gained from praying
+  ("summons") is capped at 1,000 per week [S-24][S-85]; partying in daily events pays tokens, more with friends
+  or guildmates [S-42] (see [Guild](guild.md)). At 250 tokens per x10 (R-093) the cap would be 40 Affection
+  prayers a week ❓.
+- **Covenite** is the skill selection ticket that pays for the Premium banner: "Goddess Prayer, for skills of
+  your current class" [S-25]. It comes from Molly's Deals, Wheel of Destiny prizes [S-01], Chaos Invasion
+  rewards [S-03] and the Arena Shop (500 Arena coins, limit 1) [S-42]. Other reading: eog calls it a currency
+  earned from Standard pulls that cannot be bought with Dawnium [S-20][S-85]; SOF (tier B) outranks eog
+  (tier C/D), so this page follows [S-01].
 
 ### Rates and pity
 
 | | Legendary | Epic | Rare | Common shard | Source |
 |---|---|---|---|---|---|
-| Per-pull rates, version A | 1% | 7% | 22% | (rest) | [S-20] ❓ |
-| Per-pull rates, version B (Standard and Premium share them) | 2.41% | 7.9% | 24% | 65.69% | [S-25] ❓ |
-| Pity | 70 pulls | 30 pulls | 10 pulls | | [S-20] ❓ |
+| Per-pull rates, version A | 1% | 7% | 22% | (rest) | [S-20][S-85] ❓ |
+| Per-pull rates, version B (Standard and Premium share them) | 2.41% | 7.9% | 24% | 65.69% | [S-25][S-80] ❓ |
+| Pity | 70 pulls | 30 pulls | 10 pulls | | [S-20][S-85] ❓ |
 
-The two rate tables disagree (version B may include pity); neither is confirmed in game. The pity counter is
+The two rate tables disagree (version B may include pity); both are tier C, a second reading of each site
+gave the same numbers, and neither is confirmed in game. zeroluck states no pity or cost per pull [S-80]. All
+banner tables: [data/gacha-rates.json](../data/gacha-rates.json). The pity counter is
 said to be account-wide and to survive a class change ❓ [S-20].
 
 ### Where Stellatie comes from
@@ -83,7 +89,7 @@ said to be account-wide and to survive a class change ❓ [S-20].
 | Gift codes | Small amounts ❓ | [S-04] |
 
 Covenite sources: Molly's Deals, Wheel of Destiny (third priority prize) [S-01]; Chaos Invasion ranking
-rewards [S-03]. Affection Tokens: from praying ❓ [S-24].
+rewards [S-03]; Arena Shop [S-42]. Affection Tokens: from praying ❓ [S-24][S-85] and from partying ❓ [S-42].
 
 ### Skill Shard Vouchers
 - Not a pull, but the companion item to Prayer: vouchers convert into shards of a chosen skill. SOF calls them
@@ -114,7 +120,7 @@ Also written "Aeonique" on French-derived pages [S-04]. Full relic rules: [Relic
 | Auroral Elemental Badge | 10 = one capsule of your chosen element (Fire, Water, Wind, Light, Dark) | [S-25] |
 | Pull tickets | Counted on the gacha screen's ticket counter; usable instead of badges | R-167; "tickets saved" for pool 2 [S-02] |
 
-### Base rates per tier (data-mined table, not confirmed live) ❓ [S-25]
+### Base rates per tier (database table, read twice with the same numbers; not checked in game) ❓ [S-25][S-80]
 
 | Tier | Relic of tier | Relic one tier up | Shards |
 |---|---|---|---|
@@ -124,7 +130,8 @@ Also written "Aeonique" on French-derived pages [S-04]. Full relic rules: [Relic
 | Mythic | Mythic relic 18.68% | | Mythic shard 81.32% |
 | Elemental (any element) | Epic 79.11%, Legendary 16.63%, Mythic 4.26% | | |
 
-Higher tiers guarantee a higher minimum rarity [S-25]. The Elemental tier never gives Rare results, which is
+Every tier costs 10 badges per capsule; the site states no pity [S-80]. Machine-readable copy:
+[data/gacha-rates.json](../data/gacha-rates.json). Higher tiers guarantee a higher minimum rarity [S-25]. The Elemental tier never gives Rare results, which is
 why SOF ranks "auroral elemental badges" above "Legendary auroral badges" on the Wheel of Destiny [S-01].
 
 ### Where badges come from
@@ -144,10 +151,12 @@ why SOF ranks "auroral elemental badges" above "Legendary auroral badges" on the
 
 Full Fantomon rules: [Fantomons](fantomons.md).
 
-- Unlocks with the Fantomon system at about Lv 50 [S-03]. Currency: **Bond Trinket** ("summoning Fantomons at
+- Unlocks with the Fantomon system: Lv 51 on our account (R-011, tier A); the publisher and eog say Lv 50
+  [S-87][S-85][S-03]. Currency: **Bond Trinket** ("summoning Fantomons at
   Arborisfatum") [S-25].
-- Each pull can drop a **Summon Crystal**: about 4.2% per pull, at least one guaranteed per 10-pull ❓ [S-20, S-24].
-- Summon Crystal exchange shop: Nyxarchon 60, Aegiswing 60, a rotating Legendary (Sylvaerie) 18 ❓ [S-20, S-26];
+- Each pull can drop a **Summon Crystal**: about 4.2% per pull [S-85], at least one guaranteed per 10-pull ❓ [S-20, S-24].
+- Summon Crystal exchange shop: a Mythic costs 60 [S-85] (Summon Crystals buy Mythics [S-87]): Nyxarchon 60,
+  Aegiswing 60, a rotating Legendary (Sylvaerie) 18 ❓ [S-20, S-26]; evolution needs 120 shards [S-85];
   the exchange shop sells the duplicate needed for Adult evolution [S-02]; Pandarial joins on day 46 of
   Season 2 [S-02].
 - Budget for one Adult Mythic: 2 copies = 120 Summon Crystals, at most about 600 pulls for the first 60 ❓ [S-20].
@@ -156,7 +165,7 @@ Full Fantomon rules: [Fantomons](fantomons.md).
 |---|---|---|---|---|
 | Version A | "SSR" 0.8% | "SR" 5% | 94.2% | [S-04] ❓ |
 | Version B | Mythic 0.8% | Legendary 5% | Epic 30%, Rare 64.2% | [S-26] ❓ |
-| Version C (item table) | Legendary Fantomon 1.96% | Epic Fantomon 6.37% | Legendary shard 13.27%, Epic shard 7.96%, other Legendary item 12.04%, Epic ability food 14.16%, Rare ability food 44.24% | [S-25] ❓ |
+| Version C (item table) | Legendary Fantomon 1.96% | Epic Fantomon 6.37% | Legendary shard 13.27%, Epic shard 7.96%, "Legendary other" 12.04% (unexplained), Epic ability food 14.16%, Rare ability food 44.24% | [S-25][S-80] ❓ |
 | Pity | Legendary at 80 pulls | | | [S-20] ❓ |
 
 The three tables disagree on names and numbers; all agree the best direct drop is rare (about 1-2%) and that
@@ -234,9 +243,10 @@ Delegate Tasks and Arena shop ❓ [S-20], gift codes ❓ [S-04].
 
 ## Open questions
 - ❓ Dawnstar Prelude: what it draws, its currency, whether any part is free.
-- ❓ Live rates for all three main gachas (in-game "details" pages would settle the disagreements above).
-- ❓ What the Affection banner gives and how Affection Tokens are earned.
-- ❓ Premium (Covenite) banner unlock condition and cost per pull.
+- ❓ Live rates and pity for all three main gachas (in-game "details" pages would settle the disagreements
+  above; zeroluck and eog each repeat their own set).
+- ❓ What the Affection banner's "rewards" are, and which Affection Token income (praying cap or partying) is real.
+- ❓ Premium (Covenite) banner: cost per pull; confirm the unlock (Verdantglade cleared plus second-tier class) in game.
 - ❓ Bond Trinket cost per summon; Dawnium prices of Stellatie, badges and Bond Trinkets outside discounts.
 - ❓ How the Wheel of Destiny prize list is chosen and its odds.
 
@@ -246,4 +256,5 @@ Delegate Tasks and Arena shop ❓ [S-20], gift codes ❓ [S-04].
 - [S-03] Fandom "Fantomon", "Vendor Booth", "Everything About Class Change", "Journey Overture", Chaos Invasion guide
 - [S-04] sword-x-staff.wiki gacha, Fantomon, voucher and Wheel of Destiny pages (leads only)
 - [S-20] [S-23] [S-24] EOG.GG pages; [S-25] zeroluck.gg summoning and currencies; [S-26] BlueStacks Fantomon guide
+- [S-80] zeroluck.gg second reading (rates, Prayer Goals, badge cost): [notes](../sources/notes/zeroluck.md); [S-85] eog.gg section: [notes](../sources/notes/eog.md); [S-87] official site posts; [S-42] player blog (Arena Shop, Affection)
 - Rules R-043, R-093, R-096, R-097, R-114, R-147, R-167, R-168, R-172; `docs/shop-tables.md`

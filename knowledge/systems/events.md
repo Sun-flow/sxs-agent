@@ -10,14 +10,14 @@
 
 | Event | Rhythm | Unlock | Currency | Party | Best free choice |
 |---|---|---|---|---|---|
-| Grand Treasure Hunt | Every Saturday; unique relic every other week | ❓ | Event currency ("Aurodrasil Energy" ❓) | No | Save on "SAVE" weeks, buy Lucky Statue / Primal Gem on "MUST BUY" weeks |
-| Chaos Invasion | Recurring, about every two weeks ❓ | Lv 50 | Chaos Shards (entry), Chaos Crystals (shop) | Recommended 4 | Rank as high as is cheap; buy only the Primal Forge |
-| Void Rift | Every other Sunday ❓, 24 h | Lv 50 | none (attempts) | Up to 4 | Use all 10 reward attempts in a group |
+| Grand Treasure Hunt | Every Saturday; unique relic every other week | ❓ (first hunt on server day 8 [S-85]) | Aurodrasil Energy [S-85] | No | Save on "SAVE" weeks, buy Lucky Statue / Primal Gem on "MUST BUY" weeks |
+| Chaos Invasion | Every other Sunday, alternating with Void Rift [S-85] | Lv 50 | Chaos Shards (entry), Chaos Crystals (shop) | Recommended 4 | Rank as high as is cheap; buy only the Primal Forge |
+| Void Rift | Every other Sunday, 24 h [S-85] | Lv 50 | none (attempts) | Up to 4 | Use all 10 reward attempts in a group |
 | Wheel of Destiny | Whenever you hold Lucky Tickets; map wheels give one free spin | Map / shops | Lucky Ticket | No | Skill Shard Vouchers first |
 | Daily Sign-in | Daily, 30-tile calendar | start | none | No | Claim today's tile; never Catch Up |
 | Growth Trial | First 19 days of an account | start | Trial points | No | Claim free quests; never Advanced Trial |
 | Dawnstar Prelude | Featured event card (gacha draws) | start | ❓ | No | Not for the bot (R-096) |
-| Pilgrimage (battle pass) | Passes of 70 tiers | ❓ | Pilgrimage Points | No | Free lane only |
+| Pilgrimage (battle pass) | Passes of 70 tiers; 16 Normal and 4 Season passes [S-80] | ❓ | Pilgrimage Points | No | Free lane only |
 | Seasonal event (Journey Overture, Haunted Carnival, collabs) | About 2 weeks each | start | Event badges and tickets | No | 14-day sign-in and free exchange shop |
 | Molly's Deals | Weekly, 10 buys | friends list | Dawnium and others | No | See [Shops](shops.md) |
 
@@ -27,14 +27,16 @@
 
 - A weekly event shop held every Saturday in the SOF calendars [S-01] [S-02]. You spend an event currency through five reward levels; Level 5 holds the week's unique item [S-43].
 - The unique Level 5 item alternates. On "MUST BUY" weeks it is one of two special relics; on "SAVE" weeks it is a lesser item, and you keep your currency so that next week you can afford Level 5 [S-01] [S-02].
-- The currency carries over from week to week (that is the whole strategy) [S-01]. EOG calls it Aurodrasil Energy and says about 3,240 is needed to reach Level 5, with roughly 4,440 available every two weeks ❓ [S-43].
+- The currency carries over from week to week (that is the whole strategy) [S-01]. It is **Aurodrasil Energy**; about 3,240 clears Levels 1 to 5 [S-85] [S-43]. Free income: about 4,440 Energy every two weeks (two Level 5 items) or about 5,640 every three weeks (all Level 5 items); two 500-Energy packs are sold per cycle (paid, not for us) [S-85].
+- Wording: this page says "Level 1 to 5" for the five reward steps; eog also writes "stage" and "floor", and [Shops](shops.md) says "floors". They are the same five steps [S-85].
+- The first hunt is on server day 8 and it repeats every 7 days; the Level 5 unique item cycles through four kinds: a selectable Mythic relic box of the newest open kingdom, special relic A (Lucky Statue), 180 selectable skill shards of the newest job tier, special relic B (Primal Gem) [S-85]. Cycle and later-season relics: [server-day-roadmap.json](../data/server-day-roadmap.json).
 
 ### The two relics worth saving for
 
 | Relic | Effect | Why it matters | Source |
 |---|---|---|---|
-| Lucky Statue | "Dungeon: 2x Rating Reward Rate 10%" at Shard 0 (Light Affinity 200); grows with shards, up to 60% ❓ | Doubles dungeon shard and gear rewards for the rest of the game; put it in the main relic line for the 20% resonance bonus | [S-01] [S-43] |
-| Primal Gem | Gem acquisition boost, 10% up to 60% ❓ | More gems from every source | [S-01] [S-43] |
+| Lucky Statue | "Dungeon: 2x Rating Reward Rate 10%" at Shard 0 (Light Affinity 200); grows with shards, up to 60% [S-85] (eog calls it "Lucky Idol") | Doubles dungeon shard and gear rewards for the rest of the game; put it in the main relic line for the 20% resonance bonus | [S-01] [S-43] [S-85] |
+| Primal Gem | Gem acquisition boost, 10% up to 60% [S-85] (eog calls it "Primordial Gem") | More gems from every source | [S-01] [S-43] [S-85] |
 
 - Both are "unique relics", the top of the relic resonance priority: Unique relic > special stats > fixed value > % value [S-01]. See [Relics](relics.md).
 - Each repeat purchase adds a shard to the relic, so the "MUST BUY" continues every time it returns [S-02].
@@ -63,10 +65,11 @@ Server days are derived from Loong Haven = day 47 = 23 September 2026 [S-02]. Th
 Sources: Season 1 rows [S-01], Season 2 rows [S-02].
 
 - Pattern: MUST BUY weeks alternate Primal Gem and Lucky Statue; SAVE weeks alternate a class-tier skill fragment and a kingdom Mythic relic selection [S-02].
-- Feneck's Puzzle, Bingo Draw and Lucky Scratch rotate every three weeks next to the hunt. The guides only name them ❓ (probably the weekend mini-game that pays the event currency or a small side event).
+- Feneck's Puzzle, Bingo Draw and Lucky Scratch are mini-games that run alongside every hunt from the second one, rotating in the order Bingo Draw, Lucky Scratch, Feneck's Puzzle [S-85]. What each pays is not stated ❓.
+- Before Loong Haven a free player skips hunts 1 and 3 and takes 2 and 5 [S-85]; that fits the SAVE / MUST BUY rows above only loosely (the SOF calendar marks #4 and #6 as MUST BUY), so follow the SOF calendar (tier B) where they differ.
 - EOG describes the same cycle as six phases with a selectable kingdom Mythic relic, Lucky Statue, 180 selectable class skill shards, Primal Gem, another Mythic relic and Lucky Statue again [S-43].
 
-### Choices at the lower levels (tier C, single source)
+### Choices at the lower levels (tier C, one site: eog)
 
 | Level | Pick | Source |
 |---|---|---|
@@ -74,7 +77,7 @@ Sources: Season 1 rows [S-01], Season 2 rows [S-02].
 | 2 | Companion Gifts | [S-43] |
 | 3 | The Cart resource you lack; Wood and Stone are safe | [S-43] |
 | 4 | Legendary Auroral Badges by default; Bond Trinkets while chasing a first Mythic Fantomon; skip Stellatie | [S-43] |
-| 5 | Left slot (the unique relic) > far right > middle | [S-43] |
+| 5 | Left slot (the unique relic) > far right > middle | [S-43] [S-85] |
 
 - Rule of thumb: never spend in a week when you cannot reach Level 5 ❓ [S-43].
 - From Loong Haven on, F2P income is said to be enough to buy the unique relic every cycle ❓ [S-43].
@@ -108,17 +111,17 @@ Sources: Season 1 rows [S-01], Season 2 rows [S-02].
 
 ### Mysterious Merchant and the Primal Forge
 
-- The day after the event ends, a Mysterious Merchant (Mysterious NPC) appears in your Home and sells for Chaos Crystals [S-01] [S-03].
-- **Buy only the Primal Forge.** Keep buying it each event until it is maxed (up to Immortal rarity) [S-01] [S-03].
+- The day after the event ends, a Mysterious Merchant (Mysterious NPC) appears in your Home and sells for Chaos Crystals [S-01] [S-03] [S-85]. He is not tied to Chaos Invasion only: a Destiny Exploration can also summon him (or Molly) to Home, and the publisher warns that some of their deals are poor [S-87].
+- **Buy only the Primal Forge.** Keep buying it each event until it is maxed (up to Immortal rarity) [S-01] [S-03] [S-85].
 - If you cannot afford it, dismiss the merchant ("kick him out") and keep the crystals for the next Chaos Invasion [S-01] [S-03].
 - What it does: the Primal Forge raises the Cart's Raw Ore output. More ore means higher gear levels, which weigh most in the end-of-season rating [S-03]. See [Cart and home](cart-and-home.md) and [Astral Pact](astral-pact.md).
-- ❓ Primal Forge prices per level and the rest of the merchant's stock are not listed anywhere we could read.
+- ❓ Primal Forge prices per level and the rest of the merchant's stock are not listed anywhere we could read. ([Shops](shops.md) should carry the same effect and maximum as above.)
 
 ## Void Rift
 
 - The Journal's Weekly Events card on our account shows Void Rift [R-094]. Unlocks at Lv 50 [S-42].
-- Rift markers appear on every region's map for a 24-hour window, every other Sunday, alternating with Chaos Invasion ❓ [S-43].
-- Team of up to 4; up to 5 floors per rift; 10 reward attempts per event, which do not carry over [S-42] [S-43].
+- Rift markers appear on every region's map for a 24-hour window, every other Sunday, alternating with Chaos Invasion [S-43] [S-85].
+- Team of up to 4; up to 5 floors per rift; 10 reward attempts within the 24 hours, which do not carry over [S-42] [S-43] [S-85].
 - After each cleared floor a roll decides whether the rift goes on, so floor 5 is a bonus; aim for 3 to 4 floors ❓ [S-43].
 - Floors 1-2 are mob packs, floors 3-4 an elite with adds; healing happens only between floors ❓ [S-43].
 - Rewards: relic pulls whose rarity is rolled per pull (up to Mythic on higher floors) and currency scaled by floors cleared ❓ [S-43].
@@ -157,8 +160,9 @@ Sources: Season 1 rows [S-01], Season 2 rows [S-02].
 ## Pilgrimage (battle pass)
 
 - The battle pass currency is the Pilgrimage Point, earned by normal play (daily activity) ❓ [S-46]. The Mall sells a "Pilgrimage Pass" for real money [R-121].
-- A pass has 70 tiers, each with a free lane reward and a premium lane reward; skipping a tier costs 100 Dawnium ❓ [S-46].
-- There are permanent "Normal" passes and rotating "Season" passes; headline rewards are a Legendary relic and, on Season passes, a self-selected Legendary Fantomon (lane not stated) ❓ [S-46].
+- A pass has 70 tiers, each with a free lane reward and a premium lane reward; skipping a tier costs 100 Dawnium [S-46] [S-80].
+- There are 16 permanent "Normal" passes and 4 rotating "Season" passes in the data, plus limited event passes; headline rewards are a Legendary relic on Normal passes and, on Season passes, a self-selected Legendary Fantomon (lane not stated ❓) [S-46] [S-80].
+- Buying the premium lane later pays out every premium reward already passed, so nothing is lost by waiting [S-80]. Per-tier rewards, points per tier, pass length in days and prices are not readable on the site [S-80].
 - Our plan: free lane only. Claim free rewards; never buy the pass (real money) and do not skip tiers with Dawnium, since daily play fills the track.
 
 ## Seasonal and limited events
@@ -166,8 +170,8 @@ Sources: Season 1 rows [S-01], Season 2 rows [S-02].
 | Event | When | Parts | Free rewards worth taking | Source |
 |---|---|---|---|---|
 | Journey Overture (launch) | 19 May to 1 June 2026 | Overture Sign-In (14 days), Overture Shuffle (stages pay Overture Badges), Prize Punch (quests pay Overture Tickets), Overture Shop, outfit sale, paid packs | Visage "Salted Splash" for 14 sign-ins; badge and ticket exchanges; a free Divine relic "Sword x Staff" is advertised with the packs section | [S-03] |
-| Voice of Kanstein (launch web event) | 19 May to 2 June 2026, 13:00 UTC | Web map, up to 11 draws for sharing | Destiny Fruits, Vouchers | [S-47] |
-| KonoSuba collaboration | Live 5 June 2026 | Collab characters and visages; milestones pay Stellatie | ❓ | [S-43] [S-44] |
+| Voice of Kanstein (launch web event) | 19 May to 2 June 2026, 13:00 UTC (the daily reset hour [S-85]) | Web map, up to 11 draws for sharing | Destiny Fruits, Vouchers | [S-47] [S-87] |
+| KonoSuba collaboration | 2 to 15 June 2026 [S-87]; a second arc dated 29 July 2026 ❓ [S-85] | Daily sign-in, Arcane Wheel, events "God's Blessing On This World of Swords and Staffs!", Lost Memories and Monster Conquest; Visages (cosmetic appearances) Otherworldly Adventurer and Crusader [S-87]; milestones pay Stellatie | daily sign-in | [S-87] [S-43] [S-44] |
 | Luo Tianyi collaboration (Harmony Wheel) | 2026 ❓ | A paid-pull wheel event | ❓ | search result titles only |
 | Haunted Carnival (Halloween) | Seen running to 14 November 2026 on our server | Carnival Sign-In; Mall packs Halloween Charmer and Little Devil (paid) | Daily Carnival Sign-In | [R-051] [R-096] [R-121] |
 | Stone Tablet Quizzes | On the map | Trivia about the game world | Resource bundles ❓ | [S-49] |
@@ -182,9 +186,9 @@ Pattern for any new seasonal event (from Journey Overture) [S-03]:
 
 | Date on the guide author's server | Server day | What | Source |
 |---|---|---|---|
-| 2 Sep 2026 | 26 | Whaleback Island opens | [S-01] |
+| 2 Sep 2026 | 26 | Whaleback Island opens (a seasonal map [S-85]) | [S-01] [S-85] |
 | 23 Sep 2026 | 47 | Season 2, Loong Haven (pre-season starts) | [S-02] |
-| 17 Oct 2026 | 71 | "Acme Nexus" (not explained) ❓ | [S-02] |
+| 17 Oct 2026 | 71 | Acme Nexus: a seasonal map, needs Lv 130 [S-85] | [S-02] [S-85] |
 | 24 Oct 2026 | 78 | Loong Haven Relic Pool #2 | [S-02] |
 | 7 Nov 2026 | 92 | Fantomon Pandarial arrives ("Day 46 of the season") | [S-02] |
 | 29 Nov 2026 | 114 | Season 3, Aethyris | [S-02] |
@@ -193,12 +197,12 @@ See [Seasons](seasons.md) for what resets.
 
 ## Open questions
 
-- ❓ Grand Treasure Hunt: the real currency name, how much a week gives for free, the price of each level, and what Feneck's Puzzle, Bingo Draw and Lucky Scratch are.
-- ❓ Chaos Invasion: exact rhythm, number of attempts, full ranking table, Primal Forge price per level, full merchant stock.
-- ❓ Void Rift: confirm the alternating-Sunday schedule and reward table in game.
+- ❓ Grand Treasure Hunt: the price of each level item (only the 3,240 total is known [S-85]) and what the three mini-games pay.
+- ❓ Chaos Invasion: number of attempts, full ranking table, Primal Forge price per level, full merchant stock.
+- ❓ Void Rift: the reward table (the alternating-Sunday schedule is given by [S-43] [S-85]; not yet seen in our game).
 - ❓ Wheel of Destiny: whether rewards are chosen or random, and all Lucky Ticket sources.
 - ❓ Dawnstar Prelude: what it offers and whether any part is free.
-- ❓ Pilgrimage pass: free-lane reward list and pass length.
+- ❓ Pilgrimage pass: free-lane reward list, points per tier and pass length (not in [S-80]).
 - ❓ Whether event schedules on a new server follow the same server days.
 
 ## Sources
@@ -208,5 +212,6 @@ See [Seasons](seasons.md) for what resets.
 - [S-03] Fandom: A Beginner Chaos Invasion Guide, Journey Overture, launch FAQ
 - [S-42] player blog: Void Rift and Chaos Invasion numbers
 - [S-43] EOG: Grand Treasure Hunt, Void Rifts, Important Tips
+- [S-80] zeroluck battle pass page; [S-85] eog.gg section (Aurodrasil Energy, hunt cycle, mini-games, Void Rift, seasonal maps); [S-87] official posts (KonoSuba collaboration, Voice of Kanstein, Destiny Exploration merchants)
 - [S-44] Kanstein Codex; [S-46] ZeroLuck battle pass; [S-47] official launch post; [S-49] BlueStacks; [S-04] sxswiki Wheel of Destiny pages
 - Rules R-051, R-094, R-096, R-097, R-098, R-114, R-121, R-147

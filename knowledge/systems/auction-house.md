@@ -10,18 +10,20 @@
 
 - At character Lv 40, board the airship at the western edge of Home to reach the Commercium [S-03]. Our Home shows
   the Airship with "Unlocks at Lv. 40" [R-166].
-- It holds a **Trading House** and an **Auction House** for buying and selling gear and recipes [S-03].
+- It holds a **Trading House** and an **Auction House** for buying and selling gear and recipes [S-03]. The
+  publisher's Tips post says the same: Commercium at Lv 40 by the airship at the western edge of Home, two halls,
+  and bidding on premium gear needs Luminium [S-87] (tier B, so the level and the Luminium rule are firm).
 - Hermes, the Verdantglade merchant, is later met in the Commercium [S-03].
 
 ## The two halls
 
 | | Trading House | Auction House |
 |---|---|---|
-| Goods | gear and recipes [S-03]; common materials and upgrade items ❓ [S-39] | gear and recipes; "premium gear" [S-03]; permanent-stat food and its recipes [S-31] |
+| Goods | gear and recipes [S-03]; common materials and upgrade items ❓ [S-39] | gear and recipes; "premium gear" [S-03]; permanent-stat food and its recipes [S-31][S-85] |
 | Price rules | stricter price controls ❓ [S-39] | open bidding ❓ [S-39] |
 | Currency | Dawnium ❓ | bidding on premium gear needs **Luminium** (the paid currency) [S-03] |
 
-- Luminium converts 1:1 into Dawnium [S-35][S-38], so a sale paid in Luminium is as good as Dawnium to the seller ❓
+- Luminium converts 1:1 into Dawnium [S-35][S-38][S-80][S-85], so a sale paid in Luminium is as good as Dawnium to the seller ❓
   (which currency a seller receives is not stated in any source).
 - Gems bought from "the trading house" are excluded from the Primal Gem relic's bonus, which confirms gems trade
   there [S-33].

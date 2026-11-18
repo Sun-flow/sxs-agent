@@ -21,18 +21,18 @@
 
 ## Unlock and next class
 
-- Lv 44 at Cinder Ridge from Warrior [S-03]. Next: [Paladin](paladin.md) at Lv 82 [S-11] ❓.
+- Lv 44 at Cinder Ridge from Warrior [S-03]. Next: [Paladin](paladin.md) at Lv 82 [S-11][S-85].
 
 ## Techniques
 
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
-| Ricocheting Shield | Physical | Legendary | DMG, Ailment | Physical DMG once to 1 enemy within 3 grids, then bounces to another random enemy within 3 grids up to 4 times; 30% base chance to Stun 1 turn per hit (large targets can be hit several times). | ❓ |  | [S-03][S-10] |
-| Valor Surge | - | ❓ | Ally, Buff, Dispel | DMG Boost to all allied characters within 5 grids for 2 turns and dispels 1 random ailment or debuff. Casts once before battle starts. | ❓ |  | [S-03] |
-| Stunning Strike | Physical | ❓ | DMG, Ailment | Physical DMG once to 1 enemy within 1 grid; 40% base chance to Stun 1 turn. | ❓ |  | [S-03][S-10] |
-| Heart of Challenge | Physical | ❓ | DMG, Ailment | Physical DMG once to all enemies within 3 grids; 85% chance to Taunt 1 turn (100% on non-character units). Casts once at the start of battle. | ❓ | The Knight taunt. | [S-03] |
-| Frostbite Blossom | Water | ❓ | DMG | ❓ | ❓ | Fandom's description is a copy of Fire Slash, so the real effect is unknown; the name suggests Water. | [S-03][S-10] |
-| Guardian Ring | - | ❓ | Self, Shield | Shield on the caster based on DEF for 2 turns. Zero initial CD. | ❓ |  | [S-03][S-10] |
+| Ricocheting Shield | Physical | Legendary | DMG, Ailment | Physical DMG once to 1 enemy within 3 grids, then bounces to another random enemy within 3 grids up to 4 times; 30% base chance to Stun 1 turn per hit (large targets can be hit several times). | 1 turn [S-85] |  | [S-03][S-10] |
+| Valor Surge | - | ❓ | Ally, Buff, Dispel | DMG Boost to all allied characters within 5 grids for 2 turns and dispels 1 random ailment or debuff. Casts once before battle starts. | 1 turn [S-85] |  | [S-03] |
+| Stunning Strike | Physical | ❓ | DMG, Ailment | Physical DMG once to 1 enemy within 1 grid; 40% base chance to Stun 1 turn. | 1 turn [S-85] |  | [S-03][S-10] |
+| Heart of Challenge | Physical | ❓ | DMG, Ailment | Physical DMG once to all enemies within 3 grids; 85% chance to Taunt 1 turn (100% on non-character units). Casts once at the start of battle. | 1 turn [S-85] | The Knight taunt. | [S-03] |
+| Frostbite Blossom | Water | ❓ | DMG | ❓ | 1 turn [S-85] | Fandom's description is a copy of Fire Slash, so the real effect is unknown; the name suggests Water. | [S-03][S-10] |
+| Guardian Ring | - | ❓ | Self, Shield | Shield on the caster based on DEF for 2 turns. Zero initial CD. | 1 turn [S-85] |  | [S-03][S-10] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
 
@@ -41,11 +41,11 @@ A ❓ after a name means only tier D sources name the skill; a ❓ in a cell mea
 
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
-| Pursuit of Victory | - | ❓ | Buff | Raises Resilience Break efficiency of the caster's skills; more Technique DMG to enemies with ailments or debuffs. | ❓ |  | [S-03] |
-| Rebound | Physical | ❓ | Counterattack | Each time the caster blocks an enemy Technique, Physical DMG once to the attacker based on the caster's DEF. | ❓ |  | [S-03] |
-| Eye for an Eye | - | ❓ | Buff | Each time the caster takes Technique DMG, the next Technique attack deals more DMG; stacks up to 10 times. | ❓ |  | [S-03] |
-| Ripple Impact | Water | ❓ | DMG, Debuff | When the caster's shield is fully broken, Water DMG once to all enemies within 2 grids; 100% base chance to inflict 3 stacks of Cold for 2 turns. | ❓ | Shield-break engine of the Water Knight. | [S-03] |
-| Defensive Assault | - | ❓ | Buff | ATK boost while the caster is shielded. | ❓ |  | [S-03] |
+| Pursuit of Victory | - | ❓ | Buff | Raises Resilience Break efficiency of the caster's skills; more Technique DMG to enemies with ailments or debuffs. | none (Charm) [S-85] |  | [S-03] |
+| Rebound | Physical | ❓ | Counterattack | Each time the caster blocks an enemy Technique, Physical DMG once to the attacker based on the caster's DEF. | none (Charm) [S-85] |  | [S-03] |
+| Eye for an Eye | - | ❓ | Buff | Each time the caster takes Technique DMG, the next Technique attack deals more DMG; stacks up to 10 times. | none (Charm) [S-85] |  | [S-03] |
+| Ripple Impact | Water | ❓ | DMG, Debuff | When the caster's shield is fully broken, Water DMG once to all enemies within 2 grids; 100% base chance to inflict 3 stacks of Cold for 2 turns. | none (Charm) [S-85] | Shield-break engine of the Water Knight. | [S-03] |
+| Defensive Assault | - | ❓ | Buff | ATK boost while the caster is shielded. | none (Charm) [S-85] |  | [S-03] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
 
@@ -86,8 +86,9 @@ Gems: Red/Purple, Blue (DEF%) [S-01]. Season 2 companion: Hui (Block, Block Effi
 ## Open questions
 
 - ❓ Frostbite Blossom's real effect (Fandom's text is a copy of Fire Slash).
-- ❓ Rarities (Ricocheting Shield is Legendary [S-10]) and cooldowns.
+- ❓ Rarities (Ricocheting Shield is Legendary [S-10]); cooldowns in the tables are eog's [S-85], not yet seen in our game.
 
 ## Sources
 
+- [S-85] eog.gg skill database: cooldowns in turns, effect text and damage per quality for every skill ([skill-database.json](../data/skill-database.json))
 - [S-01], [S-02]; [S-03] Fandom: Knight, Knight Skills, Class Selection; [S-04]; [S-10]; [S-11]; [S-13]

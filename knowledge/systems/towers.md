@@ -11,11 +11,11 @@
 | Tower | Kingdom | Unlock | Floors | Main rewards | Source |
 |---|---|---|---|---|---|
 | Fantasia Ascent | Verdantglade (Moonveil Woods) | Quest "Moonveil Woods I: Unlock Moonveil Woods", then "Into the Moon's Shadow I" | Tower cards read "Current: Fn/110" | Raw Ore, Refined Ore, Worn Knuckles | [R-079] [R-082] [S-45] |
-| Demonbind Tower | Loong Haven | Level 116 | ❓ | Gems | [S-02] |
+| Demonbind Tower (eog's map: "Demon-Sealing Tower") | Loong Haven | Level 116 | ❓ | Gems | [S-02][S-85] |
 | Other kingdoms' towers | Cinder Ridge, Aqualis | ❓ | ❓ | ❓ | see open questions |
 
 - The SOF guide describes Demonbind Tower as "Loong Haven's Fantasia Ascent dungeon" [S-02], and our tower list screen shows several tower cards, each with its own "Current: Fn/110" [R-079]. That suggests one tower per kingdom inside the same Fantasia Ascent menu ❓.
-- EOG's Season 2 checklist lists the same milestone: "Lv.116: Tower Opens (gem drops)" [S-43].
+- EOG's Season 2 checklist lists the same milestone: "Lv.116: Tower Opens (gem drops)" [S-43], and its roadmap has Demonbind Tower at Lv 116 [S-85]. It is one of eog's four speed-up milestones for Season 2 (Lv 106, 108, 116, 130) [S-85].
 
 ## Fantasia Ascent
 
@@ -79,7 +79,7 @@
 
 - [S-01] Combat Power section (dungeon gear helps push Fantasia Ascent floors)
 - [S-02] Section II calendar note and Section IV item 5 (Demonbind Tower), Section VI (gems, Astral Pact targets)
-- [S-43] EOG Season 2 Preparation checklist
+- [S-43] EOG Season 2 Preparation checklist; [S-85] eog.gg roadmap ([notes](../sources/notes/eog.md))
 - [S-45] All Things How: Fantasia Ascent as ore source
 - [S-04] sxswiki: background auto-progress (tier D, agrees with R-112)
 - Rules R-011, R-079, R-082, R-094, R-112, R-127, R-128

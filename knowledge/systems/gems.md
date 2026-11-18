@@ -12,21 +12,23 @@
 
 ## Colours, stats and slots
 
-| Colour | Name ❓ | Stats | Kind | Weapon | Offhand | Helmet | Armor | Boots |
+| Colour | Name | Stats | Kind | Weapon | Offhand | Helmet | Armor | Boots |
 |---|---|---|---|---|---|---|---|---|
 | Red | Ruby [S-52] | ATK% | normal | yes | yes | - | - | yes |
-| Purple | ❓ | SPD% + Crit Rate | normal | yes | yes | - | - | yes |
-| Yellow | ❓ | SPD% | normal | - | yes | yes | - | yes |
-| Green | Beryl ❓ [S-52] | HP% | normal | - | yes | yes | yes | - |
-| Blue | ❓ | DEF% | normal | - | yes | yes | yes | - |
+| Purple | Amethyst [S-85] | SPD% + Crit Rate | normal | yes | yes | - | - | yes |
+| Yellow | Citrine [S-85] | SPD% | normal | - | yes | yes | - | yes |
+| Green | Beryl [S-52][S-85] | HP% | normal | - | yes | yes | yes | - |
+| Blue | Sapphire [S-85] | DEF% | normal | - | yes | yes | yes | - |
 | Orange | Amber [S-52] | HP% + Healing Boost | normal | - | yes | yes | - | yes |
 | Black | Obsidian [S-52] | ATK% + DMG Boost | special | yes | yes | - | - | - |
 | White | Moonstone [S-52] | DEF% + DMG RES | special | - | yes | - | yes | - |
 
 - Colours, stats and slot rules are from the F2P guide [S-01]. The offhand takes every colour [S-01].
-- The gem names come from one summarised source; Obsidian (weapon and offhand) and Moonstone (armor and offhand)
-  match the black and white slot rules, the others are matched by stat and are less sure ❓ [S-52].
-- Structure: four base stats (ATK, DEF, HP, SPD), each with a plain gem and a dual-stat gem [S-52].
+- The gem names are eog's (its own translations, not checked against the global client ❓): four pairs, Ruby and
+  Obsidian (ATK), Sapphire and Moonstone (DEF), Beryl and Amber (HP), Citrine and Amethyst (SPD); the first of
+  each pair is the single-stat gem [S-52][S-85]. eog's slot fits for all eight match the F2P guide's table above.
+- Structure: four base stats (ATK, DEF, HP, SPD), each with a plain gem and a dual-stat gem [S-52]. A database
+  site counts 8 gem types and 360 gem items, and calls the types "Ziwei stars" [S-80].
 
 ## Sockets
 
@@ -36,17 +38,35 @@
 | 2 | 2 | 10 |
 | later | +1 per new season | 15, 20 ... |
 
-Source: [S-01][S-02]. With two sockets, a slot can hold two different allowed colours.
+Source: [S-01][S-02]. With two sockets, a slot can hold two different allowed colours. eog agrees and adds
+detail: sockets open with the piece's level (2 per piece on level-130 gear in Season 2), one more per season, at
+most 4 [S-85].
 
 ## Tiers and combining
 
-- Tiers run T1 to T15; each tier is worth about 1.5 times the one before [S-52].
-- Secondary stats grow slowly: Amber's Healing Boost is 0.4% per tier; a T12 Obsidian carries +1.2% DMG Boost
-  [S-52]. The same source quotes ATK values of "+301.5%" (T12 Obsidian) and "+307.5%" (T12 Ruby), which look like
-  garbled flat or scaled values and are not trusted ❓ [S-52].
-- Combining same-tier gems makes one gem of the next tier; "3 into 1" is stated only by a tier D site ❓ [S-55].
+- Tiers run T1 to T15; each tier is worth about 1.5 times the one before [S-52][S-85]. The practical ceiling is
+  T12; T13 to T15 exist as items but were not seen live [S-85].
+- Value per tier, as a percent of the **base** attribute, not the final stat [S-85]:
+
+| Tier | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12 | 15 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Single-stat gem % | 1.5 | 3 | 6 | 12 | 18 | 27 | 60.7 | 136.6 | 307.5 | 1037.9 |
+| Dual-stat gem, main stat % | 1 | 2 | 4.5 | 10 | 15.5 | 24 | 56.7 | 131.6 | 301.5 | 1030.4 |
+
+  Every tier: [data/gem-tiers.json](../data/gem-tiers.json). This explains the "+301.5%" (T12 Obsidian) and
+  "+307.5%" (T12 Ruby) figures: they are percent of base ATK. One player measurement: a T4 Amber gave about
+  5,700 HP on a 680,000 HP character [S-85].
+- Secondary stats grow slowly, per tier: DMG Boost or DMG RES 0.1%, Crit Rate 0.2%, Healing Boost 0.4% (a T12
+  Obsidian carries +1.2% DMG Boost) [S-52][S-85]. A higher tier matters more than which gem of a pair [S-85].
+- Combining (fusion) makes one gem of the next tier: **3 into 1 for the T1 and T2 steps, then 2 into 1 from T3
+  up** [S-85] (tier C). A tier D site says "3 into 1" with no tier limit [S-55]; this page follows [S-85].
+- T1 to T5 fuse from the inventory; from the T5 to T6 step fusion is done at the blacksmith NPC in Cinder Ridge
+  [S-85] ❓.
+- Success rates listed per band: 100% / 36% / 18% / 8% / 4%; which tier steps each band covers is not clear
+  ❓ [S-85].
 - Up to tier 5, combining always works. Beyond tier 5 it can fail; each failure fills a pity meter, which ends at
-  a 100% success rate, and each success resets it [S-02].
+  a 100% success rate, and each success resets it [S-02]. eog describes the same meter: a failure does not raise
+  the odds, it fills a per-tier charge that guarantees a later attempt [S-85].
 - **Pity trick:** all gems of the same tier share one success rate and pity. Fail on cheap, unwanted gems of that
   tier until pity reaches 100%, then combine the expensive gems for a guaranteed success [S-02].
 
@@ -58,6 +78,7 @@ Source: [S-01][S-02]. With two sockets, a slot can hold two different allowed co
 | Demonbind Tower | Lv 116, Loong Haven | The Season 2 tower ("Gem Tower"); rankings are pushed with class swaps | [S-02][S-03] |
 | Market (Commercium) | any time | Prices fall as players saturate; wait for the crash before buying | [S-02] |
 | Astral Pact "Gem Drop Rate +5%" nodes | Primostar levels 20 (Season 1 track), 800 and 1060 (Season 2 targets) | Permanent drop bonus | [S-01][S-02] |
+| Primal Gem (eog: "Primordial Gem") | Grand Treasure Hunt reward | Raises gem acquisition from 10% to 60% ❓; see [Events](events.md) | [S-85] |
 | Launch of the system | late Season 1 | Introduced a few days after the F2P guide was written | [S-01] |
 
 ## Recommended gems
@@ -86,9 +107,8 @@ offhand) [S-01]. Non-healers use the plain HP gem instead of Amber [S-52].
 
 ## Open questions
 
-- ❓ Exact stat value per tier and colour. Read a gem's info card at each tier.
-- ❓ How many gems one combine uses, and the base success rate above T5.
-- ❓ In-game names for the purple, yellow and blue gems.
+- ❓ Which fusion steps the 36 / 18 / 8 / 4% success rates apply to.
+- ❓ Whether the global client uses eog's gem names (Sapphire, Citrine, Amethyst) and tier values; read a gem's info card.
 - ❓ Whether gems and their tiers persist across seasons (the guides call them a permanent power source "at first").
 - ❓ Whether the Season 1 gem source was an event or a tower.
 
@@ -98,3 +118,4 @@ offhand) [S-01]. Non-healers use the plain HP gem instead of Amber [S-52].
 - [S-02] section VI (Gems, upgrade trick), section IV (Demonbind Tower)
 - [S-03] Everything about Class Change ("Gem Tower")
 - [S-52] gem names, tiers; [S-55] combine count (lead only)
+- [S-85] eog.gg gems tab: values per tier, pairs, fusion, sockets ([notes](../sources/notes/eog.md)); [S-80] zeroluck.gg counts

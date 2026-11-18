@@ -27,9 +27,10 @@
 |---|---|---|
 | Character level cap | Each rank lifts the cap (20, 30, 40 ...) | [R-118] |
 | Sealed Stone Gates between zones | Verdantglade V to VI needs Apprentice II; XI to XII needs Apprentice III | [R-145] |
-| Material Realm rewards | Rewards scale with rank; save attempts for higher ranks unless the materials are needed now | [S-03][S-01][S-02] |
-| Stamina | Reaching Champion I "raises Stamina and Material Realm rewards" | [S-53] |
-| Grand Arena | Needs Lv 40 and a completed Rank Advancement | [S-03] |
+| Material Realm rewards | Rewards scale with rank; save attempts for higher ranks unless the materials are needed now | [S-03][S-87][S-01][S-02] |
+| Stamina | Reaching Champion I "raises Stamina and Material Realm rewards"; eog's calculator scales pickup yield per 5 stamina by rank | [S-53][S-85] |
+| Grand Arena | Needs Lv 40 and a completed Rank Advancement | [S-87][S-03] |
+| Gear enhancement cap | Rises with character level, so indirectly with rank | [S-87] |
 | Gear affix roll ranges | The published affix table is labelled "Champion III, Season 2"; ranges "may vary earlier or later" | [S-02] |
 
 ## Rank table
@@ -48,6 +49,9 @@
 
 - "Starting from Season 2, every Kingdom only has three ranks" [S-01]. This implies Season 1 kingdoms had more
   than three steps between them, or uneven ones; the names between Apprentice and Champion are not in any source ❓.
+- eog's calculator uses six rank bands of three sub-ranks each: Black Iron, Bronze, Silver, Gold, Sanctuary,
+  Legend [S-85]. These are eog's translations; the game shows Apprentice and Champion, and the mapping between
+  the two sets is not stated ❓. Eighteen steps over six bands also fits "three ranks per kingdom".
 - In Season 2 the second dungeon needs Lv 130 [S-53][S-02], so the level cap after Champion III is at least 130.
 
 ## Materials
@@ -62,7 +66,9 @@
 
 ## The Material Realm saving trick
 
-- Material Realm rewards scale with Kingdom Rank [S-03][S-01].
+- Material Realm rewards scale with Kingdom Rank [S-03][S-87][S-01]. eog puts numbers on it: a multiplier from
+  1.6 at the lowest sub-rank to 45 at the highest, with the biggest jumps between bands (tier C, unchecked ❓);
+  table in [Material Realms](material-realms.md#rewards-scale-with-kingdom-rank) [S-85].
 - Save unused Material Realm attempts and tools and spend them after reaching the top rank of the current
   kingdom; meanwhile run only 10 Rolla attempts a day to finish the daily quests ("0/10/0/0") [S-01].
 - Season 2: keep all consumable realm tools locked in the bag until Champion III (Lv 120); "almost every veteran
@@ -79,7 +85,7 @@ levels early [R-118].
 
 - ❓ All rank names and requirements between Apprentice III and Champion I. Read each Rank Advancement screen as
   it appears and add rows to [kingdoms.json](../data/kingdoms.json).
-- ❓ How much Material Realm rewards grow per rank (a number would settle how long to hoard).
+- ❓ Whether eog's rank multipliers (1.6 to 45) hold in game, and which game rank each of its bands is.
 - ❓ Whether rank resets with the season (level above 100 resets, so Champion ranks probably start fresh each
   season).
 - ❓ The level needed for Champion I and II.
@@ -88,5 +94,6 @@ levels early [R-118].
 
 - [S-01] section 7 (Material Realms: saving uses; three ranks per kingdom)
 - [S-02] section IV (Champion III at Lv 120) and the affix infographic header
+- [S-85] eog.gg stamina calculator (rank bands, multipliers); [S-87] official posts (Arena, realm rewards, enhancement cap)
 - [S-03] Material Realm, Arena; [S-50] Bellflower markers; [S-51] Season 1 end level; [S-53] Champion I
 - Rules R-118, R-123, R-145

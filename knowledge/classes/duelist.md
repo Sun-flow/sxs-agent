@@ -22,18 +22,18 @@
 
 ## Unlock and next class
 
-- Lv 44 at Cinder Ridge from Warrior [S-03]. Next: [Berserker](berserker.md) at Lv 82 [S-11] ❓.
+- Lv 44 at Cinder Ridge from Warrior [S-03]. Next: [Berserker](berserker.md) at Lv 82 [S-11][S-85].
 
 ## Techniques
 
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
-| Sunset Sword | Physical | ❓ | DMG | Physical DMG 5 times to all enemies in a 3x2 area in front. | ❓ |  | [S-03][S-10] |
-| Darkness Descends | Dark | ❓ | Move, DMG, Dispel | Leaps to an empty grid within 5; Dark DMG once to 1 enemy within 1 grid and dispels 1 random buff (prioritises large targets). | ❓ |  | [S-03] |
+| Sunset Sword | Physical | ❓ | DMG | Physical DMG 5 times to all enemies in a 3x2 area in front. | 1 turn [S-85] |  | [S-03][S-10] |
+| Darkness Descends | Dark | ❓ | Move, DMG, Dispel | Leaps to an empty grid within 5; Dark DMG once to 1 enemy within 1 grid and dispels 1 random buff (prioritises large targets). | 1 turn [S-85] |  | [S-03] |
 | Flash Dash | Physical | ❓ | Move, DMG | Dashes 5 grids in a line; Physical Doom DMG once to all enemies in a 1x4 area on the path (cannot pass enemies larger than 4 grids). | ❓ |  | [S-03][S-10] |
-| Shattering Sigil | Fire | ❓ | Debuff | Fire DMG once to 1 enemy within 1 grid and inflicts Sigil (prioritises large targets). | ❓ |  | [S-03][S-10] |
+| Shattering Sigil | Fire | ❓ | Debuff | Fire DMG once to 1 enemy within 1 grid and inflicts Sigil (prioritises large targets). | 1 turn [S-85] |  | [S-03][S-10] |
 | Fire Slash | Fire | ❓ | DMG | Fire Doom DMG once to all enemies in a 3x2 area in front. | ❓ |  | [S-03][S-10] |
-| Flame Aura | Fire | ❓ | Ally, Buff, DMG | Grants Flame to the caster and 3 random allies within 3 grids for 2 turns; cannot be dispelled. | ❓ | Kept in the Conqueror build [S-11]. | [S-03] |
+| Flame Aura | Fire | ❓ | Ally, Buff, DMG | Grants Flame to the caster and 3 random allies within 3 grids for 2 turns; cannot be dispelled. | 1 turn [S-85] | Kept in the Conqueror build [S-11]. | [S-03] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
 
@@ -42,11 +42,11 @@ A ❓ after a name means only tier D sources name the skill; a ❓ in a cell mea
 
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
-| Indomitable Will | - | ❓ | Buff, Heal | On the first lethal hit, survives at 1 HP, enters Indomitable for 2 turns (cannot be dispelled) and heals once. | ❓ | Kept in the Conqueror build [S-11]. | [S-03] |
-| Frame of Battles | - | ❓ | Buff | Reduces DMG taken for every 15% HP lost; stacks up to 5 times; cannot be dispelled. | ❓ |  | [S-03] |
-| Blazing Clash | - | ❓ | Buff | Raises DMG dealt for every 4 Techniques used; stacks up to 3 times. | ❓ |  | [S-03] |
-| Crit Mastery | - | ❓ | Stats | Increases the caster's Crit DMG. | ❓ |  | [S-03] |
-| Potential Vitality | - | ❓ | Buff | Raises healing received for every 15% HP lost; stacks up to 5 times; cannot be dispelled. | ❓ |  | [S-03] |
+| Indomitable Will | - | ❓ | Buff, Heal | On the first lethal hit, survives at 1 HP, enters Indomitable for 2 turns (cannot be dispelled) and heals once. | none (Charm) [S-85] | Kept in the Conqueror build [S-11]. | [S-03] |
+| Frame of Battles | - | ❓ | Buff | Reduces DMG taken for every 15% HP lost; stacks up to 5 times; cannot be dispelled. | none (Charm) [S-85] |  | [S-03] |
+| Blazing Clash | - | ❓ | Buff | Raises DMG dealt for every 4 Techniques used; stacks up to 3 times. | none (Charm) [S-85] |  | [S-03] |
+| Crit Mastery | - | ❓ | Stats | Increases the caster's Crit DMG. | none (Charm) [S-85] |  | [S-03] |
+| Potential Vitality | - | ❓ | Buff | Raises healing received for every 15% HP lost; stacks up to 5 times; cannot be dispelled. | none (Charm) [S-85] |  | [S-03] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
 
@@ -86,8 +86,9 @@ Gems: Red/Purple, Yellow, Green [S-01]. Season 2 companions: Wuji, Ming (Crit Ra
 
 ## Open questions
 
-- ❓ Rarities and cooldowns; what Sigil, Flame and "Doom DMG" do exactly.
+- ❓ Rarities; what Sigil and Flame do exactly (Doom DMG: +100% to shields and summons per eog's keyword list; cooldowns in the tables are eog's [S-85]).
 
 ## Sources
 
+- [S-85] eog.gg skill database: cooldowns in turns, effect text and damage per quality for every skill ([skill-database.json](../data/skill-database.json))
 - [S-01], [S-02]; [S-03] Fandom: Duelist, Duelist Skills, Class Selection; [S-04]; [S-10]; [S-11]; [S-13]; [S-14]

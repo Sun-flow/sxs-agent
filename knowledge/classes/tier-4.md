@@ -9,7 +9,7 @@
 ## Unlocking Tier 4
 
 - **Level 106**, after entering Loong Haven's "Unrakumotogo" in the Dragon Realm, where the mentor Mei guides the ascension [S-03]; SOF: "you unlock your T4 class change at level 106" [S-02].
-- Class-level gate: Tier 3 class at class level 19, total class level 89 [S-10].
+- Class-level gate: Tier 3 class at class level 19, total class level 89 [S-10][S-80][S-85].
 - Server timing: about Day 47, together with Season 2 [S-11] ❓.
 - Nearby unlocks: Adult Fantomon evolution at Lv 108; Demonbind Tower at Lv 116; maximum kingdom rank Champion III at Lv 120 [S-02].
 
@@ -30,11 +30,11 @@ Techniques:
 
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
-| Starlight Burst | Light | ❓ | ❓ | ❓ | ❓ |  | [S-10] |
-| Flowing Doom | - | ❓ | ❓ | ❓ | ❓ |  | [S-10] |
-| Wind Blade Spiral | Wind | ❓ | DMG | Wind AoE. | ❓ |  | [S-10][S-11] |
-| Formation Breaker | - | ❓ | DMG, Debuff | Utility strike that breaks enemy defences. | ❓ | Used in both T5 builds [S-11]. | [S-10][S-03][S-11] |
-| Thunder of Judgment | Light | ❓ | DMG | Light AoE named for the Destroyer. | ❓ | [S-11] lists a charm 'Thunder Judgment' that may be the same skill. | [S-03] |
+| Starlight Burst | Light | ❓ | ❓ | ❓ | 1 turn [S-85] |  | [S-10] |
+| Flowing Doom | - | ❓ | ❓ | ❓ | 2 turns [S-85] |  | [S-10] |
+| Wind Blade Spiral | Wind | ❓ | DMG | Wind AoE. | 1 turn [S-85] |  | [S-10][S-11] |
+| Formation Breaker | - | ❓ | DMG, Debuff | Utility strike that breaks enemy defences. | 2 turns [S-85] | Used in both T5 builds [S-11]. | [S-10][S-03][S-11] |
+| Thunder of Judgment | Light | ❓ | DMG | Light AoE named for the Destroyer. | 1 turn [S-85] | [S-11] lists a charm 'Thunder Judgment' that may be the same skill. | [S-03] |
 | Secret Fire Core Explosion | Fire | ❓ | DMG | Fire AoE named for the Destroyer. | ❓ |  | [S-03] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
@@ -44,11 +44,11 @@ Charms (named in Tier 5 builds; whether they are Tier 4 or Tier 5 charms is not 
 
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
-| Radiant Warp ❓ | - | ❓ | ❓ | ❓ | ❓ | Listed in T5 builds; tier (T4 or T5) not stated. | [S-11] |
-| Cyclone Lament ❓ | Wind | ❓ | ❓ | ❓ | ❓ | Listed in the T5 Wind build; tier not stated. | [S-11] |
-| Ember Flare ❓ | Fire | ❓ | ❓ | ❓ | ❓ | Listed in the T5 Fire build; tier not stated. | [S-11] |
-| Explosive Spirit ❓ | Fire | ❓ | ❓ | ❓ | ❓ | Listed in the T5 Fire build; tier not stated. | [S-11] |
-| Fiery Burst ❓ | Fire | ❓ | ❓ | ❓ | ❓ | Listed in the T5 Fire build; tier not stated. | [S-11] |
+| Radiant Warp ❓ | - | ❓ | ❓ | ❓ | none (Charm) [S-85] | Listed in T5 builds; tier (T4 or T5) not stated. | [S-11] |
+| Cyclone Lament ❓ | Wind | ❓ | ❓ | ❓ | none (Charm) [S-85] | Listed in the T5 Wind build; tier not stated. | [S-11] |
+| Ember Flare ❓ | Fire | ❓ | ❓ | ❓ | none (Charm) [S-85] | Listed in the T5 Fire build; tier not stated. | [S-11] |
+| Explosive Spirit ❓ | Fire | ❓ | ❓ | ❓ | none (Charm) [S-85] | Listed in the T5 Fire build; tier not stated. | [S-11] |
+| Fiery Burst ❓ | Fire | ❓ | ❓ | ❓ | none (Charm) [S-85] | Listed in the T5 Fire build; tier not stated. | [S-11] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
 
@@ -76,13 +76,13 @@ Techniques:
 
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
-| Chaos Rune | - | ❓ | ❓ | Used in the 4v4 build. | ❓ | 'Kisha Rune' in [S-16]. | [S-10][S-16] |
-| Spirit Aegis | - | ❓ | ❓ | ❓ | ❓ |  | [S-10] |
+| Chaos Rune | - | ❓ | ❓ | Used in the 4v4 build. | 2 turns [S-85] | 'Kisha Rune' in [S-16]. | [S-10][S-16] |
+| Spirit Aegis | - | ❓ | ❓ | ❓ | 1 turn [S-85] |  | [S-10] |
 | Rock Rex Summon | - | ❓ | Summon | Summons a very durable stone summon (Fandom: 'Stone Emperor'); reported to hold 4-5 turns against enemies about 800K CP stronger. | ❓ | 'Rockrick Summon' in [S-16]. | [S-10][S-03][S-16] |
 | Rejuvenating Rain | - | ❓ | Ally, Heal | Group heal of the pure-healer path (Fandom: 'Rain of Revival'). | ❓ |  | [S-10][S-03] |
 | Dark Star Burst | Dark | ❓ | DMG | Single-target Dark pressure; sets off Erosion through charms. | ❓ |  | [S-03][S-16] |
 | Phantom Light Strategy | - | ❓ | Ally | Healer-path skill. | ❓ | Technique or charm not stated. | [S-03] |
-| Decoy Clone ❓ | - | ❓ | Summon | Decoy for raids and 4v4; several clones do not stack, so one per party. | ❓ | Tier (T3 or T4) not stated. | [S-16] |
+| Decoy Clone ❓ | - | ❓ | Summon | Decoy for raids and 4v4; several clones do not stack, so one per party. | 3 turns [S-85] | Tier (T3 or T4) not stated. | [S-16] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
 
@@ -91,10 +91,10 @@ Charms:
 
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
-| Soul Pact Resonance ❓ | - | ❓ | Buff | Damage boost while Rock Rex is alive. | ❓ |  | [S-16] |
-| Mantra of Blessings ❓ | - | ❓ | Ally, Buff | Grants Void Blessing (more HP for teammates) and gives the strongest teammate +21% damage; several casters on one ally do not appear to stack. | ❓ |  | [S-16] |
+| Soul Pact Resonance ❓ | - | ❓ | Buff | Damage boost while Rock Rex is alive. | none (Charm) [S-85] |  | [S-16] |
+| Mantra of Blessings ❓ | - | ❓ | Ally, Buff | Grants Void Blessing (more HP for teammates) and gives the strongest teammate +21% damage; several casters on one ally do not appear to stack. | none (Charm) [S-85] |  | [S-16] |
 | Chaos Resonance ❓ | - | ❓ | ❓ | Damage alternative to Mana Surge. | ❓ |  | [S-16] |
-| Aberrancy ❓ | - | ❓ | ❓ | Survivability in 4v4. | ❓ |  | [S-16] |
+| Aberrancy ❓ | - | ❓ | ❓ | Survivability in 4v4. | none (Charm) [S-85] |  | [S-16] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
 
@@ -124,11 +124,11 @@ Techniques:
 
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
-| Hellfire Requiem | Fire | ❓ | ❓ | ❓ | ❓ |  | [S-10] |
-| Blade Storm | - | ❓ | DMG | Conqueror AoE. | ❓ |  | [S-10][S-11] |
-| Soul Piercer | - | ❓ | ❓ | ❓ | ❓ |  | [S-10] |
+| Hellfire Requiem | Fire | ❓ | ❓ | ❓ | 1 turn [S-85] |  | [S-10] |
+| Blade Storm | - | ❓ | DMG | Conqueror AoE. | 1 turn [S-85] |  | [S-10][S-11] |
+| Soul Piercer | - | ❓ | ❓ | ❓ | 1 turn [S-85] |  | [S-10] |
 | Flickering Blade | - | ❓ | DMG | Single-target strike with no cooldown; repeats while the target survives. | none [S-11] |  | [S-10][S-11] |
-| Flash Fire ❓ | Fire | ❓ | ❓ | ❓ | ❓ |  | [S-11] |
+| Flash Fire ❓ | Fire | ❓ | ❓ | ❓ | 1 turn [S-85] |  | [S-11] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
 
@@ -137,8 +137,8 @@ Charms:
 
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
-| Piercing Assault | - | ❓ | Buff | Lets attacks ignore part of enemy DEF. | ❓ | Persists past T4; the named target for Skill Shard Vouchers on the Duelist line [S-01]. | [S-01][S-11] |
-| Tactical Adaptation ❓ | - | ❓ | ❓ | ❓ | ❓ |  | [S-11] |
+| Piercing Assault | - | ❓ | Buff | Lets attacks ignore part of enemy DEF. | none (Charm) [S-85] | Persists past T4; the named target for Skill Shard Vouchers on the Duelist line [S-01]. | [S-01][S-11] |
+| Tactical Adaptation ❓ | - | ❓ | ❓ | ❓ | none (Charm) [S-85] |  | [S-11] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
 
@@ -158,10 +158,10 @@ Techniques:
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
 | Seismic Tide | Water | ❓ | ❓ | Offensive Water build. | ❓ |  | [S-10][S-11] |
-| Swirling Blade | Water | ❓ | ❓ | Offensive Water build; may be Fandom's 'Aqua Dance Blade'. | ❓ |  | [S-10][S-11][S-03] |
-| Light Sword Array | Light | ❓ | ❓ | Light Knight attack; Fandom calls it 'Luminous Sword Array'. | ❓ |  | [S-10][S-03] |
-| Hamper Strike | - | ❓ | ❓ | ❓ | ❓ |  | [S-10] |
-| Raging Maelstrom ❓ | Water | ❓ | ❓ | Offensive Water build. | ❓ |  | [S-11] |
+| Swirling Blade | Water | ❓ | ❓ | Offensive Water build; may be Fandom's 'Aqua Dance Blade'. | 1 turn [S-85] |  | [S-10][S-11][S-03] |
+| Light Sword Array | Light | ❓ | ❓ | Light Knight attack; Fandom calls it 'Luminous Sword Array'. | 1 turn [S-85] |  | [S-10][S-03] |
+| Hamper Strike | - | ❓ | ❓ | ❓ | 1 turn [S-85] |  | [S-10] |
+| Raging Maelstrom ❓ | Water | ❓ | ❓ | Offensive Water build. | 1 turn [S-85] |  | [S-11] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
 
@@ -170,9 +170,9 @@ Charms:
 
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
-| Iron Will ❓ | - | ❓ | Buff | Reduces damage taken from Taunted enemies. | ❓ |  | [S-11] |
-| Holy Aegis ❓ | - | ❓ | Buff | Raises DEF and DEF-based shields. | ❓ |  | [S-11] |
-| Soul Protection ❓ | - | ❓ | Shield | Converts part of HP into a large shield. | ❓ |  | [S-11] |
+| Iron Will ❓ | - | ❓ | Buff | Reduces damage taken from Taunted enemies. | none (Charm) [S-85] |  | [S-11] |
+| Holy Aegis ❓ | - | ❓ | Buff | Raises DEF and DEF-based shields. | none (Charm) [S-85] |  | [S-11] |
+| Soul Protection ❓ | - | ❓ | Shield | Converts part of HP into a large shield. | none (Charm) [S-85] |  | [S-11] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
 
@@ -188,7 +188,7 @@ Relics (Water for AoE, Light otherwise), Fantomon (Aegiswing), affixes (Block + 
 
 ## Tier 5 preview ("Legend" rank)
 
-Known only from a database site and one build guide. Gate: Tier 4 class at class level 40, total class level 180 [S-10].
+Known only from a database site and one build guide. Gate: Tier 4 class at class level 40, total class level 180 [S-10][S-80][S-85], at character Lv 136 on server day 114 ❓ [S-85]. eog grades the Tier 5 classes Ravager C (flagged "avoid"), Templar A, Magister A, Prophet S, and names Tiers 6 to 8 (see [Classes overview](../systems/classes-overview.md)) [S-85].
 
 | Line | Tier 5 class | Base stat weighting (HP/ATK/DEF/SPD) | Known techniques | Source |
 |---|---|---|---|---|
@@ -206,13 +206,14 @@ Known only from a database site and one build guide. Gate: Tier 4 class at class
 
 ## Open questions
 
-- ❓ Official skill lists, texts, rarities and cooldowns for all four Tier 4 classes.
+- ❓ Rarities for all four Tier 4 classes (skill lists, effect texts and cooldowns: eog's [skill-database.json](../data/skill-database.json) [S-85], tier C).
 - ❓ Whether Fandom's names (Thunder of Judgment, Secret Fire Core Explosion, Aqua Dance Blade, Luminous Sword Array, Stone Emperor, Rain of Revival) or the database names (Starlight Burst, Flowing Doom, Swirling Blade, Light Sword Array, Rock Rex Summon, Rejuvenating Rain) match the live English client.
 - ❓ Which Tier 4 skills persist into Tier 5 besides Piercing Assault and Formation Breaker.
-- ❓ Level and season of the Tier 5 change.
+- ❓ Whether global keeps the Chinese schedule for Tier 5: Lv 136 on server day 114 (Season 3, Aethyris) per eog's roadmap [S-85].
 
 ## Sources
 
+- [S-85] eog.gg skill database: cooldowns in turns, effect text and damage per quality for every skill ([skill-database.json](../data/skill-database.json))
 - [S-01] vouchers and Piercing Assault, end-of-season advice; [S-02] Tier 4 at Lv 106, Loong Haven unlock levels, gear affixes
 - [S-03] Fandom: Classes Overview (4th Advancement)
 - [S-04] sxswiki Duelist page; [S-10] zeroluck.gg classes; [S-11] BlueStacks class guide, build guide, tier list; [S-13] Pocket Gamer; [S-16] Treyex Dominator builds

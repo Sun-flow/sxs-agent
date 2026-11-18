@@ -65,15 +65,35 @@ explore zone to 100%  ->  activate its Goddess Statue / Lost Goddess Statue
 | Challenge Stele, Trait Stele | ❓ (not seen by us) | ❓ | 6 and 4 in Verdantglade [S-50] |
 
 Tool stock to carry into a new season, from a preparation checklist: Gateway Key x5, Water Mine x2, Magic Drill
-x1, Withering Potion x1, plus 7 of the new season's own tool [S-53]. This suggests new kingdoms keep using old
-tools.
+x1, Withering Potion x1, plus 7 of the new season's own tool [S-53][S-85]. For Loong Haven that tool is **Cloud
+Jade** (7 needed) [S-85]. New kingdoms keep using old tools.
+
+### Tools needed per kingdom
+
+Counts from eog's map data (tier C) [S-85]; the Verdantglade row matches the marker counts of [S-50].
+
+| Kingdom | Gateway Key | Withering Potion | Magic Drill | Water Mine | Season item |
+|---|---|---|---|---|---|
+| Verdantglade | 3 | 5 | 3 | - | - |
+| Cinder Ridge | 4 | 3 | 5 | 3 | - |
+| Aqualis | 5 | 2 | 3 | 6 | - |
+| Loong Haven | 5 | 1 | 1 | 2 | Cloud Jade 7 |
+
+- Where each is used in Verdantglade [S-85]: Gateway Keys at Rabbit Vault, Gorge Depths, Owl Vault; Withering
+  Potions at Jungle Vault, Monolith Ruins V, Stagnant Jungle, Sunken Forest, Sunrise Isle; Magic Drills at Vine
+  Peninsula, Hidden Camp, Hideout. Hidden Camp agrees with our own boulder there [R-151].
+- Later kingdoms add their own items ❓ (Chinese-server data, eog's names): Purifying Hammer (Aethyris), Brick
+  Switch (Harpadia), Flame Hammer and Frost Hammer (Ignis) [S-85].
+- Spots for the other kingdoms: [eog notes](../sources/notes/eog.md); every marker with coordinates:
+  [map-points.json](../data/map-points.json).
+- Exploration items are sold in the Kingdom Shops [S-87].
 
 ## Things found while exploring
 
 | Object | What it gives | Rule / source |
 |---|---|---|
 | Goddess Statue, Lost Goddess Statue | Blessing Level, bed EXP, Cart yields | [Goddess Statues](goddess-statues.md), [R-070] |
-| Hero Statue, Witch Statue | Once-a-day statues; a first-visit reward ❓ and a daily buff or curse | [R-144][R-174]; 4 and 2 in Verdantglade [S-50]; [S-04] |
+| Hero Statue, Witch Statue (cards read "Statue of <name>"; the publisher calls them Statue of the Brave and Statue of Witch) | Press Visit: a permanent stat boost (e.g. HP +170) and a full heal; the card shows daily visit attempts [R-144]. The publisher adds that each can be used once a day and may give a Stellatie or stamina ("a lightning bolt") [S-87][S-40]. Blight Witch lore statues instead give a one-battle curse [R-174]; "a daily buff or curse" is the tier D wording [S-04] | [R-144][R-174][S-87]; 4 and 2 in Verdantglade [S-50] |
 | Chests | Kingdom currency, Rolla, Stellatie, ore, gear | [R-076] |
 | Lucky Wheel ("Wheel of Destiny", "Lucky Roulette") | One free spin per wheel while its zone is unexplored; later spins cost Lucky Tickets | [R-147]; 2 in Verdantglade [S-50] |
 | Ore nodes (Gold Ore, Steel Ore, Sandstone) and material pickups | Rolla, Raw Ore, Chrono Sand, Battle Essence for 5 stamina a pickup | [R-076][R-106] |
@@ -99,7 +119,7 @@ tools.
 
 - ❓ What a Sealing Pillar, Challenge Stele and Trait Stele ask for. Confirm from the first card of each.
 - ❓ Which obstacle the Water Mine and the Gateway Key remove, by in-game name.
-- ❓ Whether first-visit Hero / Witch statue rewards are permanent stats.
+- ❓ Whether the daily Stellatie or stamina from a Hero / Witch statue [S-87] comes on top of the permanent stat of the first Visit [R-144]: watch a second-day visit.
 - ❓ Exact weight of fog, pickups and fights in the exploration %.
 
 ## Sources
@@ -109,4 +129,5 @@ tools.
 - [S-03] Goddess Statues, Progression
 - [S-04] beginner, day-1 and starter guides (leads only)
 - [S-50] Verdantglade marker counts and tool totals; [S-53] area unlock stockpile
+- [S-85] eog map data: tools per kingdom, tool spots, Cloud Jade ([map-points.json](../data/map-points.json)); [S-87], [S-40] official posts (daily statues, Kingdom Shops)
 - Rules listed inline; `resource/world/zones.json` for our observed zones, power and links

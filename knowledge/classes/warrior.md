@@ -27,19 +27,19 @@
 
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
-| Heavy Impact | Physical | Legendary | DMG | Physical DMG once to 1 enemy within 1 grid, knocks it airborne (prioritises large targets). | ❓ |  | [S-03][S-10][S-14] |
+| Heavy Impact | Physical | Legendary | DMG | Physical DMG once to 1 enemy within 1 grid, knocks it airborne (prioritises large targets). | 2 turns [S-85] |  | [S-03][S-10][S-14] |
 | Lion Combo | Physical | Legendary | DMG | Physical DMG 3 times to 1 enemy within 1 grid. | ❓ |  | [S-03][S-10][S-14] |
-| Whirlwind Slash | Physical | Legendary | DMG | Physical DMG 4 times to all enemies in a 1-grid square around the caster. | ❓ |  | [S-03][S-10][S-14] |
-| Mountain Collapse | Physical | Legendary | DMG, Knockback | Physical DMG once to all enemies within 2 grids, knocks airborne, 60% base chance to knock back 1 grid. | ❓ |  | [S-03][S-10][S-14] |
-| Wind Blade Slash | Wind | Epic | DMG, Knockback | Wind DMG once to all enemies in a 1x4 line in front; 50% base chance to knock back 1 grid. | ❓ |  | [S-03][S-14] |
-| Quadrant Slash | Physical | Epic | DMG | Physical DMG once to all enemies within 1 grid. | ❓ |  | [S-03][S-14] |
-| Luminous Shield | - | Epic | Self Buff | Raises the caster's Block Rate and Block Efficiency for 3 turns. Zero initial CD. | ❓ | Still in Knight/Guardian dungeon builds [S-11]. | [S-03][S-14] |
-| Boiling Bloodlust | - | Epic | Self, Buff | Increases Crit Rate and Crit DMG. | ❓ | Worked example: Epic gives 30% Crit Rate, Immortal about 70% [S-03]. | [S-03][S-14] |
+| Whirlwind Slash | Physical | Legendary | DMG | Physical DMG 4 times to all enemies in a 1-grid square around the caster. | 1 turn [S-85] |  | [S-03][S-10][S-14] |
+| Mountain Collapse | Physical | Legendary | DMG, Knockback | Physical DMG once to all enemies within 2 grids, knocks airborne, 60% base chance to knock back 1 grid. | 1 turn [S-85] |  | [S-03][S-10][S-14] |
+| Wind Blade Slash | Wind | Epic | DMG, Knockback | Wind DMG once to all enemies in a 1x4 line in front; 50% base chance to knock back 1 grid. | 1 turn [S-85] |  | [S-03][S-14] |
+| Quadrant Slash | Physical | Epic | DMG | Physical DMG once to all enemies within 1 grid. | 1 turn [S-85] |  | [S-03][S-14] |
+| Luminous Shield | - | Epic | Self Buff | Raises the caster's Block Rate and Block Efficiency for 3 turns. Zero initial CD. | 5 turns [S-85] | Still in Knight/Guardian dungeon builds [S-11]. | [S-03][S-14] |
+| Boiling Bloodlust | - | Epic | Self, Buff | Increases Crit Rate and Crit DMG. | 6 turns [S-85] | Worked example: Epic gives 30% Crit Rate, Immortal about 70% [S-03]. | [S-03][S-14] |
 | Phantom Assault | Physical | Epic | DMG, Move | Physical DMG once to 1 enemy within 1 grid, then moves back 3 grids. | ❓ |  | [S-03][S-14] |
 | Gravity Pull | Wind | Rare | Drag | Pick a grid within 7; Wind DMG once to all enemies in a 1-grid square there and pulls them to the caster. | ❓ | The pull that answers ranged, evasive enemies [S-03]. | [S-03][S-14] |
 | Diving Gale | Wind | Rare | DMG | Pick a grid within 4; Wind DMG once to all enemies in a 1-grid square around it. | ❓ |  | [S-03][S-14] |
 | Edge Strike | Physical | Rare | DMG | Physical DMG once to 1 enemy within 1 grid. | ❓ | Starting skill. | [S-03][S-14] |
-| Leap Attack | Physical | Rare | Move, DMG, Debuff | Leaps to an empty space within 3 grids; Physical DMG once to all enemies within 1 grid; 50% base chance to inflict Armor Break 2 for 2 turns. | ❓ | Combo opener [S-11]. | [S-03][S-14] |
+| Leap Attack | Physical | Rare | Move, DMG, Debuff | Leaps to an empty space within 3 grids; Physical DMG once to all enemies within 1 grid; 50% base chance to inflict Armor Break 2 for 2 turns. | 1 turn [S-85] | Combo opener [S-11]. | [S-03][S-14] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
 
@@ -50,19 +50,19 @@ Fandom's Warrior charm table carries the right names and tags but its descriptio
 
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
-| Insightful Eye | - | ❓ | Stats | ❓ | ❓ | Kept in the Conqueror (T4) build [S-11]; used as the example for pushing a T1 skill to Immortal [S-03]. | [S-03][S-11] |
-| Counter Blade | - | ❓ | Counterattack | Counterattacks (exact text unknown). | ❓ |  | [S-03] |
-| Blade of Lament | - | Legendary | Heal | Lifesteal: Legendary 2.44%, then about 2.93% / 3.51% / 4.22% at Mythic / Divine / Immortal. | ❓ | Legendary per the ascension example [S-03]; a common 200-pull pick [S-04]. | [S-03] |
-| Iron Fortress | - | ❓ | Ally, Buff | ❓ | ❓ | Knight dungeon build [S-11]. | [S-03] |
-| Block Awareness | - | ❓ | Stats | Block stat charm (exact text unknown). | ❓ | Used by Duelist, Knight and Guardian builds [S-11]. | [S-03] |
-| Strength Rules | - | ❓ | Stats | ❓ | ❓ |  | [S-03] |
-| Pure Protection | - | ❓ | Shield | Grants a shield that re-triggers on being hit (exact text unknown). | ❓ |  | [S-03][S-04] |
-| Relentless Frenzy | - | ❓ | Buff | ❓ | ❓ |  | [S-03] |
-| Crystal Armor | - | ❓ | Stats | ❓ | ❓ |  | [S-03] |
-| Life Blessing | - | ❓ | Stats | ❓ | ❓ |  | [S-03] |
-| Feline Dance | - | ❓ | Stats | ❓ | ❓ |  | [S-03] |
-| Warrior's Essence | - | ❓ | Stats | ❓ | ❓ |  | [S-03] |
-| Blade Tempest | - | ❓ | DMG | ❓ | ❓ |  | [S-03] |
+| Insightful Eye | - | ❓ | Stats | ❓ | none (Charm) [S-85] | Kept in the Conqueror (T4) build [S-11]; used as the example for pushing a T1 skill to Immortal [S-03]. | [S-03][S-11] |
+| Counter Blade | - | ❓ | Counterattack | Counterattacks (exact text unknown). | none (Charm) [S-85] |  | [S-03] |
+| Blade of Lament | - | Legendary | Heal | Lifesteal: Legendary 2.44%, then about 2.93% / 3.51% / 4.22% at Mythic / Divine / Immortal. | none (Charm) [S-85] | Legendary per the ascension example [S-03]; a common 200-pull pick [S-04]. | [S-03] |
+| Iron Fortress | - | ❓ | Ally, Buff | ❓ | none (Charm) [S-85] | Knight dungeon build [S-11]. | [S-03] |
+| Block Awareness | - | ❓ | Stats | Block stat charm (exact text unknown). | none (Charm) [S-85] | Used by Duelist, Knight and Guardian builds [S-11]. | [S-03] |
+| Strength Rules | - | ❓ | Stats | ❓ | none (Charm) [S-85] |  | [S-03] |
+| Pure Protection | - | ❓ | Shield | Grants a shield that re-triggers on being hit (exact text unknown). | none (Charm) [S-85] |  | [S-03][S-04] |
+| Relentless Frenzy | - | ❓ | Buff | ❓ | none (Charm) [S-85] |  | [S-03] |
+| Crystal Armor | - | ❓ | Stats | ❓ | none (Charm) [S-85] |  | [S-03] |
+| Life Blessing | - | ❓ | Stats | ❓ | none (Charm) [S-85] |  | [S-03] |
+| Feline Dance | - | ❓ | Stats | ❓ | none (Charm) [S-85] |  | [S-03] |
+| Warrior's Essence | - | ❓ | Stats | ❓ | none (Charm) [S-85] |  | [S-03] |
+| Blade Tempest | - | ❓ | DMG | ❓ | none (Charm) [S-85] |  | [S-03] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
 
@@ -92,10 +92,11 @@ Depends on the branch: Duelist: Fire relics, Attack Fantomon; Knight: Water or L
 ## Open questions
 
 - ❓ Real effect text of the 13 Warrior charms.
-- ❓ Charm rarities; technique cooldowns.
+- ❓ Charm rarities (technique cooldowns are now in the table from eog [S-85]).
 
 ## Sources
 
+- [S-85] eog.gg skill database: cooldowns in turns, effect text and damage per quality for every skill ([skill-database.json](../data/skill-database.json))
 - [S-01], [S-02] branch stat and relic guidance
 - [S-03] Fandom: Warrior, Warrior Skills, Classes Overview, Skill Ascend
 - [S-04] sxswiki Warrior pages; [S-10] zeroluck.gg; [S-11] BlueStacks; [S-13] Pocket Gamer; [S-14] Pro Game Guides; [S-17] All Things How

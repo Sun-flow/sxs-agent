@@ -25,10 +25,13 @@ Left to right: the Aeonic Gacha stone, the Cart, the goddess Statue for Prayer, 
 | Mailbox (owl on the balcony) | mail and code rewards; Claim All daily | [Codes](codes.md) |
 | Item bag (chest) | open caskets and gift boxes | rule R-169 |
 | Airship (Lv 40) | Commercium: Trading House and Auction House | [Auction house](auction-house.md) |
-| Mysterious Merchant | appears after Chaos Invasion | [Shops](shops.md#mysterious-merchant-after-chaos-invasion) |
+| Mysterious Merchant | appears the day after Chaos Invasion [S-85]; Destiny Exploration can also summon him (or Molly) to Home [S-87] | [Shops](shops.md#mysterious-merchant-after-chaos-invasion) |
 | Mice, leaf piles, jars | tap for small resources | rule R-170 |
 
 Locked furniture shows an "Open" marker; unlocking is free [R-166].
+
+- The Alchemy Pot's Dismantle function (gear into Refined Ores and Raw Ores) unlocks at character Lv 12 per the
+  publisher's Handbook [S-87]; the "Lv 7" in the table is when the pot itself opened in our game.
 
 ## The Cart
 
@@ -46,11 +49,11 @@ Locked furniture shows an "Open" marker; unlocking is free [R-166].
 | Treats | Lv 45 | Fantomon EXP | [R-020] |
 
 - The Cart "generates resources while idle. Upgrade each resource to increase production and storage" [S-03].
-- **Idle rewards cap at 36 hours**: claim regularly [S-03].
-- Activating Goddess Statues and the Monthly Pass boost production [S-03].
+- **Idle rewards cap at 36 hours**: claim regularly [S-03][S-87].
+- Activating Goddess Statues and the Monthly Pass boost production [S-03][S-87].
 - A row's level is capped by Blessing Level: at the cap the button reads "Unlocks at Blessing Lv. N" [R-136][S-03].
 - Upgrade arrows show only after the Cart has been claimed, so claim first [R-136].
-- A speed-up or Temporal Crystal also gives the Cart 2 hours of production [S-03].
+- A speed-up or Temporal Crystal also gives the Cart 2 hours of production [S-03][S-87].
 
 ### Upgrade cost
 
@@ -62,7 +65,7 @@ costs are not recorded ❓.
 
 | Step | What | Source |
 |---|---|---|
-| 0 | Raise all resources to Lv 10 first | [S-03] |
+| 0 | Raise all resources to Lv 10 first | [S-03][S-87] |
 | 1 | Wood and Stone, Stone slightly ahead ("the more demanding of the two") | [S-01] |
 | 2 | Rolla | [S-01] |
 | 3 | Ore and Sand | [S-01] |
@@ -71,7 +74,10 @@ costs are not recorded ❓.
 
 - SOF's alternative order: Wood and Stone, then Ore and Sand, then Rolla, then Battle Essence, then Treats [S-01].
   One guide site puts Sand and Ore second and makes Rolla conditional on running three or more shop refreshes a day,
-  with focus rows kept about 20 to 30% above the rest ❓ [S-32].
+  with focus rows kept about 20 to 30% above the rest ❓ [S-32]. eog's section notes word it as "a focused
+  resource yields 20 to 30% more" and give the order Wood and Stone, Chrono Sand and Raw Ore, Rolla (only with 3 or
+  more refreshes a day), Battle Essence and Basic Treats [S-85]. The publisher's order (all to Lv 10, then Wood and
+  Stone [S-87], tier B) and SOF's [S-01] rank above eog's (tier C).
 - Our bot today upgrades only Stone and Wood, evenly, Stone first on a tie [R-136]. That matches step 1 but not
   step 0 or steps 2 to 5; see [conflicts.md](../conflicts.md).
 
@@ -113,15 +119,15 @@ Vendor Booth often and buy Wood and Stone there [S-01].
 - Sleeping earns AFK EXP into an EXP Reserve; the Bed screen shows Blessing Level and EXP per hour [R-035].
 - Collect when the blue orbs and the red "!" show; one collection can give several levels [R-101]. At the level
   cap the EXP banks until Rank Advancement [R-118].
-- It has an Auto Collect switch [S-02] (one site calls it Quick Claim ❓ [S-34]).
+- It has an **Auto Collect** switch [S-02]; this page uses that name. eog calls the same switch "Quick Claim" ("Bed Quick Claim") [S-34][S-85].
 - The Bed cannot be upgraded with Rolla or Dawnium: only Lost Goddess Statues raise it ❓ [S-35]. Each zone statue
   adds one Blessing Level, e.g. Blessing 5 to 6 raised EXP per hour 592 to 608 and the Cart cap 5 to 6 [R-035].
 
 ### Speed-ups
 
-- One free speed-up a day; a Temporal Crystal does the same: 2 hours of income for both Bed and Cart [S-03].
+- One free speed-up a day; a Temporal Crystal does the same: 2 hours of income for both Bed and Cart [S-03][S-87].
 - **Activate every available Goddess Statue before using a speed-up**, so the 2 hours are paid at the higher rate
-  [S-03]. Our rule saves the free speed-up for after the day's exploration [R-035].
+  [S-03][S-87]. Our rule saves the free speed-up for after the day's exploration [R-035].
 
 ### Banking before a new season
 
@@ -131,7 +137,7 @@ Vendor Booth often and buy Wood and Stone there [S-01].
 | On entering the new kingdom | claim the stored EXP | [S-02] |
 | First days | do not use the free speed-up or Temporal Crystals until the new statues are active | [S-02] |
 
-The 36 hours match the idle cap [S-03]. See [Seasons](seasons.md).
+The 36 hours match the idle cap [S-03][S-87]; eog gives the same 36-hour rule and adds: turn Quick Claim (Auto Collect) off [S-85]. See [Seasons](seasons.md).
 
 ## Wood and Stone economy
 
@@ -139,7 +145,7 @@ The 36 hours match the idle cap [S-03]. See [Seasons](seasons.md).
 |---|---|---|
 | Cart rows | scales with row level | [R-020] |
 | Vendor Booth General | 150 Wood for 3K Rolla, 150 Stone for 2.4K, once per refresh | [R-120] |
-| Grand Treasure Hunt low floors | ❓ | [S-33] |
+| Grand Treasure Hunt Level 3 | Wood and Stone are the safe pick; amount ❓ | [S-33][S-85] |
 | Code SS000 | 100 Stone | [S-37] |
 | Player market | tradeable there ❓ | [S-39] |
 
@@ -164,5 +170,6 @@ The only sink is Cart upgrades [R-136]. Stone runs out first [S-01].
 - [S-01] Cart section
 - [S-02] Sections I and IV
 - [S-03] progression (Cart, Bed, Vendor Booth), commercium
+- [S-85] eog.gg section notes (cart priority, Quick Claim, Mysterious NPC timing); [S-87] official Handbook Vol. 1 and Tips post (Lv 10 rule, 36-hour cap, Temporal Crystal, Dismantle at Lv 12)
 - [S-32] cart priority; [S-33] event tiers; [S-34] season prep; [S-35] cart unlocks; [S-37] codes; [S-39] market
 - Rules R-020, R-035, R-101, R-118, R-120, R-126, R-136, R-137, R-165, R-166, R-168, R-169, R-170

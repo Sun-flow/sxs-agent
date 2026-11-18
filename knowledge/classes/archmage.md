@@ -15,7 +15,7 @@
 
 ## Unlock and next class
 
-- Unlock: Lv 82 in Aqualis from Sorcerer [S-11] ❓, with Sorcerer class level 16 and total class level 48 [S-10].
+- Unlock: Lv 82 in Aqualis from Sorcerer [S-11][S-85], with Sorcerer class level 16 and total class level 48 [S-10][S-85].
 - At Lv 100 the lossless class change opens [S-03].
 - Next: Destroyer at Lv 106 in Loong Haven (Archmage class level 19, total 89) [S-02][S-10].
 
@@ -25,14 +25,14 @@ Names from a database site [S-10] and two build guides [S-11][S-12]; effects are
 
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
-| Divine Wrath | Light | Legendary | DMG | Large AoE damage that prioritises large targets and bosses; main damage of the Light build. | ❓ |  | [S-10][S-12][S-11] |
-| Howling Hurricane | Wind | ❓ | DMG | Main Wind damage skill; knocks enemies airborne. | ❓ | Still used at T5 [S-11]. | [S-10][S-12][S-11] |
-| Aqua Vortex | Water | ❓ | DMG, Debuff | Applies Wet, which raises the chance to Freeze. | ❓ |  | [S-10][S-12] |
-| Meteoric Flames | Fire | ❓ | DMG | Strong Fire AoE. | ❓ | Still used at T5 [S-11]. | [S-10][S-12][S-11] |
+| Divine Wrath | Light | Legendary | DMG | Large AoE damage that prioritises large targets and bosses; main damage of the Light build. | 2 turns [S-85] |  | [S-10][S-12][S-11] |
+| Howling Hurricane | Wind | ❓ | DMG | Main Wind damage skill; knocks enemies airborne. | 2 turns [S-85] | Still used at T5 [S-11]. | [S-10][S-12][S-11] |
+| Aqua Vortex | Water | ❓ | DMG, Debuff | Applies Wet, which raises the chance to Freeze. | 1 turn [S-85] |  | [S-10][S-12] |
+| Meteoric Flames | Fire | ❓ | DMG | Strong Fire AoE. | 1 turn [S-85] | Still used at T5 [S-11]. | [S-10][S-12][S-11] |
 | Afflicting Stars ❓ | Light | ❓ | DMG | ❓ | ❓ |  | [S-12] |
 | Fire Blast ❓ | Fire | ❓ | DMG | Single-target Fire hit with high base damage for a low cooldown. | ❓ |  | [S-12] |
 | Wind Clone ❓ | Wind | ❓ | ❓ | ❓ | ❓ |  | [S-12] |
-| Thunderbolt Mark ❓ | Light | ❓ | ❓ | ❓ | ❓ | Tier unknown; listed in an 'early Sorcerer' build that is not in the Fandom T1/T2 lists. | [S-04][S-11] |
+| Thunderbolt Mark ❓ | Light | ❓ | ❓ | ❓ | none (Charm) [S-85] | Tier unknown; listed in an 'early Sorcerer' build that is not in the Fandom T1/T2 lists. | [S-04][S-11] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
 
@@ -42,11 +42,11 @@ A ❓ after a name means only tier D sources name the skill; a ❓ in a cell mea
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
 | Radiance Sear ❓ | Light | ❓ | DMG | 50% chance to trigger extra Light damage when dealing damage. | ❓ | 'Radiant Sear' in [S-11]; used in every element's build and still at T5. | [S-12][S-11] |
-| Incarnation of Light ❓ | Light | ❓ | ❓ | ❓ | ❓ |  | [S-12] |
-| Rapid Cast ❓ | - | ❓ | Buff | Cuts the cooldown of all Techniques at battle start, so the first Technique comes one turn earlier. | ❓ |  | [S-12][S-11] |
+| Incarnation of Light ❓ | Light | ❓ | ❓ | ❓ | none (Charm) [S-85] |  | [S-12] |
+| Rapid Cast ❓ | - | ❓ | Buff | Cuts the cooldown of all Techniques at battle start, so the first Technique comes one turn earlier. | none (Charm) [S-85] |  | [S-12][S-11] |
 | Wind Affinity ❓ | Wind | ❓ | ❓ | ❓ | ❓ |  | [S-12] |
 | Frog Guard ❓ | - | ❓ | Buff | Reduces incoming damage and restores HP when the effect ends; needs Techniques that have cooldowns. | ❓ |  | [S-12] |
-| Repelling Wind ❓ | Wind | ❓ | Knockback | Pushes enemies away; for PvP and against melee. | ❓ | May be the source's name for Gale Shield or Unstable Aura. | [S-12] |
+| Repelling Wind ❓ | Wind | ❓ | Knockback | Pushes enemies away; for PvP and against melee. | none (Charm) [S-85] | May be the source's name for Gale Shield or Unstable Aura. | [S-12] |
 | Elemental Power ❓ | - | ❓ | ❓ | ❓ | ❓ | Tier unknown; same build as Thunderbolt Mark. | [S-04][S-11] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
@@ -102,12 +102,13 @@ Unchanged from the Sorcerer:
 
 ## Open questions
 
-- ❓ Official skill texts, rarities and cooldowns for every Archmage skill (no tier A-C source has them).
+- ❓ Rarities for every Archmage skill (effect texts and cooldowns are now in eog's database, tier C: [skill-database.json](../data/skill-database.json) [S-85]).
 - ❓ Which two techniques and two charms are the Archmage's Legendaries (Divine Wrath is one [S-10]).
-- ❓ Whether "Afflicting Stars", "Fire Blast", "Wind Clone", "Frog Guard", "Repelling Wind", "Thunderbolt Mark" and "Elemental Power" are exact in-game names (video transcriptions).
+- ❓ Whether "Afflicting Stars", "Fire Blast", "Wind Clone", "Frog Guard", "Repelling Wind", "Thunderbolt Mark" and "Elemental Power" are exact in-game names (video transcriptions). Afflicting Stars, Wind Clone, Frog Guard and Elemental Power are not in eog's database under those names, and it writes "Radiant Sear" for Radiance Sear [S-85].
 
 ## Sources
 
+- [S-85] eog.gg skill database: cooldowns in turns, effect text and damage per quality for every skill ([skill-database.json](../data/skill-database.json))
 - [S-01] relic element, vouchers, end-of-season advice; [S-02] gear affixes, Tier 4 level
 - [S-03] Fandom: Classes Overview, Archmage (placeholder), Skill Ascend, Seasonal Systems
 - [S-10] zeroluck.gg classes and summoning; [S-11] BlueStacks build guide; [S-12] Roonby Archmage builds; [S-13] Pocket Gamer

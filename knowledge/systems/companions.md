@@ -32,7 +32,7 @@
 ## Levelling: gifts
 
 - Bond is raised with **gifts**. Each companion has **favoured gifts: use only those on that companion** [S-01].
-  The favoured gifts are shown behind the "!" on the companion's detail page ❓ [S-21, S-27].
+  The favoured gifts are shown behind the "!" on the companion's detail page [S-85][S-21][S-27].
 - Do not gift a companion that is not next in the level order [S-21] ❓.
 - Known gift items and sources:
 
@@ -42,7 +42,7 @@
 | Jungle Fables (book) | Drasilgard Kingdom Shop, 300 Abundance Leaves | `docs/shop-tables.md` |
 | "Rolla Management Made Easy" (book) | Item bag; the bot leaves gifts untouched | R-169 |
 | Golden Leaf, Sunflower, Iris | Gift-code rewards ❓ | [S-04] |
-| "Companion Gifts" | Grand Treasure Hunt Level 2 reward ❓ | [S-23] |
+| "Companion Gifts" | Grand Treasure Hunt Level 2 reward | [S-85][S-23] |
 
 - Which gift each companion favours is not in any source we could read ❓.
 
@@ -50,11 +50,11 @@
 
 | Level | What unlocks | Source |
 |---|---|---|
-| 20 | First special stat: DMG Boost (offensive companions) or DMG Reduction (defensive) ❓ | [S-21], [S-27] |
-| 50 | The companion's key special stat: Crit Rate or Accuracy (offensive); Block or Crit Resist (defensive) | [S-01] ("Stat Priority (Level 50 Companion)"); detail [S-21] ❓ |
-| 60 | A skin; no stat ❓ | [S-21] |
-| 70 | The level-20 stat again ❓ | [S-21] |
-| 100 | The level-50 stat again ❓; **Healing Boost only unlocks at level 100** | [S-21] ❓; Healing Boost at 100: [S-01] |
+| 20 | First special stat: DMG Boost (offensive companions) or DMG Reduction (defensive) | [S-85], [S-21], [S-27] |
+| 50 | The companion's key special stat: Crit Rate or Accuracy (offensive); Block or Crit Resist (defensive) | [S-01] ("Stat Priority (Level 50 Companion)"); detail [S-85][S-21] |
+| 60 | A skin; no stat | [S-85][S-21] |
+| 70 | The level-20 stat again | [S-85][S-21] |
+| 100 | The level-50 stat again; **Healing Boost only unlocks at level 100** | [S-85][S-21]; Healing Boost at 100: [S-01][S-85] |
 
 ## Level order (do not deviate)
 
@@ -93,7 +93,7 @@ table for all five Loong Haven companions), so every stat group not confirmed by
 | Hermes | Merchant and alchemist of Drasilgard (Kingdom Shop) | Verdantglade | Accuracy ❓ |
 | Qin | Young Loongborn girl, Killian's sister; NPC party member; Wind Affinity 101 | Verdantglade ❓ | Crit Rate ❓ |
 | Killian | Dryason archaeologist, Qin's brother; NPC party member; Wind Affinity 101 | Verdantglade ❓ | Healing ❓ |
-| Mysterious Merchant | Cloaked merchant (appears at Home after Destiny Exploration and Chaos Invasion) | Everywhere | ❓ |
+| Mysterious Merchant | Cloaked merchant (appears at Home the day after Chaos Invasion [S-85]; Destiny Exploration can also summon him [S-87]) | Everywhere | ❓ |
 | Naira | Ruler of Fortburg | Cinder Ridge | Crit Rate ❓ |
 | Micaela | Inventor at the forge | Cinder Ridge | Block ❓ |
 | Karlos | Hot-blooded trainee | Cinder Ridge | Crit Rate ❓ |
@@ -133,11 +133,12 @@ each season.
   (potion, drill, key) have priority over gifts for the same currency [S-01].
 - [World and kingdoms](world-and-kingdoms.md): companions lend elemental Affinity to open Gates of Elements
   before relics can (R-159).
-- [Events](events.md): Grand Treasure Hunt Level 2 pays companion gifts ❓ [S-23].
+- [Events](events.md): Grand Treasure Hunt Level 2 pays companion gifts [S-85][S-23].
+- eog's database lists 35 companions, each with a class that advances by rank band (Akane: Mage, Sorcerer, Archmage, Destroyer, Magister), and a companion Dora arriving at Lv 186 ❓ [S-85] (second-hand: eog credits Prydwen for these rows). Table: [companion-loadouts.json](../data/companion-loadouts.json).
 
 ## Open questions
 - ❓ Favoured gifts per companion (read the "!" on each companion page in game).
-- ❓ Exact stat and value at each level for each companion; whether level 70/100 repeat the 20/50 stats.
+- ❓ Exact stat and value at each level for each companion (the node levels 20/50/70/100 and the repeats are now given by [S-85]).
 - ❓ Unlock level of the Companions feature (38 per tier D) and how many journals a companion needs.
 - ❓ Which kingdom each later companion belongs to, and the full list after Loong Haven.
 - ❓ Whether collaboration companions (KonoSuba) are still obtainable.

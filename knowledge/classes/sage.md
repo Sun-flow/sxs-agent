@@ -24,19 +24,19 @@
 ## Unlock and next class
 
 - Unlock: Lv 44 at Cinder Ridge, from Mage (Mage class level 18) [S-03][S-10].
-- Next: [Arcanist](arcanist.md) at Lv 82 in Aqualis (Sage class level 16 per [S-10]; level per [S-11] ❓).
+- Next: [Arcanist](arcanist.md) at Lv 82 in Aqualis (Sage class level 16 per [S-10][S-85]; level per [S-11][S-85]).
 - Rolling back to Mage and promoting to Sage only (no Tier 3) is the way to aim Prayer pulls at Sage skills such as Resurrection [S-03].
 
 ## Techniques
 
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
-| Treantling Summon | - | Legendary | Summon, DMG | Summons a Treantling behind the caster that acts at once; inherits a percentage of caster stats; cannot be the primary target of attacks or healing; lasts up to 5 turns. Zero initial CD. | ❓ |  | [S-03][S-10] |
-| Shadow Impact | Dark | ❓ | DMG | Pick a grid within 3; Dark DMG once to all enemies within 2 grids; if the target carries Erosion, triggers the Erosion effect twice at once. | ❓ | AoE swap for Shadow of Termination at T3 [S-11]. | [S-03] |
-| Flame Wolf Summon | Fire | ❓ | Summon, DMG | Summons 2 Flame Wolves in front that act at once; inherit a percentage of caster stats; cannot be the primary target; last up to 2 turns. Zero initial CD. | ❓ |  | [S-03][S-10] |
+| Treantling Summon | - | Legendary | Summon, DMG | Summons a Treantling behind the caster that acts at once; inherits a percentage of caster stats; cannot be the primary target of attacks or healing; lasts up to 5 turns. Zero initial CD. | 3 turns [S-85] |  | [S-03][S-10] |
+| Shadow Impact | Dark | ❓ | DMG | Pick a grid within 3; Dark DMG once to all enemies within 2 grids; if the target carries Erosion, triggers the Erosion effect twice at once. | 1 turn [S-85] | AoE swap for Shadow of Termination at T3 [S-11]. | [S-03] |
+| Flame Wolf Summon | Fire | ❓ | Summon, DMG | Summons 2 Flame Wolves in front that act at once; inherit a percentage of caster stats; cannot be the primary target; last up to 2 turns. Zero initial CD. | 2 turns [S-85] |  | [S-03][S-10] |
 | Dark Bullet | Dark | ❓ | DMG, Debuff | Dark DMG once to 1 enemy within 4 grids; 50% base chance to inflict Erosion. | ❓ |  | [S-03] |
-| Radiant Restoration | - | ❓ | Ally, Heal | Heals all allies within 4 grids once. | ❓ | Core group heal through T3 [S-11]. | [S-03][S-10] |
-| Weakening Hex | Dark | ❓ | DMG, Debuff | Pick a grid within 3; Dark DMG once to all enemies within 2 grids; 50% base chance to inflict Weakened 1 for 2 turns. | ❓ |  | [S-03][S-10] |
+| Radiant Restoration | - | ❓ | Ally, Heal | Heals all allies within 4 grids once. | 2 turns [S-85] | Core group heal through T3 [S-11]. | [S-03][S-10] |
+| Weakening Hex | Dark | ❓ | DMG, Debuff | Pick a grid within 3; Dark DMG once to all enemies within 2 grids; 50% base chance to inflict Weakened 1 for 2 turns. | 1 turn [S-85] |  | [S-03][S-10] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
 
@@ -45,11 +45,11 @@ A ❓ after a name means only tier D sources name the skill; a ❓ in a cell mea
 
 | Name | Element | Base rarity | Tags | Effect | Cooldown | Notes | Sources |
 |---|---|---|---|---|---|---|---|
-| Soul Impact | Dark | ❓ | DMG | When the caster's summon dies or expires, Dark DMG once to all enemies within 2 grids of it. | ❓ |  | [S-03] |
-| Resurrection | - | ❓ | Ally, Revive, Buff, Heal | When an allied adventurer dies, revives and heals them once and grants Revitalization for 2 turns (cannot be dispelled); once per battle. If several are dead at battle start, revives the one with the highest Power first. | ❓ | Only revive in the game [S-11]. | [S-03] |
-| Shadow Erosion | Dark | ❓ | Debuff, DMG | Each time a Technique deals Dark DMG to an enemy, 40% base chance to inflict Erosion. | ❓ |  | [S-03] |
-| Soul Spark | - | ❓ | Summon, Stats | Raises the ATK of the caster's summons but cuts their duration by 2 turns (at least 1 turn; no effect on summons without a turn limit). | ❓ | Bad with Flame Wolves (2 turns) [S-04]. | [S-03] |
-| Healing Mastery | - | ❓ | Stats | Enhances the caster's healing effects. | ❓ |  | [S-03] |
+| Soul Impact | Dark | ❓ | DMG | When the caster's summon dies or expires, Dark DMG once to all enemies within 2 grids of it. | none (Charm) [S-85] |  | [S-03] |
+| Resurrection | - | ❓ | Ally, Revive, Buff, Heal | When an allied adventurer dies, revives and heals them once and grants Revitalization for 2 turns (cannot be dispelled); once per battle. If several are dead at battle start, revives the one with the highest Power first. | none (Charm) [S-85] | Only revive in the game [S-11]. | [S-03] |
+| Shadow Erosion | Dark | ❓ | Debuff, DMG | Each time a Technique deals Dark DMG to an enemy, 40% base chance to inflict Erosion. | none (Charm) [S-85] |  | [S-03] |
+| Soul Spark | - | ❓ | Summon, Stats | Raises the ATK of the caster's summons but cuts their duration by 2 turns (at least 1 turn; no effect on summons without a turn limit). | none (Charm) [S-85] | Bad with Flame Wolves (2 turns) [S-04]. | [S-03] |
+| Healing Mastery | - | ❓ | Stats | Enhances the caster's healing effects. | none (Charm) [S-85] |  | [S-03] |
 
 A ❓ after a name means only tier D sources name the skill; a ❓ in a cell means the value is unknown.
 
@@ -123,12 +123,13 @@ From SOF's list, colour-coded in the guide by Sage type [S-02]:
 ## Open questions
 
 - ❓ Base rarity of Sage skills other than Treantling Summon (Legendary).
-- ❓ Erosion's exact damage rule and stack cap.
-- ❓ Cooldowns; heal scaling (HP or ATK).
+- ❓ Erosion's stack cap (eog's keyword list: Dark damage over time for 3 turns [S-85]).
+- ❓ Heal scaling seen in our game (eog: heals scale with max HP [S-85]); cooldowns seen in our game (the table's turn counts are eog's [S-85]).
 - ❓ Whether the Fandom lists are the complete Tier 2 set.
 
 ## Sources
 
+- [S-85] eog.gg skill database: cooldowns in turns, effect text and damage per quality for every skill ([skill-database.json](../data/skill-database.json))
 - [S-01] relic element, Fantomon, companions, gems
 - [S-02] gear affixes by Sage type (page image), Season 2 Fantomon order and companions
 - [S-03] Fandom: Sage, Sage Skills, Class Selection, Classes Overview, Everything about Class Change

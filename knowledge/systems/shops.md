@@ -20,17 +20,18 @@ recommend, to help fill it. Read any item through its info card, never its price
 | Molly's Deals | friends' homes, via the Home gate | Dawnium ❓ | 10 purchases a week | Stellatie, Covenite, relic badges |
 | Kingdom Shop | each kingdom's town (Hermes in Drasilgard) | kingdom currency | ❓ | kingdom tools |
 | Guild Shop | guild island, east | Guild Tokens | weekly | Fantomon aptitude materials, summon tokens |
-| Arena shop | Arena | arena currency ❓ | ❓ | ❓ (sells permanent food) |
-| Mysterious Merchant | Home, after Chaos Invasion | Chaos Crystals | per event | Primal Forge only |
-| Grand Treasure Hunt | event | Aurodrasil Energy | weekly event | floor 5 unique relics |
+| Arena Shop | Grand Arena | Arena coins (blog's name ❓) | ❓ | Fantomon shards, Bond Trinkets, then Covenite and Stellatie |
+| Mysterious Merchant | Home, the day after Chaos Invasion; can also be summoned by a Destiny Exploration | Chaos Crystals | per event | Primal Forge only |
+| Grand Treasure Hunt | event | Aurodrasil Energy | weekly event | Level 5 unique relics |
 | Prayer / Fantomon exchange | Goddess Statue, Arborisfatum | pull by-products | ❓ | Mythic Fantomon duplicate |
 | Commercium | airship from Home, Lv 40 | Dawnium, Luminium | player-driven | see [Auction house](auction-house.md) |
 | Mall, Starter Pack, Timed Packs | Home menu and popups | real money | - | nothing, ever |
 
 ## Vendor Booth (Molly)
 
-- Unlocks at character Lv 20 [S-03]. (An earlier report said Lv 18 [R-011]; in our game it was unlocked by the
-  tutorial that the Bellflower harvest plays [R-120].)
+- Unlock: Lv 18 on our account, where the tutorial that the Bellflower harvest plays opened it early
+  [R-011][R-120] (tier A, the figure this knowledge base uses). The publisher and Fandom say character Lv 20
+  [S-87][S-03].
 - Three tabs: General (Rolla), Vault (Dawnium), Goals (Vendor Booth Pts) [R-120].
 - Stock refreshes daily; a paid refresh of the General tab costs 4K Rolla, with 10 available when we looked
   [R-120]. Buying two things here is a Daily Quest [R-128].
@@ -41,7 +42,7 @@ recommend, to help fill it. Read any item through its info card, never its price
 |---|---|---|---|
 | 1 | Wood | 150 for 3K | Cart upgrades; "always in short supply" [S-03] |
 | 1 | Stone | 150 for 2.4K (20% badge) | Cart upgrades; the tighter of the two [S-01] |
-| 1 | Quest Scrolls | ❓ | named a priority by the wiki [S-03]; not seen in our stock yet |
+| 1 | Quest Scrolls | ❓ | named a first buy, with Wood and Stone, by the publisher [S-87][S-03]; eog values one at 120 Dawnium (its valuation, not a price) [S-85] ❓; not seen in our stock yet |
 | 2 | Stellatie | 1 for 3.15K (70% badge) | skill pulls; extra refreshes add up to "quite a lot" of Stellatie and Bond Trinkets [S-01] |
 | 3 | Raw Ore, Battle Essence | 350 for 2.1K; 250 to 300 for 1.6K to 2.4K | fill a bottleneck; "adjust other purchases based on your needs" [S-03] |
 | 4 | Water | 500 | cooking ingredient; buy only for a recipe |
@@ -61,7 +62,7 @@ Refreshing:
 | 1 | Stamina x30 | Free, once a day | Always claim [R-120] |
 | 2 | Gold Pickaxe x5 | 60 (40% badge) | Buy: 12 Dawnium a tool against 60+ at the realm [S-03][S-30] |
 | 2 | Worn Knuckles x5 | 40 (60% badge) | Buy: 8 Dawnium a tool [S-03] |
-| 2 | Iron Hammers | not in our stock that day | Buy when offered at a discount [S-03] |
+| 2 | Iron Hammers | not in our stock that day | Buy when offered at a discount; the publisher lists them in the Vault [S-87][S-03] |
 | 3 | Stellatie x2 | 100 (50% badge) | Buy when discounted [S-03] |
 | 3 | Epic Auroral Badges | ❓ | named an essential by one site ❓ [S-35] |
 | skip | Refined Ore x180 | 180 | too expensive for F2P ❓ [S-04] |
@@ -128,26 +129,34 @@ Token income: 300 per donation, 120 an hour from guild AFK [R-103][R-110].
 
 ## Arena shop
 
-- Arena earnings are spent in an Arena exchange shop ❓ [S-35]; it sells permanent-stat food [S-31].
-- Currency name, stock and prices are unknown ❓. See [Arena and PvP](arena-and-pvp.md).
+- Paid with **Arena coins**, 100 per won attack; "Arena coins" is a player blog's name, the in-game name is not
+  confirmed ❓ [S-42]. It also sells permanent-stat food [S-31].
+- Stock reported by one Season 1 player [S-42]: Fantomon Shards x10 2.1K (limit 2), Bond Treat 1.6K (2),
+  Stellatie 1K (3), Rare Auroral Badge x10 800 (5), Covenite 500 (1). The publisher confirms it sells Fantomon
+  shards [S-87]. Full table and buy order: [Arena and PvP](arena-and-pvp.md#arena-shop).
 
 ## Mysterious Merchant (after Chaos Invasion)
 
-- After a Chaos Invasion event ends, the Mysterious Merchant appears on Home and sells for the event currency
-  (Chaos Crystals [S-32]) [S-01].
+- After a Chaos Invasion event ends (the day after, per eog [S-85]), the Mysterious Merchant appears on Home and
+  sells for the event currency (Chaos Crystals [S-32]) [S-01]. That is his scheduled visit. A Destiny
+  Exploration can also summon him, or Molly, to Home with discounted goods [S-03]; see
+  [Relics](relics.md#destiny-fruits).
 - **Buy only the Primal Forge; skip everything else; keep buying it until it is maxed** [S-01].
 - If you cannot afford it, dismiss him and save the currency for the next Chaos Invasion [S-01].
 - He can also sell recipes for permanent food [S-31]; SOF's rule above still says skip them.
-- What the Primal Forge does, its price and its maximum level are not in our sources ❓. See [Events](events.md).
+- The Primal Forge raises the Cart's Raw Ore output [S-03] and is upgraded up to Immortal rarity [S-85][S-03].
+  Its price per level is not in our sources ❓. See [Events](events.md).
 
 ## Grand Treasure Hunt
 
-- Weekly event paid in Aurodrasil Energy; reward floors 1 to 5, with a unique relic on floor 5 [S-33].
+- Weekly event (first on server day 8, then every 7 days) paid in Aurodrasil Energy; reward Levels 1 to 5
+  (guides also say floors or stages), with a unique relic on Level 5 [S-33][S-85].
 - SOF: save the currency every other week so you can afford the Lucky Statue and Primal Gem relics [S-01].
 - Lucky Statue: 10% to 60% chance to double dungeon chest drops as it ascends; Primal Gem: 10% to 60% more gems
   [S-33]. Keep the Lucky Statue in the main relic line for the 20% resonance bonus [S-01].
-- Reaching floor 5 costs about 3,240 Energy; do not spend in a week you cannot reach it ❓ [S-33].
-- Lower floors hold Treats, companion gifts, Wood and Stone, Legendary Auroral Badges, Bond Trinkets; Stellatie
+- Clearing Levels 1 to 5 costs about 3,240 Energy; do not spend in a week you cannot reach Level 5 ❓
+  [S-33][S-85]. Prices per item are not published, only this total.
+- Lower Levels hold Treats, companion gifts, Wood and Stone, Legendary Auroral Badges, Bond Trinkets; Stellatie
   there is a skip ❓ [S-33]. See [Events](events.md) and [Relics](relics.md).
 
 ## Wheel of Destiny rewards
@@ -180,8 +189,9 @@ The first spin on each map wheel is free while its zone is unexplored [R-147].
 - ❓ Kingdom Shop tabs Lv 2 to 4: stock, and what raises the shop level.
 - ❓ Kingdom shops and merchants of Cinder Ridge, Aqualis and Loong Haven.
 - ❓ Molly's Deals currency (the screenshot icon is not readable) and whether deals differ per friend.
-- ❓ Arena shop stock; Prayer Exchange stock; Mysterious Merchant stock and the Primal Forge's effect and cost.
-- ❓ Quest Scrolls: what they do and their price.
+- ❓ Arena Shop: in-game currency name and refresh; Prayer Exchange stock; Mysterious Merchant stock and the
+  Primal Forge's price per level.
+- ❓ Quest Scrolls: what they do and their Rolla price (eog values one at 120 Dawnium [S-85]).
 
 ## Sources
 - [S-01] Exploration, Fantomons, Additional Tips (Molly's Deals, Chaos Invasion, Wheel of Destiny)
@@ -192,4 +202,5 @@ The first spin on each map wheel is free while its zone is unexplored [R-147].
 - [S-31] food sources
 - [S-33] Grand Treasure Hunt
 - [S-34] area item checklist
+- [S-42] player blog (Arena Shop stock); [S-85] eog.gg (Treasure Hunt, merchant timing, item values: [data/item-values.json](../data/item-values.json)); [S-87] official Handbook Vol. 2 (Vendor Booth)
 - Rules R-011, R-057, R-093, R-103, R-110, R-114, R-116, R-120, R-121, R-125, R-128, R-134, R-147, R-151, R-153, R-157, R-167; observed stock in [docs/shop-tables.md](../../docs/shop-tables.md)
