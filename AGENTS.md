@@ -25,7 +25,7 @@ Your memory doesn't carry over between sessions, so this repo keeps it for you i
 | Running or changing the bot (modules, commands, loop contract) | `sxs/README.md` | one module |
 | Screens the bot can detect, templates, policies | `resource/README.md` | `resource/pipeline/state.json`, the policy files |
 | Why a step is designed the way it is | `docs/README.md` (`python3 scripts/index.py docs`) | one `docs/stepN-*.md` |
-| How the game works, what a term means, what to do next and why (classes, systems, seasons, spending plans) | `knowledge/README.md` (`python3 scripts/kb_check.py --index`) | `knowledge/glossary.md`, one `systems/`, `classes/` or `strategy/` page |
+| How the game works, what a term means, what to do next and why (classes, systems, seasons, spending plans) | `knowledge/README.md` (`python3 scripts/kb_check.py --index`) | `knowledge/glossary.md`, one page under `knowledge/systems/`, `knowledge/classes/` or `knowledge/strategy/` |
 | Helper scripts and checks | `scripts/README.md` | one script |
 | Tests and what each needs | `tests/README.md` (`python3 scripts/index.py tests`) | one test |
 

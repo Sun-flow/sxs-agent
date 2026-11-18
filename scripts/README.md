@@ -17,7 +17,7 @@ Run from the repo root (`.venv\Scripts\python scripts\X.py` on Windows, `python3
 
 | Script | Does |
 |---|---|
-| `kb_fetch.py fandom\|sxswiki\|all\|status` | Download the public wikis into `knowledge/sources/raw/` (Fandom through its API, committed; sword-x-staff.wiki through its sitemap, gitignored cache). Skips any site that shows a bot check |
+| `kb_fetch.py fandom\|sxswiki\|zeroluck\|eog\|lootandwaifus\|official\|all\|status` | Download the public wikis into `knowledge/sources/raw/` (Fandom through its API, committed; sword-x-staff.wiki and the other sites through their sitemaps, gitignored cache; honours robots.txt and Content-Signal). Skips any site that shows a bot check |
 | `kb_check.py [--index] [--terms]` | Check `knowledge/`: index lines, relative links, source tags, rule IDs, data JSON; `--index` prints the page index, `--terms` the glossary terms |
 
 ## Device helpers (need the emulator)

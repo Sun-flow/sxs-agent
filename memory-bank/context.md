@@ -52,6 +52,7 @@ python3 scripts/nav-graph.py check|render|path FROM TO  # menu graph
 | How a game-playing session works | `playbook.md` |
 | mae's preferences and the loop rules | `notes.md` |
 | Machines, emulator and tool gotchas | `environments.md` |
+| How the game works, terms, classes, seasons, strategy and spending plans (reference from guides and wikis, not binding) | `knowledge/README.md`; conflicts with our rules in `knowledge/conflicts.md` |
 | Why a decision was made | `decisions/` (`python3 scripts/entries.py decisions --titles`) |
 | Past sessions | `log/` (`python3 scripts/entries.py log`), then `docs/archive/memory-bank-log.md` |
 | How agents work here | `AGENTS.md` |

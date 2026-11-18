@@ -52,6 +52,7 @@ One file per workstream in `work/`, owned by the thread that runs it: list them 
 
 ## Waiting on mae
 
+- Decide the advice-versus-rule conflicts in `knowledge/conflicts.md` (2026-11-18; first the Dawnium never-spend rules against the spend plan in `knowledge/strategy/dawnium-plan.md`).
 - Remaining questions in `docs/loops/open-questions.md`: Forge-full fallback (Q6), Notice sign-ins and Exploration Goals in the daily loop (Q7), Cart tie-break (Q8). Settled 2026-11-09: Q3, Q4, Q5, Q9, Q10, Q11, bed speed-up timing.
 
 - Label the 9 screens in `docs/screens/unlabeled/README.md` (and any new ones `python -m sxs bank` adds), then `python -m sxs label`.
