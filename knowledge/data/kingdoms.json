@@ -1,0 +1,416 @@
+{
+ "_meta": {
+  "description": "Kingdoms in play order with town, currency, tool, ranks and daily dungeons (power thresholds as numbers; null = unknown or no requirement, see systems/world-and-kingdoms.md). The Gateway Key is a tool for all kingdoms. Server days count from each server's launch.",
+  "sources": [
+   "S-01",
+   "S-02",
+   "S-03",
+   "S-50",
+   "S-51",
+   "S-52",
+   "S-53",
+   "S-54",
+   "R-006",
+   "R-118",
+   "R-134",
+   "R-145"
+  ],
+  "updated": "2026-11-18",
+  "all_kingdom_tool": "Gateway Key",
+  "seasons": {
+   "1": {
+    "server_days": [
+     1,
+     46
+    ]
+   },
+   "2": {
+    "server_days": [
+     47,
+     113
+    ],
+    "preseason_days": [
+     47,
+     59
+    ]
+   },
+   "3": {
+    "server_days": [
+     114,
+     null
+    ]
+   }
+  }
+ },
+ "kingdoms": [
+  {
+   "id": "originisle",
+   "order": 0,
+   "name": "Originisle",
+   "season": 1,
+   "level_range": [
+    1,
+    null
+   ],
+   "town": null,
+   "currency": null,
+   "tool": null,
+   "tool_clears": null,
+   "shop_npc": null,
+   "ranks": [
+    {
+     "name": "Apprentice I",
+     "needs_level": null,
+     "level_cap": 20
+    }
+   ],
+   "dungeons": [],
+   "exit": "Voyage Obelisk to Verdantglade",
+   "sources": [
+    "R-006",
+    "R-069",
+    "R-118"
+   ]
+  },
+  {
+   "id": "verdantglade",
+   "order": 1,
+   "name": "Verdantglade",
+   "season": 1,
+   "level_range": [
+    null,
+    44
+   ],
+   "town": "Drasilgard",
+   "currency": "Abundance Leaf",
+   "tool": "Withering Potion",
+   "tool_clears": "Vine Blockade",
+   "shop_npc": "Hermes",
+   "ranks": [
+    {
+     "name": "Apprentice II",
+     "needs_level": 20,
+     "level_cap": 30,
+     "materials": {
+      "bellflower": 20,
+      "grey_stone": 5
+     },
+     "rolla": 5500
+    },
+    {
+     "name": "Apprentice III",
+     "needs_level": 30,
+     "level_cap": 40,
+     "materials": {
+      "bellflower": 30,
+      "green_leaf": 5
+     },
+     "rolla": 10500
+    }
+   ],
+   "rank_material": "Bellflower",
+   "tool_spots": {
+    "withering_potion": 5,
+    "magic_drill": 3,
+    "gateway_key": 3
+   },
+   "markers": {
+    "goddess_statue": 17,
+    "lost_goddess_statue": 49,
+    "portal": 25,
+    "hero_statue": 4,
+    "witch_statue": 2,
+    "power_gate": 4,
+    "elemental_gate": 4,
+    "rank_gate": 2,
+    "sealed_pillar": 3,
+    "lucky_roulette": 2
+   },
+   "main_zones": 17,
+   "dungeons": [
+    {
+     "name": "Auroradrasil",
+     "opens_server_day": 1,
+     "needs_level": null,
+     "gear_level": null,
+     "power": {
+      "normal": null,
+      "hard": 36000,
+      "nightmare": null,
+      "purgatory": null
+     },
+     "sources": [
+      "S-03"
+     ]
+    }
+   ],
+   "sources": [
+    "R-134",
+    "R-118",
+    "R-145",
+    "S-01",
+    "S-03",
+    "S-50"
+   ]
+  },
+  {
+   "id": "cinder-ridge",
+   "order": 2,
+   "name": "Cinder Ridge",
+   "season": 1,
+   "level_range": [
+    44,
+    null
+   ],
+   "town": "Fortburg",
+   "currency": null,
+   "tool": "Magic Drill",
+   "tool_clears": "Boulder Blockade",
+   "shop_npc": null,
+   "ranks": [],
+   "unlocks": [
+    "second class change Lv 44",
+    "Grand Arena Lv 40",
+    "Fantomons Lv 50"
+   ],
+   "dungeons": [
+    {
+     "name": "Mecha Summit",
+     "opens_server_day": 4,
+     "needs_level": null,
+     "gear_level": null,
+     "power": {
+      "normal": null,
+      "hard": 180000,
+      "nightmare": null,
+      "purgatory": null
+     },
+     "sources": [
+      "S-03"
+     ]
+    }
+   ],
+   "sources": [
+    "S-01",
+    "S-03",
+    "S-52",
+    "S-54",
+    "R-151"
+   ]
+  },
+  {
+   "id": "aqualis",
+   "order": 3,
+   "name": "Aqualis",
+   "season": 1,
+   "level_range": [
+    null,
+    124
+   ],
+   "town": null,
+   "currency": null,
+   "tool": "Water Mine",
+   "tool_clears": null,
+   "shop_npc": null,
+   "ranks": [],
+   "dungeons": [
+    {
+     "name": "Ocean Palace Ruins",
+     "opens_server_day": 12,
+     "needs_level": null,
+     "gear_level": null,
+     "power": {
+      "normal": null,
+      "hard": 580000,
+      "nightmare": null,
+      "purgatory": null
+     },
+     "sources": [
+      "S-03"
+     ]
+    },
+    {
+     "name": "Aquorigin Shrine",
+     "opens_server_day": 24,
+     "needs_level": 100,
+     "gear_level": null,
+     "power": {
+      "normal": 930000,
+      "hard": 1450000,
+      "nightmare": 2050000,
+      "purgatory": null
+     },
+     "sources": [
+      "S-03",
+      "S-01"
+     ]
+    },
+    {
+     "name": "Hellhold",
+     "opens_server_day": 33,
+     "needs_level": null,
+     "gear_level": 190,
+     "power": {
+      "normal": 2250000,
+      "hard": 2750000,
+      "nightmare": 3900000,
+      "purgatory": 6200000
+     },
+     "sources": [
+      "S-03",
+      "S-01"
+     ]
+    }
+   ],
+   "sources": [
+    "S-01",
+    "S-03",
+    "S-51"
+   ]
+  },
+  {
+   "id": "loong-haven",
+   "order": 4,
+   "name": "Loong Haven",
+   "season": 2,
+   "opens_server_day": 47,
+   "level_range": [
+    100,
+    null
+   ],
+   "town": null,
+   "currency": null,
+   "tool": null,
+   "tool_clears": null,
+   "shop_npc": null,
+   "ranks": [
+    {
+     "name": "Champion I",
+     "needs_level": null,
+     "level_cap": null
+    },
+    {
+     "name": "Champion II",
+     "needs_level": null,
+     "level_cap": null
+    },
+    {
+     "name": "Champion III",
+     "needs_level": 120,
+     "level_cap": null
+    }
+   ],
+   "unlocks": [
+    "T4 class Lv 106",
+    "Adult Fantomon Lv 108",
+    "Demonbind Tower Lv 116",
+    "Champion III Lv 120",
+    "Warlord's Rest Lv 130"
+   ],
+   "dungeons": [
+    {
+     "name": "Demonseal Gorge",
+     "opens_server_day": 47,
+     "needs_level": null,
+     "gear_level": 130,
+     "power": {
+      "normal": null,
+      "hard": 2350000,
+      "nightmare": null,
+      "purgatory": null
+     },
+     "sources": [
+      "S-02"
+     ]
+    },
+    {
+     "name": "Warlord's Rest",
+     "opens_server_day": 60,
+     "needs_level": 130,
+     "gear_level": 165,
+     "power": {
+      "normal": 3550000,
+      "hard": 5000000,
+      "nightmare": 6000000,
+      "purgatory": null
+     },
+     "sources": [
+      "S-02"
+     ]
+    },
+    {
+     "name": "Cloudcrest Temple",
+     "opens_server_day": 73,
+     "needs_level": null,
+     "gear_level": 195,
+     "power": {
+      "normal": 6200000,
+      "hard": 7700000,
+      "nightmare": 9800000,
+      "purgatory": null
+     },
+     "sources": [
+      "S-02"
+     ]
+    },
+    {
+     "name": "Bladeshire",
+     "opens_server_day": 86,
+     "needs_level": null,
+     "gear_level": 225,
+     "power": {
+      "normal": 10000000,
+      "hard": 12500000,
+      "nightmare": 15800000,
+      "purgatory": null
+     },
+     "sources": [
+      "S-02"
+     ]
+    },
+    {
+     "name": "Celestship",
+     "opens_server_day": 99,
+     "needs_level": null,
+     "gear_level": 250,
+     "power": {
+      "normal": 16500000,
+      "hard": 20000000,
+      "nightmare": 24500000,
+      "purgatory": 40000000
+     },
+     "sources": [
+      "S-02"
+     ]
+    }
+   ],
+   "sources": [
+    "S-02",
+    "S-03",
+    "S-53"
+   ]
+  },
+  {
+   "id": "aethyris",
+   "order": 5,
+   "name": "Aethyris",
+   "season": 3,
+   "opens_server_day": 114,
+   "level_range": [
+    null,
+    null
+   ],
+   "town": null,
+   "currency": null,
+   "tool": null,
+   "tool_clears": null,
+   "shop_npc": null,
+   "ranks": [],
+   "dungeons": [],
+   "sources": [
+    "S-02",
+    "S-03"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,207 @@
+{
+ "_meta": {
+  "description": "Gem colours, stats and allowed gear slots. Rules: sockets per piece = 1 in Season 1, 2 in Season 2 (+1 per season); tiers T1-T15, each about 1.5x the previous; combining can fail above T5 with shared per-tier pity. See systems/gems.md.",
+  "sources": [
+   "S-01",
+   "S-02",
+   "S-52"
+  ],
+  "updated": "2026-11-18",
+  "sockets_per_piece": {
+   "season_1": 1,
+   "season_2": 2
+  },
+  "tiers": {
+   "min": 1,
+   "max": 15,
+   "growth_per_tier": 1.5,
+   "fail_possible_above_tier": 5
+  },
+  "recommended": {
+   "duelist": [
+    "red",
+    "purple",
+    "yellow",
+    "green"
+   ],
+   "knight": [
+    "red",
+    "purple",
+    "blue"
+   ],
+   "sorcerer": [
+    "red",
+    "purple",
+    "yellow",
+    "green"
+   ],
+   "sage": [
+    "red",
+    "purple",
+    "orange",
+    "green"
+   ]
+  }
+ },
+ "gems": [
+  {
+   "id": "red",
+   "colour": "red",
+   "name": "Ruby",
+   "name_confidence": "single-source",
+   "stats": [
+    "ATK%"
+   ],
+   "kind": "normal",
+   "slots": [
+    "weapon",
+    "offhand",
+    "boots"
+   ],
+   "value_per_tier": null,
+   "sources": [
+    "S-01",
+    "S-52"
+   ]
+  },
+  {
+   "id": "purple",
+   "colour": "purple",
+   "name": null,
+   "name_confidence": null,
+   "stats": [
+    "SPD%",
+    "Crit Rate"
+   ],
+   "kind": "normal",
+   "slots": [
+    "weapon",
+    "offhand",
+    "boots"
+   ],
+   "value_per_tier": null,
+   "sources": [
+    "S-01"
+   ]
+  },
+  {
+   "id": "yellow",
+   "colour": "yellow",
+   "name": null,
+   "name_confidence": null,
+   "stats": [
+    "SPD%"
+   ],
+   "kind": "normal",
+   "slots": [
+    "offhand",
+    "helmet",
+    "boots"
+   ],
+   "value_per_tier": null,
+   "sources": [
+    "S-01"
+   ]
+  },
+  {
+   "id": "green",
+   "colour": "green",
+   "name": "Beryl",
+   "name_confidence": "single-source",
+   "stats": [
+    "HP%"
+   ],
+   "kind": "normal",
+   "slots": [
+    "offhand",
+    "helmet",
+    "armor"
+   ],
+   "value_per_tier": null,
+   "sources": [
+    "S-01",
+    "S-52"
+   ]
+  },
+  {
+   "id": "blue",
+   "colour": "blue",
+   "name": null,
+   "name_confidence": null,
+   "stats": [
+    "DEF%"
+   ],
+   "kind": "normal",
+   "slots": [
+    "offhand",
+    "helmet",
+    "armor"
+   ],
+   "value_per_tier": null,
+   "sources": [
+    "S-01"
+   ]
+  },
+  {
+   "id": "orange",
+   "colour": "orange",
+   "name": "Amber",
+   "name_confidence": "single-source",
+   "stats": [
+    "HP%",
+    "Healing Boost"
+   ],
+   "kind": "normal",
+   "slots": [
+    "offhand",
+    "helmet",
+    "boots"
+   ],
+   "value_per_tier": null,
+   "sources": [
+    "S-01",
+    "S-52"
+   ]
+  },
+  {
+   "id": "black",
+   "colour": "black",
+   "name": "Obsidian",
+   "name_confidence": "single-source",
+   "stats": [
+    "ATK%",
+    "DMG Boost"
+   ],
+   "kind": "special",
+   "slots": [
+    "weapon",
+    "offhand"
+   ],
+   "value_per_tier": null,
+   "sources": [
+    "S-01",
+    "S-52"
+   ]
+  },
+  {
+   "id": "white",
+   "colour": "white",
+   "name": "Moonstone",
+   "name_confidence": "single-source",
+   "stats": [
+    "DEF%",
+    "DMG RES"
+   ],
+   "kind": "special",
+   "slots": [
+    "offhand",
+    "armor"
+   ],
+   "value_per_tier": null,
+   "sources": [
+    "S-01",
+    "S-52"
+   ]
+  }
+ ]
+}

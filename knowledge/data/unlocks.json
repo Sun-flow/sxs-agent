@@ -1,0 +1,270 @@
+{
+ "_meta": {
+  "description": "Feature unlocks by character level (level null = gated by another condition). See systems/levels-and-unlocks.md.",
+  "sources": [
+   "S-02",
+   "S-03",
+   "S-51",
+   "S-52",
+   "S-53",
+   "S-54",
+   "R-011",
+   "R-118"
+  ],
+  "updated": "2026-11-18"
+ },
+ "unlocks": [
+  {
+   "id": "alchemy-pot",
+   "level": 7,
+   "feature": "Alchemy Pot furniture slot",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "R-035"
+   ]
+  },
+  {
+   "id": "guild",
+   "level": 15,
+   "feature": "Guild and Guild Donation",
+   "gate": "level",
+   "note": "Tab text says 15; on our account the tab lit at Lv 20",
+   "sources": [
+    "S-03",
+    "R-011"
+   ]
+  },
+  {
+   "id": "vendor-booth",
+   "level": 18,
+   "feature": "Vendor Booth",
+   "gate": "level",
+   "note": "Reported 18; Fandom says 20",
+   "sources": [
+    "R-011",
+    "S-03"
+   ]
+  },
+  {
+   "id": "rank-apprentice-2",
+   "level": 20,
+   "feature": "Level cap 20; Rank Advancement to Apprentice II (cap 30)",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "R-118"
+   ]
+  },
+  {
+   "id": "rank-apprentice-3",
+   "level": 30,
+   "feature": "Level cap 30; Rank Advancement to Apprentice III (cap 40)",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "R-118"
+   ]
+  },
+  {
+   "id": "rank-after-apprentice-3",
+   "level": 40,
+   "feature": "Level cap 40; next rank (name unknown)",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "R-118"
+   ]
+  },
+  {
+   "id": "grand-arena",
+   "level": 40,
+   "feature": "Grand Arena in Cinder Ridge (also needs Rank Advancement)",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "commercium",
+   "level": 40,
+   "feature": "Commercium: Trading House and Auction House",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "skill-test",
+   "level": 40,
+   "feature": "Skill Test (DPS dummy)",
+   "gate": "level",
+   "note": "single source",
+   "sources": [
+    "S-54"
+   ]
+  },
+  {
+   "id": "class-change-2",
+   "level": 44,
+   "feature": "Second class change (Duelist/Knight, Sorcerer/Sage) in Cinder Ridge",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-03",
+    "S-54"
+   ]
+  },
+  {
+   "id": "fantomons",
+   "level": 50,
+   "feature": "Fantomons",
+   "gate": "level",
+   "note": "R-011 reports 51",
+   "sources": [
+    "S-03",
+    "S-52",
+    "S-54",
+    "R-011"
+   ]
+  },
+  {
+   "id": "companion-skin",
+   "level": 60,
+   "feature": "A companion skin",
+   "gate": "level",
+   "note": "single source",
+   "sources": [
+    "S-54"
+   ]
+  },
+  {
+   "id": "lossless-class-change",
+   "level": 100,
+   "feature": "Lossless class change and Class Rollback",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-03",
+    "R-117"
+   ]
+  },
+  {
+   "id": "aquorigin-shrine",
+   "level": 100,
+   "feature": "Aquorigin Shrine dungeon (also server day 24)",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "seasonal-boundary",
+   "level": 100,
+   "feature": "Progress above this level is seasonal and resets",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-03"
+   ]
+  },
+  {
+   "id": "t4-class",
+   "level": 106,
+   "feature": "T4 class (4th advancement)",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-02",
+    "S-03",
+    "S-53"
+   ]
+  },
+  {
+   "id": "adult-fantomon",
+   "level": 108,
+   "feature": "Adult Fantomon evolution",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-02",
+    "S-53"
+   ]
+  },
+  {
+   "id": "demonbind-tower",
+   "level": 116,
+   "feature": "Demonbind Tower (gems)",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-02",
+    "S-53"
+   ]
+  },
+  {
+   "id": "rank-champion-3",
+   "level": 120,
+   "feature": "Champion III, top Kingdom Rank of Season 2",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-02"
+   ]
+  },
+  {
+   "id": "warlords-rest",
+   "level": 130,
+   "feature": "Warlord's Rest, second Season 2 dungeon",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-02",
+    "S-53"
+   ]
+  },
+  {
+   "id": "travel-journal",
+   "level": null,
+   "feature": "Travel Journal: unlock any mode",
+   "gate": "condition",
+   "note": null,
+   "sources": [
+    "R-011"
+   ]
+  },
+  {
+   "id": "premium-skill-banner",
+   "level": null,
+   "feature": "Premium skill banner: clear Verdantglade and reach Cinder Ridge",
+   "gate": "condition",
+   "note": null,
+   "sources": [
+    "S-54"
+   ]
+  },
+  {
+   "id": "offhand-slot",
+   "level": null,
+   "feature": "Offhand gear slot: trigger unknown, not unlocked at Lv 37",
+   "gate": "condition",
+   "note": null,
+   "sources": [
+    "R-023"
+   ]
+  },
+  {
+   "id": "charm-slot-4",
+   "level": null,
+   "feature": "4th charm slot: trigger unknown, locked at Lv 13",
+   "gate": "condition",
+   "note": null,
+   "sources": [
+    "R-080"
+   ]
+  }
+ ]
+}

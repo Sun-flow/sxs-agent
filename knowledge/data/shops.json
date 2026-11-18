@@ -1,0 +1,547 @@
+{
+ "_meta": {
+  "description": "Every known shop of Sword x Staff: currency, refresh, guide buy priority, and stock we observed (prices in the shop's currency). null = unknown. Prose: systems/shops.md; bot buying is still gated by docs/shop-tables.md",
+  "sources": [
+   "S-01",
+   "S-02",
+   "S-03",
+   "S-04",
+   "S-31",
+   "S-32",
+   "S-33",
+   "S-34",
+   "S-35",
+   "memory-bank/game/rules",
+   "docs/shop-tables.md"
+  ],
+  "updated": "2026-11-18"
+ },
+ "shops": [
+  {
+   "id": "vendor_booth_general",
+   "name": "Vendor Booth: General",
+   "location": "Home, Molly's wagon",
+   "currency": "rolla",
+   "refresh": "daily; paid refresh 4K Rolla",
+   "unlock": "character Lv 20",
+   "buy_priority": [
+    "Wood",
+    "Stone",
+    "Quest Scrolls",
+    "Stellatie",
+    "Raw Ore / Battle Essence as needed"
+   ],
+   "skip": [],
+   "sources": [
+    "S-01",
+    "S-03",
+    "R-120"
+   ],
+   "observed_stock": [
+    {
+     "item": "Wood",
+     "qty": 150,
+     "price": 3000
+    },
+    {
+     "item": "Stellatie",
+     "qty": 1,
+     "price": 3150
+    },
+    {
+     "item": "Stone",
+     "qty": 150,
+     "price": 2400
+    },
+    {
+     "item": "Raw Ore",
+     "qty": 350,
+     "price": 2100
+    },
+    {
+     "item": "Battle Essence",
+     "qty": 300,
+     "price": 2160
+    },
+    {
+     "item": "Battle Essence",
+     "qty": 250,
+     "price": 1600
+    },
+    {
+     "item": "Battle Essence",
+     "qty": 300,
+     "price": 2400
+    },
+    {
+     "item": "Water",
+     "qty": 1,
+     "price": 500
+    }
+   ]
+  },
+  {
+   "id": "vendor_booth_vault",
+   "name": "Vendor Booth: Vault",
+   "location": "Home, Molly's wagon",
+   "currency": "dawnium",
+   "refresh": "daily",
+   "unlock": "character Lv 20",
+   "buy_priority": [
+    "Stamina x30 (free)",
+    "discounted Material Realm tools",
+    "discounted Stellatie",
+    "Epic Auroral Badges"
+   ],
+   "skip": [
+    "Refined Ore",
+    "Golden Beetle",
+    "Shapeshifting Mirror",
+    "Rename Card"
+   ],
+   "sources": [
+    "S-01",
+    "S-03",
+    "S-04",
+    "S-35",
+    "R-120"
+   ],
+   "observed_stock": [
+    {
+     "item": "Stamina",
+     "qty": 30,
+     "price": 0
+    },
+    {
+     "item": "Stellatie",
+     "qty": 2,
+     "price": 100
+    },
+    {
+     "item": "Gold Pickaxe",
+     "qty": 5,
+     "price": 60
+    },
+    {
+     "item": "Worn Knuckles",
+     "qty": 5,
+     "price": 40
+    },
+    {
+     "item": "Refined Ore",
+     "qty": 180,
+     "price": 180
+    },
+    {
+     "item": "Golden Beetle",
+     "qty": 1,
+     "price": 50
+    },
+    {
+     "item": "Shapeshifting Mirror",
+     "qty": 1,
+     "price": 100
+    },
+    {
+     "item": "Rename Card",
+     "qty": 1,
+     "price": 500
+    }
+   ],
+   "daily_budget_dawnium": 400
+  },
+  {
+   "id": "vendor_booth_goals",
+   "name": "Vendor Booth: Goals",
+   "location": "Home, Molly's wagon",
+   "currency": "vendor_booth_pts",
+   "refresh": "milestones 5K-25K",
+   "unlock": "character Lv 20",
+   "buy_priority": [
+    "claim every milestone"
+   ],
+   "skip": [],
+   "sources": [
+    "R-116",
+    "R-120"
+   ]
+  },
+  {
+   "id": "mollys_deals",
+   "name": "Molly's Deals",
+   "location": "friends' homes, via the gate on Home (orange house symbol in the friends list)",
+   "currency": null,
+   "refresh": "10 purchases a week",
+   "unlock": null,
+   "buy_priority": [
+    "Stellatie",
+    "Covenite",
+    "relic gacha badges"
+   ],
+   "skip": [],
+   "sources": [
+    "S-01"
+   ]
+  },
+  {
+   "id": "kingdom_shop_verdantglade",
+   "name": "Kingdom Shop (Hermes)",
+   "location": "Drasilgard, east side",
+   "currency": "abundance_leaf",
+   "refresh": null,
+   "unlock": null,
+   "buy_priority": [
+    "Withering Potion",
+    "Gateway Key",
+    "Stellatie at 90% off",
+    "Refined Ore at 90% off"
+   ],
+   "skip": [
+    "ingredients and gifts unless needed"
+   ],
+   "sources": [
+    "S-01",
+    "R-134"
+   ],
+   "shop_levels": 4,
+   "observed_stock": [
+    {
+     "item": "Stellatie",
+     "qty": 1,
+     "price": 100
+    },
+    {
+     "item": "Stellatie",
+     "qty": 1,
+     "price": 600
+    },
+    {
+     "item": "Refined Ore",
+     "qty": 100,
+     "price": 100
+    },
+    {
+     "item": "Refined Ore",
+     "qty": 100,
+     "price": 600
+    },
+    {
+     "item": "Withering Potion",
+     "qty": 1,
+     "price": 1800
+    },
+    {
+     "item": "Withering Potion",
+     "qty": 1,
+     "price": 3000
+    },
+    {
+     "item": "Recipe: Cheerful Greens",
+     "qty": 1,
+     "price": 600
+    },
+    {
+     "item": "Recipe: Stewed Meat and Potatoes",
+     "qty": 1,
+     "price": 600
+    },
+    {
+     "item": "Flour",
+     "qty": 1,
+     "price": 50
+    },
+    {
+     "item": "Potato",
+     "qty": 1,
+     "price": 50
+    },
+    {
+     "item": "Iris",
+     "qty": 1,
+     "price": 300
+    },
+    {
+     "item": "Jungle Fables",
+     "qty": 1,
+     "price": 300
+    }
+   ]
+  },
+  {
+   "id": "kingdom_shop_cinder_ridge",
+   "name": "Kingdom Shop (Cinder Ridge)",
+   "location": null,
+   "currency": "kingdom_currency_cinder_ridge",
+   "refresh": null,
+   "unlock": null,
+   "buy_priority": [
+    "Magic Drill",
+    "Gateway Key"
+   ],
+   "skip": [],
+   "sources": [
+    "S-01"
+   ]
+  },
+  {
+   "id": "kingdom_shop_aqualis",
+   "name": "Kingdom Shop (Aqualis)",
+   "location": null,
+   "currency": "kingdom_currency_aqualis",
+   "refresh": null,
+   "unlock": null,
+   "buy_priority": [
+    "Water Mine",
+    "Gateway Key"
+   ],
+   "skip": [],
+   "sources": [
+    "S-01"
+   ]
+  },
+  {
+   "id": "kingdom_shop_loong_haven",
+   "name": "Kingdom Shop (Loong Haven)",
+   "location": null,
+   "currency": "kingdom_currency_loong_haven",
+   "refresh": null,
+   "unlock": null,
+   "buy_priority": [
+    "kingdom tool",
+    "Gateway Key"
+   ],
+   "skip": [],
+   "sources": [
+    "S-01",
+    "S-34"
+   ]
+  },
+  {
+   "id": "guild_shop",
+   "name": "Guild Shop",
+   "location": "guild island, east side",
+   "currency": "guild_token",
+   "refresh": "weekly",
+   "unlock": "join a guild; stock gated by guild Shop Lv 1-6",
+   "buy_priority": [
+    "Fantomon aptitude materials",
+    "Bond Trinket (summon token)",
+    "discounted items",
+    "Stellatie",
+    "Rare Auroral Badge x10"
+   ],
+   "skip": [],
+   "sources": [
+    "S-01",
+    "S-03",
+    "R-114"
+   ],
+   "observed_stock": [
+    {
+     "item": "Stellatie",
+     "qty": 1,
+     "price": 500
+    },
+    {
+     "item": "Lucky Ticket",
+     "qty": 1,
+     "price": 1500
+    },
+    {
+     "item": "Bond Trinket",
+     "qty": 1,
+     "price": 400
+    },
+    {
+     "item": "Rare Auroral Badge",
+     "qty": 10,
+     "price": 400
+    },
+    {
+     "item": "Resilient Sprout",
+     "qty": 1,
+     "price": 640
+    },
+    {
+     "item": "Hopeful Bud",
+     "qty": 1,
+     "price": 1680
+    },
+    {
+     "item": "Stone Sheep",
+     "qty": 1,
+     "price": 640
+    },
+    {
+     "item": "Cotton Sheep",
+     "qty": 1,
+     "price": 1680
+    },
+    {
+     "item": "Steely Chicken",
+     "qty": 1,
+     "price": 640
+    },
+    {
+     "item": "Dawn Chicken",
+     "qty": 1,
+     "price": 1680
+    },
+    {
+     "item": "T3 Livestock Selection Chest",
+     "qty": 1,
+     "price": 4200
+    }
+   ]
+  },
+  {
+   "id": "arena_shop",
+   "name": "Arena shop",
+   "location": "Arena",
+   "currency": "arena_currency",
+   "refresh": null,
+   "unlock": null,
+   "buy_priority": [],
+   "skip": [],
+   "sources": [
+    "S-31",
+    "S-35"
+   ]
+  },
+  {
+   "id": "mysterious_merchant",
+   "name": "Mysterious Merchant",
+   "location": "Home, after a Chaos Invasion event ends",
+   "currency": "chaos_crystal",
+   "refresh": "per event",
+   "unlock": null,
+   "buy_priority": [
+    "Primal Forge (until maxed)"
+   ],
+   "skip": [
+    "everything else"
+   ],
+   "sources": [
+    "S-01",
+    "S-32"
+   ]
+  },
+  {
+   "id": "grand_treasure_hunt",
+   "name": "Grand Treasure Hunt rewards",
+   "location": "event",
+   "currency": "aurodrasil_energy",
+   "refresh": "weekly event; save every other week",
+   "unlock": null,
+   "buy_priority": [
+    "Lucky Statue",
+    "Primal Gem",
+    "floor 5 unique relic"
+   ],
+   "skip": [
+    "Stellatie"
+   ],
+   "sources": [
+    "S-01",
+    "S-33"
+   ]
+  },
+  {
+   "id": "fantomon_exchange",
+   "name": "Fantomon exchange shop",
+   "location": "Arborisfatum",
+   "currency": "summon_crystal",
+   "refresh": null,
+   "unlock": null,
+   "buy_priority": [
+    "one duplicate of Nyxarchon or Aegiswing for Adult evolution"
+   ],
+   "skip": [],
+   "sources": [
+    "S-02",
+    "S-32"
+   ]
+  },
+  {
+   "id": "prayer_exchange",
+   "name": "Prayer Exchange tab",
+   "location": "Goddess Statue on Home",
+   "currency": null,
+   "refresh": null,
+   "unlock": null,
+   "buy_priority": [],
+   "skip": [],
+   "sources": [
+    "R-093"
+   ]
+  },
+  {
+   "id": "trading_house",
+   "name": "Commercium: Trading House",
+   "location": "airship from Home",
+   "currency": null,
+   "refresh": "player listings",
+   "unlock": "character Lv 40",
+   "buy_priority": [
+    "gems after the price crash"
+   ],
+   "skip": [],
+   "sources": [
+    "S-02",
+    "S-03"
+   ]
+  },
+  {
+   "id": "auction_house",
+   "name": "Commercium: Auction House",
+   "location": "airship from Home",
+   "currency": "luminium",
+   "refresh": "player listings",
+   "unlock": "character Lv 40",
+   "buy_priority": [
+    "gear with an undervalued affix"
+   ],
+   "skip": [],
+   "sources": [
+    "S-02",
+    "S-03",
+    "S-31"
+   ]
+  },
+  {
+   "id": "mall",
+   "name": "Mall",
+   "location": "Home menu",
+   "currency": "real money",
+   "refresh": null,
+   "unlock": null,
+   "buy_priority": [
+    "free gift boxes only"
+   ],
+   "skip": [
+    "every pack"
+   ],
+   "sources": [
+    "R-121"
+   ],
+   "real_money": true
+  },
+  {
+   "id": "timed_packs",
+   "name": "Starter Pack and Timed Packs",
+   "location": "Home popups",
+   "currency": "real money",
+   "refresh": null,
+   "unlock": null,
+   "buy_priority": [],
+   "skip": [
+    "everything"
+   ],
+   "sources": [
+    "R-126",
+    "R-157"
+   ],
+   "real_money": true
+  }
+ ]
+}

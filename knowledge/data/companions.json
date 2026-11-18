@@ -1,0 +1,491 @@
+{
+  "_meta": {
+    "description": "Companions of Sword x Staff. stat_group is the companion's level-50 special-stat family (Block / Crit Rate / Accuracy / Healing); stat_confidence is the source tier for that group (B = SOF guide, D = Mobi.gg grouped list, our interpretation). Level milestones and level order are in systems/companions.md.",
+    "sources": [
+      "S-01",
+      "S-02",
+      "S-03",
+      "S-21",
+      "S-27"
+    ],
+    "updated": "2026-11-18"
+  },
+  "companions": [
+    {
+      "id": "akane",
+      "name": "Akane",
+      "origin": "Start / Verdantglade",
+      "season": 1,
+      "stat_group": "Accuracy",
+      "special_stats": null,
+      "stat_confidence": "D",
+      "notes": "Guide NPC; NPC party member; Wind Affinity 101 as gate helper.",
+      "sources": [
+        "S-03",
+        "S-27",
+        "R-133",
+        "R-159"
+      ]
+    },
+    {
+      "id": "reina",
+      "name": "Reina",
+      "origin": "Start",
+      "season": 1,
+      "stat_group": "Crit Rate",
+      "special_stats": null,
+      "stat_confidence": "D",
+      "notes": "Akane's older sister.",
+      "sources": [
+        "S-03",
+        "S-27"
+      ]
+    },
+    {
+      "id": "molly",
+      "name": "Molly",
+      "origin": "Everywhere",
+      "season": 1,
+      "stat_group": "Block",
+      "special_stats": null,
+      "stat_confidence": "D",
+      "notes": "Travelling merchant; a 'Starfrost' variant is listed under Crit Rate by S-27.",
+      "sources": [
+        "S-03",
+        "S-27"
+      ]
+    },
+    {
+      "id": "narss-chief",
+      "name": "Narss (Chief)",
+      "origin": "Verdantglade (Drasilgard)",
+      "season": 1,
+      "stat_group": "Healing",
+      "special_stats": null,
+      "stat_confidence": "D",
+      "notes": "Chief of Drasilgard; a 'Santa' variant is listed under Accuracy by S-27.",
+      "sources": [
+        "S-03",
+        "S-27"
+      ]
+    },
+    {
+      "id": "hermes",
+      "name": "Hermes",
+      "origin": "Verdantglade (Drasilgard)",
+      "season": 1,
+      "stat_group": "Accuracy",
+      "special_stats": null,
+      "stat_confidence": "D",
+      "notes": "Merchant and alchemist; runs the Kingdom Shop.",
+      "sources": [
+        "S-03",
+        "S-27"
+      ]
+    },
+    {
+      "id": "qin",
+      "name": "Qin",
+      "origin": null,
+      "season": 1,
+      "stat_group": "Crit Rate",
+      "special_stats": null,
+      "stat_confidence": "D",
+      "notes": "Loongborn girl, Killian's sister; NPC party member; Wind Affinity 101.",
+      "sources": [
+        "S-03",
+        "S-27",
+        "R-133",
+        "R-159"
+      ]
+    },
+    {
+      "id": "killian",
+      "name": "Killian",
+      "origin": null,
+      "season": 1,
+      "stat_group": "Healing",
+      "special_stats": null,
+      "stat_confidence": "D",
+      "notes": "Dryason archaeologist; NPC party member; Wind Affinity 101.",
+      "sources": [
+        "S-03",
+        "S-27",
+        "R-133",
+        "R-159"
+      ]
+    },
+    {
+      "id": "mysterious-merchant",
+      "name": "Mysterious Merchant",
+      "origin": "Everywhere",
+      "season": 1,
+      "stat_group": null,
+      "special_stats": null,
+      "stat_confidence": null,
+      "notes": "Cloaked merchant.",
+      "sources": [
+        "S-03"
+      ]
+    },
+    {
+      "id": "naira",
+      "name": "Naira",
+      "origin": "Cinder Ridge (Fortburg)",
+      "season": 1,
+      "stat_group": "Crit Rate",
+      "special_stats": null,
+      "stat_confidence": "D",
+      "notes": "Ruler of Fortburg.",
+      "sources": [
+        "S-03",
+        "S-27"
+      ]
+    },
+    {
+      "id": "micaela",
+      "name": "Micaela",
+      "origin": "Cinder Ridge",
+      "season": 1,
+      "stat_group": "Block",
+      "special_stats": null,
+      "stat_confidence": "D",
+      "notes": "Inventor at the forge.",
+      "sources": [
+        "S-03",
+        "S-27"
+      ]
+    },
+    {
+      "id": "karlos",
+      "name": "Karlos",
+      "origin": "Cinder Ridge",
+      "season": 1,
+      "stat_group": "Crit Rate",
+      "special_stats": null,
+      "stat_confidence": "D",
+      "notes": null,
+      "sources": [
+        "S-03",
+        "S-27"
+      ]
+    },
+    {
+      "id": "braulio",
+      "name": "Braulio",
+      "origin": "Cinder Ridge",
+      "season": 1,
+      "stat_group": "Block",
+      "special_stats": null,
+      "stat_confidence": "D",
+      "notes": "Merchant.",
+      "sources": [
+        "S-03",
+        "S-27"
+      ]
+    },
+    {
+      "id": "mateo",
+      "name": "Mateo",
+      "origin": "Cinder Ridge",
+      "season": 1,
+      "stat_group": "Accuracy",
+      "special_stats": null,
+      "stat_confidence": "D",
+      "notes": null,
+      "sources": [
+        "S-03",
+        "S-27"
+      ]
+    },
+    {
+      "id": "wuji",
+      "name": "Wuji",
+      "origin": "Loong Haven",
+      "season": 2,
+      "stat_group": "Crit Rate",
+      "special_stats": [
+        "Crit Rate",
+        "DMG Boost"
+      ],
+      "stat_confidence": "B",
+      "notes": null,
+      "sources": [
+        "S-02"
+      ]
+    },
+    {
+      "id": "ming",
+      "name": "Ming",
+      "origin": "Loong Haven",
+      "season": 2,
+      "stat_group": "Crit Rate",
+      "special_stats": [
+        "Crit Rate",
+        "DMG Boost"
+      ],
+      "stat_confidence": "B",
+      "notes": null,
+      "sources": [
+        "S-02"
+      ]
+    },
+    {
+      "id": "hui",
+      "name": "Hui",
+      "origin": "Loong Haven",
+      "season": 2,
+      "stat_group": "Block",
+      "special_stats": [
+        "Block",
+        "Block Efficiency"
+      ],
+      "stat_confidence": "B",
+      "notes": null,
+      "sources": [
+        "S-02"
+      ]
+    },
+    {
+      "id": "jiangwang",
+      "name": "Jiangwang",
+      "origin": "Loong Haven",
+      "season": 2,
+      "stat_group": "Accuracy",
+      "special_stats": [
+        "Accuracy",
+        "DMG Boost"
+      ],
+      "stat_confidence": "B",
+      "notes": null,
+      "sources": [
+        "S-02"
+      ]
+    },
+    {
+      "id": "suimo",
+      "name": "Suimo",
+      "origin": "Loong Haven",
+      "season": 2,
+      "stat_group": "Healing",
+      "special_stats": [
+        "Healing Boost",
+        "Crit Res",
+        "DMG Res"
+      ],
+      "stat_confidence": "B",
+      "notes": null,
+      "sources": [
+        "S-02"
+      ]
+    },
+    {
+      "id": "gerald",
+      "name": "Gerald",
+      "origin": null,
+      "season": null,
+      "stat_group": "Block",
+      "special_stats": null,
+      "stat_confidence": "D",
+      "notes": "Name and group only from S-27.",
+      "sources": [
+        "S-27"
+      ]
+    },
+    {
+      "id": "juubee",
+      "name": "Juubee",
+      "origin": null,
+      "season": null,
+      "stat_group": "Block",
+      "special_stats": null,
+      "stat_confidence": "D",
+      "notes": "Name and group only from S-27.",
+      "sources": [
+        "S-27"
+      ]
+    },
+    {
+      "id": "vigard",
+      "name": "Vigard",
+      "origin": null,
+      "season": null,
+      "stat_group": "Block",
+      "special_stats": null,
+      "stat_confidence": "D",
+      "notes": "Name and group only from S-27.",
+      "sources": [
+        "S-27"
+      ]
+    },
+    {
+      "id": "mio",
+      "name": "Mio",
+      "origin": null,
+      "season": null,
+      "stat_group": "Accuracy",
+      "special_stats": null,
+      "stat_confidence": "D",
+      "notes": "Name and group only from S-27.",
+      "sources": [
+        "S-27"
+      ]
+    },
+    {
+      "id": "ophelia",
+      "name": "Ophelia",
+      "origin": null,
+      "season": null,
+      "stat_group": "Accuracy",
+      "special_stats": null,
+      "stat_confidence": "D",
+      "notes": "Name and group only from S-27.",
+      "sources": [
+        "S-27"
+      ]
+    },
+    {
+      "id": "sylvia",
+      "name": "Sylvia",
+      "origin": null,
+      "season": null,
+      "stat_group": "Accuracy",
+      "special_stats": null,
+      "stat_confidence": "D",
+      "notes": "Name and group only from S-27.",
+      "sources": [
+        "S-27"
+      ]
+    },
+    {
+      "id": "elichi",
+      "name": "Elichi",
+      "origin": null,
+      "season": null,
+      "stat_group": "Crit Rate",
+      "special_stats": null,
+      "stat_confidence": "D",
+      "notes": "Name and group only from S-27.",
+      "sources": [
+        "S-27"
+      ]
+    },
+    {
+      "id": "freya",
+      "name": "Freya",
+      "origin": null,
+      "season": null,
+      "stat_group": "Crit Rate",
+      "special_stats": null,
+      "stat_confidence": "D",
+      "notes": "Name and group only from S-27.",
+      "sources": [
+        "S-27"
+      ]
+    },
+    {
+      "id": "mayoi",
+      "name": "Mayoi",
+      "origin": null,
+      "season": null,
+      "stat_group": "Crit Rate",
+      "special_stats": null,
+      "stat_confidence": "D",
+      "notes": "Name and group only from S-27.",
+      "sources": [
+        "S-27"
+      ]
+    },
+    {
+      "id": "astrid",
+      "name": "Astrid",
+      "origin": null,
+      "season": null,
+      "stat_group": "Healing",
+      "special_stats": null,
+      "stat_confidence": "D",
+      "notes": "Name and group only from S-27.",
+      "sources": [
+        "S-27"
+      ]
+    },
+    {
+      "id": "isla",
+      "name": "Isla",
+      "origin": null,
+      "season": null,
+      "stat_group": "Healing",
+      "special_stats": null,
+      "stat_confidence": "D",
+      "notes": "Name and group only from S-27.",
+      "sources": [
+        "S-27"
+      ]
+    },
+    {
+      "id": "suzu",
+      "name": "Suzu",
+      "origin": null,
+      "season": null,
+      "stat_group": "Healing",
+      "special_stats": null,
+      "stat_confidence": "D",
+      "notes": "Name and group only from S-27.",
+      "sources": [
+        "S-27"
+      ]
+    },
+    {
+      "id": "aqua",
+      "name": "Aqua",
+      "origin": "KonoSuba collaboration",
+      "season": null,
+      "stat_group": null,
+      "special_stats": null,
+      "stat_confidence": null,
+      "notes": "Collaboration companion; stat group not stated.",
+      "sources": [
+        "S-27"
+      ]
+    },
+    {
+      "id": "darkness",
+      "name": "Darkness",
+      "origin": "KonoSuba collaboration",
+      "season": null,
+      "stat_group": null,
+      "special_stats": null,
+      "stat_confidence": null,
+      "notes": "Collaboration companion; stat group not stated.",
+      "sources": [
+        "S-27"
+      ]
+    },
+    {
+      "id": "kazuma",
+      "name": "Kazuma",
+      "origin": "KonoSuba collaboration",
+      "season": null,
+      "stat_group": null,
+      "special_stats": null,
+      "stat_confidence": null,
+      "notes": "Collaboration companion; stat group not stated.",
+      "sources": [
+        "S-27"
+      ]
+    },
+    {
+      "id": "megumin",
+      "name": "Megumin",
+      "origin": "KonoSuba collaboration",
+      "season": null,
+      "stat_group": null,
+      "special_stats": null,
+      "stat_confidence": null,
+      "notes": "Collaboration companion; stat group not stated.",
+      "sources": [
+        "S-27"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,406 @@
+{
+  "_meta": {
+    "description": "Relic system records of Sword x Staff, one list with a 'kind' field: unique_relic, event_relic, pool (kingdom gacha pools with Mythic/Legendary special-stat counts), set, relic (individual relics seen), resonance_cap, enhance_cost, element_priority. See systems/relics.md.",
+    "sources": [
+      "S-01",
+      "S-02",
+      "S-03",
+      "S-22",
+      "S-23",
+      "S-24",
+      "S-25",
+      "R-167",
+      "R-172"
+    ],
+    "updated": "2026-11-18"
+  },
+  "records": [
+    {
+      "id": "lucky-statue",
+      "kind": "unique_relic",
+      "name": "Lucky Statue",
+      "element": "Light",
+      "rarity": null,
+      "affinity": {
+        "Light Affinity": 200
+      },
+      "effect": "Dungeon: 2x Rating Reward Rate 10% (+2% when displayed); scales to 60% with ascension (tier D)",
+      "obtain": "Grand Treasure Hunt",
+      "notes": "Always display it in the Light line.",
+      "sources": [
+        "S-01",
+        "S-23"
+      ]
+    },
+    {
+      "id": "primal-gem",
+      "kind": "unique_relic",
+      "name": "Primal Gem",
+      "element": null,
+      "rarity": null,
+      "affinity": null,
+      "effect": "Raises gem acquisition from all sources except packs and the trading house, 10% scaling to 60% (tier D)",
+      "obtain": "Grand Treasure Hunt",
+      "notes": null,
+      "sources": [
+        "S-01",
+        "S-23"
+      ]
+    },
+    {
+      "id": "heros-guide",
+      "kind": "unique_relic",
+      "name": "Hero's Guide",
+      "element": null,
+      "rarity": null,
+      "affinity": null,
+      "effect": "EXP gain and a 20% resonance bonus (tier D)",
+      "obtain": "Paid Stellaris Path (real money)",
+      "notes": "Out of scope for F2P.",
+      "sources": [
+        "S-24"
+      ]
+    },
+    {
+      "id": "sword-x-staff-relic",
+      "kind": "event_relic",
+      "name": "Sword x Staff",
+      "element": null,
+      "rarity": "Divine",
+      "affinity": null,
+      "effect": null,
+      "obtain": "Journey Overture launch event (free)",
+      "notes": null,
+      "sources": [
+        "S-03"
+      ]
+    },
+    {
+      "id": "merri-doll",
+      "kind": "event_relic",
+      "name": "Merri Doll",
+      "element": null,
+      "rarity": "Legendary",
+      "affinity": null,
+      "effect": null,
+      "obtain": "Journey Overture paid pack",
+      "notes": null,
+      "sources": [
+        "S-03"
+      ]
+    },
+    {
+      "id": "pool-sylvan-relics",
+      "kind": "pool",
+      "name": "Sylvan Relics",
+      "kingdom": "Verdantglade",
+      "opens": "from gacha unlock",
+      "obtain": [
+        "Aeonic Gacha",
+        "Destiny Fruits"
+      ],
+      "mythic_special_stats": null,
+      "legendary_special_stats": null,
+      "notes": "Kingdom banner name seen on the Aeonic Gacha screen.",
+      "sources": [
+        "R-167",
+        "S-03"
+      ]
+    },
+    {
+      "id": "pool-celestial-crafts",
+      "kind": "pool",
+      "name": "Celestial Crafts",
+      "kingdom": "Loong Haven",
+      "pool_number": 1,
+      "opens": "Season 2 day 1",
+      "obtain": [
+        "Aeonic Gacha",
+        "Destiny Fruits"
+      ],
+      "mythic_special_stats": {
+        "DMG Boost": 1,
+        "Block Rate": 1,
+        "Accuracy": 1,
+        "Crit Rate": 1,
+        "Crit Res": 2,
+        "DMG Res": 2
+      },
+      "legendary_special_stats": {
+        "DMG Boost": 1,
+        "DMG Res": 1,
+        "Crit Rate": 1,
+        "Crit Res": 1,
+        "Block Rate": 1,
+        "Accuracy": 1
+      },
+      "table_rows": {
+        "Mythic: Complete Set": {
+          "Crit Rate": 0.5,
+          "Crit Res": 0.5,
+          "Accuracy": 1,
+          "Block": 0.5
+        },
+        "Mythic: 3-Star": {
+          "DMG Boost": 1,
+          "DMG Res": 1.5
+        },
+        "Mythic: Awakened": {
+          "DMG Boost": 1.5,
+          "DMG Res": 1
+        },
+        "Legendary: 3-Star": {
+          "Crit Res": 2,
+          "Block": 2,
+          "DMG Boost": 1
+        },
+        "Legendary: Awakened": {
+          "DMG Boost": 3,
+          "DMG Res": 2
+        },
+        "Epic Set": {
+          "DMG Boost": 2,
+          "DMG Res": 2,
+          "Healing Boost": 1
+        }
+      },
+      "notes": "table_rows units are not labelled in the source table (credited to QY Maple).",
+      "sources": [
+        "S-02"
+      ]
+    },
+    {
+      "id": "pool-ethereal-oracle",
+      "kind": "pool",
+      "name": "Ethereal Oracle",
+      "kingdom": "Loong Haven",
+      "pool_number": 2,
+      "opens": "about 1 month after Season 2 start",
+      "obtain": [
+        "Aeonic Gacha"
+      ],
+      "mythic_special_stats": {
+        "DMG Boost": 1,
+        "Block Rate": 1,
+        "Accuracy": 1,
+        "Crit DMG": 2,
+        "Crit Res": 2,
+        "DMG Res": 1
+      },
+      "legendary_special_stats": {
+        "Crit Rate": 1,
+        "Crit Res": 1,
+        "Block Rate": 1,
+        "Accuracy": 1
+      },
+      "table_rows": {
+        "Mythic: Complete Set": {
+          "Crit Rate": 1,
+          "Crit Res": 1,
+          "Accuracy": 1,
+          "Block": 2
+        },
+        "Mythic: 3-Star": {
+          "DMG Boost": 3,
+          "DMG Res": 2
+        },
+        "Mythic: Awakened": {
+          "DMG Boost": 2,
+          "DMG Res": 3
+        },
+        "Legendary: 3-Star": {
+          "Crit Res": 2,
+          "Block": 2,
+          "DMG Boost": 2
+        },
+        "Legendary: Awakened": {
+          "DMG Boost": 2,
+          "DMG Res": 2
+        },
+        "Epic Set": {
+          "DMG Boost": 2,
+          "DMG Res": 2,
+          "Healing Boost": 1
+        }
+      },
+      "notes": "Guide text lists 4 Legendary special stats; the embedded table's Legendary row shows only Crit Rate 1.",
+      "sources": [
+        "S-02"
+      ]
+    },
+    {
+      "id": "set-faint-ember-glow",
+      "kind": "set",
+      "name": "Faint Ember Glow",
+      "kingdom": "Cinder Ridge",
+      "pieces": [
+        "Quake Pick",
+        "Pyrecrown",
+        "Ignic Loop",
+        "Blade Saw"
+      ],
+      "effect": "Set bonuses at 2, 3 and 4 owned pieces (tier D)",
+      "sources": [
+        "S-22"
+      ]
+    },
+    {
+      "id": "relic-star-ladybug",
+      "kind": "relic",
+      "name": "Star Ladybug",
+      "kingdom": "Verdantglade",
+      "element": null,
+      "rarity": null,
+      "effect": null,
+      "obtain": "Aeonic Gacha (Sylvan Relics), drawn by the bot 2026-11-11",
+      "sources": [
+        "R-167"
+      ]
+    },
+    {
+      "id": "relic-firebird-quill",
+      "kind": "relic",
+      "name": "Firebird Quill",
+      "kingdom": "Verdantglade",
+      "element": null,
+      "rarity": null,
+      "effect": null,
+      "obtain": "Aeonic Gacha (Sylvan Relics), drawn by the bot 2026-11-11",
+      "sources": [
+        "R-167"
+      ]
+    },
+    {
+      "id": "relic-hunters-requiem",
+      "kind": "relic",
+      "name": "Hunter's Requiem",
+      "kingdom": "Verdantglade",
+      "element": null,
+      "rarity": null,
+      "effect": null,
+      "obtain": "Aeonic Gacha (Sylvan Relics), drawn by the bot 2026-11-11",
+      "sources": [
+        "R-167"
+      ]
+    },
+    {
+      "id": "relic-wreath-of-peace",
+      "kind": "relic",
+      "name": "Wreath of Peace",
+      "kingdom": "Verdantglade",
+      "element": null,
+      "rarity": null,
+      "effect": null,
+      "obtain": "Aeonic Gacha (Sylvan Relics), drawn by the bot 2026-11-11",
+      "sources": [
+        "R-167"
+      ]
+    },
+    {
+      "id": "resonance-cap-s1",
+      "kind": "resonance_cap",
+      "season": 1,
+      "soft_cap": 10,
+      "notes": "Levels above the cap reset at season end.",
+      "sources": [
+        "S-01",
+        "S-03"
+      ]
+    },
+    {
+      "id": "resonance-cap-s2",
+      "kind": "resonance_cap",
+      "season": 2,
+      "soft_cap": 13,
+      "notes": "Levels above the cap reset at season end.",
+      "sources": [
+        "S-01"
+      ]
+    },
+    {
+      "id": "enhance-cost-1-2",
+      "kind": "enhance_cost",
+      "from_level": 1,
+      "to_level": 2,
+      "chrono_sand": 1000,
+      "rolla": 1800,
+      "sources": [
+        "R-172"
+      ]
+    },
+    {
+      "id": "enhance-cost-2-3",
+      "kind": "enhance_cost",
+      "from_level": 2,
+      "to_level": 3,
+      "chrono_sand": 1000,
+      "rolla": 1800,
+      "sources": [
+        "R-172"
+      ]
+    },
+    {
+      "id": "enhance-cost-3-4",
+      "kind": "enhance_cost",
+      "from_level": 3,
+      "to_level": 4,
+      "chrono_sand": 2000,
+      "rolla": 3600,
+      "sources": [
+        "R-172"
+      ]
+    },
+    {
+      "id": "element-priority-duelist",
+      "kind": "element_priority",
+      "class_": "Duelist",
+      "elements": [
+        "Fire"
+      ],
+      "notes": null,
+      "sources": [
+        "S-01"
+      ]
+    },
+    {
+      "id": "element-priority-sage",
+      "kind": "element_priority",
+      "class_": "Sage",
+      "elements": [
+        "Dark"
+      ],
+      "notes": null,
+      "sources": [
+        "S-01"
+      ]
+    },
+    {
+      "id": "element-priority-knight",
+      "kind": "element_priority",
+      "class_": "Knight",
+      "elements": [
+        "Water",
+        "Light"
+      ],
+      "notes": "Water for AoE, Light otherwise.",
+      "sources": [
+        "S-01"
+      ]
+    },
+    {
+      "id": "element-priority-sorcerer",
+      "kind": "element_priority",
+      "class_": "Sorcerer",
+      "elements": [
+        "Wind",
+        "Water",
+        "Fire",
+        "Light"
+      ],
+      "notes": "Wind: PvP. Water: better in 4v4 than PvE. Fire: better in PvE than PvP. Light: equal in both.",
+      "sources": [
+        "S-01"
+      ]
+    }
+  ]
+}
