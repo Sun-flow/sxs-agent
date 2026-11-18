@@ -14,16 +14,16 @@
 | # | Step | Costs | Permanent? | Bot | More |
 |---|---|---|---|---|---|
 | 1 | Advance rank if the level is at its cap; collect bed EXP | Rank materials, Rolla | yes | `upgrade`, `daily` | [Kingdom Rank](../systems/kingdom-rank.md), R-118 |
-| 2 | Equip better gear (red "!" on a slot); dismantle the rest | none | - | `gearswap` | R-088, R-165 |
+| 2 | Equip better gear (red "!" on a slot); dismantle the rest. Enhancement belongs to the slot, so a swap keeps every level [S-87]; a higher-quality piece beats a more enhanced one (more substat lines: 0, 1 to 2, 3, 4 from white up) [S-80] | none | - | `gearswap` | R-088, R-165 |
 | 3 | Fill empty charm and technique slots; Quick Upgrade | Battle Essence | to Lv 100 | `upgrade` | R-080, R-104 |
 | 4 | Ascend skills that show "!" | own shards | yes | `upgrade` | R-115 |
 | 5 | Enhance gear evenly in bands of five; activate Gear Resonance | ore, Rolla | to +100 | `upgrade` | R-092, R-119 |
 | 6 | Relics: Activate new ones, display the best four per element, Enhance resonance | Chrono Sand | to the season cap | `relics` | [Relics](../systems/relics.md), R-105 |
 | 7 | Relic gacha x10 when badges or tickets cover it | badges | yes | `gacha` | R-167 |
 | 8 | Class level (Class Badges) | badges | yes | `upgrade` | R-117 |
-| 9 | Fantomons (Lv 50): level, lineup, aptitudes on the Main | treats, materials | aptitudes yes | not coded | [Fantomons](../systems/fantomons.md) |
+| 9 | Fantomons (Lv 50 or 51): level only the four deployed (resonance is the lowest of them); the Main counts 100% of its stats, each Sub 50%, the rest of the collection 20% [S-85][S-87]; aptitudes on the Main | treats, materials | aptitudes yes | not coded | [Fantomons](../systems/fantomons.md) |
 | 10 | Companions: everyone to 20, class-matching to 50 | favoured gifts | yes | not coded | [Companions](../systems/companions.md) |
-| 11 | Permanent dishes | ingredients | yes, with falling returns | not coded | [Cooking](../systems/cooking-and-dishes.md) |
+| 11 | Permanent dishes: spread over recipes, since each recipe gives full value only for its first 10 meals (then 50%, 20%, 5%) [S-85] | ingredients | yes, with falling returns | not coded | [Cooking](../systems/cooking-and-dishes.md) |
 | 12 | Cart rows and Cart claim | Wood, Stone, Rolla | yes | `cart` | R-136 |
 | 13 | Light any statue still in reach (side zones below 1.25x power) | time | yes | `roam`, `clear` | [Exploration](../systems/exploration.md) |
 | 14 | Spend stamina on the missing material | stamina | - | `gather` | [Stamina plan](stamina-and-realms.md) |
@@ -41,8 +41,11 @@
 - Dungeon thresholds are entry checks on power; the clear itself can be carried [S-01].
 - A lost fight at equal power is usually an element or loadout problem for a Mage: swap the loadout before
   spending resources [S-03].
+- Damage, when power is not the issue: 40 Elemental Mastery is +1% damage [S-85]; Accuracy answers enemy Block,
+  Crit RES answers Crit, Effect RES answers debuffs [S-80].
 
 ## Sources
 
-- [S-01] carry strategy; [S-03] Classes Overview (elements)
+- [S-01] carry strategy; [S-03] Classes Overview (elements); [S-80] gear quality, stat counters; [S-85] Fantomon
+  slots, food brackets, mastery; [S-87] official handbook (slot enhancement)
 - Rules R-057, R-077, R-080, R-086, R-088, R-092, R-093, R-104, R-105, R-115, R-117, R-118, R-119, R-136, R-165, R-167

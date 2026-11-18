@@ -15,7 +15,8 @@
    "R-094",
    "R-099",
    "R-111",
-   "R-133"
+   "R-133",
+   "S-85"
   ],
   "updated": "2026-11-18"
  },
@@ -97,10 +98,11 @@
   },
   {
    "id": "aquaorigin",
-   "name": "Aquaorigin",
+   "name": "Aquorigin Shrine",
    "aliases": [
-    "Aquorigin Shrine",
-    "Aquorigin"
+    "Aquaorigin",
+    "Aquorigin",
+    "Aqua"
    ],
    "type": "daily_dungeon",
    "season": 1,
@@ -121,8 +123,10 @@
    "sources": [
     "S-01",
     "S-03",
-    "S-02"
-   ]
+    "S-02",
+    "S-85"
+   ],
+   "name_note": "Main spelling follows Fandom and eog.gg [S-03][S-85]; the SOF guides write Aquaorigin [S-01][S-02]. The id keeps the old spelling."
   },
   {
    "id": "hellhold",
@@ -195,7 +199,8 @@
    "free_attempts_per_day": 2,
    "notes": "Example gear: Ink Blade Mythic 428K / Divine 508K; sets Assimilation, Indomitable.",
    "sources": [
-    "S-02"
+    "S-02",
+    "S-85"
    ]
   },
   {
@@ -306,7 +311,8 @@
    "free_attempts_per_day": null,
    "notes": "Season 2 tower; drops gems.",
    "sources": [
-    "S-02"
+    "S-02",
+    "S-85"
    ]
   },
   {
@@ -380,11 +386,12 @@
    "best_rarity": null,
    "party_size": 4,
    "free_attempts_per_day": null,
-   "notes": "Up to 5 floors; 10 reward attempts per event window.",
+   "notes": "Up to 5 floors; 10 reward attempts per event window. Every other Sunday, alternating with Chaos Invasion; 10 attempts inside the 24-hour window [S-85].",
    "sources": [
     "S-42",
     "S-43",
-    "R-094"
+    "R-094",
+    "S-85"
    ]
   },
   {

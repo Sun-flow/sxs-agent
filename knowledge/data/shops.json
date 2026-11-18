@@ -12,7 +12,10 @@
    "S-34",
    "S-35",
    "memory-bank/game/rules",
-   "docs/shop-tables.md"
+   "docs/shop-tables.md",
+   "S-42",
+   "S-85",
+   "S-87"
   ],
   "updated": "2026-11-18"
  },
@@ -35,7 +38,8 @@
    "sources": [
     "S-01",
     "S-03",
-    "R-120"
+    "R-120",
+    "S-87"
    ],
    "observed_stock": [
     {
@@ -104,7 +108,8 @@
     "S-03",
     "S-04",
     "S-35",
-    "R-120"
+    "R-120",
+    "S-87"
    ],
    "observed_stock": [
     {
@@ -396,22 +401,61 @@
   },
   {
    "id": "arena_shop",
-   "name": "Arena shop",
+   "name": "Arena Shop",
    "location": "Arena",
    "currency": "arena_currency",
    "refresh": null,
-   "unlock": null,
-   "buy_priority": [],
+   "unlock": "Grand Arena, Lv 40",
+   "buy_priority": [
+    "Fantomon Shards",
+    "Covenite (500 coins, limit 1)",
+    "Bond Treat",
+    "Rare Auroral Badge x10"
+   ],
    "skip": [],
    "sources": [
     "S-31",
-    "S-35"
-   ]
+    "S-35",
+    "S-42"
+   ],
+   "observed_stock": [
+    {
+     "item": "Fantomon Shards",
+     "qty": 10,
+     "price": 2100,
+     "limit": 2
+    },
+    {
+     "item": "Bond Treat",
+     "qty": 1,
+     "price": 1600,
+     "limit": 2
+    },
+    {
+     "item": "Stellatie",
+     "qty": 1,
+     "price": 1000,
+     "limit": 3
+    },
+    {
+     "item": "Rare Auroral Badge",
+     "qty": 10,
+     "price": 800,
+     "limit": 5
+    },
+    {
+     "item": "Covenite",
+     "qty": 1,
+     "price": 500,
+     "limit": 1
+    }
+   ],
+   "notes": "Stock from one Season 1 player blog [S-42], not our own screen; currency called Arena coins there (in-game name unconfirmed). Buy order is our reading."
   },
   {
    "id": "mysterious_merchant",
    "name": "Mysterious Merchant",
-   "location": "Home, after a Chaos Invasion event ends",
+   "location": "Home, the day after a Chaos Invasion event ends",
    "currency": "chaos_crystal",
    "refresh": "per event",
    "unlock": null,
@@ -423,28 +467,34 @@
    ],
    "sources": [
     "S-01",
-    "S-32"
-   ]
+    "S-32",
+    "S-03",
+    "S-85"
+   ],
+   "notes": "Primal Forge raises the Cart's Raw Ore output and is bought every event up to Immortal [S-03][S-85]. Price per level unknown. Two pages also report the merchant after a Destiny Exploration (unconfirmed)."
   },
   {
    "id": "grand_treasure_hunt",
    "name": "Grand Treasure Hunt rewards",
    "location": "event",
    "currency": "aurodrasil_energy",
-   "refresh": "weekly event; save every other week",
+   "refresh": "weekly event (first on server day 8, then every 7 days); save every other week",
    "unlock": null,
    "buy_priority": [
-    "Lucky Statue",
-    "Primal Gem",
-    "floor 5 unique relic"
+    "Level 5 left item (the unique relic: Lucky Statue or Primal Gem)",
+    "Level 5 far right",
+    "Level 5 middle",
+    "Level 4: Legendary Auroral Badges or Bond Trinkets"
    ],
    "skip": [
     "Stellatie"
    ],
    "sources": [
     "S-01",
-    "S-33"
-   ]
+    "S-33",
+    "S-85"
+   ],
+   "notes": "Five reward Levels (sources also say floors or stages). About 3,240 Aurodrasil Energy clears Levels 1 to 5; price per item unknown [S-85]."
   },
   {
    "id": "fantomon_exchange",

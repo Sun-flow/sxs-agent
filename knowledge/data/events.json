@@ -20,7 +20,10 @@
    "R-111",
    "R-114",
    "R-121",
-   "R-147"
+   "R-147",
+   "S-80",
+   "S-85",
+   "S-87"
   ],
   "updated": "2026-11-18"
  },
@@ -29,23 +32,24 @@
    "id": "grand-treasure-hunt",
    "name": "Grand Treasure Hunt",
    "category": "recurring",
-   "schedule": "Every Saturday; unique relic on alternate weeks",
+   "schedule": "Every Saturday (first on server day 8, then every 7 days); unique relic on alternate weeks",
    "unlock_level": null,
-   "currency": "Event currency (called Aurodrasil Energy by one site; unconfirmed)",
+   "currency": "Aurodrasil Energy",
    "party": "solo",
    "best_f2p_choice": "Save on SAVE weeks; buy Lucky Statue or Primal Gem (Level 5) on MUST BUY weeks",
-   "notes": "About 3,240 currency to reach Level 5 (single tier C source).",
+   "notes": "Five reward Levels (also called floors or stages). About 3,240 Energy clears Levels 1 to 5; a free player gathers about 4,440 in two weeks or 5,640 in three. Level 5 order: left item (unique relic), far right, middle. Reward cycle: Mythic relic box, Lucky Statue, skill shards x180, Primal Gem. Before Loong Haven a free player skips hunts 1 and 3 and takes 2 and 5. Mini-games: Bingo Draw, Lucky Scratch, Feneck's Puzzle [S-85].",
    "sources": [
     "S-01",
     "S-02",
-    "S-43"
+    "S-43",
+    "S-85"
    ]
   },
   {
    "id": "chaos-invasion",
    "name": "Chaos Invasion",
    "category": "recurring",
-   "schedule": "Recurring, starts after a 7-day countdown; said to alternate Sundays with Void Rift",
+   "schedule": "Recurring, starts after a 7-day countdown; alternates Sundays with Void Rift",
    "unlock_level": 50,
    "currency": "Chaos Shards (entry, cap 100), Chaos Crystals (merchant)",
    "party": "4 recommended: 1 damage dealer + 3 supports, rotate over 4 runs",
@@ -54,14 +58,15 @@
    "sources": [
     "S-01",
     "S-03",
-    "S-42"
+    "S-42",
+    "S-85"
    ]
   },
   {
    "id": "void-rift",
    "name": "Void Rift",
    "category": "recurring",
-   "schedule": "Every other Sunday, 24-hour window (tier C)",
+   "schedule": "Every other Sunday, alternating with Chaos Invasion; 24-hour window, 10 attempts",
    "unlock_level": 50,
    "currency": null,
    "party": "up to 4 (1 healer, 1 tank, 2 DPS)",
@@ -70,7 +75,8 @@
    "sources": [
     "S-42",
     "S-43",
-    "R-094"
+    "R-094",
+    "S-85"
    ]
   },
   {
@@ -141,10 +147,11 @@
    "currency": "Pilgrimage Points",
    "party": "solo",
    "best_f2p_choice": "Free lane only; do not buy the pass or skip tiers (100 Dawnium per tier)",
-   "notes": "Single tier D source for the numbers.",
+   "notes": "70 tiers; 16 Normal and 4 Season passes; buying the premium lane later pays out the tiers already passed; Season pass headline is a chosen Legendary Fantomon [S-80]. Free-lane rewards not listed.",
    "sources": [
     "S-46",
-    "R-121"
+    "R-121",
+    "S-80"
    ]
   },
   {

@@ -2,7 +2,7 @@
 
 <!-- index: Read when you meet a game word on screen or in a guide and need to know what it is and which page explains it -->
 
-> **Summary:** 748 terms, one row each, grouped by first letter: what the word means in one or two lines and the page to read next. Spellings are the game's own; a source's misspelling is listed once under "Aliases and misspellings seen in sources". A ❓ marks a term or meaning known only from a tier D source or from the Chinese or Japanese version. Combat stats, with the maths the pages give, are collected under "Stats"; short forms under "Abbreviations and player slang".
+> **Summary:** 775 terms, one row each, grouped by first letter: what the word means in one or two lines and the page to read next. Spellings are the game's own; a source's misspelling is listed once under "Aliases and misspellings seen in sources". A ❓ marks a term or meaning known only from a tier D source or from the Chinese or Japanese version. Combat stats, with the maths the pages give, are collected under "Stats"; short forms under "Abbreviations and player slang".
 > **Applies:** all seasons
 > **Related:** [Conventions](CONVENTIONS.md), [Source register](sources/README.md), [Provenance](sources/provenance.md), every page in `systems/` and `classes/`; rules in `memory-bank/game/rules/` are cited by ID (for example R-120) where no knowledge page covers a term
 
@@ -21,9 +21,9 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Abundance Leaf** | currency | Verdantglade kingdom currency ("leaves"), spent at Hermes's Kingdom Shop; about 3K buys a Withering Potion or Gateway Key. | [Currencies](systems/currencies.md#kingdom-currencies) |
 | **Abyssal Hand** | skill | Arcanist Technique: Dark AoE applying Erosion on a shorter cooldown. ❓ | [Arcanist](classes/arcanist.md#techniques) |
 | **Accuracy** | stat | Lowers the defender's chance to Block; class stat of the Sorcerer line. | [Stats](#stats) |
-| **Acme Nexus** | event | Entry on the Season 2 calendar (server day 71) with no explanation. | [Events](systems/events.md#season-level-events) |
+| **Acme Nexus** | place | Seasonal map on the Season 2 calendar (server day 71, needs Lv 130), per eog. | [Events](systems/events.md#season-level-events) |
 | **Activate** | ui | Workbench action that switches on a newly drawn relic; free. | [Relics](systems/relics.md#activate-enhance-ascend-replace) |
-| **Adult** | system | Fantomon evolution at Lv 108 (Season 2) needing its skill at Mythic rarity, for Nyxarchon or Aegiswing one duplicate; a large power jump. | [Fantomons](systems/fantomons.md#skills-assist-and-adult-materialization) |
+| **Adult** | system | Fantomon evolution at Lv 108 (Season 2) needing its skill at Mythic rarity, for Nyxarchon or Aegiswing one duplicate; a large power jump. eog calls it Fantomon Manifestation. | [Fantomons](systems/fantomons.md#skills-assist-and-adult-materialization) |
 | **Advanced Trial** | ui | Paid lane of the Growth Trial; never buy. | [Events](systems/events.md#sign-ins-trials-and-featured-cards-thrilling-events) |
 | **Aegis** | stat | Elemental resist-side total from relics, shown per element at the Workbench. | [Relics](systems/relics.md#elements-affinity-and-aegis) |
 | **Aegis (Fantomon)** | slang | Player short name; see **Aegiswing**. | [Fantomons](systems/fantomons.md#known-fantomons) |
@@ -33,13 +33,14 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Aethyrine** | npc | The vanished people of Aethyris. | [World and kingdoms](systems/world-and-kingdoms.md#the-world-in-one-table) |
 | **Aethyris** | place | Season 3 kingdom, the lost fifth continent of the Aethyrine (server day 114 on the guide author's server). | [World and kingdoms](systems/world-and-kingdoms.md#aethyris-season-3) |
 | **Affection Prayer** | system | Prayer banner paid in Affection Tokens ("Friend Prayer"); what it gives is not documented. | [Gacha](systems/gacha.md#banners) |
-| **Affection Token** | currency | Red token for the Affection ("Friend") Prayer banner, x10 costs 250. Income is contested: from praying, or from partying with friends and guildmates. | [Currencies](systems/currencies.md#affection-token) |
+| **Affection Token** | currency | Red token for the Affection ("Friend") Prayer banner, x10 costs 250. Earned by praying, capped at 1,000 a week; one blog adds partying in daily events with friends or guildmates ❓. | [Currencies](systems/currencies.md#affection-token) |
 | **Affinity** | stat | Elemental damage-side total from relics (Fire Affinity ...); also opens Gates of Elements. Separately, a companion's bond level is called Affinity. | [Relics](systems/relics.md#elements-affinity-and-aegis) |
 | **Affix** | gear | Random stat line on gear in four groups: standard, dual high-roll, conditional or conversion, trigger or unique. | [Gear](systems/gear.md#affixes) |
 | **Affix Inheritance** | gear | Season 2+: move affixes free onto a new piece of the same kind (Season and Cross-Season Inheritance); the source piece is destroyed. | [Gear](systems/gear.md#affix-inheritance-season-2) |
 | **Affix Refinement** | gear | Season 2+: re-roll the affixes of Mythic or Divine gear with Divinecraft Stones; locked lines cost 100 / 300 / 1,200 / 3,200. | [Gear](systems/gear.md#affix-refinement-and-divinecraft-stones-season-2) |
 | **AFK** | slang | Away-from-keyboard income: Cart, Bed, guild facility slot; caps at 36 hours. | [Cart and home](systems/cart-and-home.md) |
 | **AFK gathering** | system | Parking the character in a guild facility slot: 120 Guild Tokens an hour, 36-hour cap. | [Guild](systems/guild.md#afk-gathering) |
+| **AFK Session** | system | One timed run of a guild facility: 6, 9 or 12 minutes for planting and breeding (60 Basic, 20 Premium or 60 Premium Treats plus 6, 12 or 24 materials). | [Guild](systems/guild.md) |
 | **Airborne** | skill | Displacement state from knock-up skills (Heavy Impact, Cyclone); some affixes boost damage to airborne enemies. | [Skills](systems/skills.md#status-effects-named-in-skill-text) |
 | **Airship** | place | At the western edge of Home; flies to the Commercium from Lv 40. | [Auction house](systems/auction-house.md#access) |
 | **Akane** | companion | Mysterious girl who guides the adventurer; fills dungeon seats as an NPC party member and carries Wind Affinity 101. | [Companions](systems/companions.md#companion-list) |
@@ -54,30 +55,31 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Aqua** | companion | KonoSuba collaboration companion, listed only by a tier D site. ❓ | [Companions](systems/companions.md#companion-list) |
 | **Aqua Vortex** | skill | Archmage Technique: Water skill that applies Wet. ❓ | [Archmage](classes/archmage.md#techniques) |
 | **Aqualis** | place | Third kingdom and last of Season 1: ocean realm of the Merean; tool Water Mine; Lv 100 lossless class change. | [World and kingdoms](systems/world-and-kingdoms.md#aqualis) |
-| **Aquaorigin** | mode | Aqualis Daily Dungeon (server day 24, Lv 100; Normal 930K). SOF spells it Aquaorigin, Fandom "Aquorigin Shrine"; in-game spelling not yet read. | [Dungeons](systems/dungeons.md#unlock-schedule-and-cp-thresholds) |
-| **Aquorigin Shrine** | source-alias | see **Aquaorigin** | [Dungeons](systems/dungeons.md#unlock-schedule-and-cp-thresholds) |
+| **Aquaorigin** | source-alias | SOF's spelling; see **Aquorigin Shrine**. | [Dungeons](systems/dungeons.md#unlock-schedule-and-cp-thresholds) |
+| **Aquorigin Shrine** | mode | Aqualis Daily Dungeon (server day 24, Lv 100; Normal 930K, Hard 1.45M, Nightmare 2.05M). Main spelling follows Fandom and eog; the SOF guides write Aquaorigin; in-game spelling not yet read. | [Dungeons](systems/dungeons.md#unlock-schedule-and-cp-thresholds) |
 | **Arborisfatum** | place | The big tree at Home where Fantomons are summoned with Bond Trinkets (about Lv 50). | [Gacha](systems/gacha.md#fantomon-summon-arborisfatum) |
 | **Arcanist** | class | Tier 3 of the Sage line (Lv 82). | [Arcanist](classes/arcanist.md) |
 | **Archmage** | class | Tier 3 of the Sorcerer line (Lv 82). | [Archmage](classes/archmage.md) |
-| **Arena coins** | currency | Grand Arena earnings (100 per won attack) spent in the Arena Shop. The in-game name of the currency is not confirmed. | [Arena and PvP](systems/arena-and-pvp.md#arena-shop) |
-| **Arena Shop** | shop | Shop paid in Arena coins: Fantomon Shards, Bond Treat, Stellatie, Rare Auroral Badges, Covenite, Kels shards. Stock from one player blog; Shops page still lists it as unknown. | [Arena and PvP](systems/arena-and-pvp.md#arena-shop) |
-| **Arena Ticket** | item | One Grand Arena fight; 5 a day, can be saved (reportedly up to 20), extra ones cost Dawnium on a rising ladder. | [Arena and PvP](systems/arena-and-pvp.md#tickets-and-costs) |
+| **Arena coins** | currency | Grand Arena earnings (100 per won attack) spent in the Arena Shop. "Arena coins" is a player blog's name; the in-game name is not confirmed. | [Arena and PvP](systems/arena-and-pvp.md#arena-shop) |
+| **Arena Shop** | shop | Shop paid in Arena coins: Fantomon Shards, Bond Treat, Stellatie, Rare Auroral Badges, Covenite (500), Kels shards. Stock from one player blog, not our own screen. | [Arena and PvP](systems/arena-and-pvp.md#arena-shop) |
+| **Arena Ticket** | item | One Grand Arena fight; 5 a day, can be saved (reportedly up to 20). Extra fights cost Dawnium: 10, 15, 20, 30, 40, 60, 80, 100 (a steeper ladder, 10, 25, 45, 75 ..., appears in one blog and is not followed). | [Arena and PvP](systems/arena-and-pvp.md#tickets-and-costs) |
 | **Armopi** | fantomon | Fantomon (probably Tank); skill Armor Protection (DEF Up stacks into a shield). A filler to turn Adult. | [Fantomons](systems/fantomons.md#known-fantomons) |
 | **Armor Break** | skill | Status: the target's defence is cut (Leap Attack). | [Skills](systems/skills.md#status-effects-named-in-skill-text) |
 | **Ascend** | ui | Raises stars with the item's own shards (relic: 20 for the first star; skill: 10 per step). | [Relics](systems/relics.md#activate-enhance-ascend-replace) |
 | **Ascension** | system | Raising a skill's, relic's or Fantomon's star and quality with its own shards (skills: 10 per step; relics: 20). Permanent. | [Skills](systems/skills.md#ascending-skills-shards) |
 | **Assimilation** | gear | Warlord's Rest Divine set: DMG RES +4%, DEF +20%; 4-piece: 25% Auto Protection when hit by a Technique. | [Dungeons](systems/dungeons.md#season-2-dungeon-gear-power-per-piece) |
 | **Astral Destiny** | system | The system, and a tab beside Astral Pact, that ties seasonal progress to permanent bonuses. | [Astral Pact](systems/astral-pact.md#terms) |
+| **Astral Odyssey** | place | Seasonal map of Season 3 (server day 128 on the CN schedule), per eog. | [Seasons](systems/seasons.md) |
 | **Astral Pact** | system | Track of permanent bonuses (ATK, DEF, HP, drop rates, EXP gain) filled with Primostars; 1 Primostar = 1 level. | [Astral Pact](systems/astral-pact.md#the-astral-pact-track) |
 | **Astrid** | companion | Companion listed only by a tier D site, in its Healing group. ❓ | [Companions](systems/companions.md#companion-list) |
 | **ATK** | stat | Attack, a base stat; skills' percentage parts scale with it. | [Stats](#stats) |
 | **Auction House** | shop | Commercium hall with open bidding; bidding on premium gear needs Luminium. | [Auction house](systems/auction-house.md#the-two-halls) |
-| **Aurodrasil Energy** | currency | Grand Treasure Hunt event currency, per one guide site; carries over between weeks. ❓ | [Events](systems/events.md#grand-treasure-hunt) |
+| **Aurodrasil Energy** | currency | Grand Treasure Hunt event currency; about 3,240 clears Levels 1 to 5 of one hunt; carries over between weeks. | [Events](systems/events.md#grand-treasure-hunt) |
 | **Auroradrasil** | mode | Verdantglade Daily Dungeon (server day 1; Hard 36K); also the world tree it is named after. | [Dungeons](systems/dungeons.md#unlock-schedule-and-cp-thresholds) |
 | **Auroral Badge** | currency | Token of the Aeonic Gacha (relics): 10 badges of a tier buy one capsule of that tier. Tiers Rare, Epic, Legendary, Mythic, plus Elemental. | [Gacha](systems/gacha.md#badge-types) |
 | **Auroral Elemental Badge** | currency | Aeonic Gacha badge: 10 buy a capsule of a chosen element, never below Epic. Second-priority Wheel of Destiny prize. | [Gacha](systems/gacha.md#badge-types) |
 | **Auto Challenge** | ui | Tower checkbox (after floor 3) that keeps the climb going in the background; a loss switches it off. | [Towers](systems/towers.md#how-a-climb-works) |
-| **Auto Collect** | ui | Bed switch that collects EXP by itself; turn it off 36 hours before a new season. One site calls it Quick Claim. | [Cart and home](systems/cart-and-home.md#banking-before-a-new-season) |
+| **Auto Collect** | ui | Bed switch that collects EXP by itself; turn it off 36 hours before a new season. Sites call it Quick Claim or Bed Quick Claim. | [Cart and home](systems/cart-and-home.md#banking-before-a-new-season) |
 | **Auto-battle** | system | Every fight is automatic: the AI moves, targets and casts; the player only starts or minimises it. | [Skills](systems/skills.md#how-auto-battle-uses-skills) |
 | **Auto-Pick** | system | A deployed Fantomon collects exploration drops automatically (not chests or mine nodes). | [Fantomons](systems/fantomons.md#what-a-fantomon-is) |
 
@@ -98,7 +100,9 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Bellflower** | material | Verdantglade Rank Advancement material, picked free in the Verdantglade Flower Harvest field in Moonveil Woods. | [Kingdom Rank](systems/kingdom-rank.md#materials) |
 | **Berserker** | class | Tier 3 of the Duelist line (Lv 82). | [Berserker](classes/berserker.md) |
 | **Beryl** | gear | Green gem: HP%; name less sure. ❓ | [Gems](systems/gems.md#colours-stats-and-slots) |
+| **Big mine** | slang | A Material Realm node that pays double: 5% chance, guaranteed within 75 attempts, per eog's stamina calculator. | [Material Realms](systems/material-realms.md) |
 | **Bingo Draw** | event | Side activity rotating beside the Grand Treasure Hunt; only named in the SOF calendars. | [Events](systems/events.md#schedule-seen-on-the-guide-authors-server) |
+| **Black Iron** | system | Lowest of the Kingdom Rank bands eog uses for yields: Black Iron, Bronze, Silver, Gold, Sanctuary, Legend, three sub-ranks each. Rolla per 5 stamina runs from 1,920 to 54,000 across them. | [Kingdom Rank](systems/kingdom-rank.md) |
 | **Blade of Lament** | skill | Warrior Charm: lifesteal (2.44% at Legendary); a common 200-prayer pick. | [Warrior](classes/warrior.md#charms) |
 | **Bladeshire** | mode | Loong Haven Daily Dungeon (server day 86; Normal 10M). | [Dungeons](systems/dungeons.md#unlock-schedule-and-cp-thresholds) |
 | **Blazing Burst** | gear | Trigger affix: 30 to 45% chance to fire when a Technique crits. | [Gear](systems/gear.md#affixes) |
@@ -117,6 +121,7 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Bond Trinket** | currency | Fantomon summon token used at Arborisfatum ("summon tokens"). An early note called it a companion item; the pages agree it is not. | [Currencies](systems/currencies.md#bond-trinket) |
 | **Boulder Blockade** | place | Map barrier smashed by one Magic Drill (e.g. Hidden Camp). | [Exploration](systems/exploration.md#obstacles-and-what-opens-each) |
 | **Braulio** | companion | Burly merchant (Cinder Ridge). | [Companions](systems/companions.md#companion-list) |
+| **Brick Switch** | tool | Exploration item of a later kingdom (Aethyris, Harpadia or Ignis), from eog's map data. | [Exploration](systems/exploration.md) |
 | **Brown Egg** | material | Aptitude material for Tank Fantomons. | [Fantomons](systems/fantomons.md#types-and-their-aptitude-material) |
 | **Bubble Lake** | place | Verdantglade side zone with a Blight Witch statue. | R-163 |
 | **Buff** | slang | A positive effect on a unit; a Debuff is a negative one (ailments are a separate kind in skill text). | [Skills](systems/skills.md#status-effects-named-in-skill-text) |
@@ -133,6 +138,7 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Cart** | system | Home production object: makes Rolla, Wood, Stone, ore, sand, essence, Treats and free gear while you are away (36-hour cap). | [Cart and home](systems/cart-and-home.md#the-cart) |
 | **Cart row** | system | One production line of the Cart (Rolla, Wood, Stone, Raw Ore, Battle Essence, Gear, Chrono Sand, Treats); its level is capped by Blessing Level. | [Cart and home](systems/cart-and-home.md#production-rows) |
 | **Cast order** | system | The order Techniques sit in the loadout is the rotation: buffs before the hit, pulls before AoE, Erosion finishers last. | [Skills](systems/skills.md#how-auto-battle-uses-skills) |
+| **Cataclyst** | class | Tier 6 of the Sorcerer line (Lv 172), graded A by eog; CN schedule. | [Classes overview](systems/classes-overview.md) |
 | **Catch Up** | ui | Paid button on a missed Daily Sign-in tile; never press. | [Events](systems/events.md#sign-ins-trials-and-featured-cards-thrilling-events) |
 | **CD** | slang | Cooldown: turns before a Technique can be cast again. | [Skills](systems/skills.md#how-auto-battle-uses-skills) |
 | **Celestial Crafts** | relic | Loong Haven relic pool 1 (season day 1); from the gacha and Destiny Fruits. | [Relics](systems/relics.md#loong-haven-season-2-two-pools) |
@@ -148,6 +154,7 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Charm** | system | Passive skill (stat bonus or triggered effect); 4 slots per loadout. | [Skills](systems/skills.md#kinds-of-skill) |
 | **Cheerful Greens** | item | Buff-dish recipe sold by Hermes for 600 leaves; effect not recorded. | [Cooking and dishes](systems/cooking-and-dishes.md#known-dishes) |
 | **Chief** | npc | see **Narss** | [Companions](systems/companions.md#companion-list) |
+| **Childhood** | system | A Fantomon's first stage; 12 of the 13 Fantomons evolve from Childhood to Adulthood (see **Adult**). | [Fantomons](systems/fantomons.md) |
 | **Chomusuke** | fantomon | Fantomon named by one tier D guide; matches the KonoSuba collaboration, so probably event-limited. ❓ | [Fantomons](systems/fantomons.md#known-fantomons) |
 | **Choose Your Reward** | ui | Reward choice after some clears; take the class-matched option, else ask mae. | R-129 |
 | **Chrono Sand** | material | Relic material: with Rolla it pays for Enhance at the Workbench and so for Relic Resonance. Priority at the start of a season. | [Currencies](systems/currencies.md#chrono-sand) |
@@ -155,10 +162,11 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Class Badge** | material | Raises a class's level, 10 per level; a class card pays +2 for each owned skill of that class. | [Classes overview](systems/classes-overview.md#class-level-and-class-badges) |
 | **Class change** | system | Promotion to the next class tier (Lv 44, 82, 106) or a swap to another class. The cheap 10-Dawnium swap before Lv 100 locks all your skills: avoid. | [Classes overview](systems/classes-overview.md#how-changing-class-works) |
 | **Class Hierarchy** | ui | Class screen with the class cards; a "!" card pays out Class Badges. | [Classes overview](systems/classes-overview.md#class-level-and-class-badges) |
-| **Class level** | system | Per-class level raised with Class Badges; with Total Class Level it gates promotion to the next tier. | [Classes overview](systems/classes-overview.md#class-level-and-class-badges) |
+| **Class level** | system | Per-class level raised with Class Badges; with Total Class Level it gates promotion to the next tier. Tier 2 needs class level 18 (total 20), Tier 3 class level 16 in the Tier 2 class (total 48), Tier 4 19 (total 89). | [Classes overview](systems/classes-overview.md#class-level-and-class-badges) |
 | **Class Mismatch** | ui | Mark on a Choose Your Reward option that does not fit your class. | R-129 |
 | **Class Rollback** | system | From Lv 100: return to Warrior or Mage to shrink the Prayer pool and pull low-tier skills. Rarely needed. | [Classes overview](systems/classes-overview.md#c-class-rollback-no-conversion) |
 | **Class trait** | stat | Stat built into a class: Crit Rate (Duelist), Block (Knight), Accuracy (Sorcerer), Crit Resistance and Healing Boost (Sage). | [Classes overview](systems/classes-overview.md#the-class-tree) |
+| **Cloud Jade** | tool | Loong Haven's exploration item; 7 are needed to open its map (stock up before Season 2). | [Exploration](systems/exploration.md) |
 | **Cloudcrest Temple** | mode | Loong Haven Daily Dungeon (server day 73; Normal 6.2M). | [Dungeons](systems/dungeons.md#unlock-schedule-and-cp-thresholds) |
 | **Cold** | skill | Stacking Water debuff (Ripple Impact); also the name of a Celestship Divine gear set. | [Skills](systems/skills.md#status-effects-named-in-skill-text) |
 | **Combinable** | ui | Tag on a commission card; not explained, probably doable together with another commission. | [Commissions](systems/commissions.md#how-they-work) |
@@ -170,7 +178,7 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Conqueror** | class | Tier 4 of the Duelist line (Lv 106, Loong Haven). | [Tier 4 classes](classes/tier-4.md#conqueror-4th-duelist) |
 | **Conquest** | mode | Daily guild boss at the Gate of Expedition: 2 attempts, 50-round background fight, 10 Dawnium and 150 Guild Tokens each. | [Guild](systems/guild.md#conquest-guild-boss) |
 | **Controller** | source-alias | sxswiki's name for the Dominator; see **Dominator**. | [Classes overview](systems/classes-overview.md#the-class-tree) |
-| **Covenite** | currency | Ticket of the Premium (pink) Prayer banner, which pulls only skills of your current class. Best supported: earned from Molly's Deals, the Wheel of Destiny, Chaos Invasion and the Arena Shop; one tier D source calls it an unbuyable pity currency. | [Gacha](systems/gacha.md#banners) |
+| **Covenite** | currency | Skill selection ticket: pays for the Premium (pink) Prayer banner, which pulls only skills of your current class. Earned from Molly's Deals, the Wheel of Destiny, Chaos Invasion ranking and the Arena Shop (500 coins); not bought with Dawnium. Sites that call it a currency earned from Standard pulls are not followed. | [Gacha](systems/gacha.md#banners) |
 | **CP** | stat | Combat Power: the single number that sums a character's strength; gates dungeons, zones and tower floors. The game shows it as Power. | [Monsters](systems/monsters.md#power-comparison-when-to-fight) |
 | **Crit DMG** | stat | Extra damage of a critical hit above the 150% base. | [Stats](#stats) |
 | **Crit Rate** | stat | Chance that a hit is a critical hit; class stat of the Duelist line. | [Stats](#stats) |
@@ -179,6 +187,7 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Crucible** | slang | see **Crucible of Hieromon** | [Monsters](systems/monsters.md#crucible-of-hieromon) |
 | **Crucible of Hieromon** | mode | Daily 6-player boss fight, 10 rounds against a boss with 200 life bars; scored on damage. | [Monsters](systems/monsters.md#crucible-of-hieromon) |
 | **Crystal Forge** | item | Rentable 24-hour guild tool (600 Dawnium, +40% yield) named only by a tier D site. ❓ | [Guild](systems/guild.md#guild-island-and-buildings) |
+| **Crystal Shovel** | source-alias | A tier D site's name for the sand realm tool; see **Sand Shovel**. ❓ | [Material Realms](systems/material-realms.md) |
 | **Curse Resonance** | skill | Mage Charm: more Technique DMG per ailment or debuff on the target, up to 3 stacks. | [Mage](classes/mage.md#charms) |
 | **Cyclone** | skill | Mage Technique: Wind AoE that knocks airborne and pulls enemies together for follow-ups. | [Mage](classes/mage.md#techniques) |
 
@@ -186,9 +195,9 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 
 | Term | Kind | Meaning | Read more |
 |---|---|---|---|
-| **Daily Dungeon** | mode | The 4-player gear dungeon of a kingdom: 2 free runs a day (+2 for 100 and 150 Dawnium), rated D to S; main source of gear and shards. | [Dungeons](systems/dungeons.md#daily-dungeons-team-gear-dungeons) |
+| **Daily Dungeon** | mode | The 4-player gear dungeon of a kingdom: 2 free runs a day (+2 for 100 and 150 Dawnium), unused runs bank up to 6, rated D to S; main source of gear and shards. | [Dungeons](systems/dungeons.md#daily-dungeons-team-gear-dungeons) |
 | **Daily Quest** | system | Menu > Quest list of six tasks: log in, 2 Vendor purchases, 30 stamina, Material Realms x5, Fantasia Ascent once, Conquest once (R-128). | [Commissions](systems/commissions.md#related-daily-lists) |
-| **Daily reset** | system | 8:00 server time (UTC-5); weekly achievement quests reset Mondays 8:00. | R-024 |
+| **Daily reset** | system | 8:00 server time (UTC-5, which is 13:00 UTC); weekly achievement quests reset Mondays 8:00. | R-024 |
 | **Daily Sign-in** | event | 30-tile calendar; claim today's tile (10 Stellatie on the day we saw it), never the paid Catch Up. | [Events](systems/events.md#sign-ins-trials-and-featured-cards-thrilling-events) |
 | **Dark** | system | Element of the Sage line (Erosion); said to be weak to Light. | [Classes overview](systems/classes-overview.md#elements) |
 | **Dark Bullet** | skill | Sage Technique: Dark hit with 50% base chance of Erosion. | [Sage](classes/sage.md#techniques) |
@@ -209,7 +218,7 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Destroyer** | class | Tier 4 of the Sorcerer line (Lv 106): Light and Fire AoE plus Formation Breaker. | [Tier 4 classes](classes/tier-4.md#destroyer-4th-sorcerer) |
 | **Diamonds** | slang | see **Dawnium** | [Currencies](systems/currencies.md#dawnium-premium-earnable-free) |
 | **Difficulty** | mode | Daily Dungeon difficulties in rising order, each behind a hard CP threshold; Purgatory exists only for Hellhold and Celestship. | [Dungeons](systems/dungeons.md#unlock-schedule-and-cp-thresholds) |
-| **Dismantle** | ui | Alchemy Pot tab that turns weaker gear into Raw Ore, Refined Ore and, from Season 2, Divinecraft Stones. | [Gear](systems/gear.md#dismantling) |
+| **Dismantle** | ui | Alchemy Pot tab (opens at Lv 12 per the official handbook) that turns weaker gear into Raw Ore, Refined Ore and, from Season 2, Divinecraft Stones. | [Gear](systems/gear.md#dismantling) |
 | **Divine** | system | Rarity above Mythic; top gear rarity, whose pieces form dungeon sets. | [Gear](systems/gear.md#rarities) |
 | **Divine Wrath** | skill | Archmage Technique: large Light AoE that prioritises bosses. ❓ | [Archmage](classes/archmage.md#techniques) |
 | **Divinecraft Stone** | material | Consumed by Affix Refinement (Season 2+); comes only from dismantling gear. | [Gear](systems/gear.md#affix-refinement-and-divinecraft-stones-season-2) |
@@ -237,7 +246,7 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 |---|---|---|---|
 | **Effect Hit Rate** | stat | Raises the "base chance" of your status effects (Frozen, Erosion, Stun) landing. | [Stats](#stats) |
 | **Effect RES** | stat | Lowers the chance that enemy status effects land on you. | [Stats](#stats) |
-| **Element** | system | Fire, Water, Wind, Light, Dark (plus neutral Physical). Wind beats Water, Water beats Fire, Fire beats Wind; Light beats Dark per one blog. | [Classes overview](systems/classes-overview.md#elements) |
+| **Element** | system | Fire, Water, Wind, Light, Dark (plus neutral Physical). Wind beats Water, Water beats Fire, Fire beats Wind. One blog adds that Dark is weak to Light and that a unit is immune to its own element ❓. | [Classes overview](systems/classes-overview.md#elements) |
 | **Elemental Gate** | source-alias | Map-tool name; see **Gate of Elements**. | [Dungeons](systems/dungeons.md#gates) |
 | **Elemental Harmony** | skill | Sorcerer Charm: Elemental Mastery per element among equipped damaging Techniques (up to 4); basis of the four-element hybrid build. | [Sorcerer](classes/sorcerer.md#charms) |
 | **Elemental Mastery** | stat | Raises damage of elemental (Fire, Water, Wind, Light, Dark) skills; early Mage gear priority. | [Stats](#stats) |
@@ -245,6 +254,7 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Elemental RES** | stat | Reduces elemental damage taken. | [Stats](#stats) |
 | **Elichi** | companion | Companion listed only by a tier D site, in its Crit Rate group. ❓ | [Companions](systems/companions.md#companion-list) |
 | **Elite** | slang | Guide word for the stronger enemy on Void Rift floors 3 to 4. | [Monsters](systems/monsters.md#kinds-of-enemy) |
+| **Elite Monster** | npc | The game's label for the monster tier between Minion Monster and Boss (67 in game data). | [Monsters](systems/monsters.md) |
 | **Energy Burst** | skill | Sorcerer Technique: the next damaging Technique gains Accuracy and deals 50% more; place it before the biggest hit. | [Sorcerer](classes/sorcerer.md#techniques) |
 | **Energy Circuits** | system | Map puzzle type; not automated, the bot skips puzzles (R-072, R-153). | [Exploration](systems/exploration.md#obstacles-and-what-opens-each) |
 | **Enhance** | ui | Raises a displayed relic's level with Chrono Sand and Rolla, or a gear slot's level with ore and Rolla. | [Relics](systems/relics.md#activate-enhance-ascend-replace) |
@@ -272,7 +282,8 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Falko** | fantomon | Fantomon adding a Physical area hit after a damaging Technique. | [Fantomons](systems/fantomons.md#known-fantomons) |
 | **Fantamon** | source-alias | Fandom page-title spelling; see **Fantomon**. | [Fantomons](systems/fantomons.md) |
 | **Fantasia Ascent** | mode | Solo tower from Moonveil Woods: one floor per fight (cards read Fn/110), first-clear ore and tools, Auto Challenge. | [Towers](systems/towers.md#fantasia-ascent) |
-| **Fantomon** | system | Pet that gives permanent stats and one combat skill; unlocks at about Lv 50 (our rule R-011 records 51) at Arborisfatum. | [Fantomons](systems/fantomons.md) |
+| **Fantomon** | system | Pet that gives permanent stats and one combat skill; summoned at Arborisfatum. Unlocks at Lv 51 by our rule R-011; the official site, Fandom and eog say Lv 50. | [Fantomons](systems/fantomons.md) |
+| **Fantomon Manifestation** | source-alias | eog's name for the Adult evolution at Lv 108; see **Adult**. | [Fantomons](systems/fantomons.md) |
 | **Fantomon Resonance** | system | The lowest level among the four lineup Fantomons applies to all owned Fantomons; level the four evenly. | [Fantomons](systems/fantomons.md#levelling-and-resonance) |
 | **Fantomon Shards** | material | Shards for Fantomon ascension; Arena Shop sells x10 for 2.1K coins. | [Arena and PvP](systems/arena-and-pvp.md#arena-shop) |
 | **Fantomon types** | system | The three Fantomon types (materials Magic Wool, Brown Egg, Fresh Essence). | [Fantomons](systems/fantomons.md#types-and-their-aptitude-material) |
@@ -285,6 +296,7 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **First Clear Rewards** | ui | One-time reward list on a mini-dungeon, gate or tower floor card. | [Dungeons](systems/dungeons.md#map-mini-dungeons) |
 | **Flame** | skill | Ally buff granted by the Duelist's Flame Aura. | [Skills](systems/skills.md#status-effects-named-in-skill-text) |
 | **Flame Aura** | skill | Duelist Technique: grants Flame to the caster and 3 allies for 2 turns; kept in the Conqueror build. | [Duelist](classes/duelist.md#techniques) |
+| **Flame Hammer** | tool | Exploration item of a later kingdom (Aethyris, Harpadia or Ignis), from eog's map data. | [Exploration](systems/exploration.md) |
 | **Flame Wolf Summon** | skill | Sage Technique: summons 2 Flame Wolves for 2 turns. | [Sage](classes/sage.md#techniques) |
 | **Flamoenix** | npc | Fire machine-bird Hieromon of Cinder Ridge. | [Monsters](systems/monsters.md#named-bosses-and-monsters) |
 | **Flash** | gear | Affix SOF lists for Sorcerers from Loong Haven; it is not in the affix table (perhaps Wind Shield or another unique line). | [Gear](systems/gear.md#top-affixes-per-class) |
@@ -303,6 +315,8 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Freya** | companion | Companion listed only by a tier D site, in its Crit Rate group. ❓ | [Companions](systems/companions.md#companion-list) |
 | **Fridge** | slang | Water Sorcerer freeze-lock mechanic: keep enemies Frozen so they lose turns. | [Sorcerer](classes/sorcerer.md#builds) |
 | **Friend Prayer** | source-alias | see **Affection Prayer** | [Gacha](systems/gacha.md#banners) |
+| **Frost Hammer** | tool | Exploration item of a later kingdom (Aethyris, Harpadia or Ignis), from eog's map data. | [Exploration](systems/exploration.md) |
+| **Frostfire Voyage** | place | Seasonal map of Season 5 (server day 349 on the CN schedule), per eog. | [Seasons](systems/seasons.md) |
 | **Frosty Nova** | skill | Sorcerer Technique: Water area hit with 30% base chance to Freeze. | [Sorcerer](classes/sorcerer.md#techniques) |
 | **Frozen** | skill | Status: the target loses its turn. From Ice Spike, Frosty Nova, Water to Ice. | [Skills](systems/skills.md#status-effects-named-in-skill-text) |
 
@@ -334,27 +348,28 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Gold** | slang | see **Rolla** | [Currencies](systems/currencies.md#rolla) |
 | **Gold Cave** | place | Map mini-dungeon type listed by a map tool (3 in Verdantglade), with Iron Mines, Sand Mines, Monster Caves and Ancient Keeps. | [World and kingdoms](systems/world-and-kingdoms.md#verdantglade) |
 | **Gold Pickaxe** | tool | Material Realm tool: one attempt in Gilded Depths (Rolla). | [Material Realms](systems/material-realms.md#the-realms) |
-| **Gold Tool** | item | 200-Dawnium optional line in SOF's daily plan next to guild donations. Contested: Currencies page reads it as a 24-hour guild gathering boost; data/currencies.json lists it as an alias of Gold Pickaxe. | [Currencies](systems/currencies.md#spending-the-sof-daily-target-2000-dawnium) |
+| **Gold Tool** | item | 200-Dawnium optional guild line in SOF's daily plan, next to the donations; first thing to cut. Best reading: a 24-hour guild gathering boost (unconfirmed). Not the Gold Pickaxe. | [Currencies](systems/currencies.md#spending-the-sof-daily-target-2000-dawnium) |
 | **Golden Beetle** | item | Skips one puzzle; 50 Dawnium in the Vault. The bot never spends them. | [Currencies](systems/currencies.md#golden-beetle) |
 | **Golden Leaf** | item | Companion gift named only in gift-code rewards. ❓ | [Companions](systems/companions.md#levelling-gifts) |
 | **Golem** | npc | Weekly boss on the Home screen that lets you pick Companions as support, per one fan site. ❓ | [Monsters](systems/monsters.md#named-bosses-and-monsters) |
 | **Grand Arena** | mode | Ticket-based 1v1 PvP ladder in Cinder Ridge (Lv 40 plus Rank Advancement) with a weekly reset. | [Arena and PvP](systems/arena-and-pvp.md#grand-arena) |
 | **Grand Iron Mine** | place | Special timed map node announced in chat; one free material collection. | R-109 |
 | **Grand Sand Mine** | place | Special timed map node (green timer circle) that pays Chrono Sand; always tap it (R-109). | [Currencies](systems/currencies.md#chrono-sand) |
-| **Grand Treasure Hunt** | event | Weekly Saturday event shop with five reward levels; save one week, buy the Level 5 unique relic (Lucky Statue or Primal Gem) the next. | [Events](systems/events.md#grand-treasure-hunt) |
+| **Grand Treasure Hunt** | event | Weekly Saturday event shop with five reward Levels (sources also say floors or stages), paid in Aurodrasil Energy; save one week, buy the Level 5 unique relic (Lucky Statue or Primal Gem) the next. | [Events](systems/events.md#grand-treasure-hunt) |
 | **Gravity Pull** | skill | Warrior Technique: Wind hit that pulls enemies to the caster. | [Warrior](classes/warrior.md#techniques) |
 | **Green dot** | ui | Minimap mark of a collectible; clearing all of them is part of 100% exploration. | R-066 |
 | **Green power** | source-alias | Chinese community term for season growth; see **White power**. ❓ | [Provenance](sources/provenance.md) |
 | **Green Riceball** | item | Healing dish: restores 8% + 1,000 HP; first Alchemy Pot recipe. | [Cooking and dishes](systems/cooking-and-dishes.md#known-dishes) |
 | **Green timer circle** | ui | Mark on special high-value nodes (Grand Iron Mine, Grand Sand Mine); always tap. | R-109 |
 | **Grid** | system | Battle tile; skill ranges and areas are written in grids ("1 enemy within 4 grids", "1x5 area"). | [Skills](systems/skills.md#how-auto-battle-uses-skills) |
+| **Grotesque Fairground** | place | Seasonal map of Season 4 (server day 240 on the CN schedule), per eog. | [Seasons](systems/seasons.md) |
 | **Growth Trial** | event | 19-day new-account quest track with a 100 to 700 point chest line; "Advanced Trial" is paid. | [Events](systems/events.md#sign-ins-trials-and-featured-cards-thrilling-events) |
 | **Guardian** | class | Tier 4 of the Knight line (Lv 106, Loong Haven). | [Tier 4 classes](classes/tier-4.md#guardian-4th-knight) |
 | **Guardian Angel** | skill | 3-turn buff from Aegiswing's Radiant Sanctuary; on expiry heals 50% of lost HP. | [Fantomons](systems/fantomons.md#known-fantomons) |
 | **Guardian Colossi** | npc | Originisle tutorial boss; beating it leads to the class choice. | [Monsters](systems/monsters.md#named-bosses-and-monsters) |
 | **Guardian Ring** | skill | Knight Technique: DEF-based shield for 2 turns, Zero Initial CD. | [Knight](classes/knight.md#techniques) |
 | **Guidance quests** | system | Quest list that pays ore for progress steps (R-099). | [Commissions](systems/commissions.md#related-daily-lists) |
-| **Guild** | system | Player group (unlock Lv 15 by the game's text; lit at Lv 20 on our account): donations, AFK facilities, Conquest, Guild Clash, Guild Shop, permanent buffs. | [Guild](systems/guild.md) |
+| **Guild** | system | Player group: donations, AFK facilities, Conquest, Guild Clash, Guild Shop, permanent buffs. Lit at Lv 20 on our account (R-011); the game's tab text and the official handbook say Lv 15. | [Guild](systems/guild.md) |
 | **Guild buffs** | system | Stat buffs researched by the guild; permanent, they survive a season reset. | [Guild](systems/guild.md#what-a-guild-gives) |
 | **Guild Clash** | event | Guild-versus-guild event next to Conquest; format and rewards undocumented. | [Guild](systems/guild.md#guild-clash-and-guild-wars) |
 | **Guild Lobby** | place | Guild island building for Donation, Guildmates and leader tabs. | [Guild](systems/guild.md#guild-island-and-buildings) |
@@ -378,10 +393,10 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Hellhold** | mode | Last Season 1 Daily Dungeon (server day 33; Normal 2.25M, Purgatory 6.2M); gear level 190. | [Dungeons](systems/dungeons.md#unlock-schedule-and-cp-thresholds) |
 | **Herbote** | fantomon | Fantomon; skill Emergency Aid (self-heal below 80% HP, may dispel a debuff). Rarity disputed (Legendary or Epic). | [Fantomons](systems/fantomons.md#known-fantomons) |
 | **Hermes** | npc | "Smiling Merchant" and alchemist of Drasilgard; runs the Verdantglade Kingdom Shop, later met in the Commercium; also a companion. | [Shops](systems/shops.md#kingdom-shops) |
-| **Hero Statue** | place | Once-a-day visit statue on the map ("Statue of the Brave" on the official site); gives a buff or small reward. | [Exploration](systems/exploration.md#things-found-while-exploring) |
+| **Hero Statue** | place | Map statue ("Statue of the Brave" on the official site). Our rule R-144 records a "Statue of <name>" Visit as a one-time permanent stat boost and a full heal; the official checklist lists a daily visit for Stellatie or stamina; "a daily buff or curse" is a weaker source's wording. | [Exploration](systems/exploration.md#things-found-while-exploring) |
 | **Hero's Guide** | relic | Paid Stellaris Path relic said to boost EXP gain and give a 20% resonance bonus. ❓ | [Relics](systems/relics.md#unique-relics) |
 | **Hidden Camp** | place | Verdantglade side zone behind a Boulder Blockade, with a Lost Goddess Statue. | [Goddess Statues](systems/goddess-statues.md#statues-behind-kingdom-tools) |
-| **Hieromon** | npc | Legendary beasts, one per kingdom: Storm Griffin, Flamoenix, Yamata no Orochi, Primordial Loong; fought in the Crucible of Hieromon. | [Monsters](systems/monsters.md#named-bosses-and-monsters) |
+| **Hieromon** | npc | Guardian beasts, one per kingdom: Storm Griffin, Flamoenix, Yamata no Orochi, Primordial Loong; fought in the Crucible of Hieromon. Game data lists 9, among them Lord of Decay and Lord of Ruin. | [Monsters](systems/monsters.md#named-bosses-and-monsters) |
 | **Highland Woods** | place | Verdantglade zone (recommended power 9.6K) guarded at its entrance by a wolf-boss pack. | R-041 |
 | **Hold to Fill** | ui | Astral Pact button that spends Primostars into the track. | [Astral Pact](systems/astral-pact.md#terms) |
 | **Home** | place | Your base screen: Cart, Bed, Goddess Statue, Vendor Booth, gate, Aeonic Gacha stone, Workbench, Alchemy Pot, Mailbox, Airship. | [Cart and home](systems/cart-and-home.md#what-is-on-home) |
@@ -430,14 +445,14 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | Term | Kind | Meaning | Read more |
 |---|---|---|---|
 | **Kanstein** | place | The game world. | [World and kingdoms](systems/world-and-kingdoms.md) |
-| **Kanstein Cells** | material | Guild construction and research resource, 500 per donation. | [Guild](systems/guild.md#guild-island-and-buildings) |
+| **Kanstein Cells** | material | Guild resource, 500 per donation; made by the guild Power Station; fuel for Glyph Research. | [Guild](systems/guild.md#guild-island-and-buildings) |
 | **Kanstein Hub** | place | The official Discord server, where codes and guild recruitment appear. | [Codes](systems/codes.md#where-new-codes-appear) |
 | **Karlos** | companion | Hot-blooded trainee (Cinder Ridge). sxswiki's "hybrid hero Karlos" page is invented. | [Companions](systems/companions.md#companion-list) |
 | **Kazuma** | companion | KonoSuba collaboration companion, listed only by a tier D site. ❓ | [Companions](systems/companions.md#companion-list) |
 | **Kels** | fantomon | Fantomon; skill Purging Spell (Water hit that dispels a buff). Said to come only as shards from the Arena Shop. | [Fantomons](systems/fantomons.md#known-fantomons) |
 | **Killian** | companion | Dryason archaeologist, Qin's brother; NPC party member with Wind Affinity 101. | [Companions](systems/companions.md#companion-list) |
 | **Kingdom** | place | A region of Kanstein with its own town, shop currency, tool, relic pool, ranks and Daily Dungeons: Originisle, Verdantglade, Cinder Ridge, Aqualis, Loong Haven, Aethyris. | [World and kingdoms](systems/world-and-kingdoms.md#the-world-in-one-table) |
-| **Kingdom currency** | currency | Each kingdom's own shop currency, mostly from commissions and chests; spend it on kingdom tools first. Only Verdantglade's name (Abundance Leaf) is confirmed. | [Currencies](systems/currencies.md#kingdom-currencies) |
+| **Kingdom currency** | currency | Each kingdom's own shop currency, mostly from commissions and chests; spend it on kingdom tools first. Only Verdantglade's name (Abundance Leaf) is confirmed; one blog names Feathers and Alloy without a kingdom ❓. | [Currencies](systems/currencies.md#kingdom-currencies) |
 | **Kingdom Rank** | system | Rank (Apprentice I to III ... Champion I to III) that lifts the level cap, opens Sealed Stone Gates and scales Material Realm rewards. | [Kingdom Rank](systems/kingdom-rank.md) |
 | **Kingdom Shop** | shop | One per kingdom, paid in kingdom currency, four shop levels; buy kingdom tools first. Verdantglade's is run by Hermes. | [Shops](systems/shops.md#kingdom-shops) |
 | **Kingdom tools** | tool | Withering Potion, Magic Drill, Water Mine and Gateway Key: Kingdom Shop items that open blocked map areas, each hiding at least one more statue. | [Currencies](systems/currencies.md#kingdom-tools-map-keys) |
@@ -467,6 +482,8 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Loadout** | system | A saved set of 4 Techniques and 4 Charms; several can be stored (seven per one tier D source) and swapping is free. | [Skills](systems/skills.md#loadouts) |
 | **Loong Haven** | place | Season 2 kingdom (server day 47), home of the Loongborn: Tier 4 classes, Adult Fantomons, Demonbind Tower, gems, ranks Champion I to III. | [World and kingdoms](systems/world-and-kingdoms.md#loong-haven-season-2) |
 | **Loongborn** | npc | The people of Loong Haven. | [World and kingdoms](systems/world-and-kingdoms.md#loong-haven-season-2) |
+| **Lord of Decay** | npc | Hieromon named in game data, with Lord of Ruin; where it is fought is not known. | [Monsters](systems/monsters.md) |
+| **Lord of Ruin** | npc | Hieromon named in game data, with Lord of Decay; where it is fought is not known. | [Monsters](systems/monsters.md) |
 | **Lossless Class Change** | system | From Lv 100 in Aqualis: switch to any class of the same tier with skills converted by base rarity; one free Slate a week, 8 hours to undo. | [Classes overview](systems/classes-overview.md#b-lossless-class-change-lv-100-aqualis) |
 | **Lost Goddess Statue** | place | Side-zone statue, often behind a kingdom tool: Home EXP +1% and +1% of one Cart resource. | [Goddess Statues](systems/goddess-statues.md#two-kinds-of-statue) |
 | **Lost Statue** | ui | Map-legend label for a **Lost Goddess Statue**. | [Goddess Statues](systems/goddess-statues.md#two-kinds-of-statue) |
@@ -490,6 +507,7 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Mailbox** | ui | The owl on the house balcony: mail, compensation and code rewards; Claim All daily. | [Cart and home](systems/cart-and-home.md#other-free-income-on-home) |
 | **Main** | system | Fantomon lineup slot giving 100% of that Fantomon's stats; choose it for its aptitudes. | [Fantomons](systems/fantomons.md#lineup-main-sub-deployed) |
 | **Mall** | shop | Real-money shop on the Home menu; only the free gift box on each pack page is claimed. | [Shops](systems/shops.md#mall-and-paid-packs-never) |
+| **Mana Cluster** | material | Guild resource from donations and the guild Mana Vein, used for guild projects. | [Guild](systems/guild.md) |
 | **Mana Clusters** | material | Guild construction and research resource, 500 per donation. | [Guild](systems/guild.md#guild-island-and-buildings) |
 | **Mana Surge** | skill | Mage Charm: raises Crit Rate; stays in Sorcerer and Sage builds through Tier 3 and 4. | [Mage](classes/mage.md#charms) |
 | **Mandragora** | fantomon | Fantomon that heals one target when a Technique is used on allies. | [Fantomons](systems/fantomons.md#known-fantomons) |
@@ -517,6 +535,7 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Ming** | companion | Loong Haven companion: Crit Rate and DMG Boost. | [Companions](systems/companions.md#season-2-companions) |
 | **Mini-dungeon** | mode | Any map card named Ruins, Cave, Mine, Lair, Den, Keep or Fortress, or showing First Clear Rewards; solo, one-time rewards. | [Dungeons](systems/dungeons.md#map-mini-dungeons) |
 | **Mining Node** | place | Resource node that can appear during Resource Hunt. | [Monsters](systems/monsters.md#free-vs-stamina-unexplored-and-blessed-zones) |
+| **Minion Monster** | npc | The game's label for ordinary monsters (159 in game data); the tiers above are Elite Monster, Boss and Hieromon. | [Monsters](systems/monsters.md) |
 | **Mio** | companion | Companion listed only by a tier D site, in its Accuracy group. ❓ | [Companions](systems/companions.md#companion-list) |
 | **Molly** | companion | Travelling merchant child who runs the Vendor Booth and Molly's Deals. | [Companions](systems/companions.md#companion-list) |
 | **Molly's Deals** | shop | Discounted offers at friends' homes, reached through the gate on Home (orange house mark in the friends list); 10 purchases a week. | [Shops](systems/shops.md#mollys-deals) |
@@ -527,7 +546,7 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Multi-Strike** | slang | Duelist build: many hits so Charms do most of the damage; Spellblade is the Technique-based twin. | [Duelist](classes/duelist.md#builds) |
 | **Mushroom Woods** | place | Verdantglade side zone; one Magic Drill at its south-west corner opens an area (with Mushroom Cluster) holding two Lost Goddess Statues. | [Goddess Statues](systems/goddess-statues.md#statues-behind-kingdom-tools) |
 | **MUST BUY** | slang | SOF calendar label for a Grand Treasure Hunt week in which you buy the Level 5 unique relic (Lucky Statue or Primal Gem). | [Events](systems/events.md#grand-treasure-hunt) |
-| **Mysterious Merchant** | npc | Cloaked merchant who appears on Home after Chaos Invasion (and sometimes after Destiny Exploration), selling for Chaos Crystals; buy only the Primal Forge. Also a companion. | [Shops](systems/shops.md#mysterious-merchant-after-chaos-invasion) |
+| **Mysterious Merchant** | npc | Cloaked merchant who appears on Home the day after Chaos Invasion, selling for Chaos Crystals; buy only the Primal Forge. Two pages also report him after a Destiny Exploration ❓. Also a companion. | [Shops](systems/shops.md#mysterious-merchant-after-chaos-invasion) |
 | **Mysterious Merchant's Journal** | item | The journal that unlocks the Mysterious Merchant as a companion. | [Commissions](systems/commissions.md#journals) |
 | **Mysterious NPC** | source-alias | see **Mysterious Merchant** | [Events](systems/events.md#mysterious-merchant-and-the-primal-forge) |
 | **Mythic** | system | Rarity above Legendary; first gear rarity that can be refined; top Fantomon rarity in the summon shop. | [Gear](systems/gear.md#rarities) |
@@ -551,10 +570,12 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 
 | Term | Kind | Meaning | Read more |
 |---|---|---|---|
+| **Obliterator** | class | Tier 8 of the Sorcerer line, graded A by eog; CN schedule. | [Classes overview](systems/classes-overview.md) |
 | **Obsidian** | gear | Black gem: ATK% + DMG Boost (weapon, offhand); F2P sells it to spenders. | [Gems](systems/gems.md#colours-stats-and-slots) |
 | **Ocean Palace Ruins** | mode | Aqualis Daily Dungeon (server day 12; Hard 580K). | [Dungeons](systems/dungeons.md#unlock-schedule-and-cp-thresholds) |
 | **Offhand** | gear | Second gear slot (shield, spellbook, orb, gauntlets by class); takes every gem colour; unlock trigger unknown. | [Gear](systems/gear.md#slots) |
 | **Ophelia** | companion | Companion listed only by a tier D site, in its Accuracy group. ❓ | [Companions](systems/companions.md#companion-list) |
+| **Oracle** | class | Tier 6 of the Sage line, graded C by eog, which flags it as a tier to avoid; CN schedule. | [Classes overview](systems/classes-overview.md) |
 | **Ore** | material | Short for Raw Ore and Refined Ore together; also the first digit of a realm split such as 4244. | [Currencies](systems/currencies.md#raw-ore-and-refined-ore) |
 | **Originisle** | place | Starting tutorial island (Lv 1 to about 10); left through the Voyage Obelisk. | [World and kingdoms](systems/world-and-kingdoms.md#originisle) |
 | **Overhealing** | skill | Arcanist charm: 30% chance of an extra heal on allies within 1 grid of the healed target. | [Arcanist](classes/arcanist.md) |
@@ -581,7 +602,7 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Pilgrimage** | event | The battle pass: 70 tiers with free and premium lanes; free lane only. | [Events](systems/events.md#pilgrimage-battle-pass) |
 | **Pilgrimage Pass** | item | Paid battle pass sold in the Mall (70 tiers, free and premium lanes). Real money: never. | [Events](systems/events.md#pilgrimage-battle-pass) |
 | **Pilgrimage Point** | currency | Battle pass progress points earned by daily play. | [Events](systems/events.md#pilgrimage-battle-pass) |
-| **Pity** | slang | A guaranteed result after a number of pulls or failures: Prayer (Rare 10, Epic 30, Legendary 70, unconfirmed), Fantomon summon, gem combining. | [Gacha](systems/gacha.md#rates-and-pity-at-a-glance) |
+| **Pity** | slang | A guaranteed result after a number of pulls or failures: Prayer (Rare 10, Epic 30, Legendary 70 per eog; the other rate site states none), Fantomon summon (Legendary at 80), gem combining. | [Gacha](systems/gacha.md#rates-and-pity-at-a-glance) |
 | **Pity trick** | slang | Gem combining: fail on cheap gems of a tier until the shared pity hits 100%, then combine the expensive ones. | [Gems](systems/gems.md#tiers-and-combining) |
 | **Portal** | place | Fast-travel point inside a zone (25 in Verdantglade); Teleport from the area map. | [Exploration](systems/exploration.md#zones) |
 | **Potato** | item | Cooking ingredient, 50 leaves at Hermes's Kingdom Shop. | [Cooking and dishes](systems/cooking-and-dishes.md#ingredients) |
@@ -590,15 +611,16 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Power Station** | place | Guild AFK facility (10 slots). | [Guild](systems/guild.md#guild-island-and-buildings) |
 | **Power Unsealed** | skill | Battle-long buff granted when Aegiswing's Guardian Angel expires. | [Fantomons](systems/fantomons.md#known-fantomons) |
 | **Prayer** | system | The skill gacha at the Goddess Statue furniture on Home; banners Standard, Affection and Premium. | [Gacha](systems/gacha.md#prayer-skills) |
+| **Prayer Goals** | ui | Milestone rewards on a Prayer banner for the number of prayers made (for example the 200-prayer skill pick). | [Gacha](systems/gacha.md) |
 | **Pre-season** | system | First about two weeks of a new season: the first dungeon does not count for seasonal milestones and its gear is not seasonal gear. | [Seasons](systems/seasons.md#season-model) |
 | **Premium Commission** | system | Better class of commission; can pay companion journals and sellable recipes. First pick. | [Commissions](systems/commissions.md#premium-commissions) |
-| **Premium Prayer** | system | Prayer banner (pink orb) paid in Covenite; pulls only your current class's skills. Unlock is contested: after the Tier 2 change, after clearing Verdantglade, or in Cinder Ridge. | [Gacha](systems/gacha.md#banners) |
-| **Primal Forge** | item | The one thing to buy from the Mysterious Merchant, every event until maxed (up to Immortal). Events page: it raises the Cart's Raw Ore output; Shops page still lists the effect as unknown. | [Events](systems/events.md#mysterious-merchant-and-the-primal-forge) |
+| **Premium Prayer** | system | Prayer banner (pink orb) paid in Covenite; pulls only your current class's skills, same rates as Standard per one site. Unlocks after clearing Verdantglade and making the Tier 2 class change (Lv 44, in Cinder Ridge). | [Gacha](systems/gacha.md#banners) |
+| **Primal Forge** | item | The one thing to buy from the Mysterious Merchant, every event until maxed (up to Immortal). It raises the Cart's Raw Ore output. Price per level is not known. | [Events](systems/events.md#mysterious-merchant-and-the-primal-forge) |
 | **Primal Forge Shard** | item | Chaos Invasion ranking reward (30 at rank 1) that feeds the Primal Forge. | [Events](systems/events.md#ranking-rewards) |
 | **Primal Gem** | relic | Unique Grand Treasure Hunt relic that raises gem acquisition (10% up to 60%, per one site). | [Relics](systems/relics.md#unique-relics) |
 | **Primordial Loong** | npc | Hieromon of Loong Haven, origin of the Loongborn. | [Monsters](systems/monsters.md#named-bosses-and-monsters) |
 | **Primordial Star** | source-alias | see **Primostar** | [Astral Pact](systems/astral-pact.md#terms) |
-| **Primostar** | currency | Season-end reward from the Season Rating Score; 1 Primostar = 1 Astral Pact level. Not spendable elsewhere. | [Astral Pact](systems/astral-pact.md#terms) |
+| **Primostar** | currency | Season-end reward from the Season Rating Score; 1 Primostar = 1 Astral Pact level. Per eog's calculator 100 rating points make one in Season 1, 27 in Season 2, 13 in Season 3. Not spendable elsewhere. | [Astral Pact](systems/astral-pact.md#terms) |
 | **Prioritizes large targets** | system | Skill text: the skill aims at bosses, and multi-hit skills can hit a large body several times. | [Skills](systems/skills.md#how-auto-battle-uses-skills) |
 | **Prize Punch** | event | Journey Overture draw paid with Overture Tickets. | [Events](systems/events.md#seasonal-and-limited-events) |
 | **Proactiveness** | stat | Fandom's word for the energy a unit needs to use skills; knockback and delay deny it. | [Skills](systems/skills.md#status-effects-named-in-skill-text) |
@@ -606,6 +628,7 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Prophet** | class | Tier 5 of the Sage line; known from a database site only. ❓ | [Tier 4 classes](classes/tier-4.md#tier-5-preview-legend-rank) |
 | **Pull** | slang | One gacha draw (a prayer, an Aeonic draw, a Fantomon summon). | [Gacha](systems/gacha.md) |
 | **Purgatory** | mode | Fourth dungeon difficulty above Nightmare (Hellhold 6.2M, Celestship 40M). | [Dungeons](systems/dungeons.md#unlock-schedule-and-cp-thresholds) |
+| **Purifying Hammer** | tool | Exploration item of a later kingdom (Aethyris, Harpadia or Ignis), from eog's map data. | [Exploration](systems/exploration.md) |
 | **PvE** | slang | Player versus environment: story, dungeons, towers. | [Arena and PvP](systems/arena-and-pvp.md#class-and-build-notes-for-pvp) |
 | **PvE Bonus DMG** | stat | Dual affix stat: more damage in PvE, paired with PvE DMG RES. | [Gear](systems/gear.md#affixes) |
 | **PvP** | slang | Player versus player: Grand Arena, 4v4, Challenge. | [Arena and PvP](systems/arena-and-pvp.md) |
@@ -651,11 +674,12 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Relic** | relic | Collectible with an elemental Affinity or Aegis line and a stat; kept at the Workbench, four displayed per element. Owning and ascending them is permanent. | [Relics](systems/relics.md) |
 | **Relic gacha badge** | slang | see **Auroral Badge** | [Gacha](systems/gacha.md#badge-types) |
 | **Relic gamba** | slang | SOF's name for spending Dawnium on the Aeonic Gacha for long-term power. | [Gacha](systems/gacha.md#dawnium-and-gacha) |
-| **Relic Resonance** | system | Per-element level set by the four displayed relics, raised with Chrono Sand; displayed relics get +20%. Soft cap +10 in Season 1, +13 in Season 2; levels above reset. | [Relics](systems/relics.md#relic-resonance) |
+| **Relic Resonance** | system | Per-element level set by the four displayed relics, raised with Chrono Sand; displayed relics get +20%. Levels to +10 are permanent; +11 to +13 could be reached in Season 1 but are seasonal and reset. Season 2 cap +13. | [Relics](systems/relics.md#relic-resonance) |
 | **Relic Set** | ui | Screen showing a region's missing relic pieces and where to find them. | [Relics](systems/relics.md#destiny-fruits) |
 | **Rename Card** | item | Renames the character; 500 Dawnium, one a week. No power. | [Currencies](systems/currencies.md#other-items-seen) |
 | **Replace** | ui | Swaps what sits in a slot (relic display, charm). The bot never presses it on relics or charms. | [Relics](systems/relics.md#activate-enhance-ascend-replace) |
 | **Requiem Blast** | skill | Nyxarchon's Fantomon skill: Dark hit on the target and enemies within 2 grids, stacking 10% DEF Reduction. | [Fantomons](systems/fantomons.md#known-fantomons) |
+| **Resilience** | stat | Defensive stat a database site describes as companion sturdiness; exact maths unknown. | [combat-stats.json](data/combat-stats.json) |
 | **Resilient Sprout** | item | Guild Shop plant (640 tokens) for the guild garden. | [Guild](systems/guild.md#guild-shop) |
 | **Resonance Level** | system | The level number of Relic Resonance (relics) or of the Fantomon lineup (lowest of the four). | [Relics](systems/relics.md#relic-resonance) |
 | **Resource Hunt** | mode | Journal > Map Exploration auto-play that tracks a material; special monsters and Mining Nodes can spawn during it. | [Monsters](systems/monsters.md#free-vs-stamina-unexplored-and-blessed-zones) |
@@ -680,7 +704,9 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **S3** | slang | Season 3 (Aethyris); see **Season**. | [Seasons](systems/seasons.md#season-model) |
 | **Sage** | class | Tier 2 Mage line: healer, Dark debuffer (Erosion) and summoner; the only party heal and revive. | [Sage](classes/sage.md) |
 | **Sand** | slang | see **Chrono Sand** | [Currencies](systems/currencies.md#chrono-sand) |
-| **Sand realm** | mode | The fourth Material Realm, for Chrono Sand; its in-game name and tool are not yet read. | [Material Realms](systems/material-realms.md#the-realms) |
+| **Sand Mine** | mode | eog's name for the Material Realm that gives Chrono Sand (tool: Sand Shovel); in-game name not yet read. | [Material Realms](systems/material-realms.md) |
+| **Sand realm** | mode | The fourth Material Realm, for Chrono Sand: Sand Mine, run with the Sand Shovel, per eog; the in-game names are not yet read. | [Material Realms](systems/material-realms.md#the-realms) |
+| **Sand Shovel** | tool | Material Realm tool: one attempt in the Sand Mine (Chrono Sand), per eog. A tier D site says Crystal Shovel. | [Material Realms](systems/material-realms.md) |
 | **SAVE** | slang | SOF calendar label for a Grand Treasure Hunt week in which you keep the event currency. | [Events](systems/events.md#grand-treasure-hunt) |
 | **sceptersword** | source-alias | English slug of the Japanese version (launched 2025-07-15). | [Provenance](sources/provenance.md) |
 | **Sealed Stone Gate** | place | Gate between zones opened free by a Kingdom Rank (also "Rank Gate"). | [Dungeons](systems/dungeons.md#gates) |
@@ -701,7 +727,7 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Sigil** | skill | Duelist mark placed on a target by Shattering Sigil. | [Skills](systems/skills.md#status-effects-named-in-skill-text) |
 | **Skill Shard Voucher** | item | Stands in for shards of a skill you choose, for ascension; top Wheel of Destiny prize. Keep for skills that persist across class tiers. | [Skills](systems/skills.md#skill-shard-vouchers) |
 | **Skill slot** | system | One of the 4 Technique and 4 Charm slots of a loadout; slots open with level. | [Skills](systems/skills.md#slots-and-loadouts) |
-| **Skill Test** | mode | DPS dummy said to unlock at Lv 40 (single source). ❓ | [Levels and unlocks](systems/levels-and-unlocks.md#feature-unlocks-by-level) |
+| **Skill Test** | mode | Damage dummy at Home > Character > Skills > Test, from Lv 40: a Boss with unlimited HP, 50 rounds, no element (eog only). | [Levels and unlocks](systems/levels-and-unlocks.md#feature-unlocks-by-level) |
 | **Skill Voucher** | slang | see **Skill Shard Voucher** | [Skills](systems/skills.md#skill-shard-vouchers) |
 | **Slate** | item | Token consumed by one lossless class change; one free per week, does not stack. | [Classes overview](systems/classes-overview.md#b-lossless-class-change-lv-100-aqualis) |
 | **Sockets** | gear | Gem slots: one per gear piece in Season 1, two in Season 2, +1 per later season. | [Gems](systems/gems.md#sockets) |
@@ -714,7 +740,7 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Split Mirage** | mode | Mode named in the weekly achievement list beside Daily Dungeon and Crucible of Hieromon; not yet seen (R-099). | [Monsters](systems/monsters.md#crucible-of-hieromon) |
 | **SSS** | slang | Top season rating letter (Progression and Gear tabs); thresholds unpublished. | [Astral Pact](systems/astral-pact.md#rating-letters) |
 | **Stamina** | currency | Energy: refills 5 an hour to 300 (hard cap 1,200 with items); 5 per overworld pickup or blessed-zone fight; also spent on some commissions. | [Stamina](systems/stamina.md) |
-| **Standard Prayer** | system | Main Prayer banner (blue orb), paid in Stellatie. Pool is contested: all skills of your class line, or the skills your current class can use. | [Gacha](systems/gacha.md#banners) |
+| **Standard Prayer** | system | Main Prayer banner (blue orb), paid in Stellatie. Pool: the skills your current class can use (its own tier plus the lower tiers of its line). Rates are contested: Legendary 2.41%, Epic 7.9%, Rare 24% on one site; 1%, 7%, 22% with pity at 70, 30, 10 on another. | [Gacha](systems/gacha.md#banners) |
 | **Starter Pack** | item | Paid pack shown on Home; dismiss. | [Shops](systems/shops.md#mall-and-paid-packs-never) |
 | **Statue of Lunar Sage** | place | Example of a "Statue of <name>" card in Verdantglade V: free Visit for a permanent stat boost (HP +170) and a full heal. | R-144 |
 | **Statue of the Brave** | source-alias | Official-site name; see **Hero Statue**. | [Dungeons](systems/dungeons.md#daily) |
@@ -738,7 +764,7 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Sub** | system | Three Fantomon lineup slots at 50% each; use one of each type. | [Fantomons](systems/fantomons.md#lineup-main-sub-deployed) |
 | **Suimo** | companion | Loong Haven companion: Healing Boost, Crit Res and DMG Res. | [Companions](systems/companions.md#season-2-companions) |
 | **Summon** | slang | A temporary unit created by a skill (Stonechief, Flame Wolves, Rock Rex); also the act of pulling a Fantomon. | [Sage](classes/sage.md#builds) |
-| **Summon Crystal** | currency | By-product of Fantomon summons (about 4.2% a pull, at least 1 per 10); buys Mythic Fantomon copies in the exchange shop, reportedly 60 each. | [Currencies](systems/currencies.md#summon-crystals-fantomon-exchange) |
+| **Summon Crystal** | currency | By-product of Fantomon summons (about 4.2% a pull, at least 1 per 10); buys Mythic Fantomon copies in the exchange shop, 60 each, or a rotating Legendary for 18. | [Currencies](systems/currencies.md#summon-crystals-fantomon-exchange) |
 | **Summon token** | slang | see **Bond Trinket** | [Currencies](systems/currencies.md#bond-trinket) |
 | **Summoner** | slang | Sage-line build that fights through summons. | [Sage](classes/sage.md#builds) |
 | **Sunflower** | item | Companion gift named only in gift-code rewards. ❓ | [Companions](systems/companions.md#levelling-gifts) |
@@ -808,7 +834,7 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 |---|---|---|---|
 | **Valor Surge** | skill | Knight Technique: DMG Boost to allies within 5 grids, cast before battle. | [Knight](classes/knight.md#techniques) |
 | **Vault** | shop | The Dawnium tab of the Vendor Booth: free 30 Stamina daily, discounted realm tools and Stellatie. | [Shops](systems/shops.md#vault-tab-dawnium) |
-| **Vendor Booth** | shop | Molly's wagon on Home: tabs General (Rolla), Vault (Dawnium) and Goals; daily stock, paid General refresh 4K Rolla. | [Shops](systems/shops.md#vendor-booth-molly) |
+| **Vendor Booth** | shop | Molly's wagon on Home: tabs General (Rolla), Vault (Dawnium) and Goals; daily stock, paid General refresh 4K Rolla. Unlocked at Lv 18 on our account (R-011); the official handbook says Lv 20. | [Shops](systems/shops.md#vendor-booth-molly) |
 | **Vendor Booth Pts** | currency | Points that fill the Vendor Booth Goals tab milestones (5K to 25K); free claims. | [Shops](systems/shops.md#goals-tab) |
 | **Verdantglade** | place | First kingdom: forest of the Dryason; town Drasilgard, currency Abundance Leaf, tool Withering Potion, dungeon Auroradrasil. | [World and kingdoms](systems/world-and-kingdoms.md#verdantglade) |
 | **Verdantglade Flower Harvest** | place | Free Bellflower field in Moonveil Woods, +2 per plant. | [Kingdom Rank](systems/kingdom-rank.md#materials) |
@@ -819,6 +845,7 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Voice of Kanstein** | event | Launch web event (19 May to 2 June 2026) with up to 11 draws for Destiny Fruits and Vouchers. | [Events](systems/events.md#seasonal-and-limited-events) |
 | **Void Bubble** | skill | Sorcerer Charm: first time below 50% HP, a max-HP shield and Dodge for 2 turns ("Bubble Shield" in tier D sources). | [Sorcerer](classes/sorcerer.md#charms) |
 | **Void Rift** | event | Co-op rifts on the map for 24 hours about every other Sunday: up to 4 players, up to 5 floors, 10 reward attempts. | [Events](systems/events.md#void-rift) |
+| **Voidcaller** | class | Tier 7 of the Sorcerer line (Lv 198), graded S by eog; CN schedule. | [Classes overview](systems/classes-overview.md) |
 | **Voucher** | currency | Second paid currency, for outfits and packs. Not the same thing as a Skill Shard Voucher. | [Currencies](systems/currencies.md#luminium-and-vouchers-paid-never) |
 | **Voyage Obelisk** | place | Map object that travels to the next kingdom. | [World and kingdoms](systems/world-and-kingdoms.md#how-the-next-kingdom-opens) |
 
@@ -840,13 +867,13 @@ page has them. Where pages disagree, the row gives the best-supported meaning an
 | **Welcome Benefit** | item | Free one-time Mall gift box (gave 30 Dawnium). | R-121 |
 | **Wet** | skill | Status that raises the chance to be Frozen (Aqua Vortex). ❓ | [Skills](systems/skills.md#status-effects-named-in-skill-text) |
 | **Whale** | slang | Heavy real-money spender; the buyer for your black and white gems. | [Auction house](systems/auction-house.md#what-can-be-sold) |
-| **Whaleback Island** | place | Entry on the Season 1 calendar (server day 26) with no explanation; probably a new map area or event. | [World and kingdoms](systems/world-and-kingdoms.md#aqualis) |
+| **Whaleback Island** | place | Seasonal map on the Season 1 calendar (server day 26), per eog. | [World and kingdoms](systems/world-and-kingdoms.md#aqualis) |
 | **Wheel of Destiny** | event | Prize wheel spun with Lucky Tickets (free first spin at each map Lucky Wheel); go for Skill Shard Vouchers first. Tier D pages misuse the name for Destiny Fruit exploration. | [Events](systems/events.md#wheel-of-destiny) |
 | **White power** | source-alias | Chinese community term for permanent growth; "green power" is season growth. ❓ | [Provenance](sources/provenance.md) |
 | **Wind** | system | Element: beats Water, weak to Fire. Knockback and delay skills; the Sorcerer PvP element. | [Classes overview](systems/classes-overview.md#elements) |
 | **Wind Shield** | gear | Unique affix: a fixed effect at the start of battle. | [Gear](systems/gear.md#affixes) |
 | **Wind's Delight** | skill | Mage Technique: 7 waves of wind blades; single-target option to Tier 3 ("Winds of Light" in tier D sources). | [Mage](classes/mage.md#techniques) |
-| **Witch Statue** | place | Once-a-day visit statue on the map ("Statue of Witch"); may give a curse, then Quick Heal. | [Exploration](systems/exploration.md#things-found-while-exploring) |
+| **Witch Statue** | place | Map statue ("Statue of Witch" on the official site), visited like the Hero Statue: see that row for what a Visit gives. One site says it may give a curse, then Quick Heal ❓. | [Exploration](systems/exploration.md#things-found-while-exploring) |
 | **Witching Hours** | system | Name of Season 1 (Verdantglade, Cinder Ridge, Aqualis). | [Seasons](systems/seasons.md#season-model) |
 | **Withering Potion** | tool | Verdantglade kingdom tool; clears one Vine Blockade. 1.8K leaves discounted, then 3K. | [Exploration](systems/exploration.md#obstacles-and-what-opens-each) |
 | **Wood** | material | Furniture material; its only known use is Cart row upgrades. Top Cart priority together with Stone. | [Currencies](systems/currencies.md#wood-and-stone) |
@@ -933,11 +960,19 @@ for the right-hand term in the letter tables above.
 | Delegate Tasks | Commissions | [S-35], [S-36] |
 | Quick Claim, Bed Quick Claim | Auto Collect (Bed) | [S-34] |
 | Mysterious NPC | Mysterious Merchant | [S-03] |
-| Aquorigin, Aquorigin Shrine, "Aqua" | Aquaorigin (Daily Dungeon) | [S-03], [S-01], [S-02] |
+| Aquaorigin, Aquorigin, "Aqua" | Aquorigin Shrine (Daily Dungeon) | [S-01], [S-02] |
 | material dungeons | Material Realms | R-015 |
 | Gem Tower | Demonbind Tower | [S-03] |
 | Rank Gate, Power Gate, Elemental Gate, Sealed Pillar | Sealed Stone Gate, Gate of Power, Gate of Elements, Sealing Pillar | [S-50] |
 | Statue of the Brave, Statue of Witch | Hero Statue, Witch Statue | [S-40] |
+| Lucky Idol | Lucky Statue | [S-85] |
+| Primordial Gem | Primal Gem | [S-85] |
+| Primo Stars | Primostars | [S-85] |
+| Worn Gauntlet | Worn Knuckles | [S-85] |
+| Iron Mine, Gold Mine, Monster Cave | Ironvein Pit, Gilded Depths, Dread Hollow (Material Realms) | [S-85] |
+| Gear Prayer, Pet Prayer, Friend Prayer | Aeonic Gacha, Fantomon summon, Affection Prayer | [S-80] |
+| Forest Wolf | Sylvanwolf | [S-85] |
+| Block Penetration | Accuracy (Sorcerer class trait) | [S-80] |
 | Fighter | Duelist | [S-03] (one place) |
 | Heavy Knight | Paladin | [S-03] (one place) |
 | Controller | Dominator | [S-04] |
@@ -1005,7 +1040,7 @@ table labelled Champion III, Season 2 ([Gear](systems/gear.md#affixes)).
 | PvE / PvP Bonus DMG and DMG RES | Damage dealt and taken in that kind of content. | Dual affix lines, 9.6 to 15.3% each. Paid Stellaris relics give PvP +4.8% ❓. |
 | Affinity (element) | Damage-side elemental total from relics. | Shown per element at the Workbench; displayed relics count +20%; total affinity of one element opens a Gate of Elements (NPC companions lend 101 each). |
 | Aegis (element) | Resist-side elemental total from relics. | Shown per element at the Workbench; grows with relic stars. |
-| Element match-up | Which element hurts which. | Wind beats Water, Water beats Fire, Fire beats Wind. A monster halves damage from the element it beats, may be immune to it, and takes much more from the element that beats it. Physical is neutral. Light and Dark sit outside the triangle (Dark weak to Light per one blog ❓). |
+| Element match-up | Which element hurts which. | Wind beats Water, Water beats Fire, Fire beats Wind. A monster halves damage from the element it beats, may be immune to it, and takes much more from the element that beats it. Physical is neutral. Light and Dark sit outside the triangle (Dark weak to Light, and a unit immune to its own element, per one blog ❓). |
 | CP (Power) | One number for total strength. | Hard gate for dungeon difficulties, Gates of Power and tower floors. The bot fights up to 1.25x its own power (R-127). Most CP in a season comes from seasonal gear, which is scaled down to level 100 afterwards. |
 | Skill level, star, quality | How a skill grows. | Level raises the flat part (Battle Essence). A star raises the flat part about 15%. A quality step raises flat and percentage parts: about 25% for Techniques, 20% for Charms. |
 | Class damage range per hit | How swingy each Tier 2 class is. | Duelist 50 to 300%, Knight 50 to 200%, Sorcerer 100 to 250%, Sage 50 to 200%. |

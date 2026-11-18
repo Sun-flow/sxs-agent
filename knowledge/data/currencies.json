@@ -16,9 +16,16 @@
    "S-37",
    "S-38",
    "memory-bank/game/rules",
-   "docs/shop-tables.md"
+   "docs/shop-tables.md",
+   "S-42",
+   "S-80",
+   "S-85",
+   "S-87"
   ],
-  "updated": "2026-11-18"
+  "updated": "2026-11-18",
+  "field_notes": {
+   "dawnium_value_eog": "eog.gg's own valuation of one unit in Dawnium (data/item-values.json) [S-85]; a planning figure, not a shop price"
+  }
  },
  "currencies": [
   {
@@ -40,18 +47,20 @@
     "Wheel of Destiny (2,888 option)",
     "arena",
     "selling shards, gear, gems and recipes on the player market",
-    "Luminium exchange 1:1 (paid)"
+    "Luminium exchange 1:1 (paid)",
+    "Guild Conquest (2 attempts a day)"
    ],
    "sinks": [
     "daily dungeon extra runs (100, 150)",
     "material realm tools (60,60,100,100,150,150,200,200,250,300 per realm per day)",
     "guild donations 2 and 3 (20, 50)",
-    "guild Gold Tool (200)",
+    "guild Gold Tool (200; a guild item, not the Gold Pickaxe)",
     "Vendor Booth Vault",
     "Aeonic Gacha relic pulls",
     "Molly's Deals",
     "arena extra fights (10,15,20,30,40,60,80,100)",
-    "skill pulls"
+    "skill pulls",
+    "battle pass tier skip (100 per tier; never)"
    ],
    "resets_each_season": null,
    "sources": [
@@ -66,7 +75,10 @@
     "R-103",
     "R-120",
     "R-121",
-    "R-168"
+    "R-168",
+    "S-80",
+    "S-85",
+    "S-87"
    ],
    "kind": "premium currency",
    "priority": "high",
@@ -89,10 +101,13 @@
     "S-03",
     "S-31",
     "S-35",
-    "S-38"
+    "S-38",
+    "S-85",
+    "S-80"
    ],
    "kind": "paid currency",
-   "priority": null
+   "priority": null,
+   "dawnium_value_eog": 1
   },
   {
    "id": "voucher",
@@ -377,10 +392,12 @@
     "S-37",
     "R-106",
     "R-107",
-    "R-120"
+    "R-120",
+    "S-85"
    ],
    "kind": "energy",
-   "priority": "high"
+   "priority": "high",
+   "dawnium_value_eog": 4.8
   },
   {
    "id": "stellatie",
@@ -416,18 +433,25 @@
     "R-120",
     "R-134",
     "R-147",
-    "R-168"
+    "R-168",
+    "S-85"
    ],
    "kind": "pull ticket",
-   "priority": "high"
+   "priority": "high",
+   "dawnium_value_eog": 100
   },
   {
    "id": "covenite",
    "name": "Covenite",
-   "aliases": [],
+   "aliases": [
+    "skill selection ticket",
+    "Premium Prayer ticket"
+   ],
    "sources_of_income": [
     "Molly's Deals",
-    "Wheel of Destiny"
+    "Wheel of Destiny",
+    "Chaos Invasion ranking rewards (20 at rank 1, 8 at rank 501+)",
+    "Arena Shop (500 Arena coins, limit 1)"
    ],
    "sinks": [
     "Goddess Prayer for skills of the current class"
@@ -435,23 +459,35 @@
    "resets_each_season": null,
    "sources": [
     "S-01",
-    "S-38"
+    "S-38",
+    "S-85",
+    "S-42"
    ],
    "kind": "pull ticket",
-   "priority": "high"
+   "priority": "high",
+   "dawnium_value_eog": 1000,
+   "note": "Canonical reading: a skill selection ticket for the Premium (current class) Prayer. eog.gg and one tier D site say it is earned from Standard pulls and cannot be bought [S-85]; not followed (conflicts X-05)."
   },
   {
    "id": "affection_token",
    "name": "Affection Token",
-   "aliases": [],
-   "sources_of_income": [],
+   "aliases": [
+    "Friend Prayer token"
+   ],
+   "sources_of_income": [
+    "praying (capped at 1,000 a week) [S-85]",
+    "partying in daily events with friends or guildmates (one player blog, unconfirmed) [S-42]"
+   ],
    "sinks": [
     "Affection Prayer (x10 = 250)"
    ],
    "resets_each_season": null,
    "sources": [
     "S-38",
-    "R-093"
+    "R-093",
+    "S-85",
+    "S-42",
+    "S-80"
    ],
    "kind": "pull ticket",
    "priority": null
@@ -476,10 +512,12 @@
     "S-38",
     "R-114",
     "R-167",
-    "R-168"
+    "R-168",
+    "S-85"
    ],
    "kind": "pull token",
-   "priority": "high"
+   "priority": "high",
+   "dawnium_value_eog": 8
   },
   {
    "id": "auroral_badge_epic",
@@ -498,10 +536,12 @@
     "S-35",
     "S-37",
     "S-38",
-    "R-167"
+    "R-167",
+    "S-85"
    ],
    "kind": "pull token",
-   "priority": "high"
+   "priority": "high",
+   "dawnium_value_eog": 15
   },
   {
    "id": "auroral_badge_legendary",
@@ -520,10 +560,12 @@
     "S-01",
     "S-33",
     "S-37",
-    "S-38"
+    "S-38",
+    "S-85"
    ],
    "kind": "pull token",
-   "priority": "high"
+   "priority": "high",
+   "dawnium_value_eog": 56
   },
   {
    "id": "auroral_badge_mythic",
@@ -535,10 +577,12 @@
    ],
    "resets_each_season": null,
    "sources": [
-    "S-38"
+    "S-38",
+    "S-85"
    ],
    "kind": "pull token",
-   "priority": "high"
+   "priority": "high",
+   "dawnium_value_eog": 74
   },
   {
    "id": "auroral_elemental_badge",
@@ -553,10 +597,12 @@
    "resets_each_season": null,
    "sources": [
     "S-01",
-    "S-38"
+    "S-38",
+    "S-85"
    ],
    "kind": "pull token",
-   "priority": "high"
+   "priority": "high",
+   "dawnium_value_eog": 72
   },
   {
    "id": "bond_trinket",
@@ -580,27 +626,32 @@
     "S-37",
     "S-38",
     "R-114",
-    "R-168"
+    "R-168",
+    "S-85"
    ],
    "kind": "pull token",
-   "priority": "high"
+   "priority": "high",
+   "dawnium_value_eog": 160
   },
   {
    "id": "summon_crystal",
    "name": "Summon Crystal",
    "aliases": [],
    "sources_of_income": [
-    "Fantomon pulls (4.2% each)"
+    "Fantomon pulls (4.2% each, at least 1 per x10)"
    ],
    "sinks": [
-    "Mythic Fantomon copies in the exchange shop (60 each)"
+    "Mythic Fantomon copies in the exchange shop (60 each)",
+    "rotating Legendary Fantomon (18)"
    ],
    "resets_each_season": null,
    "sources": [
-    "S-32"
+    "S-32",
+    "S-85"
    ],
    "kind": "exchange currency",
-   "priority": null
+   "priority": null,
+   "dawnium_value_eog": 1600
   },
   {
    "id": "destiny_fruit",
@@ -621,10 +672,12 @@
     "S-02",
     "S-35",
     "S-37",
-    "R-019"
+    "R-019",
+    "S-85"
    ],
    "kind": "relic item",
-   "priority": "medium"
+   "priority": "medium",
+   "dawnium_value_eog": 60
   },
   {
    "id": "abundance_leaf",
@@ -663,11 +716,17 @@
    ],
    "resets_each_season": null,
    "sources": [
-    "S-01"
+    "S-01",
+    "S-42"
    ],
    "kind": "kingdom currency",
    "kingdom": "Cinder Ridge",
-   "priority": "high"
+   "priority": "high",
+   "candidate_names": [
+    "Feathers",
+    "Alloy"
+   ],
+   "name_note": "One player blog names Feathers and Alloy as kingdom merchant currencies without saying which kingdom [S-42]; unconfirmed, so name stays null."
   },
   {
    "id": "kingdom_currency_aqualis",
@@ -681,11 +740,17 @@
    ],
    "resets_each_season": null,
    "sources": [
-    "S-01"
+    "S-01",
+    "S-42"
    ],
    "kind": "kingdom currency",
    "kingdom": "Aqualis",
-   "priority": "high"
+   "priority": "high",
+   "candidate_names": [
+    "Feathers",
+    "Alloy"
+   ],
+   "name_note": "One player blog names Feathers and Alloy as kingdom merchant currencies without saying which kingdom [S-42]; unconfirmed, so name stays null."
   },
   {
    "id": "kingdom_currency_loong_haven",
@@ -700,11 +765,17 @@
    "resets_each_season": null,
    "sources": [
     "S-01",
-    "S-34"
+    "S-34",
+    "S-42"
    ],
    "kind": "kingdom currency",
    "kingdom": "Loong Haven",
-   "priority": "high"
+   "priority": "high",
+   "candidate_names": [
+    "Feathers",
+    "Alloy"
+   ],
+   "name_note": "One player blog names Feathers and Alloy as kingdom merchant currencies without saying which kingdom [S-42]; unconfirmed, so name stays null."
   },
   {
    "id": "guild_token",
@@ -732,21 +803,27 @@
   },
   {
    "id": "arena_currency",
-   "name": null,
-   "aliases": [],
+   "name": "Arena coins",
+   "aliases": [
+    "Arena currency"
+   ],
    "sources_of_income": [
-    "arena matches and weekly rank"
+    "100 per won Grand Arena attack",
+    "weekly rank rewards"
    ],
    "sinks": [
-    "Arena exchange shop (permanent food)"
+    "Arena Shop: Fantomon Shards, Bond Treat, Stellatie, Rare Auroral Badges, Covenite (see shops.json arena_shop)",
+    "permanent food"
    ],
    "resets_each_season": null,
    "sources": [
     "S-31",
-    "S-35"
+    "S-35",
+    "S-42"
    ],
    "kind": "arena currency",
-   "priority": null
+   "priority": null,
+   "note": "'Arena coins' is a player blog's name [S-42]; the in-game name is not confirmed."
   },
   {
    "id": "aurodrasil_energy",
@@ -755,7 +832,8 @@
     "Grand Treasure Hunt currency"
    ],
    "sources_of_income": [
-    "weekly event allowance"
+    "weekly event allowance; a free player gathers about 4,440 in 2 weeks or 5,640 in 3 weeks",
+    "two 500-Energy packs per cycle (paid)"
    ],
    "sinks": [
     "Grand Treasure Hunt reward floors (Lucky Statue, Primal Gem)"
@@ -763,10 +841,12 @@
    "resets_each_season": null,
    "sources": [
     "S-01",
-    "S-33"
+    "S-33",
+    "S-85"
    ],
    "kind": "event currency",
-   "priority": "high"
+   "priority": "high",
+   "note": "About 3,240 Energy clears Levels 1 to 5 of one hunt; unspent Energy carries over [S-85]."
   },
   {
    "id": "chaos_crystal",
@@ -806,10 +886,12 @@
     "S-01",
     "R-114",
     "R-125",
-    "R-147"
+    "R-147",
+    "S-85"
    ],
    "kind": "event ticket",
-   "priority": "low"
+   "priority": "low",
+   "dawnium_value_eog": 360
   },
   {
    "id": "vendor_booth_pts",
@@ -849,18 +931,18 @@
     "S-02",
     "S-03",
     "R-093",
-    "R-095"
+    "R-095",
+    "S-85"
    ],
    "kind": "material realm tool",
    "realm": "Ironvein Pit",
-   "priority": "high"
+   "priority": "high",
+   "dawnium_value_eog": 20
   },
   {
    "id": "gold_pickaxe",
    "name": "Gold Pickaxe",
-   "aliases": [
-    "Gold Tool"
-   ],
+   "aliases": [],
    "sources_of_income": [
     "commissions",
     "Vendor Booth Vault (5 for 60 Dawnium seen)",
@@ -874,18 +956,25 @@
     "S-02",
     "S-03",
     "R-120",
-    "R-125"
+    "R-125",
+    "S-85"
    ],
    "kind": "material realm tool",
    "realm": "Gilded Depths",
-   "priority": "medium"
+   "priority": "medium",
+   "dawnium_value_eog": 20,
+   "not_an_alias": [
+    "Gold Tool"
+   ],
+   "alias_note": "'Gold Tool' was listed here as an alias; it is the 200-Dawnium guild line in SOF's daily plan (see record guild_gold_tool), not this pickaxe."
   },
   {
    "id": "worn_knuckles",
    "name": "Worn Knuckles",
    "aliases": [
     "knuckles",
-    "gloves"
+    "gloves",
+    "Worn Gauntlet"
    ],
    "sources_of_income": [
     "Vendor Booth Vault (5 for 40 Dawnium seen)",
@@ -899,33 +988,39 @@
     "S-02",
     "S-03",
     "R-120",
-    "R-125"
+    "R-125",
+    "S-85"
    ],
    "kind": "material realm tool",
    "realm": "Dread Hollow",
-   "priority": "high"
+   "priority": "high",
+   "dawnium_value_eog": 20
   },
   {
    "id": "sand_realm_tool",
-   "name": null,
+   "name": "Sand Shovel",
    "aliases": [
-    "shovel"
+    "shovel",
+    "Crystal Shovel"
    ],
    "sources_of_income": [
     "Dawnium purchase at the realm"
    ],
    "sinks": [
-    "one sand realm attempt (Chrono Sand)"
+    "one Sand Mine attempt (Chrono Sand)"
    ],
    "resets_each_season": false,
    "sources": [
     "S-01",
     "S-02",
-    "S-04"
+    "S-04",
+    "S-85"
    ],
    "kind": "material realm tool",
-   "realm": null,
-   "priority": "high"
+   "realm": "Sand Mine",
+   "priority": "high",
+   "dawnium_value_eog": 20,
+   "alias_note": "Name and realm from eog.gg [S-85]; 'Crystal Shovel' is a tier D site's name for the same tool. In-game spelling not yet read."
   },
   {
    "id": "withering_potion",
@@ -1022,10 +1117,12 @@
    "sources": [
     "R-120",
     "R-125",
-    "R-153"
+    "R-153",
+    "S-85"
    ],
    "kind": "utility item",
-   "priority": "low"
+   "priority": "low",
+   "dawnium_value_eog": 50
   },
   {
    "id": "temporal_crystal",
@@ -1038,10 +1135,12 @@
    "resets_each_season": false,
    "sources": [
     "S-02",
-    "S-03"
+    "S-03",
+    "S-87"
    ],
    "kind": "speed-up",
-   "priority": "medium"
+   "priority": "medium",
+   "note": "Idle Bed and Cart rewards cap at 36 hours [S-87]."
   },
   {
    "id": "skill_shard_voucher",
@@ -1131,10 +1230,12 @@
    "resets_each_season": false,
    "sources": [
     "R-120",
-    "R-134"
+    "R-134",
+    "S-85"
    ],
    "kind": "cosmetic item",
-   "priority": "low"
+   "priority": "low",
+   "dawnium_value_eog": 100
   },
   {
    "id": "rename_card",
@@ -1152,6 +1253,26 @@
    ],
    "kind": "cosmetic item",
    "priority": "low"
+  },
+  {
+   "id": "guild_gold_tool",
+   "name": "Gold Tool",
+   "aliases": [
+    "guild Gold Tool"
+   ],
+   "sources_of_income": [
+    "bought for 200 Dawnium in the guild (SOF daily plan, optional line)"
+   ],
+   "sinks": [
+    "probably a 24-hour guild gathering boost; unconfirmed, read the guild facility screen"
+   ],
+   "resets_each_season": null,
+   "sources": [
+    "S-01"
+   ],
+   "kind": "guild tool",
+   "priority": "low",
+   "note": "Not the Gold Pickaxe. Guild gathering tools come in 3 tiers per zeroluck [S-80]; which tier the Gold Tool is, is not stated."
   }
  ]
 }

@@ -50,9 +50,27 @@ Run `ls knowledge/data/`; each file starts with `_meta` (description, sources, d
 skills, currencies, shops, dungeons, events, season-schedule, dawnium-daily-plan, unlocks, kingdoms, relics,
 fantomons, companions, gems.
 
+Added by the second research round (database and tool sites, tier C; names are sometimes the site's own
+translation, see the aliases in the [glossary](glossary.md)):
+
+| Need | File |
+|---|---|
+| Pull odds per banner | `gacha-rates.json` |
+| What opens on which server day, through Season 5 | `server-day-roadmap.json` |
+| Season rating weights and Primostar milestones | `astral-pact-scoring.json` |
+| Stamina and Material Realm yields by rank | `gathering-yields.json` |
+| Dawnium-equivalent value of items | `item-values.json` |
+| Class grades and named builds per tier | `class-tier-list.json`, `class-tiers-cn.json` |
+| Skills, relics, recipes, ingredients, monsters, map points | `skill-database.json`, `skills-cn.json`, `relic-database.json`, `recipe-database.json`, `ingredients.json`, `monster-list.json`, `monsters.json`, `map-points.json` |
+| Gear: tables, affixes, dungeon sets, gem tiers | `gear-tables.json`, `equipment-affixes.json`, `dungeon-gear-sets.json`, `gem-tiers.json` |
+| Combat stats and terms, life skills, companion loadouts, Fantomon skills | `combat-stats.json`, `combat-terms.json`, `life-skills.json`, `companion-loadouts.json`, `fantomon-skills.json` |
+
 ## How it is kept honest
 
 - Every fact carries a source tag; tiers A to D say how far to trust it; unknowns are marked ❓ ([CONVENTIONS](CONVENTIONS.md)).
+- When sources disagree the higher tier wins: our rules, then the SOF guides and the publisher, then community
+  sites. For unlock levels the rule's figure is given first and the other figure noted. Every disagreement has a
+  row in [conflicts](conflicts.md).
 - `python3 scripts/kb_check.py` checks links, index lines, source tags, rule IDs and data files.
 - `python3 scripts/kb_fetch.py all` refreshes the local copies of the public wikis ([sources](sources/README.md)).
 - When the bot sees something in game that settles a ❓, record it as a rule in `memory-bank/game/rules/` and

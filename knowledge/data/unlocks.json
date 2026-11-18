@@ -9,9 +9,14 @@
    "S-53",
    "S-54",
    "R-011",
-   "R-118"
+   "R-118",
+   "S-85",
+   "S-87"
   ],
-  "updated": "2026-11-18"
+  "updated": "2026-11-18",
+  "field_notes": {
+   "level": "Where a rule (R-NNN, our own account) and a guide disagree, level follows the rule and level_other holds the other figure."
+  }
  },
  "unlocks": [
   {
@@ -26,25 +31,29 @@
   },
   {
    "id": "guild",
-   "level": 15,
+   "level": 20,
    "feature": "Guild and Guild Donation",
    "gate": "level",
-   "note": "Tab text says 15; on our account the tab lit at Lv 20",
+   "note": "Lit at Lv 20 on our account [R-011]; the tab text, Fandom and the official handbook say Lv 15 [S-03][S-87]",
    "sources": [
+    "R-011",
     "S-03",
-    "R-011"
-   ]
+    "S-87"
+   ],
+   "level_other": 15
   },
   {
    "id": "vendor-booth",
    "level": 18,
    "feature": "Vendor Booth",
    "gate": "level",
-   "note": "Reported 18; Fandom says 20",
+   "note": "Lv 18 on our account, reached early through the Bellflower tutorial [R-011]; Fandom and the official handbook say Lv 20 [S-03][S-87]",
    "sources": [
     "R-011",
-    "S-03"
-   ]
+    "S-03",
+    "S-87"
+   ],
+   "level_other": 20
   },
   {
    "id": "rank-apprentice-2",
@@ -83,7 +92,8 @@
    "gate": "level",
    "note": null,
    "sources": [
-    "S-03"
+    "S-03",
+    "S-87"
    ]
   },
   {
@@ -93,7 +103,8 @@
    "gate": "level",
    "note": null,
    "sources": [
-    "S-03"
+    "S-03",
+    "S-87"
    ]
   },
   {
@@ -101,9 +112,10 @@
    "level": 40,
    "feature": "Skill Test (DPS dummy)",
    "gate": "level",
-   "note": "single source",
+   "note": "eog only (hub and dummy-test guide): Home > Character > Skills > Test",
    "sources": [
-    "S-54"
+    "S-54",
+    "S-85"
    ]
   },
   {
@@ -119,16 +131,19 @@
   },
   {
    "id": "fantomons",
-   "level": 50,
+   "level": 51,
    "feature": "Fantomons",
    "gate": "level",
-   "note": "R-011 reports 51",
+   "note": "Rule R-011 records 51 (reported); the official site, Fandom and eog say Lv 50 [S-87][S-03][S-85]. To verify when the tutorial fires (conflicts V-01)",
    "sources": [
+    "R-011",
     "S-03",
     "S-52",
     "S-54",
-    "R-011"
-   ]
+    "S-85",
+    "S-87"
+   ],
+   "level_other": 50
   },
   {
    "id": "companion-skin",
@@ -158,7 +173,8 @@
    "gate": "level",
    "note": null,
    "sources": [
-    "S-03"
+    "S-03",
+    "S-85"
    ]
   },
   {
@@ -180,7 +196,8 @@
    "sources": [
     "S-02",
     "S-03",
-    "S-53"
+    "S-53",
+    "S-85"
    ]
   },
   {
@@ -191,7 +208,8 @@
    "note": null,
    "sources": [
     "S-02",
-    "S-53"
+    "S-53",
+    "S-85"
    ]
   },
   {
@@ -202,7 +220,8 @@
    "note": null,
    "sources": [
     "S-02",
-    "S-53"
+    "S-53",
+    "S-85"
    ]
   },
   {
@@ -223,7 +242,8 @@
    "note": null,
    "sources": [
     "S-02",
-    "S-53"
+    "S-53",
+    "S-85"
    ]
   },
   {
@@ -239,21 +259,23 @@
   {
    "id": "premium-skill-banner",
    "level": null,
-   "feature": "Premium skill banner: clear Verdantglade and reach Cinder Ridge",
+   "feature": "Premium skill banner: clear Verdantglade and make the second-tier class change (Lv 44, in Cinder Ridge)",
    "gate": "condition",
    "note": null,
    "sources": [
-    "S-54"
+    "S-54",
+    "S-85"
    ]
   },
   {
    "id": "offhand-slot",
    "level": null,
-   "feature": "Offhand gear slot: trigger unknown, not unlocked at Lv 37",
+   "feature": "Offhand gear slot: after the Class II change per the official handbook; not unlocked at Lv 37 on our account",
    "gate": "condition",
    "note": null,
    "sources": [
-    "R-023"
+    "R-023",
+    "S-87"
    ]
   },
   {
@@ -264,6 +286,67 @@
    "note": null,
    "sources": [
     "R-080"
+   ]
+  },
+  {
+   "id": "dismantle",
+   "level": 12,
+   "feature": "Dismantle (Alchemy Pot turns gear into Refined Ore and Raw Ore)",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-87"
+   ]
+  },
+  {
+   "id": "class-change-3",
+   "level": 82,
+   "feature": "Third class change (Archmage, Arcanist ...); also total class level 48 and class level 16 in the Tier 2 class",
+   "gate": "level",
+   "note": "eog roadmap; class-level gates also on zeroluck",
+   "sources": [
+    "S-85",
+    "S-80"
+   ]
+  },
+  {
+   "id": "class-change-5",
+   "level": 136,
+   "feature": "Fifth class change (Sorcerer line: Magister); total class level 180",
+   "gate": "level",
+   "note": "From the CN schedule, via eog",
+   "sources": [
+    "S-85"
+   ]
+  },
+  {
+   "id": "class-change-6",
+   "level": 172,
+   "feature": "Sixth class change (Sorcerer line: Cataclyst); total class level 280",
+   "gate": "level",
+   "note": "From the CN schedule, via eog",
+   "sources": [
+    "S-85"
+   ]
+  },
+  {
+   "id": "class-change-7",
+   "level": 198,
+   "feature": "Seventh class change (Sorcerer line: Voidcaller); total class level 380",
+   "gate": "level",
+   "note": "From the CN schedule, via eog",
+   "sources": [
+    "S-85"
+   ]
+  },
+  {
+   "id": "acme-nexus",
+   "level": 130,
+   "feature": "Acme Nexus seasonal map (also server day 71)",
+   "gate": "level",
+   "note": null,
+   "sources": [
+    "S-85"
    ]
   }
  ]

@@ -24,6 +24,14 @@
 | The account is stuck below a power wall | [Getting stronger](getting-stronger.md) |
 | What will later seasons bring? | [Future content](../systems/future-content.md) |
 
+Numbers behind the pages (second research round, tier C unless noted): pull odds in
+[gacha-rates.json](../data/gacha-rates.json), the server-day calendar in
+[server-day-roadmap.json](../data/server-day-roadmap.json), season rating weights in
+[astral-pact-scoring.json](../data/astral-pact-scoring.json), stamina yields by rank in
+[gathering-yields.json](../data/gathering-yields.json), Dawnium-equivalent item values in
+[item-values.json](../data/item-values.json), class grades in [class-tier-list.json](../data/class-tier-list.json).
+Where these sources disagree with the SOF guides, the pages keep SOF and say so in one line.
+
 ## The ten rules
 
 1. **The schedule comes first.** Each dungeon opens on a fixed server day with a power threshold. Meeting the
@@ -42,8 +50,8 @@
    Sand (relic resonance); from mid-season to the end they go to ore (gear) [S-01][S-02].
 7. **Gear level decides the season rating.** Gear is the heaviest part of the Primostar score, and Primostars
    buy permanent Astral Pact bonuses once per season. Near season end, all ore goes into gear [S-01].
-8. **Spend Dawnium every day, from the top of one list**: dungeon refreshes, Material Realm tools, guild
-   donations, discounted Vault items; early-season surplus to the new relic pool [S-01][S-02]. See
+8. **Spend Dawnium every day, from the top of one list**: guild donations 2 and 3 (the publisher's own tip
+   [S-87]), discounted Vault items, dungeon refreshes, Material Realm tools; early-season surplus to the new relic pool [S-01][S-02]. See
    [Dawnium plan](dawnium-plan.md).
 9. **Save where saving pays.** Skill pulls before a new class tier, Skill Shard Vouchers for skills that survive
    tiers, event currency on SAVE weeks, Material Realm tools until the kingdom's top rank, speed-ups until new
@@ -81,4 +89,4 @@ flowchart LR
 ## Sources
 
 - [S-01] the F2P guide: philosophy, schedule, economy; [S-02] the Season 2 guide: season phases
-- [S-03] Seasonal Systems (the level 100 line); rule R-118
+- [S-03] Seasonal Systems (the level 100 line); [S-87] official handbook; rule R-118

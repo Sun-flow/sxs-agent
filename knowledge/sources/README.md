@@ -23,6 +23,7 @@
 | `raw/fandom/` | The Fandom wiki as wikitext (CC BY-SA 3.0; `manifest.json` credits each page). Refresh: `python3 scripts/kb_fetch.py fandom` |
 | `raw/<other>/` | Working caches of sites with no stated licence. Gitignored: re-create with `python3 scripts/kb_fetch.py <name>` |
 | `provenance.md` | The survey of sources: lineage of the game, who writes what, fetch recipes, hosts to allow |
+| `research-leads.md` | What is left to look up: unread sources, facts no source gave, unfinished Chinese-version forecasts |
 
 ## Register
 

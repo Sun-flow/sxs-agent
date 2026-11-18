@@ -20,7 +20,7 @@
 | 2 | Cinder Ridge | 1 | about 40-44 to ❓ | Fortburg [S-03] | ❓ | Magic Drill [S-01] | Mecha Summit [S-03] |
 | 3 | Aqualis | 1 | ❓ to 100, then the Season 1 cap (about 124) | ❓ | ❓ | Water Mine [S-01] | Ocean Palace Ruins, Aquorigin Shrine, Hellhold [S-03] |
 | 4 | Loong Haven | 2 | 100 to 120 and beyond | "Unrakumotogo" is named as the place of the 4th class change [S-03] | ❓ | Cloud Jade (7 needed on the map) [S-85]; "New Season Item" in [S-53] | Demonseal Gorge, Warlord's Rest, Cloudcrest Temple, Bladeshire, Celestship [S-02] |
-| 5 | Aethyris | 3 (server day 114) | ❓ | ❓ | ❓ | Purifying Hammer (5 needed) [S-85] | seven, days 114 to 203 [S-85] |
+| 5 | Aethyris | 3 (server day 114) | ❓ | ❓ | ❓ | Purifying Hammer (5 needed) [S-85] | days 114 to 203 [S-85] |
 | 6 | Harpadia | 4 (day 226) ❓ | ❓ | ❓ | ❓ | Brick Switch (5 needed) [S-85] | days 226 to 309 [S-85] |
 | 7 | Ignis | 5 (day 335) ❓ | ❓ | ❓ | ❓ | Flame Hammer, Frost Hammer (3 each) [S-85] | days 335 to 418 [S-85] |
 
@@ -137,7 +137,7 @@
 ## Aethyris (Season 3)
 
 Starts on server day 114 on the guide author's server (29 November 2026 there) [S-02]. From eog's data (CN
-schedule, tier C ❓) [S-85]: seven dungeons between days 114 and 203, seasonal map Astral Odyssey on day 128, tool
+schedule, tier C ❓) [S-85]: dungeons between days 114 and 203, seasonal map Astral Odyssey on day 128, tool
 Purifying Hammer (5 needed), 18 Goddess Statues and 78 Lost Goddess Statues, three relic pools.
 
 ## Harpadia and Ignis (Seasons 4 and 5)

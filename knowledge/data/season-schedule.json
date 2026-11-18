@@ -3,9 +3,14 @@
     "description": "Season milestones from the SOF guides: dungeon unlocks with CP thresholds, Treasure Hunt save/buy weeks, relic pools, Fantomon releases, level unlocks and caps. Dates are for the guide author's server (date_author_server, ISO). server_day is only filled where the infographic states it (server day 47 = 2026-09-23). season_day_derived is computed by us for Season 2 records as date minus 2026-09-23 plus 1. CP values are whole numbers; a threshold of 0 means 'no power requirement'; null means not listed or not available (see notes).",
     "sources": [
       "S-01",
-      "S-02"
+      "S-02",
+      "S-85"
     ],
-    "updated": "2026-11-18"
+    "updated": "2026-11-18",
+    "global_server": {
+      "day_1": "2026-05-19",
+      "note": "eog.gg's roadmap counts server days from the global launch [S-85]; the SOF calendar is for the guide author's server (day 47 = 2026-09-23). Our server's day 1 is unknown."
+    }
   },
   "milestones": [
     {
@@ -28,9 +33,9 @@
       "id": "s1-dungeon-aquaorigin",
       "season": 1,
       "type": "dungeon_unlock",
-      "name": "Aquaorigin",
+      "name": "Aquorigin Shrine",
       "date_author_server": "2026-08-31",
-      "server_day": null,
+      "server_day": 24,
       "season_day_derived": null,
       "cp_threshold": {
         "normal": 930000,
@@ -40,9 +45,14 @@
       },
       "notes": "Purgatory not listed on the calendar.",
       "sources": [
-        "S-01"
+        "S-01",
+        "S-85"
       ],
-      "page": 6
+      "page": 6,
+      "aliases": [
+        "Aquaorigin"
+      ],
+      "unlock_level": 100
     },
     {
       "id": "s1-whaleback-island",
@@ -50,11 +60,12 @@
       "type": "content_unlock",
       "name": "Whaleback Island",
       "date_author_server": "2026-09-02",
-      "server_day": null,
+      "server_day": 26,
       "season_day_derived": null,
       "notes": "Listed on the calendar without explanation.",
       "sources": [
-        "S-01"
+        "S-01",
+        "S-85"
       ],
       "page": 6
     },
@@ -744,12 +755,55 @@
       "type": "season_start",
       "name": "Season 3 Aethyris starts",
       "date_author_server": "2026-11-29",
-      "server_day": null,
+      "server_day": 114,
       "season_day_derived": null,
       "sources": [
-        "S-02"
+        "S-02",
+        "S-85"
       ],
       "page": 7
+    },
+    {
+      "id": "s4-start",
+      "season": 4,
+      "type": "season_start",
+      "name": "Season 4 Harpadia starts",
+      "date_author_server": null,
+      "server_day": 226,
+      "season_day_derived": null,
+      "notes": "CN schedule projected onto global by eog; not confirmed for global.",
+      "sources": [
+        "S-85"
+      ],
+      "page": null
+    },
+    {
+      "id": "s5-start",
+      "season": 5,
+      "type": "season_start",
+      "name": "Season 5 Ignis starts",
+      "date_author_server": null,
+      "server_day": 335,
+      "season_day_derived": null,
+      "notes": "CN schedule projected onto global by eog; not confirmed for global.",
+      "sources": [
+        "S-85"
+      ],
+      "page": null
+    },
+    {
+      "id": "s2-fantomon-pandarial-eog",
+      "season": 2,
+      "type": "fantomon_release",
+      "name": "Pandarial (eog date)",
+      "date_author_server": null,
+      "server_day": 92,
+      "season_day_derived": 46,
+      "notes": "eog roadmap gives server day 92, which is season day 46 and so agrees with SOF's record s2-fantomon-pandarial.",
+      "sources": [
+        "S-85"
+      ],
+      "page": null
     }
   ]
 }
