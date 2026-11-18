@@ -1,0 +1,182 @@
+
+== Warrior Techniques ==
+{| class="wikitable" style="width:100%; table-layout:fixed; text-align:center;"
+! style="width:10%;" |icon
+! style="width:15%;" |name
+! style="width:15%;" |type
+! style="width:50%;" |description
+! style="width:20%;" |images
+|-
+|[[File:Heavy Impact.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Heavy Impact
+| style="color:#c62828;" |DMG
+| style="text-align:left; color:#c62828; padding:10px;" |Attacks 1 enemy within 1 grid of the caster, dealing Physical DMG once and knocking them airborne (Prioritizes large targets)
+|
+|-
+|[[File:Lion Combo.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Lion Combo
+| style="color:#c62828;" |DMG
+| style="text-align:left; color:#c62828; padding:10px;" |Deals Physical DMG 3 times to 1 enemy within 1 grid of the caster.
+|
+|-
+|[[File:Whirlwind Slash.png|50x50px]]
+|Whirlwind Slash
+|DMG
+|Deals Physical DMG 4 times to all enemies within a 1 grid square area of the caster.
+|
+|-
+|[[File:Mountain Collapse.png|50x50px]]
+|Mountain Collapse
+|DMG
+Knockback
+|Deals Physical DMG once to all enemies within 2 grids of the caster, knocking them airborne, with a 60% base chance to knock them back by 1 grid.
+|
+|-
+|[[File:Wind Blade Slash.png|50x50px]]
+|Wind Blade Slash
+|DMG
+Knockback
+|Deals Wind DMG once to all enemies in a 1×4 grid area in front of the caster, with a 50% base chance to knock them back by 1 grid.
+|
+|-
+|[[File:Quadrant Slash.png|50x50px]]
+|Quadrant Slash
+|DMG
+|Deals Physical DMG once to all enemies within 1 grid of the caster.
+|
+|-
+|[[File:Luminous Shield.png|50x50px]]
+|Luminous Shield
+|Self Buff
+|Increases the caster's Block Rate and Block Efficiency for 3 turns. (Zero Initial CD)
+|
+|-
+|[[File:Boiling Bloodlust.png|50x50px]]
+|Boiling Bloodlust
+|Self
+Buff
+|Increases Crit Rate and Crit DMG.
+|
+|-
+|[[File:Phantom Assault.png|50x50px]]
+|Phantom Assault
+|DMG
+Move
+|Deals Physical DMG 1 times to 1 enemy within 1 grid of the caster, then moves back 3 grids.
+|
+|-
+|[[File:Gravity Pull.png|50x50px]]
+|Gravity Pull
+|Drag
+|Selects a grid within 7 grids of the caster. Deals Wind DMG once to all enemies within a 1-grid square area of the target grid and pulls them to the caster's location.
+|
+|-
+|[[File:Diving Gale.png|50x50px]]
+|Diving Gale
+|DMG
+|Selects a grid within 4 grids of the caster. Deals Wind DMG once to all enemies in a 1-grid square around the target grid.
+|
+|-
+|[[File:Edge Strike.png|50x50px]]
+|Edge Strike
+|DMG
+|Deals Physical DMG once to 1 enemy within 1 grid of the caster.
+|
+|-
+|[[File:Leap Attack.png|50x50px]]
+|Leap Attack
+|Move
+DMG
+Debuff
+|Leaps to any empty space within 3 grids of the caster, dealing Physical DMG once to all enemies within 1 grid of the caster, with a 50% base chance to inflict Armor Break 2 for 2 turns.
+|
+|}
+
+== Warrior Charms ==
+{| class="wikitable" style="width:100%; table-layout:fixed; text-align:center;"
+! style="width:10%;" |icon
+! style="width:15%;" |name
+! style="width:15%;" |type
+! style="width:50%;" |description
+! style="width:20%;" |images
+|-
+|[[File:Insightful Eye.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Insightful Eye
+| style="color:#c62828;" |Stats
+| style="text-align:left; color:#c62828; padding:10px;" |Increases the caster's Elemental Mastery.
+|
+|-
+|[[File:Counter Blade.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Counter Blade
+| style="color:#c62828;" |Counterattack
+| style="text-align:left; color:#c62828; padding:10px;" |Increases the caster's Wind DMG.
+|
+|-
+|[[File:Blade of Lament.png|50x50px]]
+|Blade of Lament
+|Heal
+|Increases the caster's Water DMG.
+|
+|-
+|[[File:Iron Fortress.png|50x50px]]
+|Iron Fortress
+|Ally
+Buff
+|Increases the caster's Fire DMG.
+|
+|-
+|[[File:Block Awareness.png|50x50px]]
+|Block Awareness
+|Stats
+|When the caster's Technique deals DMG to an enemy,there's a 25% chance to trigger Aura, dealingadditional Wind DMG once, with a 60% base chanceto knock them back by 1 grid.
+|
+|-
+|[[File:Strength Rules.png|50x50px]]
+|Strength Rules
+|Stats
+|Increases the caster's Elemental RES.
+|
+|-
+|[[File:Pure Protection.png|50x50px]]
+|Pure Protection
+|Shield
+|For each ailment or debuff the target carries,Technique DMG dealt by the caster to that targetincreases. Stacks up to 3 times.
+|
+|-
+|[[File:Relentless Frenzy.png|50x50px]]
+|Relentless Frenzy
+|Buff
+|Increases the caster's Effect Hit Rate.
+|
+|-
+|[[File:Crystal Armor.png|51x51px]]
+|Crystal Armor
+|Stats
+|Increases the caster's HP.
+|
+|-
+|[[File:Life Blessing.png|50x50px]]
+|Life Blessing
+|Stats
+|When the caster starts to move in their turn, there isa 30% chance to inflict Burn to grids within 1 grid of the caster.
+|
+|-
+|[[File:Feline Dance.png|50x50px]]
+|Feline Dance
+|Stats
+|Increases the caster's Water DMG.
+|
+|-
+|[[File:Warrior's Essence.png|50x50px]]
+|Warrior's Essence
+|Stats
+|Increases the caster's Crit Rate.woc
+|
+|-
+|[[File:Blade Tempest.png|50x50px]]
+|Blade Tempest
+|DMG
+|Grants a shield based on the caster's max HP at thestart of battle. When the shield disappears, dealsWind DMG once to all enemies within a 1-grid squarearea of the caster, with a 100% base chance to knockthem back by 1 grid.
+|
+|}
+Written by: <u>[[QY Maple]]</u>, <u>[[Jinjiko]]</u>

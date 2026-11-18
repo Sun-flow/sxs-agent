@@ -1,0 +1,1 @@
+Deals Water DMG once to 1 enemy within 4 grids of the caster.

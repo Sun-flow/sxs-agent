@@ -1,0 +1,22 @@
+== HOME - CART ==
+Generates resources while idle. Upgrade each resource to increase production and storage. Level caps of resources depend on your Blessing Level.
+
+Pro-Tip: Raise all resources to Lv. 10 first, then prioritize Wood and Stone to accelerate progression.
+
+Activating Goddess Statues and Monthly Pass boosts production. Idle rewards cap at 36 hours—be sure to claim them regularly.
+
+== HOME - BED ==
+One free speed-up attempt is available daily. Alternatively, use Temporal Crystals to gain 2 hours of resources for both the Bed and Cart.
+
+Pro-Tip: Activate all available Goddess Statues before using speed-ups to maximize rewards. The Cart also generates bonus resources—be sure to claim them.
+
+== HOME - VENDOR BOOTH ==
+[Vendor Booth] Unlocks at Character Lv. 20. In general goods, prioritize Wood, Stone, and Quest Scrolls—they're always in short supply. Check the Vault for discounted Stellaties, Iron Hammers, Gold Pickaxes, and Worn Knuckles. Adjust other purchases based on your needs.
+
+== GUILD - DONATION & SHOP ==
+[Guild Donation] Unlocks after joining a Guild at Character Lv. 15. Donate to earn Guild Tokens and construction materials like Steel, Kanstein Cells, and Mana Clusters. Up to 5 times per day, including 1 free attempt. Spending Dawnium ×70 for two additional attempts is highly recommended for progression.
+
+[Guild Shop] Prioritize discounted items and Fantomon growth materials.
+
+== JOURNAL - MATERIAL REALMS ==
+Material Realm rewards scale with your Rank. Unless materials are needed immediately, save your attempts for higher Ranks to maximize drops.

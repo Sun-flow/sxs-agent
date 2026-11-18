@@ -1,0 +1,2 @@
+== Skill Description ==
+Deals Water DG once to all enemies in a 1x5 grid area in front of the caster, with a 40% base chance to inflict Frozen for 1 turn.

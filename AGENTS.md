@@ -25,6 +25,7 @@ Your memory doesn't carry over between sessions, so this repo keeps it for you i
 | Running or changing the bot (modules, commands, loop contract) | `sxs/README.md` | one module |
 | Screens the bot can detect, templates, policies | `resource/README.md` | `resource/pipeline/state.json`, the policy files |
 | Why a step is designed the way it is | `docs/README.md` (`python3 scripts/index.py docs`) | one `docs/stepN-*.md` |
+| How the game works, what a term means, what to do next and why (classes, systems, seasons, spending plans) | `knowledge/README.md` (`python3 scripts/kb_check.py --index`) | `knowledge/glossary.md`, one `systems/`, `classes/` or `strategy/` page |
 | Helper scripts and checks | `scripts/README.md` | one script |
 | Tests and what each needs | `tests/README.md` (`python3 scripts/index.py tests`) | one test |
 
@@ -42,6 +43,7 @@ Before you finish or hand work back, update the memory bank as `memory-bank/READ
 | `tests/` | Offline checks and the live smoke test. |
 | `scripts/` | Dev helpers and repo checks. |
 | `docs/` | Design notes (one per plan step), shop tables, reference screenshots in folders under `docs/screens/` (index and the unlabelled bank: `docs/screens/README.md`). |
+| `knowledge/` | Game wiki and strategy guides built from player guides and public wikis: glossary, systems, classes, strategy, data tables, sources. Reference, not binding: rules the bot acts on stay in `memory-bank/game/rules/`. |
 | `memory-bank/` | Agent memory: context, status, log, notes, decisions; `game/` holds game knowledge. |
 | `.agents/prompts/memory-bank.md` | The project-agnostic prompt that builds and maintains `memory-bank/` (copied from mae's TrackFlow-Company-Overhaul repo). |
 | captures/, logs/, .maa/ | Runtime output, gitignored. `scripts/clean.py` empties captures/. |

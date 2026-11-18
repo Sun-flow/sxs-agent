@@ -1,0 +1,125 @@
+[[File:Chaos Invasion 1.webp|thumb]]
+Today I’ll give you a clear and practical breakdown of Chaos Invasion—what it is, which rewards actually matter, and how to improve your ranking efficiently. This guide is written to help you avoid common mistakes and focus only on what truly impacts your progression. Let’s begin.
+
+== What Is Chaos Invasion? ==
+[[File:Chaos Invasion Ranking.webp|thumb|Class Ranking]]
+The core gameplay of Chaos Invasion is damage ranking competition, separated by Class. To ensure fairness:
+
+* Duelists are ranked only against Duelists
+* Sorcerers only against Sorcerers
+* Knights only against Knights
+* Sages only against Sages
+
+Direct damage comparisons between different Classes do not exist in this mode.
+
+== Ranking Expectations (Be Realistic) ==
+Chaos Invasion rewards are not extremely generous, so expectations matter.
+
+* Regular players
+* Reaching Rank 20–50 is already perfectly acceptable
+* As player numbers drop over time, this naturally rises to Top 10–20
+* Paying players
+* Should aim for Top 5, where the rewards truly matter
+
+Do not over-invest just to chase marginal ranking differences unless you clearly know why.
+
+== The Single Most Important Reward (Very Important) ==
+[[File:Chaos Invasion Rewards.webp|thumb|Chaos Invasion Rewards]]
+Many players believe the most valuable rewards are:
+
+* Covenite
+* Legendary Auroral Badges
+
+This is incorrect.
+
+The #1 Priority Reward: '''Primal Forge Shard'''
+
+Why it matters:
+
+Increases your Cart’s Raw Ore output
+
+* Directly impacts:    
+* Final Season Ranking
+* Maximum Gear Levels
+* Especially critical for high-spending players
+
+Nothing else in Chaos Invasion comes close in long-term value.
+
+== Mysterious NPC – What to Buy (And What NOT to Buy) ==
+On the day after Chaos Invasion ends:
+
+* A Mysterious NPC appears in your Home
+* You can spend Chaos Crystals here
+
+Absolute Rule (No Exceptions)
+[[File:Chaos Invasion Merchant.webp|thumb|Chaos Invasion Merchant]]
+'''ONLY buy the Primal Forge.'''
+
+* Do not buy anything else
+* Upgrade it all the way to Immortal
+
+If you can’t afford it:
+
+* Save your Chaos Crystals
+* Kick out the NPC
+* Continue exchanging next time
+
+This rule applies to all players, regardless of spending level. 
+
+== How to Improve Your Chaos Invasion Damage ==
+Understand Progression Differences Every time you change Classes:    •    You gain new Skills    •    Optimal setups change depending on:    •    Class tier    •    Build choice    •    Player progression stage Because of this, there is no universal “best” setup.
+
+== General Damage Principles (Most Players) ==
+Even without optimized builds, most players follow these rules:
+
+Chaos Has Very Low Armor
+
+* Damage in Chaos Invasion is much higher than in dungeons
+* This favors burst and team buff synergy
+
+Team Play Is Strongly Recommended
+
+Every Class has team buff Skills.
+
+Optimal setup per run:
+
+* 1 Damage Dealer
+* 3 Support players
+
+Rotation method:
+
+* Run 4 rounds
+* Each player takes one turn as the main damage dealer
+
+This dramatically outperforms random grouping.
+
+== Solo Runs – When to Use Them ==
+Chaos Invasion:
+
+* Does not allow companions
+* Can be done solo
+
+When solo runs are useful:
+
+* Testing which Skill setup produces higher damage
+* Quick runs before logging off
+
+Why solo runs are misleading:
+
+* Team buff mechanics behave differently
+* Certain effects (e.g. Duelist Flame Aura interactions) do not translate accurately
+
+For this reason:
+
+* Do not rely on solo damage numbers to judge real performance
+* Team-based results are what matter for rankings 
+
+== Ends ==
+Thanks for reading.
+
+I’ll see you next guide.
+
+Bye
+
+
+Written by QY Maple.

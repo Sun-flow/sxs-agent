@@ -1,0 +1,35 @@
+[[File:Skill Assend Right Value.webp|thumb]]
+When player ascend their skills, the star will only boost their flat values, which is the the numbers on the right side.
+
+
+
+
+[[File:Skill Assend Left % Side.webp|thumb]]
+When player ascend the quality, like from rare to epic, both percentage and flat values will be boosted.
+
+
+
+
+
+
+
+When you ascend the stars, your curent value will be boost around 15%~30%. It seems a lot, but is not. Normally, percentages and flat values each make up half, so even your flat value boosted 30%, it is only 15% of your skill total value. If this skill deal 30% of your total damage, which means a star only boost 5% of your total damage. As the result, the quality ascend makes more important role. When you are using your skill shard vouchers, make sure that after you reach a specific quality, then just stop and use your vouchers on other important skills.
+
+Usually technique skill will gain 25% for quality and charm is 20%. As long as you know the rough ascend percentage, you can easily predict the final immortal quality's value.
+
+If the Epic Boiling Bloodlust gives you 30% of your Crit Rate, then rest of the qualities will be: 30% -> 38% -> 47% -> 59% -> 73% Which is very close to in-game value, 70%
+
+Lets try a charm. If the Lengendary Blade of Lament gives you 2.44% of your lifesteal, then rest of the qualities will be: 2.44% -> 2.93% -> 3.51% -> 4.22%
+[[File:Skill Full Value Example.webp|thumb]]
+Your "flat value only" skills also follow the rule, but sometimes it might confuse you since your skill level only affect the flat value.
+
+
+
+
+
+
+
+
+
+
+Written by: QY Maple

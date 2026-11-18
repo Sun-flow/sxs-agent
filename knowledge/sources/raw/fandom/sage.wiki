@@ -1,0 +1,98 @@
+{{Character|name=Male Sage|image=File: 二阶-男贤者.png}}{{Character|name=Female Sage|image=File: 二阶-女贤者.png}}
+
+== OVERVIEW ==
+A strategist who masters the battlefield through specialized abilities and techniques, excelling at shifting the scales of victory with ingenious buff and debuff spells.
+
+The '''Sage''' acts as the battlefield commander, capable of both cloaking teammates in the radiant blessings of holy prayers and binding enemies with the debilitating shackles of cunning hexes.
+
+They can also command mystical totem creatures to fight alongside them, becoming a one-person army.
+
+A true versatile master of the battlefield and a summoner of totems, they use light to heal their allies and darkness to punish the enemy forces.
+[[File:Sage ss.png|center|889x889px]]
+
+
+
+== Sage Techniques ==
+{| class="wikitable" style="width:100%; table-layout:fixed; text-align:center;"
+! style="width:10%;" |icon
+! style="width:20%;" |name
+! style="width:15%;" |type
+! style="width:45%;" |description
+! style="width:20%;" |images
+|-
+|[[File:Treantling Summon.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Treantling Summon
+| style="color:#c62828;" |Summon, DMG
+| style="text-align:left; color:#c62828; padding:10px;" |Summons a Treantling behind the caster thatimmediately acts. The summon inherits a percentageof the caster's stats, but cannot be the primarytarget of attacks or healing. It remains for up to 5turns. (Zero Initial CD)
+|
+|-
+|[[File:Shadow Impact.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Shadow Impact
+| style="color:#c62828;" |DMG
+| style="text-align:left; color:#c62828; padding:10px;" |Selects a grid within 3 grids of the caster. Deals DarkDMG once to all enemies within 2 grids of thattarget grid. If the enemy target carries Erosion,triggers Erosion effect twice immediately.
+|
+|-
+|[[File:Flame Wolf Summon.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Flame Wolf Summon
+| style="color:#c62828;" |Summon, DMG
+| style="text-align:left; color:#c62828; padding:10px;" |Summons 2 Flame Wolves in front of the caster thatimmediately acts. The summons inherit a percentageof the caster's stats, but cannot be the primarytarget of attacks or healing. They remain for up to 2turns. (Zero Initial CD)
+|
+|-
+|[[File:Dark Bullet.png|59x59px]]
+| style="color:#2e7d32; font-weight:bold;" |Dark Bullet
+| style="color:#c62828;" |DMG, Debuff
+| style="text-align:left; color:#c62828; padding:10px;" |Attacks 1 enemy within 4 grids of the caster, dealing Dark DMG once, with a 50% base chance to inflict Erosion.
+|
+|-
+|[[File:Radiant Restoration.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Radiant Restoration
+| style="color:#c62828;" |Ally, Heal
+| style="text-align:left; color:#c62828; padding:10px;" |Heals all allies within 4 grids of the caster once.
+|
+|-
+|[[File:Weakening Hex.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Weakening Hex
+| style="color:#c62828;" |DMG, Debuff
+| style="text-align:left; color:#c62828; padding:10px;" |Selects a grid within 3 grids of the caster. Deals DarkDMG once to all enemies within 2 grids of the targetgrid, with a 50% base chance to inflict Weakened 1for 2 turns.
+|
+|}
+
+== Sage Charms ==
+{| class="wikitable" style="width:100%; table-layout:fixed; text-align:center;"
+! style="width:10%;" |icon
+! style="width:20%;" |name
+! style="width:15%;" |type
+! style="width:45%;" |description
+! style="width:20%;" |images
+|-
+|[[File:Soul lmpact.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Soul lmpact
+| style="color:#c62828;" |DMG
+| style="text-align:left; color:#c62828; padding:10px;" |When the caster's summon dies or expires, deals Dark DMG once to all enemies within 2 grids of it.
+|
+|-
+|[[File:Resurrection.png|center|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Resurrection
+| style="color:#c62828;" |Ally, Revive,
+Buff, Heal
+| style="text-align:left; color:#c62828; padding:10px;" |When an allied adventurer dies, immediately revivesand heals them once, granting Revitalization for 2turns (cannot be dispelled). This Charm can onlytrigger once per battle. At the start of battle, ifmultiple allied adventurers are dead, reviving the onewith the highest Power first.
+|
+|-
+|[[File:Shadow Erosion.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Shadow Erosion
+| style="color:#c62828;" |Debuff, DMG
+| style="text-align:left; color:#c62828; padding:10px;" |Each time the caster's Technique deals Dark DMG toan enemy, there is a 40% base chance to inflictErosion.
+|
+|-
+|[[File:Soul Spark.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Soul Spark
+| style="color:#c62828;" |Summon, Stats
+| style="text-align:left; color:#c62828; padding:10px;" |Increases the ATK of the caster's summons butreduces their duration by 2 turns. (Summons last atleast 1 turn; this Charm does not affect summonswithout a turn limit.)
+|
+|-
+|[[File:Healing Mastery.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Healing Mastery
+| style="color:#c62828;" |Stats
+| style="text-align:left; color:#c62828; padding:10px;" |Enhances the caster's healing effects.
+|
+|}

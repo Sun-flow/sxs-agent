@@ -1,0 +1,94 @@
+{{Character|name=Male Knight|image=File: 二阶-男骑士.png}}{{Character|name=Female Knight|image=File: 二阶-女骑士.png}}
+
+== OVERVIEW ==
+Indestructible protection is the ultimate glory of the Knight. They are like mobile fortresses on the battlefield, clad in heavy armor and wielding massive shields to construct a frontline of steel with their composed presence.
+
+The '''Knight''' charges at the forefront of battle, using their solid physique to intercept damage for teammates as the team's most reliable shield. Their exceptional resistance allows them to stand tall amidst enemy ranks, never wavering even when facing a tempestuous offensive.
+
+That rock-solid reliability is the core strength every team needs.
+[[File:Knight ss.png|center|889x889px]]
+
+
+== Knight Techniques ==
+{| class="wikitable" style="width:100%; table-layout:fixed; text-align:center;"
+! style="width:10%;" |icon
+! style="width:20%;" |name
+! style="width:15%;" |type
+! style="width:45%;" |description
+! style="width:20%;" |images
+|-
+|[[File:Ricocheting Shield.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Ricocheting Shield
+| style="color:#c62828;" |DMG, Ailment
+| style="text-align:left; color:#c62828; padding:10px;" |Deals Physical DMG once to 1 enemy within 3 grids of the caster, then bounces to another random enemy within 3 grids up to 4 times. 30% base chance to inflict Stun for 1 turn when dealing damage. (Large targets may take multiple hits.)
+|
+|-
+|[[File:Valor Surge.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Valor Surge
+| style="color:#c62828;" |Ally, Buff, Dispel
+| style="text-align:left; color:#c62828; padding:10px;" |Grants a DMG Boost to all allied characters within 5grids of the caster for 2 turns and dispels 1 randomstatus ailment or debuff. (Casts once before battlestarts.)
+|
+|-
+|[[File:Stunning Strike.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Stunning Strike
+| style="color:#c62828;" |DMG, Ailment
+| style="text-align:left; color:#c62828; padding:10px;" |Attacks 1 enemy within 1 grid of the caster, dealingPhysical DMG once, with a 40% base chance to inflictStun for 1 turn.
+|
+|-
+|[[File:Heart of Challenge.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Heart of Challenge
+| style="color:#c62828;" |DMG, Ailment
+| style="text-align:left; color:#c62828; padding:10px;" |Deals Physical DMG once to all enemies within 3 gridsof the caster, with an 85% chance to inflict Tauntfor 1 turn. Has a 100% chance to inflict Taunt non-character units. (Casts once at the start of battle.)
+|
+|-
+|[[File:Frostbite Blossom.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Frostbite Blossom
+| style="color:#c62828;" |DMG
+| style="text-align:left; color:#c62828; padding:10px;" |Deals Fire Doom DMG once to all enemies in a 3x2grid area in front of the caster.
+|
+|-
+|[[File:Guardian Ring.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Guardian Ring
+| style="color:#c62828;" |Self, Shield
+| style="text-align:left; color:#c62828; padding:10px;" |Grants a shield based on DEF to the caster for 2turns.(Zero Initial CD)
+|
+|}
+
+== Knight Charms ==
+{| class="wikitable" style="width:100%; table-layout:fixed; text-align:center;"
+! style="width:10%;" |icon
+! style="width:20%;" |name
+! style="width:15%;" |type
+! style="width:45%;" |description
+! style="width:20%;" |images
+|-
+|[[File:Pursuit of Victory.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Pursuit of Victory
+| style="color:#c62828;" |Buff
+| style="text-align:left; color:#c62828; padding:10px;" |Increases the Resilience Break efficiency of the caster's skills. Additionally, deals increased Technique DMG to enemies affected by ailments or debuffs
+|
+|-
+|[[File:Rebound.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Rebound
+| style="color:#c62828;" |Counterattack
+| style="text-align:left; color:#c62828; padding:10px;" |Each time the caster blocks an enemy's Technique attack, deals Physical DMG once to the attacker based on the caster's DEF.
+|
+|-
+|[[File:Eye for an Eye.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Eye for an Eye
+| style="color:#c62828;" |Buff
+| style="text-align:left; color:#c62828; padding:10px;" |Each time the caster takes Technique DMG, increases the DMG of the caster's next Technique attack. This effect can stack up to 10 times.
+|
+|-
+|[[File:Ripple Impact.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Ripple Impact
+| style="color:#c62828;" |DMG, Debuff
+| style="text-align:left; color:#c62828; padding:10px;" |When the caster's shield is fully broken, deals WaterDMG once to all enemies within 2 grids of the caster, with a 100% base chance to inflict 3 stacks of Cold for 2 turns.
+|
+|-
+|[[File:Defensive Assault.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Defensive Assault
+| style="color:#c62828;" |Buff
+| style="text-align:left; color:#c62828; padding:10px;" |Grants an ATK boost when the caster is shielded.
+|
+|}

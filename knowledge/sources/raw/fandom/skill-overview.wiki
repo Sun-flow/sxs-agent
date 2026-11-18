@@ -1,0 +1,21 @@
+== Types of Skills ==
+Currently Sword x Staff has five types of skills: Technique, Charm, Passive, and Gear Skill. The damage that they deal are classified into three categories: Technique Damage, Charm Damage, Buff Damage, and Unclassified Damage, which includes Fantamons Skill, NPCs Skill, and Gear Skill damages, etc.
+
+All skills are make up by Basic Damege and Percentage Damage, or one of them. You can level up your skills to increase your Basic Damege and ascend your skills to increase both your Basic Damege and Percentage Damage.
+
+== Skill Tags ==
+Each skill has its own tags. Such as DMG, knok back, self buff, ally buff heal, debuff, etc. Some skills' description will only affect certain tags.
+
+== Skill Level ==
+[[File:Skill Assend Right Value.webp|thumb]]
+Players can choose to use Essential to level up their skills, includes Technuque and Charms. When players doing it, the value on the right side will increase, which is called: Basic Damege. Sometimes players will receive debuffs which will cause players lose their attack value and Basic Damege can insure players' lower limits. Also, high skill level is one of the cheapest way to greatly boost players combat ability. You have pros, of course it also has cons. Not all skills' basic damage has growth potential. Some Charms has low growth value, which means you won't get much benifits by leveling those skills. Also, when you compare your low class skills and current class skills, you will find low class skills also have low growth potential.
+
+== Skill Ascend ==
+Players gain Basic Damege wil ascend skills within current quality, or stars. Usually is around 15% for each star. When players ascend from one quality to the next, for example, from Rare to Epic, players will gain both Basic Damege and Percentage Damage. Usually this gain value is between 15%~30%, depends on different of your skills.
+
+Players' skills currently has tyes of qualities: Rare -> Epic -> Lengedary -> Mythic -> Divine -> Immortal
+
+For more infomation, welcome to read: [[Skill Ascend|<u>Skill Ascend</u>]]
+
+
+Written by: QY Maple[https://community.fandom.com/wiki/User:QY_Maple2233]

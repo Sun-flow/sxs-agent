@@ -1,0 +1,145 @@
+== Preface ==
+[[File:Class Change.webp|thumb]]
+Are you unhappy with your current class?
+
+Do you feel like your Sorcerer is way too fragile, shattering the moment it gets touched?
+
+Do you feel like your Duelist doesn’t spend enough, can’t deal damage, and no one wants to party with you?
+
+Do you feel like your Knight is stiff and slow, like a walking piece of wood?
+
+Do you feel like your Sage can’t push content at all, leaving you on the verge of tears?
+
+Are you jealous of Sorcerers wiping the screen with one flashy combo and destroying everything in sight?
+
+Are you jealous of Duelists dashing through enemies with blade flashes, clutching impossible comeback wins?
+
+Are you jealous of Knights standing tall with unbreakable bodies, winning fights without even lifting a finger?
+
+Are you jealous of Sages who can deal damage and heal, playing like an all-powerful god?
+
+You want to change classes.
+
+You want to experience something different.
+
+But… is there even a class change system?
+
+Yes, there is.
+
+Yes, brother — there is.
+
+LOSSLESS CLASS TRANSFER
+
+Not $9.99
+
+Not $19.99
+
+Not even a penny from you.
+
+Free. Free. FREE!
+
+Alright, no more nonsense.
+
+Let’s get straight into it and talk about lossless class transfer.
+
+== Start ==
+Many players eventually run into the same problem: after playing for a while, you realize you don’t enjoy your current Class and want to switch. In this guide<ref>https://discord.gg/RQcTyr66Y3</ref>, I’ll explain how the Class Change system works, when it’s appropriate to change Classes, and which players should consider doing so. Alright—let’s get started.
+
+== Important Warning: Do NOT Change Classes Too Early ==
+Before reaching Aqualis, or Lv.100, if you change Classes in Verdantglade or Cinder Ridge, your Skills do not carry over. For example, if you switch from Warrior to Mage, you’ll only have the two default Mage Skills. All Warrior Skills will be locked, forcing you to re-pull Mage Skills from scratch. Because of this, I strongly recommend that all players wait until they reach Aqualis and unlock the 3rd Class Change before switching Classes.
+
+'''Once you reach that point:'''
+
+•    Your existing Skills will be converted when you change Classes
+
+•    Even if you later return to Verdantglade or Cinder Ridge to change Classes again, you will not lose your Skills.
+
+== Class Change Options in Aqualis (Level 100) ==
+Once you reach Aqualis and change Classes at level 100, you’ll be given two options: Lossless Class Change (Conversion) Class Rollback (No Conversion) Let’s start with Lossless Class Change.
+
+== Lossless Class Change (Conversion) ==
+With Lossless Class Change, you can freely switch to any Class except your current one. 
+
+* Each Class Change consumes one Slate
+* You receive one free Slate per week
+* Unused Slates do not stack
+* In simple terms: you get one free Class Change per week
+
+If you change Classes multiple times within the same week, additional changes will cost Dawnium. Occasionally, main story quests may reward Slates, but these are extremely rare. When you change your class, your current weapon will be lock, and system will give you a current class new blue quality weapon. The old weapon will not disappear, it will be in your bag.
+
+== How Skill Conversion Works ==
+When changing Classes, the system converts Skills based on base rarity and Class tier.
+
+'''Important rules:'''
+
+* Conversion is based on base rarity, not final rarity
+* No full random conversion
+* No cross-Class Skill conversion
+* Techniques only convert into Techniques
+* Charms only convert into Charms
+
+[[File:Two Paladin Legendary Charms.webp|thumb|Two Paladin Legendary Charms]]
+'''Example'''
+
+If you switch from a 3rd Duelist (Berserker) to a 3rd Knight (Paladin):
+
+* A 3rd Duelist has four Legendary Skills
+* 2 Techniques
+* 2 Charms
+* [[File:Two Berserker Legendary Charms.webp|thumb|Two Berserker Legendary Charms]]The two Legendary Charms will be randomly converted into the two Legendary Charms of the 3rd Knight
+* The same applies to Techniques and other rarities
+
+
+Because of this, 3rd Duelist is generally a poor candidate to switch into Knight. One of the Duelist’s Legendary Charms is a core damage Skill, while both Legendary Knight Charms are trash.
+
+== Conversion Safety Mechanism ==
+During the conversion process, the system provides three different conversion results for you to choose from.
+
+'''This ensures:'''
+
+* You are not forced into a single Skill set
+* You have room to correct bad rolls
+* Players who previously rolled poorly aren’t punished for switching Classes
+
+'''8-Hour Revert Time After changing Classes, you have 8 hours to revert back to your original Class.'''
+
+* All Skills will return to their pre-change state
+* After 8 hours, the new Class is locked in automatically
+* Reverting after that requires spending another Slate
+
+== Common Use Cases for Lossless Class Change ==
+This type of Class Change is commonly used for:
+
+# 4v4 Challenge Matches
+# High-difficulty dungeons where certain Classes are in short supply
+# Pushing Gem Tower rankings in Loog Haven
+# Seasonal ranking pushes (not regular Power Rank), when equipping higher-scoring main-hand or off-hand weapons from other Classes
+# Simply experiencing a different Class
+
+== Class Rollback (No Conversion) ==
+Now let’s talk about Class Rollback. Class Rollback sends you all the way back to the starting Class—Warrior or Mage. The main purpose of this feature is to re-pull low-Hierarchy Skills by shrinking your Skill pool.
+
+'''Example 1'''
+
+If you’re currently at 3rd Class Change, but your 1st Class Skill Insightful Eye is only Mythic, and you want to push it to Immortal, you can:
+
+* Roll back to 1st Class
+* Disable all 2nd and 3rd Class Skills
+* Pull only low-tier Skills again
+
+'''Example 2'''
+
+If your 2nd Class Skill Resurrection has a low Champion Rank:
+
+* Roll back to 1st Mage
+* Then change into 2nd Sage
+
+This prevents pulling any 3rd Class Skills Overall, Class Rollback is rarely used, but it exists for very specific optimization scenarios.
+
+== Closing ==
+That’s everything you need to know about Class Changes. I’ll see you later.
+
+Bye.
+
+
+Written by QY Maple

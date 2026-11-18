@@ -1,0 +1,95 @@
+{{Character|name=Arcanist|image=File: 男战士 - 1阶白毛.png}}
+
+== OVERVIEW ==
+Wield the power of summoningand charms to control the tideof battle!
+
+[[File:Warrior_Class1.png|600x600px]]
+
+
+
+== Arcanist Techniques ==
+{| class="wikitable" style="width:100%; table-layout:fixed; text-align:center;"
+! style="width:10%;" |icon
+! style="width:20%;" |name
+! style="width:15%;" |type
+! style="width:45%;" |description
+! style="width:20%;" |images
+|-
+|[[File:Sunset Sword.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Sunset Sword
+| style="color:#c62828;" |DMG
+| style="text-align:left; color:#c62828; padding:10px;" |Deals Physical DMG 5 times to all enemies in a 3x2grid area in front of the caster.
+|
+|-
+|[[File:Darkness Descends.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Darkness Descends
+| style="color:#c62828;" |Move, DMG, Dispel
+| style="text-align:left; color:#c62828; padding:10px;" |Leaps to any empty grid within 5 grids of the caster.Deals Dark DMG once to 1 enemy within 1 grid of thecaster and randomly dispels 1 buff. (Prioritizes largetargets)
+|
+|-
+|[[File:Flash Dash.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Flash Dash
+| style="color:#c62828;" |Move, DMG
+| style="text-align:left; color:#c62828; padding:10px;" |Dashes 5 grids in a straight line, dealing PhysicalDoom DMG once to all enemies in a 1x4 grid areaalong the path. (Cannot penetrate enemies largerthan 4 grids)
+|
+|-
+|[[File:Shattering Sigil.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Shattering Sigil
+| style="color:#c62828;" |Debuff
+| style="text-align:left; color:#c62828; padding:10px;" |Attacks 1 enemy within 1 grid of the caster, dealing Fire DMG once and inflicting Sigil. (Prioritizes largetargets)
+|
+|-
+|[[File:Fire Slash.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Fire Slash
+| style="color:#c62828;" |DMG
+| style="text-align:left; color:#c62828; padding:10px;" |Deals Fire Doom DMG once to all enemies in a 3x2grid area in front of the caster.
+|
+|-
+|[[File:Flame Aura.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Flame Aura
+| style="color:#c62828;" |Ally, Buff, DMG
+| style="text-align:left; color:#c62828; padding:10px;" |Grants Flame to the caster and 3 random allieswithin 3 grids of the caster for 2 turns. This effectcannot be dispelled.
+|
+|}
+
+== Arcanist Charms ==
+{| class="wikitable" style="width:100%; table-layout:fixed; text-align:center;"
+! style="width:10%;" |icon
+! style="width:20%;" |name
+! style="width:15%;" |type
+! style="width:45%;" |description
+! style="width:20%;" |images
+|-
+|[[File:Indomitable Will.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Indomitable Will
+| style="color:#c62828;" |Buff, Heal
+| style="text-align:left; color:#c62828; padding:10px;" |Upon taking lethal DMG for the first time, survives with 1 HP, enters the Indomitable status for 2 turns(cannot be dispelled), and heals the caster once.
+|
+|-
+|[[File:Frame of Battles.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Frame of Battles
+| style="color:#c62828;" |Buff
+| style="text-align:left; color:#c62828; padding:10px;" |Reduces the caster's DMG taken for every 15% HP lost. This effect stacks up to 5 times and cannot bedispelled.
+|
+|-
+|[[File:Blazing Clash.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Blazing Clash
+| style="color:#c62828;" |Buff
+| style="text-align:left; color:#c62828; padding:10px;" |Increase the caster's DMG dealt for every 4 Techniques used. Stacks up to 3 times.
+|
+|-
+|[[File:Crit Mastery.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Crit Mastery
+| style="color:#c62828;" |Stats
+| style="text-align:left; color:#c62828; padding:10px;" |Increases the caster's Crit DMG.
+|
+|-
+|[[File:Potential Vitality.png|50x50px]]
+| style="color:#2e7d32; font-weight:bold;" |Potential Vitality
+| style="color:#c62828;" |Buff
+| style="text-align:left; color:#c62828; padding:10px;" |Increases the caster's healing received for every 15% HP lost. This effect stacks up to 5 times and cannotbe dispelled.
+|
+|}
+
+
+Written by: <u>[[QY Maple]]</u>, <u>[[Jinjiko]]</u>

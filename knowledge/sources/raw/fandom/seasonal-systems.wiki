@@ -1,0 +1,35 @@
+
+== Seasonal Systems ==
+It's easiest to think about it in terms of: '''below level 100 and above level 100'''. In general, almost anything '''below level 100''' will be permanent boosts to your character. Almost anything '''above level 100''' will be seasonal boosts. For example, raising your Fantomons above level 100 will grant you stats and CP for the '''season only'''. Once the season resets, your Fantomons will '''go back to level 100'''. Similarly, raising your gear to '''above +100''' will be reset to '''+100''' once the season resets. With that in mind, the systems that are '''seasonal''' and will be '''reset''' at the end of each season include:
+
+* Level above 100
+* Fantomon level above 100
+* Gear enhancement above +100
+* Skill level above 100
+* Relic level above +10
+
+== Seasonal Gears ==
+Another important seasonal system that is somewhat different from the above is '''seasonal gears'''. As we already noted, gear enhancements above +100 are reset. However, the gear that you obtain during the season will also have their stats dramatically reduced. For example, I have a divine '''Valiant Sakura Blade''' that I obtained during ''Witching Hour'' (Season 1). It is Level 190, and has the stats and CP to match (617k). As you can see in the screenshot, it has a base of 169k ATK. Once the season has reset, it is '''reset to Level 100''' and the stats are scaled down accordingly. It ends up with only 64.2k CP, and 15.7K base ATK. As you can see, ''most of your CP during a season will come from seasonal gear stats''. (A full set of the above divine set will net almost 3m CP!) This is why most players will lose significant CP during a reset, in addition to the seasonal systems noted above.
+
+== Permanent Systems ==
+So which are the permanent systems? Essentially anything not mentioned above, but most importantly:
+
+* Skill ascensions
+* Fantomon ascensions
+* Fantomon aptitudes
+* Guild buffs
+* Companion affinity
+* Relic ascensions
+* Permanent dish buffs
+
+among others. This means that enhancements and investments you make into these systems '''will be reflected in your stats and CP''' after a season reset. Correspondingly, you may notice that these provide significantly more incremental buffs to your overall progression compared to seasonal systems, since those will be reset. (This is presumably intentional, so as to maintain balance and reduce inflated power creep as in many other similar games.)
+
+== Season Reset & Astral Destiny ==
+The question then becomes: '''why bother with seasonal systems at all'''? Since they will inevitably be reset after some time, it may be worthwhile to ask why one should invest time and resources into seasonal systems, especially other than gears that you can get via daily dungeons. First, you will likely not be able to meet CP requirements for seasonal content without investing into seasonal systems. As noted above, seasonal systems in general provide '''significantly greater CP boosts''' than permanent systems (again, likely in order to prevent power creep). More important is the '''Astral Destiny''' system. This ties the seasonal and permanent systems together, by converting the temporary gains from seasonal systems into permanent gains.
+
+# It assigns a '''Season Rating Score''' to your progress during each season, based on the seasonal systems.
+# Then, this Rating Score is converted into a currency called Primostars.
+# Primostars are given at the end of the season, and are then used in '''Astral Pact''' to gain permanent buffs to your character.
+
+
+Written by Nero
